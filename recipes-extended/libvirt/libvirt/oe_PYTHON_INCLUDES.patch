@@ -1,0 +1,39 @@
+--- libvirt-0.9.10/configure.ac.sav	2012-03-14 15:03:11.042785629 -0600
++++ libvirt-0.9.10/configure.ac	2012-03-14 15:17:13.722309867 -0600
+@@ -2052,26 +2052,22 @@
+         AM_PATH_PYTHON(,, [:])
+ 
+         if test "$PYTHON" != : ; then
+-            PYTHON_CONFIG="$PYTHON-config"
+-
+-            if test -x "$PYTHON_CONFIG"
++            if test -r `$as_dirname $PYTHON`/../include/python$PYTHON_VERSION/Python.h
++            then
++                PYTHON_INCLUDES=-I`$as_dirname $PYTHON`/../include/python$PYTHON_VERSION
++            elif test -r $PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION/Python.h
+             then
+-                PYTHON_INCLUDES=`$PYTHON_CONFIG --includes`
++                PYTHON_INCLUDES=-I$PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION
+             else
+-                if test -r $PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION/Python.h
++                if test -r $prefix/include/python$PYTHON_VERSION/Python.h
+                 then
+-                    PYTHON_INCLUDES=-I$PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION
++                    PYTHON_INCLUDES=-I$prefix/include/python$PYTHON_VERSION
+                 else
+-                    if test -r $prefix/include/python$PYTHON_VERSION/Python.h
++                    if test -r /usr/include/python$PYTHON_VERSION/Python.h
+                     then
+-                        PYTHON_INCLUDES=-I$prefix/include/python$PYTHON_VERSION
++                        PYTHON_INCLUDES=-I/usr/include/python$PYTHON_VERSION
+                     else
+-                        if test -r /usr/include/python$PYTHON_VERSION/Python.h
+-                        then
+-                            PYTHON_INCLUDES=-I/usr/include/python$PYTHON_VERSION
+-                        else
+-                            AC_MSG_ERROR([You must install python-devel to build Python bindings])
+-                        fi
++                        AC_MSG_ERROR([You must install python-devel to build Python bindings])
+                     fi
+                 fi
+             fi
