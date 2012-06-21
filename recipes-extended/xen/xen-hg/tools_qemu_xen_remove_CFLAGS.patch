@@ -1,0 +1,48 @@
+# HG changeset patch
+# User Olaf Hering <olaf@xxxxxxxxx>
+# Date 1330015545 -3600
+# Node ID 5bdbdcb03d60a7b58f41306ef39cb988100efbe4
+# Parent  56214b978466914c1b9f8adb1158a3217a823e42
+tools/qemu-xen: remove CFLAGS for qemu build
+
+Currently qemu-xen gets build with CFLAGS only if CFLAGS was already in
+the environment during make invocation. If CFLAGS is in environment then
+make will append all of the various flags specified in xen Makefiles,
+which is then passed to qemu configure. If CFLAGS is not set, then
+configure will use just "-O2 -g" because make does not export its own
+CFLAGS variable.
+
+To make qemu-xen build consistent this change removes CFLAGS from the
+environment so that only the CFLAGS from qemu configure script will be
+used. This matches what is done in kvm.rpm and qemu.rpm where for
+example RPM_OPT_FLAGS is not passes as CFLAGS. Otherwise those packages
+would not build as well.
+
+Passing makes CFLAGS to configure will lead to build errors:
+- xen Makefiles append -std=gnu99, this breaks qemu build due to a bug
+  in header file:
+fpu/softfloat-specialize.h:107: error: initializer element is not constant
+- in 32bit builds, qemus configure script will append -mcpu=i486 in an
+  odd way, which leads to unknown gcc cmdline options due to a missing
+  space
+- xen Makefiles will append -Wall which will expose all sorts of style
+  issues in the qemu code
+- in one case some of the asm() blocks will not compile with gcc 4.6 in
+  openSuSE 12.1
+
+Until upstream qemu has fixed all these issues use no extra CFLAGS to
+configure qemu-xen.
+
+Signed-off-by: Olaf Hering <olaf@xxxxxxxxx>
+
+diff -r 56214b978466 -r 5bdbdcb03d60 tools/Makefile
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -146,6 +146,7 @@
+ 		source=.; \
+ 	fi; \
+ 	cd qemu-xen-dir; \
++	env -u CFLAGS 
+ 	$$source/configure --enable-xen --target-list=i386-softmmu \
+ 		--source-path=$$source \
+ 		--extra-cflags="-I$(XEN_ROOT)/tools/include \

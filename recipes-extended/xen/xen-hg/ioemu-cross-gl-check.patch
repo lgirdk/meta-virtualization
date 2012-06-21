@@ -1,0 +1,29 @@
+--- git/configure.sav	2012-04-06 12:08:07.891529546 -0600
++++ xen-unstable.hg/../git/configure	2012-04-06 12:09:39.872923477 -0600
+@@ -289,7 +289,7 @@
+             kqemu="yes"
+         fi
+     fi
+-    if test -f /usr/include/sys/soundcard.h ; then
++    if test -f ${CROSS_SYS_ROOT}/usr/include/sys/soundcard.h ; then
+         audio_drv_list="oss"
+     fi
+     audio_possible_drivers="oss sdl"
+@@ -872,7 +872,7 @@
+ #endif
+ int main( void ) { return (int) glGetString(GL_EXTENSIONS); }
+ EOF
+-if $cc $ARCH_CFLAGS -o $TMPE `$sdl_config --cflags --libs 2> /dev/null` -I/usr/include/GL $TMPC -lXext -lGL 2> /dev/null
++if $cc $ARCH_CFLAGS -o $TMPE `$sdl_config --cflags --libs 2> /dev/null` -I${CROSS_SYS_ROOT}/usr/include/GL $TMPC -lXext -lGL 2> /dev/null
+ then
+ opengl="yes"
+ else
+@@ -1450,7 +1450,7 @@
+ then
+     echo "#define CONFIG_OPENGL 1" >> $config_h
+     echo "CONFIG_OPENGL=yes" >> $config_mak
+-    echo "SDL_CFLAGS+=-I/usr/include/GL" >> $config_mak
++    echo "SDL_CFLAGS+=-I${CROSS_SYS_ROOT}/usr/include/GL" >> $config_mak
+     echo "SDL_LIBS+=-lXext" >> $config_mak
+     echo "SDL_LIBS+=-lGL" >> $config_mak
+ fi
