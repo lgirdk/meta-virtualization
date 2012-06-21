@@ -1,0 +1,11 @@
+This layer depends on:
+
+URI: git://github.com/openembedded/oe-core.git
+branch: master
+revision: HEAD
+
+URI: git://github.com/openembedded/meta-oe.git
+branch: master
+revision: HEAD
+
+Layer maintainers: Raymond Danks <ray.danks@se-eng.com>
