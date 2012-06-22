@@ -1,3 +1,11 @@
+meta-xen
+===========
+
+This layer provides support for building Xen, Libvirt, and associated
+packages necessary for constructing an OE-based Xen distribution.
+
+Dependencies
+------------
 This layer depends on:
 
 URI: git://github.com/openembedded/oe-core.git
@@ -8,4 +16,20 @@ URI: git://github.com/openembedded/meta-oe.git
 branch: master
 revision: HEAD
 
-Layer maintainers: Raymond Danks <ray.danks@se-eng.com>
+Maintenance
+-----------
+
+This layer is maintained by Sage Electronic Engineering.
+
+When sending single patches, please using something like:
+'git send-email -1 --to support@se-eng.com --subject-prefix=meta-xen][PATCH'
+
+License
+-------
+
+All metadata is MIT licensed unless otherwise stated. Source code included
+in tree for individual recipes is under the LICENSE stated in each recipe
+(.bb file) unless otherwise stated.
+
+This README document is Copyright (C) 2012 Sage Electronic Engineering, LLC.
+
