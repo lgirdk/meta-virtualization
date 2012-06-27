@@ -12,7 +12,6 @@ SRC_URI[sha256sum] = "049852a83898d3ee0ba97b88e526897ec6eaf0a051f4af1e9e073b1151
 
 S = "${WORKDIR}/dev86-${PV}"
 
-NATIVE_INSTALL_WORKS = "1"
 BBCLASSEXTEND = "native"
 
 do_compile() {
