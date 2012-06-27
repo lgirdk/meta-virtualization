@@ -19,8 +19,9 @@ SRC_URI[sha256sum] = "5b81d9f054ee4b395b0ab4f59845d082baaa6d6c2a038c966309156dde
 inherit autotools gettext update-rc.d
 
 # Trimmed down version for Xen daemon server
-EXTRA_OECONF="--with-xenapi=no --with-libxl=${STAGING_DIR_TARGET}/lib --with-xen=yes --with-xen-inotify=yes --with-qemu=no --with-uml=no --with-openvz=no --with-vmware=no --with-phyp=no  --with-libvirtd -with-vbox=no --with-esx=no --with-hyperv=no --with-test=yes --with-remote=yes --with-macvtap=no \
- \
+EXTRA_OECONF="--with-xenapi=no --with-libxl=${STAGING_DIR_TARGET}/lib --with-xen=yes --with-xen-inotify=yes --with-qemu=no --with-uml=no --with-openvz=no --with-vmware=no --with-phyp=no  --with-libvirtd -with-vbox=no --with-esx=no --with-hyperv=no --with-test=yes --with-remote=yes --with-macvtap=no"
+
+CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLLINT=/usr/bin/xmllint \
 ac_cv_path_XMLCATLOG=/usr/bin/xmlcatalog \
 ac_cv_path_AUGPARSE=/usr/bin/augparse \
