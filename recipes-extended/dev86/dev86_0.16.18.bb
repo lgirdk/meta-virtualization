@@ -13,11 +13,12 @@ SRC_URI[sha256sum] = "049852a83898d3ee0ba97b88e526897ec6eaf0a051f4af1e9e073b1151
 S = "${WORKDIR}/dev86-${PV}"
 
 BBCLASSEXTEND = "native"
+EXTRA_OEMAKE = "VERSION=${PV} PREFIX=${prefix} DIST=${D}"
 
 do_compile() {
 
-	${MAKE} VERSION=${PV} PREFIX=${prefix} DIST=${D} make.fil
-	${MAKE} -f make.fil VERSION=${PV} bcc86 as86 ld86
+	oe_runmake make.fil
+	oe_runmake -f make.fil bcc86 as86 ld86
 
 }
 
@@ -27,7 +28,7 @@ do_install() {
 		export prefix=/usr
 	fi
 
-	${MAKE} PREFIX=${prefix} DIST=${D} install-bcc
+	oe_runmake install-bcc
 	ln -s ../lib/bcc/bcc-cpp ${D}${prefix}/bin/bcc-cpp
 	ln -s ../lib/bcc/bcc-cc1 ${D}${prefix}/bin/bcc-cc1
 
