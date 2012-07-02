@@ -5,7 +5,7 @@ SECTION = "console/tools"
 PR = "r0"
 
 # Disable xend and python support
-XEN_DISABLE_XEND=1
+XEN_DISABLE_XEND = "1"
 
 DEPENDS = "util-linux util-linux-native file-native zlib ncurses openssl bison-native flex-native gettext dev86-native iasl-native pciutils virtual/libgl virtual/libsdl bridge-utils iproute2 procps"
 

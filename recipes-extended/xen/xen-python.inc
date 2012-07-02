@@ -1,4 +1,4 @@
-XEN_DISABLE_XEND=
+XEN_DISABLE_XEND=""
 
 DEPENDS += "python python-native udev"
 RDEPENDS_${PN}-python = "xen python python-lang python-re python-fcntl python-shell python-io python-threading python-stringold python-math python-crypt python-logging python-pickle python-xmlrpc python-netclient python-mime python-unixadmin python-compression python-mmap python-textutils python-resource python-terminal python-pprint python-curses"

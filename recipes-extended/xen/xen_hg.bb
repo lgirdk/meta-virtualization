@@ -2,7 +2,7 @@
 
 # Build is not yet verified as functional
 # Setting BROKEN for now
-BROKEN=1
+BROKEN = "1"
 
 inherit autotools
 
