@@ -1,0 +1,68 @@
+Index: libvirt-0.10.2/configure.ac
+===================================================================
+--- libvirt-0.10.2.orig/configure.ac	2012-10-29 11:59:27.091615491 +0200
++++ libvirt-0.10.2/configure.ac	2012-10-29 12:09:50.067603647 +0200
+@@ -2397,6 +2397,11 @@
+ 
+ PYTHON_VERSION=
+ PYTHON_INCLUDES=
++
++AC_ARG_WITH(python-inc-dir,
++  AS_HELP_STRING([--with-python-inc-dir=DIR], [directory with Python include files]),
++   [PYTHON_INCLUDES="${withval}"], [])
++   
+ if test "$with_python" != "no" ; then
+     if test -x "$with_python/bin/python"
+     then
+@@ -2422,29 +2427,30 @@
+         AM_PATH_PYTHON(,, [:])
+ 
+         if test "$PYTHON" != : ; then
+-            PYTHON_CONFIG="$PYTHON-config"
+-
+-            if test -x "$PYTHON_CONFIG"
+-            then
+-                PYTHON_INCLUDES=`$PYTHON_CONFIG --includes`
+-            else
+-                if test -r $PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION/Python.h
+-                then
+-                    PYTHON_INCLUDES=-I$PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION
+-                else
+-                    if test -r $prefix/include/python$PYTHON_VERSION/Python.h
+-                    then
+-                        PYTHON_INCLUDES=-I$prefix/include/python$PYTHON_VERSION
+-                    else
+-                        if test -r /usr/include/python$PYTHON_VERSION/Python.h
+-                        then
+-                            PYTHON_INCLUDES=-I/usr/include/python$PYTHON_VERSION
+-                        else
+-                            AC_MSG_ERROR([You must install python-devel to build Python bindings])
+-                        fi
++            if ! test -n "$PYTHON_INCLUDES"; then
++              PYTHON_CONFIG="$PYTHON-config"
++              if test -x "$PYTHON_CONFIG"
++              then
++                  PYTHON_INCLUDES=`$PYTHON_CONFIG --includes`
++              else
++                  if test -r $PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION/Python.h
++                  then
++                      PYTHON_INCLUDES=-I$PYTHON_EXEC_PREFIX/include/python$PYTHON_VERSION
++                  else
++                      if test -r $prefix/include/python$PYTHON_VERSION/Python.h
++                      then
++                          PYTHON_INCLUDES=-I$prefix/include/python$PYTHON_VERSION
++                      else
++                          if test -r /usr/include/python$PYTHON_VERSION/Python.h
++                          then
++                              PYTHON_INCLUDES=-I/usr/include/python$PYTHON_VERSION
++                          else
++                              AC_MSG_ERROR([You must install python-devel to build Python bindings])
++                          fi
++                       fi
+                     fi
+                 fi
+-            fi
++             fi
+         else
+             AC_MSG_ERROR([You must install python to build Python bindings])
+         fi

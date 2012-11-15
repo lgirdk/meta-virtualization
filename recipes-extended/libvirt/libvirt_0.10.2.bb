@@ -5,9 +5,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
 SECTION = "console/tools"
 PR = "r0"
 
-DEPENDS="bridge-utils gnutls libxml2 lvm2 avahi polkit parted curl libpcap util-linux e2fsprogs xen pm-utils iptables ebtables dnsmasq"
+DEPENDS="bridge-utils gnutls libxml2 lvm2 avahi polkit parted curl libpcap util-linux e2fsprogs pm-utils iptables ebtables dnsmasq"
 
-RDEPENDS_${PN}-libvirtd = "bridge-utils iptables pm-utils dnsmasq xen ebtables dmidecode "
+RDEPENDS_${PN}-libvirtd = "bridge-utils iptables pm-utils dnsmasq ebtables dmidecode "
+
+#connman blocks the 53 port and libvirtd can't start its DNS service
+RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
 	file://libvirtd.sh \
@@ -19,7 +22,18 @@ SRC_URI[sha256sum] = "1fe69ae1268a097cc0cf83563883b51780d528c6493efe3e7d94c4160c
 inherit autotools gettext update-rc.d
 
 # Trimmed down version for Xen daemon server
-EXTRA_OECONF="--with-xenapi=no --with-libxl=${STAGING_DIR_TARGET}/lib --with-xen=yes --with-xen-inotify=yes --with-qemu=no --with-uml=no --with-openvz=no --with-vmware=no --with-phyp=no  --with-libvirtd -with-vbox=no --with-esx=no --with-hyperv=no --with-test=yes --with-remote=yes --with-macvtap=no"
+EXTRA_OECONF = "--with-libvirtd --with-test=yes --with-remote=yes --with-macvtap=no --with-polkit=no"
+
+PACKAGECONFIG ??= "xen"
+PACKAGECONFIG[qemu] = "--with-qemu --with-yajl,--without-qemu --without-yajl,qemu yajl"
+PACKAGECONFIG[xen] = "--with-xen --with-xenapi --with-libxl=${STAGING_DIR_TARGET}/lib --with-xen-inotify,--without-xen --without-xenapi --without-libxl --without-xen-inotify,xen"
+PACKAGECONFIG[uml] = "--with-uml, --without-uml"
+PACKAGECONFIG[openvz] = "--with-openvz,--without-openvz"
+PACKAGECONFIG[vmware] = "--with-vmware,--without-vmware"
+PACKAGECONFIG[phyp] = "--with-phyp,--without-phyp"
+PACKAGECONFIG[vbox] = "--with-vbox,--without-vbox"
+PACKAGECONFIG[esx] = "--with-esx,--without-esx"
+PACKAGECONFIG[hyperv] = "--with-hyperv,--without-hyperv"
 
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLLINT=/usr/bin/xmllint \
