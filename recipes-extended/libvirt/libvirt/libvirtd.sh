@@ -79,6 +79,7 @@ case "$1" in
                         fi
                 fi
                 log_begin_msg "Starting virtualization library daemon: libvirtd"
+                start-stop-daemon -K -x /usr/bin/dnsmasq
 		start-stop-daemon --start --quiet --pidfile /var/run/libvirtd.pid --exec /usr/sbin/libvirtd -- --daemon --listen
                 log_end_msg $?
                 ;;
