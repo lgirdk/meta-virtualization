@@ -1,8 +1,8 @@
 DESCRIPTION = "Utility that enables basic Ethernet frame filtering on a Linux bridge, MAC NAT and brouting."
 PRIORITY = "optional"
-LICENSE = "GPL"
+LICENSE = "GPLv2"
 SECTION = "console/network"
-PR = "r1"
+PR = "r2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=53b4a999993871a28ab1488fdbd2e73e"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
