@@ -2,7 +2,7 @@ DESCRIPTION = "Utility that enables basic Ethernet frame filtering on a Linux br
 PRIORITY = "optional"
 LICENSE = "GPL"
 SECTION = "console/network"
-PR = "r0"
+PR = "r1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=53b4a999993871a28ab1488fdbd2e73e"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
@@ -19,6 +19,15 @@ SRC_URI[md5sum] = "b880429a6424186728eb57ae80ef878a"
 SRC_URI[sha256sum] = "98855f644d43c615a8e663197978e49c95642f46f2bbf8e6f3213af87f8ad6a3"
 
 S = "${WORKDIR}/ebtables-v${PV}"
+
+ASNEEDED_pn-${PN} = ""
+
+#Load the necessary kernel modules
+RECOMMENDS_${PN} += "kernel-module-ebtables \
+                     kernel-module-ebtable-nat \
+                     kernel-module-ebtable-filter \
+                     kernel-module-ebtable_broute \
+                     "
 
 EXTRA_OEMAKE = " \
 	BINDIR=${base_sbindir} \
