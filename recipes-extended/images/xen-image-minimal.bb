@@ -1,5 +1,5 @@
 DESCRIPTION = "A minimal xen image"
-IMAGE_INSTALL = "task-core-boot xen-minimal dropbear mdadm"
+IMAGE_INSTALL = "packagegroup-core-boot xen-minimal dropbear mdadm"
 
 IMAGE_LINGUAS = " "
 LICENSE = "MIT"
