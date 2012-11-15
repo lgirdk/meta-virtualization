@@ -3,18 +3,18 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
 SECTION = "console/tools"
-PR = "r1"
+PR = "r0"
 
 DEPENDS="bridge-utils gnutls libxml2 lvm2 avahi polkit parted curl libpcap util-linux e2fsprogs xen pm-utils iptables ebtables dnsmasq"
 
-RDEPENDS_libvirt-libvirtd = "bridge-utils iptables pm-utils dnsmasq xen"
+RDEPENDS_${PN}-libvirtd = "bridge-utils iptables pm-utils dnsmasq xen ebtables dmidecode "
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
 	file://libvirtd.sh \
 	file://libvirtd.conf"
 
-SRC_URI[md5sum] = "a424bb793521e637349da47e93dd5fff"
-SRC_URI[sha256sum] = "5b81d9f054ee4b395b0ab4f59845d082baaa6d6c2a038c966309156dde16e11d"
+SRC_URI[md5sum] = "a5e50860d9da238ba270b528411c4a0d"
+SRC_URI[sha256sum] = "1fe69ae1268a097cc0cf83563883b51780d528c6493efe3e7d94c4160cc46977"
 
 inherit autotools gettext update-rc.d
 
@@ -82,6 +82,9 @@ FILES_${PN}-libvirtd = "${sysconfdir}/init.d \
 	${sbindir}/libvirtd"
 
 FILES_${PN}-virsh = "${bindir}/virsh"
+FILES_${PN} += "${datadir}/augeas/*"
+FILES_${PN}-dbg += "${libdir}/${PN}/connection-driver/.debug/*"
+FILES_${PN}-staticdev += "${libdir}/*.a ${libdir}/${PN}/connection-driver/*.a"
 
 INITSCRIPT_PACKAGES = "${PN}-libvirtd"
 INITSCRIPT_NAME_${PN}-libvirtd = "libvirtd"
