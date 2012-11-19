@@ -246,7 +246,8 @@ do_compile() {
 	
 	export CONFIG_QEMU=${WORKDIR}/git
 
-	export XEN_TARGET_ARCH=${TARGET_ARCH}
+	export XEN_TARGET_ARCH=`echo ${TARGET_ARCH} | sed -e s/i.86/x86_32/ \
+                                -e s/i86pc/x86_32/ -e s/amd64/x86_64/`
 	export XEN_OS=Linux
 	export XEN_DISABLE_XEND=${XEN_DISABLE_XEND}
 
