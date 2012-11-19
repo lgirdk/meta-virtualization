@@ -275,6 +275,11 @@ do_compile() {
 	# These checks are for libraries utilizing ldconfig
 	rm -f ${S}/tools/check/check_zlib_lib
 	rm -f ${S}/tools/check/check_crypto_lib
+	rm -f ${S}/tools/check/check_zlib_devel
+
+	# remove -Werror for gcc-4.6's sake
+	find "${S}" -name 'Makefile*' -o -name '*.mk' -o -name 'common.make' | \
+				xargs sed -i 's/ *-Werror */ /'
 
 	#stubdom image builds are being a pain
 	oe_runmake dist-xen dist-tools dist-kernels dist-docs
