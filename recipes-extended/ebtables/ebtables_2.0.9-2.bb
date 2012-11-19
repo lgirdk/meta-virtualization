@@ -60,3 +60,5 @@ INITSCRIPT_PARAMS = "start 41 S . stop 41 6 ."
 
 FILES_${PN}-dbg += "${base_libdir}/ebtables/.debug"
 FILES_${PN} += "${base_libdir}/ebtables/*.so"
+
+RDEPENDS_${PN} = " perl"
