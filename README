@@ -4,6 +4,10 @@ meta-xen
 This layer provides support for building Xen, Libvirt, and associated
 packages necessary for constructing an OE-based Xen distribution.
 
+This layer provides support for building KVM, Libvirt, OpenvSwitch et.c.
+and associated packages necessary for constructing virtualized solutions for
+Openembedded based distros.
+
 Dependencies
 ------------
 This layer depends on:
@@ -19,10 +23,14 @@ revision: HEAD
 Maintenance
 -----------
 
-This layer is maintained by Sage Electronic Engineering.
+Send pull requests, patches, comments or questions to meta-virtualization@yoctoproject.org
+
+Maintainers: Raymond Danks <ray.danks@se-eng.com>
+             David Nyström <david.c.nystrom@gmail.com>
+             Bruce Ashfield <bruce.ashfield@gmail.com>
 
 When sending single patches, please using something like:
-'git send-email -1 --to support@se-eng.com --subject-prefix=meta-xen][PATCH'
+'git send-email -1 --to meta-virtualization@yoctoproject.org --subject-prefix=meta-virtualization][PATCH'
 
 License
 -------
@@ -30,6 +38,4 @@ License
 All metadata is MIT licensed unless otherwise stated. Source code included
 in tree for individual recipes is under the LICENSE stated in each recipe
 (.bb file) unless otherwise stated.
-
-This README document is Copyright (C) 2012 Sage Electronic Engineering, LLC.
 
