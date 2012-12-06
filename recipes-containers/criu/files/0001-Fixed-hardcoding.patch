@@ -1,0 +1,47 @@
+From 32c6c037a6de0a0972e16949ebb64ffebb5b7bcc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?David=20Nystr=C3=B6m?= <david.nystrom@enea.com>
+Date: Wed, 28 Nov 2012 15:07:27 +0100
+Subject: [PATCH] Fixed hardcoding
+
+---
+ Makefile.inc |   24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/Makefile.inc b/Makefile.inc
+index 722cbfc..3ae693e 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -11,18 +11,18 @@ else
+ endif
+ export E Q
+ 
+-FIND		:= find
+-CSCOPE		:= cscope
+-TAGS		:= ctags
+-RM		:= rm
+-LD		:= ld
+-HEXDUMP		:= hexdump
+-CC		:= gcc
+-ECHO		:= echo
+-NM		:= nm
+-AWK		:= awk
+-SH		:= sh
+-MAKE		:= make
++FIND		?= find
++CSCOPE		?= cscope
++TAGS		?= ctags
++RM		?= rm
++LD		?= ld
++HEXDUMP		?= hexdump
++CC		?= gcc
++ECHO		?= echo
++NM		?= nm
++AWK		?= awk
++SH		?= sh
++MAKE		?= make
+ 
+ # Additional ARCH settings for x86
+ ARCH ?= $(shell echo $(uname_M) | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
+-- 
+1.7.9.5
+
