@@ -1,12 +1,8 @@
 meta-xen
 ===========
 
-This layer provides support for building Xen, Libvirt, and associated
-packages necessary for constructing an OE-based Xen distribution.
-
-This layer provides support for building KVM, Libvirt, OpenvSwitch et.c.
-and associated packages necessary for constructing virtualized solutions for
-Openembedded based distros.
+This layer provides support for building Xen, KVM, Libvirt, and associated
+packages necessary for constructing OE-based virtualized solutions.
 
 Dependencies
 ------------
@@ -15,10 +11,13 @@ This layer depends on:
 URI: git://github.com/openembedded/oe-core.git
 branch: master
 revision: HEAD
+prio: default
 
 URI: git://github.com/openembedded/meta-oe.git
 branch: master
 revision: HEAD
+layers: meta-oe
+BBFILE_PRIORITY_openembedded-layer = "4"
 
 Maintenance
 -----------
