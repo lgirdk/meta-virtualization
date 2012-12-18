@@ -1,5 +1,5 @@
-meta-xen
-===========
+meta-virtualization
+===================
 
 This layer provides support for building Xen, KVM, Libvirt, and associated
 packages necessary for constructing OE-based virtualized solutions.
