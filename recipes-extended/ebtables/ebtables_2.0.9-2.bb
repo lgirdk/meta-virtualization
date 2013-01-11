@@ -23,7 +23,7 @@ S = "${WORKDIR}/ebtables-v${PV}"
 ASNEEDED_pn-${PN} = ""
 
 #Load the necessary kernel modules
-RECOMMENDS_${PN} += "kernel-module-ebtables \
+RRECOMMENDS_${PN} += "kernel-module-ebtables \
                      kernel-module-ebtable-nat \
                      kernel-module-ebtable-filter \
                      kernel-module-ebtable_broute \
