@@ -17,6 +17,8 @@ URI: git://github.com/openembedded/meta-oe.git
 branch: master
 revision: HEAD
 layers: meta-oe
+	meta-networking
+
 BBFILE_PRIORITY_openembedded-layer = "4"
 
 Maintenance
