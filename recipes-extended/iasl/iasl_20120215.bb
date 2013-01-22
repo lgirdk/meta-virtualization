@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.acpica.org/"
 LICENSE = "Intel"
 LIC_FILES_CHKSUM = "file://asldefine.h;endline=115;md5=d4d7cf809b8b5e03131327b3f718e8f0"
 SECTION = "console/tools"
-PR="r0"
+PR="r1"
 
 DEPENDS="flex bison"
 
@@ -18,7 +18,7 @@ NATIVE_INSTALL_WORKS = "1"
 BBCLASSEXTEND = "native"
 
 do_compile() {
-	CFLAGS= $MAKE
+	CFLAGS="-Wno-error=redundant-decls" $MAKE
 }
 
 do_install() {
