@@ -22,8 +22,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
 	file://libvirtd.sh \
 	file://libvirtd.conf"
 
-SRC_URI[md5sum] = "7c8b006de7338e30866bb56738803b21"
-SRC_URI[sha256sum] = "14c8a30ebfb939c82cab5f759a95d09646b43b4210e45490e92459ae65123076"
+SRC_URI[md5sum] = "3d9f85d586c9aa3d819b626622f3fc97"
+SRC_URI[sha256sum] = "f64f4acd7cdcfc6ab5e803195ed58b949f262b54e3659d8c37b33f0fec112757"
 
 inherit autotools gettext update-rc.d
 
