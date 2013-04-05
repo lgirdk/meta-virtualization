@@ -128,6 +128,7 @@ PACKAGECONFIG[remote] = "--with-remote,--without-remote"
 PACKAGECONFIG[macvtap] = "--with-macvtap=yes,--with-macvtap=no,libnl,libnl"
 PACKAGECONFIG[libvirtd] = "--with-libvirtd,--without-libvirtd"
 PACKAGECONFIG[netcf] = "--with-netcf,--without-netcf,netcf,netcf"
+PACKAGECONFIG[dtrace] = "--with-dtrace,--without-dtrace,,"
 
 # Enable the Python tool support
 require libvirt-python.inc
