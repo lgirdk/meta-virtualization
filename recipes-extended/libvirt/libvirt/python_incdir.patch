@@ -1,8 +1,8 @@
-Index: libvirt-0.10.2/configure.ac
+Index: libvirt-1.0.3/configure.ac
 ===================================================================
---- libvirt-0.10.2.orig/configure.ac	2012-10-29 11:59:27.091615491 +0200
-+++ libvirt-0.10.2/configure.ac	2012-10-29 12:09:50.067603647 +0200
-@@ -2397,6 +2397,11 @@
+--- libvirt-1.0.3.orig/configure.ac
++++ libvirt-1.0.3/configure.ac
+@@ -1878,6 +1878,11 @@ fi
  
  PYTHON_VERSION=
  PYTHON_INCLUDES=
@@ -14,9 +14,12 @@ Index: libvirt-0.10.2/configure.ac
  if test "$with_python" != "no" ; then
      if test -x "$with_python/bin/python"
      then
-@@ -2422,29 +2427,30 @@
-         AM_PATH_PYTHON(,, [:])
+@@ -1901,31 +1906,32 @@ if test "$with_python" != "no" ; then
  
+     if test "$with_python" = "yes" ; then
+         AM_PATH_PYTHON(,, [:])
+-
++        pyexecdir=$prefix/lib/python$PYTHON_VERSION/site-packages
          if test "$PYTHON" != : ; then
 -            PYTHON_CONFIG="$PYTHON-config"
 -

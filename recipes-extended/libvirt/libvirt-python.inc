@@ -10,5 +10,5 @@ RDEPENDS_${PN}-python += "python"
 PACKAGECONFIG_${PN}-python[xen] = ",,,xen-python"
 
 PACKAGES += "${PN}-python-dbg ${PN}-python"
-FILES_${PN}-python-dbg += "${libdir}/${PYTHON_DIR}/dist-packages/.debug/"
-FILES_${PN}-python += "${libdir}/${PYTHON_DIR}/dist-packages"
+FILES_${PN}-python-dbg += "${libdir}/${PYTHON_DIR}/site-packages/.debug/"
+FILES_${PN}-python += "${libdir}/${PYTHON_DIR}/site-packages"
