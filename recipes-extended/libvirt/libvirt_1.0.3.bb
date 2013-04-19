@@ -3,7 +3,7 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
 SECTION = "console/tools"
-PR = "r1"
+PR = "r2"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables ebtables dnsmasq readline"
@@ -106,7 +106,7 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 
 # full config
 PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx \
-	           polkit lxc test remote macvtap libvirtd netcf"
+	           polkit lxc test remote macvtap libvirtd netcf udev"
 
 PACKAGECONFIG[qemu] = "--with-qemu,--without-qemu,qemu"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
@@ -129,6 +129,7 @@ PACKAGECONFIG[macvtap] = "--with-macvtap=yes,--with-macvtap=no,libnl,libnl"
 PACKAGECONFIG[libvirtd] = "--with-libvirtd,--without-libvirtd"
 PACKAGECONFIG[netcf] = "--with-netcf,--without-netcf,netcf,netcf"
 PACKAGECONFIG[dtrace] = "--with-dtrace,--without-dtrace,,"
+PACKAGECONFIG[udev] = "--with-udev --with-pciaccess,--without-udev,udev libpciaccess,"
 
 # Enable the Python tool support
 require libvirt-python.inc
