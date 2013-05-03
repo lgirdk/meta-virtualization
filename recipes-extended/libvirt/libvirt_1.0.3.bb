@@ -106,7 +106,7 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 
 # full config
 PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx \
-	           polkit lxc test remote macvtap libvirtd netcf udev"
+	           polkit lxc test remote macvtap libvirtd netcf udev python"
 
 PACKAGECONFIG[qemu] = "--with-qemu,--without-qemu,qemu"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"

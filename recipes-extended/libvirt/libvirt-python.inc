@@ -1,14 +1,17 @@
-inherit python-dir
+inherit pythonnative python-dir
 
-# Enable the Python tool support
-EXTRA_OECONF += "--with-python=yes --with-python-inc-dir=-I${STAGING_INCDIR}/python${PYTHON_BASEVERSION}"
+export STAGING_INCDIR
+export STAGING_LIBDIR
+export BUILD_SYS 
+export HOST_SYS
 
-SRC_URI += " file://python_incdir.patch"
-
-DEPENDS  += "python python-native"
+PACKAGECONFIG += "python"
+PACKAGECONFIG[python] = "--with-python,--without-python,python,"
 RDEPENDS_${PN}-python += "python"
 PACKAGECONFIG_${PN}-python[xen] = ",,,xen-python"
 
-PACKAGES += "${PN}-python-dbg ${PN}-python"
-FILES_${PN}-python-dbg += "${libdir}/${PYTHON_DIR}/site-packages/.debug/"
-FILES_${PN}-python += "${libdir}/${PYTHON_DIR}/site-packages"
+PACKAGES += "${PN}-python-staticdev ${PN}-python-dev ${PN}-python-dbg ${PN}-python"
+FILES_${PN}-python-staticdev += "${PYTHON_SITEPACKAGES_DIR}/*.a"
+FILES_${PN}-python-dev += "${PYTHON_SITEPACKAGES_DIR}/*.la"
+FILES_${PN}-python-dbg += "${PYTHON_SITEPACKAGES_DIR}/.debug/"
+FILES_${PN}-python += "${PYTHON_SITEPACKAGES_DIR}"
