@@ -23,6 +23,7 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
+  file://libvirt-1.0.3-fix-thread-safety-in-lxc-callback-handling.patch \
 	file://libvirtd.sh \
 	file://libvirtd.conf"
 
