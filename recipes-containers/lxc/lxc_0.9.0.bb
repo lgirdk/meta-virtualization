@@ -37,8 +37,8 @@ S = "${WORKDIR}/${PN}-${PV}"
 EXTRA_OECONF += "--with-distro=${DISTRO}"
 
 PACKAGECONFIG ??= ""
-PACKAGECONFIG[doc] = "--enable-doc,--disable-doc"
-PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath"
+PACKAGECONFIG[doc] = "--enable-doc,--disable-doc,,"
+PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
 PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
 
 inherit autotools
