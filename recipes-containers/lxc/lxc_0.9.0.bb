@@ -3,7 +3,7 @@ SECTION = "console/utils"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 PRIORITY = "optional"
-PR = "r1"
+PR = "r2"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -31,6 +31,10 @@ SRC_URI[md5sum] = "8552a4479090616f4bc04d8473765fc9"
 SRC_URI[sha256sum] = "1e1767eae6cc5fbf892c0e193d25da420ba19f2db203716c38f7cdea3b654120"
 
 S = "${WORKDIR}/${PN}-${PV}"
+
+# Let's not configure for the host distro.
+#
+EXTRA_OECONF += "--with-distro=${DISTRO}"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[doc] = "--enable-doc,--disable-doc"
