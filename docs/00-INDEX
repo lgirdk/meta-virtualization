@@ -8,3 +8,5 @@ alphabetical order as well.
 00-README
         - info on the goals of meta-virtualization and this docs subdir
 
+openvswitch.txt
+	- example on how to setup openvswitch with qemu/kvm.
