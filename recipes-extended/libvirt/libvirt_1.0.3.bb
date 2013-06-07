@@ -3,7 +3,7 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
 SECTION = "console/tools"
-PR = "r5"
+PR = "r6"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables ebtables dnsmasq readline"
@@ -149,5 +149,5 @@ do_install_append() {
 
 	# This will wind up in the libvirtd package, but will NOT be invoked by default.
 	#
-	mv ${D}/usr/libexec/libvirt-guests.sh ${D}/${sysconfdir}/init.d
+	mv ${D}/${libexecdir}/libvirt-guests.sh ${D}/${sysconfdir}/init.d
 }
