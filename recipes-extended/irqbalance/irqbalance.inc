@@ -24,6 +24,14 @@ inherit update-rc.d
 EXTRA_OECONF = "--program-transform-name= \
 	       "
 
+# let the recipes or appends define options
+#
+PACKAGECONFIG ?= ""
+
+# enable,disable,depends,rdepends
+#
+PACKAGECONFIG[numa] = "--enable-numa,--disable-numa,numactl,"
+
 do_install () {
         oe_runmake 'DESTDIR=${D}' install
         install -d ${D}${sysconfdir}/init.d
