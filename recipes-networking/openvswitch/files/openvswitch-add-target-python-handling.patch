@@ -1,0 +1,149 @@
+From e8a5d34885c5fdba7d951fb1bb85131cbafca432 Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Wed, 19 Jun 2013 17:25:56 -0400
+Subject: [PATCH] openvswitch: add target python handling
+
+Allow the build to specify a path for the python instead of reusing
+the PYTHON variable which can lead to inconsistencies if we are cross
+compiling. The TARGET_PYTHON variable will be used for script
+substitutions to ensure the scripts will be able to properly execute
+if the target system has a different path for the python.
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ Makefile.am                        | 1 +
+ configure.ac                       | 7 +++++++
+ ovsdb/ovsdbmonitor/ovsdbmonitor.in | 2 +-
+ utilities/bugtool/ovs-bugtool.in   | 2 +-
+ utilities/ovs-check-dead-ifs.in    | 2 +-
+ utilities/ovs-l3ping.in            | 2 +-
+ utilities/ovs-parse-backtrace.in   | 2 +-
+ utilities/ovs-pcap.in              | 2 +-
+ utilities/ovs-tcpundump.in         | 2 +-
+ utilities/ovs-test.in              | 2 +-
+ utilities/ovs-vlan-test.in         | 2 +-
+ 11 files changed, 17 insertions(+), 9 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index b71ca1f..c4f8341 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -112,6 +112,7 @@ SUFFIXES += .in
+                 -e 's,[@]DBDIR[@],$(DBDIR),g' \
+                 -e 's,[@]PERL[@],$(PERL),g' \
+                 -e 's,[@]PYTHON[@],$(PYTHON),g' \
++                -e 's,[@]TARGET_PYTHON[@],$(TARGET_PYTHON),g' \
+                 -e 's,[@]RUNDIR[@],$(RUNDIR),g' \
+                 -e 's,[@]VERSION[@],$(VERSION),g' \
+                 -e 's,[@]localstatedir[@],$(localstatedir),g' \
+diff --git a/configure.ac b/configure.ac
+index 060b53f..74cb691 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -101,6 +101,13 @@ AC_ARG_VAR(KARCH, [Kernel Architecture String])
+ AC_SUBST(KARCH)
+ OVS_CHECK_LINUX
+ 
++if test "$TARGET_PYTHON"; then
++    TARGET_PYTHON=$TARGET_PYTHON
++else
++    TARGET_PYTHON=$PYTHON
++fi
++AC_SUBST(TARGET_PYTHON)
++
+ AC_CONFIG_FILES([Makefile 
+ datapath/Makefile 
+ datapath/linux/Kbuild
+diff --git a/ovsdb/ovsdbmonitor/ovsdbmonitor.in b/ovsdb/ovsdbmonitor/ovsdbmonitor.in
+index e26130a..aaf1aff 100755
+--- a/ovsdb/ovsdbmonitor/ovsdbmonitor.in
++++ b/ovsdb/ovsdbmonitor/ovsdbmonitor.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ # Copyright (c) 2010 Citrix Systems, Inc.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
+index 2074e23..525939e 100755
+--- a/utilities/bugtool/ovs-bugtool.in
++++ b/utilities/bugtool/ovs-bugtool.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ 
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+diff --git a/utilities/ovs-check-dead-ifs.in b/utilities/ovs-check-dead-ifs.in
+index 9b806ed..b6f6fcb 100755
+--- a/utilities/ovs-check-dead-ifs.in
++++ b/utilities/ovs-check-dead-ifs.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ 
+ import os
+ import re
+diff --git a/utilities/ovs-l3ping.in b/utilities/ovs-l3ping.in
+index 1b07972..4fedb6f 100644
+--- a/utilities/ovs-l3ping.in
++++ b/utilities/ovs-l3ping.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+diff --git a/utilities/ovs-parse-backtrace.in b/utilities/ovs-parse-backtrace.in
+index 4f793be..4a07f47 100755
+--- a/utilities/ovs-parse-backtrace.in
++++ b/utilities/ovs-parse-backtrace.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Copyright (c) 2012 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-pcap.in b/utilities/ovs-pcap.in
+index 5306480..3221c7c 100755
+--- a/utilities/ovs-pcap.in
++++ b/utilities/ovs-pcap.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-tcpundump.in b/utilities/ovs-tcpundump.in
+index 0268c50..dad0bb5 100755
+--- a/utilities/ovs-tcpundump.in
++++ b/utilities/ovs-tcpundump.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-test.in b/utilities/ovs-test.in
+index fb1f9ad..bddd327 100644
+--- a/utilities/ovs-test.in
++++ b/utilities/ovs-test.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+diff --git a/utilities/ovs-vlan-test.in b/utilities/ovs-vlan-test.in
+index e229498..da64040 100755
+--- a/utilities/ovs-vlan-test.in
++++ b/utilities/ovs-vlan-test.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! @TARGET_PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+-- 
+1.8.1.2
+

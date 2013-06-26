@@ -21,6 +21,8 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-switch-setup \
 	file://openvswitch-controller \
 	file://openvswitch-controller-setup \
+	file://openvswitch-add-target-python-handling.patch \
+	file://openvswitch-add-target-perl-handling.patch \
 	"
 
 SRC_URI[md5sum] = "fe8b49efe9f86b57abab00166b971106"
@@ -31,6 +33,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=49eeb5acb1f5e510f12c44f176c42253"
 # kernel version. Use the in-kernel module for now.
 # distro layers can enable with EXTRA_OECONF_pn_openvswitch += ""
 # EXTRA_OECONF = "--with-linux=${STAGING_KERNEL_DIR} KARCH=${TARGET_ARCH}"
+
+EXTRA_OECONF += "TARGET_PYTHON=${bindir}/python \
+                 TARGET_PERL=${bindir}/perl \
+                "
 
 ALLOW_EMPTY_${PN}-pki = "1"
 PACKAGES =+ "${PN}-controller ${PN}-switch ${PN}-brcompat ${PN}-pki"
