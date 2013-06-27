@@ -150,4 +150,25 @@ do_install_append() {
 	# This will wind up in the libvirtd package, but will NOT be invoked by default.
 	#
 	mv ${D}/${libexecdir}/libvirt-guests.sh ${D}/${sysconfdir}/init.d
+
+	# The /var/run/libvirt directories created by the Makefile
+	# are wiped out in volatile, we need to create these at boot.
+	rm -rf ${D}${localstatedir}/run
+	install -d ${D}${sysconfdir}/default/volatiles
+	echo "d root root 0755 ${localstatedir}/run/libvirt none" \
+	     > ${D}${sysconfdir}/default/volatiles/99_libvirt
+	echo "d root root 0755 ${localstatedir}/run/libvirt/lockd none" \
+	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+	echo "d root root 0755 ${localstatedir}/run/libvirt/lxc none" \
+	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+	echo "d root root 0755 ${localstatedir}/run/libvirt/network none" \
+	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+	echo "d root root 0755 ${localstatedir}/run/libvirt/qemu none" \
+	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+}
+
+pkg_postinst_libvirt() {
+        if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
+                /etc/init.d/populate-volatile.sh update
+        fi
 }
