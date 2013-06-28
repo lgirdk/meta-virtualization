@@ -3,7 +3,7 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
 SECTION = "console/tools"
-PR = "r6"
+PR = "r7"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables ebtables dnsmasq readline"
@@ -25,7 +25,8 @@ RCONFLICTS_${PN}_libvirtd = "connman"
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
   file://libvirt-1.0.3-fix-thread-safety-in-lxc-callback-handling.patch \
 	file://libvirtd.sh \
-	file://libvirtd.conf"
+	file://libvirtd.conf \
+	file://qemu-fix-crash-in-qemuOpen.patch "
 
 SRC_URI[md5sum] = "3d9f85d586c9aa3d819b626622f3fc97"
 SRC_URI[sha256sum] = "f64f4acd7cdcfc6ab5e803195ed58b949f262b54e3659d8c37b33f0fec112757"
