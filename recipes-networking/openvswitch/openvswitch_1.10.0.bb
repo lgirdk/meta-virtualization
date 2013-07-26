@@ -14,7 +14,7 @@ RDEPENDS_${PN}-pki = "${PN}"
 RDEPENDS_${PN}-brcompat = "${PN} ${PN}-switch"
 RRECOMMENDS_${PN} += "kernel-module-openvswitch"
 
-PR = "r1"
+PR = "r2"
 
 SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-switch \
@@ -90,6 +90,10 @@ pkg_postinst_${PN}-controller () {
         if [ "x$D" != "x" ]; then
                 exit 1
         fi
+
+    if test ! -d $D/${datadir}/${PN}/pki; then
+        ovs-pki init --dir=$D/${datadir}/${PN}/pki
+    fi
 
 	cd $D/${sysconfdir}/openvswitch-controller
         if ! test -e cacert.pem; then
