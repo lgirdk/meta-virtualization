@@ -6,7 +6,7 @@ LICENSE = "Apache-2"
 
 DEPENDS += "bridge-utils openssl python perl"
 
-RDEPENDS_${PN} += "util-linux-uuidgen util-linux-libuuid \
+RDEPENDS_${PN} += "util-linux-uuidgen util-linux-libuuid coreutils \
 	       python perl perl-module-strict ${PN}-switch ${PN}-controller"
 RDEPENDS_${PN}-controller = "${PN} lsb ${PN}-pki"
 RDEPENDS_${PN}-switch = "${PN} openssl procps util-linux-uuidgen"
@@ -14,7 +14,7 @@ RDEPENDS_${PN}-pki = "${PN}"
 RDEPENDS_${PN}-brcompat = "${PN} ${PN}-switch"
 RRECOMMENDS_${PN} += "kernel-module-openvswitch"
 
-PR = "r0"
+PR = "r1"
 
 SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-switch \
