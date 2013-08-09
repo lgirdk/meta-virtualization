@@ -1,6 +1,6 @@
 DESCRIPTION = "This is a cross development C compiler, assembler and linker environment for the production of 8086 executables (Optionally MSDOS COM)"
 HOMEPAGE = "http://www.acpica.org/"
-LICENSE = "Intel"
+LICENSE = "Intel-ACPI"
 LIC_FILES_CHKSUM = "file://asldefine.h;endline=115;md5=d4d7cf809b8b5e03131327b3f718e8f0"
 SECTION = "console/tools"
 PR="r1"
