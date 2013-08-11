@@ -5,8 +5,6 @@ export STAGING_LIBDIR
 export BUILD_SYS 
 export HOST_SYS
 
-PACKAGECONFIG += "python"
-PACKAGECONFIG[python] = "--with-python,--without-python,python,"
 RDEPENDS_${PN}-python += "python"
 PACKAGECONFIG_${PN}-python[xen] = ",,,xen-python"
 
