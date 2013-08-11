@@ -53,6 +53,7 @@ FILES_${PN}-switch = "${sysconfdir}/init.d/openvswitch-switch \
 		   "
 # silence a warning
 FILES_${PN} += "${datadir}/ovsdbmonitor"
+FILES_${PN} += "/run"
 
 inherit autotools update-rc.d
 
