@@ -1,4 +1,4 @@
-SUMMARY = "OpelFlow"
+SUMMARY = "OpenFlow"
 DESCRIPTION = "Provide a generic framework for handling devices in userspace."
 HOMEPAGE = "http://www.openflow.org"
 SECTION = "networking"
@@ -22,3 +22,8 @@ PACKAGECONFIG[libssl] = "--enable-ssl,--disable-ssl, openssl, libssl"
 S = "${WORKDIR}/git"
 
 inherit autotools
+
+do_install_append() {
+	# Remove /var/run as it is created on startup
+        rm -rf ${D}${localstatedir}/run
+}
