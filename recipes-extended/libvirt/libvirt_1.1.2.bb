@@ -1,9 +1,9 @@
 DESCRIPTION = "A toolkit to interact with the virtualization capabilities of recent versions of Linux." 
 HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
-LIC_FILES_CHKSUM = "file://COPYING;md5=fb919cc88dbe06ec0b0bd50e001ccf1f"
+LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 SECTION = "console/tools"
-PR = "r9"
+PR = "r0"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables dnsmasq readline"
@@ -23,13 +23,12 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
-  file://libvirt-1.0.3-fix-thread-safety-in-lxc-callback-handling.patch \
-	file://libvirtd.sh \
-	file://libvirtd.conf \
-	file://qemu-fix-crash-in-qemuOpen.patch "
+           file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
+	   file://libvirtd.sh \
+	   file://libvirtd.conf"
 
-SRC_URI[md5sum] = "3d9f85d586c9aa3d819b626622f3fc97"
-SRC_URI[sha256sum] = "f64f4acd7cdcfc6ab5e803195ed58b949f262b54e3659d8c37b33f0fec112757"
+SRC_URI[md5sum] = "1835bbfa492099bce12e2934870e5611"
+SRC_URI[sha256sum] = "16648af54d3e162f5cc5445d970ec29a0bd55b1dbcb568a05533c4c2f25965e3"
 
 inherit autotools gettext update-rc.d
 
@@ -113,9 +112,9 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 
 # full config
 PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx \
-	           polkit lxc test remote macvtap libvirtd netcf udev python \
-	           ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
-	           ebtables"
+                   polkit lxc test remote macvtap libvirtd netcf udev python ebtables \
+                   {@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
+                  "
 
 # enable,disable,depends,rdepends
 #
@@ -143,6 +142,7 @@ PACKAGECONFIG[dtrace] = "--with-dtrace,--without-dtrace,,"
 PACKAGECONFIG[udev] = "--with-udev --with-pciaccess,--without-udev,udev libpciaccess,"
 PACKAGECONFIG[selinux] = "--with-selinux,--without-selinux,libselinux,"
 PACKAGECONFIG[ebtables] = "ac_cv_path_EBTABLES_PATH=/sbin/ebtables,ac_cv_path_EBTABLES_PATH=,ebtables,ebtables"
+PACKAGECONFIG[python] = "--with-python,--without-python,python,"
 
 # Enable the Python tool support
 require libvirt-python.inc
