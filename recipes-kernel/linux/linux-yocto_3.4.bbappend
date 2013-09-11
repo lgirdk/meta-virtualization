@@ -11,3 +11,6 @@ KERNEL_FEATURES_append = " features/kvm/qemu-kvm-enable.scc"
 module_autoload_kvm = "kvm"
 module_autoload_kvm-amd = "kvm-amd"
 module_autoload_kvm-intel = "kvm-intel"
+
+# xen dom0 kernel support
+SRC_URI += "${@base_contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"
