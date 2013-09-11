@@ -1,0 +1,4 @@
+define KFEATURE_DESCRIPTION "Xen Dom0 Support"
+define KFEATURE_COMPATIBILITY board
+
+kconf non-hardware xen.cfg
