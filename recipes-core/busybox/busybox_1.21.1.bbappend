@@ -6,4 +6,5 @@ SRC_URI += " \
 	    file://mdev.cfg \
 	    file://mount-cifs.cfg \
 	    file://ps-extras.cfg \
+	    file://getopt.cfg \
            "
