@@ -276,7 +276,6 @@ FILES_${PN}-misc = "\
     ${sbindir}/gtraceview \
     ${sbindir}/xen-bugtool \
     ${sbindir}/xencov \
-    ${sbindir}/xend \
     ${sbindir}/xenperf \
     ${sbindir}/xenpm \
     ${sbindir}/xsview \
@@ -519,7 +518,10 @@ FILES_${PN}-xm = "\
     "
 
 FILES_${PN}-xencommons += "${sysconfdir}/init.d/xencommons"
-FILES_${PN}-xend += "${sysconfdir}/init.d/xend"
+FILES_${PN}-xend += " \
+    ${sysconfdir}/init.d/xend \
+    ${sbindir}/xend \
+    "
 FILES_${PN}-xendomains += "${sysconfdir}/init.d/xendomains"
 FILES_${PN}-xen-watchdog += "${sysconfdir}/init.d/xen-watchdog"
 
