@@ -24,6 +24,9 @@ RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
+           file://LXC-Don-t-mount-securityfs-when-user-namespace-enabl.patch \
+           file://Move-array-of-mounts-out-of-lxcContainerMountBasicFS.patch \
+           file://LXC-don-t-try-to-mount-selinux-filesystem-when-user-.patch \
 	   file://libvirtd.sh \
 	   file://libvirtd.conf"
 
