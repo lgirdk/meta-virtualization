@@ -252,6 +252,7 @@ FILES_${PN}-flask = "\
     ${sbindir}/flask-loadpolicy \
     ${sbindir}/flask-set-bool \
     ${sbindir}/flask-setenforce \
+    /boot/xenpolicy.24 \
     "
 
 FILES_${PN}-gdbsx = "\
