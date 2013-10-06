@@ -299,6 +299,7 @@ FILES_${PN}-python = "\
     ${libdir}/python2.7 \
     "
 
+INSANE_SKIP_${PN} = "already-stripped"
 INSANE_SKIP_${PN}-qemu = "arch"
 FILES_${PN}-qemu = " \
     ${datadir}/xen/qemu \
