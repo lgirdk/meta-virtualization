@@ -42,6 +42,9 @@ populate_append() {
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz ${DEST}/xen.gz
 }
 
+SYSLINUX_XEN_ARGS ?= "loglvl=all guest_loglvl=all console=com1,vga com1=115200,8n1"
+SYSLINUX_KERNEL_ARGS ?= "ramdisk_size=32768 root=/dev/ram0 rw console=hvc0 earlyprintk=xen console=tty0 panic=10 LABEL=boot debugshell=5"
+
 build_syslinux_cfg () {
 	echo "ALLOWOPTIONS 1" > ${SYSLINUXCFG}
 	echo "DEFAULT boot" >> ${SYSLINUXCFG}
@@ -49,6 +52,6 @@ build_syslinux_cfg () {
 	echo "PROMPT 1" >> ${SYSLINUXCFG}
 	echo "LABEL boot" >> ${SYSLINUXCFG}
 	echo "  KERNEL mboot.c32" >> ${SYSLINUXCFG}
-	echo "  APPEND /xen.gz loglvl=all guest_loglvl=all console=com1,vga com1=115200,8n1 --- /vmlinuz ramdisk_size=32768 root=/dev/ram0 rw console=hvc0 earlyprintk=xen console=tty0 panic=10 LABEL=boot debugshell=5 --- /initrd" >> ${SYSLINUXCFG}
+	echo "  APPEND /xen.gz ${SYSLINUX_XEN_ARGS} --- /vmlinuz ${SYSLINUX_KERNEL_ARGS} --- /initrd" >> ${SYSLINUXCFG}
 }
 
