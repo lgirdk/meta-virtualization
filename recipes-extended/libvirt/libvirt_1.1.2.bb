@@ -27,6 +27,12 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
            file://LXC-Don-t-mount-securityfs-when-user-namespace-enabl.patch \
            file://Move-array-of-mounts-out-of-lxcContainerMountBasicFS.patch \
            file://LXC-don-t-try-to-mount-selinux-filesystem-when-user-.patch \
+	   file://0001-Add-virFileIsMountPoint-function.patch \
+	   file://0002-Remove-unused-opts-field-from-LXC-basic.patch \
+	   file://0003-Remove-pointless-srcpath-variable-in-lxcContainerMountBasicFS.patch \
+	   file://0004-Remove-duplicate-entries-in-lxcBasicMounts-array.patch \
+	   file://0005-Add-flag-to-lxcBasicMounts-to-control-use-in-user-namespaces.patch \
+	   file://0006-Skip-any-files-which-are-not-mounted-on-the-host.patch \
 	   file://libvirtd.sh \
 	   file://libvirtd.conf"
 

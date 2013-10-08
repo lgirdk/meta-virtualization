@@ -1,0 +1,83 @@
+From: "Daniel P. Berrange" <berrange@redhat.com>
+To: libvir-list@redhat.com
+Date: Mon,  7 Oct 2013 14:06:50 +0100
+Message-Id: <1381151211-27111-6-git-send-email-berrange@redhat.com>
+In-Reply-To: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+References: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.25
+X-loop: libvir-list@redhat.com
+Subject: [libvirt] [PATCH 5/6] Add flag to lxcBasicMounts to control use in
+	user namespaces
+X-BeenThere: libvir-list@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+List-Id: Development discussions about the libvirt library & tools
+	<libvir-list.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/libvir-list>
+List-Post: <mailto:libvir-list@redhat.com>
+List-Help: <mailto:libvir-list-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Oct 2013 13:07:02 -0000
+
+From: "Daniel P. Berrange" <berrange@redhat.com>
+
+Some mounts must be skipped if running inside a user namespace,
+since the kernel forbids their use. Instead of strcmp'ing the
+filesystem type in the body of the loop, set an explicit flag
+in the lxcBasicMounts table.
+
+Signed-off-by: Daniel P. Berrange <berrange@redhat.com>
+---
+ src/lxc/lxc_container.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/src/lxc/lxc_container.c b/src/lxc/lxc_container.c
+index a7f71ef..05190bf 100644
+--- a/src/lxc/lxc_container.c
++++ b/src/lxc/lxc_container.c
+@@ -753,15 +753,16 @@ typedef struct {
+     const char *dst;
+     const char *type;
+     int mflags;
++    bool skipUserNS;
+ } virLXCBasicMountInfo;
+ 
+ static const virLXCBasicMountInfo lxcBasicMounts[] = {
+-    { "proc", "/proc", "proc", MS_NOSUID|MS_NOEXEC|MS_NODEV },
+-    { "/proc/sys", "/proc/sys", NULL, MS_BIND|MS_RDONLY },
+-    { "sysfs", "/sys", "sysfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY },
+-    { "securityfs", "/sys/kernel/security", "securityfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY },
++    { "proc", "/proc", "proc", MS_NOSUID|MS_NOEXEC|MS_NODEV, false },
++    { "/proc/sys", "/proc/sys", NULL, MS_BIND|MS_RDONLY, false },
++    { "sysfs", "/sys", "sysfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, false },
++    { "securityfs", "/sys/kernel/security", "securityfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true },
+ #if WITH_SELINUX
+-    { SELINUX_MOUNT, SELINUX_MOUNT, "selinuxfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY },
++    { SELINUX_MOUNT, SELINUX_MOUNT, "selinuxfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true },
+ #endif
+ };
+ 
+@@ -855,12 +856,14 @@ static int lxcContainerMountBasicFS(bool userns_enabled)
+ 
+ #if WITH_SELINUX
+         if (STREQ(mnt->src, SELINUX_MOUNT) &&
+-            (!is_selinux_enabled() || userns_enabled))
++            !is_selinux_enabled())
+             continue;
+ #endif
+ 
+-        if (STREQ(mnt->src, "securityfs") && userns_enabled)
++        if (mnt->skipUserNS && userns_enabled) {
++            VIR_DEBUG("Skipping due to user ns enablement");
+             continue;
++        }
+ 
+         if (virFileMakePath(mnt->dst) < 0) {
+             virReportSystemError(errno,
+-- 
+1.8.3.1
+
+

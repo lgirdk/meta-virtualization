@@ -1,0 +1,106 @@
+From: "Daniel P. Berrange" <berrange@redhat.com>
+To: libvir-list@redhat.com
+Date: Mon,  7 Oct 2013 14:06:51 +0100
+Message-Id: <1381151211-27111-7-git-send-email-berrange@redhat.com>
+In-Reply-To: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+References: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.25
+X-loop: libvir-list@redhat.com
+Subject: [libvirt] [PATCH 6/6] Skip any files which are not mounted on the
+	host
+X-BeenThere: libvir-list@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+List-Id: Development discussions about the libvirt library & tools
+	<libvir-list.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/libvir-list>
+List-Post: <mailto:libvir-list@redhat.com>
+List-Help: <mailto:libvir-list-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Oct 2013 13:07:03 -0000
+
+From: "Daniel P. Berrange" <berrange@redhat.com>
+
+Currently the LXC container tries to skip selinux/securityfs
+mounts if the directory does not exist in the filesystem,
+or if SELinux is disabled.
+
+The former check is flawed because the /sys/fs/selinux
+or /sys/kernel/securityfs directories may exist in sysfs
+even if the mount type is disabled. Instead of just doing
+an access() check, use an virFileIsMounted() to see if
+the FS is actually present in the host OS. This also
+avoids the need to check is_selinux_enabled().
+
+Signed-off-by: Daniel P. Berrange <berrange@redhat.com>
+---
+ src/lxc/lxc_container.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
+
+diff --git a/src/lxc/lxc_container.c b/src/lxc/lxc_container.c
+index 05190bf..4ec7b67 100644
+--- a/src/lxc/lxc_container.c
++++ b/src/lxc/lxc_container.c
+@@ -754,15 +754,16 @@ typedef struct {
+     const char *type;
+     int mflags;
+     bool skipUserNS;
++    bool skipUnmounted;
+ } virLXCBasicMountInfo;
+ 
+ static const virLXCBasicMountInfo lxcBasicMounts[] = {
+-    { "proc", "/proc", "proc", MS_NOSUID|MS_NOEXEC|MS_NODEV, false },
+-    { "/proc/sys", "/proc/sys", NULL, MS_BIND|MS_RDONLY, false },
+-    { "sysfs", "/sys", "sysfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, false },
+-    { "securityfs", "/sys/kernel/security", "securityfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true },
++    { "proc", "/proc", "proc", MS_NOSUID|MS_NOEXEC|MS_NODEV, false, false },
++    { "/proc/sys", "/proc/sys", NULL, MS_BIND|MS_RDONLY, false, false },
++    { "sysfs", "/sys", "sysfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, false, false },
++    { "securityfs", "/sys/kernel/security", "securityfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true, true },
+ #if WITH_SELINUX
+-    { SELINUX_MOUNT, SELINUX_MOUNT, "selinuxfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true },
++    { SELINUX_MOUNT, SELINUX_MOUNT, "selinuxfs", MS_NOSUID|MS_NOEXEC|MS_NODEV|MS_RDONLY, true, true },
+ #endif
+ };
+ 
+@@ -849,16 +850,24 @@ static int lxcContainerMountBasicFS(bool userns_enabled)
+         VIR_DEBUG("Processing %s -> %s",
+                   mnt->src, mnt->dst);
+ 
+-        /* Skip if mount doesn't exist in source */
+-        if ((mnt->src[0] == '/') &&
+-            (access(mnt->src, R_OK) < 0))
+-            continue;
++        if (mnt->skipUnmounted) {
++            char *hostdir;
++            int ret;
+ 
+-#if WITH_SELINUX
+-        if (STREQ(mnt->src, SELINUX_MOUNT) &&
+-            !is_selinux_enabled())
+-            continue;
+-#endif
++            if (virAsprintf(&hostdir, "/.oldroot%s", mnt->dst) < 0)
++                goto cleanup;
++
++            ret = virFileIsMountPoint(hostdir);
++            VIR_FREE(hostdir);
++            if (ret < 0)
++                goto cleanup;
++
++            if (ret == 0) {
++                VIR_DEBUG("Skipping '%s' which isn't mounted in host",
++                          mnt->dst);
++                continue;
++            }
++        }
+ 
+         if (mnt->skipUserNS && userns_enabled) {
+             VIR_DEBUG("Skipping due to user ns enablement");
+-- 
+1.8.3.1
+
+

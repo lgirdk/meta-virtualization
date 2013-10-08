@@ -1,0 +1,135 @@
+From: "Daniel P. Berrange" <berrange@redhat.com>
+To: libvir-list@redhat.com
+Date: Mon,  7 Oct 2013 14:06:46 +0100
+Message-Id: <1381151211-27111-2-git-send-email-berrange@redhat.com>
+In-Reply-To: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+References: <1381151211-27111-1-git-send-email-berrange@redhat.com>
+X-Scanned-By: MIMEDefang 2.68 on 10.5.11.25
+X-loop: libvir-list@redhat.com
+Subject: [libvirt] [PATCH 1/6] Add virFileIsMountPoint function
+X-BeenThere: libvir-list@redhat.com
+X-Mailman-Version: 2.1.12
+Precedence: junk
+List-Id: Development discussions about the libvirt library & tools
+	<libvir-list.redhat.com>
+List-Unsubscribe: <https://www.redhat.com/mailman/options/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/libvir-list>
+List-Post: <mailto:libvir-list@redhat.com>
+List-Help: <mailto:libvir-list-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/libvir-list>,
+	<mailto:libvir-list-request@redhat.com?subject=subscribe>
+X-List-Received-Date: Mon, 07 Oct 2013 13:06:56 -0000
+
+From: "Daniel P. Berrange" <berrange@redhat.com>
+
+Add a function for efficiently checking if a path is a filesystem
+mount point.
+
+NB will not work for bind mounts, only true filesystem mounts.
+
+Signed-off-by: Daniel P. Berrange <berrange@redhat.com>
+---
+ src/libvirt_private.syms |  1 +
+ src/util/virfile.c       | 58 ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/util/virfile.h       |  2 ++
+ 3 files changed, 61 insertions(+)
+
+diff --git a/src/libvirt_private.syms b/src/libvirt_private.syms
+index fe40834..31fa604 100644
+--- a/src/libvirt_private.syms
++++ b/src/libvirt_private.syms
+@@ -1182,6 +1182,7 @@ virFileIsAbsPath;
+ virFileIsDir;
+ virFileIsExecutable;
+ virFileIsLink;
++virFileIsMountPoint;
+ virFileLinkPointsTo;
+ virFileLock;
+ virFileLoopDeviceAssociate;
+diff --git a/src/util/virfile.c b/src/util/virfile.c
+index e10de5a..fa21aeb 100644
+--- a/src/util/virfile.c
++++ b/src/util/virfile.c
+@@ -1513,6 +1513,64 @@ virFileIsExecutable(const char *file)
+     return false;
+ }
+ 
++
++/*
++ * Check that a file refers to a mount point. Trick is that for
++ * a mount point, the st_dev field will differ from the parent
++ * directory.
++ *
++ * Note that this will not detect bind mounts of dirs/files,
++ * only true filesystem mounts.
++ */
++int virFileIsMountPoint(const char *file)
++{
++    char *parent = NULL;
++    char *tmp;
++    int ret = -1;
++    struct stat sb1, sb2;
++
++    if (VIR_STRDUP_QUIET(parent, file) < 0)
++        goto cleanup;
++
++    if (!(tmp = strrchr(parent, '/'))) {
++        virReportError(VIR_ERR_INTERNAL_ERROR,
++                       _("Could not find '/' in '%s'"),
++                       file);
++        goto cleanup;
++    }
++
++    *tmp = '\0';
++
++    VIR_DEBUG("Comparing '%s' to '%s'", file, parent);
++
++    if (stat(file, &sb1) < 0) {
++        if (errno == ENOENT)
++            ret = 0;
++        else
++            virReportSystemError(errno,
++                                 _("Cannot stat '%s'"),
++                                 file);
++        goto cleanup;
++    }
++
++    if (stat(parent, &sb2) < 0) {
++        virReportSystemError(errno,
++                             _("Cannot stat '%s'"),
++                             parent);
++        goto cleanup;
++    }
++
++    if (!S_ISDIR(sb1.st_mode))
++        return false;
++
++    ret = sb1.st_dev != sb2.st_dev;
++    VIR_DEBUG("Is mount %d", ret);
++
++ cleanup:
++    VIR_FREE(parent);
++    return ret;
++}
++
+ #ifndef WIN32
+ /* Check that a file is accessible under certain
+  * user & gid.
+diff --git a/src/util/virfile.h b/src/util/virfile.h
+index 72d35ce..ff84719 100644
+--- a/src/util/virfile.h
++++ b/src/util/virfile.h
+@@ -156,6 +156,8 @@ bool virFileIsDir (const char *file) ATTRIBUTE_NONNULL(1);
+ bool virFileExists(const char *file) ATTRIBUTE_NONNULL(1);
+ bool virFileIsExecutable(const char *file) ATTRIBUTE_NONNULL(1);
+ 
++int virFileIsMountPoint(const char *file) ATTRIBUTE_NONNULL(1);
++
+ char *virFileSanitizePath(const char *path);
+ 
+ enum {
+-- 
+1.8.3.1
+
+
