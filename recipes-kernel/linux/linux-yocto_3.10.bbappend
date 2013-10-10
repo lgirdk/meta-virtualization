@@ -15,5 +15,5 @@ module_autoload_kvm-intel = "kvm-intel"
 # aufs kernel support required for xen-image-minimal
 KERNEL_FEATURES_append += "${@base_contains('DISTRO_FEATURES', 'aufs', ' features/aufs/aufs-enable.scc', '', d)}"
 
-# xen dom0 kernel support
+# xen kernel support
 SRC_URI += "${@base_contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"

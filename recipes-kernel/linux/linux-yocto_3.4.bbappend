@@ -12,5 +12,5 @@ module_autoload_kvm = "kvm"
 module_autoload_kvm-amd = "kvm-amd"
 module_autoload_kvm-intel = "kvm-intel"
 
-# xen dom0 kernel support
+# xen kernel support
 SRC_URI += "${@base_contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"
