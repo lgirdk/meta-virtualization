@@ -7,16 +7,10 @@ IMAGE_INSTALL += " \
     packagegroup-core-ssh-openssh \
     kernel-module-xen-acpi-processor \
     kernel-module-xen-blkback \
-    kernel-module-xen-blkfront \
-    kernel-module-xen-evtchn \
-    kernel-module-xenfs \
     kernel-module-xen-gntalloc \
     kernel-module-xen-gntdev \
     kernel-module-xen-netback \
-    kernel-module-xen-netfront \
     kernel-module-xen-pciback \
-    kernel-module-xen-pcifront \
-    kernel-module-xen-privcmd \
     kernel-module-xen-wdt \
     xen-base \
     xen-qemu \
