@@ -6,7 +6,10 @@ PR = "r0"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
 
-SRC_URI = "http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
+SRC_URI = " \
+    http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz \
+    file://flask-avoid-installing-policy-file-as-boot.patch \
+    "
 
 SRC_URI[md5sum] = "7b18cfb58f1ac2ce39cf35a1867f0c0a"
 SRC_URI[sha256sum] = "e1e9faabe4886e2227aacdbde74410653b233d66642ca1972a860cbec6439961"

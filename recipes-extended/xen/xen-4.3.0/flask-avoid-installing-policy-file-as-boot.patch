@@ -1,0 +1,26 @@
+From 8bff3edead4318bfebc487f929f833d11922c238 Mon Sep 17 00:00:00 2001
+From: "Vadim A. Misbakh-Soloviov" <mva@mva.name>
+Date: Tue, 30 Jul 2013 16:34:38 +0400
+Subject: [PATCH] flask: avoid installing policy file as '/boot'
+
+Signed-off-by: Vadim A. Misbakh-Soloviov <mva@mva.name>
+Acked-by: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+---
+ tools/flask/policy/Makefile |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/flask/policy/Makefile b/tools/flask/policy/Makefile
+index e666f3e..df1e8f3 100644
+--- a/tools/flask/policy/Makefile
++++ b/tools/flask/policy/Makefile
+@@ -103,6 +103,7 @@ POLICY_SECTIONS += $(USERS) $(CONSTRAINTS) $(ISID_DEFS)
+ all: $(POLICY_FILENAME)
+ 
+ install: $(POLICY_FILENAME)
++	$(INSTALL_DIR) $(POLICY_LOADPATH)
+ 	$(INSTALL_DATA) $^ $(POLICY_LOADPATH)
+ 
+ $(POLICY_FILENAME): policy.conf
+-- 
+1.7.10.4
+
