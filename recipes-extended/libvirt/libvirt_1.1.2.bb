@@ -3,13 +3,10 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 SECTION = "console/tools"
-PR = "r0"
+PR = "r1"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables dnsmasq readline"
-
-# These might be included by PACKAGECONFIG
-#RRECOMMENDS+= "polkit qemu yajl libnl lxc netcf"
 
 # libvirt-guests.sh needs gettext.sh
 #
