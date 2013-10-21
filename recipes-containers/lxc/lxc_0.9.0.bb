@@ -21,7 +21,7 @@ RDEPENDS_${PN} = " \
 		perl-module-exporter-heavy \
 "
 
-SRC_URI = "http://lxc.sourceforge.net/download/lxc/${PN}-${PV}.tar.gz \
+SRC_URI = "http://linuxcontainers.org/downloads/${PN}-${PV}.tar.gz \
 	file://lxc-0.9.0-disable-udhcp-from-busybox-template.patch \
 	file://lxc-0.9.0-enable-chroot-chpasswd-functionality-for-busybox-hosts.patch \
     file://lxc-0.9.0-check-when-bind-mounting-libdirs.patch \
