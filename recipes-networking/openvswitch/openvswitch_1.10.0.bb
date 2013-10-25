@@ -14,7 +14,11 @@ RDEPENDS_${PN}-pki = "${PN}"
 RDEPENDS_${PN}-brcompat = "${PN} ${PN}-switch"
 RRECOMMENDS_${PN} += "kernel-module-openvswitch"
 
-PR = "r2"
+# Some installers will fail because of an install order based on
+# rdeps.  E.g. ovs-pki calls sed in the postinstall.  sed may be
+# queued for install later.
+RDEPENDS_${PN} += "sed gawk grep"
+PR = "r3"
 
 SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-switch \
