@@ -563,6 +563,17 @@ export CROSS_COMPILE="${TARGET_PREFIX}"
 # overide LDFLAGS to allow xen to build without: "x86_64-oe-linux-ld: unrecognized option '-Wl,-O1'"
 export LDFLAGS=""
 
+EXTRA_OECONF += " \
+    --exec-prefix=/usr \
+    --prefix=/usr \
+    --host=${HOST_SYS} \
+    --disable-stubdom \
+    --disable-ioemu-stubdom \
+    --disable-pv-grub \
+    --disable-xenstore-stubdom \
+    ${@base_contains('DISTRO_FEATURES', 'xsm', '--enable-xsmpolicy', '--disable-xsmpolicy',d)} \
+"
+
 do_configure() {
     # fixup qemu-xen-traditional pciutils check hardcoded to test ${includedir}/pci
     sed -i 's/\/usr\/include\/pci/$(STAGING_INCDIR)\/pci/g' ${S}/tools/qemu-xen-traditional/xen-hooks.mak
@@ -580,7 +591,7 @@ do_configure() {
     fi
 
     # do configure
-    ./configure --exec-prefix=/usr --prefix=/usr --host=${HOST_SYS} --disable-stubdom --disable-ioemu-stubdom --disable-pv-grub --disable-xenstore-stubdom "${@base_contains('DISTRO_FEATURES', 'xsm', '--enable-xsmpolicy', '--disable-xsmpolicy',d)}"
+    oe_runconf
 
     # seabios needs a patch to specify correct compiler - pull and patch Makefile
     make -C ${S}/tools/firmware seabios-dir
