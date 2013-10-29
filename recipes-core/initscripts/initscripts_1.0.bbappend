@@ -7,4 +7,10 @@ do_install_append() {
 	echo failure \(\) \{  >> ${D}${sysconfdir}/init.d/functions
 	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
 	echo \}               >> ${D}${sysconfdir}/init.d/functions
+	echo warning \(\) \{  >> ${D}${sysconfdir}/init.d/functions
+	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
+	echo \}               >> ${D}${sysconfdir}/init.d/functions
+	echo begin \(\) \{  >> ${D}${sysconfdir}/init.d/functions
+	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
+	echo \} 
 }
