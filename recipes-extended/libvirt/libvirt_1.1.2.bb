@@ -149,6 +149,7 @@ PACKAGECONFIG[udev] = "--with-udev --with-pciaccess,--without-udev,udev libpciac
 PACKAGECONFIG[selinux] = "--with-selinux,--without-selinux,libselinux,"
 PACKAGECONFIG[ebtables] = "ac_cv_path_EBTABLES_PATH=/sbin/ebtables,ac_cv_path_EBTABLES_PATH=,ebtables,ebtables"
 PACKAGECONFIG[python] = "--with-python,--without-python,python,"
+PACKAGECONFIG[sasl] = "--with-sasl,--without-sasl,cyrus-sasl,cyrus-sasl"
 
 # Enable the Python tool support
 require libvirt-python.inc
