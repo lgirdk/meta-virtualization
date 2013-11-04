@@ -12,5 +12,5 @@ do_install_append() {
 	echo \}               >> ${D}${sysconfdir}/init.d/functions
 	echo begin \(\) \{  >> ${D}${sysconfdir}/init.d/functions
 	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
-	echo \} 
+	echo \}               >> ${D}${sysconfdir}/init.d/functions
 }
