@@ -11,8 +11,8 @@ SRC_URI = " \
     file://flask-avoid-installing-policy-file-as-boot.patch \
     "
 
-SRC_URI[md5sum] = "7b18cfb58f1ac2ce39cf35a1867f0c0a"
-SRC_URI[sha256sum] = "e1e9faabe4886e2227aacdbde74410653b233d66642ca1972a860cbec6439961"
+SRC_URI[md5sum] = "7616b8704e1ab89c81f011f0e3703bc8"
+SRC_URI[sha256sum] = "3b5b7cc508b1739753585b5c25635471cdcef680e8770a78bf6ef9333d26a9fd"
 
 S = "${WORKDIR}/xen-${PV}"
 
@@ -215,11 +215,11 @@ FILES_${PN}-libfsimage-dev = "${libdir}/libfsimage.so"
 FILES_${PN}-fsimage = "${libdir}/fs/*/*fsimage.so"
 
 FILES_${PN}-hypervisor = "\
-    /boot/xen-4.3.0.gz \
+    /boot/xen-4.3.1.gz \
     /boot/xen-4.3.gz \
     /boot/xen-4.gz \
     /boot/xen.gz \
-    /boot/xen-syms-4.3.0 \
+    /boot/xen-syms-4.3.1 \
     "
 
 FILES_${PN}-base = "\
