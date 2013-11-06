@@ -22,7 +22,6 @@ inherit autotools gettext setuptools update-rc.d
 
 PACKAGECONFIG ??= " \
     sdl \
-    xsm \
 "
 PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
