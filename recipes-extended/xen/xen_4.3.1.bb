@@ -10,6 +10,11 @@ SRC_URI[sha256sum] = "3b5b7cc508b1739753585b5c25635471cdcef680e8770a78bf6ef9333d
 
 S = "${WORKDIR}/xen-${PV}"
 
+RDEPENDS_${PN}-base += "\
+    ${PN}-libblktap \
+    ${PN}-flask \
+    "
+
 do_configure_prepend() {
     # fixup qemu-xen-traditional pciutils check hardcoded to test /usr/include/pci
     sed -i 's/\/usr\/include\/pci/$(STAGING_INCDIR)\/pci/g' ${S}/tools/qemu-xen-traditional/xen-hooks.mak

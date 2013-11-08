@@ -35,9 +35,7 @@ RDEPENDS_${PN}-base = "\
     ${PN}-libvhd \
     ${PN}-libxenstat \
     ${PN}-libxenstore \
-    ${PN}-libblktap \
     ${PN}-libfsimage \
-    ${PN}-flask \
     ${PN}-fsimage \
     ${PN}-hvmloader \
     ${PN}-scripts-block \
