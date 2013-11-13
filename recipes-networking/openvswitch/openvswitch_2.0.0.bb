@@ -82,36 +82,36 @@ do_install_append() {
 
 pkg_postinst_${PN}-pki () {
 	# can't do this offline
-        if [ "x$D" != "x" ]; then
-                exit 1
-        fi
+	if [ "x$D" != "x" ]; then
+		exit 1
+	fi
 	if test ! -d $D/${datadir}/${PN}/pki; then
-            ovs-pki init --dir=$D/${datadir}/${PN}/pki
-        fi
+		ovs-pki init --dir=$D/${datadir}/${PN}/pki
+	fi
 }
 
 pkg_postinst_${PN}-controller () {
-        # can't do this offline
-        if [ "x$D" != "x" ]; then
-                exit 1
-        fi
+	# can't do this offline
+	if [ "x$D" != "x" ]; then
+		exit 1
+	fi
 
-    if test ! -d $D/${datadir}/${PN}/pki; then
-        ovs-pki init --dir=$D/${datadir}/${PN}/pki
-    fi
+	if test ! -d $D/${datadir}/${PN}/pki; then
+		ovs-pki init --dir=$D/${datadir}/${PN}/pki
+	fi
 
 	cd $D/${sysconfdir}/openvswitch-controller
-        if ! test -e cacert.pem; then
-            ln -s $D/${datadir}/${PN}/pki/switchca/cacert.pem cacert.pem
-        fi
-        if ! test -e privkey.pem || ! test -e cert.pem; then
-            oldumask=$(umask)
-            umask 077
-            ovs-pki req+sign --dir=$D/${datadir}/${PN}/pki tmp controller >/dev/null
-            mv tmp-privkey.pem privkey.pem
-            mv tmp-cert.pem cert.pem
-            mv tmp-req.pem req.pem
-            chmod go+r cert.pem req.pem
-            umask $oldumask
-        fi
+	if ! test -e cacert.pem; then
+		ln -s $D/${datadir}/${PN}/pki/switchca/cacert.pem cacert.pem
+	fi
+	if ! test -e privkey.pem || ! test -e cert.pem; then
+		oldumask=$(umask)
+		umask 077
+		ovs-pki req+sign --dir=$D/${datadir}/${PN}/pki tmp controller >/dev/null
+		mv tmp-privkey.pem privkey.pem
+		mv tmp-cert.pem cert.pem
+		mv tmp-req.pem req.pem
+		chmod go+r cert.pem req.pem
+		umask $oldumask
+	fi
 }
