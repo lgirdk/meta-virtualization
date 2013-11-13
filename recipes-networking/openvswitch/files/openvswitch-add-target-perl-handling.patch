@@ -16,11 +16,11 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  utilities/ovs-parse-leaks.in | 2 +-
  3 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/Makefile.am b/Makefile.am
-index c4f8341..45488f2 100644
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -111,6 +111,7 @@ SUFFIXES += .in
+Index: openvswitch-2.0.0/Makefile.am
+===================================================================
+--- openvswitch-2.0.0.orig/Makefile.am
++++ openvswitch-2.0.0/Makefile.am
+@@ -114,6 +114,7 @@
                  -e 's,[@]LOGDIR[@],$(LOGDIR),g' \
                  -e 's,[@]DBDIR[@],$(DBDIR),g' \
                  -e 's,[@]PERL[@],$(PERL),g' \
@@ -28,11 +28,11 @@ index c4f8341..45488f2 100644
                  -e 's,[@]PYTHON[@],$(PYTHON),g' \
                  -e 's,[@]TARGET_PYTHON[@],$(TARGET_PYTHON),g' \
                  -e 's,[@]RUNDIR[@],$(RUNDIR),g' \
-diff --git a/configure.ac b/configure.ac
-index 74cb691..5e39893 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -101,6 +101,13 @@ AC_ARG_VAR(KARCH, [Kernel Architecture String])
+Index: openvswitch-2.0.0/configure.ac
+===================================================================
+--- openvswitch-2.0.0.orig/configure.ac
++++ openvswitch-2.0.0/configure.ac
+@@ -115,6 +115,13 @@
  AC_SUBST(KARCH)
  OVS_CHECK_LINUX
  
@@ -46,16 +46,3 @@ index 74cb691..5e39893 100644
  if test "$TARGET_PYTHON"; then
      TARGET_PYTHON=$TARGET_PYTHON
  else
-diff --git a/utilities/ovs-parse-leaks.in b/utilities/ovs-parse-leaks.in
-index 72417e5..7c9436c 100755
---- a/utilities/ovs-parse-leaks.in
-+++ b/utilities/ovs-parse-leaks.in
-@@ -1,4 +1,4 @@
--#! @PERL@
-+#! @TARGET_PERL@
- 
- # Copyright (c) 2009, 2010 Nicira, Inc.
- #
--- 
-1.8.1.2
-
