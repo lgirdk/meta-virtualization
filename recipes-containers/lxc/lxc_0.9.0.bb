@@ -24,8 +24,9 @@ RDEPENDS_${PN} = " \
 SRC_URI = "http://linuxcontainers.org/downloads/${PN}-${PV}.tar.gz \
 	file://lxc-0.9.0-disable-udhcp-from-busybox-template.patch \
 	file://lxc-0.9.0-enable-chroot-chpasswd-functionality-for-busybox-hosts.patch \
-    file://lxc-0.9.0-check-when-bind-mounting-libdirs.patch \
-    file://lxc-0.9.0-don-t-let-LXC_PATH-end-in-failure.patch \
+	file://lxc-0.9.0-check-when-bind-mounting-libdirs.patch \
+	file://lxc-0.9.0-don-t-let-LXC_PATH-end-in-failure.patch \
+	file://lxc-0.9.0-setup_netdev-re-read-ifindex-in-LXC_NET_PHYS-case.patch \
 	"
 SRC_URI[md5sum] = "8552a4479090616f4bc04d8473765fc9"
 SRC_URI[sha256sum] = "1e1767eae6cc5fbf892c0e193d25da420ba19f2db203716c38f7cdea3b654120"
