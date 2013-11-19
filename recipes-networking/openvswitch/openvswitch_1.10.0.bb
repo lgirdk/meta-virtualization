@@ -18,7 +18,7 @@ RRECOMMENDS_${PN} += "kernel-module-openvswitch"
 # rdeps.  E.g. ovs-pki calls sed in the postinstall.  sed may be
 # queued for install later.
 RDEPENDS_${PN} += "sed gawk grep"
-PR = "r3"
+PR = "r4"
 
 SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-switch \
@@ -27,6 +27,7 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-controller-setup \
 	file://openvswitch-add-target-python-handling.patch \
 	file://openvswitch-add-target-perl-handling.patch \
+	file://configure-Only-link-against-libpcap-on-FreeBSD.patch \
 	"
 
 SRC_URI[md5sum] = "fe8b49efe9f86b57abab00166b971106"
