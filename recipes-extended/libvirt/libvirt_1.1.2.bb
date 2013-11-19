@@ -117,7 +117,7 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 #PACKAGECONFIG ??= "xen libxl xen-inotify test remote libvirtd"
 
 # full config
-PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx \
+PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx iproute2 \
                    polkit lxc test remote macvtap libvirtd netcf udev python ebtables \
                    {@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
                   "
@@ -150,6 +150,7 @@ PACKAGECONFIG[selinux] = "--with-selinux,--without-selinux,libselinux,"
 PACKAGECONFIG[ebtables] = "ac_cv_path_EBTABLES_PATH=/sbin/ebtables,ac_cv_path_EBTABLES_PATH=,ebtables,ebtables"
 PACKAGECONFIG[python] = "--with-python,--without-python,python,"
 PACKAGECONFIG[sasl] = "--with-sasl,--without-sasl,cyrus-sasl,cyrus-sasl"
+PACKAGECONFIG[iproute2] = "ac_cv_path_IP_PATH=/sbin/ip,ac_cv_path_IP_PATH=,iproute2,iproute2"
 
 # Enable the Python tool support
 require libvirt-python.inc
