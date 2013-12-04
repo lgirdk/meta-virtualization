@@ -21,20 +21,11 @@ RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
-           file://LXC-Don-t-mount-securityfs-when-user-namespace-enabl.patch \
-           file://Move-array-of-mounts-out-of-lxcContainerMountBasicFS.patch \
-           file://LXC-don-t-try-to-mount-selinux-filesystem-when-user-.patch \
-	   file://0001-Add-virFileIsMountPoint-function.patch \
-	   file://0002-Remove-unused-opts-field-from-LXC-basic.patch \
-	   file://0003-Remove-pointless-srcpath-variable-in-lxcContainerMountBasicFS.patch \
-	   file://0004-Remove-duplicate-entries-in-lxcBasicMounts-array.patch \
-	   file://0005-Add-flag-to-lxcBasicMounts-to-control-use-in-user-namespaces.patch \
-	   file://0006-Skip-any-files-which-are-not-mounted-on-the-host.patch \
 	   file://libvirtd.sh \
 	   file://libvirtd.conf"
 
-SRC_URI[md5sum] = "1835bbfa492099bce12e2934870e5611"
-SRC_URI[sha256sum] = "16648af54d3e162f5cc5445d970ec29a0bd55b1dbcb568a05533c4c2f25965e3"
+SRC_URI[md5sum] = "f74f78059def4e68d69b975ad6e6c3e2"
+SRC_URI[sha256sum] = "a8e578ae7861db2ac5f454073293d2ef3229fd3f6c4f9029101763244db22ddd"
 
 inherit autotools gettext update-rc.d
 

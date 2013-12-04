@@ -15,5 +15,3 @@ FILES_${PN}-python-dbg += "${PYTHON_SITEPACKAGES_DIR}/.debug/"
 FILES_${PN}-python += "${PYTHON_SITEPACKAGES_DIR}"
 
 EXTRA_OECONF += "TARGET_PYTHON=${bindir}/python"
-
-SRC_URI += "file://libvirt-allow-location-of-python-on-the-target-to-be.patch"
