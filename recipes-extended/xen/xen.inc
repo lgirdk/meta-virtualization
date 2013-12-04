@@ -53,12 +53,14 @@ RDEPENDS_${PN}-base = "\
 RDEPENDS_${PN}-scripts-block = "\
     ${PN}-scripts-common \
     ${PN}-udev \
+    ${PN}-volatiles \
     "
 
 RDEPENDS_${PN}-scripts-network = "\
     bridge-utils \
     ${PN}-scripts-common \
     ${PN}-udev \
+    ${PN}-volatiles \
     "
 
 PACKAGES = "\
@@ -106,6 +108,7 @@ PACKAGES = "\
     ${PN}-scripts-network \
     ${PN}-staticdev \
     ${PN}-udev \
+    ${PN}-volatiles \
     ${PN}-xcutils \
     ${PN}-xencommons \
     ${PN}-xend \
@@ -210,7 +213,6 @@ FILES_${PN}-hypervisor = "\
     "
 
 FILES_${PN}-base = "\
-    ${sysconfdir}/default/volatiles/99_xen \
     ${sysconfdir}/default/xencommons \
     ${sysconfdir}/default/xendomains \
     ${sysconfdir}/xen/auto \
@@ -423,6 +425,10 @@ FILES_${PN}-scripts-common = " \
 FILES_${PN}-udev = "\
     ${sysconfdir}/udev/rules.d/xen-backend.rules \
     ${sysconfdir}/udev/rules.d/xend.rules \
+    "
+
+FILES_${PN}-volatiles = "\
+    ${sysconfdir}/default/volatiles/99_xen \
     "
 
 FILES_${PN}-xcutils = "\
