@@ -60,7 +60,7 @@ FILES_${PN}-switch = "${sysconfdir}/init.d/openvswitch-switch \
 FILES_${PN} += "${datadir}/ovsdbmonitor"
 FILES_${PN} += "/run"
 
-inherit autotools update-rc.d
+inherit autotools update-rc.d pkgconfig
 
 INITSCRIPT_PACKAGES = "${PN}-switch ${PN}-controller"
 INITSCRIPT_NAME_${PN}-switch = "openvswitch-switch"
