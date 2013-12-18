@@ -18,8 +18,7 @@ DEPENDS = "glib-2.0"
 INITSCRIPT_NAME = "irqbalanced"
 INITSCRIPT_PARAMS = "defaults"
 
-inherit autotools
-inherit update-rc.d
+inherit autotools update-rc.d pkgconfig
 
 EXTRA_OECONF = "--program-transform-name= \
 	       "
