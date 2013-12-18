@@ -622,7 +622,7 @@ do_install() {
     ln -sf ${sysconfdir}/default/xendomains ${D}${sysconfdir}/sysconfig/xendomains
 }
 
-pkg_postinst_${PN}-base() {
+pkg_postinst_${PN}-volatiles() {
     if [ -z "$D" ] && [ -e ${sysconfdir}/init.d/populate-volatile.sh ] ; then
         ${sysconfdir}/init.d/populate-volatile.sh update
     fi
