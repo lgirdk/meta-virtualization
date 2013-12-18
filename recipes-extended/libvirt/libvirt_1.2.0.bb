@@ -27,7 +27,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
 SRC_URI[md5sum] = "f74f78059def4e68d69b975ad6e6c3e2"
 SRC_URI[sha256sum] = "a8e578ae7861db2ac5f454073293d2ef3229fd3f6c4f9029101763244db22ddd"
 
-inherit autotools gettext update-rc.d
+inherit autotools gettext update-rc.d pkgconfig
 
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLLINT=/usr/bin/xmllint \
