@@ -213,11 +213,8 @@ FILES_${PN}-hypervisor = "\
     "
 
 FILES_${PN}-base = "\
-    ${sysconfdir}/default/xencommons \
-    ${sysconfdir}/default/xendomains \
     ${sysconfdir}/xen/auto \
     ${sysconfdir}/xen/cpupool \
-    ${sysconfdir}/sysconfig/xendomains \
     ${localstatedir}/xen/dump \
     "
 
@@ -521,12 +518,22 @@ FILES_${PN}-xm = "\
     ${sbindir}/xm \
     "
 
-FILES_${PN}-xencommons += "${sysconfdir}/init.d/xencommons"
+FILES_${PN}-xencommons += "\
+    ${sysconfdir}/default/xencommons \
+    ${sysconfdir}/init.d/xencommons \
+    "
+
 FILES_${PN}-xend += " \
     ${sysconfdir}/init.d/xend \
     ${sbindir}/xend \
     "
-FILES_${PN}-xendomains += "${sysconfdir}/init.d/xendomains"
+
+FILES_${PN}-xendomains += "\
+    ${sysconfdir}/default/xendomains \
+    ${sysconfdir}/init.d/xendomains \
+    ${sysconfdir}/sysconfig/xendomains \
+    "
+
 FILES_${PN}-xen-watchdog += "${sysconfdir}/init.d/xen-watchdog"
 
 # configure init.d scripts
