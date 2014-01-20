@@ -63,6 +63,13 @@ RDEPENDS_${PN}-scripts-network = "\
     ${PN}-volatiles \
     "
 
+RDEPENDS_${PN}-xencommons = "\
+    ${PN}-console \
+    ${PN}-xenstore \
+    ${PN}-xenstored \
+    ${PN}-scripts-common \
+    "
+
 PACKAGES = "\
     ${PN}-base \
     ${PN}-blktap \
