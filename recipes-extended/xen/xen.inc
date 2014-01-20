@@ -481,6 +481,7 @@ FILES_${PN}-xentrace = "\
 
 FILES_${PN}-xen-watchdog = "\
     ${sbindir}/xenwatchdogd \
+    ${sysconfdir}/init.d/xen-watchdog \
     "
 
 FILES_${PN}-xl = "\
@@ -533,8 +534,6 @@ FILES_${PN}-xendomains += "\
     ${sysconfdir}/init.d/xendomains \
     ${sysconfdir}/sysconfig/xendomains \
     "
-
-FILES_${PN}-xen-watchdog += "${sysconfdir}/init.d/xen-watchdog"
 
 # configure init.d scripts
 INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xencommons ${PN}-xen-watchdog ${PN}-xendomains"
