@@ -70,6 +70,8 @@ RDEPENDS_${PN}-xencommons = "\
     ${PN}-scripts-common \
     "
 
+RDEPENDS_${PN}-xl = "libgcc"
+
 PACKAGES = "\
     ${PN}-base \
     ${PN}-blktap \
