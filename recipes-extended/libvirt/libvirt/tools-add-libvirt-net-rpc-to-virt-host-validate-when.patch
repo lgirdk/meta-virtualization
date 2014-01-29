@@ -1,4 +1,4 @@
-From 70700ad6bf2db2ba8e169168f225458743b90f86 Mon Sep 17 00:00:00 2001
+From dade75d1ce25df6ab61867250d7adb65b4912090 Mon Sep 17 00:00:00 2001
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 Date: Fri, 2 Aug 2013 11:38:43 -0400
 Subject: [PATCH] tools: add libvirt-net-rpc to virt-host-validate when TLS is
@@ -10,30 +10,15 @@ link against libvirt-net-rpc which provides the implementation.
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- examples/domain-events/events-c/Makefile.am |    6 ++++++
- examples/dominfo/Makefile.am                |    7 +++++++
- examples/domsuspend/Makefile.am             |    7 +++++++
- examples/hellolibvirt/Makefile.am           |    7 +++++++
- examples/openauth/Makefile.am               |    6 ++++++
- tools/Makefile.am                           |   13 +++++++++++++
- 6 files changed, 46 insertions(+)
+ examples/dominfo/Makefile.am      |  7 +++++++
+ examples/domsuspend/Makefile.am   |  7 +++++++
+ examples/hellolibvirt/Makefile.am |  7 +++++++
+ examples/openauth/Makefile.am     |  6 ++++++
+ tools/Makefile.am                 | 13 +++++++++++++
+ 5 files changed, 40 insertions(+)
 
-diff --git a/examples/domain-events/events-c/Makefile.am b/examples/domain-events/events-c/Makefile.am
-index 0646aee..6b2f5bd 100644
---- a/examples/domain-events/events-c/Makefile.am
-+++ b/examples/domain-events/events-c/Makefile.am
-@@ -21,3 +21,9 @@ event_test_CFLAGS = $(WARN_CFLAGS)
- event_test_SOURCES = event-test.c
- event_test_LDADD = $(top_builddir)/src/libvirt.la \
- 		 $(top_builddir)/gnulib/lib/libgnu.la
-+
-+if WITH_GNUTLS
-+event_test_LDADD += ../../../src/libvirt-net-rpc.la \
-+                    ../../../gnulib/lib/libgnu.la
-+endif
-+
 diff --git a/examples/dominfo/Makefile.am b/examples/dominfo/Makefile.am
-index 4a30c77..99b3e17 100644
+index 4a30c7768df9..99b3e17eb741 100644
 --- a/examples/dominfo/Makefile.am
 +++ b/examples/dominfo/Makefile.am
 @@ -23,3 +23,10 @@ noinst_PROGRAMS=info1
@@ -48,10 +33,10 @@ index 4a30c77..99b3e17 100644
 +endif
 +
 diff --git a/examples/domsuspend/Makefile.am b/examples/domsuspend/Makefile.am
-index d0d9368..e368ffa 100644
+index b8e65f24a28d..9553e0f1d948 100644
 --- a/examples/domsuspend/Makefile.am
 +++ b/examples/domsuspend/Makefile.am
-@@ -23,3 +23,10 @@ noinst_PROGRAMS=suspend
+@@ -25,3 +25,10 @@ noinst_PROGRAMS=suspend
  suspend_SOURCES=suspend.c
  suspend_LDFLAGS=
  suspend_LDADD= $(LDADDS)
@@ -63,7 +48,7 @@ index d0d9368..e368ffa 100644
 +endif
 +
 diff --git a/examples/hellolibvirt/Makefile.am b/examples/hellolibvirt/Makefile.am
-index 060cc71..d6ff30a 100644
+index 55ea972c42f8..a5272e2bb565 100644
 --- a/examples/hellolibvirt/Makefile.am
 +++ b/examples/hellolibvirt/Makefile.am
 @@ -19,3 +19,10 @@ noinst_PROGRAMS = hellolibvirt
@@ -78,7 +63,7 @@ index 060cc71..d6ff30a 100644
 +endif
 +
 diff --git a/examples/openauth/Makefile.am b/examples/openauth/Makefile.am
-index 1eb23fc..4d076f1 100644
+index 7bb860491e73..34e9b47f65cb 100644
 --- a/examples/openauth/Makefile.am
 +++ b/examples/openauth/Makefile.am
 @@ -19,3 +19,9 @@ noinst_PROGRAMS = openauth
@@ -92,10 +77,10 @@ index 1eb23fc..4d076f1 100644
 +endif
 +
 diff --git a/tools/Makefile.am b/tools/Makefile.am
-index 1dac7c1..c4c6f72 100644
+index 256a8f37a2a9..837a83fb612a 100644
 --- a/tools/Makefile.am
 +++ b/tools/Makefile.am
-@@ -121,6 +121,13 @@ virt_host_validate_LDADD = \
+@@ -147,6 +147,13 @@ virt_host_validate_LDADD = \
  		../gnulib/lib/libgnu.la				\
  		$(NULL)
  
@@ -109,7 +94,7 @@ index 1dac7c1..c4c6f72 100644
  virt_host_validate_CFLAGS = \
  		$(WARN_CFLAGS)					\
  		$(PIE_CFLAGS)					\
-@@ -162,6 +169,12 @@ virsh_CFLAGS =							\
+@@ -214,6 +221,12 @@ virsh_CFLAGS =							\
  		$(READLINE_CFLAGS)
  BUILT_SOURCES =
  
@@ -123,5 +108,5 @@ index 1dac7c1..c4c6f72 100644
  virsh_LDADD += virsh_win_icon.$(OBJEXT)
  
 -- 
-1.7.10.4
+1.8.1.2
 
