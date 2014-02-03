@@ -19,13 +19,13 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS_${PN}_libvirtd = "connman"
 
-SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz \
+SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
 	   file://libvirtd.sh \
 	   file://libvirtd.conf"
 
-SRC_URI[md5sum] = "cce374220f67895afb6331bd2ddedbfd"
-SRC_URI[sha256sum] = "bc29b5751bf36753c17e2fdbb75e70c7b07df3d9527586d3426e90f5f4abb898"
+SRC_URI[libvirt.md5sum] = "cce374220f67895afb6331bd2ddedbfd"
+SRC_URI[libvirt.sha256sum] = "bc29b5751bf36753c17e2fdbb75e70c7b07df3d9527586d3426e90f5f4abb898"
 
 inherit autotools gettext update-rc.d pkgconfig
 
