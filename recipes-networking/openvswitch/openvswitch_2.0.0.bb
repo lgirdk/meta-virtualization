@@ -26,6 +26,7 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-controller-setup \
 	file://openvswitch-add-target-python-handling.patch \
 	file://openvswitch-add-target-perl-handling.patch \
+        file://openvswitch-add-more-target-python-substitutions.patch \
 	"
 
 SRC_URI[md5sum] = "7d7a58350e634e515e0fe43c64d64f44"
