@@ -13,7 +13,7 @@ PACKAGES += "${PN}-python-staticdev ${PN}-python-dev ${PN}-python-dbg ${PN}-pyth
 FILES_${PN}-python-staticdev += "${PYTHON_SITEPACKAGES_DIR}/*.a"
 FILES_${PN}-python-dev += "${PYTHON_SITEPACKAGES_DIR}/*.la"
 FILES_${PN}-python-dbg += "${PYTHON_SITEPACKAGES_DIR}/.debug/"
-FILES_${PN}-python += "${bindir}/* ${libdir}/* ${libdir}/${PYTHON_DIR}/*"
+FILES_${PN}-python = "${bindir}/* ${libdir}/* ${libdir}/${PYTHON_DIR}/*"
 
 SRC_URI += "http://libvirt.org/sources/python/libvirt-python-${PV}.tar.gz;name=libvirt_python"
 SRC_URI += "file://libvirt_api_xml_path.patch;patchdir=../libvirt-python-${PV}"
@@ -39,19 +39,17 @@ python __anonymous () {
         d.setVar('LIBVIRT_PYTHON_ENABLE', '0')
 }
 
-do_compile_python() {
+do_compile_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
 		cd ${WORKDIR}/libvirt-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python-native/python setup.py build
 	fi
 }
-addtask do_compile_python before do_install after do_compile 
-	
-do_install_python() {
+
+do_install_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
 		cd ${WORKDIR}/${PN}-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python-native/python setup.py install \
                        --install-lib=${D}/${PYTHON_SITEPACKAGES_DIR} ${LIBVIRT_INSTALL_ARGS}
 	fi
 }
-addtask do_install_python before do_populate_sysroot after do_install
