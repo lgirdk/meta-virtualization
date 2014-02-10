@@ -26,6 +26,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-0.9.0-enable-chroot-chpasswd-functionality-for-busybox-hosts.patch \
 	file://lxc-0.9.0-check-when-bind-mounting-libdirs.patch \
 	file://lxc-0.9.0-don-t-let-LXC_PATH-end-in-failure.patch \
+	file://lxc-0.9.0-always-strdup-rootfs-mount.patch \
 	file://lxc-0.9.0-setup_netdev-re-read-ifindex-in-LXC_NET_PHYS-case.patch \
 	file://lxc-0.9.0-use-susv3-head-arguments.patch \
         file://lxc-0.9.0-configure-allow-subdir-objects.patch \
