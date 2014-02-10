@@ -70,6 +70,13 @@ RDEPENDS_${PN}-xencommons = "\
     ${PN}-scripts-common \
     "
 
+RDEPENDS_${PN}-xendomains = "\
+    ${PN}-console \
+    ${PN}-scripts-block \
+    ${PN}-scripts-common \
+    ${PN}-xenstored \
+    "
+
 RDEPENDS_${PN}-xl = "libgcc"
 
 PACKAGES = "\
