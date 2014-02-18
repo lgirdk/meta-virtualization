@@ -1,0 +1,27 @@
+diff --git a/src/lxc/conf.c b/src/lxc/conf.c
+index 6b3f318..2f8b9e6 100644
+--- a/src/lxc/conf.c
++++ b/src/lxc/conf.c
+@@ -2072,7 +2072,12 @@ struct lxc_conf *lxc_conf_init(void)
+ 	new->console.slave = -1;
+ 	new->console.name[0] = '\0';
+ 	new->maincmd_fd = -1;
+-	new->rootfs.mount = default_rootfs_mount;
++	new->rootfs.mount = strdup(default_rootfs_mount);
++	if (!new->rootfs.mount) {
++		ERROR("lxc_conf_init : %m");
++		free(new);
++		return NULL;
++	}
+ 	new->kmsg = 1;
+ 	lxc_list_init(&new->cgroup);
+ 	lxc_list_init(&new->network);
+@@ -3084,7 +3089,7 @@ void lxc_conf_free(struct lxc_conf *conf)
+ 		return;
+ 	if (conf->console.path)
+ 		free(conf->console.path);
+-	if (conf->rootfs.mount != default_rootfs_mount)
++	if (conf->rootfs.mount)
+ 		free(conf->rootfs.mount);
+ 	if (conf->rootfs.path)
+ 		free(conf->rootfs.path);
