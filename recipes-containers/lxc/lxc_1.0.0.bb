@@ -22,17 +22,10 @@ RDEPENDS_${PN} = " \
 "
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
-	file://lxc-0.9.0-disable-udhcp-from-busybox-template.patch \
-	file://lxc-0.9.0-enable-chroot-chpasswd-functionality-for-busybox-hosts.patch \
-	file://lxc-0.9.0-check-when-bind-mounting-libdirs.patch \
-	file://lxc-0.9.0-don-t-let-LXC_PATH-end-in-failure.patch \
-	file://lxc-0.9.0-always-strdup-rootfs-mount.patch \
-	file://lxc-0.9.0-setup_netdev-re-read-ifindex-in-LXC_NET_PHYS-case.patch \
-	file://lxc-0.9.0-use-susv3-head-arguments.patch \
-        file://lxc-0.9.0-configure-allow-subdir-objects.patch \
+	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	"
-SRC_URI[md5sum] = "8552a4479090616f4bc04d8473765fc9"
-SRC_URI[sha256sum] = "1e1767eae6cc5fbf892c0e193d25da420ba19f2db203716c38f7cdea3b654120"
+SRC_URI[md5sum] = "87a9d168a6e55326303cce3b2cb7f82e"
+SRC_URI[sha256sum] = "0992212ddaad01dfe8c048e130566b73dd5f34191585f36bdac07a4f8a91f3bd"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
