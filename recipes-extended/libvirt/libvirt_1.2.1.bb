@@ -111,7 +111,7 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 # full config
 PACKAGECONFIG ??= "qemu yajl xen libxl xen-inotify uml openvz vmware vbox esx iproute2 \
                    polkit lxc test remote macvtap libvirtd netcf udev python ebtables \
-                   {@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
+                   ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
                   "
 
 # enable,disable,depends,rdepends
