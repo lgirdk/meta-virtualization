@@ -1,7 +1,8 @@
 DESCRIPTION = "A toolkit to interact with the virtualization capabilities of recent versions of Linux." 
 HOMEPAGE = "http://libvirt.org"
-LICENSE = "GPLv2+"
-LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
+LICENSE = "LGPLv2.1+"
+LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+                    file://COPYING.LESSER;md5=4fbd65380cdd255951079008b364516c"
 SECTION = "console/tools"
 PR = "r1"
 
