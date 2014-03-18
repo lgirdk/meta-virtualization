@@ -1,6 +1,7 @@
 DESCRIPTION = "A toolkit to interact with the virtualization capabilities of recent versions of Linux." 
 HOMEPAGE = "http://libvirt.org"
 LICENSE = "LGPLv2.1+"
+LICENSE_${PN}-ptest = "GPLv2+ & LGPLv2.1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING.LESSER;md5=4fbd65380cdd255951079008b364516c"
 SECTION = "console/tools"
@@ -13,6 +14,8 @@ DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux
 #
 RDEPENDS_${PN} = "gettext-runtime"
 
+RDEPENDS_${PN}-ptest += "make gawk"
+
 RDEPENDS_libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd"
 RDEPENDS_libvirt-libvirtd_append_x86-64 = " dmidecode"
 RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
@@ -22,13 +25,16 @@ RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
-	   file://libvirtd.sh \
-	   file://libvirtd.conf"
+           file://libvirtd.sh \
+           file://libvirtd.conf \
+           file://runptest.patch \
+           file://run-ptest \
+          "
 
 SRC_URI[libvirt.md5sum] = "cce374220f67895afb6331bd2ddedbfd"
 SRC_URI[libvirt.sha256sum] = "bc29b5751bf36753c17e2fdbb75e70c7b07df3d9527586d3426e90f5f4abb898"
 
-inherit autotools gettext update-rc.d pkgconfig
+inherit autotools gettext update-rc.d pkgconfig ptest
 
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLLINT=/usr/bin/xmllint \
@@ -105,6 +111,23 @@ INITSCRIPT_PACKAGES = "${PN}-libvirtd"
 INITSCRIPT_NAME_${PN}-libvirtd = "libvirtd"
 INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 
+PRIVATE_LIBS_${PN}-ptest = " \
+	libvirt-lxc.so.0 \
+	libvirt.so.0 \
+	libvirt-qemu.so.0 \
+	lockd.so \
+	libvirt_driver_secret.so \
+	libvirt_driver_nodedev.so \
+	libvirt_driver_vbox.so \
+	libvirt_driver_interface.so \
+	libvirt_driver_uml.so \
+	libvirt_driver_network.so \
+	libvirt_driver_nwfilter.so \
+	libvirt_driver_qemu.so \
+	libvirt_driver_storage.so \
+	libvirt_driver_lxc.so \
+    "
+
 # xen-minimal config
 #PACKAGECONFIG ??= "xen libxl xen-inotify test remote libvirtd"
 
@@ -174,6 +197,16 @@ do_install_append() {
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 	echo "d root root 0755 ${localstatedir}/run/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+}
+
+EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH}"
+
+do_compile_ptest() {
+	oe_runmake -C tests buildtest-TESTS
+}
+
+do_install_ptest() {
+	oe_runmake -C tests install-ptest
 }
 
 pkg_postinst_libvirt() {
