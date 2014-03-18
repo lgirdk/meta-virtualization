@@ -31,8 +31,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://run-ptest \
           "
 
-SRC_URI[libvirt.md5sum] = "cce374220f67895afb6331bd2ddedbfd"
-SRC_URI[libvirt.sha256sum] = "bc29b5751bf36753c17e2fdbb75e70c7b07df3d9527586d3426e90f5f4abb898"
+SRC_URI[libvirt.md5sum] = "592958ad1ddce7574d8cb0a31e635acd"
+SRC_URI[libvirt.sha256sum] = "a48377e307c5c21b67e43db99af909a23c33aff8cbbaa3361fd389eb047cbbc3"
 
 inherit autotools gettext update-rc.d pkgconfig ptest
 
