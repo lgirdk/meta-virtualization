@@ -14,6 +14,10 @@ RDEPENDS_${PN}-pki = "${PN}"
 RDEPENDS_${PN}-brcompat = "${PN} ${PN}-switch"
 RRECOMMENDS_${PN} += "kernel-module-openvswitch"
 
+RDEPENDS_${PN}-ptest += "python-logging python-syslog python-argparse python-io \
+                     python-fcntl python-shell python-lang python-xml python-math \
+                     python-datetime python-netclient python sed"
+
 # Some installers will fail because of an install order based on
 # rdeps.  E.g. ovs-pki calls sed in the postinstall.  sed may be
 # queued for install later.
@@ -26,7 +30,9 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-controller-setup \
 	file://openvswitch-add-target-python-handling.patch \
 	file://openvswitch-add-target-perl-handling.patch \
-        file://openvswitch-add-more-target-python-substitutions.patch \
+	file://openvswitch-add-more-target-python-substitutions.patch \
+	file://openvswitch-add-ptest.patch \
+	file://run-ptest \
 	"
 
 SRC_URI[md5sum] = "7d7a58350e634e515e0fe43c64d64f44"
@@ -60,7 +66,13 @@ FILES_${PN}-switch = "${sysconfdir}/init.d/openvswitch-switch \
 FILES_${PN} += "${datadir}/ovsdbmonitor"
 FILES_${PN} += "/run"
 
-inherit autotools update-rc.d
+inherit autotools update-rc.d ptest
+
+EXTRA_OEMAKE += "TEST_DEST=${D}${PTEST_PATH} TEST_ROOT=${PTEST_PATH}"
+
+do_install_ptest() {
+	oe_runmake test-install
+}
 
 INITSCRIPT_PACKAGES = "${PN}-switch ${PN}-controller"
 INITSCRIPT_NAME_${PN}-switch = "openvswitch-switch"
