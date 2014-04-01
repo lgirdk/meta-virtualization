@@ -3,7 +3,7 @@ SECTION = "console/utils"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 PRIORITY = "optional"
-PR = "r3"
+PR = "r4"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -23,6 +23,9 @@ RDEPENDS_${PN} = " \
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
+	file://config_network_type-set-macvlan-default-mode-to-priv.patch \
+	file://lxc-busybox-follow-symlinks-when-inspecting-busybox-.patch \
+	file://network.c-Add-missing-LXC_NET_NONE-option-refactor.patch \
 	"
 SRC_URI[md5sum] = "87a9d168a6e55326303cce3b2cb7f82e"
 SRC_URI[sha256sum] = "0992212ddaad01dfe8c048e130566b73dd5f34191585f36bdac07a4f8a91f3bd"
