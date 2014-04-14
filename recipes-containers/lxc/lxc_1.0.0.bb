@@ -20,12 +20,15 @@ RDEPENDS_${PN} = " \
 		perl-module-overload \
 		perl-module-exporter-heavy \
 "
+RDEPENDS_${PN}-ptest += "file make"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://config_network_type-set-macvlan-default-mode-to-priv.patch \
 	file://lxc-busybox-follow-symlinks-when-inspecting-busybox-.patch \
 	file://network.c-Add-missing-LXC_NET_NONE-option-refactor.patch \
+	file://runtest.patch \
+	file://run-ptest \
 	"
 SRC_URI[md5sum] = "87a9d168a6e55326303cce3b2cb7f82e"
 SRC_URI[sha256sum] = "0992212ddaad01dfe8c048e130566b73dd5f34191585f36bdac07a4f8a91f3bd"
@@ -34,19 +37,22 @@ S = "${WORKDIR}/${BPN}-${PV}"
 
 # Let's not configure for the host distro.
 #
-EXTRA_OECONF += "--with-distro=${DISTRO}"
+PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
+EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[doc] = "--enable-doc,--disable-doc,,"
 PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
 PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
 
-inherit autotools pkgconfig
+inherit autotools pkgconfig ptest
 
 FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
+
+PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
 do_install_append() {
 	# The /var/cache/lxc directory created by the Makefile
@@ -58,8 +64,15 @@ do_install_append() {
 
 }
 
+EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
+
+do_install_ptest() {
+	oe_runmake -C src/tests install-ptest
+}
+
 pkg_postinst_${PN}() {
 	if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
 		/etc/init.d/populate-volatile.sh update
 	fi
 }
+
