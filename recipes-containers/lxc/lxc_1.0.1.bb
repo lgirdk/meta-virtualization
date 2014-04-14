@@ -30,8 +30,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://runtest.patch \
 	file://run-ptest \
 	"
-SRC_URI[md5sum] = "87a9d168a6e55326303cce3b2cb7f82e"
-SRC_URI[sha256sum] = "0992212ddaad01dfe8c048e130566b73dd5f34191585f36bdac07a4f8a91f3bd"
+SRC_URI[md5sum] = "3c7379891e45713817ec873a167070b0"
+SRC_URI[sha256sum] = "17d8e5b575207b4fb57da0b8ba2d13f3e5ee20ce8ccd1259d6eae4bd5ca575b1"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
