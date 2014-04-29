@@ -168,6 +168,7 @@ PACKAGECONFIG[ebtables] = "ac_cv_path_EBTABLES_PATH=/sbin/ebtables,ac_cv_path_EB
 PACKAGECONFIG[python] = ",,python,"
 PACKAGECONFIG[sasl] = "--with-sasl,--without-sasl,cyrus-sasl,cyrus-sasl"
 PACKAGECONFIG[iproute2] = "ac_cv_path_IP_PATH=/sbin/ip,ac_cv_path_IP_PATH=,iproute2,iproute2"
+PACKAGECONFIG[numactl] = "--with-numactl,--without-numactl,numactl,"
 
 # Enable the Python tool support
 require libvirt-python.inc
