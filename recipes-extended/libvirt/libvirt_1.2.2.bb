@@ -29,6 +29,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://libvirtd.conf \
            file://runptest.patch \
            file://run-ptest \
+           file://tests-allow-separated-src-and-build-dirs.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "592958ad1ddce7574d8cb0a31e635acd"
