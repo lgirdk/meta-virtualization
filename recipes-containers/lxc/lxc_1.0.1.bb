@@ -29,6 +29,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://network.c-Add-missing-LXC_NET_NONE-option-refactor.patch \
 	file://runtest.patch \
 	file://run-ptest \
+	file://automake-ensure-VPATH-builds-work-correctly.patch \
 	"
 SRC_URI[md5sum] = "3c7379891e45713817ec873a167070b0"
 SRC_URI[sha256sum] = "17d8e5b575207b4fb57da0b8ba2d13f3e5ee20ce8ccd1259d6eae4bd5ca575b1"
