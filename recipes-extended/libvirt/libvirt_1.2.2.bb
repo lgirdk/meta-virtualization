@@ -134,7 +134,6 @@ PRIVATE_LIBS_${PN}-ptest = " \
 # full config
 PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
                    remote macvtap libvirtd netcf udev python ebtables \
-                   ssh2 \
                    ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
                    ${@base_contains('DISTRO_FEATURES', 'xen', 'xen libxl xen-inotify', '', d)} \
                    ${@base_contains('DISTRO_FEATURES', 'x11', 'polkit', '', d)} \
@@ -170,7 +169,6 @@ PACKAGECONFIG[python] = ",,python,"
 PACKAGECONFIG[sasl] = "--with-sasl,--without-sasl,cyrus-sasl,cyrus-sasl"
 PACKAGECONFIG[iproute2] = "ac_cv_path_IP_PATH=/sbin/ip,ac_cv_path_IP_PATH=,iproute2,iproute2"
 PACKAGECONFIG[numactl] = "--with-numactl,--without-numactl,numactl,"
-PACKAGECONFIG[ssh2] = "--with-ssh2,--without-ssh2,libssh2,"
 
 # Enable the Python tool support
 require libvirt-python.inc
