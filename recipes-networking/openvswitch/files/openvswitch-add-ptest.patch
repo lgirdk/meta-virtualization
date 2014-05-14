@@ -2,19 +2,20 @@ Add test-install rule to support ptest execution
 
 Signed-off-by: Radu Patriu <radu.patriu@enea.com>
 
-Index: ovs/Makefile.am
+Index: openvswitch-2.1.2/Makefile.am
 ===================================================================
---- ovs.orig/Makefile.am	2014-03-10 16:19:46.000000000 +0200
-+++ ovs/Makefile.am	2014-03-10 16:23:10.481075341 +0200
-@@ -276,3 +276,4 @@
- include python/automake.mk
+--- openvswitch-2.1.2.orig/Makefile.am
++++ openvswitch-2.1.2/Makefile.am
+@@ -300,3 +300,5 @@
  include python/compat/automake.mk
  include tutorial/automake.mk
+ include vtep/automake.mk
 +include test.mk
-Index: ovs/test.mk
++
+Index: openvswitch-2.1.2/test.mk
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ ovs/test.mk	2014-03-10 16:42:41.000000000 +0200
+--- /dev/null
++++ openvswitch-2.1.2/test.mk
 @@ -0,0 +1,49 @@
 +TEST_DEST ?= ${prefix}/lib/openvswitch
 +TEST_ROOT ?= ${prefix}/lib/openvswitch

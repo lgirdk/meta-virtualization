@@ -35,10 +35,10 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://run-ptest \
 	"
 
-SRC_URI[md5sum] = "7d7a58350e634e515e0fe43c64d64f44"
-SRC_URI[sha256sum] = "5060e2be69cce01c15f67b481482cb1a0eaa6ef5cbdbed592bac3c3ab2a390f8"
+SRC_URI[md5sum] = "430ff6d1e1fc81e9c5ebc2e641cfc953"
+SRC_URI[sha256sum] = "875429b052c4001815b6cb38616c7a6cb212df4bba74602164ee0a99b172079b"
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=49eeb5acb1f5e510f12c44f176c42253"
+LIC_FILES_CHKSUM = "file://COPYING;md5=e03b0d9c4115c44518594e5618e653f8"
 
 # Don't compile kernel modules by default since it heavily depends on
 # kernel version. Use the in-kernel module for now.

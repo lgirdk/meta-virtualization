@@ -24,11 +24,11 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  utilities/ovs-vlan-test.in         | 2 +-
  11 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/Makefile.am b/Makefile.am
-index b71ca1f..c4f8341 100644
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -112,6 +112,7 @@ SUFFIXES += .in
+Index: openvswitch-2.1.2/Makefile.am
+===================================================================
+--- openvswitch-2.1.2.orig/Makefile.am
++++ openvswitch-2.1.2/Makefile.am
+@@ -125,6 +125,7 @@
                  -e 's,[@]DBDIR[@],$(DBDIR),g' \
                  -e 's,[@]PERL[@],$(PERL),g' \
                  -e 's,[@]PYTHON[@],$(PYTHON),g' \
@@ -36,11 +36,11 @@ index b71ca1f..c4f8341 100644
                  -e 's,[@]RUNDIR[@],$(RUNDIR),g' \
                  -e 's,[@]VERSION[@],$(VERSION),g' \
                  -e 's,[@]localstatedir[@],$(localstatedir),g' \
-diff --git a/configure.ac b/configure.ac
-index 060b53f..74cb691 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -101,6 +101,13 @@ AC_ARG_VAR(KARCH, [Kernel Architecture String])
+Index: openvswitch-2.1.2/configure.ac
+===================================================================
+--- openvswitch-2.1.2.orig/configure.ac
++++ openvswitch-2.1.2/configure.ac
+@@ -118,6 +118,13 @@
  AC_SUBST(KARCH)
  OVS_CHECK_LINUX
  
@@ -51,99 +51,86 @@ index 060b53f..74cb691 100644
 +fi
 +AC_SUBST(TARGET_PYTHON)
 +
- AC_CONFIG_FILES([Makefile 
- datapath/Makefile 
- datapath/linux/Kbuild
-diff --git a/ovsdb/ovsdbmonitor/ovsdbmonitor.in b/ovsdb/ovsdbmonitor/ovsdbmonitor.in
-index e26130a..aaf1aff 100755
---- a/ovsdb/ovsdbmonitor/ovsdbmonitor.in
-+++ b/ovsdb/ovsdbmonitor/ovsdbmonitor.in
-@@ -1,4 +1,4 @@
--#! @PYTHON@
-+#! @TARGET_PYTHON@
- # Copyright (c) 2010 Citrix Systems, Inc.
- #
- # Licensed under the Apache License, Version 2.0 (the "License");
-diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
-index 2074e23..525939e 100755
---- a/utilities/bugtool/ovs-bugtool.in
-+++ b/utilities/bugtool/ovs-bugtool.in
+ AC_CONFIG_FILES(Makefile)
+ AC_CONFIG_FILES(datapath/Makefile)
+ AC_CONFIG_FILES(datapath/linux/Kbuild)
+Index: openvswitch-2.1.2/utilities/bugtool/ovs-bugtool.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/bugtool/ovs-bugtool.in
++++ openvswitch-2.1.2/utilities/bugtool/ovs-bugtool.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  
  # This library is free software; you can redistribute it and/or
  # modify it under the terms of version 2.1 of the GNU Lesser General Public
-diff --git a/utilities/ovs-check-dead-ifs.in b/utilities/ovs-check-dead-ifs.in
-index 9b806ed..b6f6fcb 100755
---- a/utilities/ovs-check-dead-ifs.in
-+++ b/utilities/ovs-check-dead-ifs.in
+Index: openvswitch-2.1.2/utilities/ovs-check-dead-ifs.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-check-dead-ifs.in
++++ openvswitch-2.1.2/utilities/ovs-check-dead-ifs.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  
  import os
  import re
-diff --git a/utilities/ovs-l3ping.in b/utilities/ovs-l3ping.in
-index 1b07972..4fedb6f 100644
---- a/utilities/ovs-l3ping.in
-+++ b/utilities/ovs-l3ping.in
+Index: openvswitch-2.1.2/utilities/ovs-l3ping.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-l3ping.in
++++ openvswitch-2.1.2/utilities/ovs-l3ping.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
  # you may not use this file except in compliance with the License.
-diff --git a/utilities/ovs-parse-backtrace.in b/utilities/ovs-parse-backtrace.in
-index 4f793be..4a07f47 100755
---- a/utilities/ovs-parse-backtrace.in
-+++ b/utilities/ovs-parse-backtrace.in
+Index: openvswitch-2.1.2/utilities/ovs-parse-backtrace.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-parse-backtrace.in
++++ openvswitch-2.1.2/utilities/ovs-parse-backtrace.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Copyright (c) 2012 Nicira, Inc.
  #
-diff --git a/utilities/ovs-pcap.in b/utilities/ovs-pcap.in
-index 5306480..3221c7c 100755
---- a/utilities/ovs-pcap.in
-+++ b/utilities/ovs-pcap.in
+Index: openvswitch-2.1.2/utilities/ovs-pcap.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-pcap.in
++++ openvswitch-2.1.2/utilities/ovs-pcap.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Copyright (c) 2010 Nicira, Inc.
  #
-diff --git a/utilities/ovs-tcpundump.in b/utilities/ovs-tcpundump.in
-index 0268c50..dad0bb5 100755
---- a/utilities/ovs-tcpundump.in
-+++ b/utilities/ovs-tcpundump.in
+Index: openvswitch-2.1.2/utilities/ovs-tcpundump.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-tcpundump.in
++++ openvswitch-2.1.2/utilities/ovs-tcpundump.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Copyright (c) 2010 Nicira, Inc.
  #
-diff --git a/utilities/ovs-test.in b/utilities/ovs-test.in
-index fb1f9ad..bddd327 100644
---- a/utilities/ovs-test.in
-+++ b/utilities/ovs-test.in
+Index: openvswitch-2.1.2/utilities/ovs-test.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-test.in
++++ openvswitch-2.1.2/utilities/ovs-test.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
  # you may not use this file except in compliance with the License.
-diff --git a/utilities/ovs-vlan-test.in b/utilities/ovs-vlan-test.in
-index e229498..da64040 100755
---- a/utilities/ovs-vlan-test.in
-+++ b/utilities/ovs-vlan-test.in
+Index: openvswitch-2.1.2/utilities/ovs-vlan-test.in
+===================================================================
+--- openvswitch-2.1.2.orig/utilities/ovs-vlan-test.in
++++ openvswitch-2.1.2/utilities/ovs-vlan-test.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
 +#! @TARGET_PYTHON@
  #
  # Copyright (c) 2010 Nicira, Inc.
  #
--- 
-1.8.1.2
-
