@@ -18,7 +18,7 @@ DEPENDS += "augeas libnl libxslt libxml2"
 
 S = "${WORKDIR}/git"
 
-inherit gettext autotools
+inherit gettext autotools-brokensep
 
 do_configure_prepend() {
 	cd ${S}
