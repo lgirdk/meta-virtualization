@@ -12,7 +12,7 @@ Index: libvirt-1.2.4/tests/Makefile.am
  	-I$(top_srcdir)/src/conf \
  	$(GETTEXT_CPPFLAGS)
  
-+PTEST_DIR ?= /usr/lib/libvirt/ptest
++PTEST_DIR ?= $(libdir)/libvirt/ptest
 +
  AM_CFLAGS = \
 -	-Dabs_builddir="\"$(abs_builddir)\"" \
