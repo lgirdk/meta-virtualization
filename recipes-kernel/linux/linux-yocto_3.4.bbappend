@@ -8,9 +8,9 @@ SRC_URI += "file://xt-checksum.scc \
 module_autoload_openvswitch = "openvswitch"
 KERNEL_FEATURES_append = " features/kvm/qemu-kvm-enable.scc"
 
-module_autoload_kvm = "kvm"
-module_autoload_kvm-amd = "kvm-amd"
-module_autoload_kvm-intel = "kvm-intel"
+KERNEL_MODULE_AUTOLOAD += "kvm"
+KERNEL_MODULE_AUTOLOAD += "kvm-amd"
+KERNEL_MODULE_AUTOLOAD += "kvm-intel"
 
 # xen kernel support
 SRC_URI += "${@base_contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"

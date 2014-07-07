@@ -8,9 +8,9 @@ SRC_URI += "file://xt-checksum.scc \
 module_autoload_openvswitch = "openvswitch"
 KERNEL_FEATURES_append = " features/kvm/qemu-kvm-enable.scc"
 
-module_autoload_kvm = "kvm"
-module_autoload_kvm-amd = "kvm-amd"
-module_autoload_kvm-intel = "kvm-intel"
+KERNEL_MODULE_AUTOLOAD += "kvm"
+KERNEL_MODULE_AUTOLOAD += "kvm-amd"
+KERNEL_MODULE_AUTOLOAD += "kvm-intel"
 
 # aufs kernel support required for xen-image-minimal
 KERNEL_FEATURES_append += "${@base_contains('DISTRO_FEATURES', 'aufs', ' features/aufs/aufs-enable.scc', '', d)}"
