@@ -5,9 +5,9 @@ SRC_URI += "file://xt-checksum.scc \
 	    file://vswitch.scc \
 	    file://lxc.scc \
 	    "
-module_autoload_openvswitch = "openvswitch"
 KERNEL_FEATURES_append = " features/kvm/qemu-kvm-enable.scc"
 
+KERNEL_MODULE_AUTOLOAD += "openvswitch"
 KERNEL_MODULE_AUTOLOAD += "kvm"
 KERNEL_MODULE_AUTOLOAD += "kvm-amd"
 KERNEL_MODULE_AUTOLOAD += "kvm-intel"
