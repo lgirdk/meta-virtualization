@@ -18,6 +18,7 @@ branch: master
 revision: HEAD
 layers: meta-oe
 	meta-networking
+        meta-filesystems
 
 BBFILE_PRIORITY_openembedded-layer = "4"
 
