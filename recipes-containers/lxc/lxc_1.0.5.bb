@@ -3,7 +3,6 @@ SECTION = "console/utils"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 PRIORITY = "optional"
-PR = "r4"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -24,15 +23,12 @@ RDEPENDS_${PN}-ptest += "file make"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
-	file://config_network_type-set-macvlan-default-mode-to-priv.patch \
-	file://lxc-busybox-follow-symlinks-when-inspecting-busybox-.patch \
-	file://network.c-Add-missing-LXC_NET_NONE-option-refactor.patch \
 	file://runtest.patch \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-work-correctly.patch \
 	"
-SRC_URI[md5sum] = "3c7379891e45713817ec873a167070b0"
-SRC_URI[sha256sum] = "17d8e5b575207b4fb57da0b8ba2d13f3e5ee20ce8ccd1259d6eae4bd5ca575b1"
+SRC_URI[md5sum] = "9d9af9e9e69a831cd50b58d91c786013"
+SRC_URI[sha256sum] = "02ac82e69a76d424e5443b9c577e84a8eaafcebf17cfd865eedee147e8ef8844"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
@@ -76,4 +72,3 @@ pkg_postinst_${PN}() {
 		/etc/init.d/populate-volatile.sh update
 	fi
 }
-
