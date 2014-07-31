@@ -200,6 +200,9 @@ do_install_append() {
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 	echo "d root root 0755 ${localstatedir}/run/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+
+	# Add hook support for libvirt
+	mkdir -p ${D}/etc/libvirt/hooks 
 }
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH}"
