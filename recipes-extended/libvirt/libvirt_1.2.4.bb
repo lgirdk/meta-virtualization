@@ -68,6 +68,10 @@ ac_cv_path_LVS=/usr/sbin/lvs \
 ac_cv_path_PARTED=/usr/sbin/parted \
 ac_cv_path_DMSETUP=/usr/sbin/dmsetup"
 
+# Ensure that libvirt uses polkit rather than policykit, whether the host has
+# pkcheck installed or not, and ensure the path is correct per our config.
+CACHED_CONFIGUREVARS += "ac_cv_path_PKCHECK_PATH=${bindir}/pkcheck"
+
 # Some other possible paths we are not yet setting
 #ac_cv_path_RPCGEN=
 #ac_cv_path_XSLTPROC=
@@ -76,7 +80,6 @@ ac_cv_path_DMSETUP=/usr/sbin/dmsetup"
 #ac_cv_path_EBTABLES_PATH=
 #ac_cv_path_PKG_CONFIG=
 #ac_cv_path_ac_pt_PKG_CONFIG
-#ac_cv_path_PKCHECK_PATH=
 #ac_cv_path_POLKIT_AUTH=
 #ac_cv_path_DTRACE=
 #ac_cv_path_ISCSIADM=
