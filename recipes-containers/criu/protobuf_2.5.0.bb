@@ -19,16 +19,16 @@ EXTRA_OECONF += " --with-protoc=echo"
 inherit autotools setuptools
 
 do_compile() {
-    # Compile protoc compiler
-    base_do_compile
+	# Compile protoc compiler
+	base_do_compile
 }
 
 do_install() {
-    # Install protoc compiler
-    autotools_do_install
-    # Install header files
-    cd "${PYTHON_SRC_DIR}"
-    distutils_do_install
+	# Install protoc compiler
+	autotools_do_install
+	# Install header files
+	cd "${PYTHON_SRC_DIR}"
+	distutils_do_install
 }
 
 BBCLASSEXTEND = "native nativesdk"
