@@ -16,10 +16,10 @@ SRC_URI = "http://protobuf.googlecode.com/files/protobuf-${PV}.tar.gz \
 	file://protobuf-allow-running-python-scripts-from-anywhere.patch \
 	file://run-ptest"
 
-EXTRA_OECONF += " --with-protoc=echo"
+EXTRA_OECONF += " --with-protoc=${STAGING_BINDIR_NATIVE}/protoc"
 inherit autotools setuptools ptest
 
-RDEPENDS_${PN}-ptest += "make"
+DEPENDS += "protobuf-native"
 
 PYTHON_SRC_DIR="python"
 TEST_SRC_DIR="examples"
@@ -64,6 +64,7 @@ do_install() {
 	autotools_do_install
 
 	# Install header files
+	export PROTOC="${STAGING_BINDIR_NATIVE}/protoc"
 	cd "${S}/${PYTHON_SRC_DIR}"
 	distutils_do_install
 
@@ -85,4 +86,5 @@ do_install_ptest() {
 	cd "$olddir"
 }
 
-BBCLASSEXTEND = "native nativesdk"
+BBCLASSEXTEND = "nativesdk"
+
