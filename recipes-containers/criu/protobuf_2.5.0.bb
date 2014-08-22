@@ -34,12 +34,14 @@ do_compile_ptest() {
 	# Modify makefile to use the cross-compiler
 	sed -e "s|c++|${CXX}|g" -i "${S}/${TEST_SRC_DIR}/Makefile"
 
+	mkdir -p "${B}/${TEST_SRC_DIR}"
+
 	# Add the location of the cross-compiled header and library files
 	# which haven't been installed yet.
-	cp "${S}/protobuf.pc" "${S}/${TEST_SRC_DIR}/protobuf.pc"
-	sed -e 's|Cflags:|Cflags: -I${S}/src|' -i "${S}/${TEST_SRC_DIR}/protobuf.pc"
-	sed -e 's|Libs:|Libs: -L${S}/src/.libs|' -i "${S}/${TEST_SRC_DIR}/protobuf.pc"
-	export PKG_CONFIG_PATH="${S}/${TEST_SRC_DIR}"
+	cp "${B}/protobuf.pc" "${B}/${TEST_SRC_DIR}/protobuf.pc"
+	sed -e 's|Cflags:|Cflags: -I${S}/src|' -i "${B}/${TEST_SRC_DIR}/protobuf.pc"
+	sed -e 's|Libs:|Libs: -L${B}/src/.libs|' -i "${B}/${TEST_SRC_DIR}/protobuf.pc"
+	export PKG_CONFIG_PATH="${B}/${TEST_SRC_DIR}"
 
 	# Save the pkgcfg sysroot variable, and update it to nothing so
 	# that it doesn't append the sysroot to the beginning of paths.
