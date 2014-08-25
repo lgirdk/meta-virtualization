@@ -15,7 +15,7 @@ SRC_URI = "git://git.opensvc.com/multipath-tools/.git;protocol=http"
 SRCREV = "d3683ab18b386e9b3b54b59a122c689e9ebdf5cf"
 PV = "0.4.9+gitr${SRCPV}"
 
-inherit autotools
+inherit autotools-brokensep
 
 EXTRA_OEMAKE="LIB=${libdir} exec_prefix=${exec_prefix} libdir=${libdir}"
 
