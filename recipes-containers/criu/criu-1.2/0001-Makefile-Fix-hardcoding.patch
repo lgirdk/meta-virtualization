@@ -1,0 +1,42 @@
+From fa785bb1eb9cb0039d77836f4658c7bcccae5999 Mon Sep 17 00:00:00 2001
+From: Alexey Firago <alexey_firago@mentor.com>
+Date: Wed, 9 Jul 2014 02:01:11 +0400
+Subject: [PATCH] Makefile: Fix hardcoding
+
+Signed-off-by: Alexey Firago <alexey_firago@mentor.com>
+---
+ Makefile | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index bda808d..4614ae2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -23,15 +23,15 @@ export VERSION_SO_MAJOR VERSION_SO_MINOR
+ # Common definitions
+ #
+ 
+-FIND		:= find
+-CSCOPE		:= cscope
+-RM		:= rm -f
+-LD		:= $(CROSS_COMPILE)ld
+-CC		:= $(CROSS_COMPILE)gcc
+-NM		:= $(CROSS_COMPILE)nm
+-SH		:= bash
+-MAKE		:= make
+-OBJCOPY		:= $(CROSS_COMPILE)objcopy
++FIND		?= find
++CSCOPE		?= cscope
++RM		?= rm -f
++LD		?= $(CROSS_COMPILE)ld
++CC		?= $(CROSS_COMPILE)gcc
++NM		?= $(CROSS_COMPILE)nm
++SH		?= bash
++MAKE		?= make
++OBJCOPY		?= $(CROSS_COMPILE)objcopy
+ 
+ CFLAGS		+= $(USERCFLAGS)
+ 
+-- 
+1.9.1
+
