@@ -3,7 +3,7 @@ DESCRIPTION = "This package provides the tools to manage multipathed devices by 
 instructing the device-mapper multipath module what to do"
 
 HOMEPAGE = "http://christophe.varoqui.free.fr/"
-DEPENDS = "readline libaio lvm2"
+DEPENDS = "readline libaio lvm2 udev"
 LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=7be2873b6270e45abacc503abbe2aa3d"
