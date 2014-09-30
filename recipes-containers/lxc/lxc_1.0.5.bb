@@ -38,7 +38,7 @@ PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '',
 EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
 PACKAGECONFIG ??= "templates"
-PACKAGECONFIG[doc] = "--enable-doc,--disable-doc,,"
+PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api-docs,,"
 PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
 PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
