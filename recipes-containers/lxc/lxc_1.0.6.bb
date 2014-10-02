@@ -25,10 +25,9 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://runtest.patch \
 	file://run-ptest \
-	file://automake-ensure-VPATH-builds-work-correctly.patch \
 	"
-SRC_URI[md5sum] = "9d9af9e9e69a831cd50b58d91c786013"
-SRC_URI[sha256sum] = "02ac82e69a76d424e5443b9c577e84a8eaafcebf17cfd865eedee147e8ef8844"
+SRC_URI[md5sum] = "4aad3aee84b42faa194e44091d723a3b"
+SRC_URI[sha256sum] = "fc6bffa750f00daaa92aa33d719c1cc235146aa779ebd2a64a0c24423977cf14"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
