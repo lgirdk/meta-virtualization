@@ -35,8 +35,8 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://run-ptest \
 	"
 
-SRC_URI[md5sum] = "430ff6d1e1fc81e9c5ebc2e641cfc953"
-SRC_URI[sha256sum] = "875429b052c4001815b6cb38616c7a6cb212df4bba74602164ee0a99b172079b"
+SRC_URI[md5sum] = "d3c8a69df3d1b1a9eaef5a896576fd2a"
+SRC_URI[sha256sum] = "43a2562fe5e8e48e997bfdb04691ffaaaefe73069b5699654538bf2f16ebfb1a"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=e03b0d9c4115c44518594e5618e653f8"
 
