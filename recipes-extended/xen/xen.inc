@@ -64,17 +64,22 @@ RDEPENDS_${PN}-base = "\
     ${PN}-libxenstore \
     ${PN}-libfsimage \
     ${PN}-fsimage \
-    ${PN}-hvmloader \
     ${PN}-scripts-block \
     ${PN}-scripts-network \
     ${PN}-udev \
-    ${PN}-xenpaging \
     ${PN}-xen-watchdog \
     ${PN}-xencommons \
     ${PN}-xendomains \
     ${PN}-xenstore \
     ${PN}-xenstored \
     ${PN}-xl \
+    "
+
+RRECOMMENDS_${PN}-base = " \
+    ${PN}-libblktap \
+    ${PN}-flask \
+    ${PN}-hvmloader \
+    ${PN}-xenpaging \
     "
 
 RDEPENDS_${PN}-misc = " \
