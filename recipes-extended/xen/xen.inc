@@ -10,6 +10,8 @@ COMPATIBLE_HOST = '(x86_64.*).*-linux'
 
 inherit autotools-brokensep gettext setuptools update-rc.d
 
+require xen-arch.inc
+
 PACKAGECONFIG ??= " \
     sdl \
     "
@@ -618,9 +620,9 @@ export HOST_SYS
 export STAGING_INCDIR
 export STAGING_LIBDIR
 
-# specify xen hypervisor to target x86_64 (x86_32 not supported)
-export XEN_TARGET_ARCH="x86_64"
-export XEN_COMPILE_ARCH="x86_64"
+# specify xen hypervisor to build/target
+export XEN_TARGET_ARCH = "${@map_xen_arch(d.getVar('TARGET_ARCH', True), d)}"
+export XEN_COMPILE_ARCH = "${@map_xen_arch(d.getVar('BUILD_ARCH', True), d)}"
 
 # hardcoded as Linux, as the only compatible hosts are Linux.
 export XEN_OS = "Linux"
