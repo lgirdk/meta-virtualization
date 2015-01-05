@@ -8,16 +8,41 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux'
 
-inherit autotools gettext setuptools update-rc.d
+inherit autotools-brokensep gettext setuptools update-rc.d
 
 PACKAGECONFIG ??= " \
     sdl \
-"
+    "
 
 PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
 
-DEPENDS = "util-linux util-linux-native file-native zlib ncurses openssl bison-native flex-native gettext dev86-native iasl-native pciutils bridge-utils iproute2 procps yajl pixman python xz xz-native glib-2.0"
+DEPENDS = " \
+    bison-native \
+    dev86-native \
+    flex-native \
+    file-native \
+    iasl-native \
+    util-linux-native \
+    xz-native \
+    bridge-utils \
+    dtc \
+    gettext \
+    glib-2.0 \
+    iproute2 \
+    ncurses \
+    openssl \
+    pciutils \
+    pixman \
+    procps \
+    python \
+    libaio \
+    lzo \
+    util-linux \
+    xz \
+    yajl \
+    zlib \
+    "
 
 # inherit setuptools adds python to RDEPENDS, override it
 RDEPENDS_${PN} = ""
@@ -50,13 +75,24 @@ RDEPENDS_${PN}-base = "\
     ${PN}-xl \
     "
 
+RDEPENDS_${PN}-misc = " \
+    perl \
+    python \
+    "
+
+RDEPENDS_${PN}-remus = "python"
+
 RDEPENDS_${PN}-scripts-block = "\
+    bash \
     ${PN}-scripts-common \
     ${PN}-udev \
     ${PN}-volatiles \
     "
 
+RDEPENDS_${PN}-scripts-common = "bash"
+
 RDEPENDS_${PN}-scripts-network = "\
+    bash \
     bridge-utils \
     ${PN}-scripts-common \
     ${PN}-udev \
@@ -64,6 +100,7 @@ RDEPENDS_${PN}-scripts-network = "\
     "
 
 RDEPENDS_${PN}-xencommons = "\
+    bash \
     ${PN}-console \
     ${PN}-xenstore \
     ${PN}-xenstored \
@@ -71,6 +108,7 @@ RDEPENDS_${PN}-xencommons = "\
     "
 
 RDEPENDS_${PN}-xendomains = "\
+    bash \
     ${PN}-console \
     ${PN}-scripts-block \
     ${PN}-scripts-common \
@@ -78,6 +116,10 @@ RDEPENDS_${PN}-xendomains = "\
     "
 
 RDEPENDS_${PN}-xl = "libgcc"
+
+RDEPENDS_${PN}-xentrace = "python"
+
+RDEPENDS_${PN}-xen-watchdog = "bash"
 
 PACKAGES = "\
     ${PN}-base \
@@ -156,8 +198,10 @@ FILES_${PN}-dbg += "\
     ${libdir}/fs/zfs/.debug \
     ${libdir}/fs/reiserfs/.debug \
     ${libdir}/fs/iso9660/.debug \
+    ${libdir}/fs/*/.debug \
     ${sbindir}/.debug \
     ${libdir}exec/.debug \
+    ${libdir}/xen/libexec/.debug \
     ${bindir}/.debug \
     ${libdir}/python2.7/dist-packages/.debug \
     ${libdir}/python2.7/dist-packages/xen/lowlevel/.debug \
@@ -299,6 +343,7 @@ FILES_${PN}-misc = "\
     ${sbindir}/xen-hvmctx \
     ${sbindir}/xenlockprof \
     ${sbindir}/xen-lowmemd \
+    ${sbindir}/xen-mfndump \
     "
 
 FILES_${PN}-pygrub = "\
@@ -323,8 +368,10 @@ FILES_${PN}-qemu = " \
     ${libdir}/xen/bin/qemu-dm \
     ${libdir}/xen/bin/virtfs-proxy-helper \
     /usr/libexec/qemu-bridge-helper \
+    ${libdir}/xen/libexec/qemu-bridge-helper \
     /usr/etc/qemu \
     /usr/etc/qemu/target-x86_64.conf \
+    ${libdir}/xen/etc/qemu/target-x86_64.conf \
     ${datadir}/qemu-xen \
     ${datadir}/qemu-xen/qemu \
     ${datadir}/qemu-xen/qemu/bamboo.dtb \
@@ -421,6 +468,7 @@ FILES_${PN}-scripts-block = " \
     ${sysconfdir}/xen/scripts/block-enbd \
     ${sysconfdir}/xen/scripts/block-iscsi \
     ${sysconfdir}/xen/scripts/block-nbd \
+    ${sysconfdir}/xen/scripts/block-drbd-probe \
     ${sysconfdir}/xen/scripts/vscsi \
     "
 
@@ -505,6 +553,7 @@ FILES_${PN}-xl = "\
     ${sysconfdir}/xen/xl.conf \
     ${libdir}/xen/bin/libxl-save-helper \
     ${sbindir}/xl \
+    ${libdir}/xen/bin/xen-init-dom0 \
     "
 
 FILES_${PN}-xl-examples = "\
@@ -522,7 +571,7 @@ FILES_${PN}-xm-examples = "\
     ${sysconfdir}/xen/xmexample.pv-grub \
     ${sysconfdir}/xen/xmexample.vti \
     "
-    
+
 FILES_${PN}-xenmon = "\
     ${sbindir}/xenbaked \
     ${sbindir}/xentrace_setmask \
@@ -546,6 +595,7 @@ FILES_${PN}-xend += " \
     "
 
 FILES_${PN}-xendomains += "\
+    ${libdir}/xen/bin/xendomains \
     ${sysconfdir}/default/xendomains \
     ${sysconfdir}/init.d/xendomains \
     ${sysconfdir}/sysconfig/xendomains \
@@ -571,6 +621,9 @@ export STAGING_LIBDIR
 # specify xen hypervisor to target x86_64 (x86_32 not supported)
 export XEN_TARGET_ARCH="x86_64"
 export XEN_COMPILE_ARCH="x86_64"
+
+# hardcoded as Linux, as the only compatible hosts are Linux.
+export XEN_OS = "Linux"
 
 # this is used for the header (#!${bindir}/python) of the install python scripts
 export PYTHONPATH="${bindir}/python"
@@ -620,7 +673,11 @@ do_install() {
     oe_runmake DESTDIR="${D}" install
 
     # remove installed volatiles
-    rm -rf ${D}${localstatedir}/run ${D}${localstatedir}/lock ${D}${localstatedir}/log ${D}${localstatedir}/volatile
+    rm -rf ${D}${localstatedir}/run \
+        ${D}${localstatedir}/lock \
+        ${D}${localstatedir}/log \
+        ${D}${localstatedir}/volatile \
+        ${D}${localstatedir}/lib/xen
 
     # install volatiles using populate_volatiles mechanism
     install -d ${D}${sysconfdir}/default/volatiles
@@ -637,6 +694,8 @@ do_install() {
     echo "d root root 0755 ${localstatedir}/lock/xen none" \
          >> ${D}${sysconfdir}/default/volatiles/99_xen
     echo "d root root 0755 ${localstatedir}/lock/subsys none" \
+         >> ${D}${sysconfdir}/default/volatiles/99_xen
+    echo "d root root 0755 ${localstatedir}/lib/xen none" \
          >> ${D}${sysconfdir}/default/volatiles/99_xen
 
     # workaround for xendomains script which searchs sysconfig if directory exists
