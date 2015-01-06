@@ -6,7 +6,7 @@ PR = "r0"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
 
-COMPATIBLE_HOST = '(x86_64.*).*-linux'
+COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
 
 inherit autotools-brokensep gettext setuptools update-rc.d
 
