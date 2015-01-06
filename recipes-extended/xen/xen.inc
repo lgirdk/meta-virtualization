@@ -274,6 +274,8 @@ FILES_${PN}-libfsimage-dev = "${libdir}/libfsimage.so"
 FILES_${PN}-fsimage = "${libdir}/fs/*/*fsimage.so"
 
 FILES_${PN}-hypervisor = "\
+    /boot/xen-* \
+    /boot/xen \
     /boot/xen-*.gz \
     /boot/xen.gz \
     /boot/xen-syms-* \
@@ -656,20 +658,18 @@ EXTRA_OECONF += " \
 
 do_configure() {
     # no stubs-32.h in our 64-bit sysroot - hack it into tools/include/gnu
-    test -d ${S}/tools/include/gnu || mkdir ${S}/tools/include/gnu
     if ! test -f ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-32.h ; then
-        cat ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-64.h | grep -v stub_bdflush | grep -v stub_getmsg | grep -v stub_putmsg > ${S}/tools/include/gnu/stubs-32.h
-        echo \#define __stub___kernel_cosl >> ${S}/tools/include/gnu/stubs-32.h
-        echo \#define __stub___kernel_sinl >> ${S}/tools/include/gnu/stubs-32.h
-        echo \#define __stub___kernel_tanl >> ${S}/tools/include/gnu/stubs-32.h
+        if test -f ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-64.h ; then
+            test -d ${S}/tools/include/gnu || mkdir ${S}/tools/include/gnu
+            cat ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-64.h | grep -v stub_bdflush | grep -v stub_getmsg | grep -v stub_putmsg > ${S}/tools/include/gnu/stubs-32.h
+            echo \#define __stub___kernel_cosl >> ${S}/tools/include/gnu/stubs-32.h
+            echo \#define __stub___kernel_sinl >> ${S}/tools/include/gnu/stubs-32.h
+            echo \#define __stub___kernel_tanl >> ${S}/tools/include/gnu/stubs-32.h
+        fi
     fi
 
     # do configure
     oe_runconf
-
-    # seabios needs a patch to specify correct compiler - pull and patch Makefile
-    make -C ${S}/tools/firmware seabios-dir
-    sed -i 's/export HOSTCC.*$(CC)/export HOSTCC ?= $(CC)/g' ${S}/tools/firmware/seabios-dir/Makefile
 }
 
 do_compile() {
@@ -720,5 +720,10 @@ sysroot_stage_all_append() {
     sysroot_stage_dir ${D}/boot ${SYSROOT_DESTDIR}/kernel
 
     install -d ${DEPLOY_DIR_IMAGE}
-    install -m 0644 ${D}/boot/xen.gz ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz
+    if [ -f ${D}/boot/xen ]; then
+        install -m 0644 ${D}/boot/xen ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}
+    fi
+    if [ -f ${D}/boot/xen.gz ]; then
+        install -m 0644 ${D}/boot/xen.gz ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz
+    fi
 }
