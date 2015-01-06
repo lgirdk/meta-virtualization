@@ -4,7 +4,7 @@ inherit core-image
 
 IMAGE_INSTALL += " \
     packagegroup-core-boot \
-    kernel-module-xen-acpi-processor \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'acpi', 'kernel-module-xen-acpi-processor', '', d)} \
     "
 
 IMAGE_INSTALL += "${@base_contains('DISTRO_FEATURES', 'x11', ' xf86-video-fbdev', '', d)}"
