@@ -26,12 +26,10 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://runtest.patch \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-correctly.patch \
-	file://busybox_template_mount_fstab_when_available.patch \
-	file://busybox_template_support_for_unprivileged_containers.patch \
 	"
 
-SRC_URI[md5sum] = "4aad3aee84b42faa194e44091d723a3b"
-SRC_URI[sha256sum] = "fc6bffa750f00daaa92aa33d719c1cc235146aa779ebd2a64a0c24423977cf14"
+SRC_URI[md5sum] = "b48f468a9bef0e4e140dd723f0a65ad0"
+SRC_URI[sha256sum] = "3c0cb2d95d9d8a8d59c7189d237a45cde77f38ea180fbff2c148d59e176e9dab"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
