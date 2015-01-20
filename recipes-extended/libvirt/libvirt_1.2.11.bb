@@ -32,8 +32,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tests-allow-separated-src-and-build-dirs.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "75114991290f7c8f01dd5223431b9c00"
-SRC_URI[libvirt.sha256sum] = "0049940b013ea5858b53d9b540c9df9cc3c8cb08750acfd96e9991a1f709e100"
+SRC_URI[libvirt.md5sum] = "616ad039f212c02f7e055c5cf28c0a76"
+SRC_URI[libvirt.sha256sum] = "1b886429734a53fc9a201f46d77448fda963e1323246269eb0dcb4c12fb02fcc"
 
 inherit autotools gettext update-rc.d pkgconfig ptest
 
