@@ -13,7 +13,7 @@ IMAGE_INSTALL += " \
     ${@bb.utils.contains('MACHINE_FEATURES', 'pci', 'kernel-module-xen-pciback', '', d)} \
     kernel-module-xen-wdt \
     xen-base \
-    xen-qemu \
+    qemu \
     "
 
 LICENSE = "MIT"
