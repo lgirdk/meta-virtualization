@@ -8,16 +8,18 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
 
-inherit autotools-brokensep gettext setuptools update-rc.d
+inherit autotools-brokensep gettext setuptools update-rc.d systemd
 
 require xen-arch.inc
 
 PACKAGECONFIG ??= " \
     sdl \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
     "
 
 PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
+PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd,systemd,"
 
 DEPENDS = " \
     bison-native \
@@ -111,6 +113,7 @@ RDEPENDS_${PN}-xencommons = "\
     ${PN}-console \
     ${PN}-xenstore \
     ${PN}-xenstored \
+    ${PN}-xl \
     ${PN}-scripts-common \
     "
 
@@ -499,6 +502,7 @@ FILES_${PN}-udev = "\
 
 FILES_${PN}-volatiles = "\
     ${sysconfdir}/default/volatiles/99_xen \
+    ${sysconfdir}/tmpfiles.d/xen.conf \
     "
 
 FILES_${PN}-xcutils = "\
@@ -555,6 +559,7 @@ FILES_${PN}-xentrace = "\
 FILES_${PN}-xen-watchdog = "\
     ${sbindir}/xenwatchdogd \
     ${sysconfdir}/init.d/xen-watchdog \
+    ${systemd_unitdir}/system/xen-watchdog.service \
     "
 
 FILES_${PN}-xl = "\
@@ -596,6 +601,15 @@ FILES_${PN}-xm = "\
 FILES_${PN}-xencommons += "\
     ${sysconfdir}/default/xencommons \
     ${sysconfdir}/init.d/xencommons \
+    ${systemd_unitdir}/modules-load.d/xen.conf \
+    ${systemd_unitdir}/system/proc-xen.mount \
+    ${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service \
+    ${systemd_unitdir}/system/xenconsoled.service \
+    ${systemd_unitdir}/system/xen-init-dom0.service \
+    ${systemd_unitdir}/system/xenstored.service \
+    ${systemd_unitdir}/system/xenstored.socket \
+    ${systemd_unitdir}/system/xenstored_ro.socket \
+    ${systemd_unitdir}/system/var-lib-xenstored.mount \
     "
 
 FILES_${PN}-xend += " \
@@ -608,6 +622,7 @@ FILES_${PN}-xendomains += "\
     ${sysconfdir}/default/xendomains \
     ${sysconfdir}/init.d/xendomains \
     ${sysconfdir}/sysconfig/xendomains \
+    ${systemd_unitdir}/system/xendomains.service \
     "
 
 # configure init.d scripts
@@ -620,6 +635,21 @@ INITSCRIPT_NAME_${PN}-xend = "xend"
 INITSCRIPT_PARAMS_${PN}-xend = "defaults 82"
 INITSCRIPT_NAME_${PN}-xendomains = "xendomains"
 INITSCRIPT_PARAMS_${PN}-xendomains = "defaults 83"
+
+# systemd packages
+SYSTEMD_PACKAGES = "${PN}-xen-watchdog ${PN}-xencommons ${PN}-xendomains"
+SYSTEMD_SERVICE_${PN}-watchdog = "xen-watchdog.service"
+SYSTEMD_SERVICE_${PN}-xencommons = " \
+    proc-xen.mount \
+    var-lib-xenstored.mount \
+    xen-qemu-dom0-disk-backend.service \
+    xenconsoled.service \
+    xen-init-dom0.service \
+    xenstored.service \
+    xenstored.socket \
+    xenstored_ro.socket \
+    "
+SYSTEMD_SERVICE_${PN}-xendomains = "xendomains.service"
 
 #### REQUIRED ENVIRONMENT VARIABLES ####
 export BUILD_SYS
@@ -650,6 +680,8 @@ EXTRA_OECONF += " \
     --exec-prefix=/usr \
     --prefix=/usr \
     --host=${HOST_SYS} \
+    --with-systemd=${systemd_unitdir}/system \
+    --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \
     --disable-stubdom \
     --disable-ioemu-stubdom \
     --disable-pv-grub \
@@ -686,33 +718,44 @@ do_install() {
         ${D}${localstatedir}/volatile \
         ${D}${localstatedir}/lib/xen
 
+    VOLATILE_DIRS=" \
+        ${localstatedir}/run/xenstored \
+        ${localstatedir}/run/xend \
+        ${localstatedir}/run/xend/boot \
+        ${localstatedir}/run/xen \
+        ${localstatedir}/log/xen \
+        ${localstatedir}/lock/xen \
+        ${localstatedir}/lock/subsys \
+        ${localstatedir}/lib/xen \
+        "
+
     # install volatiles using populate_volatiles mechanism
     install -d ${D}${sysconfdir}/default/volatiles
-    echo "d root root 0755 ${localstatedir}/run/xenstored none" \
-         > ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/run/xend none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/run/xend/boot none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/run/xen none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/log/xen none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/lock/xen none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/lock/subsys none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
-    echo "d root root 0755 ${localstatedir}/lib/xen none" \
-         >> ${D}${sysconfdir}/default/volatiles/99_xen
+    for i in $VOLATILE_DIRS; do
+        echo "d root root 0755 $i none"  >> ${D}${sysconfdir}/default/volatiles/99_xen
+    done
 
     # workaround for xendomains script which searchs sysconfig if directory exists
     install -d ${D}${sysconfdir}/sysconfig
     ln -sf ${sysconfdir}/default/xendomains ${D}${sysconfdir}/sysconfig/xendomains
+
+    # systemd
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
+        # install volatiles using systemd tmpfiles.d
+        install -d ${D}${sysconfdir}/tmpfiles.d
+        for i in $VOLATILE_DIRS; do
+            echo "d $i 0755 root root - -"  >> ${D}${sysconfdir}/tmpfiles.d/xen.conf
+        done
+    fi
 }
 
 pkg_postinst_${PN}-volatiles() {
-    if [ -z "$D" ] && [ -e ${sysconfdir}/init.d/populate-volatile.sh ] ; then
-        ${sysconfdir}/init.d/populate-volatile.sh update
+    if [ -z "$D" ]; then
+        if command -v systemd-tmpfiles >/dev/null; then
+            systemd-tmpfiles --create ${sysconfdir}/tmpfiles.d/xen.conf
+        elif [ -e ${sysconfdir}/init.d/populate-volatile.sh ]; then
+            ${sysconfdir}/init.d/populate-volatile.sh update
+        fi
     fi
 }
 
