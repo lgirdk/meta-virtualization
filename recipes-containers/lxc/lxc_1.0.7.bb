@@ -47,15 +47,27 @@ PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparm
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
 PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
 
-inherit autotools pkgconfig ptest
+inherit autotools pkgconfig ptest update-rc.d systemd
+
+SYSTEMD_PACKAGES = "${PN}-setup"
+SYSTEMD_SERVICE_${PN}-setup = "lxc.service"
+SYSTEMD_AUTO_ENABLE_${PN}-setup = "enable"
+
+INITSCRIPT_PACKAGES = "${PN}-setup"
+INITSCRIPT_NAME_{PN}-setup = "lxc"
+INITSCRIPT_PARAMS_${PN}-setup = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 
 FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
-PACKAGES =+ "${PN}-templates"
+PACKAGES =+ "${PN}-templates ${PN}-setup"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
 RDEPENDS_${PN}-templates += "bash"
+
+FILES_${PN}-setup += "/etc/tmpfiles.d"
+FILES_${PN}-setup += "/lib/systemd/system"
+FILES_${PN}-setup += "/etc/init.d"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
@@ -69,6 +81,15 @@ do_install_append() {
 
 	for i in `grep -l "#! */bin/bash" ${D}${datadir}/lxc/hooks/*`; do \
 	    sed -e 's|#! */bin/bash|#!/bin/sh|' -i $i; done
+
+	if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
+	    install -d ${D}${sysconfdir}/init.d
+	    cp ${S}/config/init/sysvinit/lxc ${D}${sysconfdir}/init.d
+	else
+	    install -d ${D}${systemd_unitdir}/system
+	    install -m 755 ${S}/config/init/systemd/lxc.service ${D}${systemd_unitdir}/system/lxc.service
+	    install -m 755 ${S}/config/init/systemd/lxc-devsetup ${D}${libexecdir}/lxc/
+	fi
 }
 
 EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
