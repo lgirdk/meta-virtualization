@@ -103,3 +103,36 @@ pkg_postinst_${PN}() {
 		/etc/init.d/populate-volatile.sh update
 	fi
 }
+
+pkg_postinst_${PN}-setup() {
+	if [ "x$D" != "x" ]; then
+		exit 1
+	fi
+
+	# setup for our bridge
+        echo "lxc.network.link=lxcbr0" >> ${sysconfdir}/lxc/default.conf
+
+cat >> /etc/network/interfaces << EOF
+
+auto lxcbr0
+iface lxcbr0 inet dhcp
+	bridge_ports eth0
+	bridge_fd 0
+	bridge_maxwait 0
+EOF
+
+cat<<EOF>/etc/network/if-pre-up.d/lxcbr0
+#! /bin/sh
+
+if test "x\$IFACE" = xlxcbr0 ; then
+        brctl show |grep lxcbr0 > /dev/null 2>/dev/null
+        if [ \$? != 0 ] ; then
+                brctl addbr lxcbr0
+                brctl addif lxcbr0 eth0
+                ip addr flush eth0
+                ifconfig eth0 up
+        fi
+fi
+EOF
+chmod 755 /etc/network/if-pre-up.d/lxcbr0
+}
