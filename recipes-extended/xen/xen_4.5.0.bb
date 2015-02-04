@@ -19,8 +19,13 @@ EXTRA_OECONF_append += " \
     --with-sysconfig-leaf-dir=default \
     --with-system-qemu=/usr/bin/qemu-system-i386 \
     --disable-qemu-traditional \
-    --disable-seabios \
     "
+
+EXTRA_OEMAKE += "STDVGA_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios-0.7a.bin"
+EXTRA_OEMAKE += "CIRRUSVGA_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios-0.7a.cirrus.bin"
+EXTRA_OEMAKE += "SEABIOS_ROM=${STAGING_DIR_HOST}/usr/share/firmware/bios.bin"
+EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.rom"
+#EXTRA_OEMAKE += "XENGFX_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios.bin"
 
 do_configure_prepend() {
     # fixup AS/CC/CCP/etc variable within StdGNU.mk
