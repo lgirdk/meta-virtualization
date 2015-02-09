@@ -23,9 +23,8 @@ FILES_${PN} = "/usr/share/firmware"
 DEPENDS = "util-linux-native file-native bison-native flex-native gettext-native iasl-native python-native"
 
 TUNE_CCARGS = ""
-PARALLEL_MAKE = ""
-export HOSTCC="${BUILD_CC}"
-export CROSS_PREFIX="${TARGET_PREFIX}"
+EXTRA_OEMAKE += "HOSTCC=${BUILD_CC}"
+EXTRA_OEMAKE += "CROSS_PREFIX=${TARGET_PREFIX}"
 
 do_configure() {
     install -m 0644 "${WORKDIR}/defconfig" .config
