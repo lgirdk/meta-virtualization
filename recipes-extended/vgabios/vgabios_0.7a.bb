@@ -2,10 +2,10 @@ DESCRIPTION = "Plex86/Bochs LGPL VGABios"
 HOMEPAGE = "http://www.nongnu.org/vgabios/"
 LICENSE = "LGPLv2.1"
 SECTION = "firmware"
-DEPENDS = ""
+
+DEPENDS = "dev86-native"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=dcf3c825659e82539645da41a7908589"
-DEPENDS = ""
 
 SRC_URI =  "http://savannah.gnu.org/download/vgabios/${PN}-${PV}.tgz"
 
