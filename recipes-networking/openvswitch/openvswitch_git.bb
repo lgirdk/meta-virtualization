@@ -32,7 +32,7 @@ PACKAGECONFIG[dpdk] = "--with-dpdk=${STAGING_DIR_TARGET}/opt/dpdk/${TARGET_ARCH}
 # Don't compile kernel modules by default since it heavily depends on
 # kernel version. Use the in-kernel module for now.
 # distro layers can enable with EXTRA_OECONF_pn_openvswitch += ""
-EXTRA_OECONF += "--with-linux=${STAGING_KERNEL_DIR} KARCH=${TARGET_ARCH}"
+# EXTRA_OECONF += "--with-linux=${STAGING_KERNEL_BUILDDIR} --with-linux-source=${STAGING_KERNEL_DIR} KARCH=${TARGET_ARCH}"
 
 # silence a warning
 FILES_${PN} += "/lib/modules"
