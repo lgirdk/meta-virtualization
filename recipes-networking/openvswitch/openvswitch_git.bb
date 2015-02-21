@@ -26,7 +26,7 @@ SRC_URI += "\
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=5973c953e3c8a767cf0808ff8a0bac1b"
 
-PACKAGECONFIG ?= "dpdk"
+PACKAGECONFIG ?= ""
 PACKAGECONFIG[dpdk] = "--with-dpdk=${STAGING_DIR_TARGET}/opt/dpdk/${TARGET_ARCH}-native-linuxapp-gcc,,dpdk,"
 
 # Don't compile kernel modules by default since it heavily depends on
