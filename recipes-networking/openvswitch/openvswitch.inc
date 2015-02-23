@@ -14,7 +14,8 @@ LICENSE = "Apache-2"
 DEPENDS += "bridge-utils openssl python perl"
 
 RDEPENDS_${PN} += "util-linux-uuidgen util-linux-libuuid coreutils \
-	python perl perl-module-strict ${PN}-switch ${PN}-controller"
+	python perl perl-module-strict ${PN}-switch ${PN}-controller \
+        bash"
 RDEPENDS_${PN}-controller = "${PN} lsb ${PN}-pki"
 RDEPENDS_${PN}-switch = "${PN} openssl procps util-linux-uuidgen"
 RDEPENDS_${PN}-pki = "${PN}"
