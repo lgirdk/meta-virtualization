@@ -111,6 +111,18 @@ FILES_${PN} += "${libdir}/libvirt/connection-driver \
 FILES_${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
 FILES_${PN}-staticdev += "${libdir}/*.a ${libdir}/libvirt/connection-driver/*.a ${libdir}/libvirt/lock-driver/*.a"
 
+CONFFILES_${PN} += "${sysconfdir}/libvirt/libvirt.conf \
+                    ${sysconfdir}/libvirt/lxc.conf \
+                    ${sysconfdir}/libvirt/qemu-lockd.conf \
+                    ${sysconfdir}/libvirt/qemu.conf \
+                    ${sysconfdir}/libvirt/virt-login-shell.conf \
+                    ${sysconfdir}/libvirt/virtlockd.conf"
+
+CONFFILES_${PN}-libvirtd = "${sysconfdir}/logrotate.d/libvirt ${sysconfdir}/logrotate.d/libvirt.lxc \
+                            ${sysconfdir}/logrotate.d/libvirt.qemu ${sysconfdir}/logrotate.d/libvirt.uml \
+                            ${sysconfdir}/libvirt/libvirtd.conf \
+                            /usr/lib/sysctl.d/libvirtd.conf"
+
 INITSCRIPT_PACKAGES = "${PN}-libvirtd"
 INITSCRIPT_NAME_${PN}-libvirtd = "libvirtd"
 INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
