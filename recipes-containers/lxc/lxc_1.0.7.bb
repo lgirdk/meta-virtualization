@@ -26,6 +26,9 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://runtest.patch \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-correctly.patch \
+	file://add-lxc.rebootsignal.patch \
+	file://document-lxc.rebootsignal.patch \
+	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
 	"
 
 SRC_URI[md5sum] = "b48f468a9bef0e4e140dd723f0a65ad0"
