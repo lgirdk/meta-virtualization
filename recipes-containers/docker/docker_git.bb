@@ -34,10 +34,31 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "1.5.0"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
-DEPENDS = "golang-cross btrfs-tools sqlite3 "
+DEPENDS = "golang-cross \
+    go-cli \
+    go-pty \
+    go-context \
+    go-mux \
+    go-patricia \
+    go-net \
+    go-sqlite \
+    go-libtrust \
+    go-logrus \
+    go-fsnotify \
+    go-dbus \
+    go-capability \
+    go-systemd \
+    btrfs-tools \
+    sqlite3 \
+    "
+
 DEPENDS_append_class-target = "lvm2"
 RDEPENDS_${PN} = "curl aufs-util git cgroup-lite util-linux"
 RRECOMMENDS_${PN} = "lxc docker-registry rt-tests"
+DOCKER_PKG="github.com/docker/docker"
+
+do_configure() {
+}
 
 do_compile() {
 	export GOARCH="${TARGET_ARCH}"
@@ -46,16 +67,15 @@ do_compile() {
 		export GOARCH="amd64"
 	fi
 
-	# setting AUTO_GOPATH to use the default vendor configuration
-	# as opposed to setting up GOPATH with all the explicit vendor
-	# directory structure...
-	#
-	# From docker's PACKAGERS.md:
-	# If you'd rather not be bothered with the hassles that setting up
-	# `GOPATH` appropriately can be, and prefer to just get a "build
-	# that works", you should add something similar to this to whatever
-	# script or process you're using to build Docker
-	export AUTO_GOPATH=1
+	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
+	# docker to download its dependencies but rather
+	# use dependencies packaged independently.
+	cd ${S}
+	rm -rf .gopath
+	mkdir -p .gopath/src/"$(dirname "${DOCKER_PKG}")"
+	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
+	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
+	cd -
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -68,12 +88,7 @@ do_compile() {
 	DOCKER_GITCOMMIT="${SRCREV}" \
 	  ./hack/make.sh dynbinary
 
-	export GOPATH=${S}/vendor
-
-	# make nsinit from libcontainer - installed in vendor/bin
-	ln -s ${S} ${S}/vendor/src/github.com/docker/docker
-	mkdir -p ${S}/vendor/src/github.com/codegangsta
-	(cd ${S}/vendor/src/github.com/codegangsta && git clone https://github.com/codegangsta/cli)
+	# make nsinit from libcontainer
 	go install github.com/docker/libcontainer/nsinit/
 }
 
