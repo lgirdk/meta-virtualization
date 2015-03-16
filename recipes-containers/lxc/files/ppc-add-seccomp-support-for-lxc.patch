@@ -1,6 +1,6 @@
-From 29ca2ec418cb496ac8a19f0718a8474a55cfe16d Mon Sep 17 00:00:00 2001
+From b4067426d58aec9b6cad7a4739793f3d90c5f189 Mon Sep 17 00:00:00 2001
 From: Bogdan Purcareata <bogdan.purcareata@freescale.com>
-Date: Wed, 4 Feb 2015 11:28:32 +0000
+Date: Thu, 12 Mar 2015 08:57:47 +0000
 Subject: [PATCH] seccomp: add ppc support
 
 This patch enables seccomp support for LXC containers running on PowerPC
@@ -13,16 +13,21 @@ default seccomp policy example files delivered with the LXC package.
 
 [1] https://github.com/seccomp/libseccomp/commits/working-ppc64
 
-Upstream-Status: Pending
-[https://lists.linuxcontainers.org/pipermail/lxc-devel/2015-March/011437.html]
+v2:
+- add #ifdefs in get_new_ctx to fix builds on systems not having SCMP_ARCH_PPC*
+  defined
+
+Upstream-Status: Applied
+[https://github.com/lxc/lxc/commit/b4067426d58aec9b6cad7a4739793f3d90c5f189]
 
 Signed-off-by: Bogdan Purcareata <bogdan.purcareata@freescale.com>
+Acked-by: Serge E. Hallyn <serge.hallyn@ubuntu.com>
 ---
- src/lxc/seccomp.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ src/lxc/seccomp.c | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/src/lxc/seccomp.c b/src/lxc/seccomp.c
-index 3ba6c9a..0e2310f 100644
+index 3ba6c9a..108faa0 100644
 --- a/src/lxc/seccomp.c
 +++ b/src/lxc/seccomp.c
 @@ -121,6 +121,9 @@ enum lxc_hostarch_t {
@@ -48,17 +53,23 @@ index 3ba6c9a..0e2310f 100644
 	return lxc_seccomp_arch_unknown;
  }
 
-@@ -150,6 +159,9 @@ scmp_filter_ctx get_new_ctx(enum lxc_hostarch_t n_arch, uint32_t default_policy_
+@@ -150,6 +159,15 @@ scmp_filter_ctx get_new_ctx(enum lxc_hostarch_t n_arch, uint32_t default_policy_
 	case lxc_seccomp_arch_i386: arch = SCMP_ARCH_X86; break;
 	case lxc_seccomp_arch_amd64: arch = SCMP_ARCH_X86_64; break;
 	case lxc_seccomp_arch_arm: arch = SCMP_ARCH_ARM; break;
++#ifdef SCMP_ARCH_PPC64LE
 +	case lxc_seccomp_arch_ppc64le: arch = SCMP_ARCH_PPC64LE; break;
++#endif
++#ifdef SCMP_ARCH_PPC64
 +	case lxc_seccomp_arch_ppc64: arch = SCMP_ARCH_PPC64; break;
++#endif
++#ifdef SCMP_ARCH_PPC
 +	case lxc_seccomp_arch_ppc: arch = SCMP_ARCH_PPC; break;
++#endif
 	default: return NULL;
 	}
 
-@@ -343,6 +355,36 @@ static int parse_config_v2(FILE *f, char *line, struct lxc_conf *conf)
+@@ -343,6 +361,36 @@ static int parse_config_v2(FILE *f, char *line, struct lxc_conf *conf)
 				cur_rule_arch = lxc_seccomp_arch_arm;
 			}
  #endif
