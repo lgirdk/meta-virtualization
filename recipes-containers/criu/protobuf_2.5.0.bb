@@ -9,12 +9,15 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://COPYING.txt;md5=af6809583bfde9a31595a58bb4a24514"
 
 PR = "r0"
+EXCLUDE_FROM_WORLD = "1"
 
 SRC_URI[md5sum] = "b751f772bdeb2812a2a8e7202bf1dae8"
 SRC_URI[sha256sum] = "c55aa3dc538e6fd5eaf732f4eb6b98bdcb7cedb5b91d3b5bdcf29c98c293f58e"
 SRC_URI = "http://protobuf.googlecode.com/files/protobuf-${PV}.tar.gz \
 	file://protobuf-allow-running-python-scripts-from-anywhere.patch \
 	file://run-ptest"
+
+COMPATIBLE_HOST = "(x86_64|arm).*-linux"
 
 EXTRA_OECONF += " --with-protoc=${STAGING_BINDIR_NATIVE}/protoc"
 inherit autotools setuptools ptest

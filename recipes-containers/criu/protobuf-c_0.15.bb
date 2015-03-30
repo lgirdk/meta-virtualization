@@ -8,6 +8,8 @@ LIC_FILES_CHKSUM = "file://src/google/protobuf-c/protobuf-c.c;endline=33;md5=333
 
 PR = "r0"
 
+COMPATIBLE_HOST = "(x86_64|arm).*-linux"
+
 DEPENDS = "protobuf"
 
 SRC_URI[md5sum] = "73ff0c8df50d2eee75269ad8f8c07dc8"

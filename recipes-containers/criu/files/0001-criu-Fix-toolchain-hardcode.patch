@@ -1,15 +1,19 @@
-From fa785bb1eb9cb0039d77836f4658c7bcccae5999 Mon Sep 17 00:00:00 2001
-From: Alexey Firago <alexey_firago@mentor.com>
-Date: Wed, 9 Jul 2014 02:01:11 +0400
-Subject: [PATCH] Makefile: Fix hardcoding
+From 3d4f112fdb434712eba09239a468842323f1af4c Mon Sep 17 00:00:00 2001
+From: Yang Shi <yang.shi@windriver.com>
+Date: Tue, 26 Aug 2014 14:42:42 -0700
+Subject: [PATCH 1/2] criu: Fix toolchain hardcode
 
-Signed-off-by: Alexey Firago <alexey_firago@mentor.com>
+Replace ":=" to "?=" so that the toolchain used by bitbake build system will
+be taken.
+
+Signed-off-by: Yang Shi <yang.shi@windriver.com>
+Signed-off-by: Nam Ninh <nam.ninh@windriver.com>
 ---
  Makefile | 18 +++++++++---------
  1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index bda808d..4614ae2 100644
+index f1c8784..43252ec 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -23,15 +23,15 @@ export VERSION_SO_MAJOR VERSION_SO_MINOR
@@ -38,5 +42,5 @@ index bda808d..4614ae2 100644
  CFLAGS		+= $(USERCFLAGS)
  
 -- 
-1.9.1
+2.0.2
 
