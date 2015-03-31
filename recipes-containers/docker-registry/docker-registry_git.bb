@@ -31,7 +31,7 @@ RDEPENDS_${PN} += "\
   python-pyyaml (= 3.11) \
   python-flask (= 0.10.1) \
   python-gevent (= 1.0.1) \
-  python-requests (= 2.3.0) \
+  python-requests \
   python-sqlalchemy (>= 0.9.4) \
   python-blinker (= 1.3) \
   python-backports-lzma (= 0.0.3) \
