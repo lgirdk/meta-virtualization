@@ -23,3 +23,4 @@ inherit setuptools
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 SRC_URI += "file://libev-conf.patch"
+SRC_URI += "file://gevent-allow-ssl-v2-or-v3-certificates.patch"
