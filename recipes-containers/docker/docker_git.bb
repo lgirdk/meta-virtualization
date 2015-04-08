@@ -22,6 +22,7 @@ SRCREV = "2243e32cbbf1c9809c262a7376d34ca43a7a36dc"
 SRC_URI = "\
 	git://github.com/docker/docker.git \
 	file://docker.service \
+	file://docker.init \
 	file://hi.Dockerfile \
 	"
 
@@ -97,10 +98,14 @@ do_compile() {
 	go install github.com/docker/libcontainer/nsinit/
 }
 
-inherit systemd
+inherit systemd update-rc.d
 
 SYSTEMD_PACKAGES = "${@base_contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE_${PN} = "${@base_contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
+
+INITSCRIPT_PACKAGES += "${@base_contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
+INITSCRIPT_NAME_${PN} = "${@base_contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
+INITSCRIPT_PARAMS_${PN} = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
@@ -114,6 +119,9 @@ do_install() {
 		install -m 644 ${S}/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
 		install -m 644 ${WORKDIR}/docker.service ${D}/${systemd_unitdir}/system
+        else
+            install -d ${D}${sysconfdir}/init.d
+            install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 
 	cp ${S}/vendor/bin/nsinit ${D}/${bindir}
