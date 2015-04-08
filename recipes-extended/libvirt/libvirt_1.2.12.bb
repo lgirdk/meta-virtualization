@@ -31,6 +31,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://run-ptest \
            file://tests-allow-separated-src-and-build-dirs.patch \
            file://libvirt-Fix-cannot-symlink-cpu_map.xml-error.patch \
+           file://libvirt-use-pkg-config-to-locate-libcap.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "2ae99535265ce4687d8718d744024c27"
