@@ -24,6 +24,7 @@ SRC_URI = "\
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
+	file://disable_sha1sum_startup.patch \
 	"
 
 # The golang-cross embeds a compiler invocation for the pre-parser
