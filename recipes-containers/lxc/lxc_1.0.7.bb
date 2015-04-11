@@ -27,6 +27,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-correctly.patch \
 	file://add-lxc.rebootsignal.patch \
+	file://lxc-helper-create-local-action-function.patch \
 	file://document-lxc.rebootsignal.patch \
 	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
 	file://ppc-add-seccomp-support-for-lxc.patch \
@@ -42,6 +43,8 @@ S = "${WORKDIR}/${BPN}-${PV}"
 PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
 EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
+EXTRA_OECONF += "${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '--with-init-script=sysvinit', '--with-init-script=systemd', d)}"
+
 PACKAGECONFIG ??= "templates \
     ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
 "
@@ -56,7 +59,7 @@ inherit autotools pkgconfig ptest update-rc.d systemd
 
 SYSTEMD_PACKAGES = "${PN}-setup"
 SYSTEMD_SERVICE_${PN}-setup = "lxc.service"
-SYSTEMD_AUTO_ENABLE_${PN}-setup = "enable"
+SYSTEMD_AUTO_ENABLE_${PN}-setup = "disable"
 
 INITSCRIPT_PACKAGES = "${PN}-setup"
 INITSCRIPT_NAME_{PN}-setup = "lxc"
@@ -72,6 +75,7 @@ RDEPENDS_${PN}-templates += "bash"
 
 FILES_${PN}-setup += "/etc/tmpfiles.d"
 FILES_${PN}-setup += "/lib/systemd/system"
+FILES_${PN}-setup += "/usr/lib/systemd/system"
 FILES_${PN}-setup += "/etc/init.d"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
@@ -90,10 +94,6 @@ do_install_append() {
 	if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
 	    install -d ${D}${sysconfdir}/init.d
 	    cp ${S}/config/init/sysvinit/lxc ${D}${sysconfdir}/init.d
-	else
-	    install -d ${D}${systemd_unitdir}/system
-	    install -m 755 ${S}/config/init/systemd/lxc.service ${D}${systemd_unitdir}/system/lxc.service
-	    install -m 755 ${S}/config/init/systemd/lxc-devsetup ${D}${libexecdir}/lxc/
 	fi
 }
 
