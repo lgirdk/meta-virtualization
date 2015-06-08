@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c38914c9a7ab03bb2b96d4baaee10769"
 
-PR = "r0"
 SRCNAME = "fsnotify"
 
 PKG_NAME = "github.com/go-fsnotify/${SRCNAME}"

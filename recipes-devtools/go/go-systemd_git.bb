@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=19cbd64715b51267a47bf3750cc6a8a5"
 
-PR = "r0"
 SRCNAME = "systemd"
 
 PKG_NAME = "github.com/coreos/go-${SRCNAME}"

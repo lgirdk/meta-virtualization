@@ -18,9 +18,9 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "2243e32cbbf1c9809c262a7376d34ca43a7a36dc"
+SRCREV = "7c8fca2ddb58c8d2c4fb4df31c242886df7dd257"
 SRC_URI = "\
-	git://github.com/docker/docker.git \
+	git://github.com/docker/docker.git;branch=release \
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
@@ -38,7 +38,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=1cc0497778922bfd6cb48721deb80dc7"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "1.5.0"
+DOCKER_VERSION = "1.6.2"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = "golang-cross \
@@ -57,6 +57,7 @@ DEPENDS = "golang-cross \
     go-systemd \
     btrfs-tools \
     sqlite3 \
+    go-distribution-digest \
     "
 
 DEPENDS_append_class-target = "lvm2"
@@ -110,9 +111,9 @@ INITSCRIPT_PARAMS_${PN} = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${S}/bundles/${DOCKER_VERSION}-dev/dynbinary/docker-${DOCKER_VERSION}-dev \
+	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/docker-${DOCKER_VERSION} \
 	  ${D}/${bindir}/docker
-	cp ${S}/bundles/${DOCKER_VERSION}-dev/dynbinary/dockerinit-${DOCKER_VERSION}-dev \
+	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/dockerinit-${DOCKER_VERSION} \
 	  ${D}/${bindir}/dockerinit
 
 	if ${@base_contains('DISTRO_FEATURES','systemd','true','false',d)}; then

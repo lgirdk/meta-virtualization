@@ -4,14 +4,13 @@ SECTION = "devel/go"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=8dadfef729c08ec4e631c4f6fc5d43a0"
 
-PR = "r0"
 SRCNAME = "logrus"
 
 PKG_NAME = "github.com/Sirupsen/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
-SRCREV = "6ebb4e7b3c24b9fef150d7693e728cb1ebadf1f5"
-PV = "0.6.0+git${SRCREV}"
+SRCREV = "3fc34d061b9c78a70db853c7cb6b0576b6d4f32d"
+PV = "0.7.1+git${SRCREV}"
 
 S = "${WORKDIR}/git"
 

@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
-PR = "r0"
 SRCNAME = "libtrust"
 
 PKG_NAME = "github.com/docker/${SRCNAME}"

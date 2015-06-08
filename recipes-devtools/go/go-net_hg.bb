@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5d4950ecb7b26d2c5e4e7b4e0dd74707"
 
-PR = "r0"
 SRCNAME = "go.net"
 
 PKG_NAME = "code.google.com/p/${SRCNAME}"

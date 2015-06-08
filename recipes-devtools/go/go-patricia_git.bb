@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=9949b99212edd6b1e24ce702376c3baf"
 
-PR = "r0"
 SRCNAME = "go-patricia"
 
 PKG_NAME = "github.com/tchap/${SRCNAME}"

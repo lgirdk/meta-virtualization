@@ -4,7 +4,6 @@ SECTION = "devel/go"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://License;md5=93958070863d769117fa33b129020050"
 
-PR = "r0"
 SRCNAME = "pty"
 
 PKG_NAME = "github.com/kr/${SRCNAME}"
