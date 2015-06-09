@@ -46,7 +46,9 @@ S = "${WORKDIR}/${BPN}-${PV}"
 PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
 EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
-EXTRA_OECONF += "${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '--with-init-script=sysvinit', '--with-init-script=systemd', d)}"
+EXTRA_OECONF += "--with-init-script=\
+${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'sysvinit,', '', d)}\
+${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
 
 PACKAGECONFIG ??= "templates \
     ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
