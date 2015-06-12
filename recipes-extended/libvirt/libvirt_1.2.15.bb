@@ -30,12 +30,11 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://runptest.patch \
            file://run-ptest \
            file://tests-allow-separated-src-and-build-dirs.patch \
-           file://libvirt-Fix-cannot-symlink-cpu_map.xml-error.patch \
            file://libvirt-use-pkg-config-to-locate-libcap.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "2ae99535265ce4687d8718d744024c27"
-SRC_URI[libvirt.sha256sum] = "eff5227f774560d97f0b44402a444e821c51e8cd44add89f74bc3c1f4dede66a"
+SRC_URI[libvirt.md5sum] = "08c2ea825d076ee67b1bbc600c220b97"
+SRC_URI[libvirt.sha256sum] = "5f88041b8c212f8f687c672fe583108833240d6175b512ce4de92ab6660194c6"
 
 inherit autotools gettext update-rc.d pkgconfig ptest
 
@@ -102,7 +101,7 @@ FILES_${PN}-libvirtd = "${sysconfdir}/init.d \
 	${sysconfdir}/sysctl.d \
 	${sysconfdir}/logrotate.d \
 	${sysconfdir}/libvirt/libvirtd.conf \
-        /usr/lib/sysctl.d/libvirtd.conf \
+        /usr/lib/sysctl.d/60-libvirtd.conf \
 	${sbindir}/libvirtd"
 
 FILES_${PN}-virsh = "${bindir}/virsh"

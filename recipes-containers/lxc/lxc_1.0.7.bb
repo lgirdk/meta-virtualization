@@ -32,6 +32,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
 	file://ppc-add-seccomp-support-for-lxc.patch \
 	file://lxc-fix-B-S.patch \
+	file://lxc-busybox-add-OpenSSH-support.patch \
+	file://make-some-OpenSSH-tools-optional.patch \
 	"
 
 SRC_URI[md5sum] = "b48f468a9bef0e4e140dd723f0a65ad0"
@@ -44,7 +46,9 @@ S = "${WORKDIR}/${BPN}-${PV}"
 PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
 EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
-EXTRA_OECONF += "${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '--with-init-script=sysvinit', '--with-init-script=systemd', d)}"
+EXTRA_OECONF += "--with-init-script=\
+${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'sysvinit,', '', d)}\
+${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
 
 PACKAGECONFIG ??= "templates \
     ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
