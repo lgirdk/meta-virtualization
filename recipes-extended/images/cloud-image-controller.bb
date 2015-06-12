@@ -26,9 +26,8 @@ IMAGE_INSTALL = "\
     "
 
 inherit core-image
-inherit image-vmdk
 
-IMAGE_FSTYPES = "vmdk tar.gz"
+IMAGE_FSTYPES = "tar.gz"
 
 # Ensure extra space for guest images
 #IMAGE_ROOTFS_EXTRA_SPACE = "41943040"
