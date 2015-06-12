@@ -13,6 +13,6 @@ IMAGE_INSTALL = "\
     "
 
 inherit core-image
-inherit image-vmdk
+inherit image-vm
 
 IMAGE_FSTYPES += "vmdk"
