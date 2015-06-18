@@ -23,7 +23,7 @@ FILES_${PN} = "/usr/share/firmware"
 DEPENDS = "util-linux-native file-native bison-native flex-native gettext-native iasl-native python-native"
 
 TUNE_CCARGS = ""
-EXTRA_OEMAKE += "HOSTCC=${BUILD_CC}"
+EXTRA_OEMAKE += "HOSTCC='${BUILD_CC}'"
 EXTRA_OEMAKE += "CROSS_PREFIX=${TARGET_PREFIX}"
 
 do_configure() {
