@@ -3,7 +3,11 @@ HOMEPAGE = "golang.org"
 # DEPENDS = "virtual/${TARGET_PREFIX}gcc libgcc"
 DEPENDS = "libgcc"
 PROVIDES = "virtual/${TARGET_PREFIX}golang"
-SRC_URI = "http://golang.org/dl/go${PV}.src.tar.gz"
+SRC_URI = "\
+	http://golang.org/dl/go${PV}.src.tar.gz \
+	file://bsd_svid_source.patch \
+	"
+
 S="${WORKDIR}/go"
 
 do_compile () {
