@@ -27,11 +27,6 @@ SRC_URI = "\
 	file://disable_sha1sum_startup.patch \
 	"
 
-# The golang-cross embeds a compiler invocation for the pre-parser
-# that is incompatible with the $CC definition used by the compiler
-# templates so disable CCACHE
-CCACHE = ""
-
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1cc0497778922bfd6cb48721deb80dc7"

@@ -6,6 +6,7 @@ PROVIDES = "virtual/${TARGET_PREFIX}golang"
 SRC_URI = "\
 	http://golang.org/dl/go${PV}.src.tar.gz \
 	file://bsd_svid_source.patch \
+	file://ccache.patch \
 	"
 
 S="${WORKDIR}/go"
