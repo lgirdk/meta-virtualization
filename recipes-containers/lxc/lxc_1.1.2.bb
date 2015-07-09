@@ -27,17 +27,16 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-correctly.patch \
 	file://add-lxc.rebootsignal.patch \
-	file://lxc-helper-create-local-action-function.patch \
 	file://document-lxc.rebootsignal.patch \
 	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
-	file://ppc-add-seccomp-support-for-lxc.patch \
 	file://lxc-fix-B-S.patch \
 	file://lxc-busybox-add-OpenSSH-support.patch \
 	file://make-some-OpenSSH-tools-optional.patch \
+	file://Generate-lxc-restore-net-properly.patch \
 	"
 
-SRC_URI[md5sum] = "b48f468a9bef0e4e140dd723f0a65ad0"
-SRC_URI[sha256sum] = "3c0cb2d95d9d8a8d59c7189d237a45cde77f38ea180fbff2c148d59e176e9dab"
+SRC_URI[md5sum] = "3ebadacf5fe8bfe689fd7a09812b682c"
+SRC_URI[sha256sum] = "34ba517ffd7b38a14e5d12d56a4928b78602d56311d5f47c3ef90f4e714b9604"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
@@ -98,7 +97,7 @@ do_install_append() {
 
 	if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
 	    install -d ${D}${sysconfdir}/init.d
-	    cp ${S}/config/init/sysvinit/lxc ${D}${sysconfdir}/init.d
+	    install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
 	fi
 }
 
