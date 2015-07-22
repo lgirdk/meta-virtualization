@@ -83,6 +83,7 @@ do_install_append() {
 	if ${@base_contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
 		install -m 644 ${WORKDIR}/docker-registry.service ${D}/${systemd_unitdir}/system
+		sed -i "s|#WORKDIR#|${PYTHON_SITEPACKAGES_DIR}/docker_registry|" ${D}/${systemd_unitdir}/system/docker-registry.service
 	fi
 	# based on config_mirror.yml - uses /var/docker-registry instead of /tmp for files
 	install ${WORKDIR}/config.yml ${D}/etc/docker-registry.yml
