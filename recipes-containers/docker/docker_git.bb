@@ -36,7 +36,7 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "1.6.2"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
-DEPENDS = "golang-cross \
+DEPENDS = "go-cross \
     go-cli \
     go-pty \
     go-context \

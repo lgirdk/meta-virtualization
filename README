@@ -20,6 +20,7 @@ layers: meta-oe
 	meta-networking
         meta-filesystems
         meta-python
+        oe-meta-go
 
 BBFILE_PRIORITY_openembedded-layer = "4"
 
