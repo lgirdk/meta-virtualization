@@ -9,8 +9,8 @@ SRCNAME = "WebOb"
 
 SRC_URI = "http://pypi.python.org/packages/source/W/${SRCNAME}/${SRCNAME}-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "11825b7074ba7043e157805e4e6e0f55"
-SRC_URI[sha256sum] = "325c249f3ac35e72b75ba13b2c60317def0c986a24a413ebf700509ea4c73a13"
+SRC_URI[md5sum] = "a5c6e8ba5431756e6a5d5ec56047ec94"
+SRC_URI[sha256sum] = "12f8b98390befc47336d2c0e5bad9cc48609d808eabb3f8675dc1027a3a9e9db"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
