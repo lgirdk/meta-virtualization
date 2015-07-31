@@ -20,7 +20,10 @@ layers: meta-oe
 	meta-networking
         meta-filesystems
         meta-python
-        oe-meta-go
+
+URI: git://github.com/errordeveloper/oe-meta-go.git
+branch: master
+revision: HEAD
 
 BBFILE_PRIORITY_openembedded-layer = "4"
 
