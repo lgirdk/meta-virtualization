@@ -13,8 +13,8 @@ PR = "r0"
 SRCNAME = "simplejson"
 
 SRC_URI = "https://pypi.python.org/packages/source/s/simplejson/${SRCNAME}-${PV}.tar.gz"
-SRC_URI[md5sum] = "deca871b9bfa4b76ea360756b2a22710"
-SRC_URI[sha256sum] = "99c092209f88d411858f01b14a97a4fcf8c4f438a685e23d733a3d65de52a35d"
+SRC_URI[md5sum] = "117346e5ee4ed4434ffe485f8e58f5ed"
+SRC_URI[sha256sum] = "63d7f7b14a20f29f74325a69e6db45925eaf6e3a003eab46c0234fd050a8c93f"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
