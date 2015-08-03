@@ -31,10 +31,11 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://run-ptest \
            file://tests-allow-separated-src-and-build-dirs.patch \
            file://libvirt-use-pkg-config-to-locate-libcap.patch \
+           file://0001-to-fix-build-error.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "08c2ea825d076ee67b1bbc600c220b97"
-SRC_URI[libvirt.sha256sum] = "5f88041b8c212f8f687c672fe583108833240d6175b512ce4de92ab6660194c6"
+SRC_URI[libvirt.md5sum] = "a1f49050223be3cbd7678c32b1ee2756"
+SRC_URI[libvirt.sha256sum] = "e07eaf20b0590fae05ba3b53ad4dac3e5fbd771437563cc78b692f23ddd02fad"
 
 inherit autotools gettext update-rc.d pkgconfig ptest
 

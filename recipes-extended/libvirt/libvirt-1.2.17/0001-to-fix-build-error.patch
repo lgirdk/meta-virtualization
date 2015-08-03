@@ -1,0 +1,44 @@
+From 62514c8c2925e48a4f20ce3d7d48387851cb76a5 Mon Sep 17 00:00:00 2001
+From: Lei Maohui <leimaohui@cn.fujitsu.com>
+Date: Fri, 31 Jul 2015 03:17:07 +0900
+Subject: [PATCH] to fix build error
+
+The error likes as following
+
+| Generating internals/command.html.tmp
+| /bin/sh: line 3: internals/command.html.tmp: No such file or directory
+| rm: Generating internals/locking.html.tmp
+| cannot remove `internals/command.html.tmp': No such file or directory
+| make[3]: *** [internals/command.html.tmp] Error 1
+| make[3]: *** Waiting for unfinished jobs....
+
+Signed-off-by: Lei Maohui <leimaohui@cn.fujitsu.com>
+---
+ docs/Makefile.am | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docs/Makefile.am b/docs/Makefile.am
+index daf37b6..125c5fd 100644
+--- a/docs/Makefile.am
++++ b/docs/Makefile.am
+@@ -162,7 +162,7 @@ EXTRA_DIST=					\
+   sitemap.html.in aclperms.htmlinc \
+   todo.pl hvsupport.pl todo.cfg-example
+ 
+-acl_generated = aclperms.htmlinc
++acl.html:: $(srcdir)/aclperms.htmlinc
+ 
+ $(srcdir)/aclperms.htmlinc: $(top_srcdir)/src/access/viraccessperm.h \
+         $(srcdir)/genaclperms.pl Makefile.am
+@@ -227,7 +227,7 @@ internals/%.html.tmp: internals/%.html.in subsite.xsl page.xsl sitemap.html.in
+ 	    $(top_srcdir)/docs/subsite.xsl $< > $@ \
+ 	    || { rm $@ && exit 1; }; fi
+ 
+-%.html.tmp: %.html.in site.xsl page.xsl sitemap.html.in $(acl_generated)
++%.html.tmp: %.html.in site.xsl page.xsl sitemap.html.in 
+ 	@if [ -x $(XSLTPROC) ] ; then \
+ 	  echo "Generating $@"; \
+ 	  name=`echo $@ | sed -e 's/.tmp//'`; \
+-- 
+1.8.4.2
+
