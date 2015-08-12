@@ -5,10 +5,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 SECTION = "console/tools"
 PR="r0"
 
-SRC_URI="https://github.com/lkundrak/dev86/archive/v${PV}.zip"
+SRC_URI="http://v3.sk/~lkundrak/dev86/archive/Dev86src-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "1308759f36f9907e7dae92c46f35c51e"
-SRC_URI[sha256sum] = "efd33d456ff87d6d0308608f6a34052b22ea8629913d0597d98c73815ed0f9f0"
+SRC_URI[md5sum] = "442e98e1afa23fe00d40c5a996385942"
+SRC_URI[sha256sum] = "33398b87ca85e2b69e4062cf59f2f7354af46da5edcba036c6f97bae17b8d00e"
 
 S = "${WORKDIR}/dev86-${PV}"
 
