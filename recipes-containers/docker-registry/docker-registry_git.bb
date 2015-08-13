@@ -42,7 +42,7 @@ RDEPENDS_${PN} += "\
   python-itsdangerous (>= 0.21) \
   python-jinja2 (>= 2.4) \
   python-werkzeug (>= 0.7) \
-  python-simplejson (= 3.6.2) \
+  python-simplejson (>= 3.6.2) \
   python-redis (= 2.10.3) \
   python-boto (= 2.34.0) \
   python-webob \
