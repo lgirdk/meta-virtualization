@@ -11,8 +11,3 @@ SRC_URI = " \
     "
 
 DEFAULT_PREFERENCE = "-1"
-
-PACKAGES += "${PN}-xen-mfndump"
-
-FILES_${PN}-xen-mfndump = "${sbindir}/xen-mfndump"
-
