@@ -204,6 +204,7 @@ PACKAGES = "\
 
 FILES_${PN}-dbg += "\
     ${libdir}/.debug \
+    ${libdir}/debug/* \
     ${libdir}/xen/bin/.debug \
     ${libdir}/python2.7/site-packages/.debug \
     ${libdir}/python2.7/site-packages/xen/lowlevel/.debug \
@@ -254,7 +255,10 @@ FILES_${PN}-libxenguest = "${libdir}/libxenguest.so.*"
 FILES_${PN}-libxenguest-dev = "${libdir}/libxenguest.so"
 
 FILES_${PN}-libxenlight = "${libdir}/libxenlight.so.*"
-FILES_${PN}-libxenlight-dev = "${libdir}/libxenlight.so"
+FILES_${PN}-libxenlight-dev = " \
+    ${libdir}/libxenlight.so \
+    /usr/share/pkgconfig/xenlight.pc \
+    "
 
 FILES_${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
 FILES_${PN}-libxenvchan-dev = "${libdir}/libxenvchan.so"
@@ -263,7 +267,10 @@ FILES_${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
 FILES_${PN}-libxenctrl-dev = "${libdir}/libxenctrl.so"
 
 FILES_${PN}-libxlutil = "${libdir}/libxlutil.so.*"
-FILES_${PN}-libxlutil-dev = "${libdir}/libxlutil.so"
+FILES_${PN}-libxlutil-dev = " \
+    ${libdir}/libxlutil.so \
+    /usr/share/pkgconfig/xlutil.pc \
+    "
 
 FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
 FILES_${PN}-libvhd-dev = "${libdir}/libvhd.so"
@@ -362,6 +369,8 @@ FILES_${PN}-misc = "\
     ${sbindir}/xenlockprof \
     ${sbindir}/xen-lowmemd \
     ${sbindir}/xen-mfndump \
+    ${libdir}/xen/bin/verify-stream-v2 \
+    ${libdir}/xen/bin/convert-legacy-stream \
     "
 
 FILES_${PN}-pygrub = "\
@@ -487,6 +496,7 @@ FILES_${PN}-scripts-block = " \
     ${sysconfdir}/xen/scripts/block-iscsi \
     ${sysconfdir}/xen/scripts/block-nbd \
     ${sysconfdir}/xen/scripts/block-drbd-probe \
+    ${sysconfdir}/xen/scripts/block-tap \
     ${sysconfdir}/xen/scripts/vscsi \
     "
 
@@ -560,6 +570,9 @@ FILES_${PN}-xentrace = "\
     ${bindir}/xentrace_format \
     ${bindir}/xentrace_setsize \
     ${libdir}/xen/bin/xenctx \
+    ${bindir}/xenalyze \
+    ${sbindir}/xentrace \
+    ${sbindir}/xentrace_setsize \
     "
 
 FILES_${PN}-xen-watchdog = "\
