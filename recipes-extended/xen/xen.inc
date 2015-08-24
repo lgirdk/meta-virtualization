@@ -86,6 +86,10 @@ RRECOMMENDS_${PN}-base = " \
     ${PN}-xenpaging \
     "
 
+RDEPENDS_${PN}-fsimage = " \
+    libext2fs \
+    "
+
 RDEPENDS_${PN}-misc = " \
     perl \
     python \
