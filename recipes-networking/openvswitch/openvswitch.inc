@@ -39,6 +39,7 @@ EXTRA_OECONF += "\
 	TARGET_PYTHON=${bindir}/python \
 	TARGET_PERL=${bindir}/perl \
 	"
+CONFIGUREOPT_DEPTRACK = ""
 
 # Don't compile kernel modules by default since it heavily depends on
 # kernel version. Use the in-kernel module for now.
