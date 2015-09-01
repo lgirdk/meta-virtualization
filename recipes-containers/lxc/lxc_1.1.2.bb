@@ -74,9 +74,11 @@ FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
-PACKAGES =+ "${PN}-templates ${PN}-setup"
+PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
 RDEPENDS_${PN}-templates += "bash"
+
+ALLOW_EMPTY_${PN}-networking = "1"
 
 FILES_${PN}-setup += "/etc/tmpfiles.d"
 FILES_${PN}-setup += "/lib/systemd/system"
@@ -114,7 +116,7 @@ pkg_postinst_${PN}() {
 	fi
 }
 
-pkg_postinst_${PN}-setup() {
+pkg_postinst_${PN}-networking() {
 	if [ "x$D" != "x" ]; then
 		exit 1
 	fi
