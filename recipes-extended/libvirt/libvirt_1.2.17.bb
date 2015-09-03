@@ -8,7 +8,7 @@ SECTION = "console/tools"
 PR = "r1"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
-	   iptables dnsmasq readline libxslt-native"
+	   iptables dnsmasq readline libtasn1 libxslt-native"
 
 # libvirt-guests.sh needs gettext.sh
 #
