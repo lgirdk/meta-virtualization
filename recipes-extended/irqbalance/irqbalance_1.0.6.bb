@@ -13,4 +13,5 @@ SRC_URI = "http://irqbalance.googlecode.com/files/irqbalance-${PV}.tar.gz \
            file://add-initscript.patch \
            file://irqbalance-Add-status-and-reload-commands.patch \
            file://fix-configure-libcap-ng.patch \
+           file://irqbalanced.service \
           "
