@@ -30,6 +30,7 @@ PACKAGECONFIG ?= ""
 # enable,disable,depends,rdepends
 #
 PACKAGECONFIG[numa] = "--enable-numa,--disable-numa,numactl,"
+PACKAGECONFIG[libcap-ng] = "--with-libcap-ng,--without-libcap-ng,libcap-ng,"
 
 do_install () {
         oe_runmake 'DESTDIR=${D}' install

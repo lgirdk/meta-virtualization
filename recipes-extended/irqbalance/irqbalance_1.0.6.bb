@@ -12,4 +12,5 @@ SRC_URI[sha256sum] = "95ac79992e6de501f613c781b0fc8aa17a4aaf6a3d865bb6e15ac6a46c
 SRC_URI = "http://irqbalance.googlecode.com/files/irqbalance-${PV}.tar.gz \
            file://add-initscript.patch \
            file://irqbalance-Add-status-and-reload-commands.patch \
+           file://fix-configure-libcap-ng.patch \
           "
