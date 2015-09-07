@@ -6,13 +6,13 @@ HOMEPAGE = "http://code.google.com/p/protobuf/"
 SECTION = "console/tools"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://COPYING.txt;md5=af6809583bfde9a31595a58bb4a24514"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=af6809583bfde9a31595a58bb4a24514"
 
 PR = "r0"
 
-SRC_URI[md5sum] = "b751f772bdeb2812a2a8e7202bf1dae8"
-SRC_URI[sha256sum] = "c55aa3dc538e6fd5eaf732f4eb6b98bdcb7cedb5b91d3b5bdcf29c98c293f58e"
-SRC_URI = "http://protobuf.googlecode.com/files/protobuf-${PV}.tar.gz \
+SRC_URI[md5sum] = "af05b2cca289f7b86eef2734a0cdc8b9"
+SRC_URI[sha256sum] = "2667b7cda4a6bc8a09e5463adf3b5984e08d94e72338277affa8594d8b6e5cd1"
+SRC_URI = "https://github.com/google/protobuf/archive/v2.6.1.tar.gz;downloadfilename=protobuf-2.6.1.tar.gz \
 	"
 
 EXTRA_OECONF += " --with-protoc=echo --disable-shared"
