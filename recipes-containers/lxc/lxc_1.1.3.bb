@@ -32,12 +32,11 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-busybox-add-OpenSSH-support.patch \
 	file://make-some-OpenSSH-tools-optional.patch \
-	file://Generate-lxc-restore-net-properly.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	"
 
-SRC_URI[md5sum] = "3ebadacf5fe8bfe689fd7a09812b682c"
-SRC_URI[sha256sum] = "34ba517ffd7b38a14e5d12d56a4928b78602d56311d5f47c3ef90f4e714b9604"
+SRC_URI[md5sum] = "197abb5a28ab0b689c737eb1951023fb"
+SRC_URI[sha256sum] = "933b87f773ea6213c912fcd25b8f24d66fb66d285b80797dac530a8b94b7d1ad"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
