@@ -32,12 +32,13 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tests-allow-separated-src-and-build-dirs.patch \
            file://libvirt-use-pkg-config-to-locate-libcap.patch \
            file://0001-to-fix-build-error.patch \
+           file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "a1f49050223be3cbd7678c32b1ee2756"
 SRC_URI[libvirt.sha256sum] = "e07eaf20b0590fae05ba3b53ad4dac3e5fbd771437563cc78b692f23ddd02fad"
 
-inherit autotools gettext update-rc.d pkgconfig ptest
+inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLLINT=/usr/bin/xmllint \
@@ -98,12 +99,15 @@ PACKAGES =+ "${PN}-libvirtd ${PN}-virsh"
 
 ALLOW_EMPTY_${PN}-libvirtd = "1"
 
-FILES_${PN}-libvirtd = "${sysconfdir}/init.d \
+FILES_${PN}-libvirtd = " \
+	${sysconfdir}/init.d \
 	${sysconfdir}/sysctl.d \
 	${sysconfdir}/logrotate.d \
 	${sysconfdir}/libvirt/libvirtd.conf \
         /usr/lib/sysctl.d/60-libvirtd.conf \
-	${sbindir}/libvirtd"
+	${sbindir}/libvirtd \
+	${systemd_unitdir}/system/* \
+        "
 
 FILES_${PN}-virsh = "${bindir}/virsh"
 FILES_${PN} += "${libdir}/libvirt/connection-driver \
@@ -128,6 +132,16 @@ CONFFILES_${PN}-libvirtd = "${sysconfdir}/logrotate.d/libvirt ${sysconfdir}/logr
 INITSCRIPT_PACKAGES = "${PN}-libvirtd"
 INITSCRIPT_NAME_${PN}-libvirtd = "libvirtd"
 INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
+
+SYSTEMD_PACKAGES = "${PN}-libvirtd"
+SYSTEMD_SERVICE_${PN}-libvirtd = " \
+    libvirtd.socket \
+    libvirtd.service \
+    virtlockd.service \
+    libvirt-guests.service \
+    virtlockd.socket \
+    "
+
 
 PRIVATE_LIBS_${PN}-ptest = " \
 	libvirt-lxc.so.0 \
@@ -223,6 +237,10 @@ do_install_append() {
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks 
 }
+
+EXTRA_OECONF += " \
+    --with-init-script=systemd \
+    "
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH}"
 

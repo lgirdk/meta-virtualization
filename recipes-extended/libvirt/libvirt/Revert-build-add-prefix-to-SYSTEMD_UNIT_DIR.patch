@@ -1,0 +1,84 @@
+From 171fc890bb5972e566bd7b3d87a40ac434a5b3e6 Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Wed, 9 Sep 2015 11:52:44 -0400
+Subject: [PATCH] Revert "build: add $(prefix) to SYSTEMD_UNIT_DIR"
+
+This reverts upstream commit 00e9d6071b2450659ce01bc984f64ecb5d7ba62d
+with minor context changes to allow it to apply.
+
+Yocto based builds use /lib/systemd/system for systemd unit files and
+since upstream has chosen to use a mechanism for setting
+SYSTEMD_UNIT_DIR which is not flexible we have to resort to reverting
+this upstream commit to avoid having ${prefix} added to the path.
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ daemon/Makefile.am | 4 ++--
+ src/Makefile.am    | 4 ++--
+ tools/Makefile.am  | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/daemon/Makefile.am b/daemon/Makefile.am
+index 00221ab..e5c5db8 100644
+--- a/daemon/Makefile.am
++++ b/daemon/Makefile.am
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-## Copyright (C) 2005-2015 Red Hat, Inc.
++## Copyright (C) 2005-2015 Red Hat, Inc.
+ ##
+ ## This library is free software; you can redistribute it and/or
+ ## modify it under the terms of the GNU Lesser General Public
+@@ -387,7 +387,7 @@ endif ! LIBVIRT_INIT_SCRIPT_UPSTART
+ 
+ if LIBVIRT_INIT_SCRIPT_SYSTEMD
+ 
+-SYSTEMD_UNIT_DIR = $(prefix)/lib/systemd/system
++SYSTEMD_UNIT_DIR = /lib/systemd/system
+ BUILT_SOURCES += libvirtd.service libvirtd.socket
+ 
+ install-init-systemd: install-sysconfig libvirtd.service
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 8f77658..57e163f 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-## Copyright (C) 2005-2015 Red Hat, Inc.
++## Copyright (C) 2005-2015 Red Hat, Inc.
+ ##
+ ## This library is free software; you can redistribute it and/or
+ ## modify it under the terms of the GNU Lesser General Public
+@@ -2220,7 +2220,7 @@ EXTRA_DIST += \
+ if WITH_LIBVIRTD
+ if LIBVIRT_INIT_SCRIPT_SYSTEMD
+ 
+-SYSTEMD_UNIT_DIR = $(prefix)/lib/systemd/system
++SYSTEMD_UNIT_DIR = /lib/systemd/system
+ 
+ BUILT_SOURCES += virtlockd.service virtlockd.socket
+ DISTCLEANFILES += virtlockd.service virtlockd.socket
+diff --git a/tools/Makefile.am b/tools/Makefile.am
+index 6847f13..256a8f3 100644
+--- a/tools/Makefile.am
++++ b/tools/Makefile.am
+@@ -1,4 +1,4 @@
+-## Copyright (C) 2005-2014 Red Hat, Inc.
++## Copyright (C) 2005-2013 Red Hat, Inc.
+ ##
+ ## This library is free software; you can redistribute it and/or
+ ## modify it under the terms of the GNU Lesser General Public
+@@ -306,7 +306,7 @@ libvirt-guests.init: libvirt-guests.init.in libvirt-guests.sh
+ 
+ 
+ EXTRA_DIST += libvirt-guests.service.in
+-SYSTEMD_UNIT_DIR = $(prefix)/lib/systemd/system
++SYSTEMD_UNIT_DIR = /lib/systemd/system
+ 
+ if LIBVIRT_INIT_SCRIPT_SYSTEMD
+ install-systemd: libvirt-guests.service install-sysconfig libvirt-guests.sh
+-- 
+1.9.1
+
