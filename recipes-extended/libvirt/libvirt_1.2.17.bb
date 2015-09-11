@@ -222,6 +222,11 @@ do_install_append() {
 	    mv ${D}/${libexecdir}/libvirt-guests.sh ${D}/${sysconfdir}/init.d
 	fi
 
+	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+	    # This variable is used by libvirtd.service to start libvirtd in the right mode
+	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/sysconfig/libvirtd
+	fi
+
 	# The /var/run/libvirt directories created by the Makefile
 	# are wiped out in volatile, we need to create these at boot.
 	rm -rf ${D}${localstatedir}/run
