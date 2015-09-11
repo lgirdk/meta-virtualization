@@ -107,6 +107,7 @@ FILES_${PN}-libvirtd = " \
         /usr/lib/sysctl.d/60-libvirtd.conf \
 	${sbindir}/libvirtd \
 	${systemd_unitdir}/system/* \
+	${@base_contains('DISTRO_FEATURES', 'sysvinit', '', '${libexecdir}/libvirt-guests.sh', d)} \
         "
 
 FILES_${PN}-virsh = "${bindir}/virsh"
@@ -215,9 +216,11 @@ do_install_append() {
 	install -m 0755 ${WORKDIR}/libvirtd.sh ${D}/etc/init.d/libvirtd
 	install -m 0644 ${WORKDIR}/libvirtd.conf ${D}/etc/libvirt/libvirtd.conf
 
-	# This will wind up in the libvirtd package, but will NOT be invoked by default.
-	#
-	mv ${D}/${libexecdir}/libvirt-guests.sh ${D}/${sysconfdir}/init.d
+	if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
+	    # This will wind up in the libvirtd package, but will NOT be invoked by default.
+	    #
+	    mv ${D}/${libexecdir}/libvirt-guests.sh ${D}/${sysconfdir}/init.d
+	fi
 
 	# The /var/run/libvirt directories created by the Makefile
 	# are wiped out in volatile, we need to create these at boot.
