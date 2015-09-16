@@ -225,6 +225,11 @@ do_install_append() {
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 	    # This variable is used by libvirtd.service to start libvirtd in the right mode
 	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/sysconfig/libvirtd
+
+	    # We can't use 'notify' when we don't support 'sd_notify' dbus capabilities.
+	    sed -i -e 's/Type=notify/Type=forking/' \
+	           -e '/Type=forking/a PIDFile=${localstatedir}/run/libvirtd.pid' \
+		   ${D}/${systemd_unitdir}/system/libvirtd.service
 	fi
 
 	# The /var/run/libvirt directories created by the Makefile
