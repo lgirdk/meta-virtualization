@@ -19,8 +19,9 @@ DESCRIPTION = "Linux container runtime \
  "
 
 SRCREV = "7c8fca2ddb58c8d2c4fb4df31c242886df7dd257"
+SRCBRANCH = "v1.6.2"
 SRC_URI = "\
-	git://github.com/docker/docker.git;branch=release \
+	git://github.com/docker/docker.git;branch=${SRCBRANCH};nobranch=1 \
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
