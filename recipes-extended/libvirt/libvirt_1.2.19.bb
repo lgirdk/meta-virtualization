@@ -35,8 +35,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "a1f49050223be3cbd7678c32b1ee2756"
-SRC_URI[libvirt.sha256sum] = "e07eaf20b0590fae05ba3b53ad4dac3e5fbd771437563cc78b692f23ddd02fad"
+SRC_URI[libvirt.md5sum] = "bc3ab1ba5b6fabd2e4516c70ddd4d97c"
+SRC_URI[libvirt.sha256sum] = "282c141f03331d640020c15f81464b27400e0ee307ef4c5190393b021caedd6e"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
