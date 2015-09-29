@@ -33,6 +33,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-busybox-add-OpenSSH-support.patch \
 	file://make-some-OpenSSH-tools-optional.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
+	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	"
 
 SRC_URI[md5sum] = "197abb5a28ab0b689c737eb1951023fb"
@@ -48,6 +49,8 @@ EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 EXTRA_OECONF += "--with-init-script=\
 ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'sysvinit,', '', d)}\
 ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
+
+EXTRA_OECONF += "--enable-log-src-basename"
 
 PACKAGECONFIG ??= "templates \
     ${@base_contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
