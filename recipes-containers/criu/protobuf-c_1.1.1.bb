@@ -19,6 +19,10 @@ inherit autotools
 
 BBCLASSEXTEND = "native nativesdk"
 
+do_configure_prepend_class-target() {
+    export PKG_CONFIG_PATH="${STAGING_LIBDIR_NATIVE}/pkgconfig:${PKG_CONFIG_PATH}"
+}
+
 do_install_append_class-native() {
     install -m 755 ${B}/t/generated-code2/cxx-generate-packed-data ${D}/${bindir}
 }
