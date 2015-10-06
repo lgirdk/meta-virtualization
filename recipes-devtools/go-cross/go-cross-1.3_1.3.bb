@@ -25,7 +25,7 @@ SRC_URI += "\
 
 do_compile() {
 	## Setting `$GOBIN` doesn't do any good, looks like it ends up copying binaries there.
-	export GOROOT_FINAL="${SYSROOT}${libdir}/go"
+	export GOROOT_FINAL="${SYSROOT}${libdir}/go-1.3"
 
 	export GOHOSTOS="linux"
 	export GOOS="linux"
@@ -61,11 +61,12 @@ do_compile() {
 do_install() {
 	## It should be okay to ignore `${WORKDIR}/go/bin/linux_arm`...
 	## Also `gofmt` is not needed right now.
-	install -d "${D}${bindir}"
-	install -m 0755 "${WORKDIR}/go/bin/go" "${D}${bindir}"
-	install -d "${D}${libdir}/go"
+	install -d "${D}${bindir}/go-1.3"
+	install -m 0755 "${WORKDIR}/go/bin/go" "${D}${bindir}/go-1.3/"
+	install -d "${D}${libdir}/go-1.3"
+
 	## TODO: use `install` instead of `cp`
 	for dir in include lib pkg src test
-	do cp -a "${WORKDIR}/go/${dir}" "${D}${libdir}/go/"
+	do cp -a "${WORKDIR}/go/${dir}" "${D}${libdir}/go-1.3/"
 	done
 }

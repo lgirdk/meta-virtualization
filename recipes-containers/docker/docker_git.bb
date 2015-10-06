@@ -37,7 +37,7 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "1.6.2"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross \
+DEPENDS = "go-cross-1.3 \
     go-cli \
     go-pty \
     go-context \
@@ -66,6 +66,8 @@ do_configure() {
 }
 
 do_compile() {
+	export PATH=${STAGING_BINDIR_NATIVE}/${HOST_SYS}/go-1.3:$PATH
+
 	export GOARCH="${TARGET_ARCH}"
 	# supported amd64, 386, arm
 	if [ "${TARGET_ARCH}" = "x86_64" ]; then
