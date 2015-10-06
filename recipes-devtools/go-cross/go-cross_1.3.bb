@@ -5,6 +5,8 @@ DESCRIPTION = "\
 HOMEPAGE = "https://golang.org/"
 LICENSE = "BSD-3-Clause"
 
+DEPENDS = "virtual/${TARGET_PREFIX}gcc"
+
 SRC_URI = "http://golang.org/dl/go${PV}.src.tar.gz"
 
 S = "${WORKDIR}/go/"
@@ -44,8 +46,8 @@ do_compile() {
 	## TODO: consider setting GO_EXTLINK_ENABLED
 
 	export CC="${BUILD_CC}"
-	export CC_FOR_TARGET="${CC}"
-	export CXX_FOR_TARGET="${CXX}"
+	export CC_FOR_TARGET="${TARGET_PREFIX}gcc ${TARGET_CC_ARCH} --sysroot=${STAGING_DIR_TARGET}"
+	export CXX_FOR_TARGET="${TARGET_PREFIX}g++ ${TARGET_CC_ARCH} --sysroot=${STAGING_DIR_TARGET}"
 	export GO_CCFLAGS="${HOST_CFLAGS}"
 	export GO_LDFLAGS="${HOST_LDFLAGS}"
 
