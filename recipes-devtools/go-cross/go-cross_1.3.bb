@@ -20,6 +20,7 @@ SRC_URI[sha256sum] = "eb983e6c5b2b9838f482c5442b1ac1856f610f2b21f3c123b3fedb48ff
 SRC_URI += "\
         file://bsd_svid_source.patch \
         file://ccache.patch \
+        file://0001-cmd-ld-set-alignment-for-the-.rel.plt-section-on-32-.patch \
         "
 
 do_compile() {
