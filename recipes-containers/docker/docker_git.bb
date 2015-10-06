@@ -84,10 +84,12 @@ do_compile() {
 	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	cd -
 
+	export CGO_ENABLED="1"
+
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
-	export CGO_CFLAGS="${BUILD_CFLAGS}"
-	export CGO_LDFLAGS="${BUILD_LDFLAGS}"
+	export CGO_CFLAGS="${BUILDSDK_CFLAGS}"
+	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS}"
 
 	# this is the unsupported built structure
 	# that doesn't rely on an existing docker
@@ -125,7 +127,11 @@ do_install() {
             install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 
-	cp ${S}/vendor/bin/nsinit ${D}/${bindir}
+	if [ -d ${S}/vendor/bin/linux_* ]; then
+		cp ${S}/vendor/bin/linux_*/* ${D}/${bindir}
+	else
+		cp ${S}/vendor/bin/* ${D}/${bindir}
+	fi
 
 	mkdir -p ${D}/usr/share/docker/
 	cp ${WORKDIR}/hi.Dockerfile ${D}/usr/share/docker/
