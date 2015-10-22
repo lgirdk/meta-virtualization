@@ -11,6 +11,9 @@ SRC_URI = "hg://code.google.com/p;module=gosqlite"
 
 SRCREV = "74691fb6f83716190870cde1b658538dd4b18eb0"
 
+SRC_URI[md5sum] = "04bb4682d0113d5dbcd4a1dbf6b24dfc"
+SRC_URI[sha256sum] = "478967fee730b85a6a4f96ace1e08fe91b6dfa6d641856bcd4574baec2f0361c"
+
 S = "${WORKDIR}/${SRCNAME}"
 
 do_install() {
