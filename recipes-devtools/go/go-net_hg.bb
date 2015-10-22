@@ -11,6 +11,9 @@ SRC_URI = "hg://code.google.com/p;module=go.net"
 
 SRCREV = "84a4013f96e01fdd14b65d260a78b543e3702ee1"
 
+SRC_URI[md5sum] = "d899f1e61fcd0d9a8b541314b4737f2c"
+SRC_URI[sha256sum] = "99360e80a4cb0f969cbd6287ed37d97bb16cbde30268461cb98ef3e3c2aae259"
+
 S = "${WORKDIR}/${SRCNAME}"
 
 do_install() {
