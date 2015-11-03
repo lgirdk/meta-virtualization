@@ -9,19 +9,18 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.3.90+${SRCREV}"
+PV = "2.4.0+${SRCREV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "1667bb34988358aaf1c92d0d21fad4b1c8698780"
+SRCREV = "bb429e09f7783f1ba23ac0682ed9edf424f0cfbb"
 SRC_URI += "\
-	git://github.com/openvswitch/ovs.git;protocol=git \
+	git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.4 \
 	file://openvswitch-add-more-target-python-substitutions.patch \
 	file://openvswitch-add-ptest-${SRCREV}.patch \
 	file://run-ptest \
 	file://disable_m4_check.patch \
 	file://kernel_module.patch \
-	file://non_reproducible_builds_cleanup.patch \
 	"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=5973c953e3c8a767cf0808ff8a0bac1b"

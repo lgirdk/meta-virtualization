@@ -9,10 +9,10 @@ Signed-off-by: Radu Patriu <radu.patriu@enea.com>
 
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -369,3 +369,5 @@
- include vtep/automake.mk
+@@ -382,3 +382,5 @@
  include datapath-windows/automake.mk
  include datapath-windows/include/automake.mk
+ include windows/automake.mk
 +include test.mk
 +
 --- /dev/null
