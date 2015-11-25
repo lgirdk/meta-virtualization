@@ -1,0 +1,72 @@
+From 83593a1020c5e1f8c1883e6e02296f075a7ce38e Mon Sep 17 00:00:00 2001
+From: Robert Schiele <rschiele@gmail.com>
+Date: Fri, 21 Aug 2015 07:35:34 +0200
+Subject: [PATCH] check for NULL pointers before calling setenv()
+
+Latest glibc release actually honours calling setenv with a NULL
+pointer by causing SIGSEGV but checking pointers before submitting
+to any system function is a good idea anyway.
+
+Signed-off-by: Robert Schiele <rschiele@gmail.com>
+---
+ src/lxc/lxccontainer.c | 10 +++++-----
+ src/lxc/start.c        |  8 ++++----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/src/lxc/lxccontainer.c b/src/lxc/lxccontainer.c
+index 08d788a..9a407c3 100644
+--- a/src/lxc/lxccontainer.c
++++ b/src/lxc/lxccontainer.c
+@@ -2571,19 +2571,19 @@ static int clone_update_rootfs(struct clone_update_data *data)
+ 
+ 	if (!lxc_list_empty(&conf->hooks[LXCHOOK_CLONE])) {
+ 		/* Start of environment variable setup for hooks */
+-		if (setenv("LXC_SRC_NAME", c0->name, 1)) {
++		if (c0->name && setenv("LXC_SRC_NAME", c0->name, 1)) {
+ 			SYSERROR("failed to set environment variable for source container name");
+ 		}
+-		if (setenv("LXC_NAME", c->name, 1)) {
++		if (c->name && setenv("LXC_NAME", c->name, 1)) {
+ 			SYSERROR("failed to set environment variable for container name");
+ 		}
+-		if (setenv("LXC_CONFIG_FILE", conf->rcfile, 1)) {
++		if (conf->rcfile && setenv("LXC_CONFIG_FILE", conf->rcfile, 1)) {
+ 			SYSERROR("failed to set environment variable for config path");
+ 		}
+-		if (setenv("LXC_ROOTFS_MOUNT", bdev->dest, 1)) {
++		if (bdev->dest && setenv("LXC_ROOTFS_MOUNT", bdev->dest, 1)) {
+ 			SYSERROR("failed to set environment variable for rootfs mount");
+ 		}
+-		if (setenv("LXC_ROOTFS_PATH", conf->rootfs.path, 1)) {
++		if (conf->rootfs.path && setenv("LXC_ROOTFS_PATH", conf->rootfs.path, 1)) {
+ 			SYSERROR("failed to set environment variable for rootfs mount");
+ 		}
+ 
+diff --git a/src/lxc/start.c b/src/lxc/start.c
+index 4d84794..64debc9 100644
+--- a/src/lxc/start.c
++++ b/src/lxc/start.c
+@@ -390,16 +390,16 @@ struct lxc_handler *lxc_init(const char *name, struct lxc_conf *conf, const char
+ 	}
+ 
+ 	/* Start of environment variable setup for hooks */
+-	if (setenv("LXC_NAME", name, 1)) {
++	if (name && setenv("LXC_NAME", name, 1)) {
+ 		SYSERROR("failed to set environment variable for container name");
+ 	}
+-	if (setenv("LXC_CONFIG_FILE", conf->rcfile, 1)) {
++	if (conf->rcfile && setenv("LXC_CONFIG_FILE", conf->rcfile, 1)) {
+ 		SYSERROR("failed to set environment variable for config path");
+ 	}
+-	if (setenv("LXC_ROOTFS_MOUNT", conf->rootfs.mount, 1)) {
++	if (conf->rootfs.mount && setenv("LXC_ROOTFS_MOUNT", conf->rootfs.mount, 1)) {
+ 		SYSERROR("failed to set environment variable for rootfs mount");
+ 	}
+-	if (setenv("LXC_ROOTFS_PATH", conf->rootfs.path, 1)) {
++	if (conf->rootfs.path && setenv("LXC_ROOTFS_PATH", conf->rootfs.path, 1)) {
+ 		SYSERROR("failed to set environment variable for rootfs mount");
+ 	}
+ 	if (conf->console.path && setenv("LXC_CONSOLE", conf->console.path, 1)) {
+-- 
+1.9.1
+

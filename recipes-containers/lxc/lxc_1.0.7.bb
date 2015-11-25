@@ -34,6 +34,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-busybox-add-OpenSSH-support.patch \
 	file://make-some-OpenSSH-tools-optional.patch \
+	file://check-for-NULL-pointers-before-calling-setenv.patch \
 	"
 
 SRC_URI[md5sum] = "b48f468a9bef0e4e140dd723f0a65ad0"
