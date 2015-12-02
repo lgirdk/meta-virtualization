@@ -15,7 +15,7 @@ SRC_URI[sha256sum] = "09c5bb187b7a8e86bc0ff860f7df86370be9e8661cdb99c1072dcdab07
 SRC_URI = "https://github.com/protobuf-c/protobuf-c/releases/download/v1.1.1/protobuf-c-1.1.1.tar.gz "
 SRC_URI_append_class-target ="file://0001-protobuf-c-Remove-the-rules-which-depend-on-the-nati.patch"
 
-inherit autotools
+inherit autotools pkgconfig
 
 BBCLASSEXTEND = "native nativesdk"
 
