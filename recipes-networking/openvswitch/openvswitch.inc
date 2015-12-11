@@ -61,13 +61,21 @@ FILES_${PN}-brcompat = "${sbindir}/ovs-brcompatd"
 FILES_${PN}-switch = "\
 	${sysconfdir}/init.d/openvswitch-switch \
 	${sysconfdir}/default/openvswitch-switch \
+	${systemd_unitdir}/system/openvswitch.service \
+	${systemd_unitdir}/system/openvswitch-nonetwork.service \
 	"
 
 # silence a warning
 FILES_${PN} += "${datadir}/ovsdbmonitor"
 FILES_${PN} += "/run"
 
-inherit autotools update-rc.d
+inherit autotools update-rc.d systemd
+
+SYSTEMD_PACKAGES = "${PN}-switch"
+SYSTEMD_SERVICE_${PN}-switch = " \
+    openvswitch-nonetwork.service \
+    openvswitch-switch.service \
+"
 
 INITSCRIPT_PACKAGES = "${PN}-switch ${PN}-testcontroller"
 INITSCRIPT_NAME_${PN}-switch = "openvswitch-switch"
@@ -87,7 +95,11 @@ do_install_append() {
 	install -m 755 ${WORKDIR}/openvswitch-switch ${D}/${sysconfdir}/init.d/openvswitch-switch
 	true || rm -fr ${D}/${datadir}/${PN}/pki
 
-	install -d ${D}/${sysconfdir}/init.d/
+	install -d ${D}/${systemd_unitdir}/system/
+	install -m 644 ${S}/rhel/usr_lib_systemd_system_openvswitch.service \
+		${D}/${systemd_unitdir}/system/openvswitch-switch.service
+	install -m 644 ${S}/rhel/usr_lib_systemd_system_openvswitch-nonetwork.service \
+		${D}/${systemd_unitdir}/system/openvswitch-nonetwork.service
 
 	oe_runmake modules_install INSTALL_MOD_PATH=${D}
 }
