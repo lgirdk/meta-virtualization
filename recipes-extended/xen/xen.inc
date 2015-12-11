@@ -257,7 +257,7 @@ FILES_${PN}-libxenguest-dev = "${libdir}/libxenguest.so"
 FILES_${PN}-libxenlight = "${libdir}/libxenlight.so.*"
 FILES_${PN}-libxenlight-dev = " \
     ${libdir}/libxenlight.so \
-    /usr/share/pkgconfig/xenlight.pc \
+    ${datadir}/pkgconfig/xenlight.pc \
     "
 
 FILES_${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
@@ -269,7 +269,7 @@ FILES_${PN}-libxenctrl-dev = "${libdir}/libxenctrl.so"
 FILES_${PN}-libxlutil = "${libdir}/libxlutil.so.*"
 FILES_${PN}-libxlutil-dev = " \
     ${libdir}/libxlutil.so \
-    /usr/share/pkgconfig/xlutil.pc \
+    ${datadir}/pkgconfig/xlutil.pc \
     "
 
 FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
