@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
 
-inherit autotools-brokensep gettext setuptools update-rc.d systemd
+inherit autotools-brokensep gettext setuptools update-rc.d systemd deploy
 
 require xen-arch.inc
 
@@ -786,14 +786,14 @@ pkg_postinst_${PN}-volatiles() {
     fi
 }
 
-sysroot_stage_all_append() {
-    sysroot_stage_dir ${D}/boot ${SYSROOT_DESTDIR}/kernel
-
-    install -d ${DEPLOY_DIR_IMAGE}
+do_deploy() {
+    install -d ${DEPLOYDIR}
     if [ -f ${D}/boot/xen ]; then
-        install -m 0644 ${D}/boot/xen ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}
+        install -m 0644 ${D}/boot/xen ${DEPLOYDIR}/xen-${MACHINE}
     fi
     if [ -f ${D}/boot/xen.gz ]; then
-        install -m 0644 ${D}/boot/xen.gz ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz
+        install -m 0644 ${D}/boot/xen.gz ${DEPLOYDIR}/xen-${MACHINE}.gz
     fi
 }
+
+addtask deploy after do_populate_sysroot
