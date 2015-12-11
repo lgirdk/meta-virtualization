@@ -19,7 +19,7 @@
 # Suite 330, Boston, MA 02111-1307 USA
 #
 ### BEGIN INIT INFO
-# Provides:          openvswitch-controller
+# Provides:          openvswitch-testcontroller
 # Required-Start:    $network $local_fs $remote_fs
 # Required-Stop:     $remote_fs
 # Should-Start:      $named
@@ -31,9 +31,9 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-DAEMON=/usr/bin/ovs-controller # Introduce the server's location here
-NAME=ovs-controller         # Introduce the short server's name here
-DESC=ovs-controller         # Introduce a short description here
+DAEMON=/usr/bin/ovs-testcontroller # Introduce the server's location here
+NAME=ovs-testcontroller         # Introduce the short server's name here
+DESC=ovs-testcontroller         # Introduce a short description here
 LOGDIR=/var/log/openvswitch # Log directory to use
 
 PIDFILE=/var/run/openvswitch/$NAME.pid 
@@ -43,7 +43,7 @@ test -x $DAEMON || exit 0
 . /lib/lsb/init-functions
 
 # Default options, these can be overriden by the information
-# at /etc/default/openvswitch-controller
+# at /etc/default/openvswitch-testcontroller
 DAEMON_OPTS=""          # Additional options given to the server 
 
 DODTIME=10              # Time to wait for the server to die, in seconds
@@ -56,7 +56,7 @@ LOGFILE=$LOGDIR/$NAME.log  # Server logfile
                         # is set start-stop-daemon will chuid the server
 
 # Include defaults if available
-default=/etc/default/openvswitch-controller
+default=/etc/default/openvswitch-testcontroller
 if [ -f $default ] ; then
     . $default
 fi
@@ -113,9 +113,9 @@ start_server() {
     SSL_OPTS=
     case $LISTEN in
         *ssl*)
-            : ${PRIVKEY:=/etc/openvswitch-controller/privkey.pem}
-            : ${CERT:=/etc/openvswitch-controller/cert.pem}
-            : ${CACERT:=/etc/openvswitch-controller/cacert.pem}
+            : ${PRIVKEY:=/etc/openvswitch-testcontroller/privkey.pem}
+            : ${CERT:=/etc/openvswitch-testcontroller/cert.pem}
+            : ${CACERT:=/etc/openvswitch-testcontroller/cacert.pem}
             if test ! -e "$PRIVKEY" || test ! -e "$CERT" ||
                 test ! -e "$CACERT"; then
                 if test ! -e "$PRIVKEY"; then
@@ -265,7 +265,7 @@ case "$1" in
         log_warning_msg "cannot re-read the config file (use restart)."
         ;;
   *)
-        N=/etc/init.d/openvswitch-controller
+        N=/etc/init.d/openvswitch-testcontroller
         echo "Usage: $N {start|stop|force-stop|restart|force-reload|status}" >&2
         exit 1
         ;;

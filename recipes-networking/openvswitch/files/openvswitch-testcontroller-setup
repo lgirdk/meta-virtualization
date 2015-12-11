@@ -15,15 +15,15 @@ LISTEN="pssl:"
 
 # PRIVKEY: Name of file containing controller's private key.
 # Required if SSL enabled.
-PRIVKEY=/etc/openvswitch-controller/privkey.pem
+PRIVKEY=/etc/openvswitch-testcontroller/privkey.pem
 
 # CERT: Name of file containing certificate for private key.
 # Required if SSL enabled.
-CERT=/etc/openvswitch-controller/cert.pem
+CERT=/etc/openvswitch-testcontroller/cert.pem
 
 # CACERT: Name of file containing switch CA certificate.
 # Required if SSL enabled.
-CACERT=/etc/openvswitch-controller/cacert.pem
+CACERT=/etc/openvswitch-testcontroller/cacert.pem
 
 # Additional options to pass to controller, e.g. "--hub"
 DAEMON_OPTS=""
