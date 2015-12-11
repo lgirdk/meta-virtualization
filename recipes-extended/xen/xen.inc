@@ -54,7 +54,7 @@ DEPENDS = " \
 RDEPENDS_${PN} = ""
 
 RDEPENDS_${PN}-base = "\
-    libgcc udev bash perl xz \
+    libgcc bash perl xz \
     ${PN}-blktap \
     ${PN}-console \
     ${PN}-libblktapctl \
@@ -113,6 +113,8 @@ RDEPENDS_${PN}-scripts-network = "\
     ${PN}-udev \
     ${PN}-volatiles \
     "
+
+RDEPENDS_${PN}-udev = "udev"
 
 RDEPENDS_${PN}-xencommons = "\
     bash \
