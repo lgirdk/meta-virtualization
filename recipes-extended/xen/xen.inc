@@ -333,7 +333,7 @@ FILES_${PN}-flask = "\
     ${sbindir}/flask-loadpolicy \
     ${sbindir}/flask-set-bool \
     ${sbindir}/flask-setenforce \
-    /boot/xenpolicy.24 \
+    /boot/xenpolicy-${PV} \
     "
 
 FILES_${PN}-gdbsx = "\
@@ -715,6 +715,15 @@ EXTRA_OECONF += " \
     --disable-ocamltools \
     "
 
+# check for XSM in package config to allow XSM_ENABLE to be set 
+python () {
+    pkgconfig = d.getVar('PACKAGECONFIG', True)
+    if ('xsm') in pkgconfig.split():
+        d.setVar('XSM_ENABLED', '1')
+    else:
+        d.setVar('XSM_ENABLED', '0')
+}
+
 do_configure() {
     # no stubs-32.h in our 64-bit sysroot - hack it into tools/include/gnu
     if ! test -f ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-32.h ; then
@@ -725,6 +734,11 @@ do_configure() {
             echo \#define __stub___kernel_sinl >> ${S}/tools/include/gnu/stubs-32.h
             echo \#define __stub___kernel_tanl >> ${S}/tools/include/gnu/stubs-32.h
         fi
+    fi
+
+    #./configure --enable-xsm does not set XSM_ENABLE must be done manually
+    if [ "${XSM_ENABLED}" = "1" ]; then
+        echo "XSM_ENABLE := y" > ${S}/.config
     fi
 
     # do configure
