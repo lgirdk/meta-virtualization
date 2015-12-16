@@ -712,6 +712,7 @@ EXTRA_OECONF += " \
     --disable-pv-grub \
     --disable-xenstore-stubdom \
     --disable-rombios \
+    --disable-ocamltools \
     "
 
 do_configure() {
