@@ -78,6 +78,8 @@ RDEPENDS_${PN}-base = "\
     ${PN}-xl \
     "
 
+RDEPENDS_${PN}-dev = ""
+
 RRECOMMENDS_${PN}-base = " \
     ${PN}-libblktap \
     ${PN}-flask \
