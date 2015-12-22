@@ -3,7 +3,7 @@ HOMEPAGE = "http://xen.org"
 LICENSE = "GPLv2"
 SECTION = "console/tools"
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=e0f0f3ac55608719a82394cc353928df"
+LIC_FILES_CHKSUM = "file://COPYING;md5=a6260c12cd5de27e80d89ae18e48d20a"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
 
@@ -69,7 +69,6 @@ RDEPENDS_${PN}-base = "\
     ${PN}-fsimage \
     ${PN}-scripts-block \
     ${PN}-scripts-network \
-    ${PN}-udev \
     ${PN}-xen-watchdog \
     ${PN}-xencommons \
     ${PN}-xendomains \
@@ -105,7 +104,6 @@ RDEPENDS_${PN}-remus = "python"
 RDEPENDS_${PN}-scripts-block = "\
     bash \
     ${PN}-scripts-common \
-    ${PN}-udev \
     ${PN}-volatiles \
     "
 
@@ -115,11 +113,8 @@ RDEPENDS_${PN}-scripts-network = "\
     bash \
     bridge-utils \
     ${PN}-scripts-common \
-    ${PN}-udev \
     ${PN}-volatiles \
     "
-
-RDEPENDS_${PN}-udev = "udev"
 
 RDEPENDS_${PN}-xencommons = "\
     bash \
@@ -188,7 +183,6 @@ PACKAGES = "\
     ${PN}-scripts-common \
     ${PN}-scripts-network \
     ${PN}-staticdev \
-    ${PN}-udev \
     ${PN}-volatiles \
     ${PN}-xcutils \
     ${PN}-xencommons \
@@ -520,11 +514,6 @@ FILES_${PN}-scripts-common = " \
     ${sysconfdir}/xen/scripts/xen-hotplug-common.sh \
     ${sysconfdir}/xen/scripts/xen-network-common.sh \
     ${sysconfdir}/xen/scripts/xen-script-common.sh \
-    "
-
-FILES_${PN}-udev = "\
-    ${sysconfdir}/udev/rules.d/xen-backend.rules \
-    ${sysconfdir}/udev/rules.d/xend.rules \
     "
 
 FILES_${PN}-volatiles = "\

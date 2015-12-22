@@ -5,8 +5,8 @@ SRC_URI = " \
     file://xen-x86-Fix-up-rules-when-forcing-mno-sse.patch \
     "
 
-SRC_URI[md5sum] = "9bac43d2419d05a647064d9253bb03fa"
-SRC_URI[sha256sum] = "5bdb40e2b28d2eeb541bd71a9777f40cbe2ae444b987521d33f099541a006f3b"
+SRC_URI[md5sum] = "48e232f90927c08326a7b52bb06f49bc"
+SRC_URI[sha256sum] = "6fa1c2431df55aa5950d248e6093b8c8c0f11c357a0adbd348a2186478e80909"
 
 S = "${WORKDIR}/xen-${PV}"
 
