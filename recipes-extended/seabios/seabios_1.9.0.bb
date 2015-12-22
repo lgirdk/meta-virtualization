@@ -13,10 +13,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504         
                     file://COPYING.LESSER;md5=6a6a8e020838b23406c81b19c1d46df6  \
                     "
 
-SRC_URI[md5sum] = "3f1e17485ca327b245ae5938d9aa02d9"
-SRC_URI[sha256sum] = "858d9eda4ad91efa1c45a5a401d560ef9ca8dd172f03b0a106f06661c252dc51"
-
-PR = "r0"
+SRC_URI[md5sum] = "c3fea87e731e396bd4e7e2c478ba39d9"
+SRC_URI[sha256sum] = "88595545c6d580a7a6da1c40befc46dd74c0e4aaf808547867dd7ce8cc3b4d0e"
 
 FILES_${PN} = "/usr/share/firmware"
 
