@@ -29,7 +29,7 @@ EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.r
 
 do_configure_prepend() {
     # fixup AS/CC/CCP/etc variable within StdGNU.mk
-    for i in AS LD CC CPP AR RANLIB NM STRIP OBJCOPY OBJDUMP; do
+    for i in LD CC CPP CXX; do
         sed -i "s/^\($i\s\s*\).*=/\1?=/" ${S}/config/StdGNU.mk
     done
     # fixup environment passing in some makefiles
