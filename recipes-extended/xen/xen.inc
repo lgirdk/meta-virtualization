@@ -87,6 +87,10 @@ RRECOMMENDS_${PN}-base = " \
     ${PN}-xenpaging \
     "
 
+RDEPENDS_${PN}-devd = " \
+    ${PN}-xl \
+    "
+
 RDEPENDS_${PN}-fsimage = " \
     libext2fs \
     "
@@ -326,6 +330,10 @@ FILES_${PN}-blktap = "\
 FILES_${PN}-console = "\
     ${libdir}/xen/bin/xenconsole \
     ${sbindir}/xenconsoled \
+    "
+
+FILES_${PN}-devd = "\
+    ${sysconfdir}/init.d/xendriverdomain \
     "
 
 FILES_${PN}-flask = "\
@@ -648,7 +656,7 @@ FILES_${PN}-xendomains += "\
     "
 
 # configure init.d scripts
-INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xencommons ${PN}-xen-watchdog ${PN}-xendomains"
+INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xencommons ${PN}-xen-watchdog ${PN}-xendomains ${PN}-devd"
 INITSCRIPT_NAME_${PN}-xencommons = "xencommons"
 INITSCRIPT_PARAMS_${PN}-xencommons = "defaults 80"
 INITSCRIPT_NAME_${PN}-xen-watchdog = "xen-watchdog"
@@ -657,6 +665,8 @@ INITSCRIPT_NAME_${PN}-xend = "xend"
 INITSCRIPT_PARAMS_${PN}-xend = "defaults 82"
 INITSCRIPT_NAME_${PN}-xendomains = "xendomains"
 INITSCRIPT_PARAMS_${PN}-xendomains = "defaults 83"
+INITSCRIPT_NAME_${PN}-devd = "xendriverdomain"
+INITSCRIPT_PARAMS_${PN}-devd = "defaults 82"
 
 # systemd packages
 SYSTEMD_PACKAGES = "${PN}-xen-watchdog ${PN}-xencommons ${PN}-xendomains"
