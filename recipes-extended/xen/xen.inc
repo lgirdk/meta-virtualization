@@ -35,6 +35,7 @@ DEPENDS = " \
     gettext \
     glib-2.0 \
     iproute2 \
+    libnl \
     ncurses \
     openssl \
     pciutils \
