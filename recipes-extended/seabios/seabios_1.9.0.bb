@@ -6,7 +6,6 @@ SECTION = "firmware"
 SRC_URI = " \
     http://code.coreboot.org/p/seabios/downloads/get/${PN}-${PV}.tar.gz \
     file://hostcc.patch \
-    file://defconfig \
     "
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504         \
@@ -25,8 +24,7 @@ EXTRA_OEMAKE += "HOSTCC='${BUILD_CC}'"
 EXTRA_OEMAKE += "CROSS_PREFIX=${TARGET_PREFIX}"
 
 do_configure() {
-    install -m 0644 "${WORKDIR}/defconfig" .config
-    oe_runmake oldconfig
+    oe_runmake defconfig
 }
 
 do_compile() {
