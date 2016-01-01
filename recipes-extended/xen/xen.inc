@@ -100,7 +100,10 @@ RDEPENDS_${PN}-misc = " \
     python \
     "
 
-RDEPENDS_${PN}-remus = "python"
+RDEPENDS_${PN}-remus = " \
+    bash \
+    python \
+    "
 
 RDEPENDS_${PN}-scripts-block = "\
     bash \
@@ -478,6 +481,7 @@ FILES_${PN}-qemu = " \
 
 FILES_${PN}-remus = "\
     ${bindir}/remus \
+    ${sysconfdir}/xen/scripts/remus-netbuf-setup \
     "
 
 FILES_${PN}-scripts-network = " \
