@@ -149,6 +149,7 @@ PACKAGES = "\
     ${PN}-console \
     ${PN}-dbg \
     ${PN}-dev \
+    ${PN}-devd \
     ${PN}-doc \
     ${PN}-flask \
     ${PN}-fsimage \
