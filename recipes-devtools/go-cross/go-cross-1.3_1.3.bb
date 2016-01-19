@@ -5,7 +5,7 @@ DESCRIPTION = "\
 HOMEPAGE = "https://golang.org/"
 LICENSE = "BSD-3-Clause"
 
-DEPENDS = "virtual/${TARGET_PREFIX}gcc"
+DEPENDS = "virtual/${TARGET_PREFIX}gcc libgcc"
 
 SRC_URI = "http://golang.org/dl/go${PV}.src.tar.gz"
 
