@@ -722,7 +722,7 @@ EXTRA_OECONF += " \
     --disable-ocamltools \
     "
 
-# check for XSM in package config to allow XSM_ENABLE to be set 
+# check for XSM in package config to allow XSM_ENABLE to be set
 python () {
     pkgconfig = d.getVar('PACKAGECONFIG', True)
     if ('xsm') in pkgconfig.split():
@@ -743,7 +743,7 @@ do_configure() {
         fi
     fi
 
-    #./configure --enable-xsm does not set XSM_ENABLE must be done manually
+    #./configure --enable-xsmpolicy does not set XSM_ENABLE must be done manually
     if [ "${XSM_ENABLED}" = "1" ]; then
         echo "XSM_ENABLE := y" > ${S}/.config
     fi
