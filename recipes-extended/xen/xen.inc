@@ -713,6 +713,11 @@ export CROSS_COMPILE="${TARGET_PREFIX}"
 # overide LDFLAGS to allow xen to build without: "x86_64-oe-linux-ld: unrecognized option '-Wl,-O1'"
 export LDFLAGS=""
 
+# Yocto injects -mfpmath=sse for some machine types into the CFLAGS which
+# conflicts with -mno-sse so instead we strip -mfpmath=sse instead of
+# patching the build to be ok with this
+TUNE_CCARGS := "${@oe_filter_out('-mfpmath=sse', '${TUNE_CCARGS}', d)}"
+
 EXTRA_OECONF += " \
     --exec-prefix=/usr \
     --prefix=/usr \
