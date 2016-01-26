@@ -731,7 +731,21 @@ python () {
         d.setVar('XSM_ENABLED', '0')
 }
 
-do_configure() {
+do_post_patch() {
+    # fixup AS/CC/CCP/etc variable within StdGNU.mk
+    for i in LD CC CPP CXX; do
+        sed -i "s/^\($i\s\s*\).*=/\1?=/" ${S}/config/StdGNU.mk
+    done
+    # fixup environment passing in some makefiles
+    sed -i 's#\(\w*\)=\(\$.\w*.\)#\1="\2"#' ${S}/tools/firmware/Makefile
+
+    # libsystemd-daemon -> libsystemd for newer systemd versions
+    sed -i 's#libsystemd-daemon#libsystemd#' ${S}/tools/configure
+}
+
+addtask post_patch after do_patch before do_configure
+
+do_stubs() {
     # no stubs-32.h in our 64-bit sysroot - hack it into tools/include/gnu
     if ! test -f ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-32.h ; then
         if test -f ${STAGING_DIR_TARGET}/usr/include/gnu/stubs-64.h ; then
@@ -742,6 +756,11 @@ do_configure() {
             echo \#define __stub___kernel_tanl >> ${S}/tools/include/gnu/stubs-32.h
         fi
     fi
+}
+
+addtask stubs after do_patch before do_configure
+
+do_configure() {
 
     #./configure --enable-xsmpolicy does not set XSM_ENABLE must be done manually
     if [ "${XSM_ENABLED}" = "1" ]; then

@@ -27,18 +27,6 @@ EXTRA_OEMAKE += "SEABIOS_ROM=${STAGING_DIR_HOST}/usr/share/firmware/bios.bin"
 EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.rom"
 #EXTRA_OEMAKE += "XENGFX_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios.bin"
 
-do_configure_prepend() {
-    # fixup AS/CC/CCP/etc variable within StdGNU.mk
-    for i in LD CC CPP CXX; do
-        sed -i "s/^\($i\s\s*\).*=/\1?=/" ${S}/config/StdGNU.mk
-    done
-    # fixup environment passing in some makefiles
-    sed -i 's#\(\w*\)=\(\$.\w*.\)#\1="\2"#' ${S}/tools/firmware/Makefile
-
-    # libsystemd-daemon -> libsystemd for newer systemd versions
-    sed -i 's#libsystemd-daemon#libsystemd#' ${S}/tools/configure
-}
-
 do_install_append() {
     # fixup default path to qemu-system-i386
     sed -i 's#\(test -z "$QEMU_XEN" && QEMU_XEN=\).*$#\1"/usr/bin/qemu-system-i386"#' ${D}/etc/init.d/xencommons
