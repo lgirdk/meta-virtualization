@@ -693,6 +693,11 @@ python () {
         raise bb.parse.SkipPackage('Cannot map `%s` to a xen architecture' % d.getVar('TARGET_ARCH', True))
 }
 
+# Yocto appends ${PN} to libexecdir by default and Xen appends 'xen' as well
+# the result is a nested xen/xen/ so let's avoid that by shunning Yocto's
+# extra ${PN} appended.
+libexecdir = "${libdir}"
+
 # hardcoded as Linux, as the only compatible hosts are Linux.
 export XEN_OS = "Linux"
 
@@ -720,7 +725,16 @@ EXTRA_OECONF += " \
     --disable-xenstore-stubdom \
     --disable-rombios \
     --disable-ocamltools \
+    --with-initddir=${INIT_D_DIR} \
+    --with-sysconfig-leaf-dir=default \
+    --with-system-qemu=/usr/bin/qemu-system-i386 \
+    --disable-qemu-traditional \
     "
+
+EXTRA_OEMAKE += "STDVGA_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios-0.7a.bin"
+EXTRA_OEMAKE += "CIRRUSVGA_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios-0.7a.cirrus.bin"
+EXTRA_OEMAKE += "SEABIOS_ROM=${STAGING_DIR_HOST}/usr/share/firmware/bios.bin"
+EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.rom"
 
 # check for XSM in package config to allow XSM_ENABLE to be set
 python () {
