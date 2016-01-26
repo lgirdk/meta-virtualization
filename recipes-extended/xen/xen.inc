@@ -736,6 +736,11 @@ EXTRA_OEMAKE += "CIRRUSVGA_ROM=${STAGING_DIR_HOST}/usr/share/firmware/vgabios-0.
 EXTRA_OEMAKE += "SEABIOS_ROM=${STAGING_DIR_HOST}/usr/share/firmware/bios.bin"
 EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.rom"
 
+# prevent the Xen build scripts from fetching things during the build
+# all dependencies should be reflected in the Yocto recipe
+EXTRA_OEMAKE += "WGET=/bin/false"
+EXTRA_OEMAKE += "GIT=/bin/false"
+
 # check for XSM in package config to allow XSM_ENABLE to be set
 python () {
     pkgconfig = d.getVar('PACKAGECONFIG', True)
