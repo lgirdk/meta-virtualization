@@ -2,6 +2,7 @@ require xen.inc
 
 SRC_URI = " \
     http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz \
+    file://xen-xsm-Make-p-policyvers-be-a-local-variable-ver-to.patch \
     "
 
 SRC_URI[md5sum] = "48e232f90927c08326a7b52bb06f49bc"
