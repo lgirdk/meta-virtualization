@@ -249,6 +249,11 @@ do_install_append() {
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks 
+
+	# remove .la references to our working diretory
+	for i in `find ${D}${libdir} -type f -name *.la`; do
+	    sed -i -e 's#-L${B}/src/.libs##g' $i
+	done
 }
 
 EXTRA_OECONF += " \
@@ -263,6 +268,11 @@ do_compile_ptest() {
 
 do_install_ptest() {
 	oe_runmake -C tests install-ptest
+
+	# Update libdir references in copied .la files
+	for i in `find ${D}${PTEST_PATH} -type f -name *.la`; do
+		 sed -i -e 's#${B}#${PTEST_PATH}#g' $i
+	done
 }
 
 pkg_postinst_libvirt() {
