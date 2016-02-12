@@ -782,7 +782,7 @@ do_stubs() {
     fi
 }
 
-addtask stubs after do_patch before do_configure
+addtask stubs after do_configure before do_compile
 
 do_configure() {
 
