@@ -269,9 +269,9 @@ do_compile_ptest() {
 do_install_ptest() {
 	oe_runmake -C tests install-ptest
 
-	# Update libdir references in copied .la files
+	# remove .la files for ptest, they aren't required and can trigger QA errors
 	for i in `find ${D}${PTEST_PATH} -type f -name *.la`; do
-		 sed -i -e 's#${B}#${PTEST_PATH}#g' $i
+                rm -f $i
 	done
 }
 
