@@ -1,0 +1,39 @@
+From 81e3c9cf8b2f230d761738da28e9dc69fb90ec46 Mon Sep 17 00:00:00 2001
+From: Bogdan Purcareata <bogdan.purcareata@nxp.com>
+Date: Fri, 8 Jan 2016 15:38:44 +0000
+Subject: [PATCH] lxc_setup_fs: Create /dev/shm folder if it doesn't exist
+
+When running application containers with lxc-execute, /dev is
+populated only with device entries. Since /dev is a tmpfs mount in
+the container environment, the /dev/shm folder not being present is not
+a sufficient reason for the /dev/shm mount to fail.
+
+Create the /dev/shm directory if not present.
+
+Upstream-status: Accepted
+[https://github.com/lxc/lxc/commit/81e3c9cf8b2f230d761738da28e9dc69fb90ec46]
+
+Signed-off-by: Bogdan Purcareata <bogdan.purcareata@nxp.com>
+Acked-by: Serge E. Hallyn <serge.hallyn@ubuntu.com>
+---
+ src/lxc/initutils.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/lxc/initutils.c b/src/lxc/initutils.c
+index 45df60f..8d9016c 100644
+--- a/src/lxc/initutils.c
++++ b/src/lxc/initutils.c
+@@ -47,6 +47,10 @@ extern void lxc_setup_fs(void)
+ 	if (mount_fs("proc", "/proc", "proc"))
+ 		INFO("failed to remount proc");
+ 
++	/* if /dev has been populated by us, /dev/shm does not exist */
++	if (access("/dev/shm", F_OK) && mkdir("/dev/shm", 0777))
++		INFO("failed to create /dev/shm");
++
+ 	/* if we can't mount /dev/shm, continue anyway */
+ 	if (mount_fs("shmfs", "/dev/shm", "tmpfs"))
+ 		INFO("failed to mount /dev/shm");
+-- 
+1.9.1
+
