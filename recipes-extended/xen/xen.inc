@@ -151,6 +151,7 @@ PACKAGES = "\
     ${PN}-dev \
     ${PN}-devd \
     ${PN}-doc \
+    ${PN}-efi \
     ${PN}-flask \
     ${PN}-fsimage \
     ${PN}-gdbsx \
@@ -301,6 +302,11 @@ FILES_${PN}-hypervisor = "\
     /boot/xen-*.gz \
     /boot/xen.gz \
     /boot/xen-syms-* \
+    "
+
+FILES_${PN}-efi = "\
+    ${exec_prefix}/lib64 \
+    ${exec_prefix}/lib64/xen* \
     "
 
 FILES_${PN}-base = "\
