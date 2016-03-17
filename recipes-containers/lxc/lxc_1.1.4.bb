@@ -64,6 +64,13 @@ PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparm
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
 PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
 PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
+PACKAGECONFIG[python] = "--enable-python,--disable-python,python3,python3-core"
+
+# required by python3 to run setup.py
+export BUILD_SYS
+export HOST_SYS
+export STAGING_INCDIR
+export STAGING_LIBDIR
 
 inherit autotools pkgconfig ptest update-rc.d systemd
 
@@ -78,6 +85,7 @@ INITSCRIPT_PARAMS_${PN}-setup = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
+FILES_${PN} += "${libdir}/python3*"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
 PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
@@ -91,6 +99,12 @@ FILES_${PN}-setup += "/usr/lib/systemd/system"
 FILES_${PN}-setup += "/etc/init.d"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
+
+CACHED_CONFIGUREVARS += " \
+    ac_cv_path_PYTHON='${STAGING_BINDIR_NATIVE}/python3-native/python3' \
+    am_cv_python_pyexecdir='${exec_prefix}/${libdir}/python3.5/site-packages' \
+    am_cv_python_pythondir='${prefix}/${libdir}/python3.5/site-packages' \
+"
 
 do_install_append() {
 	# The /var/cache/lxc directory created by the Makefile
@@ -106,6 +120,13 @@ do_install_append() {
 	if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
 	    install -d ${D}${sysconfdir}/init.d
 	    install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
+	fi
+
+	# since python3-native is used for install location this will not be
+	# suitable for the target and we will have to correct the package install
+	if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
+	    if [ -d ${D}${exec_prefix}/lib/python* ]; then mv ${D}${exec_prefix}/lib/python* ${D}${libdir}/; fi
+	    rmdir --ignore-fail-on-non-empty ${D}${exec_prefix}/lib
 	fi
 }
 
