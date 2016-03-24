@@ -31,9 +31,11 @@ DEPENDS = " \
     util-linux-native \
     xz-native \
     bridge-utils \
+    curl \
     dtc \
     gettext \
     glib-2.0 \
+    gnutls \
     iproute2 \
     libnl \
     ncurses \
