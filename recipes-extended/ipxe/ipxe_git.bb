@@ -1,7 +1,7 @@
 DESCRIPTION = "Open source network boot firmware"
 HOMEPAGE = "http://ipxe.org"
 LICENSE = "GPLv2"
-DEPENDS = "binutils-native perl-native syslinux mtools-native"
+DEPENDS = "binutils-native perl-native syslinux mtools-native cdrtools-native"
 LIC_FILES_CHKSUM = "file://../COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 
 SRCREV = "8c43891db4eb131d019360ccfb619f235b17eb58"
