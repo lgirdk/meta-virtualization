@@ -37,6 +37,9 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://open_without_symlink-Account-when-prefix-is-empty-st.patch \
 	file://lxc_setup_fs-Create-dev-shm-folder-if-it-doesn-t-exi.patch \
 	file://mount_proc_if_needed-only-safe-mount-when-rootfs-is-.patch \
+	file://open_without_symlink-Don-t-SYSERROR-on-something-els.patch \
+	file://lxc-busybox-Touch-etc-fstab-in-the-container-rootfs.patch \
+	file://lxc-busybox-Remove-warning-for-dynamically-linked-Bu.patch \
 	"
 
 SRC_URI[md5sum] = "d33c4bd9c57755c0e2b0e2acbc3f171d"
