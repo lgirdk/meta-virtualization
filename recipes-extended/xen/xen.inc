@@ -17,6 +17,8 @@ PACKAGECONFIG ??= " \
     ${@bb.utils.contains('XEN_TARGET_ARCH', 'x86_64', 'hvm', '', d)} \
     "
 
+FLASK_POLICY_FILE ?= "xenpolicy-${PV}"
+
 PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
 PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd,systemd,"
@@ -339,7 +341,7 @@ FILES_${PN}-devd = "\
     "
 
 FILES_${PN}-flask = "\
-    /boot/xenpolicy-${PV} \
+    /boot/${FLASK_POLICY_FILE} \
     "
 
 FILES_${PN}-flask-tools = "\
