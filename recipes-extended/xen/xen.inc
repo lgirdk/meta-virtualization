@@ -880,6 +880,11 @@ do_deploy() {
     if [ -f ${D}/boot/xen.gz ]; then
         install -m 0644 ${D}/boot/xen.gz ${DEPLOYDIR}/xen-${MACHINE}.gz
     fi
+    # Install the flask policy in the deploy directory if it exists
+    if [ -f ${D}/boot/${FLASK_POLICY_FILE} ]; then
+        install -m 0644 ${D}/boot/${FLASK_POLICY_FILE} ${DEPLOYDIR}
+        ln -sf ${FLASK_POLICY_FILE} ${DEPLOYDIR}/xenpolicy-${MACHINE}
+    fi
 }
 
 addtask deploy after do_populate_sysroot
