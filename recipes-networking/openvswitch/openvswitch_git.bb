@@ -9,13 +9,13 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.4.0+${SRCREV}"
+PV = "2.5.0+${SRCREV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "bb429e09f7783f1ba23ac0682ed9edf424f0cfbb"
+SRCREV = "8c0b419a0b9ac0141d6973dcc80306dfc6a83d31"
 SRC_URI += "\
-	git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.4 \
+	git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.5 \
 	file://openvswitch-add-more-target-python-substitutions.patch \
 	file://openvswitch-add-ptest-${SRCREV}.patch \
 	file://run-ptest \
@@ -23,7 +23,7 @@ SRC_URI += "\
 	file://kernel_module.patch \
 	"
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=5973c953e3c8a767cf0808ff8a0bac1b"
+LIC_FILES_CHKSUM = "file://COPYING;md5=247d8817aece26b21a8cd6791b3ea994"
 
 PACKAGECONFIG ?= ""
 PACKAGECONFIG[dpdk] = "--with-dpdk=${STAGING_DIR_TARGET}/opt/dpdk/${TARGET_ARCH}-native-linuxapp-gcc,,dpdk,"
