@@ -161,6 +161,7 @@ PACKAGES = "\
     ${PN}-gdbsx \
     ${PN}-hvmloader \
     ${PN}-hypervisor \
+    ${PN}-init-xenstore-dom \
     ${PN}-kdd \
     ${PN}-libblktap \
     ${PN}-libblktapctl \
@@ -170,8 +171,16 @@ PACKAGES = "\
     ${PN}-libfsimage-dev \
     ${PN}-libvhd \
     ${PN}-libvhd-dev \
+    ${PN}-libxencall \
+    ${PN}-libxencall-dev \
     ${PN}-libxenctrl \
     ${PN}-libxenctrl-dev \
+    ${PN}-libxenevtchn \
+    ${PN}-libxenevtchn-dev \
+    ${PN}-libxenforeignmemory \
+    ${PN}-libxenforeignmemory-dev \
+    ${PN}-libxengnttab \
+    ${PN}-libxengnttab-dev \
     ${PN}-libxenguest \
     ${PN}-libxenguest-dev \
     ${PN}-libxenlight \
@@ -180,6 +189,8 @@ PACKAGES = "\
     ${PN}-libxenstat-dev \
     ${PN}-libxenstore \
     ${PN}-libxenstore-dev \
+    ${PN}-libxentoollog \
+    ${PN}-libxentoollog-dev \
     ${PN}-libxenvchan \
     ${PN}-libxenvchan-dev \
     ${PN}-libxlutil \
@@ -262,6 +273,21 @@ FILES_${PN}-staticdev += "\
 FILES_${PN}-libblktapctl = "${libdir}/libblktapctl.so.*"
 FILES_${PN}-libblktapctl-dev = "${libdir}/libblktapctl.so"
 
+FILES_${PN}-libxencall = "${libdir}/libxencall.so.*"
+FILES_${PN}-libxencall-dev = "${libdir}/libxencall.so"
+
+FILES_${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
+FILES_${PN}-libxenctrl-dev = "${libdir}/libxenctrl.so"
+
+FILES_${PN}-libxenevtchn = "${libdir}/libxenevtchn.so.*"
+FILES_${PN}-libxenevtchn-dev = "${libdir}/libxenevtchn.so"
+
+FILES_${PN}-libxenforeignmemory = "${libdir}/libxenforeignmemory.so.*"
+FILES_${PN}-libxenforeignmemory-dev = "${libdir}/libxenforeignmemory.so"
+
+FILES_${PN}-libxengnttab = "${libdir}/libxengnttab.so.*"
+FILES_${PN}-libxengnttab-dev = "${libdir}/libxengnttab.so"
+
 FILES_${PN}-libxenguest = "${libdir}/libxenguest.so.*"
 FILES_${PN}-libxenguest-dev = "${libdir}/libxenguest.so"
 
@@ -271,26 +297,25 @@ FILES_${PN}-libxenlight-dev = " \
     ${datadir}/pkgconfig/xenlight.pc \
     "
 
+FILES_${PN}-libxenstat = "${libdir}/libxenstat.so.*"
+FILES_${PN}-libxenstat-dev = "${libdir}/libxenstat.so"
+
+FILES_${PN}-libxenstore = "${libdir}/libxenstore.so.*"
+FILES_${PN}-libxenstore-dev = "${libdir}/libxenstore.so"
+
+FILES_${PN}-libxentoollog = "${libdir}/libxentoollog.so.*"
+FILES_${PN}-libxentoollog-dev = "${libdir}/libxentoollog.so"
+
 FILES_${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
 FILES_${PN}-libxenvchan-dev = "${libdir}/libxenvchan.so"
-
-FILES_${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
-FILES_${PN}-libxenctrl-dev = "${libdir}/libxenctrl.so"
 
 FILES_${PN}-libxlutil = "${libdir}/libxlutil.so.*"
 FILES_${PN}-libxlutil-dev = " \
     ${libdir}/libxlutil.so \
     ${datadir}/pkgconfig/xlutil.pc \
     "
-
 FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
 FILES_${PN}-libvhd-dev = "${libdir}/libvhd.so"
-
-FILES_${PN}-libxenstat = "${libdir}/libxenstat.so.*"
-FILES_${PN}-libxenstat-dev = "${libdir}/libxenstat.so"
-
-FILES_${PN}-libxenstore = "${libdir}/libxenstore.so.*"
-FILES_${PN}-libxenstore-dev = "${libdir}/libxenstore.so"
 
 FILES_${PN}-libblktap = "${libdir}/libblktap.so.*"
 FILES_${PN}-libblktap-dev = "${libdir}/libblktap.so"
@@ -307,6 +332,8 @@ FILES_${PN}-hypervisor = "\
     /boot/xen.gz \
     /boot/xen-syms-* \
     "
+
+FILES_${PN}-init-xenstore-dom = "${libdir}/xen/bin/init-xenstore-domain"
 
 FILES_${PN}-base = "\
     ${sysconfdir}/xen/auto \
