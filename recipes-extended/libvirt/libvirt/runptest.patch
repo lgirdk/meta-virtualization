@@ -20,8 +20,8 @@ Index: libvirt-1.2.4/tests/Makefile.am
 +	-Dabs_builddir="\"$(PTEST_DIR)/tests\"" \
 +	-Dabs_srcdir="\"$(PTEST_DIR)/tests\"" \
  	$(LIBXML_CFLAGS) \
+	$(LIBNL_CFLAGS) \
  	$(GNUTLS_CFLAGS) \
- 	$(SASL_CFLAGS) \
 @@ -48,7 +50,7 @@
  
  if WITH_DRIVER_MODULES

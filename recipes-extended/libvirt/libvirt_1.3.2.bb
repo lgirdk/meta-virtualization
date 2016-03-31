@@ -3,7 +3,7 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "LGPLv2.1+"
 LICENSE_${PN}-ptest = "GPLv2+ & LGPLv2.1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING.LESSER;md5=4fbd65380cdd255951079008b364516c"
+                    file://COPYING.LESSER;md5=4b54a1fd55a448865a0b32d41598759d"
 SECTION = "console/tools"
 PR = "r1"
 
@@ -35,8 +35,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "bc3ab1ba5b6fabd2e4516c70ddd4d97c"
-SRC_URI[libvirt.sha256sum] = "282c141f03331d640020c15f81464b27400e0ee307ef4c5190393b021caedd6e"
+SRC_URI[libvirt.md5sum] = "b48b06bbc7efbe9973ed0f3f223d6da2"
+SRC_URI[libvirt.sha256sum] = "e3c6fc2683178660b371efb3ac7a1103a3f4b78efac7ffe560bc5917974ccf05"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
