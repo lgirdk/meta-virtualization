@@ -42,8 +42,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-busybox-Remove-warning-for-dynamically-linked-Bu.patch \
 	"
 
-SRC_URI[md5sum] = "d33c4bd9c57755c0e2b0e2acbc3f171d"
-SRC_URI[sha256sum] = "8f072ea2001bc94389003d82a91902855edf16b609e06f0486a74e4b8973e5dc"
+SRC_URI[md5sum] = "dd9684dde0a58ed13f4f49c855b79a1a"
+SRC_URI[sha256sum] = "9588ad1b04e114ee7370f690c65131e28098b28d2521d97c73557d11897ed0be"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
