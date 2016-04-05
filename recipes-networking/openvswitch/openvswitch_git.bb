@@ -6,6 +6,9 @@ RDEPENDS_${PN}-ptest += "\
 	python-logging python-syslog python-argparse python-io \
 	python-fcntl python-shell python-lang python-xml python-math \
 	python-datetime python-netclient python sed \
+	ldd perl-module-socket perl-module-carp perl-module-exporter \
+	perl-module-xsloader python-netserver python-threading \
+	python-resource python-subprocess \
 	"
 
 S = "${WORKDIR}/git"
