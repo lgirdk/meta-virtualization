@@ -18,23 +18,23 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "7c8fca2ddb58c8d2c4fb4df31c242886df7dd257"
-SRCBRANCH = "v1.6.2"
+SRCREV = "76d6bc9a9f1690e16f3721ba165364688b626de2"
 SRC_URI = "\
-	git://github.com/docker/docker.git;branch=${SRCBRANCH};nobranch=1 \
+	git://github.com/docker/docker.git;nobranch=1 \
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
 	file://disable_sha1sum_startup.patch \
+	file://Bump-bolt-to-v1.1.0.patch \
 	"
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=1cc0497778922bfd6cb48721deb80dc7"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=cc2221abf0b96ea39dd68141b70f7937"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "1.6.2"
+DOCKER_VERSION = "1.9.0"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross \
@@ -62,16 +62,16 @@ RRECOMMENDS_${PN} = "lxc docker-registry rt-tests"
 RRECOMMENDS_${PN} += " kernel-module-dm-thin-pool kernel-module-nf-nat"
 DOCKER_PKG="github.com/docker/docker"
 
-do_configure() {
-}
+do_configure[noexec] = "1"
 
 do_compile() {
-	export PATH=${STAGING_BINDIR_NATIVE}/${HOST_SYS}/go-1.3:$PATH
-
 	export GOARCH="${TARGET_ARCH}"
-	# supported amd64, 386, arm
+	# supported amd64, 386, arm arm64
 	if [ "${TARGET_ARCH}" = "x86_64" ]; then
 		export GOARCH="amd64"
+	fi
+	if [ "${TARGET_ARCH}" = "aarch64" ]; then
+		export GOARCH="arm64"
 	fi
 
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
@@ -84,21 +84,19 @@ do_compile() {
 	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	cd -
 
-	export CGO_ENABLED="1"
-
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS}"
+	export CGO_ENABLED="1"
+	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	# in order to exclude devicemapper and btrfs - https://github.com/docker/docker/issues/14056
+	export DOCKER_BUILDTAGS='exclude_graphdriver_btrfs exclude_graphdriver_devicemapper'
 
 	# this is the unsupported built structure
 	# that doesn't rely on an existing docker
 	# to build this:
 	DOCKER_GITCOMMIT="${SRCREV}" \
 	  ./hack/make.sh dynbinary
-
-	# make nsinit from libcontainer
-	go install github.com/docker/libcontainer/nsinit/
 }
 
 inherit systemd update-rc.d
@@ -125,12 +123,6 @@ do_install() {
         else
             install -d ${D}${sysconfdir}/init.d
             install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
-	fi
-
-	if [ -d ${S}/vendor/bin/linux_* ]; then
-		cp ${S}/vendor/bin/linux_*/* ${D}/${bindir}
-	else
-		cp ${S}/vendor/bin/* ${D}/${bindir}
 	fi
 
 	mkdir -p ${D}/usr/share/docker/
