@@ -1,0 +1,81 @@
+From d526e37bad2515cf91caa0e4ff3edaf41e45b5c2 Mon Sep 17 00:00:00 2001
+From: Pavel Fedin <p.fedin@samsung.com>
+Date: Wed, 9 Sep 2015 15:02:53 +0300
+Subject: [PATCH] Ignore virtio-mmio disks in qemuAssignDevicePCISlots()
+
+Fixes the following error when attempting to add a disk with bus='virtio'
+to a machine which actually supports virtio-mmio (caught with ARM virt):
+
+virtio disk cannot have an address of type 'virtio-mmio'
+
+The problem has been likely introduced by
+e8d55172544c1fafe31a9e09346bdebca4f0d6f9. Before that
+qemuAssignDevicePCISlots() was never called for ARM "virt" machine.
+
+Upstream-status: Accepted
+[https://libvirt.org/git/?p=libvirt.git;a=commit;h=d526e37bad2515cf91caa0e4ff3edaf41e45b5c2]
+
+Signed-off-by: Pavel Fedin <p.fedin@samsung.com>
+---
+ src/qemu/qemu_command.c | 11 +++++++++--
+ src/qemu/qemu_command.h |  1 +
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/qemu/qemu_command.c b/src/qemu/qemu_command.c
+index b56670c..25f57f2 100644
+--- a/src/qemu/qemu_command.c
++++ b/src/qemu/qemu_command.c
+@@ -2261,7 +2261,7 @@ qemuDomainAssignPCIAddresses(virDomainDefPtr def,
+                 virDomainPCIAddressReserveNextSlot(addrs, &info, flags) < 0)
+                 goto cleanup;
+ 
+-            if (qemuAssignDevicePCISlots(def, addrs) < 0)
++            if (qemuAssignDevicePCISlots(def, qemuCaps, addrs) < 0)
+                 goto cleanup;
+ 
+             for (i = 1; i < addrs->nbuses; i++) {
+@@ -2294,7 +2294,7 @@ qemuDomainAssignPCIAddresses(virDomainDefPtr def,
+             if (qemuValidateDevicePCISlotsChipsets(def, qemuCaps, addrs) < 0)
+                 goto cleanup;
+ 
+-            if (qemuAssignDevicePCISlots(def, addrs) < 0)
++            if (qemuAssignDevicePCISlots(def, qemuCaps, addrs) < 0)
+                 goto cleanup;
+ 
+             for (i = 0; i < def->ncontrollers; i++) {
+@@ -2426,6 +2426,7 @@ qemuDomainAssignPCIAddresses(virDomainDefPtr def,
+  */
+ int
+ qemuAssignDevicePCISlots(virDomainDefPtr def,
++                         virQEMUCapsPtr qemuCaps,
+                          virDomainPCIAddressSetPtr addrs)
+ {
+     size_t i, j;
+@@ -2618,6 +2619,12 @@ qemuAssignDevicePCISlots(virDomainDefPtr def,
+             VIR_DOMAIN_DEVICE_ADDRESS_TYPE_CCW)
+             continue;
+ 
++        /* Also ignore virtio-mmio disks if our machine allows them */
++        if (def->disks[i]->info.type ==
++            VIR_DOMAIN_DEVICE_ADDRESS_TYPE_VIRTIO_MMIO &&
++            virQEMUCapsGet(qemuCaps, QEMU_CAPS_DEVICE_VIRTIO_MMIO))
++            continue;
++
+         if (def->disks[i]->info.type != VIR_DOMAIN_DEVICE_ADDRESS_TYPE_NONE) {
+             virReportError(VIR_ERR_CONFIG_UNSUPPORTED,
+                            _("virtio disk cannot have an address of type '%s'"),
+diff --git a/src/qemu/qemu_command.h b/src/qemu/qemu_command.h
+index 767d31f..4aa7f2d 100644
+--- a/src/qemu/qemu_command.h
++++ b/src/qemu/qemu_command.h
+@@ -284,6 +284,7 @@ virDomainPCIAddressSetPtr qemuDomainPCIAddressSetCreate(virDomainDefPtr def,
+                                                         bool dryRun);
+ 
+ int qemuAssignDevicePCISlots(virDomainDefPtr def,
++                             virQEMUCapsPtr qemuCaps,
+                              virDomainPCIAddressSetPtr addrs);
+ 
+ int qemuAssignDeviceAliases(virDomainDefPtr def, virQEMUCapsPtr qemuCaps);
+-- 
+1.9.1
+
