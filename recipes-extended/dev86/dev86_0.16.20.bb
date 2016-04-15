@@ -7,8 +7,8 @@ PR="r0"
 
 SRC_URI="http://v3.sk/~lkundrak/dev86/archive/Dev86src-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "442e98e1afa23fe00d40c5a996385942"
-SRC_URI[sha256sum] = "33398b87ca85e2b69e4062cf59f2f7354af46da5edcba036c6f97bae17b8d00e"
+SRC_URI[md5sum] = "567cf460d132f9d8775dd95f9208e49a"
+SRC_URI[sha256sum] = "61817a378c8c8ba65f36c6792d457a305dc4eedae8cdc8b6233bf2bb28e5fe8d"
 
 S = "${WORKDIR}/dev86-${PV}"
 
@@ -35,3 +35,4 @@ do_install() {
 }
 COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
 FILES_${PN} += "${libdir}/bcc"
+INSANE_SKIP_${PN} = "already-stripped"
