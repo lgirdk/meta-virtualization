@@ -24,6 +24,7 @@ SRC_URI += "\
 	file://run-ptest \
 	file://disable_m4_check.patch \
 	file://kernel_module.patch \
+	file://openvswitch-ptest-Fix-python-path.patch \
 	"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=247d8817aece26b21a8cd6791b3ea994"
