@@ -40,6 +40,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://open_without_symlink-Don-t-SYSERROR-on-something-els.patch \
 	file://lxc-busybox-Touch-etc-fstab-in-the-container-rootfs.patch \
 	file://lxc-busybox-Remove-warning-for-dynamically-linked-Bu.patch \
+	file://lxc-let-lxc-start-support-wlan-phys.patch \
 	"
 
 SRC_URI[md5sum] = "dd9684dde0a58ed13f4f49c855b79a1a"
