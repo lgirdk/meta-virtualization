@@ -76,7 +76,7 @@ export HOST_SYS
 export STAGING_INCDIR
 export STAGING_LIBDIR
 
-inherit autotools pkgconfig ptest update-rc.d systemd
+inherit autotools pkgconfig ptest update-rc.d systemd python3native
 
 SYSTEMD_PACKAGES = "${PN}-setup"
 SYSTEMD_SERVICE_${PN}-setup = "lxc.service"
