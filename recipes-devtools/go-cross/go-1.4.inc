@@ -6,6 +6,7 @@ FILESEXTRAPATHS_prepend := "${FILE_DIRNAME}/go-${GO_BASEVERSION}:"
 
 SRC_URI += "\
         file://016-armhf-elf-header.patch \
+        file://go-cross-backport-cmd-link-support-new-386-amd64-rel.patch \
         file://syslog.patch \
 "
 
