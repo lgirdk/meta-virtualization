@@ -26,25 +26,13 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://runtest.patch \
 	file://run-ptest \
 	file://automake-ensure-VPATH-builds-correctly.patch \
-	file://add-lxc.rebootsignal.patch \
-	file://document-lxc.rebootsignal.patch \
-	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
 	file://lxc-fix-B-S.patch \
-	file://lxc-busybox-add-OpenSSH-support.patch \
-	file://make-some-OpenSSH-tools-optional.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
-	file://open_without_symlink-Account-when-prefix-is-empty-st.patch \
-	file://lxc_setup_fs-Create-dev-shm-folder-if-it-doesn-t-exi.patch \
-	file://mount_proc_if_needed-only-safe-mount-when-rootfs-is-.patch \
-	file://open_without_symlink-Don-t-SYSERROR-on-something-els.patch \
-	file://lxc-busybox-Touch-etc-fstab-in-the-container-rootfs.patch \
-	file://lxc-busybox-Remove-warning-for-dynamically-linked-Bu.patch \
-	file://lxc-let-lxc-start-support-wlan-phys.patch \
 	"
 
-SRC_URI[md5sum] = "dd9684dde0a58ed13f4f49c855b79a1a"
-SRC_URI[sha256sum] = "9588ad1b04e114ee7370f690c65131e28098b28d2521d97c73557d11897ed0be"
+SRC_URI[md5sum] = "04a7245a614cd3296b0ae9ceeeb83fbb"
+SRC_URI[sha256sum] = "5b737e114d8ef1feb193fba936d77a5697a7c8a10199a068cdd90d1bd27c10e4"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
