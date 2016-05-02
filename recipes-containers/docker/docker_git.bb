@@ -18,14 +18,12 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "76d6bc9a9f1690e16f3721ba165364688b626de2"
+SRCREV = "5604cbed50d51c4039b1abcb1cf87c4e01bce924"
 SRC_URI = "\
 	git://github.com/docker/docker.git;nobranch=1 \
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
-	file://disable_sha1sum_startup.patch \
-	file://Bump-bolt-to-v1.1.0.patch \
 	"
 
 # Apache-2.0 for docker
@@ -34,7 +32,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=cc2221abf0b96ea39dd68141b70f7937"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "1.9.0"
+DOCKER_VERSION = "1.11.1"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross \
@@ -58,6 +56,7 @@ DEPENDS = "go-cross \
 
 DEPENDS_append_class-target = "lvm2"
 RDEPENDS_${PN} = "curl aufs-util git cgroup-lite util-linux iptables"
+RDEPENDS_${PN} += "containerd runc"
 RRECOMMENDS_${PN} = "lxc docker-registry rt-tests"
 RRECOMMENDS_${PN} += " kernel-module-dm-thin-pool kernel-module-nf-nat"
 DOCKER_PKG="github.com/docker/docker"
@@ -110,10 +109,7 @@ INITSCRIPT_PARAMS_${PN} = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/docker-${DOCKER_VERSION} \
-	  ${D}/${bindir}/docker
-	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/dockerinit-${DOCKER_VERSION} \
-	  ${D}/${bindir}/dockerinit
+	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/docker-${DOCKER_VERSION} ${D}/${bindir}/docker
 
 	if ${@base_contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
@@ -135,15 +131,5 @@ GROUPADD_PARAM_${PN} = "-r docker"
 
 FILES_${PN} += "/lib/systemd/system/*"
 
-# DO NOT STRIP docker and dockerinit!!!
-#
-# Reason:
-# The "docker" package contains two binaries: "docker" and "dockerinit",
-# which are both written in Go. The "dockerinit" package is built first,
-# then its checksum is given to the build process compiling the "docker"
-# binary. Hence the checksum of the unstripped "dockerinit" binary is hard
-# coded into the "docker" binary. At runtime the "docker" binary invokes
-# the "dockerinit" binary, but before doing that it ensures the checksum
-# of "dockerinit" matches with the hard coded value.
-#
+# DO NOT STRIP docker
 INHIBIT_PACKAGE_STRIP = "1"
