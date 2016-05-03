@@ -25,7 +25,7 @@ SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
-DEPENDS += "protobuf-c-native protobuf-c"
+DEPENDS += "protobuf-c-native protobuf-c libbsd"
 
 S = "${WORKDIR}/git"
 
