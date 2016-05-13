@@ -17,9 +17,13 @@ CC = "${@d.getVar('BUILD_CC', True).strip()}"
 do_configure[noexec] = "1"
 
 do_compile() {
-    export GOBIN="${B}/bin"
+    export GOBIN="${B}/bin"    
     rm -rf ${GOBIN} ${B}/pkg
     mkdir ${GOBIN}
+
+    export TMPDIR=${WORKDIR}/build-tmp
+    mkdir ${WORKDIR}/build-tmp
+
     cd src
     ./make.bash --host-only
 }
