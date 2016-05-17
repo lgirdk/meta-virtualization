@@ -47,6 +47,8 @@ ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
 
 EXTRA_OECONF += "--enable-log-src-basename"
 
+CFLAGS_append = " -Wno-error=deprecated-declarations"
+
 PACKAGECONFIG ??= "templates \
     ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
 "
