@@ -41,8 +41,6 @@ DEPENDS = "go-cross \
     go-context \
     go-mux \
     go-patricia \
-    go-net \
-    go-sqlite \
     go-libtrust \
     go-logrus \
     go-fsnotify \
