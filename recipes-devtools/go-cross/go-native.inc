@@ -11,6 +11,10 @@ do_compile() {
     export GOBIN="${B}/bin"
     rm -rf ${GOBIN}
     mkdir ${GOBIN}
+
+    export TMPDIR=${WORKDIR}/build-tmp
+    mkdir ${WORKDIR}/build-tmp
+
     cd src
     ./make.bash --host-only
 }
