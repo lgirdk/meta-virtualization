@@ -13,7 +13,7 @@ do_compile() {
     mkdir ${GOBIN}
 
     export TMPDIR=${WORKDIR}/build-tmp
-    mkdir ${WORKDIR}/build-tmp
+    mkdir -p ${WORKDIR}/build-tmp
 
     cd src
     ./make.bash --host-only
