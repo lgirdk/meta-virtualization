@@ -59,8 +59,8 @@ do_compile() {
 
 # Note: disabled for now, since docker is launching containerd
 # inherit systemd
-# SYSTEMD_PACKAGES = "${@base_contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-# SYSTEMD_SERVICE_${PN} = "${@base_contains('DISTRO_FEATURES','systemd','containerd.service','',d)}"
+# SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
+# SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','containerd.service','',d)}"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
@@ -73,7 +73,7 @@ do_install() {
 	ln -sf containerd-shim ${D}/${bindir}/docker-containerd-shim
 	ln -sf containerd-ctr ${D}/${bindir}/docker-containerd-ctr
 
-	if ${@base_contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
 		install -m 644 ${S}/hack/containerd.service ${D}/${systemd_unitdir}/system
 	        # adjust from /usr/local/bin to /usr/bin/
