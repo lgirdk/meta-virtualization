@@ -18,10 +18,11 @@ PR = "r0"
 PV = "1.6+git${SRCPV}"
 
 SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
-	   file://0001-criu-Fix-toolchain-hardcode.patch \
-	   file://0002-criu-Skip-documentation-install.patch \
-       file://0001-criu-Change-libraries-install-directory.patch \
-	  "
+           file://0001-criu-Fix-toolchain-hardcode.patch \
+           file://0002-criu-Skip-documentation-install.patch \
+           file://0001-criu-Change-libraries-install-directory.patch \
+           ${@bb.utils.contains('PACKAGECONFIG', 'selinux', '', 'file://disable-selinux.patch', d)} \
+          "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
@@ -50,6 +51,9 @@ export BUILD_SYS
 export HOST_SYS
 
 inherit setuptools
+
+PACKAGECONFIG ??= ""
+PACKAGECONFIG[selinux] = ",,libselinux"
 
 do_compile_prepend() {
     rm -rf ${S}/protobuf/google/protobuf/descriptor.proto
