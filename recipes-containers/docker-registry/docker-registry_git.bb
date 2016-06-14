@@ -24,27 +24,27 @@ PV = "0.9.1+git${SRCREV}"
 
 RDEPENDS_${PN} += "\
   docker \
-  gunicorn (= 19.1.1) \
+  gunicorn (>= 19.1.1) \
   python-pip \
   python-distribute \
-  python-m2crypto (= 0.22.3) \
-  python-pyyaml (= 3.11) \
-  python-flask (= 0.10.1) \
-  python-gevent (= 1.0.1) \
+  python-m2crypto (>= 0.22.3) \
+  python-pyyaml (>= 3.11) \
+  python-flask (>= 0.10.1) \
+  python-gevent (>= 1.0.1) \
   python-requests \
   python-sqlalchemy (>= 0.9.4) \
-  python-blinker (= 1.3) \
-  python-backports-lzma (= 0.0.3) \
-  python-flask-cors (= 1.10.3) \
-  python-bugsnag (= 2.0.2) \
-  python-docker-registry-core (= 2.0.3) \
-  python-newrelic (= 2.22.0.19) \
+  python-blinker (>= 1.3) \
+  python-backports-lzma (>= 0.0.3) \
+  python-flask-cors (>= 1.10.3) \
+  python-bugsnag (>= 2.0.2) \
+  python-docker-registry-core (>= 2.0.3) \
+  python-newrelic (>= 2.22.0.19) \
   python-itsdangerous (>= 0.21) \
   python-jinja2 (>= 2.4) \
   python-werkzeug (>= 0.7) \
   python-simplejson (>= 3.6.2) \
-  python-redis (= 2.10.3) \
-  python-boto (= 2.34.0) \
+  python-redis (>= 2.10.3) \
+  python-boto (>= 2.34.0) \
   python-webob \
   "
 # OFFICIAL REQ:
