@@ -7,6 +7,7 @@ DESCRIPTION = "runc is a CLI tool for spawning and running containers according 
 SRCREV = "baf6536d6259209c3edfa2b22237af82942d3dfa"
 SRC_URI = "\
 	git://github.com/opencontainers/runc;branch=master \
+	file://0001-nsexec-fix-build-against-musl-libc.patch \
 	"
 
 # Apache-2.0 for containerd
