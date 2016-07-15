@@ -49,6 +49,9 @@ EXTRA_OECONF += "--enable-log-src-basename"
 
 CFLAGS_append = " -Wno-error=deprecated-declarations"
 
+# disable problematic GCC 5.2 optimizations [YOCTO #8291]
+FULL_OPTIMIZATION_append_arm = " -fno-schedule-insns2"
+
 PACKAGECONFIG ??= "templates \
     ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
 "
