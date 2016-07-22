@@ -85,8 +85,8 @@ do_compile() {
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
 	export CGO_ENABLED="1"
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	# in order to exclude devicemapper and btrfs - https://github.com/docker/docker/issues/14056
 	export DOCKER_BUILDTAGS='exclude_graphdriver_btrfs exclude_graphdriver_devicemapper'
 
