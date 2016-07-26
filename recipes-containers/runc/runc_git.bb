@@ -4,10 +4,9 @@ DESCRIPTION = "runc is a CLI tool for spawning and running containers according 
 
 # Note: this rev is before the required protocol field, update when all components
 #       have been updated to match.
-SRCREV = "baf6536d6259209c3edfa2b22237af82942d3dfa"
+SRCREV = "1cdaa709f151b61cee2bdaa09d8e5d2b58a8ba72"
 SRC_URI = "\
 	git://github.com/opencontainers/runc;branch=master \
-	file://0001-nsexec-fix-build-against-musl-libc.patch \
 	"
 
 # Apache-2.0 for containerd
@@ -16,7 +15,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
 S = "${WORKDIR}/git"
 
-RUNC_VERSION = "0.1.1"
+RUNC_VERSION = "1.0.0-rc1"
 PV = "${RUNC_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross \
@@ -49,10 +48,10 @@ do_compile() {
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
 	export CGO_ENABLED="1"
+	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CFLAGS=""
 	export LDFLAGS=""
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
         oe_runmake static
 }

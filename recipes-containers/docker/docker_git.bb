@@ -18,7 +18,7 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "5604cbed50d51c4039b1abcb1cf87c4e01bce924"
+SRCREV = "34d9a8240914d30f3a8fe28c1b7d1d4e36d0657b"
 SRC_URI = "\
 	git://github.com/docker/docker.git;nobranch=1 \
 	file://docker.service \
@@ -32,7 +32,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=cc2221abf0b96ea39dd68141b70f7937"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "1.11.1"
+DOCKER_VERSION = "1.12.0"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross \
@@ -108,7 +108,9 @@ INITSCRIPT_PARAMS_${PN} = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${S}/bundles/${DOCKER_VERSION}/dynbinary/docker-${DOCKER_VERSION} ${D}/${bindir}/docker
+	cp ${S}/bundles/latest/dynbinary-client/docker ${D}/${bindir}/docker
+	cp ${S}/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
+	cp ${S}/bundles/latest/dynbinary-daemon/docker-proxy ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
