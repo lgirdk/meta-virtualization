@@ -151,6 +151,7 @@ PACKAGES = "\
     ${PN}-base \
     ${PN}-blktap \
     ${PN}-console \
+    ${PN}-cpuid \
     ${PN}-dbg \
     ${PN}-dev \
     ${PN}-devd \
@@ -196,6 +197,7 @@ PACKAGES = "\
     ${PN}-libxenvchan-dev \
     ${PN}-libxlutil \
     ${PN}-libxlutil-dev \
+    ${PN}-livepatch \
     ${PN}-misc \
     ${PN}-pygrub \
     ${PN}-python \
@@ -369,6 +371,10 @@ FILES_${PN}-console = "\
     ${sbindir}/xenconsoled \
     "
 
+FILES_${PN}-cpuid = "\
+    ${bindir}/xen-cpuid \
+    "
+
 FILES_${PN}-devd = "\
     ${sysconfdir}/init.d/xendriverdomain \
     "
@@ -397,6 +403,10 @@ FILES_${PN}-hvmloader = "\
 
 FILES_${PN}-kdd = "\
     ${sbindir}/kdd \
+    "
+
+FILES_${PN}-livepatch += " \
+    ${sbindir}/xen-livepatch \
     "
 
 FILES_${PN}-misc = "\
@@ -527,6 +537,7 @@ FILES_${PN}-remus = "\
     "
 
 FILES_${PN}-scripts-network = " \
+    ${sysconfdir}/xen/scripts/colo-proxy-setup \
     ${sysconfdir}/xen/scripts/network-bridge \
     ${sysconfdir}/xen/scripts/network-nat \
     ${sysconfdir}/xen/scripts/network-route \
@@ -544,6 +555,7 @@ FILES_${PN}-scripts-block = " \
     ${sysconfdir}/xen/scripts/blktap \
     ${sysconfdir}/xen/scripts/block \
     ${sysconfdir}/xen/scripts/block-common.sh \
+    ${sysconfdir}/xen/scripts/block-dummy \
     ${sysconfdir}/xen/scripts/block-enbd \
     ${sysconfdir}/xen/scripts/block-iscsi \
     ${sysconfdir}/xen/scripts/block-nbd \
@@ -744,9 +756,11 @@ export XEN_OS = "Linux"
 
 # this is used for the header (#!${bindir}/python) of the install python scripts
 export PYTHONPATH="${bindir}/python"
+export ac_cv_path_PYTHONPATH="${bindir}/python"
 
-# seabios forcefully sets HOSTCC to CC - fixup to allow it to build native conf executable
+# xen and seabios require HOSTCC and HOSTCXX set to cross-compile
 export HOSTCC="${BUILD_CC}"
+export HOSTCXX="${BUILD_CXX}"
 
 # make xen requires CROSS_COMPILE set by hand as it does not abide by ./configure
 export CROSS_COMPILE="${TARGET_PREFIX}"
@@ -837,6 +851,9 @@ do_configure() {
 }
 
 do_compile() {
+    # workaround for build bug when CFLAGS is exported
+    # https://www.mail-archive.com/xen-devel@lists.xen.org/msg67822.html
+    unset CFLAGS
     oe_runmake
 }
 
