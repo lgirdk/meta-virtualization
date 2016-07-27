@@ -33,6 +33,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://libvirt-use-pkg-config-to-locate-libcap.patch \
            file://0001-to-fix-build-error.patch \
            file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
+           file://install-missing-file.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "b48b06bbc7efbe9973ed0f3f223d6da2"
