@@ -42,14 +42,14 @@ python __anonymous () {
 
 do_compile_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
-		cd ${WORKDIR}/libvirt-python-${PV} && \
+		cd ${WORKDIR}/${BPN}-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python-native/python setup.py build
 	fi
 }
 
 do_install_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
-		cd ${WORKDIR}/${PN}-python-${PV} && \
+		cd ${WORKDIR}/${BPN}-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python-native/python setup.py install \
                        --install-lib=${D}/${PYTHON_SITEPACKAGES_DIR} ${LIBVIRT_INSTALL_ARGS}
 	fi
