@@ -5,7 +5,6 @@ LICENSE_${PN}-ptest = "GPLv2+ & LGPLv2.1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING.LESSER;md5=4b54a1fd55a448865a0b32d41598759d"
 SECTION = "console/tools"
-PR = "r1"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables dnsmasq readline libtasn1 libxslt-native"
@@ -36,8 +35,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://install-missing-file.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "b48b06bbc7efbe9973ed0f3f223d6da2"
-SRC_URI[libvirt.sha256sum] = "e3c6fc2683178660b371efb3ac7a1103a3f4b78efac7ffe560bc5917974ccf05"
+SRC_URI[libvirt.md5sum] = "f9dc1e63d559eca50ae0ee798a4c6c6d"
+SRC_URI[libvirt.sha256sum] = "93a23c44eb431da46c9458f95a66e29c9b98e37515d44b6be09e75b35ec94ac8"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
@@ -137,7 +136,6 @@ INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
 
 SYSTEMD_PACKAGES = "${PN}-libvirtd"
 SYSTEMD_SERVICE_${PN}-libvirtd = " \
-    libvirtd.socket \
     libvirtd.service \
     virtlockd.service \
     libvirt-guests.service \
@@ -249,7 +247,7 @@ do_install_append() {
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 
 	# Add hook support for libvirt
-	mkdir -p ${D}/etc/libvirt/hooks 
+	mkdir -p ${D}/etc/libvirt/hooks
 
 	# remove .la references to our working diretory
 	for i in `find ${D}${libdir} -type f -name *.la`; do
@@ -269,6 +267,8 @@ do_compile_ptest() {
 
 do_install_ptest() {
 	oe_runmake -C tests install-ptest
+
+	find ${S}/tests -maxdepth 1 -type d -exec cp -r {} ${D}${PTEST_PATH}/tests/ \;
 
 	# remove .la files for ptest, they aren't required and can trigger QA errors
 	for i in `find ${D}${PTEST_PATH} -type f -name *.la`; do
