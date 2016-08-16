@@ -34,6 +34,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
            file://install-missing-file.patch \
            file://0001-nsslinktest-also-build-virAtomic.h.patch \
+           file://0001-qemu-Let-empty-default-VNC-password-work-as-document.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "f9dc1e63d559eca50ae0ee798a4c6c6d"
