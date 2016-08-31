@@ -53,7 +53,9 @@ DEPENDS = "go-cross \
     "
 
 DEPENDS_append_class-target = "lvm2"
-RDEPENDS_${PN} = "curl aufs-util git cgroup-lite util-linux iptables"
+RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
+                  ${@bb.utils.contains('DISTRO_FEATURES','systemd','','cgroup-lite',d)} \
+                 "
 RDEPENDS_${PN} += "containerd runc"
 RRECOMMENDS_${PN} = "lxc docker-registry rt-tests"
 RRECOMMENDS_${PN} += " kernel-module-dm-thin-pool kernel-module-nf-nat"
