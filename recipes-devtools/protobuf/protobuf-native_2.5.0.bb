@@ -8,11 +8,11 @@ LICENSE = "BSD-3-Clause"
 
 LIC_FILES_CHKSUM = "file://COPYING.txt;md5=af6809583bfde9a31595a58bb4a24514"
 
-PR = "r0"
+PR = "r1"
 
-SRC_URI[md5sum] = "b751f772bdeb2812a2a8e7202bf1dae8"
-SRC_URI[sha256sum] = "c55aa3dc538e6fd5eaf732f4eb6b98bdcb7cedb5b91d3b5bdcf29c98c293f58e"
-SRC_URI = "http://protobuf.googlecode.com/files/protobuf-${PV}.tar.gz \
+SRC_URI[md5sum] = "9c21577a03adc1879aba5b52d06e25cf"
+SRC_URI[sha256sum] = "c2665a7aa2ac1a206e61b28e014486e3de59009ea2be2bde9182e0847f38b62f"
+SRC_URI = "https://github.com/google/protobuf/archive/v${PV}.tar.gz \
 	"
 
 EXTRA_OECONF += " --with-protoc=echo --disable-shared"
