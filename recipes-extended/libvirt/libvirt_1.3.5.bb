@@ -35,6 +35,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://install-missing-file.patch \
            file://0001-nsslinktest-also-build-virAtomic.h.patch \
            file://0001-qemu-Let-empty-default-VNC-password-work-as-document.patch \
+           file://0001-ptest-add-missing-test_helper-files.patch \
+           file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "f9dc1e63d559eca50ae0ee798a4c6c6d"
