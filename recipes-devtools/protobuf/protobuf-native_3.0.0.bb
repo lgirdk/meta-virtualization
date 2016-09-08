@@ -6,15 +6,16 @@ HOMEPAGE = "http://code.google.com/p/protobuf/"
 SECTION = "console/tools"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://COPYING.txt;md5=af6809583bfde9a31595a58bb4a24514"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=35953c752efc9299b184f91bef540095"
 
-PR = "r1"
+PR = "r0"
 
-SRC_URI[md5sum] = "9c21577a03adc1879aba5b52d06e25cf"
-SRC_URI[sha256sum] = "c2665a7aa2ac1a206e61b28e014486e3de59009ea2be2bde9182e0847f38b62f"
-SRC_URI = "https://github.com/google/protobuf/archive/v${PV}.tar.gz \
+SRC_URI[md5sum] = "d4f6ca65aadc6310b3872ee421e79fa6"
+SRC_URI[sha256sum] = "f5b3563f118f1d3d6e001705fa7082e8fc3bda50038ac3dff787650795734146"
+SRC_URI = "https://github.com/google/protobuf/archive/v3.0.0.tar.gz;downloadfilename=protobuf-3.0.0.tar.gz \
 	"
 
 EXTRA_OECONF += " --with-protoc=echo --disable-shared"
 
 inherit native autotools
+

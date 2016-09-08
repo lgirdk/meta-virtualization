@@ -6,26 +6,28 @@ HOMEPAGE = "http://code.google.com/p/protobuf/"
 SECTION = "console/tools"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://COPYING.txt;md5=af6809583bfde9a31595a58bb4a24514"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=35953c752efc9299b184f91bef540095"
 
-PR = "r1"
+PR = "r0"
 EXCLUDE_FROM_WORLD = "1"
 
-SRC_URI[md5sum] = "9c21577a03adc1879aba5b52d06e25cf"
-SRC_URI[sha256sum] = "c2665a7aa2ac1a206e61b28e014486e3de59009ea2be2bde9182e0847f38b62f"
-SRC_URI = "https://github.com/google/protobuf/archive/v${PV}.tar.gz \
-	file://protobuf-allow-running-python-scripts-from-anywhere.patch \
-	file://run-ptest"
+SRC_URI[md5sum] = "d4f6ca65aadc6310b3872ee421e79fa6"
+SRC_URI[sha256sum] = "f5b3563f118f1d3d6e001705fa7082e8fc3bda50038ac3dff787650795734146"
+SRC_URI = "https://github.com/google/protobuf/archive/v3.0.0.tar.gz;downloadfilename=protobuf-3.0.0.tar.gz\
+	        file://protobuf-allow-running-python-scripts-from-anywhere.patch \
+	        file://run-ptest \
+            "
+
+COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
 EXTRA_OECONF += " --with-protoc=${STAGING_BINDIR_NATIVE}/protoc"
 inherit autotools setuptools ptest
 
 DEPENDS += "protobuf-native"
-RDEPENDS_${PN}-ptest = "bash python"
 
 PYTHON_SRC_DIR="python"
 TEST_SRC_DIR="examples"
-LANG_SUPPORT="python"
+LANG_SUPPORT="cpp python"
 
 do_compile() {
 	# Compile protoc compiler
@@ -87,7 +89,7 @@ do_install_ptest() {
 		fi
 	done
 	cp "${S}/${TEST_SRC_DIR}/addressbook_pb2.py" "${D}/${PTEST_PATH}"
-
+	
 	cd "$olddir"
 }
 
