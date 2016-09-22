@@ -275,7 +275,7 @@ do_install_ptest() {
 	find ${S}/tests -maxdepth 1 -type d -exec cp -r {} ${D}${PTEST_PATH}/tests/ \;
 
 	# remove .la files for ptest, they aren't required and can trigger QA errors
-	for i in `find ${D}${PTEST_PATH} -type f -name *.la`; do
+	for i in `find ${D}${PTEST_PATH} -type f \( -name *.la -o -name *.o \)`; do
                 rm -f $i
 	done
 }
