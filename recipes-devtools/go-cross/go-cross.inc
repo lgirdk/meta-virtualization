@@ -2,10 +2,6 @@ inherit cross
 
 DEPENDS += "go-native"
 
-# Prevent runstrip from running because you get errors when the host arch != target arch
-#INHIBIT_PACKAGE_STRIP = "1"
-STRIP = "echo"
-
 export GOHOSTOS = "${BUILD_GOOS}"
 export GOHOSTARCH = "${BUILD_GOARCH}"
 export GOOS = "${TARGET_GOOS}"
@@ -30,8 +26,6 @@ do_compile() {
 
     cd src
     ./make.bash --host-only
-    # Ensure cgo.a is built with the target toolchain
-    GO_FLAGS="-a" ./make.bash --target-only
 }
 
 do_install() {
@@ -44,9 +38,7 @@ do_install() {
     install -d ${D}${bindir}
     for f in ${B}/bin/*
     do
-        if [ ! -d "$f" ] ; then
-            install -m755 $f ${D}${bindir}
-        fi
+        install -m755 $f ${D}${bindir}
     done
 }
 
