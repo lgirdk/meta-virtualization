@@ -18,6 +18,7 @@ RDEPENDS_${PN} = " \
 		perl-module-constant \
 		perl-module-overload \
 		perl-module-exporter-heavy \
+		glibc-utils \
 "
 RDEPENDS_${PN}-ptest += "file make"
 
