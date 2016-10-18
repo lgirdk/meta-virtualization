@@ -1,6 +1,7 @@
 inherit cross
 
-DEPENDS += "go-native"
+# libgcc is required for the target specific libraries to build properly
+DEPENDS += "go-native libgcc"
 
 # Prevent runstrip from running because you get errors when the host arch != target arch
 #INHIBIT_PACKAGE_STRIP = "1"
