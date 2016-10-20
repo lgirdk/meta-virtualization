@@ -36,7 +36,7 @@ do_compile() {
 
 do_compile_ptest() {
 	# Modify makefile to use the cross-compiler
-	sed -e "s|c++|${CXX}|g" -i "${S}/${TEST_SRC_DIR}/Makefile"
+	sed -e "s|c++|${CXX} \$(LDFLAGS)|g" -i "${S}/${TEST_SRC_DIR}/Makefile"
 
 	mkdir -p "${B}/${TEST_SRC_DIR}"
 
