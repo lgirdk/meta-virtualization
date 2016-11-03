@@ -52,6 +52,8 @@ DEPENDS = "go-cross \
     go-distribution-digest \
     "
 
+PACKAGES =+ "${PN}-contrib"
+
 DEPENDS_append_class-target = "lvm2"
 RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES','systemd','','cgroup-lite',d)} \
@@ -126,6 +128,7 @@ do_install() {
 
 	mkdir -p ${D}/usr/share/docker/
 	cp ${WORKDIR}/hi.Dockerfile ${D}/usr/share/docker/
+	install -m 0755 ${S}/contrib/check-config.sh ${D}/usr/share/docker/
 }
 
 inherit useradd
@@ -133,6 +136,9 @@ USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r docker"
 
 FILES_${PN} += "/lib/systemd/system/*"
+
+FILES_${PN}-contrib += "/usr/share/docker/check-config.sh"
+RDEPENDS_${PN}-contrib += "bash"
 
 # DO NOT STRIP docker
 INHIBIT_PACKAGE_STRIP = "1"
