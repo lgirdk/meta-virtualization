@@ -10,9 +10,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=35953c752efc9299b184f91bef540095"
 
 PR = "r0"
 
-SRC_URI[md5sum] = "d4f6ca65aadc6310b3872ee421e79fa6"
-SRC_URI[sha256sum] = "f5b3563f118f1d3d6e001705fa7082e8fc3bda50038ac3dff787650795734146"
-SRC_URI = "https://github.com/google/protobuf/archive/v3.0.0.tar.gz;downloadfilename=protobuf-3.0.0.tar.gz \
+SRC_URI[md5sum] = "14a532a7538551d5def317bfca41dace"
+SRC_URI[sha256sum] = "0a0ae63cbffc274efb573bdde9a253e3f32e458c41261df51c5dbc5ad541e8f7"
+SRC_URI = "https://github.com/google/protobuf/archive/v3.1.0.tar.gz;downloadfilename=protobuf-3.1.0.tar.gz \
 	"
 
 EXTRA_OECONF += " --with-protoc=echo --disable-shared"
