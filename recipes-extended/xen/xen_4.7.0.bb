@@ -1,7 +1,7 @@
 require xen.inc
 
 SRC_URI = " \
-    http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz \
+    https://downloads.xenproject.org/release/xen/${PV}/xen-${PV}.tar.gz \
     file://libxl-compilation-warning-fix-for-arm-aarch64.patch \
     "
 
