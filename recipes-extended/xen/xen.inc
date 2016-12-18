@@ -679,6 +679,7 @@ FILES_${PN}-xm = "\
 FILES_${PN}-xencommons += "\
     ${sysconfdir}/default/xencommons \
     ${sysconfdir}/init.d/xencommons \
+    ${sysconfdir}/xen/scripts/launch-xenstore \
     ${systemd_unitdir}/modules-load.d/xen.conf \
     ${systemd_unitdir}/system/proc-xen.mount \
     ${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service \
