@@ -18,7 +18,7 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "34d9a8240914d30f3a8fe28c1b7d1d4e36d0657b"
+SRCREV = "7392c3b0ce0f9d3e918a321c66668c5d1ef4f689"
 SRC_URI = "\
 	git://github.com/docker/docker.git;nobranch=1 \
 	file://docker.service \
@@ -32,7 +32,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "1.12.0"
+DOCKER_VERSION = "1.12.5"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross \
