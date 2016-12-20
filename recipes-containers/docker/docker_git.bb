@@ -9,11 +9,11 @@ DESCRIPTION = "Linux container runtime \
  large-scale web deployments, database clusters, continuous deployment \
  systems, private PaaS, service-oriented architectures, etc. \
  . \
- This package contains the daemon and client. Using docker.io on non-amd64 \
- hosts is not supported at this time. Please be careful when using it \
- on anything besides amd64. \
+ This package contains the daemon and client. Using docker.io is \
+ officially supported on x86_64 and arm (32-bit) hosts. \
+ Other architectures are considered experimental. \
  . \
- Also, note that kernel version 3.8 or above is required for proper \
+ Also, note that kernel version 3.10 or above is required for proper \
  operation of the daemon process, and that any lower versions may have \
  subtle and/or glaring issues. \
  "
