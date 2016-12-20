@@ -64,14 +64,29 @@ DOCKER_PKG="github.com/docker/docker"
 do_configure[noexec] = "1"
 
 do_compile() {
-	export GOARCH="${TARGET_ARCH}"
-	# supported amd64, 386, arm arm64
-	if [ "${TARGET_ARCH}" = "x86_64" ]; then
-		export GOARCH="amd64"
-	fi
-	if [ "${TARGET_ARCH}" = "aarch64" ]; then
-		export GOARCH="arm64"
-	fi
+	case "${TARGET_ARCH}" in
+		arm)
+			GOARCH=arm
+			case "${TUNE_PKGARCH}" in
+				cortexa*)
+					export GOARM=7
+				;;
+			esac
+		;;
+		aarch64)
+			GOARCH=arm64
+		;;
+		i586|i686)
+			GOARCH=386
+		;;
+		x86_64)
+			GOARCH=amd64
+		;;
+		*)
+			GOARCH="${TARGET_ARCH}"
+		;;
+	esac
+	export GOARCH
 
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
