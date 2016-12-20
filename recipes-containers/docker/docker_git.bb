@@ -35,7 +35,8 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "1.12.5"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross \
+DEPENDS = " \
+    go-cross \
     go-cli \
     go-pty \
     go-context \
@@ -136,9 +137,9 @@ do_install() {
 		install -m 644 ${S}/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
 		install -m 644 ${WORKDIR}/docker.service ${D}/${systemd_unitdir}/system
-        else
-            install -d ${D}${sysconfdir}/init.d
-            install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
+	else
+		install -d ${D}${sysconfdir}/init.d
+		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 
 	mkdir -p ${D}/usr/share/docker/
