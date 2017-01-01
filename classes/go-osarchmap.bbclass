@@ -11,6 +11,11 @@ TARGET_GOARM = "${@go_map_arm(d.getVar('TARGET_ARCH', True), d.getVar('TUNE_FEAT
 TARGET_GOTUPLE = "${TARGET_GOOS}_${TARGET_GOARCH}"
 GO_BUILD_BINDIR = "${@['bin/${HOST_GOTUPLE}','bin'][d.getVar('BUILD_GOTUPLE',True) == d.getVar('HOST_GOTUPLE',True)]}"
 
+python() {
+    if d.getVar('TARGET_GOARCH') == 'INVALID':
+        raise bb.parse.SkipPackage('Cannot map `%s` to a go architecture' % d.getVar('TARGET_ARCH', True))
+}
+
 def go_map_arch(a, d):
     import re
     if re.match('i.86', a):
@@ -24,7 +29,7 @@ def go_map_arch(a, d):
     elif re.match('p(pc|owerpc)(|64)', a):
         return 'powerpc'
     else:
-        bb.error("cannot map '%s' to a Go architecture" % a)
+        return 'INVALID'
 
 def go_map_arm(a, f, d):
     import re
