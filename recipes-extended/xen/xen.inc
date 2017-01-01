@@ -739,12 +739,12 @@ export STAGING_INCDIR
 export STAGING_LIBDIR
 
 # specify xen hypervisor to build/target
-export XEN_TARGET_ARCH = "${@map_xen_arch(d.getVar('TARGET_ARCH', True), d)}"
-export XEN_COMPILE_ARCH = "${@map_xen_arch(d.getVar('BUILD_ARCH', True), d)}"
+export XEN_TARGET_ARCH = "${@map_xen_arch(d.getVar('TARGET_ARCH'), d)}"
+export XEN_COMPILE_ARCH = "${@map_xen_arch(d.getVar('BUILD_ARCH'), d)}"
 
 python () {
-    if d.getVar('XEN_TARGET_ARCH', True) == 'INVALID':
-        raise bb.parse.SkipPackage('Cannot map `%s` to a xen architecture' % d.getVar('TARGET_ARCH', True))
+    if d.getVar('XEN_TARGET_ARCH') == 'INVALID':
+        raise bb.parse.SkipPackage('Cannot map `%s` to a xen architecture' % d.getVar('TARGET_ARCH'))
 }
 
 # Yocto appends ${PN} to libexecdir by default and Xen appends 'xen' as well
@@ -804,7 +804,7 @@ EXTRA_OEMAKE += "GIT=/bin/false"
 
 # check for XSM in package config to allow XSM_ENABLE to be set
 python () {
-    pkgconfig = d.getVar('PACKAGECONFIG', True)
+    pkgconfig = d.getVar('PACKAGECONFIG')
     if ('xsm') in pkgconfig.split():
         d.setVar('XSM_ENABLED', '1')
     else:
