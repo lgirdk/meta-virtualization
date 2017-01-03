@@ -52,6 +52,7 @@ DEPENDS = " \
     xz \
     yajl \
     zlib \
+    gnu-efi \
     "
 
 # inherit setuptools adds python to RDEPENDS, override it
