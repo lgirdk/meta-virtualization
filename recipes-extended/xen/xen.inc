@@ -841,11 +841,19 @@ do_stubs() {
 
 addtask stubs after do_configure before do_compile
 
+# Allow all hypervisor settings in a defconfig
+EXTRA_OEMAKE += "XEN_CONFIG_EXPERT=y"
+
 do_configure() {
 
     #./configure --enable-xsmpolicy does not set XSM_ENABLE must be done manually
     if [ "${XSM_ENABLED}" = "1" ]; then
         echo "XSM_ENABLE := y" > ${S}/.config
+    fi
+
+    if [ -f "${WORKDIR}/defconfig" ]; then
+        cp "${WORKDIR}/defconfig" "${B}/xen/.config" || \
+        bbfatal "Unable to copy defconfig to .config"
     fi
 
     # do configure
