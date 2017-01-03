@@ -843,6 +843,10 @@ addtask stubs after do_configure before do_compile
 
 # Allow all hypervisor settings in a defconfig
 EXTRA_OEMAKE += "XEN_CONFIG_EXPERT=y"
+# Build release versions always. Technically since we track release
+# tarballs this always happens but occasionally people pull in patches
+# from staging that reverts this
+EXTRA_OEMAKE += "debug=n"
 
 do_configure() {
 
