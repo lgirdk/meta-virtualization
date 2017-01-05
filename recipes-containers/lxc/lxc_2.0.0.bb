@@ -10,6 +10,7 @@ RDEPENDS_${PN} = " \
 		libcap-bin \
 		bridge-utils \
 		dnsmasq \
+		initscripts \
 		perl-module-strict \
 		perl-module-getopt-long \
 		perl-module-vars \
