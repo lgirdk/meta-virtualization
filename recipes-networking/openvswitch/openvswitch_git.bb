@@ -24,6 +24,7 @@ SRC_URI += "\
 	file://disable_m4_check.patch \
 	file://kernel_module.patch \
 	file://openvswitch-ptest-Fix-python-path.patch \
+	file://python-make-remaining-scripts-use-usr-bin-env.patch \
 	"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=17b2c9d4c70853a09c0e143137754b35"

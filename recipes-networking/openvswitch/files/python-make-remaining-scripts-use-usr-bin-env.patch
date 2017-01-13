@@ -1,0 +1,53 @@
+From 33769657e951da855b9258eb91fa9838373023ad Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Fri, 13 Jan 2017 16:12:55 -0500
+Subject: [PATCH] python: make remaining scripts use /usr/bin/env
+
+Unfortunately there is no concept of a host python vs. target python
+to facilitate cross compilation. There is only one PYTHON variable and
+this is used during building and in the header of python scripts after
+installation. The best approach for cross compilation is to thus to
+ensure python is in the path and avoid passing a path as part of
+PYTHON. To make this function smoothly all installed scripts should
+make use of /usr/bin/env to increase the chances of finding python.
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ ovsdb/ovsdb-dot.in               | 2 +-
+ ovsdb/ovsdb-idlc.in              | 2 +-
+ utilities/bugtool/ovs-bugtool.in | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/ovsdb/ovsdb-dot.in b/ovsdb/ovsdb-dot.in
+index 134ce22..893c408 100755
+--- a/ovsdb/ovsdb-dot.in
++++ b/ovsdb/ovsdb-dot.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! /usr/bin/env @PYTHON@
+ 
+ from datetime import date
+ import ovs.db.error
+diff --git a/ovsdb/ovsdb-idlc.in b/ovsdb/ovsdb-idlc.in
+index cd4532e..dceb02f 100755
+--- a/ovsdb/ovsdb-idlc.in
++++ b/ovsdb/ovsdb-idlc.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! /usr/bin/env @PYTHON@
+ 
+ import getopt
+ import os
+diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
+index bb771b0..152d171 100755
+--- a/utilities/bugtool/ovs-bugtool.in
++++ b/utilities/bugtool/ovs-bugtool.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#! /usr/bin/env @PYTHON@
+ 
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+-- 
+2.7.4
+

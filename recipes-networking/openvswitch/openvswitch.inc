@@ -11,11 +11,11 @@ HOMEPAGE = "http://openvswitch.org/"
 SECTION = "networking"
 LICENSE = "Apache-2"
 
-DEPENDS += "bridge-utils openssl python perl"
+DEPENDS += "bridge-utils openssl python perl python-six-native"
 
 RDEPENDS_${PN} += "util-linux-uuidgen util-linux-libuuid coreutils \
 	python perl perl-module-strict ${PN}-switch \
-        bash python-twisted"
+        bash python-twisted python-six"
 RDEPENDS_${PN}-testcontroller = "${PN} lsb ${PN}-pki"
 RDEPENDS_${PN}-switch = "${PN} openssl procps util-linux-uuidgen"
 RDEPENDS_${PN}-pki = "${PN}"
@@ -34,8 +34,8 @@ SRC_URI = "\
 	"
 
 EXTRA_OECONF += "\
-	PYTHON=${bindir}/python \
-	PYTHON3=${bindir}/python3 \
+	PYTHON=python \
+	PYTHON3=python3 \
 	PERL=${bindir}/perl \
 	"
 CONFIGUREOPT_DEPTRACK = ""
@@ -70,7 +70,7 @@ FILES_${PN} += "${datadir}/ovsdbmonitor"
 FILES_${PN} += "/run"
 
 FILES_${PN} += "${libdir}/python${PYTHON_BASEVERSION}/"
-inherit autotools update-rc.d systemd python-dir
+inherit autotools update-rc.d systemd pythonnative
 
 SYSTEMD_PACKAGES = "${PN}-switch"
 SYSTEMD_SERVICE_${PN}-switch = " \
