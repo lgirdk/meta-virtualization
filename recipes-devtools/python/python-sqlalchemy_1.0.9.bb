@@ -8,8 +8,8 @@ RDEPENDS_${PN} += "python-numbers"
 SRCNAME = "SQLAlchemy"
 SRC_URI = "https://pypi.python.org/packages/source/S/${SRCNAME}/${SRCNAME}-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "7cfd005be63945c96a78c67764ac3a85"
-SRC_URI[sha256sum] = "950c79c0abf9e9f99c43c627c51d40d14a946810a90c35e7cd827bfd0bffe46f"
+SRC_URI[md5sum] = "0e2d7442e70d02c9f6346a5bf0ec2265"
+SRC_URI[sha256sum] = "c3d37501e36ec5d74c2d7b4a3764719db86a9cdab4a24431bf58b386743ab10e"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
