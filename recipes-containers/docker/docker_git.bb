@@ -24,6 +24,7 @@ SRC_URI = "\
 	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
+	file://context-use-golang.org-x-net-pkg-until-we-move-to-go.patch \
 	"
 
 # Apache-2.0 for docker
@@ -130,7 +131,6 @@ do_install() {
 	mkdir -p ${D}/${bindir}
 	cp ${S}/bundles/latest/dynbinary-client/docker ${D}/${bindir}/docker
 	cp ${S}/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${S}/bundles/latest/dynbinary-daemon/docker-proxy ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
