@@ -43,6 +43,7 @@ do_compile() {
 
 	(cd .gopath/src/${dname}; ln -sf ../../../../../${bname} ${bname})
 	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
+	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 	cd -
 
 	# Pass the needed cflags/ldflags so that cgo
