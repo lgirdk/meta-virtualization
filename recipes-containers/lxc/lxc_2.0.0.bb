@@ -31,6 +31,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
+	file://Use-AC_HEADER_MAJOR-to-detect-major-minor-makedev.patch \
 	"
 
 SRC_URI[md5sum] = "04a7245a614cd3296b0ae9ceeeb83fbb"
