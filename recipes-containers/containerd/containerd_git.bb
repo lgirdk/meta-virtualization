@@ -84,6 +84,6 @@ do_install() {
 	fi
 }
 
-FILES_${PN} += "/lib/systemd/system/*"
+FILES_${PN} += "${systemd_system_unitdir}/*"
 
 INHIBIT_PACKAGE_STRIP = "1"
