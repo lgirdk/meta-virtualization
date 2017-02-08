@@ -142,18 +142,18 @@ do_install() {
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 
-	mkdir -p ${D}/usr/share/docker/
-	cp ${WORKDIR}/hi.Dockerfile ${D}/usr/share/docker/
-	install -m 0755 ${S}/contrib/check-config.sh ${D}/usr/share/docker/
+	mkdir -p ${D}${datadir}/docker/
+	cp ${WORKDIR}/hi.Dockerfile ${D}${datadir}/docker/
+	install -m 0755 ${S}/contrib/check-config.sh ${D}${datadir}/docker/
 }
 
 inherit useradd
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r docker"
 
-FILES_${PN} += "/lib/systemd/system/*"
+FILES_${PN} += "${systemd_unitdir}/system/*"
 
-FILES_${PN}-contrib += "/usr/share/docker/check-config.sh"
+FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
 RDEPENDS_${PN}-contrib += "bash"
 
 # DO NOT STRIP docker
