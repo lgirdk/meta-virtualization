@@ -1,7 +1,9 @@
 inherit cross
 
 # libgcc is required for the target specific libraries to build properly
-DEPENDS += "go-native libgcc virtual/${TARGET_PREFIX}gcc"
+DEPENDS += "go-initial-native libgcc virtual/${TARGET_PREFIX}gcc"
+
+do_compile[depends] += "go-initial-native:do_populate_sysroot"
 
 # Prevent runstrip from running because you get errors when the host arch != target arch
 #INHIBIT_PACKAGE_STRIP = "1"
