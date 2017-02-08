@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 RUNC_VERSION = "1.0.0-rc1"
 PV = "${RUNC_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross \
+DEPENDS = "go-cross-${TARGET_ARCH} \
     "
 RRECOMMENDS_${PN} = "lxc docker"
 

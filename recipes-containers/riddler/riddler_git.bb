@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/jfrazelle/riddler"
 SUMMARY = "Convert `docker inspect` to opencontainers (OCI compatible) runc spec."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
-DEPENDS = "go-cross"
+DEPENDS = "go-cross-${TARGET_ARCH}"
 
 SRC_URI = "git://github.com/jfrazelle/riddler;branch=master"
 SRCREV = "23befa0b232877b5b502b828e24161d801bd67f6"

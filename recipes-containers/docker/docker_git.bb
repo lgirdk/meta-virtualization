@@ -37,7 +37,7 @@ DOCKER_VERSION = "1.13.0"
 PV = "${DOCKER_VERSION}+git${SRCREV}"
 
 DEPENDS = " \
-    go-cross \
+    go-cross-${TARGET_ARCH} \
     go-cli \
     go-pty \
     go-context \

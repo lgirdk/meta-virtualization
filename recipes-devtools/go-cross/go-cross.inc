@@ -1,5 +1,8 @@
 inherit cross
 
+# Produces target arch specific code so we should reflect this in the PN
+PN = "go-cross-${TARGET_ARCH}"
+
 # libgcc is required for the target specific libraries to build properly
 DEPENDS += "go-initial-native libgcc virtual/${TARGET_PREFIX}gcc"
 

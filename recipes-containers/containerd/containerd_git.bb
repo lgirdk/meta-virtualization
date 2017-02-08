@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 CONTAINERD_VERSION = "0.2.2"
 PV = "${CONTAINERD_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross \
+DEPENDS = "go-cross-${TARGET_ARCH} \
     "
 
 RRECOMMENDS_${PN} = "lxc docker"

@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/jfrazelle/netns"
 SUMMARY = "Runc hook for setting up default bridge networking."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
-DEPENDS = "go-cross"
+DEPENDS = "go-cross-${TARGET_ARCH}"
 
 SRC_URI = "git://github.com/jfrazelle/netns;branch=master"
 SRCREV = "2804050eeab661bfa75c3aa06bdcf60273b02ca7"

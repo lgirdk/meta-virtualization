@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/opencontainers/runtime-tools"
 SUMMARY = "oci-runtime-tool is a collection of tools for working with the OCI runtime specification"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b355a61a394a504dacde901c958f662c"
-DEPENDS = "go-cross"
+DEPENDS = "go-cross-${TARGET_ARCH}"
 
 SRC_URI = "git://github.com/opencontainers/runtime-tools.git"
 
