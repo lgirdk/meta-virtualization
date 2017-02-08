@@ -51,7 +51,11 @@ DEPENDS = " \
     go-systemd \
     btrfs-tools \
     sqlite3 \
-    go-distribution-digest \
+    go-distribution \
+    compose-file \
+    go-connections \
+    notary \
+    grpc-go \
     "
 
 PACKAGES =+ "${PN}-contrib"
