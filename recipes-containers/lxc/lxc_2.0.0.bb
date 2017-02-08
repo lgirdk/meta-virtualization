@@ -93,10 +93,9 @@ RDEPENDS_${PN}-templates += "bash"
 
 ALLOW_EMPTY_${PN}-networking = "1"
 
-FILES_${PN}-setup += "/etc/tmpfiles.d"
-FILES_${PN}-setup += "/lib/systemd/system"
-FILES_${PN}-setup += "/usr/lib/systemd/system"
-FILES_${PN}-setup += "/etc/init.d"
+FILES_${PN}-setup += "${sysconfdir}/tmpfiles.d"
+FILES_${PN}-setup += "${systemd_system_unitdir}"
+FILES_${PN}-setup += "${sysconfdir}/init.d"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
