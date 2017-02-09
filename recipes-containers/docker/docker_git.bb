@@ -65,8 +65,8 @@ RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES','systemd','','cgroup-lite',d)} \
                  "
 RDEPENDS_${PN} += "containerd runc"
-RRECOMMENDS_${PN} = "lxc docker-registry rt-tests"
-RRECOMMENDS_${PN} += " kernel-module-dm-thin-pool kernel-module-nf-nat"
+RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
+RSUGGESTS_${PN} = "lxc docker-registry rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
 do_configure[noexec] = "1"
