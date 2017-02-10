@@ -4,9 +4,9 @@ DESCRIPTION = "runc is a CLI tool for spawning and running containers according 
 
 # Note: this rev is before the required protocol field, update when all components
 #       have been updated to match.
-SRCREV = "1cdaa709f151b61cee2bdaa09d8e5d2b58a8ba72"
+SRCREV = "2f7393a47307a16f8cee44a37b262e8b81021e3e"
 SRC_URI = "\
-	git://github.com/opencontainers/runc;branch=master \
+	git://github.com/docker/runc.git;nobranch=1 \
 	"
 
 # Apache-2.0 for containerd
@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
 S = "${WORKDIR}/git"
 
-RUNC_VERSION = "1.0.0-rc1"
+RUNC_VERSION = "1.0.0-rc2"
 PV = "${RUNC_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross-${TARGET_ARCH} \
