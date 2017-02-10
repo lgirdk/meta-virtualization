@@ -35,6 +35,9 @@ do_compile() {
 	if [ "${TARGET_ARCH}" = "aarch64" ]; then
 		export GOARCH="arm64"
 	fi
+	if [ "${TARGET_ARCH}" = "i586" ]; then
+		export GOARCH="386"
+	fi
 
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
