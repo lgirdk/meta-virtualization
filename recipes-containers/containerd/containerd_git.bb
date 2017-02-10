@@ -4,9 +4,9 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
                containerd leverages runC's advanced features such as seccomp and user namespace \
                support as well as checkpoint and restore for cloning and live migration of containers."
 
-SRCREV = "0ac3cd1be170d180b2baed755e8f0da547ceb267"
+SRCREV = "03e5862ec0d8d3b3f750e19fca3ee367e13c090e"
 SRC_URI = "\
-	git://github.com/docker/containerd.git;nobranch=1 \
+	git://github.com/docker/containerd.git;branch=docker-1.13.x \
 	"
 
 # Apache-2.0 for containerd
@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.code;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
 
 S = "${WORKDIR}/git"
 
-CONTAINERD_VERSION = "0.2.2"
+CONTAINERD_VERSION = "0.2.3"
 PV = "${CONTAINERD_VERSION}+git${SRCREV}"
 
 DEPENDS = "go-cross-${TARGET_ARCH} \
