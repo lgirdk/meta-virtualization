@@ -21,7 +21,6 @@ DESCRIPTION = "Linux container runtime \
 SRCREV = "49bf474f9ed7ce7143a59d1964ff7b7fd9b52178"
 SRC_URI = "\
 	git://github.com/docker/docker.git;nobranch=1 \
-	file://docker.service \
 	file://docker.init \
 	file://hi.Dockerfile \
 	file://context-use-golang.org-x-net-pkg-until-we-move-to-go.patch \
@@ -140,7 +139,7 @@ do_install() {
 		install -d ${D}${systemd_unitdir}/system
 		install -m 644 ${S}/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
-		install -m 644 ${WORKDIR}/docker.service ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
 	else
 		install -d ${D}${sysconfdir}/init.d
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
