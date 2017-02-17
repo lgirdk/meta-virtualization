@@ -3,7 +3,7 @@ SUMMARY = "A collection of tools for working with the OCI image format specifica
 LICENSE = "Apache-2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
-DEPENDS = "go-cross \
+DEPENDS = "go-cross-${TARGET_ARCH} \
            oci-image-spec \
            oci-runtime-spec \
            go-digest \
