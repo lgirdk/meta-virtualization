@@ -18,9 +18,11 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV = "49bf474f9ed7ce7143a59d1964ff7b7fd9b52178"
+SRCREV_docker = "49bf474f9ed7ce7143a59d1964ff7b7fd9b52178"
+SRCREV_libnetwork="0f534354b813003a754606689722fe253101bc4e"
 SRC_URI = "\
-	git://github.com/docker/docker.git;nobranch=1 \
+	git://github.com/docker/docker.git;nobranch=1;name=docker \
+	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=libnetwork \
 	file://docker.init \
 	file://hi.Dockerfile \
 	file://context-use-golang.org-x-net-pkg-until-we-move-to-go.patch \
@@ -33,7 +35,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
 S = "${WORKDIR}/git"
 
 DOCKER_VERSION = "1.13.0"
-PV = "${DOCKER_VERSION}+git${SRCREV}"
+PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 DEPENDS = " \
     go-cross-${TARGET_ARCH} \
@@ -103,6 +105,10 @@ do_compile() {
 	rm -rf .gopath
 	mkdir -p .gopath/src/"$(dirname "${DOCKER_PKG}")"
 	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
+
+	mkdir -p .gopath/src/github.com/docker
+	ln -sf ../../../../../libnetwork .gopath/src/github.com/docker/libnetwork
+
 	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 	cd -
@@ -120,6 +126,9 @@ do_compile() {
 	# to build this:
 	DOCKER_GITCOMMIT="${SRCREV}" \
 	  ./hack/make.sh dynbinary
+
+	# build the proxy
+	go build -o ${S}/docker-proxy github.com/docker/libnetwork/cmd/proxy
 }
 
 inherit systemd update-rc.d
@@ -135,6 +144,7 @@ do_install() {
 	mkdir -p ${D}/${bindir}
 	cp ${S}/bundles/latest/dynbinary-client/docker ${D}/${bindir}/docker
 	cp ${S}/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
+	cp ${S}/docker-proxy ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
@@ -162,3 +172,4 @@ RDEPENDS_${PN}-contrib += "bash"
 
 # DO NOT STRIP docker
 INHIBIT_PACKAGE_STRIP = "1"
+INSANE_SKIP_${PN} += "ldflags"
