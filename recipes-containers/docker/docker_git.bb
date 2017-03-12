@@ -24,7 +24,6 @@ SRC_URI = "\
 	git://github.com/docker/docker.git;nobranch=1;name=docker \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=libnetwork \
 	file://docker.init \
-	file://docker-registry.service \
 	file://hi.Dockerfile \
 	file://context-use-golang.org-x-net-pkg-until-we-move-to-go.patch \
 	"
@@ -60,7 +59,7 @@ DEPENDS = " \
     grpc-go \
     "
 
-PACKAGES =+ "${PN}-contrib ${PN}-registry"
+PACKAGES =+ "${PN}-contrib"
 
 DEPENDS_append_class-target = "lvm2"
 RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
@@ -69,7 +68,7 @@ RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
 RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
 RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
-RSUGGESTS_${PN} = "lxc docker-registry rt-tests"
+RSUGGESTS_${PN} = "lxc rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
 do_configure[noexec] = "1"
@@ -136,9 +135,7 @@ inherit systemd update-rc.d
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
-SYSTEMD_SERVICE_${PN}-registry = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker-registry.service','',d)}"
 
-SYSTEMD_AUTO_ENABLE_${PN}-registry = "enable"
 SYSTEMD_AUTO_ENABLE_${PN} = "enable"
 
 INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
@@ -156,8 +153,6 @@ do_install() {
 		install -m 644 ${S}/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
 		install -m 644 ${S}/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
-
-		install -m 644 ${WORKDIR}/docker-registry.service ${D}/${systemd_unitdir}/system
 	else
 		install -d ${D}${sysconfdir}/init.d
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
@@ -171,9 +166,6 @@ do_install() {
 inherit useradd
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r docker"
-
-FILES_${PN}-registry += "${systemd_unitdir}/system/docker-registry.service"
-RDEPENDS_${PN}-registry += "docker"
 
 FILES_${PN} += "${systemd_unitdir}/system/*"
 
