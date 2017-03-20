@@ -38,7 +38,6 @@ DOCKER_VERSION = "1.13.0"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 DEPENDS = " \
-    go-cross-${TARGET_ARCH} \
     go-cli \
     go-pty \
     go-context \
@@ -61,7 +60,7 @@ DEPENDS = " \
 
 PACKAGES =+ "${PN}-contrib"
 
-DEPENDS_append_class-target = "lvm2"
+DEPENDS_append_class-target = " lvm2"
 RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES','systemd','','cgroup-lite',d)} \
                  "
@@ -132,6 +131,7 @@ do_compile() {
 }
 
 inherit systemd update-rc.d
+inherit go
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
