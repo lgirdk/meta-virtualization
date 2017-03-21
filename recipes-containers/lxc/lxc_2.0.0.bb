@@ -19,8 +19,11 @@ RDEPENDS_${PN} = " \
 		perl-module-constant \
 		perl-module-overload \
 		perl-module-exporter-heavy \
+"
+RDEPENDS_${PN}_append_libc-glibc = "\
 		glibc-utils \
 "
+
 RDEPENDS_${PN}-ptest += "file make"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
