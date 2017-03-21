@@ -15,7 +15,7 @@ inherit go
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
-
+	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	export GOPATH="${S}"
 
 	# Pass the needed cflags/ldflags so that cgo

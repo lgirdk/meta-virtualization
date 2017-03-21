@@ -23,7 +23,7 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOPATH="${WORKDIR}/git/"
-
+	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
 	export CGO_ENABLED="1"

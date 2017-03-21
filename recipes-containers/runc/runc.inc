@@ -23,7 +23,7 @@ inherit go-osarchmap
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
-
+	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
 	# use dependencies packaged independently.

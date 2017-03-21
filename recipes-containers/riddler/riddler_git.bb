@@ -18,7 +18,7 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
-
+	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	# Setup vendor directory so that it can be used in GOPATH.
 	#
 	# Go looks in a src directory under any directory in GOPATH but riddler
