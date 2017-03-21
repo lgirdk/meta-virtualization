@@ -3,9 +3,6 @@ SUMMARY = "The Docker toolset to pack, ship, store, and deliver content"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d2794c0df5b907fdace235a619d80314"
 
-DEPENDS = "go-cross-${TARGET_ARCH} \
-          "
-
 SRCREV_distribution="0810eba2adf048b77621472991211924d9ec31c5"
 SRC_URI = "git://github.com/docker/distribution.git;branch=master;name=distribution;destsuffix=git/src/github.com/docker/distribution \
            file://docker-registry.service \
@@ -17,6 +14,7 @@ PV = "v2.6.0-rc+git${SRCPV}"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
 inherit go-osarchmap
+inherit go
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
@@ -32,6 +30,7 @@ do_compile() {
 	export CFLAGS=""
 	export LDFLAGS=""
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export GO_GCFLAGS=""
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
 	oe_runmake binaries

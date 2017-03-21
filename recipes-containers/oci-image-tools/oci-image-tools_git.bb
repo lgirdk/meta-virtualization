@@ -3,7 +3,7 @@ SUMMARY = "A collection of tools for working with the OCI image format specifica
 LICENSE = "Apache-2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
-DEPENDS = "go-cross-${TARGET_ARCH} \
+DEPENDS = "\
            oci-image-spec \
            oci-runtime-spec \
            go-digest \
@@ -19,6 +19,7 @@ PV = "0.1.0+git${SRCPV}"
 S = "${WORKDIR}/git"
 
 inherit go-osarchmap
+inherit go
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
