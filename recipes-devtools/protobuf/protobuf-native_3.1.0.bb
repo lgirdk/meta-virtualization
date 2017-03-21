@@ -15,7 +15,7 @@ SRC_URI[sha256sum] = "0a0ae63cbffc274efb573bdde9a253e3f32e458c41261df51c5dbc5ad5
 SRC_URI = "https://github.com/google/protobuf/archive/v3.1.0.tar.gz;downloadfilename=protobuf-3.1.0.tar.gz \
 	"
 
-EXTRA_OECONF += " --with-protoc=echo --disable-shared"
+EXTRA_OECONF += " --with-protoc=echo"
 
 inherit native autotools
 
