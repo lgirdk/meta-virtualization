@@ -8,7 +8,8 @@ DEPENDS = "dtc libaio zlib"
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git \
            file://external-crosscompiler.patch \
-    "
+           file://0001-Avoid-pointers-for-address-of-packed-members.patch \
+           "
 
 SRCREV = "3fea89a924511f9f8fe05a892098fad77c1eca0d"
 PV = "3.18.0+git${SRCREV}"
