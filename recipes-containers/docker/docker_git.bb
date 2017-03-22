@@ -70,33 +70,13 @@ RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
 RSUGGESTS_${PN} = "lxc rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
+inherit systemd update-rc.d
+inherit go
+inherit go-osarchmap
+
 do_configure[noexec] = "1"
 
 do_compile() {
-	case "${TARGET_ARCH}" in
-		arm)
-			GOARCH=arm
-			case "${TUNE_PKGARCH}" in
-				cortexa*)
-					export GOARM=7
-				;;
-			esac
-		;;
-		aarch64)
-			GOARCH=arm64
-		;;
-		i586|i686)
-			GOARCH=386
-		;;
-		x86_64)
-			GOARCH=amd64
-		;;
-		*)
-			GOARCH="${TARGET_ARCH}"
-		;;
-	esac
-	export GOARCH
-
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
 	# use dependencies packaged independently.
@@ -129,9 +109,6 @@ do_compile() {
 	# build the proxy
 	go build -o ${S}/docker-proxy github.com/docker/libnetwork/cmd/proxy
 }
-
-inherit systemd update-rc.d
-inherit go
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
