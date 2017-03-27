@@ -65,6 +65,7 @@ PACKAGECONFIG[templates] = ",,, ${PN}-templates"
 PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
 PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
 PACKAGECONFIG[python] = "--enable-python,--disable-python,python3,python3-core"
+PACKAGECONFIG[lua] = "--enable-lua,--disable-lua,lua,lua"
 
 # required by python3 to run setup.py
 export BUILD_SYS
@@ -86,6 +87,9 @@ FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
 FILES_${PN} += "${libdir}/python3*"
+FILES_${PN} += "${datadir}/lua/*"
+FILES_${PN} += "${libdir}/lua/lxc/*"
+FILES_${PN}-dbg += "${libdir}/lua/lxc/.debug"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug ${libexecdir}/lxc/hooks/.debug"
 PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
