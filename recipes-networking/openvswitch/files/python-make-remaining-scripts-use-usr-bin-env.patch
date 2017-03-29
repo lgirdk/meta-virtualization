@@ -1,4 +1,4 @@
-From 33769657e951da855b9258eb91fa9838373023ad Mon Sep 17 00:00:00 2001
+From 04ad1c3d9f47cfdf4ad9b5d685e953ec094326ff Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Fri, 13 Jan 2017 16:12:55 -0500
 Subject: [PATCH] python: make remaining scripts use /usr/bin/env
@@ -13,11 +13,110 @@ make use of /usr/bin/env to increase the chances of finding python.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
- ovsdb/ovsdb-dot.in               | 2 +-
- ovsdb/ovsdb-idlc.in              | 2 +-
- utilities/bugtool/ovs-bugtool.in | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ build-aux/check-structs                  | 2 +-
+ build-aux/extract-ofp-actions            | 2 +-
+ build-aux/extract-ofp-errors             | 2 +-
+ build-aux/extract-ofp-fields             | 2 +-
+ build-aux/extract-ofp-msgs               | 2 +-
+ build-aux/xml2nroff                      | 2 +-
+ ovn/utilities/ovn-docker-overlay-driver  | 2 +-
+ ovn/utilities/ovn-docker-underlay-driver | 2 +-
+ ovsdb/ovsdb-doc                          | 2 +-
+ ovsdb/ovsdb-dot.in                       | 2 +-
+ ovsdb/ovsdb-idlc.in                      | 2 +-
+ utilities/bugtool/ovs-bugtool.in         | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
 
+diff --git a/build-aux/check-structs b/build-aux/check-structs
+index f79f235..c7b8730 100755
+--- a/build-aux/check-structs
++++ b/build-aux/check-structs
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ import os.path
+ import sys
+diff --git a/build-aux/extract-ofp-actions b/build-aux/extract-ofp-actions
+index 184447b..92ea18d 100755
+--- a/build-aux/extract-ofp-actions
++++ b/build-aux/extract-ofp-actions
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ import sys
+ import os.path
+diff --git a/build-aux/extract-ofp-errors b/build-aux/extract-ofp-errors
+index 9642593..11e6de7 100755
+--- a/build-aux/extract-ofp-errors
++++ b/build-aux/extract-ofp-errors
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ import sys
+ import os.path
+diff --git a/build-aux/extract-ofp-fields b/build-aux/extract-ofp-fields
+index 498b887..5d6bcec 100755
+--- a/build-aux/extract-ofp-fields
++++ b/build-aux/extract-ofp-fields
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ import getopt
+ import sys
+diff --git a/build-aux/extract-ofp-msgs b/build-aux/extract-ofp-msgs
+index 1813638..e9e3c25 100755
+--- a/build-aux/extract-ofp-msgs
++++ b/build-aux/extract-ofp-msgs
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ import sys
+ import os.path
+diff --git a/build-aux/xml2nroff b/build-aux/xml2nroff
+index bd4e879..9d81503 100755
+--- a/build-aux/xml2nroff
++++ b/build-aux/xml2nroff
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ # Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015, 2016 Nicira, Inc.
+ #
+diff --git a/ovn/utilities/ovn-docker-overlay-driver b/ovn/utilities/ovn-docker-overlay-driver
+index 52de3db..c90f02b 100755
+--- a/ovn/utilities/ovn-docker-overlay-driver
++++ b/ovn/utilities/ovn-docker-overlay-driver
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ # Copyright (C) 2015 Nicira, Inc.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+diff --git a/ovn/utilities/ovn-docker-underlay-driver b/ovn/utilities/ovn-docker-underlay-driver
+index 2c9c4b6..89b804c 100755
+--- a/ovn/utilities/ovn-docker-underlay-driver
++++ b/ovn/utilities/ovn-docker-underlay-driver
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ # Copyright (C) 2015 Nicira, Inc.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+diff --git a/ovsdb/ovsdb-doc b/ovsdb/ovsdb-doc
+index 5cf26ee..f76f4bd 100755
+--- a/ovsdb/ovsdb-doc
++++ b/ovsdb/ovsdb-doc
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python
+ 
+ # Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015 Nicira, Inc.
+ #
 diff --git a/ovsdb/ovsdb-dot.in b/ovsdb/ovsdb-dot.in
 index 134ce22..893c408 100755
 --- a/ovsdb/ovsdb-dot.in
@@ -29,7 +128,7 @@ index 134ce22..893c408 100755
  from datetime import date
  import ovs.db.error
 diff --git a/ovsdb/ovsdb-idlc.in b/ovsdb/ovsdb-idlc.in
-index cd4532e..dceb02f 100755
+index 721ab50..bfbcf23 100755
 --- a/ovsdb/ovsdb-idlc.in
 +++ b/ovsdb/ovsdb-idlc.in
 @@ -1,4 +1,4 @@
@@ -39,7 +138,7 @@ index cd4532e..dceb02f 100755
  import getopt
  import os
 diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
-index bb771b0..152d171 100755
+index 963c50c..c84d7c2 100755
 --- a/utilities/bugtool/ovs-bugtool.in
 +++ b/utilities/bugtool/ovs-bugtool.in
 @@ -1,4 +1,4 @@

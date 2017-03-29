@@ -1,4 +1,4 @@
-From e20556d7cf0fc8258db77c1f3e0a160cf9fd4514 Mon Sep 17 00:00:00 2001
+From a2a656e6976a60e5df3ade0d17a40b4ebdc2b41a Mon Sep 17 00:00:00 2001
 From: He Zhe <zhe.he@windriver.com>
 Date: Wed, 30 Mar 2016 06:23:45 -0400
 Subject: [PATCH] openvswitch: Add test-install rule to support ptest execution
@@ -19,13 +19,13 @@ Signed-off-by: He Zhe <zhe.he@windriver.com>
  create mode 100644 test.mk
 
 diff --git a/Makefile.am b/Makefile.am
-index ed43c2f..f38d278 100644
+index a4dd7b8..0bd32c7 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -401,3 +401,4 @@ include datapath-windows/include/automake.mk
- include windows/automake.mk
+@@ -429,3 +429,4 @@ include windows/automake.mk
  include ovn/automake.mk
  include selinux/automake.mk
+ include build-aux/automake.mk
 +include test.mk
 diff --git a/test.mk b/test.mk
 new file mode 100644
@@ -106,5 +106,5 @@ index 0000000..b10a581
 +	sed -i 's|ovs-appctl-bashcomp\.bash|/etc/bash_completion.d/ovs-appctl-bashcomp\.bash|g' $(TEST_DEST)/tests/testsuite
 +	sed -i 's|ovs-vsctl-bashcomp\.bash|/etc/bash_completion.d/ovs-vsctl-bashcomp\.bash|g' $(TEST_DEST)/tests/testsuite
 -- 
-1.9.1
+2.7.4
 
