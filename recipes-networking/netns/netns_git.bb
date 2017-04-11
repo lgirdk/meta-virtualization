@@ -9,7 +9,7 @@ PV = "0.1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
-inherit go-osarchmap
+inherit goarch
 inherit go
 
 do_compile() {

@@ -18,7 +18,7 @@ LIBCONTAINER_PACKAGE="github.com/opencontainers/runc/libcontainer"
 do_configure[noexec] = "1"
 EXTRA_OEMAKE="BUILDTAGS=''"
 
-inherit go-osarchmap
+inherit goarch
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"

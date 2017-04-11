@@ -13,7 +13,7 @@ PACKAGES =+ "docker-registry"
 PV = "v2.6.0-rc+git${SRCPV}"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
-inherit go-osarchmap
+inherit goarch
 inherit go
 
 # This disables seccomp and apparmor, which are on by default in the

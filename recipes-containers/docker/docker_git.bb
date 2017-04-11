@@ -72,7 +72,7 @@ DOCKER_PKG="github.com/docker/docker"
 
 inherit systemd update-rc.d
 inherit go
-inherit go-osarchmap
+inherit goarch
 
 do_configure[noexec] = "1"
 
