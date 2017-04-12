@@ -10,8 +10,7 @@ S = "${WORKDIR}/git"
 
 PV = "${RUNC_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross-${TARGET_ARCH} \
-    "
+inherit go
 RRECOMMENDS_${PN} = "lxc docker"
 
 LIBCONTAINER_PACKAGE="github.com/opencontainers/runc/libcontainer"

@@ -12,8 +12,7 @@ S = "${WORKDIR}/git"
 
 PV = "${CONTAINERD_VERSION}+git${SRCREV}"
 
-DEPENDS = "go-cross-${TARGET_ARCH} \
-    "
+inherit go
 
 RRECOMMENDS_${PN} = "lxc docker"
 CONTAINERD_PKG="github.com/docker/containerd"
