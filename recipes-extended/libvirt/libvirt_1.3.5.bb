@@ -7,7 +7,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 SECTION = "console/tools"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
-	   iptables dnsmasq readline libtasn1 libxslt-native acl"
+	   iptables dnsmasq readline libtasn1 libxslt-native acl \
+	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)}"
 
 # libvirt-guests.sh needs gettext.sh
 #
@@ -21,8 +22,6 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS_${PN}_libvirtd = "connman"
-
-DIRFILES = ""
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
@@ -120,7 +119,8 @@ FILES_${PN}-libvirtd = " \
 FILES_${PN}-virsh = "${bindir}/virsh"
 FILES_${PN} += "${libdir}/libvirt/connection-driver \
 	    ${datadir}/augeas \
-	    ${datadir}/polkit-1"
+	    ${@bb.utils.contains('PACKAGECONFIG', 'polkit', '${datadir}/polkit-1', '', d)} \
+	    "
 
 FILES_${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
 FILES_${PN}-staticdev += "${libdir}/*.a ${libdir}/libvirt/connection-driver/*.a ${libdir}/libvirt/lock-driver/*.a"
@@ -253,6 +253,15 @@ do_install_append() {
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 	echo "d root root 0755 ${localstatedir}/run/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+
+	# Manually set permissions and ownership to match polkit recipe
+	if ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'true', 'false', d)}; then
+		install -d -m 0700 ${D}/${datadir}/polkit-1/rules.d
+		chown polkitd ${D}/${datadir}/polkit-1/rules.d
+		chgrp root ${D}/${datadir}/polkit-1/rules.d
+	else
+		rm -rf ${D}/${datadir}/polkit-1
+	fi
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks
