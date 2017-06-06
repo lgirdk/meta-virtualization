@@ -2,7 +2,6 @@ DESCRIPTION = "lxc aims to use these new functionnalities to provide an userspac
 SECTION = "console/utils"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
-PRIORITY = "optional"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -10,7 +9,6 @@ RDEPENDS_${PN} = " \
 		libcap-bin \
 		bridge-utils \
 		dnsmasq \
-		initscripts \
 		perl-module-strict \
 		perl-module-getopt-long \
 		perl-module-vars \
@@ -20,11 +18,7 @@ RDEPENDS_${PN} = " \
 		perl-module-overload \
 		perl-module-exporter-heavy \
 "
-RDEPENDS_${PN}_append_libc-glibc = "\
-		glibc-utils \
-"
-
-RDEPENDS_${PN}-ptest += "file make"
+RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
@@ -34,11 +28,10 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
-	file://Use-AC_HEADER_MAJOR-to-detect-major-minor-makedev.patch \
 	"
 
-SRC_URI[md5sum] = "04a7245a614cd3296b0ae9ceeeb83fbb"
-SRC_URI[sha256sum] = "5b737e114d8ef1feb193fba936d77a5697a7c8a10199a068cdd90d1bd27c10e4"
+SRC_URI[md5sum] = "7bfd95280522d7936c0979dfea92cdb5"
+SRC_URI[sha256sum] = "0d8e34b302cfe4c40c6c9ae5097096aa5cc2c1dfceea3f0f22e3e16c4a4e8494"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
@@ -87,19 +80,21 @@ FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
 FILES_${PN} += "${docdir}"
 FILES_${PN} += "${libdir}/python3*"
-FILES_${PN} += "${datadir}/lua/*"
-FILES_${PN} += "${libdir}/lua/lxc/*"
-FILES_${PN}-dbg += "${libdir}/lua/lxc/.debug"
-FILES_${PN}-dbg += "${libexecdir}/lxc/.debug ${libexecdir}/lxc/hooks/.debug"
-PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking"
+FILES_${PN} += "${datadir}/bash-completion"
+FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
+FILES_${PN}-dbg += "${libexecdir}/lxc/hooks/.debug"
+PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking ${PN}-lua"
+FILES_lua-${PN} = "${datadir}/lua ${libdir}/lua"
+FILES_lua-${PN}-dbg += "${libdir}/lua/lxc/.debug"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
 RDEPENDS_${PN}-templates += "bash"
 
 ALLOW_EMPTY_${PN}-networking = "1"
 
-FILES_${PN}-setup += "${sysconfdir}/tmpfiles.d"
-FILES_${PN}-setup += "${systemd_system_unitdir}"
-FILES_${PN}-setup += "${sysconfdir}/init.d"
+FILES_${PN}-setup += "/etc/tmpfiles.d"
+FILES_${PN}-setup += "/lib/systemd/system"
+FILES_${PN}-setup += "/usr/lib/systemd/system"
+FILES_${PN}-setup += "/etc/init.d"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
