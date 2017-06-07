@@ -12,8 +12,11 @@ DEPENDS = "\
            spf13-pflag \
           "
 
-SRC_URI = "git://github.com/opencontainers/image-tools.git"
-SRCREV = "a358e03fde4e3628bf9fb7656bf643b63f975636"
+SRC_URI = "git://github.com/opencontainers/image-tools.git \
+           file://0001-image-manifest-Recursively-remove-pre-existing-entri.patch \
+           file://0002-image-manifest-Split-unpackLayerEntry-into-its-own-f.patch"
+
+SRCREV = "d0c8533b0a2c68344ff2c8aff03d7fc2dff3a108"
 PV = "0.1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -38,6 +41,7 @@ do_compile() {
 	ln -sfn . "${S}/vendor/src"
 	mkdir -p "${S}/vendor/src/github.com/opencontainers/image-tools/"
 	ln -sfn "${S}/image" "${S}/vendor/src/github.com/opencontainers/image-tools/image"
+	ln -sfn "${S}/version" "${S}/vendor/src/github.com/opencontainers/image-tools/version"
 	export GOPATH="${S}/vendor"
 
 	# Pass the needed cflags/ldflags so that cgo
@@ -48,14 +52,12 @@ do_compile() {
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
-	oe_runmake tools
+	oe_runmake tool
 }
 
 do_install() {
 	install -d ${D}/${sbindir}
-	install ${S}/oci-create-runtime-bundle ${D}/${sbindir}/
-	install ${S}/oci-image-validate ${D}/${sbindir}/
-	install ${S}/oci-unpack ${D}/${sbindir}/
+	install ${S}/oci-image-tool ${D}/${sbindir}/
 }
 
 INSANE_SKIP_${PN} += "ldflags"
