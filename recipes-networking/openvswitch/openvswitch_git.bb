@@ -29,6 +29,7 @@ SRC_URI = "file://openvswitch-switch \
            file://python-make-remaining-scripts-use-usr-bin-env.patch \
            file://0001-use-the-linux-if_packet.h-Interface-directly.patch \
            file://0002-Define-WAIT_ANY-if-not-provided-by-system.patch \
+           file://CVE-2017-9263.patch \
            "
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=17b2c9d4c70853a09c0e143137754b35"
