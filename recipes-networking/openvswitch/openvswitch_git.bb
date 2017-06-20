@@ -8,7 +8,7 @@ RDEPENDS_${PN}-ptest += "\
 	python-datetime python-netclient python sed \
 	ldd perl-module-socket perl-module-carp perl-module-exporter \
 	perl-module-xsloader python-netserver python-threading \
-	python-resource python-subprocess \
+	python-resource python-subprocess findutils which \
 	"
 
 S = "${WORKDIR}/git"
