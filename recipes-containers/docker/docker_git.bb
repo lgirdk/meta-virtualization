@@ -43,7 +43,6 @@ DEPENDS = " \
     go-context \
     go-mux \
     go-patricia \
-    go-libtrust \
     go-logrus \
     go-fsnotify \
     go-dbus \
