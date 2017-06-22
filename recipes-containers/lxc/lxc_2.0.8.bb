@@ -17,6 +17,10 @@ RDEPENDS_${PN} = " \
 		perl-module-constant \
 		perl-module-overload \
 		perl-module-exporter-heavy \
+		gmp \
+		libidn \
+		gnutls \
+		nettle \
 "
 RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls"
 
