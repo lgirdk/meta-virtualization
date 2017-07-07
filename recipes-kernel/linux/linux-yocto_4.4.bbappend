@@ -4,6 +4,7 @@ SRC_URI += "file://xt-checksum.scc \
             file://ebtables.scc \
 	    file://vswitch.scc \
 	    file://lxc.scc \
+            file://docker.scc \
 	    "
 KERNEL_FEATURES_append = " features/kvm/qemu-kvm-enable.scc"
 
