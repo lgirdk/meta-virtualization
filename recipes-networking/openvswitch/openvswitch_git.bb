@@ -33,6 +33,19 @@ SRC_URI = "file://openvswitch-switch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
            "
 
+# Temporarily backport patches to better support py3. These have been
+# merged upstream but are not part of v2.7.1.
+SRC_URI += " \
+           file://0001-Python3-compatibility-Convert-print-statements.patch \
+           file://0002-Python3-compatibility-exception-cleanup.patch \
+           file://0003-Python3-compatibility-execfile-to-exec.patch \
+           file://0004-Python3-compatibility-iteritems-to-items.patch \
+           file://0005-Python3-compatibility-fix-integer-problems.patch \
+           file://0006-Python3-compatibility-math-error-compatibility.patch \
+           file://0007-Python3-compatibility-unicode-to-str.patch \
+           file://0008-AUTHORS-Add-Jason-Wessel.patch \
+"
+
 LIC_FILES_CHKSUM = "file://COPYING;md5=17b2c9d4c70853a09c0e143137754b35"
 
 PACKAGECONFIG ?= ""
