@@ -37,6 +37,10 @@ do_compile() {
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 	cd -
 
+	# Fix up symlink for go-cross compiler
+	rm -f ${S}/vendor/src
+	ln -sf ./ ${S}/vendor/src
+
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
 	export CGO_ENABLED="1"
