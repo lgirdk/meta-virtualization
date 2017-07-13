@@ -18,11 +18,13 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "49bf474f9ed7ce7143a59d1964ff7b7fd9b52178"
-SRCREV_libnetwork="0f534354b813003a754606689722fe253101bc4e"
+SRCREV_docker = "e639a70fbe999d96354a5bcf560231b7b8aa935c"
+SRCREV_libnetwork = "26addf43a5d925ff79d262dbbdb5344bc2b6e198"
+SRCREV_cli = "a765218f1988e85b68aa3977f34893ec7b059a60"
 SRC_URI = "\
-	git://github.com/docker/docker.git;nobranch=1;name=docker \
+	git://github.com/moby/moby.git;nobranch=1;name=docker \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=libnetwork \
+	git://github.com/docker/cli;branch=master;name=cli;destsuffix=cli \
 	file://docker.init \
 	file://hi.Dockerfile \
 	file://context-use-golang.org-x-net-pkg-until-we-move-to-go.patch \
@@ -30,7 +32,7 @@ SRC_URI = "\
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
 
 S = "${WORKDIR}/git"
 
@@ -86,6 +88,7 @@ do_compile() {
 
 	mkdir -p .gopath/src/github.com/docker
 	ln -sf ../../../../../libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ../../../../../cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -107,6 +110,9 @@ do_compile() {
 
 	# build the proxy
 	go build -o ${S}/docker-proxy github.com/docker/libnetwork/cmd/proxy
+
+        # build the cli
+	go build -o ${S}/bundles/latest/dynbinary-client/docker github.com/docker/cli/cmd/docker
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
