@@ -10,6 +10,8 @@ PV = "0.0.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
+INSANE_SKIP_${PN} += "ldflags"
+
 inherit goarch
 inherit go
 
