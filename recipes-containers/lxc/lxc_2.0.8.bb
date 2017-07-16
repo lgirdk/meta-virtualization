@@ -79,7 +79,7 @@ SYSTEMD_AUTO_ENABLE_${PN}-setup = "disable"
 
 INITSCRIPT_PACKAGES = "${PN}-setup"
 INITSCRIPT_NAME_{PN}-setup = "lxc"
-INITSCRIPT_PARAMS_${PN}-setup = "${OS_DEFAULT_INITSCRIPT_PARAMS}"
+INITSCRIPT_PARAMS_${PN}-setup = "defaults"
 
 FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
