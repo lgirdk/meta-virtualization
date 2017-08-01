@@ -13,6 +13,5 @@ IMAGE_INSTALL = "\
     "
 
 inherit core-image
-inherit image-vm
 
-IMAGE_FSTYPES += "vmdk"
+IMAGE_FSTYPES += "wic.vmdk"
