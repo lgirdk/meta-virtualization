@@ -3,7 +3,6 @@ EXTRA_IMAGE_FEATURES = "tools-debug debug-tweaks"
 
 IMAGE_INSTALL = "\
     ${CORE_IMAGE_BASE_INSTALL} \
-    ${ROOTFS_PKGMANAGE_BOOTSTRAP} \
     packagegroup-core-basic \
     openvswitch \
     openvswitch-controller \
