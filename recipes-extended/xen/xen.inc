@@ -277,28 +277,52 @@ FILES_${PN}-staticdev += "\
     "
 
 FILES_${PN}-libblktapctl = "${libdir}/libblktapctl.so.*"
-FILES_${PN}-libblktapctl-dev = "${libdir}/libblktapctl.so"
+FILES_${PN}-libblktapctl-dev = " \
+    ${libdir}/libblktapctl.so \
+    ${datadir}/pkgconfig/xenblktapctl.pc \
+    "
 
 FILES_${PN}-libxencall = "${libdir}/libxencall.so.*"
-FILES_${PN}-libxencall-dev = "${libdir}/libxencall.so"
+FILES_${PN}-libxencall-dev = " \
+    ${libdir}/libxencall.so \
+    ${datadir}/pkgconfig/xencall.pc \
+    "
 
 FILES_${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
-FILES_${PN}-libxenctrl-dev = "${libdir}/libxenctrl.so"
+FILES_${PN}-libxenctrl-dev = " \
+    ${libdir}/libxenctrl.so \
+    ${datadir}/pkgconfig/xencontrol.pc \
+    "
 
 FILES_${PN}-libxendevicemodel = "${libdir}/libxendevicemodel.so.*"
-FILES_${PN}-libxendevicemodel-dev = "${libdir}/libxendevicemodel.so"
+FILES_${PN}-libxendevicemodel-dev = " \
+    ${libdir}/libxendevicemodel.so \
+    ${datadir}/pkgconfig/xendevicemodel.pc \
+    "
 
 FILES_${PN}-libxenevtchn = "${libdir}/libxenevtchn.so.*"
-FILES_${PN}-libxenevtchn-dev = "${libdir}/libxenevtchn.so"
+FILES_${PN}-libxenevtchn-dev = " \
+    ${libdir}/libxenevtchn.so \
+    ${datadir}/pkgconfig/xenevtchn.pc \
+    "
 
 FILES_${PN}-libxenforeignmemory = "${libdir}/libxenforeignmemory.so.*"
-FILES_${PN}-libxenforeignmemory-dev = "${libdir}/libxenforeignmemory.so"
+FILES_${PN}-libxenforeignmemory-dev = " \
+    ${libdir}/libxenforeignmemory.so \
+    ${datadir}/pkgconfig/xenforeignmemory.pc \
+    "
 
 FILES_${PN}-libxengnttab = "${libdir}/libxengnttab.so.*"
-FILES_${PN}-libxengnttab-dev = "${libdir}/libxengnttab.so"
+FILES_${PN}-libxengnttab-dev = " \
+    ${libdir}/libxengnttab.so \
+    ${datadir}/pkgconfig/xengnttab.pc \
+    "
 
 FILES_${PN}-libxenguest = "${libdir}/libxenguest.so.*"
-FILES_${PN}-libxenguest-dev = "${libdir}/libxenguest.so"
+FILES_${PN}-libxenguest-dev = " \
+    ${libdir}/libxenguest.so \
+    ${datadir}/pkgconfig/xenguest.pc \
+    "
 
 FILES_${PN}-libxenlight = "${libdir}/libxenlight.so.*"
 FILES_${PN}-libxenlight-dev = " \
@@ -307,16 +331,28 @@ FILES_${PN}-libxenlight-dev = " \
     "
 
 FILES_${PN}-libxenstat = "${libdir}/libxenstat.so.*"
-FILES_${PN}-libxenstat-dev = "${libdir}/libxenstat.so"
+FILES_${PN}-libxenstat-dev = " \
+    ${libdir}/libxenstat.so \
+    ${datadir}/pkgconfig/xenstat.pc \
+    "
 
 FILES_${PN}-libxenstore = "${libdir}/libxenstore.so.*"
-FILES_${PN}-libxenstore-dev = "${libdir}/libxenstore.so"
+FILES_${PN}-libxenstore-dev = " \
+    ${libdir}/libxenstore.so \
+    ${datadir}/pkgconfig/xenstore.pc \
+    "
 
 FILES_${PN}-libxentoollog = "${libdir}/libxentoollog.so.*"
-FILES_${PN}-libxentoollog-dev = "${libdir}/libxentoollog.so"
+FILES_${PN}-libxentoollog-dev = " \
+    ${libdir}/libxentoollog.so \
+    ${datadir}/pkgconfig/xentoollog.pc \
+    "
 
 FILES_${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
-FILES_${PN}-libxenvchan-dev = "${libdir}/libxenvchan.so"
+FILES_${PN}-libxenvchan-dev = " \
+    ${libdir}/libxenvchan.so \
+    ${datadir}/pkgconfig/xenvchan.pc \
+    "
 
 FILES_${PN}-libxlutil = "${libdir}/libxlutil.so.*"
 FILES_${PN}-libxlutil-dev = " \
@@ -324,13 +360,22 @@ FILES_${PN}-libxlutil-dev = " \
     ${datadir}/pkgconfig/xlutil.pc \
     "
 FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
-FILES_${PN}-libvhd-dev = "${libdir}/libvhd.so"
+FILES_${PN}-libvhd-dev = " \
+    ${libdir}/libvhd.so \
+    ${datadir}/pkgconfig/vhd.pc \
+    "
 
 FILES_${PN}-libblktap = "${libdir}/libblktap.so.*"
-FILES_${PN}-libblktap-dev = "${libdir}/libblktap.so"
+FILES_${PN}-libblktap-dev = " \
+    ${libdir}/libblktap.so \
+    ${datadir}/pkgconfig/blktap.pc \
+    "
 
 FILES_${PN}-libfsimage = "${libdir}/libfsimage.so.*"
-FILES_${PN}-libfsimage-dev = "${libdir}/libfsimage.so"
+FILES_${PN}-libfsimage-dev = " \
+    ${libdir}/libfsimage.so \
+    ${datadir}/pkgconfig/fsimage.pc \
+    "
 
 FILES_${PN}-fsimage = "${libdir}/fs/*/*fsimage.so"
 
