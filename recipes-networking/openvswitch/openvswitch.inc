@@ -34,6 +34,7 @@ SRC_URI = "\
 	"
 
 EXTRA_OECONF += "\
+	PYTHON=python3 \
 	PYTHON3=python3 \
 	PERL=${bindir}/perl \
 	"
