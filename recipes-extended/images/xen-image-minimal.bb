@@ -50,12 +50,12 @@ SYSLINUX_XEN_ARGS ?= "loglvl=all guest_loglvl=all console=com1,vga com1=115200,8
 SYSLINUX_KERNEL_ARGS ?= "ramdisk_size=32768 root=/dev/ram0 rw console=hvc0 earlyprintk=xen console=tty0 panic=10 LABEL=boot debugshell=5"
 
 build_syslinux_cfg () {
-	echo "ALLOWOPTIONS 1" > ${SYSLINUXCFG}
-	echo "DEFAULT boot" >> ${SYSLINUXCFG}
-	echo "TIMEOUT 10" >> ${SYSLINUXCFG}
-	echo "PROMPT 1" >> ${SYSLINUXCFG}
-	echo "LABEL boot" >> ${SYSLINUXCFG}
-	echo "  KERNEL mboot.c32" >> ${SYSLINUXCFG}
-	echo "  APPEND /xen.gz ${SYSLINUX_XEN_ARGS} --- /vmlinuz ${SYSLINUX_KERNEL_ARGS} --- /initrd" >> ${SYSLINUXCFG}
+	echo "ALLOWOPTIONS 1" > ${SYSLINUX_CFG}
+	echo "DEFAULT boot" >> ${SYSLINUX_CFG}
+	echo "TIMEOUT 10" >> ${SYSLINUX_CFG}
+	echo "PROMPT 1" >> ${SYSLINUX_CFG}
+	echo "LABEL boot" >> ${SYSLINUX_CFG}
+	echo "  KERNEL mboot.c32" >> ${SYSLINUX_CFG}
+	echo "  APPEND /xen.gz ${SYSLINUX_XEN_ARGS} --- /vmlinuz ${SYSLINUX_KERNEL_ARGS} --- /initrd" >> ${SYSLINUX_CFG}
 }
 
