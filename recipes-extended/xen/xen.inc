@@ -912,6 +912,7 @@ do_configure() {
 
     # do configure
     oe_runconf
+    cp ${STAGING_INCDIR}/bits/long-double-64.h ${STAGING_INCDIR}/bits/long-double-32.h
 }
 
 do_compile() {
