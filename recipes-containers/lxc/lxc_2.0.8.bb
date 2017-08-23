@@ -22,7 +22,7 @@ RDEPENDS_${PN} = " \
 		gnutls \
 		nettle \
 "
-RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls"
+RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
