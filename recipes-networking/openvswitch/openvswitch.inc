@@ -86,6 +86,12 @@ INITSCRIPT_PARAMS_${PN}-switch = "defaults 71"
 INITSCRIPT_NAME_${PN}-testcontroller = "openvswitch-testcontroller"
 INITSCRIPT_PARAMS_${PN}-testcontroller = "defaults 72"
 
+do_configure_prepend() {
+	# Work around the for Makefile CC=$(if ....) by swapping out any
+	# "-Wa," assembly directives with "-Xassembler
+	CC=`echo '${CC}' | sed 's/-Wa,/-Xassembler /g'`
+}
+
 do_install_append() {
 	install -d ${D}/${sysconfdir}/default/
 	install -m 660 ${WORKDIR}/openvswitch-switch-setup ${D}/${sysconfdir}/default/openvswitch-switch
