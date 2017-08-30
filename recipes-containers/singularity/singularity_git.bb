@@ -2,7 +2,7 @@
 # Singularity build / config: read up on the dev-so test for more info)
 INSANE_SKIP_${PN} += "dev-so"
 
-RDEPENDS_${PN} += "glibc python3 ca-certificates openssl"
+RDEPENDS_${PN} += "glibc python3 ca-certificates openssl bash"
 # Singularity expects to find python3 under the name python, therefore both
 # cannot be installed at the same time.
 RCONFLICTS_${PN} = "python"
