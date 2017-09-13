@@ -40,8 +40,8 @@ Signed-off-by: W. Trevor King <wking@tremily.us>
 
 diff --git a/image/manifest.go b/image/manifest.go
 index 8834c1e5f2f0..144bd4f62219 100644
---- a/image/manifest.go
-+++ b/image/manifest.go
+--- a/src/import/image/manifest.go
++++ b/src/import/image/manifest.go
 @@ -253,11 +253,27 @@ loop:
  			continue loop
  		}

@@ -20,8 +20,8 @@ Signed-off-by: Justin Cormack <justin.cormack@docker.com>
 
 diff --git a/libcontainer/cgroups/fs/memory.go b/libcontainer/cgroups/fs/memory.go
 index da2cc9f8..b739c631 100644
---- a/libcontainer/cgroups/fs/memory.go
-+++ b/libcontainer/cgroups/fs/memory.go
+--- a/src/import/libcontainer/cgroups/fs/memory.go
++++ b/src/import/libcontainer/cgroups/fs/memory.go
 @@ -73,14 +73,14 @@ func EnableKernelMemoryAccounting(path string) error {
  	// until a limit is set on the cgroup and limit cannot be set once the
  	// cgroup has children, or if there are already tasks in the cgroup.
@@ -123,8 +123,8 @@ index da2cc9f8..b739c631 100644
  	}
 diff --git a/libcontainer/configs/cgroup_linux.go b/libcontainer/configs/cgroup_linux.go
 index 3e0509de..e15a662f 100644
---- a/libcontainer/configs/cgroup_linux.go
-+++ b/libcontainer/configs/cgroup_linux.go
+--- a/src/import/libcontainer/configs/cgroup_linux.go
++++ b/src/import/libcontainer/configs/cgroup_linux.go
 @@ -43,19 +43,19 @@ type Resources struct {
  	Devices []*Device `json:"devices"`
  
@@ -152,8 +152,8 @@ index 3e0509de..e15a662f 100644
  	CpuShares uint64 `json:"cpu_shares"`
 diff --git a/update.go b/update.go
 index 0ea90d60..133be999 100644
---- a/update.go
-+++ b/update.go
+--- a/src/import/update.go
++++ b/src/import/update.go
 @@ -124,11 +124,11 @@ other options are ignored.
  
  		r := specs.LinuxResources{

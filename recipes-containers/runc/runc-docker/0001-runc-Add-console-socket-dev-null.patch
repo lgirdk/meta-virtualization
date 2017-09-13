@@ -14,8 +14,8 @@ Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 
 diff --git a/utils_linux.go b/utils_linux.go
 index 8085f7fe..e6d31b35 100644
---- a/utils_linux.go
-+++ b/utils_linux.go
+--- a/src/import/utils_linux.go
++++ b/src/import/utils_linux.go
 @@ -227,6 +227,11 @@ type runner struct {
  }
  

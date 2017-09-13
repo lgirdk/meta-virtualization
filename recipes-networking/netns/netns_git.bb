@@ -1,11 +1,12 @@
 HOMEPAGE = "https://github.com/jfrazelle/netns"
 SUMMARY = "Runc hook for setting up default bridge networking."
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
 
 SRC_URI = "git://github.com/jessfraz/netns;branch=master"
 SRCREV = "85b1ab9fcccbaa404a2636b52a48bbde02437cf7"
 PV = "0.1.0+git${SRCPV}"
+GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
@@ -22,10 +23,10 @@ do_compile() {
 	#
 	# We also need to link in the ipallocator directory as that is not under
 	# a src directory.
-	ln -sfn . "${S}/vendor/src"
-	mkdir -p "${S}/vendor/src/github.com/jessfraz/netns"
-	ln -sfn "${S}/ipallocator" "${S}/vendor/src/github.com/jessfraz/netns/ipallocator"
-	export GOPATH="${S}/vendor"
+	ln -sfn . "${S}/src/import/vendor/src"
+	mkdir -p "${S}/src/import/vendor/src/github.com/jessfraz/netns"
+	ln -sfn "${S}/src/import/ipallocator" "${S}/src/import/vendor/src/github.com/jessfraz/netns/ipallocator"
+	export GOPATH="${S}/src/import/vendor"
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -35,10 +36,11 @@ do_compile() {
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
+	cd ${S}/src/import
 	oe_runmake static
 }
 
 do_install() {
 	install -d ${D}/${sbindir}
-	install ${S}/netns ${D}/${sbindir}/netns
+	install ${S}/src/import/netns ${D}/${sbindir}/netns
 }

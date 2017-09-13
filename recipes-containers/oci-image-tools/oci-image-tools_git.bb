@@ -18,8 +18,7 @@ SRC_URI = "git://github.com/opencontainers/image-tools.git \
 
 SRCREV = "4abe1a166f9be97e8e71b1bb4d7599cc29323011"
 PV = "0.2.0-dev+git${SRCPV}"
-
-S = "${WORKDIR}/git"
+GO_IMPORT = "import"
 
 inherit goarch
 inherit go
@@ -38,11 +37,11 @@ do_compile() {
 	#
 	# We also need to link in the ipallocator directory as that is not under
 	# a src directory.
-	ln -sfn . "${S}/vendor/src"
-	mkdir -p "${S}/vendor/src/github.com/opencontainers/image-tools/"
-	ln -sfn "${S}/image" "${S}/vendor/src/github.com/opencontainers/image-tools/image"
-	ln -sfn "${S}/version" "${S}/vendor/src/github.com/opencontainers/image-tools/version"
-	export GOPATH="${S}/vendor"
+	ln -sfn . "${S}/src/import/vendor/src"
+	mkdir -p "${S}/src/import/vendor/src/github.com/opencontainers/image-tools/"
+	ln -sfn "${S}/src/import/image" "${S}/src/import/vendor/src/github.com/opencontainers/image-tools/image"
+	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/opencontainers/image-tools/version"
+	export GOPATH="${S}/src/import/vendor"
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -51,13 +50,14 @@ do_compile() {
 	export LDFLAGS=""
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	cd ${S}/src/import
 
 	oe_runmake tool
 }
 
 do_install() {
 	install -d ${D}/${sbindir}
-	install ${S}/oci-image-tool ${D}/${sbindir}/
+	install ${S}/src/import/oci-image-tool ${D}/${sbindir}/
 }
 
 INSANE_SKIP_${PN} += "ldflags"

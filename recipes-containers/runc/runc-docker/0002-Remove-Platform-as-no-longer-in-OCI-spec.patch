@@ -13,8 +13,8 @@ Signed-off-by: Justin Cormack <justin.cormack@docker.com>
 
 diff --git a/libcontainer/specconv/example.go b/libcontainer/specconv/example.go
 index 33134116..d6621194 100644
---- a/libcontainer/specconv/example.go
-+++ b/libcontainer/specconv/example.go
+--- a/src/import/libcontainer/specconv/example.go
++++ b/src/import/libcontainer/specconv/example.go
 @@ -2,7 +2,6 @@ package specconv
  
  import (
@@ -36,8 +36,8 @@ index 33134116..d6621194 100644
  			Readonly: true,
 diff --git a/spec.go b/spec.go
 index 92d38f57..876937d2 100644
---- a/spec.go
-+++ b/spec.go
+--- a/src/import/spec.go
++++ b/src/import/spec.go
 @@ -7,7 +7,6 @@ import (
  	"fmt"
  	"io/ioutil"

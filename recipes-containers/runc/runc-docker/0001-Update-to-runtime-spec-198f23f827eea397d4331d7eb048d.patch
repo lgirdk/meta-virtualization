@@ -14,8 +14,8 @@ Signed-off-by: Justin Cormack <justin.cormack@docker.com>
 
 diff --git a/vendor.conf b/vendor.conf
 index e23e7ea7..09a8a924 100644
---- a/vendor.conf
-+++ b/vendor.conf
+--- a/src/import/vendor.conf
++++ b/src/import/vendor.conf
 @@ -1,7 +1,7 @@
  # OCI runtime-spec. When updating this, make sure you use a version tag rather
  # than a commit ID so it's much more obvious what version of the spec we are
@@ -27,8 +27,8 @@ index e23e7ea7..09a8a924 100644
  github.com/opencontainers/selinux v1.0.0-rc1
 diff --git a/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go b/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go
 index 8bf8d924..68ab112e 100644
---- a/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go
-+++ b/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go
+--- a/src/import/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go
++++ b/src/import/vendor/github.com/opencontainers/runtime-spec/specs-go/config.go
 @@ -6,8 +6,6 @@ import "os"
  type Spec struct {
  	// Version of the Open Container Runtime Specification with which the bundle complies.

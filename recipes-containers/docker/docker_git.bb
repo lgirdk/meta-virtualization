@@ -32,7 +32,9 @@ SRC_URI = "\
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
+
+GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
@@ -81,18 +83,17 @@ do_compile() {
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
 	# use dependencies packaged independently.
-	cd ${S}
+	cd ${S}/src/import
 	rm -rf .gopath
 	mkdir -p .gopath/src/"$(dirname "${DOCKER_PKG}")"
 	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
 
 	mkdir -p .gopath/src/github.com/docker
-	ln -sf ../../../../../libnetwork .gopath/src/github.com/docker/libnetwork
-	ln -sf ../../../../../cli .gopath/src/github.com/docker/cli
+	ln -sf ${WORKDIR}/libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ${WORKDIR}/cli .gopath/src/github.com/docker/cli
 
-	export GOPATH="${S}/.gopath:${S}/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
+	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
-	cd -
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -109,10 +110,10 @@ do_compile() {
 	  ./hack/make.sh dynbinary
 
 	# build the proxy
-	go build -o ${S}/docker-proxy github.com/docker/libnetwork/cmd/proxy
+	go build -o ${S}/src/import/docker-proxy github.com/docker/libnetwork/cmd/proxy
 
         # build the cli
-	go build -o ${S}/bundles/latest/dynbinary-client/docker github.com/docker/cli/cmd/docker
+	go build -o ${S}/src/import/bundles/latest/dynbinary-client/docker github.com/docker/cli/cmd/docker
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
@@ -126,15 +127,15 @@ INITSCRIPT_PARAMS_${PN} = "defaults"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${S}/bundles/latest/dynbinary-client/docker ${D}/${bindir}/docker
-	cp ${S}/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${S}/docker-proxy ${D}/${bindir}/docker-proxy
+	cp ${S}/src/import/bundles/latest/dynbinary-client/docker ${D}/${bindir}/docker
+	cp ${S}/src/import/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
+	cp ${S}/src/import/docker-proxy ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
-		install -m 644 ${S}/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
-		install -m 644 ${S}/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
 	else
 		install -d ${D}${sysconfdir}/init.d
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
@@ -142,7 +143,7 @@ do_install() {
 
 	mkdir -p ${D}${datadir}/docker/
 	cp ${WORKDIR}/hi.Dockerfile ${D}${datadir}/docker/
-	install -m 0755 ${S}/contrib/check-config.sh ${D}${datadir}/docker/
+	install -m 0755 ${S}/src/import/contrib/check-config.sh ${D}${datadir}/docker/
 }
 
 inherit useradd

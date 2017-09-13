@@ -18,8 +18,8 @@ Signed-off-by: W. Trevor King <wking@tremily.us>
 
 diff --git a/image/manifest.go b/image/manifest.go
 index 144bd4f62219..dfd5a83f70e4 100644
---- a/image/manifest.go
-+++ b/image/manifest.go
+--- a/src/import/image/manifest.go
++++ b/src/import/image/manifest.go
 @@ -218,116 +218,131 @@ loop:
  			return errors.Wrapf(err, "error advancing tar stream")
  		}
