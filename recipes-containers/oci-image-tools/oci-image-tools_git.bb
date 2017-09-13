@@ -16,8 +16,8 @@ SRC_URI = "git://github.com/opencontainers/image-tools.git \
            file://0001-image-manifest-Recursively-remove-pre-existing-entri.patch \
            file://0002-image-manifest-Split-unpackLayerEntry-into-its-own-f.patch"
 
-SRCREV = "d0c8533b0a2c68344ff2c8aff03d7fc2dff3a108"
-PV = "0.1.0+git${SRCPV}"
+SRCREV = "4abe1a166f9be97e8e71b1bb4d7599cc29323011"
+PV = "0.2.0-dev+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
