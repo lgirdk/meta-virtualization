@@ -1,7 +1,7 @@
 HOMEPAGE = "https://github.com/opencontainers/image-tools"
 SUMMARY = "A collection of tools for working with the OCI image format specification"
 LICENSE = "Apache-2"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
 DEPENDS = "\
            oci-image-spec \
