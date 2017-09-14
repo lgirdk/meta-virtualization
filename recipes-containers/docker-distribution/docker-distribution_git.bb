@@ -13,6 +13,8 @@ PACKAGES =+ "docker-registry"
 PV = "v2.6.2"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
+GO_IMPORT = "import"
+
 inherit goarch
 inherit go
 
@@ -32,6 +34,8 @@ do_compile() {
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export GO_GCFLAGS=""
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+
+	cd ${S}
 
 	oe_runmake binaries
 }
