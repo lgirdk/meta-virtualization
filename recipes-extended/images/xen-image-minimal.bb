@@ -10,11 +10,16 @@ IMAGE_INSTALL += " \
     kernel-module-xen-gntalloc \
     kernel-module-xen-gntdev \
     kernel-module-xen-netback \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'pci', 'kernel-module-xen-pciback', '', d)} \
     kernel-module-xen-wdt \
     xen-base \
     qemu \
     "
+
+# Linux kernel option CONFIG_XEN_PCIDEV_BACKEND depends on X86
+IMAGE_INSTALL_x86 += " \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'pci', 'kernel-module-xen-pciback', '', d)}"
+IMAGE_INSTALL_x86-64 += " \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'pci', 'kernel-module-xen-pciback', '', d)}"
 
 LICENSE = "MIT"
 
