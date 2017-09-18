@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bbb4b1bdc2c3b6743da3c39d03249095"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
 
-inherit autotools-brokensep gettext setuptools update-rc.d systemd deploy
+inherit autotools-brokensep setuptools update-rc.d systemd deploy
 
 require xen-arch.inc
 
@@ -29,6 +29,7 @@ DEPENDS = " \
     dev86-native \
     flex-native \
     file-native \
+    gettext-native \
     iasl-native \
     ncurses-native \
     util-linux-native \
