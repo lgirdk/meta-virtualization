@@ -5,8 +5,8 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=b355a61a394a504dacde901c958f66
 
 SRC_URI = "git://github.com/opencontainers/runtime-tools.git"
 
-SRCREV = "15ec1df3f6607f4223ab3915547c184cf60a30dd"
-PV = "0.0.1+git${SRCPV}"
+SRCREV = "6e7da8148f4de2c9e9c9d3b345576898d4f412cb"
+PV = "0.1.0+git${SRCPV}"
 GO_IMPORT = "import"
 
 INSANE_SKIP_${PN} += "ldflags"
@@ -34,6 +34,8 @@ do_compile() {
 	ln -sf ../../../../generate ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/generate
 	ln -sf ../../../../validate ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/validate
 	ln -sf ../../../../cmd ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/cmd
+	ln -sf ../../../../error ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/error
+	ln -sf ../../../../specerror ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/specerror
 	cd ${S}/src/import
 
 	oe_runmake
@@ -43,3 +45,6 @@ do_install() {
 	install -d ${D}/${sbindir}
 	install ${S}/src/import/oci-runtime-tool ${D}/${sbindir}/oci-runtime-tool
 }
+
+deltask compile_ptest_base
+
