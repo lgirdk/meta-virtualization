@@ -3,7 +3,9 @@ SUMMARY = "oci-runtime-tool is a collection of tools for working with the OCI ru
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=b355a61a394a504dacde901c958f662c"
 
-SRC_URI = "git://github.com/opencontainers/runtime-tools.git"
+SRC_URI = "git://github.com/opencontainers/runtime-tools.git \
+           file://0001-Revert-implement-add-set-function-for-hooks-items.patch \
+           "
 
 SRCREV = "6e7da8148f4de2c9e9c9d3b345576898d4f412cb"
 PV = "0.1.0+git${SRCPV}"
