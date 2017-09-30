@@ -4,6 +4,11 @@ meta-virtualization
 This layer provides support for building Xen, KVM, Libvirt, and associated
 packages necessary for constructing OE-based virtualized solutions.
 
+The bbappend files for some recipe (e.g. linux-yocto) in this layer need to
+have 'virtualization' in DISTRO_FEATURES to have effect. To enable them, add
+in configuration file the following line.
+DISTRO_FEATURES_append = " virtualization"
+
 Dependencies
 ------------
 This layer depends on:
