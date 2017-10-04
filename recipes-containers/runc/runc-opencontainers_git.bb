@@ -1,9 +1,8 @@
 include runc.inc
 
-SRCREV = "75f8da7c889acc4509a0cf6f0d3a8f9584778375"
-SRC_URI = "git://github.com/opencontainers/runc;branch=master \
-          "
-RUNC_VERSION = "1.0.0-rc3"
+SRCREV = "2e7cfe036e2c6dc51ccca6eb7fa3ee6b63976dcd"
+SRC_URI = "git://github.com/opencontainers/runc;branch=master"
+RUNC_VERSION = "1.0.0-rc4"
 PROVIDES += "virtual/runc"
 RPROVIDES_${PN} = "virtual/runc"
 
