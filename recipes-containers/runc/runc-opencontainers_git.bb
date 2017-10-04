@@ -6,9 +6,11 @@ RUNC_VERSION = "1.0.0-rc4"
 PROVIDES += "virtual/runc"
 RPROVIDES_${PN} = "virtual/runc"
 
+GO_IMPORT = "import"
+
 do_compile_prepend() {
 	# Go looks in a src directory under any directory in GOPATH but
 	# runc-opencontainers uses 'vendor' instead of 'vendor/src'. We can fix
 	# this with a symlink.
-	ln -sfn . "${S}/vendor/src"
+	ln -sfn . "${S}/src/import/vendor/src"
 }
