@@ -16,6 +16,8 @@ SRC_URI = "\
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=plugins;name=plugins \
 	"
 
+RPROVIDES_${PN} += "kubernetes-cni"
+
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
@@ -78,7 +80,7 @@ do_compile() {
 }
 
 do_install() {
-    localbindir="/usr/local/bin"
+    localbindir="/opt/cni/bin"
 
     install -d ${D}${localbindir}
     install -d ${D}/${sysconfdir}/cni/net.d
@@ -87,7 +89,7 @@ do_install() {
     install -m 755 -D ${WORKDIR}/plugins/bin/* ${D}/${localbindir}
 }
 
-FILES_${PN} += "/usr/local/bin/*"
+FILES_${PN} += "/opt/cni/bin/*"
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
