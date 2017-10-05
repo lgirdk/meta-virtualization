@@ -21,8 +21,6 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 inherit goarch
 
 do_compile() {
-	export GOARCH="${TARGET_GOARCH}"
-	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
 	# use dependencies packaged independently.
@@ -34,7 +32,6 @@ do_compile() {
 
 	(cd .gopath/src/${dname}; ln -sf ../../../../../${bname} ${bname})
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
-	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 
 	# Fix up symlink for go-cross compiler
 	rm -f ${S}/src/import/vendor/src
