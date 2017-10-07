@@ -47,7 +47,7 @@ grubefi_populate_append() {
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz ${DEST}${EFIDIR}/xen.gz
 }
 
-populate_append() {
+syslinux_populate_append() {
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz ${DEST}/xen.gz
 }
 
