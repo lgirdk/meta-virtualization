@@ -9,6 +9,7 @@ SRC_URI = "git://github.com/docker/runc.git;nobranch=1;name=runc-docker \
            file://0003-Update-memory-specs-to-use-int64-not-uint64.patch \
            file://0001-runc-Add-console-socket-dev-null.patch \
            file://0001-Use-correct-go-cross-compiler.patch \
+           file://0001-Disable-building-recvtty.patch \
           "
 
 GO_IMPORT = "import"
