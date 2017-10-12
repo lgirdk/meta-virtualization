@@ -1,5 +1,5 @@
 addhandler virt_bbappend_distrocheck
-virt_bbappend_distrocheck[eventmask] = "bb.event.ConfigParsed"
+virt_bbappend_distrocheck[eventmask] = "bb.event.SanityCheck"
 python virt_bbappend_distrocheck() {
     skip_check = e.data.getVar('SKIP_META_VIRT_SANITY_CHECK') == "1"
     if 'virtualization' not in e.data.getVar('DISTRO_FEATURES').split() and not skip_check:
