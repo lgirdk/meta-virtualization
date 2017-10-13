@@ -18,8 +18,6 @@ LIBCONTAINER_PACKAGE="github.com/opencontainers/runc/libcontainer"
 do_configure[noexec] = "1"
 EXTRA_OEMAKE="BUILDTAGS=''"
 
-inherit goarch
-
 do_compile() {
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
 	# docker to download its dependencies but rather
