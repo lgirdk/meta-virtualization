@@ -14,8 +14,6 @@ SRC_URI = "git://github.com/docker/runc.git;nobranch=1;name=runc-docker \
 
 GO_IMPORT = "import"
 
-EXTRA_FLAGS = "-v -x -work"
-
 RUNC_VERSION = "1.0.0-rc3"
 PROVIDES += "virtual/runc"
 RPROVIDES_${PN} = "virtual/runc"
