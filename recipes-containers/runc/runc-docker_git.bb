@@ -12,8 +12,4 @@ SRC_URI = "git://github.com/docker/runc.git;nobranch=1;name=runc-docker \
            file://0001-Disable-building-recvtty.patch \
           "
 
-GO_IMPORT = "import"
-
 RUNC_VERSION = "1.0.0-rc3"
-PROVIDES += "virtual/runc"
-RPROVIDES_${PN} = "virtual/runc"

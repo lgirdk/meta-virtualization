@@ -6,7 +6,3 @@ SRC_URI = " \
     file://0001-Use-correct-go-cross-compiler.patch \
     "
 RUNC_VERSION = "1.0.0-rc4"
-PROVIDES += "virtual/runc"
-RPROVIDES_${PN} = "virtual/runc"
-
-GO_IMPORT = "import"

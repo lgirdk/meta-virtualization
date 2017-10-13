@@ -12,6 +12,10 @@ PV = "${RUNC_VERSION}+git${SRCREV}"
 
 inherit go
 RRECOMMENDS_${PN} = "lxc docker"
+PROVIDES += "virtual/runc"
+RPROVIDES_${PN} = "virtual/runc"
+
+GO_IMPORT = "import"
 
 LIBCONTAINER_PACKAGE="github.com/opencontainers/runc/libcontainer"
 
