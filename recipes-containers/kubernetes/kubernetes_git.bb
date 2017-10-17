@@ -76,7 +76,7 @@ do_install() {
     install -d ${D}${systemd_unitdir}/system/
     install -d ${D}${systemd_unitdir}/system/kubelet.service.d/
 
-    install -d ${sysconfdir}/kubernetes/manifests/
+    install -d ${D}${sysconfdir}/kubernetes/manifests/
 
     install -m 755 -D ${S}/src/import/_output/bin/kube* ${D}/${bindir}
 
