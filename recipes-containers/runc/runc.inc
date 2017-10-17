@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=435b266b3899aa8a959f17d41c56de
 
 S = "${WORKDIR}/git"
 
-PV = "${RUNC_VERSION}+git${SRCREV}"
+PV = "${RUNC_VERSION}+git${SRCPV}"
 
 inherit go
 RRECOMMENDS_${PN} = "lxc docker"
