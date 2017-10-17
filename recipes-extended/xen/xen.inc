@@ -30,6 +30,7 @@ DEPENDS = " \
     flex-native \
     file-native \
     iasl-native \
+    ncurses-native \
     util-linux-native \
     xz-native \
     bridge-utils \
@@ -1003,3 +1004,37 @@ do_deploy() {
 }
 
 addtask deploy after do_populate_sysroot
+
+# Enable use of menuconfig directly from bitbake and also within the devshell
+OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO"
+HOST_EXTRACFLAGS = "${BUILD_CFLAGS} ${BUILD_LDFLAGS}"
+HOSTLDFLAGS = "${BUILD_LDFLAGS}"
+TERMINFO = "${STAGING_DATADIR_NATIVE}/terminfo"
+do_devshell[depends] += "ncurses-native:do_populate_sysroot"
+
+KCONFIG_CONFIG_COMMAND ??= "menuconfig"
+python do_menuconfig() {
+    import shutil
+
+    try:
+        mtime = os.path.getmtime("xen/.config")
+        shutil.copy("xen/.config", "xen/.config.orig")
+    except OSError:
+        mtime = 0
+
+    oe_terminal("${SHELL} -c \"cd xen; XEN_CONFIG_EXPERT=y make %s; if [ \$? -ne 0 ]; then echo 'Command failed.'; printf 'Press any key to continue... '; read r; fi\"" % d.getVar('KCONFIG_CONFIG_COMMAND'),
+        d.getVar('PN') + ' Configuration', d)
+
+    try:
+        newmtime = os.path.getmtime("xen/.config")
+    except OSError:
+        newmtime = 0
+
+    if newmtime > mtime:
+        bb.note("Configuration changed, recompile will be forced")
+        bb.build.write_taint('do_compile', d)
+}
+do_menuconfig[depends] += "ncurses-native:do_populate_sysroot"
+do_menuconfig[nostamp] = "1"
+do_menuconfig[dirs] = "${B}"
+addtask menuconfig after do_configure
