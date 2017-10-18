@@ -20,6 +20,7 @@ do_configure() {
     # Don't override the compiler or its flags:
     sed 's,^CC,DISABLED_CC,' -i Makefile
     sed 's,^CFLAGS,DISABLED_CFLAGS,' -i Makefile
+    sed 's,^LDFLAGS,DISABLED_LDFLAGS,' -i Makefile
     # Supply the C flags to the compiler:
     sed 's,-o biossums,$(CFLAGS) -o biossums,' -i Makefile
 }
