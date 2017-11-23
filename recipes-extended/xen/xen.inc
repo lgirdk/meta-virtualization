@@ -739,8 +739,6 @@ FILES_${PN}-xencommons += "\
     ${systemd_unitdir}/system/xenconsoled.service \
     ${systemd_unitdir}/system/xen-init-dom0.service \
     ${systemd_unitdir}/system/xenstored.service \
-    ${systemd_unitdir}/system/xenstored.socket \
-    ${systemd_unitdir}/system/xenstored_ro.socket \
     ${systemd_unitdir}/system/var-lib-xenstored.mount \
     "
 
@@ -780,8 +778,6 @@ SYSTEMD_SERVICE_${PN}-xencommons = " \
     xenconsoled.service \
     xen-init-dom0.service \
     xenstored.service \
-    xenstored.socket \
-    xenstored_ro.socket \
     "
 SYSTEMD_SERVICE_${PN}-xendomains = "xendomains.service"
 
