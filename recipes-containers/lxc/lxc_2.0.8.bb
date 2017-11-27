@@ -22,6 +22,9 @@ RDEPENDS_${PN} = " \
 		gnutls \
 		nettle \
 "
+
+RDEPENDS_${PN}_append_libc-glibc = " glibc-utils"
+
 RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
