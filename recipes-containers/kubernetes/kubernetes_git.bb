@@ -27,7 +27,7 @@ RDEPENDS_${PN} += "kubeadm \
                    cni"
 
 RDEPENDS_kubeadm = "kubelet kubectl"
-RDEPENDS_kubelet = "iptables socat util-linux ethtool iproute2 ebtables"
+RDEPENDS_kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
 
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
