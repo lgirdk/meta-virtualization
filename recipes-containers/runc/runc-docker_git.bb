@@ -10,6 +10,7 @@ SRC_URI = "git://github.com/docker/runc.git;nobranch=1;name=runc-docker \
            file://0001-runc-Add-console-socket-dev-null.patch \
            file://0001-Use-correct-go-cross-compiler.patch \
            file://0001-Disable-building-recvtty.patch \
+           file://0001-runc-docker-SIGUSR1-daemonize.patch \
           "
 
 RUNC_VERSION = "1.0.0-rc3"
