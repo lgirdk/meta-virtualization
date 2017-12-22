@@ -27,6 +27,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
            file://libvirtd.sh \
            file://libvirtd.conf \
+           file://dnsmasq.conf \
            file://runptest.patch \
            file://run-ptest \
            file://tests-allow-separated-src-and-build-dirs.patch \
@@ -219,6 +220,7 @@ require libvirt-python.inc
 do_install_append() {
 	install -d ${D}/etc/init.d
 	install -d ${D}/etc/libvirt
+	install -d ${D}/etc/dnsmasq.d
 
 	install -m 0755 ${WORKDIR}/libvirtd.sh ${D}/etc/init.d/libvirtd
 	install -m 0644 ${WORKDIR}/libvirtd.conf ${D}/etc/libvirt/libvirtd.conf
@@ -265,6 +267,10 @@ do_install_append() {
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks
+
+	# Force the main dnsmasq instance to bind only to specified interfaces and
+	# to not bind to virbr0. Libvirt will run its own instance on this interface.
+	install -m 644 ${WORKDIR}/dnsmasq.conf ${D}/${sysconfdir}/dnsmasq.d/libvirt-daemon
 
 	# remove .la references to our working diretory
 	for i in `find ${D}${libdir} -type f -name *.la`; do

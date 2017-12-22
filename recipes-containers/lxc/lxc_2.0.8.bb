@@ -36,6 +36,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	file://cgroups-work-around-issue-in-gcc-7.patch \
+	file://dnsmasq.conf \
 	"
 
 SRC_URI[md5sum] = "7bfd95280522d7936c0979dfea92cdb5"
@@ -134,6 +135,11 @@ do_install_append() {
 	    if [ -d ${D}${exec_prefix}/lib/python* ]; then mv ${D}${exec_prefix}/lib/python* ${D}${libdir}/; fi
 	    rmdir --ignore-fail-on-non-empty ${D}${exec_prefix}/lib
 	fi
+
+	# Force the main dnsmasq instance to bind only to specified interfaces and
+	# to not bind to virbr0. Libvirt will run its own instance on this interface.
+	install -d ${D}/${sysconfdir}/dnsmasq.d
+	install -m 644 ${WORKDIR}/dnsmasq.conf ${D}/${sysconfdir}/dnsmasq.d/lxc
 }
 
 EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
