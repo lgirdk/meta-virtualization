@@ -6,6 +6,8 @@ DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
 		gzip \
+		xz \
+		tar \
 		libcap-bin \
 		bridge-utils \
 		dnsmasq \
