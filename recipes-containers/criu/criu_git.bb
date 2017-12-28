@@ -57,6 +57,8 @@ inherit setuptools
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[selinux] = ",,libselinux"
 
+CLEANBROKEN = "1"
+
 do_compile_prepend() {
     rm -rf ${S}/images/google/protobuf/descriptor.proto
     ln -s  ${PKG_CONFIG_SYSROOT_DIR}/usr/include/google/protobuf/descriptor.proto ${S}/images/google/protobuf/descriptor.proto
