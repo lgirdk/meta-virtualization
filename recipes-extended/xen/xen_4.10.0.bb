@@ -1,7 +1,9 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 require xen.inc
 
 SRC_URI = " \
     https://downloads.xenproject.org/release/xen/${PV}/xen-${PV}.tar.gz \
+    file://xsa253.patch \
     "
 
 SRC_URI[md5sum] = "ab9d320d02cb40f6b40506aed1a38d58"
