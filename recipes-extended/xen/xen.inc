@@ -196,6 +196,8 @@ PACKAGES = "\
     ${PN}-libxenstat-dev \
     ${PN}-libxenstore \
     ${PN}-libxenstore-dev \
+    ${PN}-libxentoolcore \
+    ${PN}-libxentoolcore-dev \
     ${PN}-libxentoollog \
     ${PN}-libxentoollog-dev \
     ${PN}-libxenvchan \
@@ -344,6 +346,12 @@ FILES_${PN}-libxenstore-dev = " \
     ${datadir}/pkgconfig/xenstore.pc \
     "
 
+FILES_${PN}-libxentoolcore = "${libdir}/libxentoolcore.so.*"
+FILES_${PN}-libxentoolcore-dev = " \
+    ${libdir}/libxentoolcore.so \
+    ${datadir}/pkgconfig/xentoolcore.pc \
+    "
+
 FILES_${PN}-libxentoollog = "${libdir}/libxentoollog.so.*"
 FILES_${PN}-libxentoollog-dev = " \
     ${libdir}/libxentoollog.so \
@@ -474,6 +482,7 @@ FILES_${PN}-misc = "\
     ${sbindir}/xenperf \
     ${sbindir}/xenpm \
     ${sbindir}/xsview \
+    ${sbindir}/xen-diag \
     ${sbindir}/xen-tmem-list-parse \
     ${sbindir}/xen-python-path \
     ${sbindir}/xen-ringwatch \
