@@ -62,15 +62,12 @@ RDEPENDS_${PN} = ""
 
 RDEPENDS_${PN}-base = "\
     bash perl xz \
-    ${PN}-blktap \
     ${PN}-console \
-    ${PN}-libblktapctl \
     ${PN}-libxenguest \
     ${PN}-libxenlight \
     ${PN}-libxenvchan \
     ${PN}-libxenctrl \
     ${PN}-libxlutil \
-    ${PN}-libvhd \
     ${PN}-libxenstat \
     ${PN}-libxenstore \
     ${PN}-libfsimage \
@@ -88,7 +85,10 @@ RDEPENDS_${PN}-base = "\
 RDEPENDS_${PN}-dev = ""
 
 RRECOMMENDS_${PN}-base = " \
+    ${PN}-blktap \
     ${PN}-libblktap \
+    ${PN}-libblktapctl \
+    ${PN}-libvhd \
     ${PN}-flask \
     ${PN}-hvmloader \
     ${PN}-xenpaging \
