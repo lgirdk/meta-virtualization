@@ -16,6 +16,7 @@ DEPENDS += "rsync-native \
 PACKAGES =+ "kubeadm"
 PACKAGES =+ "kubectl"
 PACKAGES =+ "kubelet"
+PACKAGES =+ "kube-proxy"
 
 ALLOW_EMPTY_${PN} = "1"
 
@@ -90,6 +91,7 @@ SYSTEMD_AUTO_ENABLE_kubelet = "enable"
 
 FILES_kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
 FILES_kubectl = "${bindir}/kubectl"
+FILES_kube-proxy = "${bindir}/kube-proxy"
 FILES_kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
 
 INHIBIT_PACKAGE_STRIP = "1"
