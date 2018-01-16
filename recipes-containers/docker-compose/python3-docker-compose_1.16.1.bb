@@ -25,6 +25,7 @@ RDEPENDS_${PN} = "\
   ${PYTHON_PN}-pyyaml \
   ${PYTHON_PN}-requests \
   ${PYTHON_PN}-six \
+  ${PYTHON_PN}-terminal \
   ${PYTHON_PN}-texttable \
   ${PYTHON_PN}-urllib3 \
   ${PYTHON_PN}-websocket-client \
