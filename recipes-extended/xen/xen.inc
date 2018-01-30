@@ -830,7 +830,7 @@ export LDFLAGS=""
 # Yocto injects -mfpmath=sse for some machine types into the CFLAGS which
 # conflicts with -mno-sse so instead we strip -mfpmath=sse instead of
 # patching the build to be ok with this
-TUNE_CCARGS := "${@oe_filter_out('-mfpmath=sse', '${TUNE_CCARGS}', d)}"
+TUNE_CCARGS := "${@oe.utils.str_filter_out('-mfpmath=sse', '${TUNE_CCARGS}', d)}"
 
 EXTRA_OECONF += " \
     --exec-prefix=/usr \
