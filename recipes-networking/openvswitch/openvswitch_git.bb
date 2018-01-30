@@ -3,12 +3,12 @@ require openvswitch.inc
 DEPENDS += "virtual/kernel"
 
 RDEPENDS_${PN}-ptest += "\
-	python3-logging python3-syslog python3-argparse python3-io \
-	python3-fcntl python3-shell python3-lang python3-xml python3-math \
+	python3-logging python3-syslog python3-io \
+	python3-fcntl python3-shell python3-xml python3-math \
 	python3-datetime python3-netclient python3 sed \
 	ldd perl-module-socket perl-module-carp perl-module-exporter \
 	perl-module-xsloader python3-netserver python3-threading \
-	python3-resource python3-subprocess findutils which \
+	python3-resource findutils which \
 	"
 
 S = "${WORKDIR}/git"
