@@ -60,6 +60,7 @@ EXTRA_OECONF += "--enable-log-src-basename"
 CFLAGS_append = " -Wno-error=deprecated-declarations"
 
 PACKAGECONFIG ??= "templates \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
 "
 PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api-docs,,"
@@ -68,6 +69,7 @@ PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparm
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
 PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
 PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
+PACKAGECONFIG[systemd] = "--with-systemdsystemunitdir=${systemd_unitdir}/system/,--without-systemdsystemunitdir,systemd,"
 PACKAGECONFIG[python] = "--enable-python,--disable-python,python3,python3-core"
 PACKAGECONFIG[lua] = "--enable-lua,--disable-lua,lua,lua"
 
