@@ -64,8 +64,9 @@ DEPENDS = " \
 PACKAGES =+ "${PN}-contrib"
 
 DEPENDS_append_class-target = " lvm2"
-RDEPENDS_${PN} = "curl aufs-util git util-linux iptables \
-                  ${@bb.utils.contains('DISTRO_FEATURES','systemd','','cgroup-lite',d)} \
+RDEPENDS_${PN} = "util-linux iptables \
+                  ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
+                  ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
                  "
 RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
