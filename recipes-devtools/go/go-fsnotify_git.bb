@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c38914c9a7ab03bb2b96d4baaee10769"
 
 SRCNAME = "fsnotify"
 
-PKG_NAME = "github.com/go-fsnotify/${SRCNAME}"
+PKG_NAME = "github.com/fsnotify/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "ca50e738d35a862c379baf8fffbc3bfd080b3cff"
