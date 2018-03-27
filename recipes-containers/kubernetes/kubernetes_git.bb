@@ -5,7 +5,7 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-SRCREV_kubernetes = "4b839465f84e7faf876c51703aaf49b37fd10d9c"
+SRCREV_kubernetes = "fc32d2f3698e36b93322a3465f63a14e9f0eaead"
 SRC_URI = "git://github.com/kubernetes/kubernetes.git;nobranch=1;name=kubernetes \
           "
 
@@ -35,7 +35,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd
 
 GO_IMPORT = "import"
 
-PV = "1.9.0-alpha.1+git${SRCREV_kubernetes}"
+PV = "1.10.0+git${SRCREV_kubernetes}"
 
 inherit systemd
 inherit go
