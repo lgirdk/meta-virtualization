@@ -29,19 +29,19 @@ Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
  utils_linux.go |  2 +-
  2 files changed, 51 insertions(+), 5 deletions(-)
 
-diff --git a/src/import/signals.go b/src/import/signals.go
-index 910ea1ee..b6a23476 100644
---- a/src/import/signals.go
-+++ b/src/import/signals.go
-@@ -6,6 +6,7 @@ import (
+Index: git/src/import/signals.go
+===================================================================
+--- git.orig/src/import/signals.go
++++ git/src/import/signals.go
+@@ -6,6 +6,7 @@
  	"os"
  	"os/signal"
  	"syscall" // only for Signal
 +	"strconv"
  
- 	"github.com/Sirupsen/logrus"
  	"github.com/opencontainers/runc/libcontainer"
-@@ -56,9 +57,6 @@ type signalHandler struct {
+ 	"github.com/opencontainers/runc/libcontainer/system"
+@@ -56,9 +57,6 @@
  func (h *signalHandler) forward(process *libcontainer.Process, tty *tty, detach bool) (int, error) {
  	// make sure we know the pid of our main process so that we can return
  	// after it dies.
@@ -51,7 +51,7 @@ index 910ea1ee..b6a23476 100644
  
  	pid1, err := process.Pid()
  	if err != nil {
-@@ -68,12 +66,60 @@ func (h *signalHandler) forward(process *libcontainer.Process, tty *tty, detach
+@@ -68,12 +66,61 @@
  	if h.notifySocket != nil {
  		if detach {
  			h.notifySocket.run(pid1)
@@ -110,14 +110,15 @@ index 910ea1ee..b6a23476 100644
 +		}
 +		return 0, nil
 +	}
- 	// perform the initial tty resize.
- 	tty.resize()
- 	for s := range h.signals {
-diff --git a/src/import/utils_linux.go b/src/import/utils_linux.go
-index e6d31b35..1bb80a63 100644
---- a/src/import/utils_linux.go
-+++ b/src/import/utils_linux.go
-@@ -308,7 +308,7 @@ func (r *runner) run(config *specs.Process) (int, error) {
++
+ 	// Perform the initial tty resize. Always ignore errors resizing because
+ 	// stdout might have disappeared (due to races with when SIGHUP is sent).
+ 	_ = tty.resize()
+Index: git/src/import/utils_linux.go
+===================================================================
+--- git.orig/src/import/utils_linux.go
++++ git/src/import/utils_linux.go
+@@ -338,7 +338,7 @@
  	if err != nil {
  		r.terminate(process)
  	}
@@ -126,6 +127,3 @@ index e6d31b35..1bb80a63 100644
  		return 0, nil
  	}
  	r.destroy()
--- 
-2.11.0
-
