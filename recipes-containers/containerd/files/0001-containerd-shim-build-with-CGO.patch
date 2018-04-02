@@ -1,0 +1,26 @@
+From a1d2db9037b1302c4ce4cfc170a4fa443f68e594 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+Date: Thu, 29 Mar 2018 15:48:41 -0400
+Subject: [PATCH] containerd-shim: build with CGO
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/import/Makefile b/src/import/Makefile
+index 9d8cf8a18fbc..1dff4e3c2043 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -134,7 +134,7 @@ bin/%: cmd/% FORCE
+ 
+ bin/containerd-shim: cmd/containerd-shim FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
+ 	@echo "$(WHALE) bin/containerd-shim"
+-	@CGO_ENABLED=0 go build -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
++	@go build -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
+ 
+ binaries: $(BINARIES) ## build binaries
+ 	@echo "$(WHALE) $@"
+-- 
+2.4.0.53.g8440f74
+
