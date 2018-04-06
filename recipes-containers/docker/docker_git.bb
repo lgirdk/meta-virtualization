@@ -23,10 +23,11 @@ SRCREV_libnetwork = "4cb38c2987c236dce03c868d99b57b1e28a4b81c"
 SRCREV_cli = "0f1bb353423e45e02315e985bd9ddebe6da18457"
 SRC_URI = "\
 	git://github.com/moby/moby.git;nobranch=1;name=docker \
-	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=libnetwork \
-	git://github.com/docker/cli;branch=master;name=cli;destsuffix=cli \
+	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/cli;branch=master;name=cli;destsuffix=git/cli \
 	file://docker.init \
 	file://hi.Dockerfile \
+        file://0001-libnetwork-use-GO-instead-of-go.patch \
 	"
 
 # Apache-2.0 for docker
@@ -91,8 +92,8 @@ do_compile() {
 	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
 
 	mkdir -p .gopath/src/github.com/docker
-	ln -sf ${WORKDIR}/libnetwork .gopath/src/github.com/docker/libnetwork
-	ln -sf ${WORKDIR}/cli .gopath/src/github.com/docker/cli
+	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ${WORKDIR}/git/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -115,15 +116,16 @@ do_compile() {
 	# to build this:
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_docker}" ./hack/make.sh dynbinary
 
-	# build the proxy
-	go build -o ${S}/src/import/docker-proxy github.com/docker/libnetwork/cmd/proxy
-
         # build the cli
 	cd ${S}/src/import/.gopath/src/github.com/docker/cli
 	export CFLAGS=""
 	export LDFLAGS=""
 	export DOCKER_VERSION=${DOCKER_VERSION}
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_docker}" make dynbinary
+
+	# build the proxy
+	cd ${S}/src/import/.gopath/src/github.com/docker/libnetwork
+	oe_runmake cross-local
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
@@ -137,9 +139,9 @@ INITSCRIPT_PARAMS_${PN} = "defaults"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${WORKDIR}/cli/build/docker ${D}/${bindir}/docker
+	cp ${WORKDIR}/git/cli/build/docker ${D}/${bindir}/docker
 	cp ${S}/src/import/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${S}/src/import/docker-proxy ${D}/${bindir}/docker-proxy
+	cp ${WORKDIR}/git/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
