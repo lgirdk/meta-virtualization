@@ -1,4 +1,4 @@
-From f41e386d4d40e3e26b0cfdc85a812b7edb337f1d Mon Sep 17 00:00:00 2001
+From b59947007362b53e9f41f1e5a33071dedf1c59ac Mon Sep 17 00:00:00 2001
 From: Adrian Reber <areber@redhat.com>
 Date: Thu, 28 Sep 2017 09:13:33 +0000
 Subject: [PATCH] fix building on newest glibc and kernel
@@ -24,12 +24,13 @@ Upstream-Status: Backport
 [https://github.com/checkpoint-restore/criu/commit/f41e386d4d40e3e26b0cfdc85a812b7edb337f1d#diff-cc847b1cc975358c6582595be92d48db]
 
 Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
+
 ---
  criu/cr-check.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/criu/cr-check.c b/criu/cr-check.c
-index 5dd448b..8986ec4 100644
+index 1dd887a..93df2ab 100644
 --- a/criu/cr-check.c
 +++ b/criu/cr-check.c
 @@ -21,8 +21,8 @@
@@ -42,6 +43,3 @@ index 5dd448b..8986ec4 100644
  
  #include "../soccr/soccr.h"
  
--- 
-2.7.4
-
