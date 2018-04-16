@@ -29,7 +29,6 @@ SRC_URI = "file://openvswitch-switch \
            file://python-make-remaining-scripts-use-usr-bin-env.patch \
            file://0001-use-the-linux-if_packet.h-Interface-directly.patch \
            file://0002-Define-WAIT_ANY-if-not-provided-by-system.patch \
-           file://CVE-2017-9263.patch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
            "
 
