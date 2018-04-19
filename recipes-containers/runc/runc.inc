@@ -51,7 +51,7 @@ do_compile() {
 	export CFLAGS=""
 	export LDFLAGS=""
 
-        oe_runmake static
+	oe_runmake static
 }
 
 do_install() {

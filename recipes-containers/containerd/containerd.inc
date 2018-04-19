@@ -53,6 +53,8 @@ do_compile() {
     export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
     export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
     export BUILDTAGS="no_btrfs static_build netgo"
+    export CFLAGS="${CFLAGS}"
+    export LDFLAGS="${LDFLAGS}"
 
     cd ${S}/src/import
     oe_runmake binaries
