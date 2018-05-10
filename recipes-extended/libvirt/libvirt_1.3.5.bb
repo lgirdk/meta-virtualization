@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
 SECTION = "console/tools"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
-	   iptables dnsmasq readline libtasn1 libxslt-native acl libdevmapper \
+	   iptables dnsmasq readline libtasn1 libxslt-native acl libdevmapper libtirpc \
 	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)}"
 
 # libvirt-guests.sh needs gettext.sh
@@ -40,6 +40,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://0001-ptest-add-missing-test_helper-files.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
 	   file://0001-Added-configure-variable-for-placing-systemd-untis-l.patch \
+	   file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
+	   file://Makefiles-Add-more-XDR_CFLAGS-as-needed.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "f9dc1e63d559eca50ae0ee798a4c6c6d"
