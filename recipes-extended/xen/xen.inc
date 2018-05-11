@@ -438,6 +438,7 @@ FILES_${PN}-cpuid = "\
 
 FILES_${PN}-devd = "\
     ${sysconfdir}/init.d/xendriverdomain \
+    ${systemd_unitdir}/system/xendriverdomain.service \
     "
 
 FILES_${PN}-flask = "\
@@ -778,7 +779,8 @@ INITSCRIPT_NAME_${PN}-devd = "xendriverdomain"
 INITSCRIPT_PARAMS_${PN}-devd = "defaults 82"
 
 # systemd packages
-SYSTEMD_PACKAGES = "${PN}-xen-watchdog ${PN}-xencommons ${PN}-xendomains"
+SYSTEMD_PACKAGES = "${PN}-xen-watchdog ${PN}-xencommons ${PN}-xendomains ${PN}-devd"
+SYSTEMD_SERVICE_${PN}-devd = "xendriverdomain.service"
 SYSTEMD_SERVICE_${PN}-xen-watchdog = "xen-watchdog.service"
 SYSTEMD_SERVICE_${PN}-xencommons = " \
     proc-xen.mount \
