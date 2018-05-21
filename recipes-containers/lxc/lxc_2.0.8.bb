@@ -1,6 +1,6 @@
 DESCRIPTION = "lxc aims to use these new functionnalities to provide an userspace container object"
 SECTION = "console/utils"
-LICENSE = "GPLv2"
+LICENSE = "LGPLv2.1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
