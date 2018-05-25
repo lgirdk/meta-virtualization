@@ -12,6 +12,10 @@ PV = "${RUNC_VERSION}+git${SRCPV}"
 
 inherit go
 inherit goarch
+inherit pkgconfig
+
+PACKAGECONFIG ??= ""
+PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
 
 RRECOMMENDS_${PN} = "lxc docker"
 PROVIDES += "virtual/runc"
@@ -22,7 +26,7 @@ GO_IMPORT = "import"
 LIBCONTAINER_PACKAGE="github.com/opencontainers/runc/libcontainer"
 
 do_configure[noexec] = "1"
-EXTRA_OEMAKE="BUILDTAGS='' GO=${GO}"
+EXTRA_OEMAKE="BUILDTAGS='${PACKAGECONFIG_CONFARGS}' GO=${GO}"
 
 do_compile() {
 	# Set GOPATH. See 'PACKAGERS.md'. Don't rely on
