@@ -8,6 +8,7 @@ RDEPENDS_${PN} = " \
 		gzip \
 		xz \
 		tar \
+		wget \
 		libcap-bin \
 		bridge-utils \
 		dnsmasq \
