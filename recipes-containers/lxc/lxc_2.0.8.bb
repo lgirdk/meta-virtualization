@@ -88,7 +88,7 @@ SYSTEMD_SERVICE_${PN}-networking = "lxc-net.service"
 SYSTEMD_AUTO_ENABLE_${PN}-networking = "enable"
 
 INITSCRIPT_PACKAGES = "${PN} ${PN}-networking"
-INITSCRIPT_NAME_${PN} = "lxc"
+INITSCRIPT_NAME_${PN} = "lxc-containers"
 INITSCRIPT_PARAMS_${PN} = "defaults"
 INITSCRIPT_NAME_${PN}-networking = "lxc-net"
 INITSCRIPT_PARAMS_${PN}-networking = "defaults"
