@@ -30,6 +30,8 @@ RDEPENDS_${PN}_append_libc-glibc = " glibc-utils"
 
 RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash"
 
+RDEPENDS_${PN}-networking += "iptables"
+
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://runtest.patch \
@@ -40,6 +42,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	file://cgroups-work-around-issue-in-gcc-7.patch \
 	file://dnsmasq.conf \
+	file://lxc-net \
 	"
 
 SRC_URI[md5sum] = "7bfd95280522d7936c0979dfea92cdb5"
@@ -107,7 +110,10 @@ FILES_lua-${PN}-dbg += "${libdir}/lua/lxc/.debug"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
 RDEPENDS_${PN}-templates += "bash"
 
-FILES_${PN}-networking += "${sysconfdir}/init.d/lxc-net"
+FILES_${PN}-networking += " \
+    ${sysconfdir}/init.d/lxc-net \
+    ${sysconfdir}/default/lxc-net \
+"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
@@ -138,6 +144,11 @@ do_install_append() {
 	    rmdir --ignore-fail-on-non-empty ${D}${exec_prefix}/lib
 	fi
 
+	# /etc/default/lxc sources lxc-net, this allows lxc bridge when lxc-networking
+	# is not installed this results in no lxcbr0, but when lxc-networking is installed
+	# lxcbr0 will be fully configured.
+	install -m 644 ${WORKDIR}/lxc-net ${D}${sysconfdir}/default/
+
 	# Force the main dnsmasq instance to bind only to specified interfaces and
 	# to not bind to virbr0. Libvirt will run its own instance on this interface.
 	install -d ${D}/${sysconfdir}/dnsmasq.d
@@ -156,14 +167,8 @@ pkg_postinst_${PN}() {
 	fi
 }
 
-pkg_postinst_${PN}-networking() {
-	if [ "x$D" != "x" ]; then
-		exit 1
-	fi
-
-	# setup for our bridge
-        echo "lxc.network.link=lxcbr0" >> ${sysconfdir}/lxc/default.conf
-
+pkg_postinst_ontarget_${PN}-networking() {
+if ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
 cat >> /etc/network/interfaces << EOF
 
 auto lxcbr0
@@ -187,4 +192,5 @@ if test "x\$IFACE" = xlxcbr0 ; then
 fi
 EOF
 chmod 755 /etc/network/if-pre-up.d/lxcbr0
+fi
 }
