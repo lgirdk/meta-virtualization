@@ -16,12 +16,12 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git \
            file://0002-kvmtool-add-EXTRA_CFLAGS-variable.patch \
            "
 
-SRCREV = "3fea89a924511f9f8fe05a892098fad77c1eca0d"
-PV = "3.18.0+git${SRCREV}"
+SRCREV = "0e1882a49f81cb15d328ef83a78849c0ea26eecc"
+PV = "4.14.0+git${SRCREV}"
 
 S = "${WORKDIR}/git"
 
-EXTRA_OEMAKE='V=1 EXTRA_CFLAGS="-I${STAGING_KERNEL_DIR}/arch/${ARCH}/include -I${STAGING_KERNEL_BUILDDIR}/arch/${ARCH}/include/generated/"'
+EXTRA_OEMAKE='V=1 EXTRA_CFLAGS="-I${STAGING_KERNEL_BUILDDIR}/include/generated -I${STAGING_KERNEL_BUILDDIR}/arch/${ARCH}/include/generated"'
 
 do_install() {
     install -d ${D}${bindir}
