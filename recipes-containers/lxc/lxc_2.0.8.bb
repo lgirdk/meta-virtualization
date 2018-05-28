@@ -81,13 +81,17 @@ export STAGING_LIBDIR
 
 inherit autotools pkgconfig ptest update-rc.d systemd python3native
 
-SYSTEMD_PACKAGES = "${PN}-setup"
-SYSTEMD_SERVICE_${PN}-setup = "lxc.service"
-SYSTEMD_AUTO_ENABLE_${PN}-setup = "disable"
+SYSTEMD_PACKAGES = "${PN} ${PN}-networking"
+SYSTEMD_SERVICE_${PN} = "lxc.service"
+SYSTEMD_AUTO_ENABLE_${PN} = "disable"
+SYSTEMD_SERVICE_${PN}-networking = "lxc-net.service"
+SYSTEMD_AUTO_ENABLE_${PN}-networking = "enable"
 
-INITSCRIPT_PACKAGES = "${PN}-setup"
-INITSCRIPT_NAME_{PN}-setup = "lxc"
-INITSCRIPT_PARAMS_${PN}-setup = "defaults"
+INITSCRIPT_PACKAGES = "${PN} ${PN}-networking"
+INITSCRIPT_NAME_${PN} = "lxc"
+INITSCRIPT_PARAMS_${PN} = "defaults"
+INITSCRIPT_NAME_${PN}-networking = "lxc-net"
+INITSCRIPT_PARAMS_${PN}-networking = "defaults"
 
 FILES_${PN}-doc = "${mandir} ${infodir}"
 # For LXC the docdir only contains example configuration files and should be included in the lxc package
@@ -96,18 +100,13 @@ FILES_${PN} += "${libdir}/python3*"
 FILES_${PN} += "${datadir}/bash-completion"
 FILES_${PN}-dbg += "${libexecdir}/lxc/.debug"
 FILES_${PN}-dbg += "${libexecdir}/lxc/hooks/.debug"
-PACKAGES =+ "${PN}-templates ${PN}-setup ${PN}-networking ${PN}-lua"
+PACKAGES =+ "${PN}-templates ${PN}-networking ${PN}-lua"
 FILES_lua-${PN} = "${datadir}/lua ${libdir}/lua"
 FILES_lua-${PN}-dbg += "${libdir}/lua/lxc/.debug"
 FILES_${PN}-templates += "${datadir}/lxc/templates"
 RDEPENDS_${PN}-templates += "bash"
 
-ALLOW_EMPTY_${PN}-networking = "1"
-
-FILES_${PN}-setup += "/etc/tmpfiles.d"
-FILES_${PN}-setup += "/lib/systemd/system"
-FILES_${PN}-setup += "/usr/lib/systemd/system"
-FILES_${PN}-setup += "/etc/init.d"
+FILES_${PN}-networking += "${sysconfdir}/init.d/lxc-net"
 
 PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
 
@@ -128,10 +127,8 @@ do_install_append() {
 	for i in `grep -l "#! */bin/bash" ${D}${datadir}/lxc/hooks/*`; do \
 	    sed -e 's|#! */bin/bash|#!/bin/sh|' -i $i; done
 
-	if ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
-	    install -d ${D}${sysconfdir}/init.d
-	    install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
-	fi
+	install -d ${D}${sysconfdir}/init.d
+	install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
 
 	# since python3-native is used for install location this will not be
 	# suitable for the target and we will have to correct the package install
