@@ -74,7 +74,7 @@ RDEPENDS_${PN} = "util-linux iptables \
                  "
 RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
-RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
+RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat docker-init"
 RSUGGESTS_${PN} = "lxc rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
