@@ -63,6 +63,8 @@ FILES_${PN}-switch = "\
 	${systemd_unitdir}/system/ovs-vswitchd.service \
 	${systemd_unitdir}/system/openvswitch.service \
 	${systemd_unitdir}/system/ovsdb-server.service \
+	${sysconfdir}/sysconfig/openvswitch \
+	${sysconfdir}/openvswitch/default.conf \
 	"
 
 # silence a warning
@@ -92,6 +94,14 @@ do_configure_prepend() {
 	CC=`echo '${CC}' | sed 's/-Wa,/-Xassembler /g'`
 }
 
+do_install_prepend() {
+	SERVICE_FILE="${S}/rhel/usr_lib_systemd_system_ovs-vswitchd.service"
+	${S}/build-aux/dpdkstrip.py \
+	    ${@bb.utils.contains('PACKAGECONFIG','dpdk','--dpdk','--nodpdk',d)} \
+	    < ${S}/rhel/usr_lib_systemd_system_ovs-vswitchd.service.in \
+	    > ${SERVICE_FILE}
+}
+
 do_install_append() {
 	install -d ${D}/${sysconfdir}/default/
 	install -m 660 ${WORKDIR}/openvswitch-switch-setup ${D}/${sysconfdir}/default/openvswitch-switch
@@ -102,6 +112,14 @@ do_install_append() {
 	install -m 755 ${WORKDIR}/openvswitch-testcontroller ${D}/${sysconfdir}/init.d/openvswitch-testcontroller
 	install -m 755 ${WORKDIR}/openvswitch-switch ${D}/${sysconfdir}/init.d/openvswitch-switch
 	true || rm -fr ${D}/${datadir}/${PN}/pki
+
+	install -d ${D}/${sysconfdir}/sysconfig
+	install -m 644 ${S}/rhel/usr_share_openvswitch_scripts_systemd_sysconfig.template \
+		${D}/${sysconfdir}/sysconfig/openvswitch
+
+	install -d ${D}/${sysconfdir}/openvswitch
+	install -m 644 ${S}/rhel/etc_openvswitch_default.conf \
+		${D}/${sysconfdir}/openvswitch/default.conf
 
 	install -d ${D}/${systemd_unitdir}/system/
 	install -m 644 ${S}/rhel/usr_lib_systemd_system_ovs-vswitchd.service \

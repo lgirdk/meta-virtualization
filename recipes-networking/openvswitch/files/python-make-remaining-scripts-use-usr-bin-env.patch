@@ -1,4 +1,4 @@
-From f21a0490555d5fe8f5a9ce982defa666a64151c0 Mon Sep 17 00:00:00 2001
+From a0a2d829642e916bd5d1c498a3e6f3641ed717a0 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Fri, 13 Jan 2017 16:12:55 -0500
 Subject: [PATCH] python: make remaining scripts use /usr/bin/env
@@ -12,24 +12,43 @@ PYTHON. To make this function smoothly all installed scripts should
 make use of /usr/bin/env to increase the chances of finding python.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
-
 ---
- build-aux/check-structs                  | 2 +-
- build-aux/extract-ofp-actions            | 2 +-
- build-aux/extract-ofp-errors             | 2 +-
- build-aux/extract-ofp-fields             | 2 +-
- build-aux/extract-ofp-msgs               | 2 +-
- build-aux/xml2nroff                      | 2 +-
- ovn/utilities/ovn-docker-overlay-driver  | 2 +-
- ovn/utilities/ovn-docker-underlay-driver | 2 +-
- ovsdb/ovsdb-doc                          | 2 +-
- ovsdb/ovsdb-dot.in                       | 2 +-
- ovsdb/ovsdb-idlc.in                      | 2 +-
- utilities/bugtool/ovs-bugtool.in         | 2 +-
- 12 files changed, 12 insertions(+), 12 deletions(-)
+ build-aux/check-structs                     | 2 +-
+ build-aux/dpdkstrip.py                      | 2 +-
+ build-aux/extract-ofp-actions               | 2 +-
+ build-aux/extract-ofp-errors                | 2 +-
+ build-aux/extract-ofp-fields                | 2 +-
+ build-aux/extract-ofp-msgs                  | 2 +-
+ build-aux/sodepends.py                      | 2 +-
+ build-aux/soexpand.py                       | 2 +-
+ build-aux/text2c                            | 2 +-
+ build-aux/xml2nroff                         | 2 +-
+ ovn/utilities/ovn-detrace.in                | 2 +-
+ ovn/utilities/ovn-docker-overlay-driver.in  | 2 +-
+ ovn/utilities/ovn-docker-underlay-driver.in | 2 +-
+ ovsdb/dot2pic                               | 2 +-
+ ovsdb/ovsdb-doc                             | 2 +-
+ ovsdb/ovsdb-dot.in                          | 2 +-
+ ovsdb/ovsdb-idlc.in                         | 2 +-
+ python/build/soutil.py                      | 2 +-
+ tests/flowgen.py                            | 2 +-
+ tests/ovsdb-monitor-sort.py                 | 2 +-
+ tests/uuidfilt.py                           | 2 +-
+ utilities/bugtool/ovs-bugtool.in            | 2 +-
+ utilities/ovs-check-dead-ifs.in             | 2 +-
+ utilities/ovs-dpctl-top.in                  | 2 +-
+ utilities/ovs-l3ping.in                     | 2 +-
+ utilities/ovs-parse-backtrace.in            | 2 +-
+ utilities/ovs-pcap.in                       | 2 +-
+ utilities/ovs-tcpdump.in                    | 2 +-
+ utilities/ovs-tcpundump.in                  | 2 +-
+ utilities/ovs-test.in                       | 2 +-
+ utilities/ovs-vlan-test.in                  | 2 +-
+ vtep/ovs-vtep.in                            | 2 +-
+ 32 files changed, 32 insertions(+), 32 deletions(-)
 
 diff --git a/build-aux/check-structs b/build-aux/check-structs
-index f79f235..5129b72 100755
+index 37ffa06..eb44c91 100755
 --- a/build-aux/check-structs
 +++ b/build-aux/check-structs
 @@ -1,4 +1,4 @@
@@ -38,8 +57,18 @@ index f79f235..5129b72 100755
  
  import os.path
  import sys
+diff --git a/build-aux/dpdkstrip.py b/build-aux/dpdkstrip.py
+index 48c7f06..b8b8ba9 100755
+--- a/build-aux/dpdkstrip.py
++++ b/build-aux/dpdkstrip.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ # Copyright (c) 2017 Red Hat, Inc.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
 diff --git a/build-aux/extract-ofp-actions b/build-aux/extract-ofp-actions
-index 0062ab8..ee8c4ff 100755
+index bd7131f..4d05ef9 100755
 --- a/build-aux/extract-ofp-actions
 +++ b/build-aux/extract-ofp-actions
 @@ -1,4 +1,4 @@
@@ -49,7 +78,7 @@ index 0062ab8..ee8c4ff 100755
  import sys
  import os.path
 diff --git a/build-aux/extract-ofp-errors b/build-aux/extract-ofp-errors
-index 2312b76..e36444e 100755
+index 71ae0bd..58ba006 100755
 --- a/build-aux/extract-ofp-errors
 +++ b/build-aux/extract-ofp-errors
 @@ -1,4 +1,4 @@
@@ -59,7 +88,7 @@ index 2312b76..e36444e 100755
  import sys
  import os.path
 diff --git a/build-aux/extract-ofp-fields b/build-aux/extract-ofp-fields
-index 498b887..c248e76 100755
+index 184b75e..cf339f8 100755
 --- a/build-aux/extract-ofp-fields
 +++ b/build-aux/extract-ofp-fields
 @@ -1,4 +1,4 @@
@@ -69,7 +98,7 @@ index 498b887..c248e76 100755
  import getopt
  import sys
 diff --git a/build-aux/extract-ofp-msgs b/build-aux/extract-ofp-msgs
-index 1813638..c2a91f9 100755
+index a67e870..92c4bda 100755
 --- a/build-aux/extract-ofp-msgs
 +++ b/build-aux/extract-ofp-msgs
 @@ -1,4 +1,4 @@
@@ -78,6 +107,36 @@ index 1813638..c2a91f9 100755
  
  import sys
  import os.path
+diff --git a/build-aux/sodepends.py b/build-aux/sodepends.py
+index 90cfaa0..45812bc 100755
+--- a/build-aux/sodepends.py
++++ b/build-aux/sodepends.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Copyright (c) 2008, 2011, 2017 Nicira, Inc.
+ #
+diff --git a/build-aux/soexpand.py b/build-aux/soexpand.py
+index 53ca640..00adcf4 100755
+--- a/build-aux/soexpand.py
++++ b/build-aux/soexpand.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Copyright (c) 2008, 2017 Nicira, Inc.
+ #
+diff --git a/build-aux/text2c b/build-aux/text2c
+index cb1f256..ab7910e 100755
+--- a/build-aux/text2c
++++ b/build-aux/text2c
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/env python3
+ 
+ import re
+ import sys
 diff --git a/build-aux/xml2nroff b/build-aux/xml2nroff
 index bd4e879..db45c56 100755
 --- a/build-aux/xml2nroff
@@ -88,28 +147,48 @@ index bd4e879..db45c56 100755
  
  # Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015, 2016 Nicira, Inc.
  #
-diff --git a/ovn/utilities/ovn-docker-overlay-driver b/ovn/utilities/ovn-docker-overlay-driver
-index 52de3db..3b1fa45 100755
---- a/ovn/utilities/ovn-docker-overlay-driver
-+++ b/ovn/utilities/ovn-docker-overlay-driver
+diff --git a/ovn/utilities/ovn-detrace.in b/ovn/utilities/ovn-detrace.in
+index e2e5b4c..5549219 100755
+--- a/ovn/utilities/ovn-detrace.in
++++ b/ovn/utilities/ovn-detrace.in
 @@ -1,4 +1,4 @@
--#! /usr/bin/python
-+#! /usr/bin/env python3
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2017 eBay Inc.
+ #
+diff --git a/ovn/utilities/ovn-docker-overlay-driver.in b/ovn/utilities/ovn-docker-overlay-driver.in
+index 65edfcd..895426b 100755
+--- a/ovn/utilities/ovn-docker-overlay-driver.in
++++ b/ovn/utilities/ovn-docker-overlay-driver.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
  # Copyright (C) 2015 Nicira, Inc.
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
-diff --git a/ovn/utilities/ovn-docker-underlay-driver b/ovn/utilities/ovn-docker-underlay-driver
-index 2c9c4b6..551e7a1 100755
---- a/ovn/utilities/ovn-docker-underlay-driver
-+++ b/ovn/utilities/ovn-docker-underlay-driver
+diff --git a/ovn/utilities/ovn-docker-underlay-driver.in b/ovn/utilities/ovn-docker-underlay-driver.in
+index d91ce9f..e0c8db6 100755
+--- a/ovn/utilities/ovn-docker-underlay-driver.in
++++ b/ovn/utilities/ovn-docker-underlay-driver.in
 @@ -1,4 +1,4 @@
--#! /usr/bin/python
-+#! /usr/bin/env python3
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
  # Copyright (C) 2015 Nicira, Inc.
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
+diff --git a/ovsdb/dot2pic b/ovsdb/dot2pic
+index de67261..174e723 100755
+--- a/ovsdb/dot2pic
++++ b/ovsdb/dot2pic
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Copyright (c) 2009, 2010, 2011, 2013, 2017 Nicira, Inc.
+ #
 diff --git a/ovsdb/ovsdb-doc b/ovsdb/ovsdb-doc
-index 5cf26ee..bdf2dcc 100755
+index 406c293..d55c6e6 100755
 --- a/ovsdb/ovsdb-doc
 +++ b/ovsdb/ovsdb-doc
 @@ -1,4 +1,4 @@
@@ -119,7 +198,7 @@ index 5cf26ee..bdf2dcc 100755
  # Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015 Nicira, Inc.
  #
 diff --git a/ovsdb/ovsdb-dot.in b/ovsdb/ovsdb-dot.in
-index 134ce22..893c408 100755
+index 8eea617..38ba33a 100755
 --- a/ovsdb/ovsdb-dot.in
 +++ b/ovsdb/ovsdb-dot.in
 @@ -1,4 +1,4 @@
@@ -129,17 +208,57 @@ index 134ce22..893c408 100755
  from datetime import date
  import ovs.db.error
 diff --git a/ovsdb/ovsdb-idlc.in b/ovsdb/ovsdb-idlc.in
-index 721ab50..bfbcf23 100755
+index 1ea2115..4ecb2e2 100755
 --- a/ovsdb/ovsdb-idlc.in
 +++ b/ovsdb/ovsdb-idlc.in
 @@ -1,4 +1,4 @@
 -#! @PYTHON@
-+#! /usr/bin/env @PYTHON@
++#!/usr/bin/env @PYTHON@
  
+ from __future__ import print_function
  import getopt
- import os
+diff --git a/python/build/soutil.py b/python/build/soutil.py
+index b8027af..8f52803 100755
+--- a/python/build/soutil.py
++++ b/python/build/soutil.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Copyright (c) 2008, 2017 Nicira, Inc.
+ #
+diff --git a/tests/flowgen.py b/tests/flowgen.py
+index 221a8f2..5d96d76 100755
+--- a/tests/flowgen.py
++++ b/tests/flowgen.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Copyright (c) 2009, 2010, 2011, 2012, 2015, 2017 Nicira, Inc.
+ #
+diff --git a/tests/ovsdb-monitor-sort.py b/tests/ovsdb-monitor-sort.py
+index 7d368a7..ab4c38c 100755
+--- a/tests/ovsdb-monitor-sort.py
++++ b/tests/ovsdb-monitor-sort.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python3
+ 
+ # Breaks lines read from stdin into groups using blank lines as
+ # group separators, then sorts lines within the groups for
+diff --git a/tests/uuidfilt.py b/tests/uuidfilt.py
+index ea72812..f1a9aff 100755
+--- a/tests/uuidfilt.py
++++ b/tests/uuidfilt.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import re
+ import sys
 diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
-index 963c50c..c84d7c2 100755
+index 8d220fd..76cedf4 100755
 --- a/utilities/bugtool/ovs-bugtool.in
 +++ b/utilities/bugtool/ovs-bugtool.in
 @@ -1,4 +1,4 @@
@@ -148,3 +267,106 @@ index 963c50c..c84d7c2 100755
  
  # This library is free software; you can redistribute it and/or
  # modify it under the terms of version 2.1 of the GNU Lesser General Public
+diff --git a/utilities/ovs-check-dead-ifs.in b/utilities/ovs-check-dead-ifs.in
+index ac54f6c..13d86b3 100755
+--- a/utilities/ovs-check-dead-ifs.in
++++ b/utilities/ovs-check-dead-ifs.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ 
+ import os
+ import re
+diff --git a/utilities/ovs-dpctl-top.in b/utilities/ovs-dpctl-top.in
+index 7f0f1f8..ece707a 100755
+--- a/utilities/ovs-dpctl-top.in
++++ b/utilities/ovs-dpctl-top.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2013 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-l3ping.in b/utilities/ovs-l3ping.in
+index 1b07972..9852699 100644
+--- a/utilities/ovs-l3ping.in
++++ b/utilities/ovs-l3ping.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+diff --git a/utilities/ovs-parse-backtrace.in b/utilities/ovs-parse-backtrace.in
+index 350cbd9..1960fb4 100755
+--- a/utilities/ovs-parse-backtrace.in
++++ b/utilities/ovs-parse-backtrace.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2012 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-pcap.in b/utilities/ovs-pcap.in
+index fc15321..bd55a41 100755
+--- a/utilities/ovs-pcap.in
++++ b/utilities/ovs-pcap.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-tcpdump.in b/utilities/ovs-tcpdump.in
+index 91fa14e..bad67b7 100755
+--- a/utilities/ovs-tcpdump.in
++++ b/utilities/ovs-tcpdump.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2016 Red Hat, Inc.
+ #
+diff --git a/utilities/ovs-tcpundump.in b/utilities/ovs-tcpundump.in
+index c99015b..9a617ce 100755
+--- a/utilities/ovs-tcpundump.in
++++ b/utilities/ovs-tcpundump.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+diff --git a/utilities/ovs-test.in b/utilities/ovs-test.in
+index fb1f9ad..4dba169 100644
+--- a/utilities/ovs-test.in
++++ b/utilities/ovs-test.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+diff --git a/utilities/ovs-vlan-test.in b/utilities/ovs-vlan-test.in
+index e229498..5b70118 100755
+--- a/utilities/ovs-vlan-test.in
++++ b/utilities/ovs-vlan-test.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ #
+ # Copyright (c) 2010 Nicira, Inc.
+ #
+diff --git a/vtep/ovs-vtep.in b/vtep/ovs-vtep.in
+index 98748e4..3f12ae2 100755
+--- a/vtep/ovs-vtep.in
++++ b/vtep/ovs-vtep.in
+@@ -1,4 +1,4 @@
+-#! @PYTHON@
++#!/usr/bin/env @PYTHON@
+ # Copyright (C) 2013 Nicira, Inc. All Rights Reserved.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+-- 
+2.7.4
+

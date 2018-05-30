@@ -13,10 +13,10 @@ diff --git a/Makefile.am b/Makefile.am
 index ff7d70a..2fc1f13 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -189,7 +189,7 @@ CLEAN_LOCAL += clean-pycov
- # Makefile in datapath/linux, needed to get the list of files to
- # distribute, requires GNU make extensions.
- if GNU_MAKE
+@@ -187,7 +187,7 @@ CLEAN_LOCAL += clean-pycov
+ 
+ # If we're checked out from a Git repository, make sure that every
+ # file that is in Git is distributed.
 -ALL_LOCAL += dist-hook-git
 +# ALL_LOCAL += dist-hook-git
  dist-hook-git: distfiles

@@ -1,0 +1,45 @@
+From f45c0a9d712113417e7b56c199f8576b470695ae Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Tue, 29 May 2018 18:57:46 +0000
+Subject: [PATCH] systemd: update tool paths
+
+We are using the rhel files but we install our tools in a slightly
+different path, update accordingly.
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ rhel/usr_lib_systemd_system_ovs-vswitchd.service.in | 4 ++--
+ rhel/usr_lib_systemd_system_ovsdb-server.service    | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/rhel/usr_lib_systemd_system_ovs-vswitchd.service.in b/rhel/usr_lib_systemd_system_ovs-vswitchd.service.in
+index 11b34c6..94c48f8 100644
+--- a/rhel/usr_lib_systemd_system_ovs-vswitchd.service.in
++++ b/rhel/usr_lib_systemd_system_ovs-vswitchd.service.in
+@@ -15,8 +15,8 @@ EnvironmentFile=/etc/openvswitch/default.conf
+ EnvironmentFile=-/etc/sysconfig/openvswitch
+ EnvironmentFile=-/run/openvswitch/useropts
+ @begin_dpdk@
+-ExecStartPre=-/bin/sh -c '/usr/bin/chown :$${OVS_USER_ID##*:} /dev/hugepages'
+-ExecStartPre=-/usr/bin/chmod 0775 /dev/hugepages
++ExecStartPre=-/bin/sh -c '/bin/chown :$${OVS_USER_ID##*:} /dev/hugepages'
++ExecStartPre=-/bin/chmod 0775 /dev/hugepages
+ @end_dpdk@
+ ExecStart=/usr/share/openvswitch/scripts/ovs-ctl \
+           --no-ovsdb-server --no-monitor --system-id=random \
+diff --git a/rhel/usr_lib_systemd_system_ovsdb-server.service b/rhel/usr_lib_systemd_system_ovsdb-server.service
+index 0fa57a9..75c9e02 100644
+--- a/rhel/usr_lib_systemd_system_ovsdb-server.service
++++ b/rhel/usr_lib_systemd_system_ovsdb-server.service
+@@ -10,7 +10,7 @@ Type=forking
+ Restart=on-failure
+ EnvironmentFile=/etc/openvswitch/default.conf
+ EnvironmentFile=-/etc/sysconfig/openvswitch
+-ExecStartPre=/usr/bin/chown ${OVS_USER_ID} /var/run/openvswitch
++ExecStartPre=/bin/chown ${OVS_USER_ID} /var/run/openvswitch
+ ExecStartPre=/bin/sh -c 'rm -f /run/openvswitch/useropts; if [ "$${OVS_USER_ID/:*/}" != "root" ]; then /usr/bin/echo "OVSUSER=--ovs-user=${OVS_USER_ID}" > /run/openvswitch/useropts; fi'
+ EnvironmentFile=-/run/openvswitch/useropts
+ ExecStart=/usr/share/openvswitch/scripts/ovs-ctl \
+-- 
+2.7.4
+

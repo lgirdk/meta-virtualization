@@ -12,38 +12,25 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.7.3+${SRCREV}"
+PV = "2.9.2+${SRCREV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "b8dcfbebee9e7dbc74ec5eecc9b45d335d6150c1"
+SRCREV = "7e614671cba3c4e338d1c5003b74a10047d7a8eb"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.7 \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.9 \
            file://openvswitch-add-ptest-${SRCREV}.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
            file://kernel_module.patch \
            file://python-make-remaining-scripts-use-usr-bin-env.patch \
-           file://0001-use-the-linux-if_packet.h-Interface-directly.patch \
            file://0002-Define-WAIT_ANY-if-not-provided-by-system.patch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
+           file://systemd-update-tool-paths.patch \
            "
-
-# Temporarily backport patches to better support py3. These have been
-# merged upstream but are not part of v2.7.1.
-SRC_URI += " \
-           file://0001-Python3-compatibility-Convert-print-statements.patch \
-           file://0002-Python3-compatibility-exception-cleanup.patch \
-           file://0003-Python3-compatibility-execfile-to-exec.patch \
-           file://0004-Python3-compatibility-iteritems-to-items.patch \
-           file://0005-Python3-compatibility-fix-integer-problems.patch \
-           file://0006-Python3-compatibility-math-error-compatibility.patch \
-           file://0007-Python3-compatibility-unicode-to-str.patch \
-           file://0008-AUTHORS-Add-Jason-Wessel.patch \
-"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=17b2c9d4c70853a09c0e143137754b35"
 
@@ -71,5 +58,4 @@ do_install_ptest() {
 
 do_install_append() {
 	oe_runmake modules_install INSTALL_MOD_PATH=${D}
-	rm -r ${D}/${localstatedir}/run
 }
