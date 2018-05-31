@@ -40,13 +40,12 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
-	file://cgroups-work-around-issue-in-gcc-7.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
 
-SRC_URI[md5sum] = "7bfd95280522d7936c0979dfea92cdb5"
-SRC_URI[sha256sum] = "0d8e34b302cfe4c40c6c9ae5097096aa5cc2c1dfceea3f0f22e3e16c4a4e8494"
+SRC_URI[md5sum] = "ca1db4f9dc35df9203a58ab606cdfb7a"
+SRC_URI[sha256sum] = "6230224c27f050201b372b18a9f39cd220ed584899c5f0cf73c6b313dabc8d8a"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 

@@ -11,14 +11,14 @@ diff --git a/templates/lxc-busybox.in b/templates/lxc-busybox.in
 index cb425ec..bb8c951 100644
 --- a/templates/lxc-busybox.in
 +++ b/templates/lxc-busybox.in
-@@ -84,7 +84,6 @@ EOF
+@@ -111,7 +111,6 @@ EOF
  #!/bin/sh
  /bin/syslogd
  /bin/mount -a
 -/bin/udhcpc
  EOF
  
-     # executable
--- 
+   # executable
+---
 1.7.11.7
 
