@@ -24,6 +24,7 @@ RDEPENDS_${PN} = " \
 		libidn \
 		gnutls \
 		nettle \
+		util-linux-mountpoint \
 "
 
 RDEPENDS_${PN}_append_libc-glibc = " glibc-utils"
@@ -40,6 +41,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-fix-B-S.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
+	file://templates-actually-create-DOWNLOAD_TEMP-directory.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
