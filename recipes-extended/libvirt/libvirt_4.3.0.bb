@@ -14,7 +14,7 @@ DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux
 #
 RDEPENDS_${PN} = "gettext-runtime"
 
-RDEPENDS_${PN}-ptest += "make gawk perl"
+RDEPENDS_${PN}-ptest += "make gawk perl bash"
 
 RDEPENDS_libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd"
 RDEPENDS_libvirt-libvirtd_append_x86-64 = " dmidecode"
@@ -23,29 +23,22 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS_${PN}_libvirtd = "connman"
 
-SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
+SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
            file://libvirtd.sh \
            file://libvirtd.conf \
            file://dnsmasq.conf \
            file://runptest.patch \
            file://run-ptest \
-           file://tests-allow-separated-src-and-build-dirs.patch \
            file://libvirt-use-pkg-config-to-locate-libcap.patch \
            file://0001-to-fix-build-error.patch \
-           file://Revert-build-add-prefix-to-SYSTEMD_UNIT_DIR.patch \
            file://install-missing-file.patch \
-           file://0001-nsslinktest-also-build-virAtomic.h.patch \
-           file://0001-qemu-Let-empty-default-VNC-password-work-as-document.patch \
-           file://0001-ptest-add-missing-test_helper-files.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
-	   file://0001-Added-configure-variable-for-placing-systemd-untis-l.patch \
-	   file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
-	   file://Makefiles-Add-more-XDR_CFLAGS-as-needed.patch \
+           file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "f9dc1e63d559eca50ae0ee798a4c6c6d"
-SRC_URI[libvirt.sha256sum] = "93a23c44eb431da46c9458f95a66e29c9b98e37515d44b6be09e75b35ec94ac8"
+SRC_URI[libvirt.md5sum] = "946cfa2558401612c4fcbc934ef9077b"
+SRC_URI[libvirt.sha256sum] = "a531e22c8b985ecb2d1223b913fd6ec0f1800e3ebe02351924274885db20c2b7"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
@@ -119,10 +112,16 @@ FILES_${PN}-libvirtd = " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '', '${libexecdir}/libvirt-guests.sh', d)} \
         "
 
-FILES_${PN}-virsh = "${bindir}/virsh"
+FILES_${PN}-virsh = " \
+    ${bindir}/virsh \
+    ${datadir}/bash-completion/completions/virsh \
+"
+
 FILES_${PN} += "${libdir}/libvirt/connection-driver \
 	    ${datadir}/augeas \
 	    ${@bb.utils.contains('PACKAGECONFIG', 'polkit', '${datadir}/polkit-1', '', d)} \
+	    ${datadir}/bash-completion/completions/vsh \
+	    ${datadir}/bash-completion/completions/virt-admin \
 	    "
 
 FILES_${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
@@ -266,6 +265,10 @@ do_install_append() {
 	else
 		rm -rf ${D}/${datadir}/polkit-1
 	fi
+
+	# disable seccomp_sandbox
+	sed -i '/^#seccomp_sandbox = 1/aseccomp_sandbox = 0' \
+	    ${D}${sysconfdir}/libvirt/qemu.conf
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks
