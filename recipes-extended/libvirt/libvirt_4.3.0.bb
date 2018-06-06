@@ -43,7 +43,6 @@ SRC_URI[libvirt.sha256sum] = "a531e22c8b985ecb2d1223b913fd6ec0f1800e3ebe02351924
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
 CACHED_CONFIGUREVARS += "\
-ac_cv_path_XMLLINT=/usr/bin/xmllint \
 ac_cv_path_XMLCATLOG=/usr/bin/xmlcatalog \
 ac_cv_path_AUGPARSE=/usr/bin/augparse \
 ac_cv_path_DNSMASQ=/usr/bin/dnsmasq \
