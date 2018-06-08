@@ -22,12 +22,12 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/templates/lxc-download.in b/templates/lxc-download.in
-index f875183..5f1138c 100644
+index 973783b..015a679 100644
 --- a/templates/lxc-download.in
 +++ b/templates/lxc-download.in
-@@ -320,7 +320,7 @@ fi
- if ! command -V mktemp >/dev/null 2>&1; then
-   DOWNLOAD_TEMP="${DOWNLOAD_TEMP}/tmp/lxc-download.$$"
+@@ -323,7 +323,7 @@ elif [ -n "${DOWNLOAD_TEMP}" ]; then
+   mkdir -p "${DOWNLOAD_TEMP}"
+   DOWNLOAD_TEMP="$(mktemp -p ${DOWNLOAD_TEMP} -d)"
  else
 -  DOWNLOAD_TEMP="${DOWNLOAD_TEMP}$(mktemp -d)"
 +  DOWNLOAD_TEMP="$(mktemp -p ${DOWNLOAD_TEMP} -d)"
@@ -35,5 +35,5 @@ index f875183..5f1138c 100644
  
  # Simply list images
 -- 
-2.7.4
+2.11.1
 

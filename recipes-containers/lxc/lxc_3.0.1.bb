@@ -47,8 +47,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-net \
 	"
 
-SRC_URI[md5sum] = "ca1db4f9dc35df9203a58ab606cdfb7a"
-SRC_URI[sha256sum] = "6230224c27f050201b372b18a9f39cd220ed584899c5f0cf73c6b313dabc8d8a"
+SRC_URI[md5sum] = "8eb396dde561e5832ba2d505513a1935"
+SRC_URI[sha256sum] = "45986c49be1c048fa127bd3e7ea1bd3347e25765c008a09a2e4c233151a2d5db"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
@@ -76,8 +76,6 @@ PACKAGECONFIG[templates] = ",,, ${PN}-templates"
 PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
 PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
 PACKAGECONFIG[systemd] = "--with-systemdsystemunitdir=${systemd_unitdir}/system/,--without-systemdsystemunitdir,systemd,"
-PACKAGECONFIG[python] = "--enable-python,--disable-python,python3,python3-core"
-PACKAGECONFIG[lua] = "--enable-lua,--disable-lua,lua,lua"
 
 # required by python3 to run setup.py
 export BUILD_SYS
