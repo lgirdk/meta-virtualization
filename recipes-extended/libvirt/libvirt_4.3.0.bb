@@ -266,8 +266,10 @@ do_install_append() {
 	fi
 
 	# disable seccomp_sandbox
-	sed -i '/^#seccomp_sandbox = 1/aseccomp_sandbox = 0' \
-	    ${D}${sysconfdir}/libvirt/qemu.conf
+        if [ -e ${D}${sysconfdir}/libvirt/qemu.conf ] ; then
+	   sed -i '/^#seccomp_sandbox = 1/aseccomp_sandbox = 0' \
+	       ${D}${sysconfdir}/libvirt/qemu.conf
+        fi
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks
