@@ -10,7 +10,7 @@ SRC_URI = " \
   file://0001-Do-not-strip-the-output-binary-allow-yocto-to-do-thi.patch \
   "
 
-LICENSE = "Apache-2.0"
+LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=ffc9091894702bc5dcf4cc0085561ef5"
 
 S = "${WORKDIR}/git"
