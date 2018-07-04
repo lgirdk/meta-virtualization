@@ -5,8 +5,8 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-SRCREV_kubernetes = "fc32d2f3698e36b93322a3465f63a14e9f0eaead"
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;nobranch=1;name=kubernetes \
+SRCREV_kubernetes = "210c9cd7e1782e9fe46938fe0368556f2166a528"
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.11;name=kubernetes \
           "
 
 DEPENDS += "rsync-native \
@@ -35,7 +35,10 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd
 
 GO_IMPORT = "import"
 
-PV = "1.10.0+git${SRCREV_kubernetes}"
+
+# Note: 1.11+ requires go 1.10.2+, so the following must be set
+#       in your configuration: GOVERSION = "1.10%"
+PV = "1.11.0+git${SRCREV_kubernetes}"
 
 inherit systemd
 inherit go
