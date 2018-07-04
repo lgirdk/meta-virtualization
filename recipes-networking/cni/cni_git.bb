@@ -9,8 +9,8 @@ Because of this focus, CNI has a wide range of support and the specification \
 is simple to implement. \
 "
 
-SRCREV_cni = "4b9e11a5266fe50222ed00c5973c6ea4a384a4bb"
-SRCREV_plugins = "c238c93b5e7c681f1935ff813b30e82f96f6c367"
+SRCREV_cni = "96343561e0363c7dcc5f94bef655a8ddbb0b3e5c"
+SRCREV_plugins = "b2fc336833674c5c42550fd2df94c1b5ca0755ba"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni \
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=plugins;name=plugins \
@@ -43,6 +43,7 @@ do_compile() {
 
 	# link fixups for compilation
 	rm -f ${S}/src/import/vendor/src
+	mkdir -p ${S}/src/import/vendor/
 	ln -sf ./ ${S}/src/import/vendor/src
 	rm -rf ${S}/src/import/plugins
 	rm -rf ${S}/src/import/vendor/github.com/containernetworking/plugins
@@ -93,3 +94,5 @@ FILES_${PN} += "/opt/cni/bin/*"
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
+
+deltask compile_ptest_base
