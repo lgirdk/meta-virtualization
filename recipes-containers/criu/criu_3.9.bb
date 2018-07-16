@@ -13,15 +13,14 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "a31c1854e10580a09621e539c3ec052b875a8e06"
-PV = "3.4+git${SRCPV}"
+SRCREV = "202b7745bd0c37a1732ebe2fb009a157d338bf95"
+PV = "3.9+git${SRCPV}"
 
 SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
            file://0001-criu-Fix-toolchain-hardcode.patch \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \
            file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
-           file://fix-building-on-newest-glibc-and-kernel.patch \
           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
@@ -46,9 +45,11 @@ EXTRA_OEMAKE_append += "LOGROTATEDIR=${sysconfdir} SYSTEMDUNITDIR=${systemd_unit
 CFLAGS += "-D__USE_GNU -D_GNU_SOURCE " 
 
 CFLAGS += " -I${STAGING_INCDIR} -I${STAGING_INCDIR}/libnl3"
+CFLAGS_arm += "-D__WORDSIZE"
 
 # overide LDFLAGS to allow criu to build without: "x86_64-poky-linux-ld: unrecognized option '-Wl,-O1'"
 export LDFLAGS=""
+export C_INCLUDE_PATH="${STAGING_INCDIR}/libnl3"
 
 export BUILD_SYS
 export HOST_SYS
