@@ -7,6 +7,7 @@ maintenance, and scaling of applications. \
 
 SRCREV_kubernetes = "210c9cd7e1782e9fe46938fe0368556f2166a528"
 SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.11;name=kubernetes \
+           file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
           "
 
 DEPENDS += "rsync-native \
@@ -46,6 +47,7 @@ inherit goarch
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
+	export GOOS="${TARGET_GOOS}"
 	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
 	export GOPATH="${S}/src/import:${S}/src/import/vendor"
 
@@ -72,7 +74,7 @@ do_compile() {
 
 	cd ${S}/src/import
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
-	make all
+	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH}
 }
 
 do_install() {
@@ -82,7 +84,7 @@ do_install() {
 
     install -d ${D}${sysconfdir}/kubernetes/manifests/
 
-    install -m 755 -D ${S}/src/import/_output/bin/kube* ${D}/${bindir}
+    install -m 755 -D ${S}/src/import/_output/local/bin/${TARGET_GOOS}/${TARGET_GOARCH}/* ${D}/${bindir}
 
     install -m 0644 ${S}/src/import/build/debs/kubelet.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/build/debs/10-kubeadm.conf  ${D}${systemd_unitdir}/system/kubelet.service.d/
