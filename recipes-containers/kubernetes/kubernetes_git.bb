@@ -14,6 +14,7 @@ DEPENDS += "rsync-native \
             coreutils-native \
            "
 
+PACKAGES =+ "${PN}-misc"
 PACKAGES =+ "kubeadm"
 PACKAGES =+ "kubectl"
 PACKAGES =+ "kubelet"
@@ -100,10 +101,12 @@ SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet','
 SYSTEMD_SERVICE_kubelet = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet.service','',d)}"
 SYSTEMD_AUTO_ENABLE_kubelet = "enable"
 
+FILES_${PN}-misc = "${bindir}"
 FILES_kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
 FILES_kubectl = "${bindir}/kubectl"
 FILES_kube-proxy = "${bindir}/kube-proxy"
 FILES_kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
+
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
