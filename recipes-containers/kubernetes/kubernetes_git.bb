@@ -73,6 +73,12 @@ do_compile() {
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
 	cd ${S}/src/import
+	# Build the host tools first, using the host compiler
+	export GOARCH="${BUILD_GOARCH}"
+	make generated_files KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
+
+	# Reset GOARCH to the target one
+	export GOARCH="${TARGET_GOARCH}"
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
 	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH}
 }
