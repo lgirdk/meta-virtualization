@@ -5,7 +5,11 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
+# Note: 1.11+ requires go 1.10.2+, so the following must be set
+#       in your configuration: GOVERSION = "1.10%"
+PV = "1.11.0+git${SRCREV_kubernetes}"
 SRCREV_kubernetes = "210c9cd7e1782e9fe46938fe0368556f2166a528"
+
 SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.11;name=kubernetes \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
           "
@@ -14,33 +18,10 @@ DEPENDS += "rsync-native \
             coreutils-native \
            "
 
-PACKAGES =+ "${PN}-misc"
-PACKAGES =+ "kubeadm"
-PACKAGES =+ "kubectl"
-PACKAGES =+ "kubelet"
-PACKAGES =+ "kube-proxy"
-
-ALLOW_EMPTY_${PN} = "1"
-
-# Note: we are explicitly *not* adding docker to the rdepends, since we allow
-#       backends like cri-o to be used.
-RDEPENDS_${PN} += "kubeadm \
-                   kubectl \
-                   kubelet \
-                   cni"
-
-RDEPENDS_kubeadm = "kubelet kubectl"
-RDEPENDS_kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
-
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 GO_IMPORT = "import"
-
-
-# Note: 1.11+ requires go 1.10.2+, so the following must be set
-#       in your configuration: GOVERSION = "1.10%"
-PV = "1.11.0+git${SRCREV_kubernetes}"
 
 inherit systemd
 inherit go
@@ -97,18 +78,32 @@ do_install() {
     install -m 0644 ${S}/src/import/build/debs/10-kubeadm.conf  ${D}${systemd_unitdir}/system/kubelet.service.d/
 }
 
+PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc"
+
+ALLOW_EMPTY_${PN} = "1"
+INSANE_SKIP_${PN} += "ldflags already-stripped"
+
+# Note: we are explicitly *not* adding docker to the rdepends, since we allow
+#       backends like cri-o to be used.
+RDEPENDS_${PN} += "kubeadm \
+                   kubectl \
+                   kubelet \
+                   cni"
+
+RDEPENDS_kubeadm = "kubelet kubectl"
+FILES_kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
+
+RDEPENDS_kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
+FILES_kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
+
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet','',d)}"
 SYSTEMD_SERVICE_kubelet = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet.service','',d)}"
 SYSTEMD_AUTO_ENABLE_kubelet = "enable"
 
-FILES_${PN}-misc = "${bindir}"
-FILES_kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
 FILES_kubectl = "${bindir}/kubectl"
 FILES_kube-proxy = "${bindir}/kube-proxy"
-FILES_kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
-
+FILES_${PN}-misc = "${bindir}"
 
 INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
