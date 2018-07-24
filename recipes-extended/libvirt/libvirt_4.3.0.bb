@@ -175,7 +175,7 @@ PRIVATE_LIBS_${PN}-ptest = " \
 PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
                    remote macvtap libvirtd netcf udev python ebtables \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
-                   ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'xen libxl xen-inotify', '', d)} \
+                   ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'libxl', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'polkit', '', d)} \
                   "
 
@@ -183,10 +183,8 @@ PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
 #
 PACKAGECONFIG[qemu] = "--with-qemu,--without-qemu,qemu,"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
-PACKAGECONFIG[xen] = "--with-xen,--without-xen,xen,"
 PACKAGECONFIG[xenapi] = "--with-xenapi,--without-xenapi,,"
 PACKAGECONFIG[libxl] = "--with-libxl=${STAGING_DIR_TARGET}/lib,--without-libxl,libxl,"
-PACKAGECONFIG[xen-inotify] = "--with-xen-inotify,--without-xen-inotify,xen,"
 PACKAGECONFIG[uml] = "--with-uml, --without-uml,,"
 PACKAGECONFIG[openvz] = "--with-openvz,--without-openvz,,"
 PACKAGECONFIG[vmware] = "--with-vmware,--without-vmware,,"
@@ -305,7 +303,7 @@ do_install_ptest() {
 	done
 }
 
-pkg_postinst_libvirt() {
+pkg_postinst_ontarget_${PN}() {
         if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
                 /etc/init.d/populate-volatile.sh update
         fi
