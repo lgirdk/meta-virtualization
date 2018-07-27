@@ -42,6 +42,12 @@ SRC_URI[libvirt.sha256sum] = "a531e22c8b985ecb2d1223b913fd6ec0f1800e3ebe02351924
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
+# Override the default set in autotools.bbclass so that we will use relative pathnames
+# to our local m4 files.  This prevents an "Argument list too long" error during configuration
+# if our project is in a directory with an absolute pathname of more than about 125 characters.
+#
+acpaths = "-I ./m4"
+
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLCATLOG=/usr/bin/xmlcatalog \
 ac_cv_path_AUGPARSE=/usr/bin/augparse \
