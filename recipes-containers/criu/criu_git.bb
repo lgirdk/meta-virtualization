@@ -13,8 +13,8 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "202b7745bd0c37a1732ebe2fb009a157d338bf95"
-PV = "3.9+git${SRCPV}"
+SRCREV = "c49eab368a68682475c4e693258246e04232e6d2"
+PV = "3.10+git${SRCPV}"
 
 SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
            file://0001-criu-Fix-toolchain-hardcode.patch \
@@ -67,12 +67,12 @@ do_compile_prepend() {
 }
 
 do_compile () {
-	oe_runmake
+	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=python2
 }
 
 do_install () {
     export INSTALL_LIB="${libdir}/${PYTHON_DIR}/site-packages"
-    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" install
+    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" FULL_PYTHON=${PYTHON} PYTHON=python2 install
 }
 
 FILES_${PN} += "${systemd_unitdir}/ \

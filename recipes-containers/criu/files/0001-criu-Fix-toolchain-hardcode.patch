@@ -33,7 +33,7 @@ diff --git a/scripts/nmk/scripts/include.mk b/scripts/nmk/scripts/include.mk
 index 04ccb3a..0d63bc7 100644
 --- a/scripts/nmk/scripts/include.mk
 +++ b/scripts/nmk/scripts/include.mk
-@@ -20,7 +20,7 @@ SUBARCH := $(shell uname -m | sed       \
+@@ -22,7 +22,7 @@ SUBARCH := $(shell uname -m | sed       \
                  -e s/aarch64.*/aarch64/)
  
  ARCH		?= $(SUBARCH)
@@ -46,7 +46,7 @@ diff --git a/scripts/nmk/scripts/tools.mk b/scripts/nmk/scripts/tools.mk
 index 56dba84..1698821 100644
 --- a/scripts/nmk/scripts/tools.mk
 +++ b/scripts/nmk/scripts/tools.mk
-@@ -2,30 +2,30 @@ ifndef ____nmk_defined__tools
+@@ -2,31 +2,31 @@ ifndef ____nmk_defined__tools
  
  #
  # System tools shorthands
@@ -68,9 +68,7 @@ index 56dba84..1698821 100644
 -MKDIR		:= mkdir -p
 -AWK		:= awk
 -PERL		:= perl
--PYTHON		:= python
--FIND		:= find
--SH		:= $(shell if [ -x "$$BASH" ]; then echo $$BASH;        \
+-FULL_PYTHON	:= $(shell which python2 2>/dev/null || which python3 2>/dev/null)
 +CC		?= $(CROSS_COMPILE)$(HOSTCC)
 +CPP		?= $(CC) -E
 +AS		?= $(CROSS_COMPILE)as
@@ -83,7 +81,10 @@ index 56dba84..1698821 100644
 +MKDIR		?= mkdir -p
 +AWK		?= awk
 +PERL		?= perl
-+PYTHON		?= python
++FULL_PYTHON	?= $(shell which python2 2>/dev/null || which python3 2>/dev/null)
+ PYTHON		?= $(shell basename $(FULL_PYTHON))
+-FIND		:= find
+-SH		:= $(shell if [ -x "$$BASH" ]; then echo $$BASH;        \
 +FIND		?= find
 +SH		?= $(shell if [ -x "$$BASH" ]; then echo $$BASH;        \
                          else if [ -x /bin/bash ]; then echo /bin/bash;  \
