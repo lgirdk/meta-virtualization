@@ -478,6 +478,7 @@ FILES_${PN}-misc = "\
     ${bindir}/xencov_split \
     ${bindir}/xen-detect \
     ${libdir}/xen/bin/xenpvnetboot \
+    ${libdir}/xen/bin/depriv-fd-checker \
     ${sbindir}/gtracestat \
     ${sbindir}/gtraceview \
     ${sbindir}/xen-bugtool \
