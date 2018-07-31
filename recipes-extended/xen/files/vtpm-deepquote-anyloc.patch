@@ -101,16 +101,16 @@ index c0d62e7..6586c22 100644
 -                         UINT32 *sigSize, BYTE **sig)
 +                         UINT32 extraInfoFlags, UINT32 *quote_blob_size, BYTE **quote_blob)
  {
-   TPM_RESULT res;
-   TPM_DIGEST hres;
+ 	TPM_RESULT res;
+ 	TPM_DIGEST hres;
 @@ -253,7 +254,7 @@ TPM_RESULT TPM_DeepQuote(TPM_NONCE *externalData, TPM_PCR_SELECTION *myPCR,
  
-   tpm_free(buf);
+ 	tpm_free(buf);
  
 -	res = VTPM_GetParentQuote(&hres, ptPCR, sigSize, sig);
 +  res = VTPM_GetParentQuote((TPM_NONCE*)&hres, ptPCR, extraInfoFlags, quote_blob_size, quote_blob);
  
-   return res;
+ 	return res;
  }
 diff --git a/tpm/tpm_marshalling.h b/tpm/tpm_marshalling.h
 index d510ebe..2e0c008 100644
