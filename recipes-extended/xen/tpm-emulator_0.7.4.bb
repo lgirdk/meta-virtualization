@@ -16,6 +16,7 @@ SRC_URI = "\
     file://vtpm-deepquote-anyloc.patch \
     file://vtpm-cmake-Wextra.patch \
     file://vtpm-implicit-fallthrough.patch \
+    file://vtpm_TPM_ChangeAuthAsymFinish.patch \
 "
 SRC_URI[tpm-emulator.md5sum] = "e26becb8a6a2b6695f6b3e8097593db8"
 SRC_URI[tpm-emulator.sha256sum] = "4e48ea0d83dd9441cc1af04ab18cd6c961b9fa54d5cbf2c2feee038988dea459"
