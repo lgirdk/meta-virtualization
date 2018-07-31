@@ -1,9 +1,10 @@
 require xen.inc
 
-SRCREV ?= "9a6cc4f5c14b3d7542b7523f88a1b65464733d3a"
+SRCREV ?= "2b50cdbc444c637575580dcfa6c9525a84d5cc62"
 
-XEN_REL ?= "4.7"
-XEN_BRANCH ?= "staging-${XEN_REL}"
+XEN_REL = "4.12"
+XEN_BRANCH = "staging"
+FLASK_POLICY_FILE = "xenpolicy-${XEN_REL}-unstable"
 
 PV = "${XEN_REL}+git${SRCPV}"
 
