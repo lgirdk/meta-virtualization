@@ -870,6 +870,24 @@ EXTRA_OEMAKE += "ETHERBOOT_ROMS=${STAGING_DIR_HOST}/usr/share/firmware/rtl8139.r
 EXTRA_OEMAKE += "WGET=/bin/false"
 EXTRA_OEMAKE += "GIT=/bin/false"
 
+# Improve build reproducibility: provide values for build variables.
+def get_build_time_vars(d):
+    source_date_epoch = d.getVar('SOURCE_DATE_EPOCH')
+    if source_date_epoch is not None:
+        import datetime
+        utc_datetime = datetime.datetime.utcfromtimestamp(float(source_date_epoch))
+        return " XEN_BUILD_DATE=" + utc_datetime.strftime("%Y-%m-%d") + \
+               " XEN_BUILD_TIME=" + utc_datetime.strftime("%H:%M:%S")
+    return ""
+EXTRA_OEMAKE += "${@['', 'XEN_WHOAMI=${PF} XEN_DOMAIN=${DISTRO} XEN_BUILD_HOST=${PN}-buildhost'] \
+                    [d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1']}${@get_build_time_vars(d)}"
+
+# Improve build reproducibility: compiler flags to remove filesystem differences.
+# Suppress __FILE__ via an alternative builtin.
+CC += "${@['', '-gno-record-gcc-switches -Wno-builtin-macro-redefined -D__FILE__=__VERSION__ ' + \
+               '-fdebug-prefix-map=${WORKDIR}=${PN}'] \
+          [d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1']}"
+
 # check for XSM in package config to allow XSM_ENABLE to be set
 python () {
     pkgconfig = d.getVar('PACKAGECONFIG')
@@ -889,6 +907,15 @@ do_post_patch() {
 
     # libsystemd-daemon -> libsystemd for newer systemd versions
     sed -i 's#libsystemd-daemon#libsystemd#' ${S}/tools/configure
+
+    # Improve build reproducibility: disable insertion of the build timestamp
+    # into the x86 EFI hypervisor binary.
+    # binutils should allow a user-supplied timestamp or use SOURCE_DATE_EPOCH
+    # for PE but currently does not.
+    if [ "${BUILD_REPRODUCIBLE_BINARIES}" = "1" ] ; then
+        sed '/^EFI_LDFLAGS = /{a EFI_LDFLAGS += --no-insert-timestamp
+}' -i "${S}/xen/arch/x86/Makefile"
+    fi
 }
 
 addtask post_patch after do_patch before do_configure
