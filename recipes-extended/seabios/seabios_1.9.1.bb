@@ -4,7 +4,7 @@ LICENSE = "LGPLv3"
 SECTION = "firmware"
 
 SRC_URI = " \
-    https://code.coreboot.org/p/seabios/downloads/get/${PN}-${PV}.tar.gz \
+    https://www.seabios.org/downloads/get/${PN}-${PV}.tar.gz \
     file://hostcc.patch \
     "
 
