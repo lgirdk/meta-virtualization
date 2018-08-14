@@ -25,6 +25,7 @@ RDEPENDS_${PN} = " \
 		gnutls \
 		nettle \
 		util-linux-mountpoint \
+		util-linux-getopt \
 "
 
 RDEPENDS_${PN}_append_libc-glibc = " glibc-utils"
