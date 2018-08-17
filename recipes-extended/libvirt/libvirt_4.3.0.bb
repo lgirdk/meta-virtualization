@@ -290,6 +290,7 @@ do_install_append() {
 
 EXTRA_OECONF += " \
     --with-init-script=systemd \
+    --with-test-suite \
     "
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
