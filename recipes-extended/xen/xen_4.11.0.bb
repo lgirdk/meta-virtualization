@@ -5,6 +5,7 @@ SRC_URI = " \
     https://downloads.xenproject.org/release/xen/${PV}/xen-${PV}.tar.gz \
     file://tools-xentop-vwprintw.patch \
     file://xen-4.11-arm-acpi-fix-string-lengths.patch \
+    file://xen-tools-xenpmd-snprintf.patch \
     "
 
 SRC_URI[md5sum] = "cbec0600284921744bc14119f4ed3fff"

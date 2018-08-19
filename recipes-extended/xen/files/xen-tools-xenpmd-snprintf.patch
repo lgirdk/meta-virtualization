@@ -1,0 +1,78 @@
+From e4d78a67ffbacf30b66464080898227f18f6bf49 Mon Sep 17 00:00:00 2001
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Fri, 17 Aug 2018 17:46:10 -0700
+Subject: [PATCH] xenpmd: prevent format-truncation warning with gcc 8.2 + ARM
+ 32-bit
+To: xen-devel@lists.xenproject.org
+Cc: ian.jackson@eu.citrix.com,
+    wei.liu2@citrix.com
+
+xenpmd writes battery information to xenstore, including a string with a
+formatted hex value calculated from summing the lengths of four strings,
+plus some constants.
+
+Each of the four strings has a maximum length of 31 bytes, excluding the
+terminating zero byte. The strings are stored in 32-byte arrays in a
+struct that is zeroed before it is populated, and logic that writes to
+the strings uses strncpy and explicit zero termination.
+
+The maximum value to be supplied to the xenstore string is:
+  (9 * 4) + (31 * 4) + 4 , which is 164, ie. 0xa4.
+
+When used with this value, '%02x' will always fit within 3 bytes, but
+gcc 8.2 is apparently not able to deduce this (observed when building
+for a 32-bit ARM platform).
+
+This commit assists the compiler by applying a mask (0xff) to the value,
+enabling it to observe a lower maximum value and so pass the truncation
+length check.
+
+Prior to this change, building fails with the compiler warning:
+
+| xenpmd.c: In function 'write_battery_info_to_xenstore':
+| xenpmd.c:354:23: error: '%02x' directive output may be truncated
+writing between 2 and 8 bytes into a region of size 3
+[-Werror=format-truncation=]
+|      snprintf(val, 3, "%02x",
+|                        ^~~~
+| xenpmd.c:354:22: note: directive argument in the range [40, 2147483778]
+|      snprintf(val, 3, "%02x",
+|                       ^~~~~~
+| xenpmd.c:354:5: note: 'snprintf' output between 3 and 9 bytes into a
+destination of size 3
+|      snprintf(val, 3, "%02x",
+|      ^~~~~~~~~~~~~~~~~~~~~~~~
+|               (unsigned int)(9*4 +
+|               ~~~~~~~~~~~~~~~~~~~~
+|                              strlen(info->model_number) +
+|                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|                              strlen(info->serial_number) +
+|                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|                              strlen(info->battery_type) +
+|                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+|                              strlen(info->oem_info) + 4));
+|                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| cc1: all warnings being treated as errors
+
+Signed-off-by: Christopher Clark <christopher.clark6@baesystems.com>
+---
+ tools/xenpmd/xenpmd.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tools/xenpmd/xenpmd.c b/tools/xenpmd/xenpmd.c
+index 56412a9..0c0787e 100644
+--- a/tools/xenpmd/xenpmd.c
++++ b/tools/xenpmd/xenpmd.c
+@@ -350,8 +350,10 @@ void write_battery_info_to_xenstore(struct battery_info *info)
+    
+     memset(val, 0, 1024);
+     memset(string_info, 0, 256);
+-    /* write 9 dwords (so 9*4) + length of 4 strings + 4 null terminators */
+-    snprintf(val, 3, "%02x", 
++    /* write 9 dwords (so 9*4) + length of 4 strings + 4 null terminators.
++     * mask informs the compiler that format truncation will not occur.
++     */
++    snprintf(val, 3, "%02x", 0xff &
+              (unsigned int)(9*4 +
+                             strlen(info->model_number) +
+                             strlen(info->serial_number) +
