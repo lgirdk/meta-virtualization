@@ -5,7 +5,7 @@ SECTION = "console/tools"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbb4b1bdc2c3b6743da3c39d03249095"
 
-COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux'
+COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux-gnueabi'
 
 inherit autotools-brokensep setuptools update-rc.d systemd deploy
 
@@ -916,6 +916,11 @@ do_post_patch() {
         sed '/^EFI_LDFLAGS = /{a EFI_LDFLAGS += --no-insert-timestamp
 }' -i "${S}/xen/arch/x86/Makefile"
     fi
+}
+
+do_post_patch_append_arm()  {
+    # The hypervisor binary must not be built with the hard floating point ABI.
+    echo "CC := \$(filter-out ${TUNE_CCARGS},\$(CC))" >> ${B}/xen/arch/arm/Rules.mk
 }
 
 addtask post_patch after do_patch before do_configure
