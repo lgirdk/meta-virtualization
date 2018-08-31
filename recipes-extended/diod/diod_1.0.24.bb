@@ -15,6 +15,7 @@ SRC_URI = "git://github.com/chaos/diod.git;protocol=git \
            file://diod.conf \
            file://0001-build-allow-builds-to-work-with-separate-build-dir.patch \
            file://0002-auto.diod.in-remove-bashisms.patch \
+           file://0001-diod-ops.c-add-header-file-for-makedev.patch \
           "
 DEPENDS = "libcap ncurses tcp-wrappers lua"
 
