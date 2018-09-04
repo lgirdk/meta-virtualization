@@ -30,6 +30,7 @@ SRC_URI = "file://openvswitch-switch \
            file://0002-Define-WAIT_ANY-if-not-provided-by-system.patch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
            file://systemd-update-tool-paths.patch \
+           file://systemd-create-runtime-dirs.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
