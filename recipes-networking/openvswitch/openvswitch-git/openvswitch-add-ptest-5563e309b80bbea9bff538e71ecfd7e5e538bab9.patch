@@ -1,4 +1,4 @@
-From fb68120ef8aed625b04b2fbd2cb78fc59a7b7432 Mon Sep 17 00:00:00 2001
+From 37df262d2b0f0b8c177aa850623f2c5880484ff0 Mon Sep 17 00:00:00 2001
 From: He Zhe <zhe.he@windriver.com>
 Date: Wed, 30 Mar 2016 06:23:45 -0400
 Subject: [PATCH] openvswitch: Add test-install rule to support ptest execution
@@ -15,22 +15,22 @@ Signed-off-by: He Zhe <zhe.he@windriver.com>
 
 ---
  Makefile.am |  1 +
- test.mk     | 72 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 73 insertions(+)
+ test.mk     | 74 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 75 insertions(+)
  create mode 100644 test.mk
 
 diff --git a/Makefile.am b/Makefile.am
-index ea63acb..ff7d70a 100644
+index 7889728..6435399 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -429,3 +429,4 @@ include windows/automake.mk
+@@ -494,3 +494,4 @@ include windows/automake.mk
  include ovn/automake.mk
  include selinux/automake.mk
  include build-aux/automake.mk
 +include test.mk
 diff --git a/test.mk b/test.mk
 new file mode 100644
-index 0000000..b10a581
+index 0000000..0b4587c
 --- /dev/null
 +++ b/test.mk
 @@ -0,0 +1,74 @@

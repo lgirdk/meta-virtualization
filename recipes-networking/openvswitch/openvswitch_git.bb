@@ -12,16 +12,16 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.9.2+${SRCREV}"
+PV = "2.10.0+${SRCREV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "7e614671cba3c4e338d1c5003b74a10047d7a8eb"
+SRCREV = "5563e309b80bbea9bff538e71ecfd7e5e538bab9"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.9 \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.10 \
            file://openvswitch-add-ptest-${SRCREV}.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
@@ -32,7 +32,7 @@ SRC_URI = "file://openvswitch-switch \
            file://systemd-update-tool-paths.patch \
            "
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=17b2c9d4c70853a09c0e143137754b35"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
 
 DPDK_INSTALL_DIR ?= "/opt/dpdk"
 
