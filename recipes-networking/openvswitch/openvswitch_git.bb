@@ -40,6 +40,7 @@ DPDK_INSTALL_DIR ?= "/opt/dpdk"
 PACKAGECONFIG ?= "libcap-ng"
 PACKAGECONFIG[dpdk] = "--with-dpdk=${STAGING_DIR_TARGET}${DPDK_INSTALL_DIR}/share/${TARGET_ARCH}-native-linuxapp-gcc,,dpdk,dpdk"
 PACKAGECONFIG[libcap-ng] = "--enable-libcapng,--disable-libcapng,libcap-ng,"
+PACKAGECONFIG[ssl] = ",--disable-ssl,openssl,"
 
 # Don't compile kernel modules by default since it heavily depends on
 # kernel version. Use the in-kernel module for now.
