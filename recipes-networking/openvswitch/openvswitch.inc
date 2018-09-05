@@ -134,22 +134,13 @@ do_install_append() {
 	cp -r ${S}/python/ovstest/ ${D}${libdir}/python${PYTHON_BASEVERSION}/site-packages/
 }
 
-pkg_postinst_${PN}-pki () {
-	# can't do this offline
-	if [ "x$D" != "x" ]; then
-		exit 1
-	fi
+pkg_postinst_ontarget_${PN}-pki () {
 	if test ! -d $D/${datadir}/${PN}/pki; then
 		ovs-pki init --dir=$D/${datadir}/${PN}/pki
 	fi
 }
 
-pkg_postinst_${PN}-testcontroller () {
-	# can't do this offline
-	if [ "x$D" != "x" ]; then
-		exit 1
-	fi
-
+pkg_postinst_ontarget_${PN}-testcontroller () {
 	if test ! -d $D/${datadir}/${PN}/pki; then
 		ovs-pki init --dir=$D/${datadir}/${PN}/pki
 	fi
