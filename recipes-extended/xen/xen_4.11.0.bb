@@ -6,6 +6,7 @@ SRC_URI = " \
     file://tools-xentop-vwprintw.patch \
     file://xen-4.11-arm-acpi-fix-string-lengths.patch \
     file://xen-tools-xenpmd-snprintf.patch \
+    file://xen-disable-sse-before-inlines.patch \
     "
 
 SRC_URI[md5sum] = "cbec0600284921744bc14119f4ed3fff"

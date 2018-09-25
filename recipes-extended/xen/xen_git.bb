@@ -12,6 +12,7 @@ S = "${WORKDIR}/git"
 
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
+    file://xen-disable-sse-before-inlines.patch \
     "
 
 DEFAULT_PREFERENCE = "-1"
