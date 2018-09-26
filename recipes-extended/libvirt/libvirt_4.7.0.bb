@@ -35,6 +35,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://install-missing-file.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
+           file://lxc_monitor-Avoid-AB-BA-lock-race.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "38da6c33250dcbc0a6d68de5c758262b"

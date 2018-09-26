@@ -1,0 +1,106 @@
+From 7882c6eca53fe9abe253497a50f6c5ae062176d3 Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Mon, 24 Sep 2018 11:11:35 -0400
+Subject: [PATCH] lxc_monitor: Avoid AB / BA lock race
+
+A deadlock situation can occur when autostarting a LXC domain 'guest'
+due to two threads attempting to take opposing locks while holding
+opposing locks (AB BA problem). Thread A takes and holds the 'vm' lock
+while attempting to take the 'client' lock, meanwhile, thread B takes
+and holds the 'client' lock while attempting to take the 'vm' lock.
+
+The potential for this can be seen as follows:
+
+Thread A:
+virLXCProcessAutostartDomain (takes vm lock)
+ --> virLXCProcessStart
+  --> virLXCProcessConnectMonitor
+   --> virLXCMonitorNew
+    --> virNetClientSetCloseCallback (wants client lock)
+
+Thread B:
+virNetClientIncomingEvent (takes client lock)
+ --> virNetClientIOHandleInput
+  --> virNetClientCallDispatch
+   --> virNetClientCallDispatchMessage
+    --> virNetClientProgramDispatch
+     --> virLXCMonitorHandleEventInit
+      --> virLXCProcessMonitorInitNotify (wants vm lock)
+
+Since these threads are scheduled independently and are preemptible it
+is possible for the deadlock scenario to occur where each thread locks
+their first lock but both will fail to get their second lock and just
+spin forever. You get something like:
+
+virLXCProcessAutostartDomain (takes vm lock)
+ --> virLXCProcessStart
+  --> virLXCProcessConnectMonitor
+   --> virLXCMonitorNew
+<...>
+virNetClientIncomingEvent (takes client lock)
+ --> virNetClientIOHandleInput
+  --> virNetClientCallDispatch
+   --> virNetClientCallDispatchMessage
+    --> virNetClientProgramDispatch
+     --> virLXCMonitorHandleEventInit
+      --> virLXCProcessMonitorInitNotify (wants vm lock but spins)
+<...>
+    --> virNetClientSetCloseCallback (wants client lock but spins)
+
+Neither thread ever gets the lock it needs to be able to continue
+while holding the lock that the other thread needs.
+
+The actual window for preemption which can cause this deadlock is
+rather small, between the calls to virNetClientProgramNew() and
+execution of virNetClientSetCloseCallback(), both in
+virLXCMonitorNew(). But it can be seen in real world use that this
+small window is enough.
+
+By moving the call to virNetClientSetCloseCallback() ahead of
+virNetClientProgramNew() we can close any possible chance of the
+deadlock taking place. There should be no other implications to the
+move since the close callback (in the unlikely event was called) will
+spin on the vm lock. The remaining work that takes place between the
+old call location of virNetClientSetCloseCallback() and the new
+location is unaffected by the move.
+
+Upstream-Status: Backport commit 7882c6eca53f
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+---
+ src/lxc/lxc_monitor.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/lxc/lxc_monitor.c b/src/lxc/lxc_monitor.c
+index e765c16..0b18a14 100644
+--- a/src/lxc/lxc_monitor.c
++++ b/src/lxc/lxc_monitor.c
+@@ -161,6 +161,13 @@ virLXCMonitorPtr virLXCMonitorNew(virDomainObjPtr vm,
+     if (virNetClientRegisterAsyncIO(mon->client) < 0)
+         goto error;
+ 
++    /* avoid deadlock by making this call before assigning virLXCMonitorEvents */
++    virNetClientSetCloseCallback(mon->client, virLXCMonitorEOFNotify, mon,
++                                 virLXCMonitorCloseFreeCallback);
++
++    /* close callback now has its own reference */
++    virObjectRef(mon);
++
+     if (!(mon->program = virNetClientProgramNew(VIR_LXC_MONITOR_PROGRAM,
+                                                 VIR_LXC_MONITOR_PROGRAM_VERSION,
+                                                 virLXCMonitorEvents,
+@@ -175,10 +182,6 @@ virLXCMonitorPtr virLXCMonitorNew(virDomainObjPtr vm,
+     mon->vm = virObjectRef(vm);
+     memcpy(&mon->cb, cb, sizeof(mon->cb));
+ 
+-    virObjectRef(mon);
+-    virNetClientSetCloseCallback(mon->client, virLXCMonitorEOFNotify, mon,
+-                                 virLXCMonitorCloseFreeCallback);
+-
+  cleanup:
+     VIR_FREE(sockpath);
+     return mon;
+-- 
+2.7.4
+
