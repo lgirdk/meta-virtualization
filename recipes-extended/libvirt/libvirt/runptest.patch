@@ -89,8 +89,8 @@ index 7b93fbd..edc1eb9 100644
 +	install * $(DEST_DIR)/tools)
 +	install -d $(DEST_DIR)/src/network
 +	cp $(top_srcdir)/src/network/*.xml $(DEST_DIR)/src/network
-+	install -d $(DEST_DIR)/src/cpu
-+	cp $(top_srcdir)/src/cpu/*.xml $(DEST_DIR)/src/cpu
++	install -d $(DEST_DIR)/src/cpu_map
++	cp $(top_srcdir)/src/cpu_map/*.xml $(DEST_DIR)/src/cpu_map
 +	install ../src/libvirt_iohelper $(DEST_DIR)/src
 +	install -D ../src/libvirtd $(DEST_DIR)/src/libvirtd
 +	install -d $(DEST_DIR)/src/remote

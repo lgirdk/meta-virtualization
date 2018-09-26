@@ -37,8 +37,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "692b2d00907438ed08a68813d3177cd3"
-SRC_URI[libvirt.sha256sum] = "e7e95edc0ca553046761ed55a8d01a06a3a3a4238bbeaedb3ba34680a277ab09"
+SRC_URI[libvirt.md5sum] = "38da6c33250dcbc0a6d68de5c758262b"
+SRC_URI[libvirt.sha256sum] = "92c279f7321624ac5a37a81f8bbe8c8d2a16781da04c63c99c92d3de035767e4"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
