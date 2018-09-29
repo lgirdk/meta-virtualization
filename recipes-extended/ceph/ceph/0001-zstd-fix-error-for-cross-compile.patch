@@ -1,0 +1,26 @@
+From 3e86b6d9db2682b123839e38e9bf45060e2bb2ab Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Wed, 29 Aug 2018 16:57:52 +0800
+Subject: [PATCH] zstd: fix error for cross compile
+
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
+---
+ src/compressor/zstd/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/compressor/zstd/CMakeLists.txt b/src/compressor/zstd/CMakeLists.txt
+index e30cb89..b298a3d 100644
+--- a/src/compressor/zstd/CMakeLists.txt
++++ b/src/compressor/zstd/CMakeLists.txt
+@@ -9,7 +9,7 @@ ExternalProject_Add(zstd_ext
+   CMAKE_ARGS -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+              -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+              -DCMAKE_C_FLAGS=${ZSTD_C_FLAGS}
+-             -DCMAKE_AR=${CMAKE_AR}
++             -DCMAKE_SYSROOT=${CMAKE_SYSROOT}
+   BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/libzstd
+   BUILD_COMMAND $(MAKE) libzstd_static
+   INSTALL_COMMAND "true")
+-- 
+2.7.4
+
