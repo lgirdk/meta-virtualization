@@ -9,7 +9,7 @@ inherit autotools-brokensep
 SRC_URI = "git://github.com/hyperhq/hyperstart.git"
 SRC_URI += "file://0001-container.c-Fix-compiler-errors-that-gcc-8.1.0-repor.patch"
 
-SRCREV = "ad48a3230836f59ada163659cde151a37522068b"
+SRCREV = "15bb718ad34045aa1962a8204f602c6afe9a76ab"
 PV = "v0.2+git${SRCREV}"
 
 S = "${WORKDIR}/git"
