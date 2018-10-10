@@ -60,3 +60,4 @@ FILES_${PN}-dev += "\
 RDEPENDS_${PN} += "\
 		python \
 "
+COMPATIBLE_HOST = "(x86_64).*"

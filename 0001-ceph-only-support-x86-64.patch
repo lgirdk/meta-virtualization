@@ -1,0 +1,22 @@
+From c1410631e368569f8fa03a2a72938e603eb92578 Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Mon, 8 Oct 2018 15:33:25 +0800
+Subject: [PATCH V2] ceph: only support x86-64
+
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
+---
+ recipes-extended/ceph/ceph_13.2.1.bb | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/recipes-extended/ceph/ceph_13.2.1.bb b/recipes-extended/ceph/ceph_13.2.1.bb
+index d7186b9..7888e64 100644
+--- a/recipes-extended/ceph/ceph_13.2.1.bb
++++ b/recipes-extended/ceph/ceph_13.2.1.bb
+@@ -60,3 +60,4 @@ FILES_${PN}-dev += "\
+ RDEPENDS_${PN} += "\
+ 		python \
+ "
++COMPATIBLE_MACHINE = "(qemux86-64|intel-x86-64)"
+-- 
+2.7.4
+
