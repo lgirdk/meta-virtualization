@@ -11,7 +11,7 @@ SRCREV = "6e7da8148f4de2c9e9c9d3b345576898d4f412cb"
 PV = "0.1.0+git${SRCPV}"
 GO_IMPORT = "import"
 
-INSANE_SKIP_${PN} += "ldflags"
+INSANE_SKIP_${PN} += "ldflags textrel"
 
 inherit goarch
 inherit go
