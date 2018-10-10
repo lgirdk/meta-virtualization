@@ -61,4 +61,4 @@ do_install() {
 	install ${S}/src/import/oci-image-tool ${D}/${sbindir}/
 }
 
-INSANE_SKIP_${PN} += "ldflags"
+INSANE_SKIP_${PN} += "ldflags textrel"
