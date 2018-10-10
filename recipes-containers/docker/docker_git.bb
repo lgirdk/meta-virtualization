@@ -30,6 +30,8 @@ SRC_URI = "\
         file://0001-libnetwork-use-GO-instead-of-go.patch \
 	"
 
+SRC_URI_append_docker += "CVE-2018-10892.patch"
+
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
