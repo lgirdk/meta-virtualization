@@ -57,7 +57,7 @@ do_install() {
 }
 
 INSANE_SKIP_${PN} += "ldflags already-stripped"
-INSANE_SKIP_docker-registry += "ldflags already-stripped"
+INSANE_SKIP_${MLPREFIX}docker-registry += "ldflags already-stripped"
 
 FILES_docker-registry = "${sbindir}/*"
 FILES_docker-registry += "${systemd_unitdir}/system/docker-registry.service"
