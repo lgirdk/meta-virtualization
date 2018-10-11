@@ -1,0 +1,74 @@
+From 11d930d622d20c1cf4db19a6ac6e0ee68173a3dc Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Thu, 31 May 2018 15:14:26 -0400
+Subject: [PATCH 3/3] tests: add '--no-validate' when using download template
+
+We are usually running the ptests with core-image-minimal which has no
+mechanism to validate the downloads. Validation isn't really of
+interest to this test at any rate so simply add '--no-validate' to
+avoid failing due to no GPG validation.
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+Signed-off-by: Sinan Kaya <okaya@kernel.org>
+---
+ src/tests/lxc-test-apparmor-mount | 2 +-
+ src/tests/lxc-test-autostart      | 2 +-
+ src/tests/lxc-test-unpriv         | 2 +-
+ src/tests/lxc-test-usernic.in     | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/tests/lxc-test-apparmor-mount b/src/tests/lxc-test-apparmor-mount
+index bb9b1fc..a727092 100755
+--- a/src/tests/lxc-test-apparmor-mount
++++ b/src/tests/lxc-test-apparmor-mount
+@@ -156,7 +156,7 @@ if [ -f /etc/lsb-release ]; then
+     done
+ fi
+ 
+-run_cmd lxc-create -t download -n $cname -- -d ubuntu -r $release -a $ARCH
++run_cmd lxc-create -t download -n $cname -- --no-validate -d ubuntu -r $release -a $ARCH
+ 
+ echo "test default confined container"
+ run_cmd lxc-start -n $cname -d
+diff --git a/src/tests/lxc-test-autostart b/src/tests/lxc-test-autostart
+index 61dbdf1..921dfae 100755
+--- a/src/tests/lxc-test-autostart
++++ b/src/tests/lxc-test-autostart
+@@ -55,7 +55,7 @@ if [ -f /etc/lsb-release ]; then
+     done
+ fi
+ 
+-lxc-create -t download -n $CONTAINER_NAME -- -d ubuntu -r $release -a $ARCH
++lxc-create -t download -n $CONTAINER_NAME -B dir -- --no-validate -d ubuntu -r $release -a $ARCH
+ CONTAINER_PATH=$(dirname $(lxc-info -n $CONTAINER_NAME -c lxc.rootfs -H))
+ cp $CONTAINER_PATH/config $CONTAINER_PATH/config.bak
+ 
+diff --git a/src/tests/lxc-test-unpriv b/src/tests/lxc-test-unpriv
+index 8486fbd..dfa9b43 100755
+--- a/src/tests/lxc-test-unpriv
++++ b/src/tests/lxc-test-unpriv
+@@ -172,7 +172,7 @@ run_cmd mkdir -p $HDIR/.cache/lxc
+     cp -R /var/cache/lxc/download $HDIR/.cache/lxc && \
+     chown -R $TUSER: $HDIR/.cache/lxc
+ 
+-run_cmd lxc-create -t download -n c1 -- -d ubuntu -r $release -a $ARCH
++run_cmd lxc-create -t download -n c1 -- --no-validate -d ubuntu -r $release -a $ARCH
+ 
+ # Make sure we can start it - twice
+ 
+diff --git a/src/tests/lxc-test-usernic.in b/src/tests/lxc-test-usernic.in
+index 0b99baa..2a407c6 100755
+--- a/src/tests/lxc-test-usernic.in
++++ b/src/tests/lxc-test-usernic.in
+@@ -145,7 +145,7 @@ if [ -f /etc/lsb-release ]; then
+ fi
+ 
+ # Create three containers
+-run_cmd "lxc-create -t download -n b1 -- -d ubuntu -r $release -a $ARCH"
++run_cmd "lxc-create -t download -n b1 -- --no-validate -d ubuntu -r $release -a $ARCH"
+ run_cmd "lxc-start -n b1 -d"
+ p1=$(run_cmd "lxc-info -n b1 -p -H")
+ 
+-- 
+2.19.0
+

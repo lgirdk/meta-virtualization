@@ -28,18 +28,19 @@ RDEPENDS_${PN} = " \
 
 RDEPENDS_${PN}_append_libc-glibc = " glibc-utils"
 
-RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash"
+RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash libgcc"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
-	file://runtest.patch \
 	file://run-ptest \
-	file://automake-ensure-VPATH-builds-correctly.patch \
 	file://lxc-fix-B-S.patch \
 	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	file://cgroups-work-around-issue-in-gcc-7.patch \
 	file://templates-actually-create-DOWNLOAD_TEMP-directory.patch \
+	file://template-make-busybox-template-compatible-with-core-.patch \
+	file://tests-our-init-is-not-busybox.patch \
+	file://tests-add-no-validate-when-using-download-template.patch \
 	file://dnsmasq.conf \
 	"
 
@@ -111,8 +112,6 @@ FILES_${PN}-setup += "/lib/systemd/system"
 FILES_${PN}-setup += "/usr/lib/systemd/system"
 FILES_${PN}-setup += "/etc/init.d"
 
-PRIVATE_LIBS_${PN}-ptest = "liblxc.so.1"
-
 CACHED_CONFIGUREVARS += " \
     ac_cv_path_PYTHON='${STAGING_BINDIR_NATIVE}/python3-native/python3' \
     am_cv_python_pyexecdir='${exec_prefix}/${libdir}/python3.5/site-packages' \
@@ -151,7 +150,9 @@ do_install_append() {
 EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
 
 do_install_ptest() {
-	oe_runmake -C src/tests install-ptest
+	# Move tests to the "ptest directory"
+	install -d ${D}/${PTEST_PATH}/tests
+	mv ${D}/usr/bin/lxc-test-* ${D}/${PTEST_PATH}/tests/.
 }
 
 pkg_postinst_${PN}() {
