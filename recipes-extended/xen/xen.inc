@@ -30,7 +30,7 @@ DEPENDS = " \
     flex-native \
     file-native \
     gettext-native \
-    iasl-native \
+    acpica-native \
     ncurses-native \
     util-linux-native \
     xz-native \

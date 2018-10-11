@@ -18,7 +18,7 @@ SRC_URI[sha256sum] = "73e73c8e406d97265782f6c942b3c1d178ed4f4afc9f381b22336c3968
 
 FILES_${PN} = "/usr/share/firmware"
 
-DEPENDS = "util-linux-native file-native bison-native flex-native gettext-native iasl-native python-native"
+DEPENDS = "util-linux-native file-native bison-native flex-native gettext-native acpica-native python-native"
 
 TUNE_CCARGS = ""
 EXTRA_OEMAKE += "HOSTCC='${BUILD_CC}'"
