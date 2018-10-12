@@ -29,17 +29,17 @@ do
     then
 	$test >logs/$(basename $test).log 2>&1
     else
-	echo "$test SKIPPED"
+	echo "SKIPPED: $(basename $test)"
 	skipped=$((skipped+1))
 	continue
     fi
 
     if [ $? -eq 0 ]
     then
-	echo "$test PASS"
+	echo "PASS: $(basename $test)"
 	passed=$((passed+1))
     else
-	echo "$test FAIL"
+	echo "FAIL: $(basename $test)"
 	failed=$((failed+1))
     fi
 done
