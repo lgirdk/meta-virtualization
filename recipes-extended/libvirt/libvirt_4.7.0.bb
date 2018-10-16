@@ -311,7 +311,7 @@ do_install_ptest() {
 	done
 }
 
-pkg_postinst_ontarget_${PN}() {
+pkg_postinst_${PN}() {
         if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
                 /etc/init.d/populate-volatile.sh update
         fi
