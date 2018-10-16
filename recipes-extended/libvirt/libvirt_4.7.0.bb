@@ -186,6 +186,10 @@ PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'polkit', '', d)} \
                   "
 
+# qemu is NOT compatible with mips64
+PACKAGECONFIG_remove_mipsarchn32 = "qemu"
+PACKAGECONFIG_remove_mipsarchn64 = "qemu"
+
 # enable,disable,depends,rdepends
 #
 PACKAGECONFIG[qemu] = "--with-qemu,--without-qemu,qemu,"
