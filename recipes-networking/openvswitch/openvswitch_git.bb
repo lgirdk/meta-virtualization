@@ -2,6 +2,8 @@ require openvswitch.inc
 
 DEPENDS += "virtual/kernel"
 
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
 RDEPENDS_${PN}-ptest += "\
 	python3-logging python3-syslog python3-io \
 	python3-fcntl python3-shell python3-xml python3-math \
