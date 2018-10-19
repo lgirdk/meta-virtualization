@@ -402,8 +402,7 @@ FILES_${PN}-hypervisor = "\
 FILES_${PN}-init-xenstore-dom = "${libdir}/xen/bin/init-xenstore-domain"
 
 FILES_${PN}-efi = "\
-    ${exec_prefix}/lib64 \
-    ${exec_prefix}/lib64/xen* \
+    ${exec_prefix}/lib64/efi/xen* \
     "
 
 FILES_${PN}-base = "\
@@ -826,6 +825,8 @@ export XEN_OS = "Linux"
 # this is used for the header (#!${bindir}/python) of the install python scripts
 export PYTHONPATH="${bindir}/python"
 export ac_cv_path_PYTHONPATH="${bindir}/python"
+export DISTUTILS_BUILD_ARGS
+export DISTUTILS_INSTALL_ARGS
 
 # xen and seabios require HOSTCC and HOSTCXX set to cross-compile
 export HOSTCC="${BUILD_CC}"
@@ -849,8 +850,8 @@ CPP_append = " ${CPPFLAGS}"
 CXX_append = " ${CXXFLAGS}"
 
 EXTRA_OECONF += " \
-    --exec-prefix=/usr \
-    --prefix=/usr \
+    --exec-prefix=${prefix} \
+    --prefix=${prefix} \
     --host=${HOST_SYS} \
     --with-systemd=${systemd_unitdir}/system \
     --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \

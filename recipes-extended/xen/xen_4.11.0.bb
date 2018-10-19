@@ -7,6 +7,7 @@ SRC_URI = " \
     file://xen-4.11-arm-acpi-fix-string-lengths.patch \
     file://xen-tools-xenpmd-snprintf.patch \
     file://xen-disable-sse-before-inlines.patch \
+    file://0001-python-pygrub-pass-DISTUTILS-env-vars-as-setup.py-ar.patch \
     "
 
 SRC_URI[md5sum] = "cbec0600284921744bc14119f4ed3fff"

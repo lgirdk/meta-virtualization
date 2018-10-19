@@ -13,6 +13,7 @@ S = "${WORKDIR}/git"
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
     file://xen-disable-sse-before-inlines.patch \
+    file://0001-python-pygrub-pass-DISTUTILS-env-vars-as-setup.py-ar.patch \
     "
 
 DEFAULT_PREFERENCE = "-1"
