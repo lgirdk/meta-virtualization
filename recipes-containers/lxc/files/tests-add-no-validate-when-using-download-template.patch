@@ -1,4 +1,4 @@
-From 0dad69a3bd306cc701c8bd4df4ea47f0ec5f9150 Mon Sep 17 00:00:00 2001
+From 1b334bdaf598600314a678509a702728721001a2 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 31 May 2018 15:14:26 -0400
 Subject: [PATCH] tests: add '--no-validate' when using download template
@@ -9,6 +9,7 @@ interest to this test at any rate so simply add '--no-validate' to
 avoid failing due to no GPG validation.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+
 ---
  src/tests/lxc-test-apparmor-mount | 2 +-
  src/tests/lxc-test-autostart      | 2 +-
@@ -18,10 +19,10 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  5 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/tests/lxc-test-apparmor-mount b/src/tests/lxc-test-apparmor-mount
-index ddcee8a..d3d2c49 100755
+index 56d598f..573cff8 100755
 --- a/src/tests/lxc-test-apparmor-mount
 +++ b/src/tests/lxc-test-apparmor-mount
-@@ -157,7 +157,7 @@ if [ -f /etc/lsb-release ]; then
+@@ -169,7 +169,7 @@ if [ -f /etc/lsb-release ]; then
      done
  fi
  
@@ -29,7 +30,7 @@ index ddcee8a..d3d2c49 100755
 +run_cmd lxc-create -t download -n $cname -- --no-validate -d ubuntu -r $release -a $ARCH
  
  echo "test default confined container"
- run_cmd lxc-start -n $cname -d
+ run_cmd lxc-start -n $cname -d -lDEBUG -o "$logfile"
 diff --git a/src/tests/lxc-test-autostart b/src/tests/lxc-test-autostart
 index e5b651b..d15b79b 100755
 --- a/src/tests/lxc-test-autostart
@@ -82,6 +83,3 @@ index 3e35008..f489286 100755
  run_cmd "lxc-start -n b1 -d"
  p1=$(run_cmd "lxc-info -n b1 -p -H")
  
--- 
-2.7.4
-

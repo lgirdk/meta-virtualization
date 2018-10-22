@@ -1,4 +1,4 @@
-From b53169dc4c53f9ef64f8cb06dd9af97182577698 Mon Sep 17 00:00:00 2001
+From 51d88d9741c30ff4a798698514cac831ae61680b Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 31 May 2018 15:00:34 -0400
 Subject: [PATCH] tests: our init is not busybox
@@ -9,15 +9,16 @@ really only interested in the fact 'cmp' is being run and not the
 result, so simplify by comparing '/sbin/init' to itself.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+
 ---
  src/tests/attach.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/tests/attach.c b/src/tests/attach.c
-index 2c77127..1c182d6 100644
+index 07e641d..aac609f 100644
 --- a/src/tests/attach.c
 +++ b/src/tests/attach.c
-@@ -251,7 +251,7 @@ static int test_attach_cmd(struct lxc_container *ct)
+@@ -248,7 +248,7 @@ static int test_attach_cmd(struct lxc_container *ct)
  {
  	int ret;
  	pid_t pid;
@@ -26,6 +27,3 @@ index 2c77127..1c182d6 100644
  	lxc_attach_command_t command = {"cmp", argv};
  	lxc_attach_options_t attach_options = LXC_ATTACH_OPTIONS_DEFAULT;
  
--- 
-2.7.4
-
