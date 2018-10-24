@@ -1,0 +1,129 @@
+From 00d44940c2e83bf73101a05d2aa8f88c2e2fca58 Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Tue, 23 Oct 2018 15:34:53 +0800
+Subject: [PATCH] ceph: add pybind support in OE
+
+1. add sysroot to CFLAGS when cross compiling pybind
+2. change the pybind's INSTALL path to OE's INSTALL path
+3. delete the check for header files, because the check method using
+   host compiler.
+
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ cmake/modules/Distutils.cmake | 12 +++---------
+ src/pybind/cephfs/setup.py    |  8 --------
+ src/pybind/rados/setup.py     |  8 --------
+ src/pybind/rbd/setup.py       |  8 --------
+ src/pybind/rgw/setup.py       |  8 --------
+ 5 files changed, 3 insertions(+), 41 deletions(-)
+
+diff --git a/cmake/modules/Distutils.cmake b/cmake/modules/Distutils.cmake
+index d6e9f38..3091d97 100644
+--- a/cmake/modules/Distutils.cmake
++++ b/cmake/modules/Distutils.cmake
+@@ -47,7 +47,7 @@ function(distutils_add_cython_module name src)
+     LDFLAGS=-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+     CYTHON_BUILD_DIR=${CMAKE_CURRENT_BINARY_DIR}
+     CEPH_LIBDIR=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+-    CFLAGS=\"-iquote${CMAKE_SOURCE_DIR}/src/include -w\"
++    CFLAGS=\"-iquote${CMAKE_SOURCE_DIR}/src/include -w --sysroot=${CMAKE_SYSROOT}\"
+     ${PYTHON${PYTHON_VERSION}_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+     build --verbose --build-base ${CYTHON_MODULE_DIR}
+     --build-platlib ${CYTHON_MODULE_DIR}/lib.${PYTHON${PYTHON_VERSION}_VERSION_MAJOR}
+@@ -69,14 +69,8 @@ function(distutils_install_cython_module name)
+     set(ENV{CEPH_LIBDIR} \"${CMAKE_LIBRARY_OUTPUT_DIRECTORY}\")
+ 
+     set(options --prefix=${CMAKE_INSTALL_PREFIX})
+-    if(DEFINED ENV{DESTDIR})
+-      if(EXISTS /etc/debian_version)
+-        list(APPEND options --install-layout=deb)
+-      endif()
+-      list(APPEND options --root=\$ENV{DESTDIR})
+-    else()
+-      list(APPEND options --root=/)
+-    endif()
++    list(APPEND options --root=${CMAKE_DESTDIR})
++    list(APPEND options --install-lib=${PYTHON_SITEPACKAGES_DIR})
+     execute_process(
+        COMMAND
+            ${PYTHON${PYTHON_VERSION}_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+diff --git a/src/pybind/cephfs/setup.py b/src/pybind/cephfs/setup.py
+index 6533f41..1ee4a59 100755
+--- a/src/pybind/cephfs/setup.py
++++ b/src/pybind/cephfs/setup.py
+@@ -121,14 +121,6 @@ def check_sanity():
+     finally:
+         shutil.rmtree(tmp_dir)
+ 
+-
+-if 'BUILD_DOC' in os.environ.keys():
+-    pass
+-elif check_sanity():
+-    pass
+-else:
+-    sys.exit(1)
+-
+ cmdclass = {}
+ try:
+     from Cython.Build import cythonize
+diff --git a/src/pybind/rados/setup.py b/src/pybind/rados/setup.py
+index ef7c307..5204017 100755
+--- a/src/pybind/rados/setup.py
++++ b/src/pybind/rados/setup.py
+@@ -117,14 +117,6 @@ def check_sanity():
+     finally:
+         shutil.rmtree(tmp_dir)
+ 
+-
+-if 'BUILD_DOC' in os.environ.keys():
+-    pass
+-elif check_sanity():
+-    pass
+-else:
+-    sys.exit(1)
+-
+ cmdclass = {}
+ try:
+     from Cython.Build import cythonize
+diff --git a/src/pybind/rbd/setup.py b/src/pybind/rbd/setup.py
+index bcf96f2..d4cbbeb 100755
+--- a/src/pybind/rbd/setup.py
++++ b/src/pybind/rbd/setup.py
+@@ -120,14 +120,6 @@ def check_sanity():
+     finally:
+         shutil.rmtree(tmp_dir)
+ 
+-
+-if 'BUILD_DOC' in os.environ.keys():
+-    pass
+-elif check_sanity():
+-    pass
+-else:
+-    sys.exit(1)
+-
+ cmdclass = {}
+ try:
+     from Cython.Build import cythonize
+diff --git a/src/pybind/rgw/setup.py b/src/pybind/rgw/setup.py
+index f14f30c..ee7570b 100755
+--- a/src/pybind/rgw/setup.py
++++ b/src/pybind/rgw/setup.py
+@@ -120,14 +120,6 @@ def check_sanity():
+     finally:
+         shutil.rmtree(tmp_dir)
+ 
+-
+-if 'BUILD_DOC' in os.environ.keys():
+-    pass
+-elif check_sanity():
+-    pass
+-else:
+-    sys.exit(1)
+-
+ cmdclass = {}
+ try:
+     from Cython.Build import cythonize
+-- 
+2.7.4
+
