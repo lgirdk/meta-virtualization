@@ -1,0 +1,36 @@
+From 6aaf04036f0affbeddda123bff111990c4d5fd72 Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Fri, 26 Oct 2018 14:31:10 +0800
+Subject: [PATCH] ceph-detect-init: correct the installation for OE
+
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
+Upstream-Status: Inappropriate [oe specific]
+---
+ cmake/modules/Distutils.cmake | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
+
+diff --git a/cmake/modules/Distutils.cmake b/cmake/modules/Distutils.cmake
+index 3091d97..c50fe77 100644
+--- a/cmake/modules/Distutils.cmake
++++ b/cmake/modules/Distutils.cmake
+@@ -16,15 +16,8 @@ function(distutils_install_module name)
+   cmake_parse_arguments(DU "" INSTALL_SCRIPT "" ${ARGN})
+   install(CODE "
+     set(options --prefix=${CMAKE_INSTALL_PREFIX})
+-    if(DEFINED ENV{DESTDIR})
+-      if(EXISTS /etc/debian_version)
+-        list(APPEND options --install-layout=deb)
+-      endif()
+-      list(APPEND options --root=\$ENV{DESTDIR})
+-      if(NOT \"${DU_INSTALL_SCRIPT}\" STREQUAL \"\")
+-        list(APPEND options --install-script=${DU_INSTALL_SCRIPT})
+-      endif()
+-    endif()
++    list(APPEND options --root=${CMAKE_DESTDIR})
++    list(APPEND options --install-lib=${PYTHON_SITEPACKAGES_DIR})
+     execute_process(
+     COMMAND ${PYTHON${PYTHON_VERSION}_EXECUTABLE}
+         setup.py install \${options}
+-- 
+2.7.4
+

@@ -12,6 +12,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-Correct-the-path-to-find-version.h-in-rocksdb.patch \
            file://0001-zstd-fix-error-for-cross-compile.patch \
            file://0001-ceph-add-pybind-support-in-OE.patch \
+           file://0001-ceph-detect-init-correct-the-installation-for-OE.patch \
            file://ceph.conf \
 "
 SRC_URI[md5sum] = "ce118be451dcb6b89e9e0a45057827dd"
@@ -24,12 +25,25 @@ DEPENDS = "boost bzip2 curl expat gperf-native \
            python python-cython-native rocksdb snappy udev \
            valgrind xfsprogs zlib \
 "
-SYSTEMD_SERVICE_${PN} = "ceph-radosgw@.service \
+SYSTEMD_SERVICE_${PN} = " \
+	ceph-radosgw@.service \
+	ceph-radosgw.target \
         ceph-mon@.service \
+	ceph-mon.target \
         ceph-mds@.service \
+	ceph-mds.target \
         ceph-disk@.service \
         ceph-osd@.service \
+	ceph-osd.target \
         ceph.target \
+	ceph-fuse@.service \
+	ceph-fuse.target \
+	ceph-rbd-mirror@.service \
+	ceph-rbd-mirror.target \
+	ceph-volume@.service \
+	ceph-mgr@.service \
+	ceph-mgr.target \
+	rbdmap.service \
 "
 OECMAKE_GENERATOR = "Unix Makefiles"
 
@@ -54,15 +68,15 @@ do_configure_prepend () {
 
 do_install_append () {
 	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph
+	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-disk
+	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-detect-init
+	find ${D} -name SOURCES.txt | xargs sed -i -e 's:${WORKDIR}::'
 	install -d ${D}${sysconfdir}/ceph
 	install -m 644 ${WORKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
-	install -d ${D}${systemd_unitdir}/system
-	mv ${D}${libexecdir}/systemd/system/ceph-radosgw@.service ${D}${systemd_unitdir}/system/ceph-radosgw@.service
-	mv ${D}${libexecdir}/systemd/system/ceph-mon@.service ${D}${systemd_unitdir}/system/ceph-mon@.service
-	mv ${D}${libexecdir}/systemd/system/ceph-mds@.service ${D}${systemd_unitdir}/system/ceph-mds@.service
-	mv ${D}${libexecdir}/systemd/system/ceph-disk@.service ${D}${systemd_unitdir}/system/ceph-disk@.service
-	mv ${D}${libexecdir}/systemd/system/ceph-osd@.service ${D}${systemd_unitdir}/system/ceph-osd@.service
-	mv ${D}${libexecdir}/systemd/system/ceph.target ${D}${systemd_unitdir}/system/ceph.target
+	install -d ${D}${systemd_unitdir}
+	mv ${D}${libexecdir}/systemd/system ${D}${systemd_unitdir}
+	mv ${D}${libexecdir}/ceph/ceph-osd-prestart.sh ${D}${libdir}/ceph
+	mv ${D}${libexecdir}/ceph/ceph_common.sh ${D}${libdir}/ceph
 }
 
 FILES_${PN} += "\
