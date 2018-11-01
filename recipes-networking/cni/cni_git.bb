@@ -9,8 +9,8 @@ Because of this focus, CNI has a wide range of support and the specification \
 is simple to implement. \
 "
 
-SRCREV_cni = "96343561e0363c7dcc5f94bef655a8ddbb0b3e5c"
-SRCREV_plugins = "b2fc336833674c5c42550fd2df94c1b5ca0755ba"
+SRCREV_cni = "cc562d1b44b3d00b8c341250d49a8a0823a1c085"
+SRCREV_plugins = "9abd20edd6c83385ff6c2a6e6ff265158059e723"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni \
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=plugins;name=plugins \
@@ -71,7 +71,7 @@ do_compile() {
 	go build
 
 	cd ${S}/src/import/vendor/github.com/containernetworking/plugins/
-	PLUGINS="plugins/meta/* plugins/main/*"
+	PLUGINS="$(ls -d plugins/meta/*; ls -d plugins/main/* | grep -v windows)"
 	mkdir -p ${WORKDIR}/plugins/bin/
 	for p in $PLUGINS; do
 	    plugin="$(basename "$p")"
