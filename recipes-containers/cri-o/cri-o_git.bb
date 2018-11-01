@@ -1,4 +1,4 @@
-HOMEPAGE = "https://github.com/kubernetes-incubator/cri-o"
+HOMEPAGE = "https://github.com/kubernetes-sigs/cri-o"
 SUMMARY = "Open Container Initiative-based implementation of Kubernetes Container Runtime Interface"
 DESCRIPTION = "cri-o is meant to provide an integration path between OCI conformant \
 runtimes and the kubelet. Specifically, it implements the Kubelet Container Runtime \
@@ -14,9 +14,9 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
  - Resource isolation as required by the CRI \
  "
 
-SRCREV_cri-o = "65faae67828fb3eb3eac05b582aae9f9d1dea51c"
+SRCREV_cri-o = "774a29ecf6855f2dff266dc2aa2fe81d7d964465"
 SRC_URI = "\
-	git://github.com/kubernetes-incubator/cri-o.git;nobranch=1;name=cri-o \
+	git://github.com/kubernetes-sigs/cri-o.git;nobranch=1;name=cri-o \
 	file://0001-Makefile-force-symlinks.patch \
         file://crio.conf \
 	"
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.0.0-rc3-dev+git${SRCREV_cri-o}"
+PV = "1.12.0+git${SRCREV_cri-o}"
 
 DEPENDS = " \
     glib-2.0 \
@@ -69,15 +69,18 @@ do_compile() {
 	rm -f ${S}/src/import/vendor/src
 	ln -sf ./ ${S}/src/import/vendor/src
 
-	mkdir -p ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o
-	ln -sf ../../../../cmd ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/cmd
-	ln -sf ../../../../test ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/test
-	ln -sf ../../../../oci ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/oci
-	ln -sf ../../../../server ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/server
-	ln -sf ../../../../pkg ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/pkg
-	ln -sf ../../../../libpod ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/libpod
-	ln -sf ../../../../libkpod ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/libkpod
-	ln -sf ../../../../utils ${S}/src/import/vendor/github.com/kubernetes-incubator/cri-o/utils
+	mkdir -p ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o
+	ln -sf ../../../../cmd ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/cmd
+	ln -sf ../../../../test ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/test
+	ln -sf ../../../../oci ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/oci
+	ln -sf ../../../../server ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/server
+	ln -sf ../../../../pkg ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/pkg
+	ln -sf ../../../../libpod ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/libpod
+	ln -sf ../../../../libkpod ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/libkpod
+	ln -sf ../../../../utils ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/utils
+	ln -sf ../../../../types ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/types
+	ln -sf ../../../../version ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/version
+	ln -sf ../../../../lib ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/lib
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -111,12 +114,11 @@ do_install() {
     install -d ${D}/${sysconfdir}/crio/config/
     install -m 755 -D ${S}/src/import/test/testdata/* ${D}/${sysconfdir}/crio/config/
 
-    install ${S}/src/import/crio ${D}/${localbindir}
-    install ${S}/src/import/crioctl ${D}/${localbindir}
-    install ${S}/src/import/kpod ${D}/${localbindir}
+    install ${S}/src/import/bin/crio ${D}/${localbindir}
+    install ${S}/src/import/bin/crio-config ${D}/${localbindir}
 
-    install ${S}/src/import/conmon/conmon ${D}/${libexecdir}/crio
-    install ${S}/src/import/pause/pause ${D}/${libexecdir}/crio
+    install ${S}/src/import/bin/conmon ${D}/${localbindir}/crio
+    install ${S}/src/import/bin/pause ${D}/${localbindir}/crio
 
     install -m 0644 ${S}/src/import/contrib/systemd/crio.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/contrib/systemd/crio-shutdown.service  ${D}${systemd_unitdir}/system/
