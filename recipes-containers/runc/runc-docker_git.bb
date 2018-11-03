@@ -2,7 +2,7 @@ include runc.inc
 
 # Note: this rev is before the required protocol field, update when all components
 #       have been updated to match.
-SRCREV_runc-docker = "4fc53a81fb7c994640722ac585fa9ca548971871"
+SRCREV_runc-docker = "6a2c15596845f6ff5182e2022f38a65e5dfa88eb"
 SRC_URI = "git://github.com/opencontainers/runc;nobranch=1;name=runc-docker \
            file://0001-runc-Add-console-socket-dev-null.patch \
            file://0001-build-drop-recvtty-and-use-GOBUILDFLAGS.patch \

@@ -1,6 +1,6 @@
 include runc.inc
 
-SRCREV = "58415b4b12650291f435db8770cea48207b78afe"
+SRCREV = "6a2c15596845f6ff5182e2022f38a65e5dfa88eb"
 SRC_URI = " \
     git://github.com/opencontainers/runc;branch=master \
     "
