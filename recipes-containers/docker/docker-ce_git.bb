@@ -18,15 +18,12 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "0520e243029d1361649afb0706a1c5d9a1c012b8"
-SRCREV_libnetwork = "4cb38c2987c236dce03c868d99b57b1e28a4b81c"
-SRCREV_cli = "0f1bb353423e45e02315e985bd9ddebe6da18457"
+SRCREV_docker = "6e632f7fc395d15bce46f426086e91c01598cf59"
+SRCREV_libnetwork = "6da50d1978302f04c3e2089e29112ea24812f05b"
 SRC_URI = "\
-	git://github.com/docker/docker-ce.git;nobranch=1;name=docker \
-	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=libnetwork \
-	git://github.com/docker/cli;branch=master;name=cli;destsuffix=cli \
+	git://github.com/docker/docker-ce.git;branch=18.09;name=docker \
+	git://github.com/docker/libnetwork.git;branch=bump_18.09;name=libnetwork;destsuffix=git/libnetwork \
 	file://docker.init \
-	file://hi.Dockerfile \
 	"
 
 # Apache-2.0 for docker
@@ -37,7 +34,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "18.03.0-ce"
+DOCKER_VERSION = "18.09.0-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 DEPENDS = " \
@@ -92,8 +89,8 @@ do_compile() {
 	ln -sf ../../../../components/engine/ .gopath/src/"${DOCKER_PKG}"
 
 	mkdir -p .gopath/src/github.com/docker
-	ln -sf ${WORKDIR}/libnetwork .gopath/src/github.com/docker/libnetwork
-	ln -sf ${WORKDIR}/cli .gopath/src/github.com/docker/cli
+	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ${S}/src/import/components/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -111,17 +108,17 @@ do_compile() {
 
 	cd ${S}/src/import/components/engine
 
-	# this is the unsupported built structure
+	# this is the unsupported build structure
 	# that doesn't rely on an existing docker
 	# to build this:
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_docker}" ./hack/make.sh dynbinary
 
 	# build the proxy
-	go build -o ${S}/src/import/docker-proxy github.com/docker/libnetwork/cmd/proxy
+	cd ${S}/src/import/.gopath/src/github.com/docker/libnetwork
+	oe_runmake cross-local
 
         # build the cli
-	##go build -o ${S}/src/import/bundles/latest/dynbinary-client/docker github.com/docker/cli/cmd/docker
-	cd ${S}/src/import/.gopath/src/github.com/docker/cli
+	cd ${S}/src/import/components/cli
 	export CFLAGS=""
 	export LDFLAGS=""
 	export DOCKER_VERSION=${DOCKER_VERSION}
@@ -130,7 +127,6 @@ do_compile() {
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
-
 SYSTEMD_AUTO_ENABLE_${PN} = "enable"
 
 INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
@@ -139,9 +135,9 @@ INITSCRIPT_PARAMS_${PN} = "defaults"
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${WORKDIR}/cli/build/docker ${D}/${bindir}/docker
+	cp ${S}/src/import/components/cli/build/docker ${D}/${bindir}/docker
 	cp ${S}/src/import/components/engine/bundles/latest/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${S}/src/import/docker-proxy ${D}/${bindir}/docker-proxy
+	cp ${WORKDIR}/git/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
@@ -154,7 +150,6 @@ do_install() {
 	fi
 
 	mkdir -p ${D}${datadir}/docker/
-	cp ${WORKDIR}/hi.Dockerfile ${D}${datadir}/docker/
 	install -m 0755 ${S}/src/import/components/engine/contrib/check-config.sh ${D}${datadir}/docker/
 }
 

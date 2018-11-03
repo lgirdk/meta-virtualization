@@ -18,27 +18,26 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "708b068d3095c6a6be939eb2da78c921d2e945e2"
-SRCREV_libnetwork = "4cb38c2987c236dce03c868d99b57b1e28a4b81c"
-SRCREV_cli = "0f1bb353423e45e02315e985bd9ddebe6da18457"
+SRCREV_docker = "489b8eda6674523df8b82a210399b7d2954427d0"
+SRCREV_libnetwork = "6da50d1978302f04c3e2089e29112ea24812f05b"
+SRCREV_cli = "51668a30f26250ccfce31bcc13d9334eaafabe36"
 SRC_URI = "\
 	git://github.com/moby/moby.git;nobranch=1;name=docker \
-	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
-	git://github.com/docker/cli;branch=master;name=cli;destsuffix=git/cli \
+	git://github.com/docker/libnetwork.git;branch=bump_18.09;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/cli;branch=18.09;name=cli;destsuffix=git/cli \
 	file://docker.init \
-	file://hi.Dockerfile \
         file://0001-libnetwork-use-GO-instead-of-go.patch \
 	"
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "18.03.0"
+DOCKER_VERSION = "18.09.0"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 DEPENDS = " \
@@ -157,7 +156,6 @@ do_install() {
 	fi
 
 	mkdir -p ${D}${datadir}/docker/
-	cp ${WORKDIR}/hi.Dockerfile ${D}${datadir}/docker/
 	install -m 0755 ${S}/src/import/contrib/check-config.sh ${D}${datadir}/docker/
 }
 

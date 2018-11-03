@@ -11,24 +11,24 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
  Makefile | 14 +++++++-------
  1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/libnetwork/Makefile b/libnetwork/Makefile
-index 17060bc212c7..90cc7a72ef45 100644
---- a/libnetwork/Makefile
-+++ b/libnetwork/Makefile
-@@ -26,9 +26,9 @@ build: ${build_image}.created
+Index: git/libnetwork/Makefile
+===================================================================
+--- git.orig/libnetwork/Makefile
++++ git/libnetwork/Makefile
+@@ -45,9 +45,9 @@
  build-local:
  	@echo "🐳 $@"
  	@mkdir -p "bin"
 -	go build -tags experimental -o "bin/dnet" ./cmd/dnet
 -	go build -o "bin/docker-proxy" ./cmd/proxy
--	GOOS=linux go build -o "./cmd/diagnostic/diagnosticClient" ./cmd/diagnostic
+-	CGO_ENABLED=0 go build -o "bin/diagnosticClient" ./cmd/diagnostic
 +	$(GO) build -tags experimental -o "bin/dnet" ./cmd/dnet
 +	$(GO) build -o "bin/proxy" ./cmd/proxy
-+	GOOS=linux $(GO) build -o "./cmd/diagnostic/diagnosticClient" ./cmd/diagnostic
++	CGO_ENABLED=0 $(GO) build -o "bin/diagnosticClient" ./cmd/diagnostic
+ 	CGO_ENABLED=0 go build -o "bin/testMain" ./cmd/networkdb-test/testMain.go
  
- clean:
- 	@echo "🐳 $@"
-@@ -51,8 +51,8 @@ cross: ${build_image}.created
+ build-images:
+@@ -82,8 +82,8 @@
  
  cross-local:
  	@echo "🐳 $@"
@@ -37,9 +37,9 @@ index 17060bc212c7..90cc7a72ef45 100644
 +	@$(GO) build -linkshared $(GOBUILDFLAGS) -o "bin/docker-proxy-$$GOOS-$$GOARCH" ./cmd/proxy
 +	@$(GO) build -linkshared $(GOBUILDFLAGS) -o "bin/dnet-$$GOOS-$$GOARCH" ./cmd/dnet
  
- check: ${build_image}.created
- 	@${docker} ./wrapmake.sh check-local
-@@ -68,7 +68,7 @@ run-tests:
+ # Rebuild protocol buffers.
+ # These may need to be rebuilt after vendoring updates, so .proto files are declared .PHONY so they are always rebuilt.
+@@ -130,7 +130,7 @@
  	if ls $$dir/*.go &> /dev/null; then \
  		pushd . &> /dev/null ; \
  		cd $$dir ; \
@@ -48,7 +48,7 @@ index 17060bc212c7..90cc7a72ef45 100644
  		ret=$$? ;\
  		if [ $$ret -ne 0 ]; then exit $$ret; fi ;\
  		popd &> /dev/null; \
-@@ -94,7 +94,7 @@ coveralls:
+@@ -145,7 +145,7 @@
  # Depends on binaries because vet will silently fail if it can not load compiled imports
  vet: ## run go vet
  	@echo "🐳 $@"
@@ -57,6 +57,3 @@ index 17060bc212c7..90cc7a72ef45 100644
  
  misspell:
  	@echo "🐳 $@"
--- 
-2.4.0.53.g8440f74
-
