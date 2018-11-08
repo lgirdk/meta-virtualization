@@ -80,9 +80,7 @@ do_install_append () {
 }
 
 FILES_${PN} += "\
-                ${libdir}/rados-classes/*.so.* \
-"
-FILES_${PN}-dev += "\
+		${libdir}/rados-classes/*.so.* \
 		${libdir}/ceph/compressor/*.so \
 		${libdir}/rados-classes/*.so \
 		${libdir}/ceph/*.so \
@@ -102,3 +100,4 @@ PACKAGES += " \
 	${PN}-python \
 "
 INSANE_SKIP_${PN}-python += "ldflags"
+INSANE_SKIP_${PN} += "dev-so"
