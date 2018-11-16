@@ -62,7 +62,7 @@ DEPENDS = " \
 PACKAGES =+ "${PN}-contrib"
 
 DEPENDS_append_class-target = " lvm2"
-RDEPENDS_${PN} = "util-linux iptables \
+RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
                  "

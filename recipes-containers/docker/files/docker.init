@@ -22,7 +22,7 @@
 # Source function library.
 . /etc/init.d/functions
 
-prog="docker"
+prog="dockerd"
 unshare=/usr/bin/unshare
 exec="/usr/bin/$prog"
 pidfile="/var/run/$prog.pid"
@@ -40,7 +40,7 @@ start() {
     if ! [ -f $pidfile ]; then
         printf "Starting $prog:\t"
         echo -e "\n$(date)\n" >> $logfile
-        "$unshare" -m -- $exec daemon $other_args &>> $logfile &
+        "$unshare" -m -- $exec $other_args &>> $logfile &
         pid=$!
         touch $lockfile
         # wait up to 10 seconds for the pidfile to exist.  see
@@ -83,7 +83,7 @@ force_reload() {
 }
 
 rh_status() {
-    status -p $pidfile $prog
+    status $prog
 }
 
 rh_status_q() {
@@ -99,24 +99,28 @@ check_for_cleanup() {
 
 case "$1" in
     start)
+        rh_status_q && exit 0
         $1
         ;;
     stop)
+        rh_status_q || exit 0
         $1
         ;;
     restart)
         $1
         ;;
     reload)
+        rh_status_q || exit 7
         $1
         ;;
     force-reload)
         force_reload
         ;;
     status)
-        status
+        rh_status
         ;;
     condrestart|try-restart)
+        rh_status_q || exit 0
         restart
         ;;
     *)
