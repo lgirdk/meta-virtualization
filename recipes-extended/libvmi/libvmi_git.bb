@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING.LESSER;md5=e6a600fd5e1d9cbde2d983680233ad02"
 SECTION = "console/tools"
 PV = "0.12.0"
 
-DEPENDS = "libvirt libcheck bison fuse"
+DEPENDS = "libvirt libcheck bison fuse byacc-native"
 
 SRC_URI = "git://github.com/libvmi/libvmi.git \
 "
