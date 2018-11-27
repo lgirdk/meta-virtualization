@@ -14,11 +14,11 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.10.0+${SRCREV}"
+PV = "2.10.1+${SRCREV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "5563e309b80bbea9bff538e71ecfd7e5e538bab9"
+SRCREV = "78e203138cb7253e9ca5ad8a2c4ed6bb6752f23e"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
