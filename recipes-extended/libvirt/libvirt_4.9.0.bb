@@ -35,11 +35,10 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://install-missing-file.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
-           file://lxc_monitor-Avoid-AB-BA-lock-race.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "38da6c33250dcbc0a6d68de5c758262b"
-SRC_URI[libvirt.sha256sum] = "92c279f7321624ac5a37a81f8bbe8c8d2a16781da04c63c99c92d3de035767e4"
+SRC_URI[libvirt.md5sum] = "aaf7b265ac2013d6eb184a86b5f7eeb9"
+SRC_URI[libvirt.sha256sum] = "4fd4bfe7312b7996a817c7919cf0062de0d5b3c400c93bd30855a46c40dd455a"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd
 
