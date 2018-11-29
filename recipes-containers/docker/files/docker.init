@@ -28,7 +28,7 @@ exec="/usr/bin/$prog"
 pidfile="/var/run/$prog.pid"
 lockfile="/var/lock/subsys/$prog"
 logfile="/var/log/$prog"
-other_args="--registry-mirror=http://localhost:5000 --insecure-registry=http://localhost:5000 --raw-logs"
+other_args="--pidfile $pidfile --registry-mirror=http://localhost:5000 --insecure-registry=http://localhost:5000 --raw-logs"
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
 
