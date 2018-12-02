@@ -59,6 +59,12 @@ branch: master
 revision: HEAD
 prio: default
 
+Required for Ceph:
+URI: git://git.yoctoproject.org/meta-cloud-services
+branch: master
+revision: HEAD
+prio: default
+
 Maintenance
 -----------
 
