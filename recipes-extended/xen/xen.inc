@@ -992,17 +992,18 @@ do_install() {
     oe_runmake DESTDIR="${D}" install
 
     # remove installed volatiles
-    rm -rf ${D}${localstatedir}/run \
+    rm -rf ${D}${base_prefix}/run \
+        ${D}${localstatedir}/run \
         ${D}${localstatedir}/lock \
         ${D}${localstatedir}/log \
         ${D}${localstatedir}/volatile \
         ${D}${localstatedir}/lib/xen
 
     VOLATILE_DIRS=" \
-        ${localstatedir}/run/xenstored \
-        ${localstatedir}/run/xend \
-        ${localstatedir}/run/xend/boot \
-        ${localstatedir}/run/xen \
+        ${base_prefix}/run/xenstored \
+        ${base_prefix}/run/xend \
+        ${base_prefix}/run/xend/boot \
+        ${base_prefix}/run/xen \
         ${localstatedir}/log/xen \
         ${localstatedir}/lock/xen \
         ${localstatedir}/lock/subsys \
