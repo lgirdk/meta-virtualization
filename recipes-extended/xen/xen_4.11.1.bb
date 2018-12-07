@@ -10,7 +10,7 @@ SRC_URI = " \
     file://0001-python-pygrub-pass-DISTUTILS-env-vars-as-setup.py-ar.patch \
     "
 
-SRC_URI[md5sum] = "cbec0600284921744bc14119f4ed3fff"
-SRC_URI[sha256sum] = "826e3a9f6d0eac94a825d272cc2c1294e22640ae75af906eb13920f9ad667643"
+SRC_URI[md5sum] = "0c72b97432465e7f81113630fcd6e460"
+SRC_URI[sha256sum] = "be88cb2443761990efc1070d9718016561fe19066af232f9bfae572922897e59"
 
 S = "${WORKDIR}/xen-${PV}"
