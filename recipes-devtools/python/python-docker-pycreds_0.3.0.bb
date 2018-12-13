@@ -1,3 +1,3 @@
-inherit pypi setuptools3
+inherit pypi setuptools
 require python-docker-pycreds.inc
 
