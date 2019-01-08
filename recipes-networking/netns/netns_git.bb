@@ -15,6 +15,8 @@ S = "${WORKDIR}/git"
 inherit goarch
 inherit go
 
+EXTRA_OEMAKE = "GO='${GO}'"
+
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
