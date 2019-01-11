@@ -17,7 +17,7 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git \
            "
 
 SRCREV = "0e1882a49f81cb15d328ef83a78849c0ea26eecc"
-PV = "4.14.0+git${SRCREV}"
+PV = "4.14.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

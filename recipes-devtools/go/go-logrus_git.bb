@@ -10,7 +10,7 @@ PKG_NAME = "github.com/Sirupsen/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "d26492970760ca5d33129d2d799e34be5c4782eb"
-PV = "0.11.0+git${SRCREV}"
+PV = "0.11.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

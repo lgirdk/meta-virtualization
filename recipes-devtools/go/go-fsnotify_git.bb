@@ -10,7 +10,7 @@ PKG_NAME = "github.com/fsnotify/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "836bfd95fecc0f1511dd66bdbf2b5b61ab8b00b6"
-PV = "1.2.11+git${SRCREV}"
+PV = "1.2.11+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

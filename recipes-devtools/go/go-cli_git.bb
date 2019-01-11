@@ -10,7 +10,7 @@ PKG_NAME = "github.com/codegangsta/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "27ecc97192df1bf053a22b04463f2b51b8b8373e"
-PV = "1.1.0+git${SRCREV}"
+PV = "1.1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

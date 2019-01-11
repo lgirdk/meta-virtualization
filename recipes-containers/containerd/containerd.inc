@@ -12,7 +12,7 @@ SRC_URI += "file://containerd.service"
 
 S = "${WORKDIR}/git"
 
-PV = "${CONTAINERD_VERSION}+git${SRCREV}"
+PV = "${CONTAINERD_VERSION}+git${SRCPV}"
 
 inherit go
 inherit goarch

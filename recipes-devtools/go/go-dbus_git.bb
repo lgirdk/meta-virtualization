@@ -10,7 +10,7 @@ PKG_NAME = "github.com/godbus/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "5f6efc7ef2759c81b7ba876593971bfce311eab3"
-PV = "4.0.0+git${SRCREV}"
+PV = "4.0.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

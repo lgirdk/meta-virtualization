@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/hyperhq/hyperstart.git"
 SRC_URI += "file://0001-container.c-Fix-compiler-errors-that-gcc-8.1.0-repor.patch"
 
 SRCREV = "15bb718ad34045aa1962a8204f602c6afe9a76ab"
-PV = "v0.2+git${SRCREV}"
+PV = "v0.2+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
