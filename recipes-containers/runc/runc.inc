@@ -17,7 +17,6 @@ inherit pkgconfig
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
 
-RRECOMMENDS_${PN} = "lxc docker"
 PROVIDES += "virtual/runc"
 RPROVIDES_${PN} = "virtual/runc"
 
