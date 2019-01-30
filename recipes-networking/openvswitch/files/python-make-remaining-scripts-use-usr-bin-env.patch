@@ -1,6 +1,6 @@
-From a0a2d829642e916bd5d1c498a3e6f3641ed717a0 Mon Sep 17 00:00:00 2001
-From: Mark Asselstine <mark.asselstine@windriver.com>
-Date: Fri, 13 Jan 2017 16:12:55 -0500
+From a348e0162343f7d46443eb1fd2bcf0698460a780 Mon Sep 17 00:00:00 2001
+From: "Hongzhi.Song" <hongzhi.song@windriver.com>
+Date: Wed, 23 Jan 2019 04:28:28 -0500
 Subject: [PATCH] python: make remaining scripts use /usr/bin/env
 
 Unfortunately there is no concept of a host python vs. target python
@@ -12,6 +12,7 @@ PYTHON. To make this function smoothly all installed scripts should
 make use of /usr/bin/env to increase the chances of finding python.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+Signed-off-by: Hongzhi.Song <hongzhi.song@windriver.com>
 ---
  build-aux/check-structs                     | 2 +-
  build-aux/dpdkstrip.py                      | 2 +-
@@ -68,17 +69,17 @@ index 48c7f06..b8b8ba9 100755
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
 diff --git a/build-aux/extract-ofp-actions b/build-aux/extract-ofp-actions
-index bd7131f..4d05ef9 100755
+index 64de0f3..f6bca0b 100755
 --- a/build-aux/extract-ofp-actions
 +++ b/build-aux/extract-ofp-actions
 @@ -1,4 +1,4 @@
 -#! /usr/bin/python
 +#! /usr/bin/env python3
  
+ import getopt
  import sys
- import os.path
 diff --git a/build-aux/extract-ofp-errors b/build-aux/extract-ofp-errors
-index 71ae0bd..58ba006 100755
+index 6f64efd..c410fd4 100755
 --- a/build-aux/extract-ofp-errors
 +++ b/build-aux/extract-ofp-errors
 @@ -1,4 +1,4 @@
@@ -88,7 +89,7 @@ index 71ae0bd..58ba006 100755
  import sys
  import os.path
 diff --git a/build-aux/extract-ofp-fields b/build-aux/extract-ofp-fields
-index 184b75e..cf339f8 100755
+index 3592594..2fc8317 100755
 --- a/build-aux/extract-ofp-fields
 +++ b/build-aux/extract-ofp-fields
 @@ -1,4 +1,4 @@
@@ -148,7 +149,7 @@ index bd4e879..db45c56 100755
  # Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015, 2016 Nicira, Inc.
  #
 diff --git a/ovn/utilities/ovn-detrace.in b/ovn/utilities/ovn-detrace.in
-index e2e5b4c..5549219 100755
+index c842adc..9e95183 100755
 --- a/ovn/utilities/ovn-detrace.in
 +++ b/ovn/utilities/ovn-detrace.in
 @@ -1,4 +1,4 @@
@@ -208,7 +209,7 @@ index 8eea617..38ba33a 100755
  from datetime import date
  import ovs.db.error
 diff --git a/ovsdb/ovsdb-idlc.in b/ovsdb/ovsdb-idlc.in
-index 1ea2115..4ecb2e2 100755
+index 40fef39..84c63a6 100755
 --- a/ovsdb/ovsdb-idlc.in
 +++ b/ovsdb/ovsdb-idlc.in
 @@ -1,4 +1,4 @@
@@ -228,7 +229,7 @@ index b8027af..8f52803 100755
  # Copyright (c) 2008, 2017 Nicira, Inc.
  #
 diff --git a/tests/flowgen.py b/tests/flowgen.py
-index 221a8f2..5d96d76 100755
+index 976fe7a..7ef32d1 100755
 --- a/tests/flowgen.py
 +++ b/tests/flowgen.py
 @@ -1,4 +1,4 @@
@@ -258,7 +259,7 @@ index ea72812..f1a9aff 100755
  import re
  import sys
 diff --git a/utilities/bugtool/ovs-bugtool.in b/utilities/bugtool/ovs-bugtool.in
-index 8d220fd..76cedf4 100755
+index 288c34f..b5a6906 100755
 --- a/utilities/bugtool/ovs-bugtool.in
 +++ b/utilities/bugtool/ovs-bugtool.in
 @@ -1,4 +1,4 @@
@@ -308,7 +309,7 @@ index 350cbd9..1960fb4 100755
  # Copyright (c) 2012 Nicira, Inc.
  #
 diff --git a/utilities/ovs-pcap.in b/utilities/ovs-pcap.in
-index fc15321..bd55a41 100755
+index 7bebc07..b4e5ca8 100755
 --- a/utilities/ovs-pcap.in
 +++ b/utilities/ovs-pcap.in
 @@ -1,4 +1,4 @@
@@ -318,7 +319,7 @@ index fc15321..bd55a41 100755
  # Copyright (c) 2010 Nicira, Inc.
  #
 diff --git a/utilities/ovs-tcpdump.in b/utilities/ovs-tcpdump.in
-index 91fa14e..bad67b7 100755
+index 22f249f..ff2a51e 100755
 --- a/utilities/ovs-tcpdump.in
 +++ b/utilities/ovs-tcpdump.in
 @@ -1,4 +1,4 @@
@@ -328,7 +329,7 @@ index 91fa14e..bad67b7 100755
  # Copyright (c) 2016 Red Hat, Inc.
  #
 diff --git a/utilities/ovs-tcpundump.in b/utilities/ovs-tcpundump.in
-index c99015b..9a617ce 100755
+index c298700..0d8b8da 100755
 --- a/utilities/ovs-tcpundump.in
 +++ b/utilities/ovs-tcpundump.in
 @@ -1,4 +1,4 @@
@@ -358,7 +359,7 @@ index e229498..5b70118 100755
  # Copyright (c) 2010 Nicira, Inc.
  #
 diff --git a/vtep/ovs-vtep.in b/vtep/ovs-vtep.in
-index 98748e4..3f12ae2 100755
+index 3383870..42f98db 100755
 --- a/vtep/ovs-vtep.in
 +++ b/vtep/ovs-vtep.in
 @@ -1,4 +1,4 @@
@@ -368,5 +369,5 @@ index 98748e4..3f12ae2 100755
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
 -- 
-2.7.4
+2.8.1
 

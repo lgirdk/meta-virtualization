@@ -14,17 +14,17 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.10.1+${SRCPV}"
+PV = "2.11+${SRCPV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "78e203138cb7253e9ca5ad8a2c4ed6bb6752f23e"
+SRCREV = "f22ca8011fdb7e81ffce5017cd26539bccf50e94"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.10 \
-           file://openvswitch-add-ptest-${SRCREV}.patch \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.11 \
+           file://openvswitch-add-ptest-78e203138cb7253e9ca5ad8a2c4ed6bb6752f23e.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
            file://kernel_module.patch \
