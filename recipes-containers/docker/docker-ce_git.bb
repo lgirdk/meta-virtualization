@@ -148,6 +148,9 @@ do_install() {
 		install -d ${D}${sysconfdir}/init.d
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
+	# TLS key that docker creates at run-time if not found is what resides here
+	install -d ${D}${sysconfdir}
+	ln -s ..${localstatedir}/run/docker ${D}${sysconfdir}/docker
 
 	mkdir -p ${D}${datadir}/docker/
 	install -m 0755 ${S}/src/import/components/engine/contrib/check-config.sh ${D}${datadir}/docker/
@@ -157,7 +160,7 @@ inherit useradd
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r docker"
 
-FILES_${PN} += "${systemd_unitdir}/system/*"
+FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
 
 FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
 RDEPENDS_${PN}-contrib += "bash"
