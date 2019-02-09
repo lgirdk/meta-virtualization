@@ -7,10 +7,10 @@ maintenance, and scaling of applications. \
 
 # Note: 1.11+ requires go 1.10.2+, so the following must be set
 #       in your configuration: GOVERSION = "1.10%"
-PV = "1.12.0+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "d93ba8b6d1e2afcb30da3e354928ed00e6682223"
+PV = "1.14.0-alpha.2+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "3b3b79fe2c96d7f8bc72638c1a64c9498ee77d6f"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.12;name=kubernetes \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
           "
