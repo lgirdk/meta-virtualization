@@ -34,14 +34,24 @@ do_compile() {
     ln -sf ./ ${S}/src/import/vendor/src
 
     mkdir -p ${S}/src/import/vendor/src/github.com/containerd/containerd/
+    mkdir -p ${S}/src/import/vendor/src/github.com/containerd/containerd/pkg/
+    mkdir -p ${S}/src/import/vendor/src/github.com/containerd/containerd/contrib/
     # without this, the stress test parts of the build fail
     cp ${S}/src/import/*.go ${S}/src/import/vendor/src/github.com/containerd/containerd
 
     for c in content errdefs fs images mount snapshots linux api runtimes defaults progress \
 		     protobuf reference diff platforms runtime remotes version archive dialer gc metadata \
 		     metrics filters identifiers labels leases plugin server services \
-		     cmd cio containers namespaces oci events log reaper sys rootfs; do
-	ln -sfn ${S}/src/import/${c} ${S}/src/import/vendor/github.com/containerd/containerd/${c}
+		     cmd cio containers namespaces oci events log reaper sys rootfs nvidia seed apparmor seccomp; do
+        if [ -d ${S}/src/import/${c} ]; then
+	    ln -sfn ${S}/src/import/${c} ${S}/src/import/vendor/github.com/containerd/containerd/${c}
+        fi
+        if [ -d ${S}/src/import/pkg/${c} ]; then
+            ln -sfn ${S}/src/import/pkg/${c} ${S}/src/import/vendor/github.com/containerd/containerd/pkg/${c}
+        fi
+        if [ -d ${S}/src/import/contrib/${c} ]; then
+            ln -sfn ${S}/src/import/contrib/${c} ${S}/src/import/vendor/github.com/containerd/containerd/contrib/${c}
+        fi
     done
 
     export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"

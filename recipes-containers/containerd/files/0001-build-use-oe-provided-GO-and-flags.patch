@@ -1,26 +1,45 @@
-From e31acef290181434efaf47e70db7ad0d92dbe300 Mon Sep 17 00:00:00 2001
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date: Thu, 19 Apr 2018 17:09:51 -0400
+From 408e8b526d490af817a64b7220e8e2c3789de58f Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Sun, 10 Feb 2019 23:46:06 +0000
 Subject: [PATCH] build: use oe provided GO and flags
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+We want to use the go compiler as defined in the oe-enviroment, not the
+generic call to 'go'. Without changing this, we'll get things like cgo
+errors and invalid flag combos.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
- Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/import/Makefile b/src/import/Makefile
-index 9d8cf8a18fbc..492d033fe2a7 100644
+index 8e680133..fd7d2813 100644
 --- a/src/import/Makefile
 +++ b/src/import/Makefile
-@@ -134,7 +134,7 @@ bin/%: cmd/% FORCE
+@@ -179,19 +179,19 @@ FORCE:
+ # Build a binary from a cmd.
+ bin/%: cmd/% FORCE
+ 	@echo "$(WHALE) $@${BINARY_SUFFIX}"
+-	@go build ${DEBUG_GO_GCFLAGS} ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
++	@$(GO) build ${GO_BUILD_FLAGS} ${DEBUG_GO_GCFLAGS} ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
  
  bin/containerd-shim: cmd/containerd-shim FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
  	@echo "$(WHALE) bin/containerd-shim"
--	@CGO_ENABLED=0 go build -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
-+	@$(GO) build -o bin/containerd-shim ${SHIM_GO_LDFLAGS} $(GOBUILDFLAGS) ${GO_TAGS} ./cmd/containerd-shim
+-	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
++	@$(GO) build ${GO_BUILD_FLAGS} -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
+ 
+ bin/containerd-shim-runc-v1: cmd/containerd-shim-runc-v1 FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
+ 	@echo "$(WHALE) bin/containerd-shim-runc-v1"
+-	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v1 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v1
++	@$(GO) build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v1 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v1
+ 
+ bin/containerd-shim-runhcs-v1: cmd/containerd-shim-runhcs-v1 FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
+ 	@echo "$(WHALE) bin/containerd-shim-runhcs-v1${BINARY_SUFFIX}"
+-	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runhcs-v1${BINARY_SUFFIX} ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runhcs-v1
++	@$(GO) build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runhcs-v1${BINARY_SUFFIX} ${SHIM_GO_LDFLAGS} $(GOBUILDFLAGS) ${GO_TAGS} ./cmd/containerd-shim-runhcs-v1
  
  binaries: $(BINARIES) ## build binaries
  	@echo "$(WHALE) $@"
 -- 
-2.4.0.53.g8440f74
+2.19.1
 
