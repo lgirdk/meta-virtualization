@@ -101,3 +101,4 @@ PACKAGES += " \
 "
 INSANE_SKIP_${PN}-python += "ldflags"
 INSANE_SKIP_${PN} += "dev-so"
+CCACHE_DISABLE = "1"
