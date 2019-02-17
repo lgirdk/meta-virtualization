@@ -15,7 +15,6 @@ RDEPENDS_${PN} = " \
 		perl-module-strict \
 		perl-module-getopt-long \
 		perl-module-vars \
-		perl-module-warnings-register \
 		perl-module-exporter \
 		perl-module-constant \
 		perl-module-overload \
