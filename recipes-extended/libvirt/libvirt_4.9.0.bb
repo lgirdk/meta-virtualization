@@ -35,12 +35,16 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://install-missing-file.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
+           file://hook_support.py \
           "
 
 SRC_URI[libvirt.md5sum] = "aaf7b265ac2013d6eb184a86b5f7eeb9"
 SRC_URI[libvirt.sha256sum] = "4fd4bfe7312b7996a817c7919cf0062de0d5b3c400c93bd30855a46c40dd455a"
 
-inherit autotools gettext update-rc.d pkgconfig ptest systemd
+inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd
+USERADD_PACKAGES = "${PN}"
+GROUPADD_PARAM_${PN} = "-r qemu; -r kvm"
+USERADD_PARAM_${PN} = "-r -g qemu -G kvm qemu"
 
 # Override the default set in autotools.bbclass so that we will use relative pathnames
 # to our local m4 files.  This prevents an "Argument list too long" error during configuration
@@ -180,9 +184,11 @@ PRIVATE_LIBS_${PN}-ptest = " \
 # full config
 PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
                    remote macvtap libvirtd netcf udev python ebtables \
+                   fuse iproute2 firewalld libpcap \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'libxl', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'polkit', '', d)} \
+                   ${@bb.utils.contains('KARCH', 'arm', '', 'numactl', d)} \
                   "
 
 # qemu is NOT compatible with mips64
@@ -221,6 +227,10 @@ PACKAGECONFIG[fuse] = "--with-fuse,--without-fuse,fuse,"
 PACKAGECONFIG[audit] = "--with-audit,--without-audit,audit,"
 PACKAGECONFIG[libcap-ng] = "--with-capng,--without-capng,libcap-ng,"
 PACKAGECONFIG[wireshark] = "--with-wireshark-dissector,--without-wireshark-dissector,wireshark libwsutil,"
+PACKAGECONFIG[apparmor-profiles] = "--with-apparmor-profiles, --without-apparmor-profiles,"
+PACKAGECONFIG[firewalld] = "--with-firewalld, --without-firewalld,"
+PACKAGECONFIG[libpcap] = "--with-libpcap, --without-libpcap,libpcap,libpcap"
+PACKAGECONFIG[numad] = "--with-numad, --without-numad,"
 
 # Enable the Python tool support
 require libvirt-python.inc
@@ -281,6 +291,10 @@ do_install_append() {
 
 	# Add hook support for libvirt
 	mkdir -p ${D}/etc/libvirt/hooks
+	for hook in "daemon" "lxc" "network" "qemu"
+	do
+		install -m 0755 ${WORKDIR}/hook_support.py ${D}/etc/libvirt/hooks/${hook}
+	done
 
 	# Force the main dnsmasq instance to bind only to specified interfaces and
 	# to not bind to virbr0. Libvirt will run its own instance on this interface.
@@ -290,11 +304,19 @@ do_install_append() {
 	for i in `find ${D}${libdir} -type f -name *.la`; do
 	    sed -i -e 's#-L${B}/src/.libs##g' $i
 	done
+
+	sed -i -e 's/^\(unix_sock_group\ =\ \).*/\1"kvm"/' ${D}/etc/libvirt/libvirtd.conf
+	sed -i -e 's/^\(unix_sock_rw_perms\ =\ \).*/\1"0776"/' ${D}/etc/libvirt/libvirtd.conf
+	chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
+	echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
+	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 }
 
 EXTRA_OECONF += " \
     --with-init-script=systemd \
     --with-test-suite \
+    --with-qemu-user=qemu \
+    --with-qemu-group=qemu \
     "
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
@@ -318,6 +340,7 @@ pkg_postinst_${PN}() {
         if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
                 /etc/init.d/populate-volatile.sh update
         fi
+        mkdir -m 711 -p $D/data/images
 }
 
 python () {
