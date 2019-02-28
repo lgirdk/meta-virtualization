@@ -54,6 +54,7 @@ export C_INCLUDE_PATH="${STAGING_INCDIR}/libnl3"
 
 export BUILD_SYS
 export HOST_SYS
+export HOSTCFLAGS = "${BUILD_CFLAGS}"
 
 inherit setuptools
 
