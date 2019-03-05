@@ -3,14 +3,14 @@ SUMMARY = "The Docker toolset to pack, ship, store, and deliver content"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d2794c0df5b907fdace235a619d80314"
 
-SRCREV_distribution="48294d928ced5dd9b378f7fd7c6f5da3ff3f2c89"
-SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.6;name=distribution;destsuffix=git/src/github.com/docker/distribution \
+SRCREV_distribution="2461543d988979529609e8cb6fca9ca190dc48da"
+SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.7;name=distribution;destsuffix=git/src/github.com/docker/distribution \
            file://docker-registry.service \
           "
 
 PACKAGES =+ "docker-registry"
 
-PV = "v2.6.2"
+PV = "v2.7.1"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
 GO_IMPORT = "import"
