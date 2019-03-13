@@ -2,27 +2,24 @@ SUMMARY = "User space components of the Ceph file system"
 LICENSE = "LGPLv2.1 & GPLv2 & Apache-2.0 & MIT"
 LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 \
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING;md5=92d301c8fccd296f2221a68a8dd53828 \
+                    file://COPYING;md5=601c21a554d728c3038ca292b83b8af0 \
 "
 inherit cmake pythonnative python-dir systemd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
 # pybind mix cmake and python setup environment, would case a lot of errors.
 
 SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
-           file://0001-Correct-the-path-to-find-version.h-in-rocksdb.patch \
-           file://0001-zstd-fix-error-for-cross-compile.patch \
-           file://0001-ceph-add-pybind-support-in-OE.patch \
-           file://0001-ceph-detect-init-correct-the-installation-for-OE.patch \
+           file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://ceph.conf \
 "
-SRC_URI[md5sum] = "ce118be451dcb6b89e9e0a45057827dd"
-SRC_URI[sha256sum] = "f3a61db4c90e00c38a2dac7239b956ec367ef56f601e07335ed3011f931d8840"
+SRC_URI[md5sum] = "67b53eeb0f241c3011e7f40925aa7e08"
+SRC_URI[sha256sum] = "9ef726d7e73ce4d9510ad899493258374f1b40ba20a26b72bbbedb0bfb6dffd8"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
            nspr nss \
            oath openldap openssl \
-           python python-cython-native rocksdb snappy udev \
+           python python-cython-native rabbitmq-c rocksdb snappy udev \
            valgrind xfsprogs zlib \
 "
 SYSTEMD_SERVICE_${PN} = " \
@@ -32,7 +29,6 @@ SYSTEMD_SERVICE_${PN} = " \
 	ceph-mon.target \
         ceph-mds@.service \
 	ceph-mds.target \
-        ceph-disk@.service \
         ceph-osd@.service \
 	ceph-osd.target \
         ceph.target \
@@ -43,6 +39,7 @@ SYSTEMD_SERVICE_${PN} = " \
 	ceph-volume@.service \
 	ceph-mgr@.service \
 	ceph-mgr.target \
+	ceph-crash.service \
 	rbdmap.service \
 "
 OECMAKE_GENERATOR = "Unix Makefiles"
@@ -58,6 +55,8 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
                  -DWITH_MGR_DASHBOARD_FRONTEND=OFF \
                  -DWITH_SYSTEM_BOOST=ON \
                  -DWITH_SYSTEM_ROCKSDB=ON \
+                 -DWITH_RDMA=OFF \
+                 -DWITH_RADOSGW_AMQP_ENDPOINT=OFF \
 "
 
 do_configure_prepend () {
@@ -68,8 +67,9 @@ do_configure_prepend () {
 
 do_install_append () {
 	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph
-	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-disk
-	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-detect-init
+	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-crash
+	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-volume
+	sed -i -e 's:${WORKDIR}.*python2:${bindir}/python:' ${D}${bindir}/ceph-volume-systemd
 	find ${D} -name SOURCES.txt | xargs sed -i -e 's:${WORKDIR}::'
 	install -d ${D}${sysconfdir}/ceph
 	install -m 644 ${WORKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
