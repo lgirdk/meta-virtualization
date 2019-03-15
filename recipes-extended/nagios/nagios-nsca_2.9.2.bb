@@ -6,18 +6,17 @@ SECTION = "console/network"
 PRIORITY = "optional"
 LICENSE = "GPLv2"
 
-LIC_FILES_CHKSUM = "file://src/nsca.c;beginline=1;endline=16;md5=c1bd17485c5c1dd42f664fe8b3528674"
+LIC_FILES_CHKSUM = "file://src/nsca.c;beginline=1;endline=16;md5=dd7a195cc7d8a3ebcfabd65360d0cab4"
 
 SRCNAME = "nsca"
 
 SRC_URI = "http://prdownloads.sourceforge.net/sourceforge/nagios/${SRCNAME}-${PV}.tar.gz \
            file://init-script.in \
            file://nagios-nsca.service \
-           file://0001-Fix-missing-argument-in-open-calls.patch \
 "
 
-SRC_URI[md5sum] = "3fe2576a8cc5b252110a93f4c8d978c6"
-SRC_URI[sha256sum] = "fb12349e50838c37954fe896ba6a026c09eaeff2f9408508ad7ede53e9ea9580"
+SRC_URI[md5sum] = "43f638c51367a3170476ed106fbb4858"
+SRC_URI[sha256sum] = "96eb04ef695873ce462e3f8db08e8a49456ff9595d11acf70a3dd8a2c4af3b5e"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
@@ -26,7 +25,7 @@ inherit update-rc.d autotools-brokensep systemd dos2unix
 DEPENDS = "libmcrypt"
 
 EXTRA_OECONF += "--with-nsca-user=${NAGIOS_USER} \
-                 --with-nsca-group=${NAGIOS_GROUP} \
+                 --with-nsca-grp=${NAGIOS_GROUP} \
                  --with-libmcrypt-prefix=${STAGING_DIR_HOST} \
                  ac_cv_path_LIBMCRYPT_CONFIG=${STAGING_BINDIR_CROSS}/libmcrypt-config \
                  ac_cv_lib_wrap_main=no \
