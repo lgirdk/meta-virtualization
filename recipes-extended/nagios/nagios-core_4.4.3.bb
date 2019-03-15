@@ -20,8 +20,8 @@ SRC_URI = "http://prdownloads.sourceforge.net/sourceforge/${SRCNAME}/${SRCNAME}-
            file://nagios-core-systemd-volatile.conf \
            "
 
-SRC_URI[md5sum] = "7a9736281d4e2ebe4f4569a782f733c5"
-SRC_URI[sha256sum] = "3418923f326aa86dc8c84cfd0df788fa495a90d772f8071acf40fdbef0736853"
+SRC_URI[md5sum] = "8beb253b1236ee1407f698b5d2a2d894"
+SRC_URI[sha256sum] = "bba8f0e8dc8cf72f7a7ae4e8ce9c60f5bd315629421b9ec34818a28b8da49f67"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
