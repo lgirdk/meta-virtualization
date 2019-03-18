@@ -197,7 +197,7 @@ PACKAGECONFIG_remove_mipsarchn64 = "qemu"
 
 # enable,disable,depends,rdepends
 #
-PACKAGECONFIG[qemu] = "--with-qemu,--without-qemu,qemu,"
+PACKAGECONFIG[qemu] = "--with-qemu --with-qemu-user=qemu --with-qemu-group=qemu,--without-qemu,qemu,"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
 PACKAGECONFIG[xenapi] = "--with-xenapi,--without-xenapi,,"
 PACKAGECONFIG[libxl] = "--with-libxl=${STAGING_DIR_TARGET}/lib,--without-libxl,xen,"
@@ -315,8 +315,6 @@ do_install_append() {
 EXTRA_OECONF += " \
     --with-init-script=systemd \
     --with-test-suite \
-    --with-qemu-user=qemu \
-    --with-qemu-group=qemu \
     "
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
