@@ -1,0 +1,54 @@
+From 09524d187ef108784c854a0c247ac6476a10bb67 Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Mon, 18 Mar 2019 14:04:16 -0400
+Subject: [PATCH] Makefile: force rebuilding all packages to avoid cgo
+
+We are running into an issue when attempting to build 'static',
+similar to what is described by
+
+https://plus.google.com/117192131596509381660/posts/eNnNePihYnK
+and
+https://github.com/golang/go/issues/9369
+
+In our case we can see that it manifests as a build error
+
+    cannot find package runtime/cgo (using -importcfg)
+    ...go/pkg/tool/linux_amd64/link: cannot open file : open : no such file or directory
+
+Although the descriptions of issue indicate that newer versions of GO,
+such as the version we are using, should not have this issue it is
+clear from the error that cgo is being referenced when it should be
+out of the picture.
+
+Interesting enough this issue only manifests when we are building on
+x86-64 and building for x86-64 which might indicate that GO might be
+finding -native packages and not -cross packages.
+
+This change works around the issue and will allow for the building of
+the 'static' make target, but at this time and until the issue is
+completely understood, it is recommended that the 'build' target is
+used.
+
+Upstream-Status: Inappropriate [only an issue with our builds]
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 476cb9b..ecd0df4 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -41,7 +41,7 @@ $(NAME): *.go VERSION.txt
+ .PHONY: static
+ static: ## Builds a static executable
+ 	@echo "+ $@"
+-	CGO_ENABLED=0 $(GO) build \
++	CGO_ENABLED=0 $(GO) build -a -pkgdir dontusecurrentpkgs \
+ 				-tags "$(BUILDTAGS) static_build" \
+ 				${GO_LDFLAGS_STATIC} -o $(NAME) .
+ 
+-- 
+2.7.4
+

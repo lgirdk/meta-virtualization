@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=48ef0979a2bcc3fae14ff30b8a7f5d
 
 SRC_URI = "git://github.com/genuinetools/netns;branch=master \
            file://0001-Allow-selection-of-go-compiler.patch \
+           file://Makefile-force-rebuilding-all-packages-to-avoid-cgo.patch \
           "
 SRCREV = "0da6ab0997707024debe68c91e940c9168041bf8"
 PV = "0.4.0"
@@ -42,7 +43,9 @@ do_compile() {
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
 	cd ${S}/src/import
-	oe_runmake static
+	# Static builds work but are not recommended. See Makefile*cgo patch.
+	#oe_runmake static
+	oe_runmake build
 }
 
 do_install() {
