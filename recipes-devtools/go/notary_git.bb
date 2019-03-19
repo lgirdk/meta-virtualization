@@ -2,15 +2,15 @@ DESCRIPTION = "Notary is a Docker project that allows anyone to have trust over 
 HOMEPAGE = "https://github.com/docker/notary"
 SECTION = "devel/go"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=771ddb425ba03c8fab49e5bd9854a4a2"
+LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=3596b980bb036e0875174ed15e4b982a"
 
 SRCNAME = "notary"
 
 PKG_NAME = "github.com/docker/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
 
-SRCREV = "c8aa8cf53cbcda2e92def0c9291e25d770493494"
-PV = "0.4.2+git${SRCPV}"
+SRCREV = "d6e1431feb32348e0650bf7551ac5cffd01d857b"
+PV = "0.6.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
