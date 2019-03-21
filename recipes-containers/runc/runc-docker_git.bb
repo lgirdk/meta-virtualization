@@ -1,7 +1,5 @@
 include runc.inc
 
-RRECOMMENDS_${PN} = "lxc docker"
-
 # Note: this rev is before the required protocol field, update when all components
 #       have been updated to match.
 SRCREV_runc-docker = "6635b4f0c6af3810594d2770f662f34ddc15b40d"
