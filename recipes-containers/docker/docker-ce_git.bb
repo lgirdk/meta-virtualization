@@ -65,11 +65,12 @@ DEPENDS_append_class-target = " lvm2"
 RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
+                  bridge-utils \
+                  ca-certificates \
                  "
 RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
 RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
-RSUGGESTS_${PN} = "lxc rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
 inherit systemd update-rc.d
