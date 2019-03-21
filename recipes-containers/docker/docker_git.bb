@@ -46,6 +46,8 @@ SRC_URI = "\
         file://0001-libnetwork-use-GO-instead-of-go.patch \
 	"
 
+require docker.inc
+
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
@@ -57,48 +59,12 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "18.09.3"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
-DEPENDS = " \
-    go-cli \
-    go-pty \
-    go-context \
-    go-mux \
-    go-patricia \
-    go-logrus \
-    go-fsnotify \
-    go-dbus \
-    go-capability \
-    go-systemd \
-    btrfs-tools \
-    sqlite3 \
-    go-distribution \
-    compose-file \
-    go-connections \
-    notary \
-    grpc-go \
-    libtool \
-    "
-
-PACKAGECONFIG ??= ""
-PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
-
 PACKAGES =+ "${PN}-contrib"
 
-DEPENDS_append_class-target = " lvm2"
-RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
-                  ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
-                  ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
-                  bridge-utils \
-                  ca-certificates \
-                 "
-RDEPENDS_${PN} += "virtual/containerd virtual/runc"
-
-RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat docker-init"
 DOCKER_PKG="github.com/docker/docker"
 
-inherit systemd update-rc.d
 inherit go
 inherit goarch
-inherit pkgconfig
 
 do_configure[noexec] = "1"
 
@@ -148,15 +114,6 @@ do_compile() {
 	oe_runmake cross-local
 }
 
-SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
-
-SYSTEMD_AUTO_ENABLE_${PN} = "enable"
-
-INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
-INITSCRIPT_NAME_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
-INITSCRIPT_PARAMS_${PN} = "defaults"
-
 do_install() {
 	mkdir -p ${D}/${bindir}
 	cp ${WORKDIR}/git/cli/build/docker ${D}/${bindir}/docker
@@ -180,17 +137,7 @@ do_install() {
 	install -m 0755 ${S}/src/import/contrib/check-config.sh ${D}${datadir}/docker/
 }
 
-inherit useradd
-USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "-r docker"
-
 FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
 
 FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
 RDEPENDS_${PN}-contrib += "bash"
-
-# DO NOT STRIP docker
-INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP_${PN} += "ldflags textrel"
-
-COMPATIBLE_HOST = "^(?!(qemu)?mips).*"

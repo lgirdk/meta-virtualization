@@ -9,8 +9,8 @@ DESCRIPTION = "Linux container runtime \
  large-scale web deployments, database clusters, continuous deployment \
  systems, private PaaS, service-oriented architectures, etc. \
  . \
- This package contains the daemon and client. Using docker.io is \
- officially supported on x86_64 and arm (32-bit) hosts. \
+ This package contains the daemon and client, which are \
+ officially supported on x86_64 and arm hosts. \
  Other architectures are considered experimental. \
  . \
  Also, note that kernel version 3.10 or above is required for proper \
@@ -26,6 +26,8 @@ SRC_URI = "\
 	file://docker.init \
 	"
 
+require docker.inc
+
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/components/engine/LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
@@ -37,43 +39,10 @@ S = "${WORKDIR}/git"
 DOCKER_VERSION = "18.09.3-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
-DEPENDS = " \
-    go-cli \
-    go-pty \
-    go-context \
-    go-mux \
-    go-patricia \
-    go-logrus \
-    go-fsnotify \
-    go-dbus \
-    go-capability \
-    go-systemd \
-    btrfs-tools \
-    sqlite3 \
-    go-distribution \
-    compose-file \
-    go-connections \
-    notary \
-    grpc-go \
-    libtool-native \
-    libtool \
-    "
-
 PACKAGES =+ "${PN}-contrib"
 
-DEPENDS_append_class-target = " lvm2"
-RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
-                  ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
-                  ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
-                  bridge-utils \
-                  ca-certificates \
-                 "
-RDEPENDS_${PN} += "virtual/containerd virtual/runc"
-
-RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
 DOCKER_PKG="github.com/docker/docker"
 
-inherit systemd update-rc.d
 inherit go
 inherit goarch
 inherit pkgconfig
@@ -126,14 +95,6 @@ do_compile() {
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_docker}" make dynbinary
 }
 
-SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service','',d)}"
-SYSTEMD_AUTO_ENABLE_${PN} = "enable"
-
-INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
-INITSCRIPT_NAME_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
-INITSCRIPT_PARAMS_${PN} = "defaults"
-
 do_install() {
 	mkdir -p ${D}/${bindir}
 	cp ${S}/src/import/components/cli/build/docker ${D}/${bindir}/docker
@@ -157,15 +118,7 @@ do_install() {
 	install -m 0755 ${S}/src/import/components/engine/contrib/check-config.sh ${D}${datadir}/docker/
 }
 
-inherit useradd
-USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "-r docker"
-
 FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
 
 FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
 RDEPENDS_${PN}-contrib += "bash"
-
-# DO NOT STRIP docker
-INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP_${PN} += "ldflags"
