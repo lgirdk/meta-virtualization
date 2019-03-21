@@ -19,7 +19,6 @@ inherit goarch
 
 GO_IMPORT = "import"
 
-RRECOMMENDS_${PN} = "lxc docker"
 CONTAINERD_PKG="github.com/containerd/containerd"
 
 INSANE_SKIP_${PN} += "ldflags"
