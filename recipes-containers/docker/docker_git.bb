@@ -9,14 +9,30 @@ DESCRIPTION = "Linux container runtime \
  large-scale web deployments, database clusters, continuous deployment \
  systems, private PaaS, service-oriented architectures, etc. \
  . \
- This package contains the daemon and client. Using docker.io is \
- officially supported on x86_64 and arm (32-bit) hosts. \
+ This package contains the daemon and client, which are \
+ officially supported on x86_64 and arm hosts. \
  Other architectures are considered experimental. \
  . \
  Also, note that kernel version 3.10 or above is required for proper \
  operation of the daemon process, and that any lower versions may have \
  subtle and/or glaring issues. \
  "
+
+# Notes:
+#   - This docker variant uses moby and the other individually maintained
+#     upstream variants for SRCREVs
+#   - It is a true community / upstream tracking build, and is not a
+#     docker curated set of commits or additions
+#   - The version number on this package tracks the versions assigned to
+#     the curated docker-ce repository. This allows compatibility and
+#     functional equivalence, while allowing new features to be more
+#     easily added.
+#   - This could be called "docker-moby" or just "moby" in the future, but
+#     that would require the creation of a virtual/docker dependency, which
+#     is possible, but overkill at the moment (while we wait for the upstream
+#     to stop changing).
+#   - The common components of this recipe and docker-ce do need to be moved
+#     to a docker.inc recipe
 
 # moby commit matches the docker-ce swarmkit bump on the 18.09 branch
 SRCREV_moby = "667e800b2cf920c6d3d7c32fdbc5811934d99769"
@@ -71,11 +87,12 @@ DEPENDS_append_class-target = " lvm2"
 RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
+                  bridge-utils \
+                  ca-certificates \
                  "
 RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
 RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat docker-init"
-RSUGGESTS_${PN} = "lxc rt-tests"
 DOCKER_PKG="github.com/docker/docker"
 
 inherit systemd update-rc.d
