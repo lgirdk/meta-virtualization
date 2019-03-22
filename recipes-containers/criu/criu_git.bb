@@ -13,15 +13,14 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "c49eab368a68682475c4e693258246e04232e6d2"
-PV = "3.10+git${SRCPV}"
+SRCREV = "c74b83cd49c00589c0c0468ba5fe685b67fdbd0a"
+PV = "3.11+git${SRCPV}"
 
 SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
            file://0001-criu-Fix-toolchain-hardcode.patch \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \
            file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
-           file://0001-kdat-Don-t-open-run-criu.kdat-if-doesn-t-exists.patch \
           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
