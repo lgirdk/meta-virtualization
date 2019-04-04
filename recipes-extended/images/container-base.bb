@@ -20,6 +20,9 @@ IMAGE_INSTALL = " \
        netbase \
 "
 
+# Allow build with or without a specific kernel
+IMAGE_CONTAINER_NO_DUMMY = "1"
+
 # Workaround /var/volatile for now
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_fixup_var_volatile ; "
 rootfs_fixup_var_volatile () {
