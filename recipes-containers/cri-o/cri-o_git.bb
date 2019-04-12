@@ -18,6 +18,7 @@ SRCREV_cri-o = "b986e6a8d2af34451363492479d2671a68fd20a3"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.13;name=cri-o \
 	file://0001-Makefile-force-symlinks.patch \
+	file://Makefile-skip-install-when-generating-the-config.h.patch \
         file://crio.conf \
 	"
 
@@ -74,6 +75,12 @@ do_compile() {
 
 	cd ${S}/src/import
 
+	# Build conmon/config.h, requires native versions of
+	# cmd/crio-config/config.go and oci/oci.go
+	(CGO_ENABLED=0 GO=go GOARCH=${BUILD_GOARCH} GOOS=${BUILD_GOOS} oe_runmake conmon/config.h)
+	rm -f bin/crio-config
+	rm -rf vendor/pkg
+
 	oe_runmake binaries
 }
 
@@ -96,7 +103,6 @@ do_install() {
     install -m 755 -D ${S}/src/import/test/testdata/* ${D}/${sysconfdir}/crio/config/
 
     install ${S}/src/import/bin/crio ${D}/${localbindir}
-    install ${S}/src/import/bin/crio-config ${D}/${localbindir}
 
     install ${S}/src/import/bin/conmon ${D}/${localbindir}/crio
     install ${S}/src/import/bin/pause ${D}/${localbindir}/crio

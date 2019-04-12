@@ -1,0 +1,43 @@
+From 3822e834d2dbd87a4dc8cdd36e7fe3b0e9020c4f Mon Sep 17 00:00:00 2001
+From: Mark Asselstine <mark.asselstine@windriver.com>
+Date: Tue, 9 Apr 2019 13:52:59 -0400
+Subject: [PATCH] Makefile: skip install when generating the config.h
+
+When running 'go build' "The -i flag installs the packages that are
+dependencies of the target." The Makefile makes use of this since many
+of the dependencies needed to complete this rule will be used to by
+other rules in the Makefile, thus speeding the overall build time
+(avoiding redoing work).
+
+In our case the crio-config tool and its dependencies are not being
+cross-compiled as they have to run locally to produce the
+conmon/config.h file and thus installing them is not useful. In this
+case there are no savings and can actually result in errors during the
+build or if the build ARCH and target ARCH are the same, a potential
+for host contamination.
+
+So we drop the use of '-i'.
+
+Upstream-Status: Inappropriate [cross compile issue]
+
+Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/import/Makefile b/src/import/Makefile
+index b9fa97f..8336a5b 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -109,7 +109,7 @@ release-note:
+ 	@$(GOPATH)/bin/release-tool -n $(release)
+ 
+ conmon/config.h: cmd/crio-config/config.go oci/oci.go
+-	$(GO) build -i $(LDFLAGS) -o bin/crio-config $(PROJECT)/cmd/crio-config
++	$(GO) build $(LDFLAGS) -o bin/crio-config $(PROJECT)/cmd/crio-config
+ 	( cd conmon && $(CURDIR)/bin/crio-config )
+ 
+ clean:
+-- 
+2.7.4
+
