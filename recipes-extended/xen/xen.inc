@@ -383,13 +383,21 @@ FILES_${PN}-libblktap-dev = " \
     ${datadir}/pkgconfig/blktap.pc \
     "
 
-FILES_${PN}-libfsimage = "${libdir}/libfsimage.so.*"
+FILES_${PN}-libfsimage = " \
+    ${libdir}/libfsimage.so.* \
+    ${libdir}/libxenfsimage.so.* \
+    "
 FILES_${PN}-libfsimage-dev = " \
     ${libdir}/libfsimage.so \
+    ${libdir}/libxenfsimage.so \
     ${datadir}/pkgconfig/fsimage.pc \
+    ${datadir}/pkgconfig/xenfsimage.pc \
     "
 
-FILES_${PN}-fsimage = "${libdir}/fs/*/*fsimage.so"
+FILES_${PN}-fsimage = " \
+    ${libdir}/fs/*/*fsimage.so \
+    ${libdir}/xenfsimage/*/fsimage.so \
+    "
 
 FILES_${PN}-hypervisor = "\
     /boot/xen-* \
@@ -466,6 +474,7 @@ FILES_${PN}-hvmloader = "\
 
 FILES_${PN}-kdd = "\
     ${sbindir}/kdd \
+    ${sbindir}/xen-kdd \
     "
 
 FILES_${PN}-livepatch += " \
@@ -738,6 +747,7 @@ FILES_${PN}-xenmon = "\
     ${sbindir}/xenbaked \
     ${sbindir}/xentrace_setmask \
     ${sbindir}/xenmon.py \
+    ${sbindir}/xenmon \
     "
 
 FILES_${PN}-xm = "\
