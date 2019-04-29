@@ -4,11 +4,10 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=48ef0979a2bcc3fae14ff30b8a7f5dbf"
 
 SRC_URI = "git://github.com/genuinetools/netns;branch=master \
-           file://0001-Allow-selection-of-go-compiler.patch \
            file://Makefile-force-rebuilding-all-packages-to-avoid-cgo.patch \
           "
-SRCREV = "0da6ab0997707024debe68c91e940c9168041bf8"
-PV = "0.4.0"
+SRCREV = "9b103a19b917cc3762a33b7d78244b1d5e45ccfd"
+PV = "0.5.3"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
@@ -46,6 +45,12 @@ do_compile() {
 	# Static builds work but are not recommended. See Makefile*cgo patch.
 	#oe_runmake static
 	oe_runmake build
+
+	# Golang forces permissions to 0500 on directories and 0400 on files in
+	# the module cache which prevents us from easily cleaning up the build
+	# directory. Let's just fix the permissions here so we don't have to
+	# hack the clean tasks.
+	chmod -R u+w vendor/pkg/mod
 }
 
 do_install() {

@@ -1,4 +1,4 @@
-From 09524d187ef108784c854a0c247ac6476a10bb67 Mon Sep 17 00:00:00 2001
+From fa402247e9b24470648a366cfda1c9134660146a Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Mon, 18 Mar 2019 14:04:16 -0400
 Subject: [PATCH] Makefile: force rebuilding all packages to avoid cgo
@@ -32,23 +32,27 @@ used.
 Upstream-Status: Inappropriate [only an issue with our builds]
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+
+Forward-ported to v0.5.3.
+
+Signed-off-by: Paul Barker <paul@betafive.co.uk>
 ---
- Makefile | 2 +-
+ basic.mk | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index 476cb9b..ecd0df4 100644
---- a/src/import/Makefile
-+++ b/src/import/Makefile
-@@ -41,7 +41,7 @@ $(NAME): *.go VERSION.txt
+diff --git a/basic.mk b/basic.mk
+index 187dff3..fb080b7 100644
+--- a/src/import/basic.mk
++++ b/src/import/basic.mk
+@@ -50,7 +50,7 @@ $(NAME): $(wildcard *.go) $(wildcard */*.go) VERSION.txt
  .PHONY: static
- static: ## Builds a static executable
+ static: prebuild ## Builds a static executable.
  	@echo "+ $@"
--	CGO_ENABLED=0 $(GO) build \
-+	CGO_ENABLED=0 $(GO) build -a -pkgdir dontusecurrentpkgs \
+-	CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
++	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -a -pkgdir dontusecurrentpkgs \
  				-tags "$(BUILDTAGS) static_build" \
  				${GO_LDFLAGS_STATIC} -o $(NAME) .
  
 -- 
-2.7.4
+2.17.1
 
