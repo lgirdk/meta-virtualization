@@ -102,3 +102,5 @@ PACKAGES += " \
 INSANE_SKIP_${PN}-python += "ldflags"
 INSANE_SKIP_${PN} += "dev-so"
 CCACHE_DISABLE = "1"
+
+CVE_PRODUCT = "ceph ceph_storage ceph_storage_mon ceph_storage_osd"
