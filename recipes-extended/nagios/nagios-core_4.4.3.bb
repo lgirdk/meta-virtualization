@@ -149,3 +149,5 @@ USERADD_PARAM_${SRCNAME}-base = "-r -M -g ${NAGIOS_GROUP} ${NAGIOS_USER}"
 
 INITSCRIPT_NAME = "nagios"
 INITSCRIPT_PARAMS = "defaults"
+
+CVE_PRODUCT = "nagios_core"
