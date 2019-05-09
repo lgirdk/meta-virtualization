@@ -38,8 +38,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://hook_support.py \
           "
 
-SRC_URI[libvirt.md5sum] = "aaf7b265ac2013d6eb184a86b5f7eeb9"
-SRC_URI[libvirt.sha256sum] = "4fd4bfe7312b7996a817c7919cf0062de0d5b3c400c93bd30855a46c40dd455a"
+SRC_URI[libvirt.md5sum] = "1cfaaf3717783ba19850b5ac04f7e76a"
+SRC_URI[libvirt.sha256sum] = "8564bdd506817b3957fa67e4f06b217922d30f19e416c4dc620995fd155dc101"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd
 USERADD_PACKAGES = "${PN}"
@@ -131,6 +131,7 @@ FILES_${PN} += "${libdir}/libvirt/connection-driver \
 	    ${@bb.utils.contains('PACKAGECONFIG', 'polkit', '${datadir}/polkit-1', '', d)} \
 	    ${datadir}/bash-completion/completions/vsh \
 	    ${datadir}/bash-completion/completions/virt-admin \
+	    /usr/lib/firewalld/zones/libvirt.xml \
 	    "
 
 FILES_${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
@@ -182,7 +183,7 @@ PRIVATE_LIBS_${PN}-ptest = " \
 #PACKAGECONFIG ??= "xen libxl xen-inotify test remote libvirtd"
 
 # full config
-PACKAGECONFIG ??= "qemu yajl uml openvz vmware vbox esx iproute2 lxc test \
+PACKAGECONFIG ??= "qemu yajl openvz vmware vbox esx iproute2 lxc test \
                    remote macvtap libvirtd netcf udev python ebtables \
                    fuse iproute2 firewalld libpcap \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
@@ -201,7 +202,6 @@ PACKAGECONFIG[qemu] = "--with-qemu --with-qemu-user=qemu --with-qemu-group=qemu,
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
 PACKAGECONFIG[xenapi] = "--with-xenapi,--without-xenapi,,"
 PACKAGECONFIG[libxl] = "--with-libxl=${STAGING_DIR_TARGET}/lib,--without-libxl,xen,"
-PACKAGECONFIG[uml] = "--with-uml, --without-uml,,"
 PACKAGECONFIG[openvz] = "--with-openvz,--without-openvz,,"
 PACKAGECONFIG[vmware] = "--with-vmware,--without-vmware,,"
 PACKAGECONFIG[phyp] = "--with-phyp,--without-phyp,,"

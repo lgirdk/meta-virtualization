@@ -1,6 +1,6 @@
-From 0780181a3285511f166487a54ebc231fc657edfe Mon Sep 17 00:00:00 2001
-From: Catalin Enache <catalin.enache@windriver.com>
-Date: Mon, 25 Jul 2016 16:38:51 +0300
+From 4aea9dbeb7f7990ac5a2227d80251570b4a5bca1 Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Wed, 8 May 2019 17:24:17 +0800
 Subject: [PATCH] Install missing conf file
 
 openvzutilstest.conf file is needed by openvzutilstest test.
@@ -12,15 +12,17 @@ Signed-off-by: Catalin Enache <catalin.enache@windriver.com>
 Signed-off-by: Kai Kang <kai.kang@windriver.com>
 [MA: Update context for v4.3.0]
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+[DDU: Update context for v5.3.0]
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
 ---
  tests/Makefile.am | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 65f776e..8a6fd44 100644
+index 7d0387e..68c3561 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -173,6 +173,7 @@ EXTRA_DIST = \
+@@ -168,6 +168,7 @@ EXTRA_DIST = \
  	$(NULL)
  
  test_helpers = commandhelper ssh
@@ -28,7 +30,7 @@ index 65f776e..8a6fd44 100644
  test_programs = virshtest sockettest \
  	virhostcputest virbuftest \
  	commandtest seclabeltest \
-@@ -305,6 +306,7 @@ endif WITH_LXC
+@@ -303,6 +304,7 @@ endif WITH_LXC
  
  if WITH_OPENVZ
  test_programs += openvzutilstest
@@ -36,7 +38,7 @@ index 65f776e..8a6fd44 100644
  endif WITH_OPENVZ
  
  if WITH_ESX
-@@ -1488,7 +1490,7 @@ endif ! WITH_CIL
+@@ -1539,7 +1541,7 @@ endif ! WITH_CIL
  
  buildtest-TESTS: $(TESTS) $(test_libraries) $(test_helpers)
  
@@ -45,7 +47,6 @@ index 65f776e..8a6fd44 100644
  
  install-ptest:
  	list='$(TESTS) $(test_helpers) test-lib.sh virschematest'
-
 -- 
 2.7.4
 

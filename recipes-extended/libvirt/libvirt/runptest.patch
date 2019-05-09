@@ -1,7 +1,7 @@
-From 94478517c4f9950b28be3a348387db6ede3db812 Mon Sep 17 00:00:00 2001
-From: Mark Asselstine <mark.asselstine@windriver.com>
-Date: Mon, 4 Jun 2018 11:55:37 -0400
-Subject: [PATCH] Add 'install-ptest' rule.
+From 52fc46b4f8cfd36476f59c0796f4f39686b53953 Mon Sep 17 00:00:00 2001
+From: Dengke Du <dengke.du@windriver.com>
+Date: Wed, 8 May 2019 10:20:47 +0800
+Subject: [PATCH] Add 'install-ptest' rule
 
 Change TESTS_ENVIRONMENT to allow running outside build dir.
 
@@ -15,15 +15,17 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 Signed-off-by: He Zhe <zhe.he@windriver.com>
 [MA: Update context for v4.3.0]
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+[DDU: Update context for v5.3.0]
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
 ---
- tests/Makefile.am | 74 +++++++++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 61 insertions(+), 13 deletions(-)
+ tests/Makefile.am | 68 ++++++++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 60 insertions(+), 8 deletions(-)
 
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 7b93fbd..edc1eb9 100644
+index 46d94d2..7d0387e 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -35,11 +35,13 @@ INCLUDES = \
+@@ -29,11 +29,13 @@ AM_CPPFLAGS = \
  
  WARN_CFLAGS += $(RELAXED_FRAME_LIMIT_CFLAGS)
  
@@ -31,50 +33,32 @@ index 7b93fbd..edc1eb9 100644
 +
  AM_CFLAGS = \
 -	-Dabs_builddir="\"$(abs_builddir)\"" \
--	-Dabs_topbuilddir="\"$(abs_topbuilddir)\"" \
+-	-Dabs_top_builddir="\"$(abs_top_builddir)\"" \
 -	-Dabs_srcdir="\"$(abs_srcdir)\"" \
--	-Dabs_topsrcdir="\"$(abs_topsrcdir)\"" \
+-	-Dabs_top_srcdir="\"$(abs_top_srcdir)\"" \
 +	-Dabs_builddir="\"$(PTEST_DIR)/tests\"" \
-+	-Dabs_topbuilddir="\"$(PTEST_DIR)\"" \
++	-Dabs_top_builddir="\"$(PTEST_DIR)\"" \
 +	-Dabs_srcdir="\"$(PTEST_DIR)/tests\"" \
-+	-Dabs_topsrcdir="\"$(PTEST_DIR)\"" \
++	-Dabs_top_srcdir="\"$(PTEST_DIR)\"" \
  	$(LIBXML_CFLAGS) \
  	$(LIBNL_CFLAGS) \
  	$(GNUTLS_CFLAGS) \
-@@ -64,7 +66,7 @@ QEMULIB_LDFLAGS = \
- 	$(MINGW_EXTRA_LDFLAGS)
+@@ -465,10 +467,10 @@ TESTS = $(test_programs) \
  
- INCLUDES += \
--	-DTEST_DRIVER_DIR=\"$(top_builddir)/src/.libs\"
-+	-DTEST_DRIVER_DIR=\"$(PTEST_DIR)/src/.libs\"
- 
- PROBES_O =
- if WITH_DTRACE_PROBES
-@@ -466,17 +468,15 @@ TESTS = $(test_programs) \
- # Also, BSD sh doesn't like 'a=b b=$$a', so we can't use an
- # intermediate shell variable, but must do all the expansion in make
- 
--lv_abs_top_builddir=$(shell cd '$(top_builddir)' && pwd)
--
  VIR_TEST_EXPENSIVE ?= $(VIR_TEST_EXPENSIVE_DEFAULT)
  TESTS_ENVIRONMENT = \
--  abs_top_builddir=$(lv_abs_top_builddir) \
--  abs_top_srcdir=`cd '$(top_srcdir)'; pwd` \
--  abs_builddir=$(abs_builddir) \
--  abs_srcdir=$(abs_srcdir) \
--  CONFIG_HEADER="$(lv_abs_top_builddir)/config.h" \
+-  abs_top_builddir="$(abs_top_builddir)" \
+-  abs_top_srcdir="$(abs_top_srcdir)" \
+-  abs_builddir="$(abs_builddir)" \
+-  abs_srcdir="$(abs_srcdir)" \
 +  abs_top_builddir="$(PTEST_DIR)" \
 +  abs_top_srcdir="$(PTEST_DIR)" \
 +  abs_builddir="$(PTEST_DIR)/tests" \
 +  abs_srcdir="$(PTEST_DIR)/tests" \
-+  CONFIG_HEADER="$(PTEST_DIR)/config.h" \
    SHELL="$(SHELL)" \
--  LIBVIRT_DRIVER_DIR="$(lv_abs_top_builddir)/src/.libs" \
-+  LIBVIRT_DRIVER_DIR="$(PTEST_DIR)/src/.libs" \
    LIBVIRT_AUTOSTART=0 \
    LC_ALL=C \
-   VIR_TEST_EXPENSIVE=$(VIR_TEST_EXPENSIVE) \
-@@ -1486,5 +1486,55 @@ else ! WITH_CIL
+@@ -1535,5 +1537,55 @@ else ! WITH_CIL
  EXTRA_DIST += objectlocking.ml
  endif ! WITH_CIL
  
