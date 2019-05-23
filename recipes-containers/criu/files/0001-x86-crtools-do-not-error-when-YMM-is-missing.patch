@@ -1,0 +1,48 @@
+From 6072c23dbd3bbdc9fead4d90fd2ea2212f2ae0cd Mon Sep 17 00:00:00 2001
+From: Zhang Ning <ning.a.zhang@intel.com>
+Date: Tue, 16 Apr 2019 15:45:05 +0800
+Subject: [PATCH] x86/crtools: do not error when YMM is missing
+
+for Intel Apollo Lake SOC, its cpuinfo and fpu features:
+cpu: x86_family 6 x86_vendor_id GenuineIntel x86_model_id Intel(R) Celeron(R) CPU J3455 @ 1.50GHz
+cpu: fpu: xfeatures_mask 0x11 xsave_size 1088 xsave_size_max 1088 xsaves_size 704
+cpu: fpu: x87 floating point registers     xstate_offsets      0 / 0      xstate_sizes    160 / 160
+
+this CPU doesn't have AVX registers, YMM feature.
+
+when CRIU runs on this CPU, it will report dump error:
+Dumping GP/FPU registers for 4888
+Error (criu/arch/x86/crtools.c:362): x86: Corruption in XFEATURE_YMM area (expected 64 but 0 obtained)
+Error (criu/cr-dump.c:1278): Can't infect (pid: 4888) with parasite
+
+that's because x86/crtools.c will still valid YMM xsave frame, thus fail to dump.
+
+bypass unsupported feature, to make CRIU runs this kinds of CPUs.
+
+Cc: Chen Hu <hu1.chen@intel.com>
+Signed-off-by: Zhang Ning <ning.a.zhang@intel.com>
+Acked-by: Cyrill Gorcunov <gorcunov@gmail.com>
+Signed-off-by: Andrei Vagin <avagin@gmail.com>
+
+Upstream-Status: Backport [https://github.com/checkpoint-restore/criu/commit/5a52e34655636a8f00a664cf42716e1439ea2ef0]
+Signed-off-by: Dengke Du <dengke.du@windriver.com>
+---
+ criu/arch/x86/crtools.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/criu/arch/x86/crtools.c b/criu/arch/x86/crtools.c
+index ee016da..efc23e5 100644
+--- a/criu/arch/x86/crtools.c
++++ b/criu/arch/x86/crtools.c
+@@ -354,7 +354,7 @@ static bool valid_xsave_frame(CoreEntry *core)
+ 			};
+ 
+ 			for (i = 0; i < ARRAY_SIZE(features); i++) {
+-				if (!features[i].ptr && i > 0)
++				if (!features[i].ptr)
+ 					continue;
+ 
+ 				if (features[i].expected > features[i].obtained) {
+-- 
+2.7.4
+
