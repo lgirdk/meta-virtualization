@@ -73,8 +73,6 @@ do_install_append() {
         install -d ${D}${systemd_unitdir}/system
         install -m 644 ${WORKDIR}/nagios-nrpe.service ${D}${systemd_unitdir}/system/
     fi
-
-    rmdir -p --ignore-fail-on-non-empty ${D}${localstatedir}/nagios
 }
 
 PACKAGES = "${PN}-dbg ${PN}-plugin ${PN}-daemon"
@@ -86,6 +84,7 @@ FILES_${PN}-plugin = "${NAGIOS_PLUGIN_DIR} \
 FILES_${PN}-daemon = "${sysconfdir} \
                       ${bindir} \
                       ${nonarch_libdir}/tmpfiles.d/ \
+                      ${localstatedir} \
 "
 
 RDEPENDS_${PN}-daemon = "nagios-base"
