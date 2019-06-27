@@ -9,8 +9,8 @@ SRCNAME = "image-spec"
 PKG_NAME = "github.com/opencontainers/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
 
-SRCREV = "91d3eaabebcdc329edd9b4ff0f28f8f90022201f"
-PV = "v1.0.0-rc4+git${SRCPV}"
+SRCREV = "bd4f8fcb0979a663d8b97a1d4d9b030b3d2ca1fa"
+PV = "v1.0.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
@@ -21,11 +21,11 @@ do_compile() {
 do_install() {
 	install -d ${D}${prefix}/local/go/src/${PKG_NAME}
 	for j in $(cd ${S} && find src/${PKG_NAME} -name "*.go"); do
-	    if [ ! -d ${D}${prefix}/local/go/$(dirname $j) ]; then
-	        mkdir -p ${D}${prefix}/local/go/$(dirname $j)
-	    fi
-	    cp $j ${D}${prefix}/local/go/$j
+	    cp --parents $j ${D}${prefix}/local/go/
 	done
+	# .tool isn't useful, so remote it.
+	rm -rf ${D}${prefix}/local/go/src/${PKG_NAME}/.tool/
+
 	cp -r ${S}/src/${PKG_NAME}/LICENSE ${D}${prefix}/local/go/src/${PKG_NAME}/
 }
 
