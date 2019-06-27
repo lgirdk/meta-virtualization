@@ -30,6 +30,6 @@ pkg_postinst_${PN}() {
 
     # python3 expects CA certificates to be installed in a different place to where
     # they are actually installed. These lines link the two locations.
-    rm -r $D${libdir}/ssl-1.1/certs
-    ln -sr $D${sysconfdir}/ssl/certs $D${libdir}/ssl-1.1 
+    rm -r $D${libdir}/ssl/certs
+    ln -sr $D${sysconfdir}/ssl/certs $D${libdir}/ssl
 }
