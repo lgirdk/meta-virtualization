@@ -66,3 +66,5 @@ FILES_docker-registry += "${localstatedir}/lib/registry/"
 
 SYSTEMD_SERVICE_docker-registry = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker-registry.service','',d)}"
 SYSTEMD_AUTO_ENABLE_docker-registry = "enable"
+
+RDEPENDS_${PN}-ptest_remove = "${PN}"
