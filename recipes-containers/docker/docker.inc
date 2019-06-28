@@ -32,8 +32,9 @@ RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
 
 inherit pkgconfig
-PACKAGECONFIG ??= ""
+PACKAGECONFIG ??= "docker-init"
 PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
+PACKAGECONFIG[docker-init] = ",,,docker-init"
 
 inherit systemd update-rc.d
 
