@@ -18,11 +18,12 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "f5e591e815841e04e910223fb63f1ef7689ae153"
-SRCREV_libnetwork = "4725f2163fb214a6312f3beae5991f838ec36326"
+SRCREV_docker = "2416d7f930859912c883f964b1cee6909635f951"
+SRCREV_libnetwork = "5ac07abef4eee176423fdc1b870d435258e2d381"
 SRC_URI = "\
-	git://github.com/docker/docker-ce.git;branch=18.09;name=docker \
-	git://github.com/docker/libnetwork.git;branch=bump_18.09;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/docker-ce.git;branch=19.03;name=docker \
+	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
+	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
 	"
 
@@ -30,13 +31,13 @@ require docker.inc
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/import/components/engine/LICENSE;md5=9740d093a080530b5c5c6573df9af45a"
+LIC_FILES_CHKSUM = "file://src/import/components/engine/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "18.09.3-ce"
+DOCKER_VERSION = "19.03.0-rc3-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 PACKAGES =+ "${PN}-contrib"
@@ -58,8 +59,6 @@ do_compile() {
 	mkdir -p .gopath/src/"$(dirname "${DOCKER_PKG}")"
 	ln -sf ../../../../components/engine/ .gopath/src/"${DOCKER_PKG}"
 
-	mkdir -p .gopath/src/github.com/docker
-	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
 	ln -sf ${S}/src/import/components/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
@@ -78,12 +77,13 @@ do_compile() {
 
 	cd ${S}/src/import/components/engine
 
-	# this is the unsupported build structure
-	# that doesn't rely on an existing docker
-	# to build this:
+	# this is the unsupported build structure that doesn't rely on an
+	# existing docker to build this:
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_docker}" ./hack/make.sh dynbinary
 
 	# build the proxy
+	cd ${S}/src/import
+	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
 	cd ${S}/src/import/.gopath/src/github.com/docker/libnetwork
 	oe_runmake cross-local
 
