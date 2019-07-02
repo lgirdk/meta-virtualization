@@ -35,13 +35,13 @@ DESCRIPTION = "Linux container runtime \
 #     to a docker.inc recipe
 
 # moby commit matches the docker-ce swarmkit bump on the 18.09 branch
-SRCREV_moby = "667e800b2cf920c6d3d7c32fdbc5811934d99769"
-SRCREV_libnetwork = "4725f2163fb214a6312f3beae5991f838ec36326"
-SRCREV_cli = "7ea48a16e3eac8772f7e10bbf404ee6a2fd909ac"
+SRCREV_moby = "344b093258fcb2195fa393081e5224a6c766c798"
+SRCREV_libnetwork = "5ac07abef4eee176423fdc1b870d435258e2d381"
+SRCREV_cli = "2f1931f9eb2d6bac2efd48d94739f2e9919d4d7d"
 SRC_URI = "\
 	git://github.com/moby/moby.git;nobranch=1;name=moby \
-	git://github.com/docker/libnetwork.git;branch=bump_18.09;name=libnetwork;destsuffix=git/libnetwork \
-	git://github.com/docker/cli;branch=18.09;name=cli;destsuffix=git/cli \
+	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/cli;branch=19.03;name=cli;destsuffix=git/cli \
 	file://docker.init \
         file://0001-libnetwork-use-GO-instead-of-go.patch \
 	"
@@ -56,7 +56,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "18.09.3"
+DOCKER_VERSION = "19.03.0-rc3"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 PACKAGES =+ "${PN}-contrib"
