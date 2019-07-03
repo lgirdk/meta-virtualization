@@ -6,14 +6,14 @@ PRIORITY = "optional"
 
 DEPENDS = "yajl util-linux"
 
-SRCREV = "1ac958a4197a9ea52174812fc7d7d036af8140d3"
+SRCREV = "05e692346ca73e022754332a7da641230dae2ffe"
 SRC_URI = "git://github.com/projectatomic/oci-systemd-hook \
            file://0001-selinux-drop-selinux-support.patch \
            file://0001-configure-drop-selinux-support.patch \
            file://0001-Add-additional-cgroup-mounts-from-root-NS-automatica.patch \
 "
 
-PV = "0.0.1+git${SRCPV}"
+PV = "0.2.0+git${SRCPV}"
 S = "${WORKDIR}/git"
 
 inherit autotools pkgconfig

@@ -8,9 +8,11 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
  src/systemdhook.c |   12 ------------
  1 file changed, 12 deletions(-)
 
---- a/src/systemdhook.c
-+++ b/src/systemdhook.c
-@@ -16,7 +16,6 @@
+Index: git/src/systemdhook.c
+===================================================================
+--- git.orig/src/systemdhook.c
++++ git/src/systemdhook.c
+@@ -17,7 +17,6 @@
  #include <errno.h>
  #include <inttypes.h>
  #include <linux/limits.h>
@@ -18,25 +20,28 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
  #include <yajl/yajl_tree.h>
  #include <stdbool.h>
  
-@@ -129,9 +128,6 @@ static int chperm(const char *path, cons
+@@ -166,12 +165,6 @@
  				closedir(dir);
  				return -1;
  			}
--			if (setfilecon (full_path, label) < 0) {
--				pr_perror("Failed to set context %s on %s", label, full_path);
+-			if (label != NULL && (strcmp("", label))) {
+-				if ((is_selinux_enabled() > 0) && (setfilecon (full_path, label) < 0)) {
+-					pr_perror("%s: Failed to set context %s on %s", id, label, full_path);
+-				}
 -			}
- 
+-
  			if (doChown) {
  				/* Change uid and gid to something the container can handle */
-@@ -496,14 +492,6 @@ static int prestart(const char *rootfs,
+ 				if (chown(full_path, uid, gid) < 0 ) {
+@@ -557,14 +550,6 @@
  				return -1;
  			}
  		}
 -
 -		if (strcmp("", mount_label)) {
--			rc = setfilecon(journal_dir, (security_context_t)mount_label);
--			if (rc < 0) {
--				pr_perror("Failed to set journal dir selinux context");
+-			if ((is_selinux_enabled() > 0) &&
+-			    (setfilecon(journal_dir, (security_context_t)mount_label) < 0)) {
+-				pr_perror("%s: Failed to set journal dir selinux context", id);
 -				return -1;
 -			}
 -		}

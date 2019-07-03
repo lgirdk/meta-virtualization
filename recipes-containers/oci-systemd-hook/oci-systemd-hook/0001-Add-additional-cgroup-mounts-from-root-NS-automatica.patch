@@ -1,6 +1,6 @@
-From f59cddcedd6535e0b809ec9b4e95672d34b41a16 Mon Sep 17 00:00:00 2001
+From f9c640fa1d4c14dfbd2bc40af91cb446ad373075 Mon Sep 17 00:00:00 2001
 From: Jason Wessel <jason.wessel@windriver.com>
-Date: Tue, 14 Nov 2017 07:41:41 -0800
+Date: Tue, 2 Jul 2019 20:51:08 +0000
 Subject: [PATCH] Add additional cgroup mounts from root NS automatically
 
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
@@ -9,11 +9,11 @@ Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
  1 file changed, 45 insertions(+)
 
 diff --git a/src/systemdhook.c b/src/systemdhook.c
-index 78575ef..f735484 100644
+index 87a3585..5220c54 100644
 --- a/src/systemdhook.c
 +++ b/src/systemdhook.c
-@@ -238,6 +238,11 @@ static char *get_process_cgroup_subsystem_path(int pid, const char *subsystem) {
- static int mount_cgroup(const char *rootfs, const char *options, char *systemd_path)
+@@ -281,6 +281,11 @@ static char *get_process_cgroup_subsystem_path(const char *id, int pid, const ch
+ static int mount_cgroup(const char *id, const char *rootfs, const char *options, char *systemd_path)
  {
  	_cleanup_free_ char *cgroup_path = NULL;
 +	char *spath, *dpath;
@@ -23,9 +23,9 @@ index 78575ef..f735484 100644
 +	int got;
  
  	if (asprintf(&cgroup_path, "%s/%s", rootfs, CGROUP_ROOT) < 0) {
- 		pr_perror("Failed to create path for %s", CGROUP_ROOT);
-@@ -256,6 +261,46 @@ static int mount_cgroup(const char *rootfs, const char *options, char *systemd_p
- 		pr_perror("Failed to mkdir new dest: %s", systemd_path);
+ 		pr_perror("%s: Failed to create path for %s", id, CGROUP_ROOT);
+@@ -290,6 +295,46 @@ static int mount_cgroup(const char *id, const char *rootfs, const char *options,
+ 		pr_perror("%s: Failed to mkdir new dest: %s", id, cgroup_path);
  		return -1;
  	}
 +	/* Create all additional cgroup mounts which are in the root namespace */
@@ -59,7 +59,7 @@ index 78575ef..f735484 100644
 +				pr_perror("Failed to mkdir new dest: %s", dpath);
 +				return -1;
 +			}
-+			if (bind_mount(spath, dpath, false)) {
++			if (bind_mount(id, spath, dpath, false)) {
 +				pr_perror("Failed to bind mount %s on %s", spath, dpath);
 +				return -1;
 +			}
@@ -68,9 +68,9 @@ index 78575ef..f735484 100644
 +		free(dpath);
 +	}
 +	closedir(dir);
- 	if (mount(cgroup_path, cgroup_path, "bind", MS_REMOUNT|MS_BIND|MS_RDONLY, "") == -1) {
- 		pr_perror("Failed to remount %s readonly", cgroup_path);
- 		return -1;
+ 	/* Mount tmpfs at new cgroup directory */
+ 	if (mount("tmpfs", cgroup_path, "tmpfs", MS_NODEV|MS_NOSUID, options) == -1) {
+ 		pr_perror("%s: Failed to mount tmpfs at %s", id, cgroup_path);
 -- 
-2.11.0
+2.19.1
 
