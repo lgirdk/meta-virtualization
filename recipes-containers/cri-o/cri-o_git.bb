@@ -14,11 +14,10 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
  - Resource isolation as required by the CRI \
  "
 
-SRCREV_cri-o = "b986e6a8d2af34451363492479d2671a68fd20a3"
+SRCREV_cri-o = "f61719a88b7de10a88c50e35640f4a7f1f53fbab"
 SRC_URI = "\
-	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.13;name=cri-o \
+	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.15;name=cri-o \
 	file://0001-Makefile-force-symlinks.patch \
-	file://Makefile-skip-install-when-generating-the-config.h.patch \
         file://crio.conf \
 	"
 
@@ -28,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.13.0+git${SRCREV_cri-o}"
+PV = "1.15.0+git${SRCREV_cri-o}"
 
 DEPENDS = " \
     glib-2.0 \
@@ -36,6 +35,8 @@ DEPENDS = " \
     gpgme \
     ostree \
     libdevmapper \
+    libseccomp \
+    libselinux \
     "
 RDEPENDS_${PN} = " \
     cni \
@@ -52,8 +53,10 @@ inherit goarch
 inherit pkgconfig
 
 EXTRA_OEMAKE="BUILDTAGS=''"
+CRIO_BUILD_CROSS ?= "1"
 
 do_compile() {
+	set +e
 	export GOPATH="${S}/src/import:${S}/src/import/vendor"
 
 	# link fixups for compilation
@@ -73,15 +76,37 @@ do_compile() {
 	ln -sf ../../../../version ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/version
 	ln -sf ../../../../lib ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/lib
 
+
+	rm -f ${S}/src/import/src
+	ln -sf ./ ${S}/src/import/src
+	mkdir -p ${S}/src/import/src/github.com/cri-o/cri-o/cmd
+	ln -sf ../../../../cmd/crio-config ${S}/src/import/src/github.com/cri-o/cri-o/cmd
+	ln -sf ../../../lib ${S}/src/import/src/github.com/cri-o/cri-o/lib
+	ln -sf ../../../oci ${S}/src/import/src/github.com/cri-o/cri-o/oci
+	ln -sf ../../../pkg ${S}/src/import/src/github.com/cri-o/cri-o/pkg
+	ln -sf ../../../utils ${S}/src/import/src/github.com/cri-o/cri-o/utils
+	ln -sf ../../../version ${S}/src/import/src/github.com/cri-o/cri-o/version
+	ln -sf ../../../server ${S}/src/import/src/github.com/cri-o/cri-o/server
+	ln -sf ../../../types ${S}/src/import/src/github.com/cri-o/cri-o/types
+
+	# fixes the bin/crio build of oe_runmake binaries below
+	ln -sf ../../../../cmd/crio ${S}/src/import/src/github.com/cri-o/cri-o/cmd/
+
 	cd ${S}/src/import
 
-	# Build conmon/config.h, requires native versions of
-	# cmd/crio-config/config.go and oci/oci.go
-	(CGO_ENABLED=0 GO=go GOARCH=${BUILD_GOARCH} GOOS=${BUILD_GOOS} oe_runmake conmon/config.h)
-	rm -f bin/crio-config
-	rm -rf vendor/pkg
+	if [ "${CRIO_BUILD_CROSS}" = "1" ]; then
+	    # New: using the -cross target. But this doesn't build conmon and pause. So
+	    #      keeping the old parts around if someone yells.
+	    oe_runmake local-cross
+	else
+	    # Build conmon/config.h, requires native versions of
+	    # cmd/crio-config/config.go and oci/oci.go
+	    (CGO_ENABLED=0 GO=go GOARCH=${BUILD_GOARCH} GOOS=${BUILD_GOOS} oe_runmake conmon/config.h)
+	    rm -f bin/crio-config
+	    rm -rf vendor/pkg
 
-	oe_runmake binaries
+	    oe_runmake binaries
+	fi
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
@@ -89,6 +114,7 @@ SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','crio.
 SYSTEMD_AUTO_ENABLE_${PN} = "enable"
 
 do_install() {
+    set +e
     localbindir="/usr/local/bin"
 
     install -d ${D}${localbindir}
@@ -102,10 +128,12 @@ do_install() {
     install -d ${D}/${sysconfdir}/crio/config/
     install -m 755 -D ${S}/src/import/test/testdata/* ${D}/${sysconfdir}/crio/config/
 
-    install ${S}/src/import/bin/crio ${D}/${localbindir}
+    install ${S}/src/import/bin/crio.cross.linux* ${D}/${localbindir}/crio
 
-    install ${S}/src/import/bin/conmon ${D}/${localbindir}/crio
-    install ${S}/src/import/bin/pause ${D}/${localbindir}/crio
+    if [ "${CRIO_BUILD_CROSS}" = "1" ]; then
+	install ${S}/src/import/bin/conmon ${D}/${localbindir}/crio
+	install ${S}/src/import/bin/pause ${D}/${localbindir}/crio
+    fi
 
     install -m 0644 ${S}/src/import/contrib/systemd/crio.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/contrib/systemd/crio-shutdown.service  ${D}${systemd_unitdir}/system/
