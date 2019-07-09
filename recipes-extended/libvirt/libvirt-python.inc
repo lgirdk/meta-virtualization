@@ -18,8 +18,8 @@ FILES_${PN}-python = "${bindir}/* ${libdir}/* ${libdir}/${PYTHON_DIR}/*"
 SRC_URI += "http://libvirt.org/sources/python/libvirt-python-${PV}.tar.gz;name=libvirt_python"
 SRC_URI += "file://libvirt_api_xml_path.patch;patchdir=../libvirt-python-${PV}"
 
-SRC_URI[libvirt_python.md5sum] = "b7e086e080e5681bece9e87db5a88afa"
-SRC_URI[libvirt_python.sha256sum] = "5213f995cb55a2f770aa36704b60313958c7ff1fde8cca39028ea889cc9f30ff"
+SRC_URI[libvirt_python.md5sum] = "4c8c38c409f967b8b47e0d7c6df050a4"
+SRC_URI[libvirt_python.sha256sum] = "561cafedb83e41880405905f6309f4a86981cfe05edbbc83c839f7c47d8ba603"
 
 export LIBVIRT_API_PATH = "${S}/docs/libvirt-api.xml"
 export LIBVIRT_CFLAGS = "-I${S}/include"

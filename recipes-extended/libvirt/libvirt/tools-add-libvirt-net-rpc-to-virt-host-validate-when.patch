@@ -20,24 +20,24 @@ Signed-off-by: Dengke Du <dengke.du@windriver.com>
  tools/Makefile.am    | 12 ++++++++++++
  2 files changed, 31 insertions(+)
 
-diff --git a/examples/Makefile.am b/examples/Makefile.am
-index ee7d3e6..7a5fd73 100644
---- a/examples/Makefile.am
-+++ b/examples/Makefile.am
-@@ -34,6 +34,10 @@ LDADD = $(STATIC_BINARIES) $(WARN_CFLAGS) \
- 	$(top_builddir)/src/libvirt.la \
- 	$(top_builddir)/src/libvirt-admin.la
+Index: libvirt-5.5.0/examples/Makefile.am
+===================================================================
+--- libvirt-5.5.0.orig/examples/Makefile.am
++++ libvirt-5.5.0/examples/Makefile.am
+@@ -77,6 +77,10 @@
+ 	$(top_builddir)/src/libvirt-admin.la \
+ 	$(NULL)
  
 +if WITH_GNUTLS
 +LDADD += $(top_builddir)/src/libvirt-net-rpc.la
 +endif
 +
- noinst_PROGRAMS=dominfo/info1 dommigrate/dommigrate domsuspend/suspend \
- 	domtop/domtop hellolibvirt/hellolibvirt object-events/event-test \
- 	openauth/openauth rename/rename admin/list_servers admin/list_clients \
-@@ -65,6 +69,21 @@ admin_logging_SOURCES = admin/logging.c
- INSTALL_DATA_LOCAL =
- UNINSTALL_LOCAL =
+ noinst_PROGRAMS = \
+ 	c/admin/client_close \
+ 	c/admin/client_info \
+@@ -111,6 +115,21 @@
+ c_misc_hellolibvirt_SOURCES = c/misc/hellolibvirt.c
+ c_misc_openauth_SOURCES = c/misc/openauth.c
  
 +if WITH_GNUTLS
 +dominfo_info1_LDADD = $(top_builddir)/src/libvirt-net-rpc.la  \
@@ -55,13 +55,13 @@ index ee7d3e6..7a5fd73 100644
 +endif
 +
  if WITH_NWFILTER
- NWFILTER_DIR = "$(DESTDIR)$(sysconfdir)/libvirt/nwfilter"
  
-diff --git a/tools/Makefile.am b/tools/Makefile.am
-index c6064de..1ac8445 100644
---- a/tools/Makefile.am
-+++ b/tools/Makefile.am
-@@ -188,6 +188,12 @@ virt_host_validate_LDADD = \
+ nwfilterdir = $(sysconfdir)/libvirt/nwfilter
+Index: libvirt-5.5.0/tools/Makefile.am
+===================================================================
+--- libvirt-5.5.0.orig/tools/Makefile.am
++++ libvirt-5.5.0/tools/Makefile.am
+@@ -188,6 +188,12 @@
  		../gnulib/lib/libgnu.la \
  		$(NULL)
  
@@ -74,7 +74,7 @@ index c6064de..1ac8445 100644
  virt_host_validate_CFLAGS = \
  		$(AM_CFLAGS) \
  		$(NULL)
-@@ -265,6 +271,12 @@ virt_admin_CFLAGS = \
+@@ -265,6 +271,12 @@
  		$(READLINE_CFLAGS)
  BUILT_SOURCES =
  
@@ -87,6 +87,3 @@ index c6064de..1ac8445 100644
  if WITH_WIN_ICON
  virsh_LDADD += virsh_win_icon.$(OBJEXT)
  
--- 
-2.7.4
-

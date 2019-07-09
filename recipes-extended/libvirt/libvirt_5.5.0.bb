@@ -38,8 +38,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://hook_support.py \
           "
 
-SRC_URI[libvirt.md5sum] = "1cfaaf3717783ba19850b5ac04f7e76a"
-SRC_URI[libvirt.sha256sum] = "8564bdd506817b3957fa67e4f06b217922d30f19e416c4dc620995fd155dc101"
+SRC_URI[libvirt.md5sum] = "27c5fb6c8d2d46eb9e8165aeb3b499b0"
+SRC_URI[libvirt.sha256sum] = "2306ef0947a594f91ec9da4b8b0307bdb54b897f17de19f48e8ecdca08ff35e8"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd
 USERADD_PACKAGES = "${PN}"
