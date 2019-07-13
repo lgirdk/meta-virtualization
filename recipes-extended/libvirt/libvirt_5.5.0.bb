@@ -8,7 +8,8 @@ SECTION = "console/tools"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables dnsmasq readline libtasn1 libxslt-native acl libdevmapper libtirpc \
-	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)}"
+	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)} \
+	   ${@bb.utils.contains('PACKAGECONFIG', 'gnutls', 'gnutls-native', '', d)}"
 
 # libvirt-guests.sh needs gettext.sh
 #
@@ -36,6 +37,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
            file://hook_support.py \
+           file://gnutls-helper.py \
           "
 
 SRC_URI[libvirt.md5sum] = "27c5fb6c8d2d46eb9e8165aeb3b499b0"
@@ -119,6 +121,7 @@ FILES_${PN}-libvirtd = " \
 	${sbindir}/libvirtd \
 	${systemd_unitdir}/system/* \
 	${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '', '${libexecdir}/libvirt-guests.sh', d)} \
+	${@bb.utils.contains('PACKAGECONFIG', 'gnutls', '${sysconfdir}/pki/libvirt/* ${sysconfdir}/pki/CA/*', '', d)} \
         "
 
 FILES_${PN}-virsh = " \
@@ -198,6 +201,7 @@ PACKAGECONFIG_remove_mipsarchn64 = "qemu"
 
 # enable,disable,depends,rdepends
 #
+PACKAGECONFIG[gnutls] = ",,,gnutls-bin"
 PACKAGECONFIG[qemu] = "--with-qemu --with-qemu-user=qemu --with-qemu-group=qemu,--without-qemu,qemu,"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
 PACKAGECONFIG[xenapi] = "--with-xenapi,--without-xenapi,,"
@@ -310,6 +314,28 @@ do_install_append() {
 	chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
 	echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+
+	if ${@bb.utils.contains('PACKAGECONFIG','gnutls','true','false',d)}; then
+	    # Generate sample keys and certificates.
+	    cd ${WORKDIR}
+	    ${WORKDIR}/gnutls-helper.py -y
+
+	    # Deploy all sample keys and certificates of CA, server and client
+	    # to target so that libvirtd is able to boot successfully and local
+	    # connection via 127.0.0.1 is available out of box.
+	    install -d ${D}/etc/pki/CA
+	    install -d ${D}/etc/pki/libvirt/private
+	    install -m 0755 ${WORKDIR}/gnutls-helper.py ${D}/${bindir}
+	    install -m 0644 ${WORKDIR}/cakey.pem ${D}/${sysconfdir}/pki/libvirt/private/cakey.pem
+	    install -m 0644 ${WORKDIR}/cacert.pem ${D}/${sysconfdir}/pki/CA/cacert.pem
+	    install -m 0644 ${WORKDIR}/serverkey.pem ${D}/${sysconfdir}/pki/libvirt/private/serverkey.pem
+	    install -m 0644 ${WORKDIR}/servercert.pem ${D}/${sysconfdir}/pki/libvirt/servercert.pem
+	    install -m 0644 ${WORKDIR}/clientkey.pem ${D}/${sysconfdir}/pki/libvirt/private/clientkey.pem
+	    install -m 0644 ${WORKDIR}/clientcert.pem ${D}/${sysconfdir}/pki/libvirt/clientcert.pem
+
+	    # Force the connection to be tls.
+	    sed -i -e 's/^\(listen_tls\ =\ .*\)/#\1/' -e 's/^\(listen_tcp\ =\ .*\)/#\1/' ${D}/etc/libvirt/libvirtd.conf
+	fi
 }
 
 EXTRA_OECONF += " \
