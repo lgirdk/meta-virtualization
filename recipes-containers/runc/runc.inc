@@ -64,4 +64,3 @@ do_install() {
 	ln -sf runc ${D}/${bindir}/docker-runc
 }
 
-INHIBIT_PACKAGE_STRIP = "1"

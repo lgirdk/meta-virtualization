@@ -106,6 +106,5 @@ FILES_kubectl = "${bindir}/kubectl"
 FILES_kube-proxy = "${bindir}/kube-proxy"
 FILES_${PN}-misc = "${bindir}"
 
-INHIBIT_PACKAGE_STRIP = "1"
 
 deltask compile_ptest_base

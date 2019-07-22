@@ -52,6 +52,4 @@ GROUPADD_PARAM_${PN} = "-r docker"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
 
-# DO NOT STRIP docker
-INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags textrel"

@@ -95,7 +95,6 @@ do_install() {
 
 FILES_${PN} += "${systemd_system_unitdir}/*"
 
-INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"

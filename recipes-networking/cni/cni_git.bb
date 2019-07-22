@@ -92,7 +92,6 @@ do_install() {
 
 FILES_${PN} += "/opt/cni/bin/*"
 
-INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base

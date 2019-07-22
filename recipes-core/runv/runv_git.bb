@@ -78,5 +78,4 @@ deltask compile_ptest_base
 
 FILES_${PN} += "/usr/local/bin/*"
 
-INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"

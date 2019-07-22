@@ -143,7 +143,6 @@ FILES_${PN}-config = "${sysconfdir}/crio/config/*"
 FILES_${PN} += "${systemd_unitdir}/system/*"
 FILES_${PN} += "/usr/local/bin/*"
 
-INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
