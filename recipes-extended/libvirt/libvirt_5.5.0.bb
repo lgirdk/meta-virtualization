@@ -311,9 +311,18 @@ do_install_append() {
 
 	sed -i -e 's/^\(unix_sock_group\ =\ \).*/\1"kvm"/' ${D}/etc/libvirt/libvirtd.conf
 	sed -i -e 's/^\(unix_sock_rw_perms\ =\ \).*/\1"0776"/' ${D}/etc/libvirt/libvirtd.conf
-	chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
-	echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
-	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+
+	case ${MACHINE_ARCH} in
+		*mips*)
+			break
+			;;
+		*)
+			chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
+			echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
+			    >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+			break
+			;;
+	esac
 
 	if ${@bb.utils.contains('PACKAGECONFIG','gnutls','true','false',d)}; then
 	    # Generate sample keys and certificates.
