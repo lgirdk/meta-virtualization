@@ -192,12 +192,15 @@ PACKAGECONFIG ??= "qemu yajl openvz vmware vbox esx iproute2 lxc test \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'libxl', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'polkit', 'polkit', '', d)} \
-                   ${@bb.utils.contains('KARCH', 'arm', '', 'numactl', d)} \
                   "
 
 # qemu is NOT compatible with mips64
 PACKAGECONFIG_remove_mipsarchn32 = "qemu"
 PACKAGECONFIG_remove_mipsarchn64 = "qemu"
+
+# numactl is NOT compatible with arm
+PACKAGECONFIG_remove_arm = "numactl"
+PACKAGECONFIG_remove_armeb = "numactl"
 
 # enable,disable,depends,rdepends
 #
