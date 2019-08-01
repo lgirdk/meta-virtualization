@@ -28,6 +28,8 @@ inherit systemd
 inherit go
 inherit goarch
 
+COMPATIBLE_HOST = '(x86_64.*|arm.*|aarch64.*)-linux'
+
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOOS="${TARGET_GOOS}"
