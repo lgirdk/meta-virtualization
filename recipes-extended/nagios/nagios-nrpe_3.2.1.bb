@@ -20,7 +20,7 @@ SRC_URI[sha256sum] = "8ad2d1846ab9011fdd2942b8fc0c99dfad9a97e57f4a3e6e394a4ead99
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
-inherit autotools-brokensep update-rc.d systemd
+inherit autotools-brokensep update-rc.d systemd update-alternatives
 
 # IP address of server which proxy should connect to
 MONITORING_PROXY_SERVER_IP ??= "192.168.7.2"
@@ -97,3 +97,6 @@ SYSTEMD_AUTO_ENABLE_${PN}-daemon = "enable"
 INITSCRIPT_PACKAGES = "${PN}-daemon"
 INITSCRIPT_NAME_${PN}-daemon = "nrpe"
 INITSCRIPT_PARAMS_${PN}-daemon = "defaults"
+
+ALTERNATIVE_${PN}-daemon = "nagios"
+ALTERNATIVE_LINK_NAME[nagios] = "${localstatedir}/nagios"

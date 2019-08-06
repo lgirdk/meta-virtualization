@@ -25,7 +25,7 @@ SRC_URI[sha256sum] = "bba8f0e8dc8cf72f7a7ae4e8ce9c60f5bd315629421b9ec34818a28b8d
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
-inherit autotools-brokensep update-rc.d systemd
+inherit autotools-brokensep update-rc.d systemd update-alternatives
 
 DEPENDS = "gd unzip-native"
 
@@ -151,3 +151,7 @@ INITSCRIPT_NAME = "nagios"
 INITSCRIPT_PARAMS = "defaults"
 
 CVE_PRODUCT = "nagios_core"
+
+ALTERNATIVE_PRIORITY_${PN} = '20'
+ALTERNATIVE_${PN} = "nagios"
+ALTERNATIVE_LINK_NAME[nagios] = "${localstatedir}/nagios"
