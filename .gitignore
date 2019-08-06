@@ -3,4 +3,5 @@ pyshtables.py
 *.swp
 *.orig
 *.rej
+/*.patch
 *~
