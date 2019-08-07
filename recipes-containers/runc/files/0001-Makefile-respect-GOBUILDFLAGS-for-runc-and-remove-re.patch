@@ -1,0 +1,35 @@
+From d2c47a973f354ffd505bb4e809c59e57b543726d Mon Sep 17 00:00:00 2001
+From: Chen Qi <Qi.Chen@windriver.com>
+Date: Tue, 6 Aug 2019 19:01:45 +0800
+Subject: [PATCH] Makefile: respect GOBUILDFLAGS for runc and remove recvtty
+ from static
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ Makefile | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 0f26a1c8..a0c6b40b 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -30,7 +30,7 @@ SHELL := $(shell command -v bash 2>/dev/null)
+ .DEFAULT: runc
+ 
+ runc: $(SOURCES)
+-	$(GO) build -buildmode=pie $(EXTRA_FLAGS) -ldflags "-X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -tags "$(BUILDTAGS)" -o runc .
++	$(GO) build $(GOBUILDFLAGS) $(EXTRA_FLAGS) -ldflags "-X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -tags "$(BUILDTAGS)" -o runc .
+ 
+ all: runc recvtty
+ 
+@@ -41,7 +41,6 @@ contrib/cmd/recvtty/recvtty: $(SOURCES)
+ 
+ static: $(SOURCES)
+ 	CGO_ENABLED=1 $(GO) build $(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo static_build" -installsuffix netgo -ldflags "-w -extldflags -static -X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -o runc .
+-	CGO_ENABLED=1 $(GO) build $(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo static_build" -installsuffix netgo -ldflags "-w -extldflags -static -X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -o contrib/cmd/recvtty/recvtty ./contrib/cmd/recvtty
+ 
+ release:
+ 	script/release.sh -r release/$(VERSION) -v $(VERSION)
+-- 
+2.17.1
+
