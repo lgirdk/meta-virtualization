@@ -5,8 +5,6 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-# Note: 1.11+ requires go 1.10.2+, so the following must be set
-#       in your configuration: GOVERSION = "1.10%"
 PV = "v1.16.0-alpha+git${SRCREV_kubernetes}"
 SRCREV_kubernetes = "7054e3ead7e1a00ca6ac3ec47ea355b76061a35a"
 
@@ -31,39 +29,29 @@ inherit goarch
 COMPATIBLE_HOST = '(x86_64.*|arm.*|aarch64.*)-linux'
 
 do_compile() {
-	export GOARCH="${TARGET_GOARCH}"
-	export GOOS="${TARGET_GOOS}"
-	export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
-	export GOPATH="${S}/src/import:${S}/src/import/vendor"
-
-	# Pass the needed cflags/ldflags so that cgo
-	# can find the needed headers files and libraries
-	export CGO_ENABLED="1"
-	export CFLAGS=""
-	export LDFLAGS=""
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-
 	# link fixups for compilation
 	rm -f ${S}/src/import/vendor/src
 	ln -sf ./ ${S}/src/import/vendor/src
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
-	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
+	cd ${S}/src/import
 
-	# Pass the needed cflags/ldflags so that cgo
-	# can find the needed headers files and libraries
+	# Build the host tools first, using the host compiler
+	export GOARCH="${BUILD_GOARCH}"
+	# Pass the needed cflags/ldflags so that cgo can find the needed headers files and libraries
+	export CGO_ENABLED="1"
+	export CFLAGS=""
+	export LDFLAGS=""
+	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	make generated_files KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
+
+	# Build the target binaries
+	export GOARCH="${TARGET_GOARCH}"
+	# Pass the needed cflags/ldflags so that cgo can find the needed headers files and libraries
 	export CGO_ENABLED="1"
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-
-	cd ${S}/src/import
-	# Build the host tools first, using the host compiler
-	export GOARCH="${BUILD_GOARCH}"
-	make generated_files KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
-
-	# Reset GOARCH to the target one
-	export GOARCH="${TARGET_GOARCH}"
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
 	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH}
 }
