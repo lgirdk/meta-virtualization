@@ -47,8 +47,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-net \
 	"
 
-SRC_URI[md5sum] = "e83e302a801494276f3772e687a3b8b0"
-SRC_URI[sha256sum] = "4d8772c25baeaea2c37a954902b88c05d1454c91c887cb6a0997258cfac3fdc5"
+SRC_URI[md5sum] = "4886c8d1c8e221fe526eefcb47857b85"
+SRC_URI[sha256sum] = "5f903986a4b17d607eea28c0aa56bf1e76e8707747b1aa07d31680338b1cc3d4"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
