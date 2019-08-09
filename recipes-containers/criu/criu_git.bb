@@ -13,8 +13,8 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "c74b83cd49c00589c0c0468ba5fe685b67fdbd0a"
-PV = "3.11+git${SRCPV}"
+SRCREV = "437561d2bbc09d734ae276dbfca337569f454d54"
+PV = "3.12+git${SRCPV}"
 
 SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
            file://0001-criu-Fix-toolchain-hardcode.patch \
