@@ -47,10 +47,10 @@ do_compile() {
 	export CGO_ENABLED="1"
 
 	cd ${S}/src/import/vendor/github.com/containernetworking/cni/libcni
-	go build
+	${GO} build
 
 	cd ${S}/src/import/vendor/github.com/containernetworking/cni/cnitool
-	go build
+	${GO} build
 
 	cd ${S}/src/import/vendor/github.com/containernetworking/plugins/
 	PLUGINS="$(ls -d plugins/meta/*; ls -d plugins/main/* | grep -v windows)"
@@ -58,7 +58,7 @@ do_compile() {
 	for p in $PLUGINS; do
 	    plugin="$(basename "$p")"
 	    echo "building: $p"
-	    go build -o ${WORKDIR}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
+	    ${GO} build -o ${WORKDIR}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
 	done
 }
 
