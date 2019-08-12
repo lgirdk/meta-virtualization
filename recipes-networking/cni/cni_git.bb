@@ -53,7 +53,7 @@ do_compile() {
 	${GO} build
 
 	cd ${S}/src/import/vendor/github.com/containernetworking/plugins/
-	PLUGINS="$(ls -d plugins/meta/*; ls -d plugins/main/* | grep -v windows)"
+	PLUGINS="$(ls -d plugins/meta/*; ls -d plugins/ipam/*; ls -d plugins/main/* | grep -v windows)"
 	mkdir -p ${WORKDIR}/plugins/bin/
 	for p in $PLUGINS; do
 	    plugin="$(basename "$p")"
