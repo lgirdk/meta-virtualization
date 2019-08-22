@@ -15,13 +15,13 @@ DESCRIPTION = "\
   "
 SECTION = "devel/python"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=6015f088759b10e0bc2bf64898d4ae17"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=a76b4c69bfcf82313bbdc0393b04438a"
 
 SRCNAME = "PyYAML"
 SRC_URI = "http://pyyaml.org/download/pyyaml/${SRCNAME}-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "f50e08ef0fe55178479d3a618efe21db"
-SRC_URI[sha256sum] = "c36c938a872e5ff494938b33b14aaa156cb439ec67548fcab3535bb78b0846e8"
+SRC_URI[md5sum] = "20f87ab421b0271dbf371dc5c1cddb5c"
+SRC_URI[sha256sum] = "01adf0b6c6f61bd11af6e10ca52b7d4057dd0be0343eb9283c878cf3af56aee4"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
