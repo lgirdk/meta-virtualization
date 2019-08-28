@@ -112,8 +112,12 @@ do_install() {
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 	# TLS key that docker creates at run-time if not found is what resides here
-	install -d ${D}${sysconfdir}
-	ln -s ..${localstatedir}/run/docker ${D}${sysconfdir}/docker
+	if ${@bb.utils.contains('PACKAGECONFIG','transient-config','true','false',d)}; then
+		install -d ${D}${sysconfdir}
+		ln -s ..${localstatedir}/run/docker ${D}${sysconfdir}/docker
+	else
+		install -d ${D}${sysconfdir}/docker
+	fi
 
 	mkdir -p ${D}${datadir}/docker/
 	install -m 0755 ${S}/src/import/components/engine/contrib/check-config.sh ${D}${datadir}/docker/

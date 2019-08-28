@@ -44,6 +44,7 @@ inherit pkgconfig
 PACKAGECONFIG ??= "docker-init"
 PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
 PACKAGECONFIG[docker-init] = ",,,docker-init"
+PACKAGECONFIG[transient-config] = "transient-config"
 
 inherit systemd update-rc.d
 
