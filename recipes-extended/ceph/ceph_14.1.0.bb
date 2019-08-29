@@ -32,8 +32,6 @@ SYSTEMD_SERVICE_${PN} = " \
         ceph-osd@.service \
 	ceph-osd.target \
         ceph.target \
-	ceph-fuse@.service \
-	ceph-fuse.target \
 	ceph-rbd-mirror@.service \
 	ceph-rbd-mirror.target \
 	ceph-volume@.service \
@@ -77,6 +75,8 @@ do_install_append () {
 	mv ${D}${libexecdir}/systemd/system ${D}${systemd_unitdir}
 	mv ${D}${libexecdir}/ceph/ceph-osd-prestart.sh ${D}${libdir}/ceph
 	mv ${D}${libexecdir}/ceph/ceph_common.sh ${D}${libdir}/ceph
+	# WITH_FUSE is set to OFF, remove ceph-fuse related units
+	rm ${D}${systemd_unitdir}/system/ceph-fuse.target ${D}${systemd_unitdir}/system/ceph-fuse@.service
 }
 
 FILES_${PN} += "\
