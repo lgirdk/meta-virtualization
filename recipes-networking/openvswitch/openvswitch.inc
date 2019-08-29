@@ -129,6 +129,9 @@ do_install_append() {
 	install -m 644 ${S}/rhel/usr_lib_systemd_system_ovsdb-server.service \
 		${D}/${systemd_unitdir}/system/ovsdb-server.service
 
+	install -d ${D}/usr/share/openvswitch/scripts/
+	install -m 755 ${S}/rhel/usr_share_openvswitch_scripts_ovs-systemd-reload ${D}/usr/share/openvswitch/scripts/ovs-systemd-reload
+
 	oe_runmake modules_install INSTALL_MOD_PATH=${D}
 	install -d ${D}${libdir}/python${PYTHON_BASEVERSION}/site-packages
 	cp -r ${S}/python/ovstest/ ${D}${libdir}/python${PYTHON_BASEVERSION}/site-packages/
