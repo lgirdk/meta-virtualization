@@ -22,9 +22,9 @@ SYSTEMD_AUTO_ENABLE_${PN} = "mask"
 
 
 do_install() {
-	install -d ${D}/bin
-	install -m 0755 ${S}/scripts/cgroups-mount ${D}/bin
-	install -m 0755 ${S}/scripts/cgroups-umount ${D}/bin
+	install -d ${D}/${base_bindir}
+	install -m 0755 ${S}/scripts/cgroups-mount ${D}/${base_bindir}
+	install -m 0755 ${S}/scripts/cgroups-umount ${D}/${base_bindir}
 
 	install -d ${D}${sysconfdir}/init.d
 	install -m 0755 ${WORKDIR}/cgroups-init ${D}${sysconfdir}/init.d/cgroups-init
