@@ -13,6 +13,5 @@ inherit setuptools pypi
 
 RDEPENDS_${PN} += " \
 	python-sphinx \
-	python-nose \
 	"
 
