@@ -1,0 +1,42 @@
+From 84874e47aa2025b8e73df0286c44f3b8a1d9fdb2 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Mon, 2 Sep 2019 16:20:07 +0800
+Subject: [PATCH] Add build option "GODEBUG=1"
+
+Make will generate GDB friendly binary with this build option.
+
+Signed-off-by: Hui Zhu <teawater@hyper.sh>
+
+Upstream-Status: Backport [c5a0c7f491b435e4eb45972903b00e2d8ed46495]
+
+Partly backport and refresh to v1.2.7
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ src/import/Makefile | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/import/Makefile b/src/import/Makefile
+index 4355395..4fb5d3b 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -75,11 +75,15 @@ TEST_REQUIRES_ROOT_PACKAGES=$(filter \
+ COMMANDS=ctr containerd containerd-stress
+ MANPAGES=ctr.1 containerd.1 containerd-config.1 containerd-config.toml.5
+ 
++ifndef GODEBUG
++   EXTRA_LDFLAGS += -s -w
++endif
++
+ # Build tags seccomp and apparmor are needed by CRI plugin.
+ BUILDTAGS ?= seccomp apparmor
+ GO_TAGS=$(if $(BUILDTAGS),-tags "$(BUILDTAGS)",)
+-GO_LDFLAGS=-ldflags '-s -w -X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) $(EXTRA_LDFLAGS)'
+-SHIM_GO_LDFLAGS=-ldflags '-s -w -X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static"'
++GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) $(EXTRA_LDFLAGS)'
++SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static" $(EXTRA_LDFLAGS)'
+ 
+ #Replaces ":" (*nix), ";" (windows) with newline for easy parsing
+ GOPATHS=$(shell echo ${GOPATH} | tr ":" "\n" | tr ";" "\n")
+-- 
+2.7.4
+
