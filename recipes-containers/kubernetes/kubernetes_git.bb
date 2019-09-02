@@ -53,7 +53,7 @@ do_compile() {
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
-	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH}
+	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS=""
 }
 
 do_install() {
