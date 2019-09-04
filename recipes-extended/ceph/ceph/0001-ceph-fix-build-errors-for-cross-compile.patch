@@ -1,4 +1,4 @@
-From 20dd3fb9e5daa780e15113a2c88f846c8f5dd904 Mon Sep 17 00:00:00 2001
+From 9b97824ad0da2c0d3dcc0cf41f4506aa7e458e9f Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Mon, 11 Mar 2019 09:14:09 +0800
 Subject: [PATCH] ceph: fix build errors for cross compile
@@ -9,18 +9,22 @@ Subject: [PATCH] ceph: fix build errors for cross compile
 Upstream-Status: Inappropriate [oe specific]
 
 Signed-off-by: Dengke Du <dengke.du@windriver.com>
+
+Adjust context for v14.2.3
+
+Signed-off-by: He Zhe <zhe.he@windriver.com>
 ---
  cmake/modules/Distutils.cmake      | 25 +++++--------------------
- cmake/modules/FindRocksDB.cmake    |  6 +++---
+ cmake/modules/FindRocksDB.cmake    |  4 ++--
  src/compressor/zstd/CMakeLists.txt |  2 +-
  src/pybind/cephfs/setup.py         |  8 --------
  src/pybind/rados/setup.py          |  8 --------
  src/pybind/rbd/setup.py            |  8 --------
  src/pybind/rgw/setup.py            |  8 --------
- 7 files changed, 9 insertions(+), 56 deletions(-)
+ 7 files changed, 8 insertions(+), 55 deletions(-)
 
 diff --git a/cmake/modules/Distutils.cmake b/cmake/modules/Distutils.cmake
-index 5697dff..de3cd57 100644
+index f70265f..b2f4223 100644
 --- a/cmake/modules/Distutils.cmake
 +++ b/cmake/modules/Distutils.cmake
 @@ -16,17 +16,8 @@ function(distutils_install_module name)
@@ -50,9 +54,9 @@ index 5697dff..de3cd57 100644
 -  list(APPEND cflags -iquote${CMAKE_SOURCE_DIR}/src/include -w)
 +  list(APPEND cflags -iquote${CMAKE_SOURCE_DIR}/src/include -w --sysroot=${CMAKE_SYSROOT})
    # This little bit of magic wipes out __Pyx_check_single_interpreter()
+   # Note: this is reproduced in distutils_install_cython_module
    list(APPEND cflags -D'void0=dead_function\(void\)')
-   list(APPEND cflags -D'__Pyx_check_single_interpreter\(ARG\)=ARG \#\# 0')
-@@ -86,14 +77,8 @@ function(distutils_install_cython_module name)
+@@ -89,14 +80,8 @@ function(distutils_install_cython_module name)
      set(ENV{CEPH_LIBDIR} \"${CMAKE_LIBRARY_OUTPUT_DIRECTORY}\")
  
      set(options --prefix=${CMAKE_INSTALL_PREFIX})
@@ -70,7 +74,7 @@ index 5697dff..de3cd57 100644
         COMMAND
             ${PYTHON${PYTHON_VERSION}_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
 diff --git a/cmake/modules/FindRocksDB.cmake b/cmake/modules/FindRocksDB.cmake
-index 9818433..be38597 100644
+index c5dd3df..be38597 100644
 --- a/cmake/modules/FindRocksDB.cmake
 +++ b/cmake/modules/FindRocksDB.cmake
 @@ -9,9 +9,9 @@
@@ -85,15 +89,6 @@ index 9818433..be38597 100644
  
  if(ROCKSDB_INCLUDE_DIR AND EXISTS "${ROCKSDB_INCLUDE_DIR}/rocksdb/version.h")
    foreach(ver "MAJOR" "MINOR" "PATCH")
-@@ -40,7 +40,7 @@ if(RocksDB_FOUND)
-     set_target_properties(RocksDB::RocksDB PROPERTIES
-       INTERFACE_INCLUDE_DIRECTORIES "${ROCKSDB_INCLUDE_DIR}"
-       IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
--      IMPORTED_LOCATION "${ROCKSDB_LIBRARY}"
-+      IMPORTED_LOCATION "${ROCKSDB_LIBRARIES}"
-       VERSION "${ROCKSDB_VERSION_STRING}")
-   endif()
- endif()
 diff --git a/src/compressor/zstd/CMakeLists.txt b/src/compressor/zstd/CMakeLists.txt
 index 76709bb..95bba4a 100644
 --- a/src/compressor/zstd/CMakeLists.txt

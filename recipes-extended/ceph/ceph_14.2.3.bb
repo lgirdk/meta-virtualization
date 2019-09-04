@@ -11,9 +11,11 @@ inherit cmake pythonnative python-dir systemd
 SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://ceph.conf \
+           file://0001-rgw-add-executor-type-for-basic_waitable_timers.patch \
+           file://0001-rgw-beast-handle_connection-takes-io_context.patch \
 "
-SRC_URI[md5sum] = "67b53eeb0f241c3011e7f40925aa7e08"
-SRC_URI[sha256sum] = "9ef726d7e73ce4d9510ad899493258374f1b40ba20a26b72bbbedb0bfb6dffd8"
+SRC_URI[md5sum] = "e4a53270fba14bf34d0b4c2a2340042e"
+SRC_URI[sha256sum] = "63d0eddab80f7bcdd4e9ac86d2b36c6cc8c9e2d34f20e8e426ff1620d66748dd"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
