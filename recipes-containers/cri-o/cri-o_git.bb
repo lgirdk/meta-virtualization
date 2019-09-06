@@ -40,6 +40,7 @@ DEPENDS = " \
     "
 RDEPENDS_${PN} = " \
     cni \
+    libdevmapper \
     "
 
 python __anonymous() {
