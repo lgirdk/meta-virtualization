@@ -37,6 +37,17 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
            file://lxc_monitor-Avoid-AB-BA-lock-race.patch \
            file://CVE-2019-3840.patch \
+           file://0001-cpu_x86-Do-not-cache-microcode-version.patch \
+           file://0002-qemu-Don-t-cache-microcode-version.patch \
+           file://CVE-2018-12126_CVE-2018-12127_CVE-2018-12130_CVE-2019-11091_p1.patch \
+           file://CVE-2018-12126_CVE-2018-12127_CVE-2018-12130_CVE-2019-11091_p2.patch \
+           file://CVE-2019-10132_p1.patch \
+           file://CVE-2019-10132_p2.patch \
+           file://CVE-2019-10132_p3.patch \
+           file://CVE-2019-10161.patch \
+           file://CVE-2019-10166.patch \
+           file://CVE-2019-10167.patch \
+           file://CVE-2019-10168.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "38da6c33250dcbc0a6d68de5c758262b"

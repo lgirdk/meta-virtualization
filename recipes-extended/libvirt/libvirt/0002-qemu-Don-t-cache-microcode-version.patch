@@ -1,0 +1,155 @@
+From d606ac113007901522dab6c4b3979686d43eaa87 Mon Sep 17 00:00:00 2001
+From: Jiri Denemark <jdenemar@redhat.com>
+Date: Fri, 12 Apr 2019 21:21:05 +0200
+Subject: [PATCH 02/11] qemu: Don't cache microcode version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+My earlier commit be46f61326 was incomplete. It removed caching of
+microcode version in the CPU driver, which means the capabilities XML
+will see the correct microcode version. But it is also cached in the
+QEMU capabilities cache where it is used to detect whether we need to
+reprobe QEMU. By missing the second place, the original commit
+be46f61326 made the situation even worse since libvirt would report
+correct microcode version while still using the old host CPU model
+(visible in domain capabilities XML).
+
+Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+Reviewed-by: Ján Tomko <jtomko@redhat.com>
+(cherry picked from commit 673c62a3b7855a0685d8f116e227c402720b9ee9)
+
+Conflicts:
+        src/qemu/qemu_capabilities.c
+            - virQEMUCapsCacheLookupByArch refactoring (commits
+              7948ad4129a and 1a3de67001c) are missing
+
+Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+
+Upstream-Status: Backport
+Signed-off-by: Armin Kuster <akuster@mvista.com>
+
+---
+ src/qemu/qemu_capabilities.c | 12 ++++++++----
+ src/qemu/qemu_capabilities.h |  3 +--
+ src/qemu/qemu_driver.c       |  9 +--------
+ tests/testutilsqemu.c        |  2 +-
+ 4 files changed, 11 insertions(+), 15 deletions(-)
+
+diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+index a075677..eaf369f 100644
+--- a/src/qemu/qemu_capabilities.c
++++ b/src/qemu/qemu_capabilities.c
+@@ -4700,7 +4700,7 @@ virQEMUCapsNewData(const char *binary,
+                                            priv->libDir,
+                                            priv->runUid,
+                                            priv->runGid,
+-                                           priv->microcodeVersion,
++                                           virHostCPUGetMicrocodeVersion(),
+                                            priv->kernelVersion);
+ }
+ 
+@@ -4783,8 +4783,7 @@ virFileCachePtr
+ virQEMUCapsCacheNew(const char *libDir,
+                     const char *cacheDir,
+                     uid_t runUid,
+-                    gid_t runGid,
+-                    unsigned int microcodeVersion)
++                    gid_t runGid)
+ {
+     char *capsCacheDir = NULL;
+     virFileCachePtr cache = NULL;
+@@ -4808,7 +4807,6 @@ virQEMUCapsCacheNew(const char *libDir,
+ 
+     priv->runUid = runUid;
+     priv->runGid = runGid;
+-    priv->microcodeVersion = microcodeVersion;
+ 
+     if (uname(&uts) == 0 &&
+         virAsprintf(&priv->kernelVersion, "%s %s", uts.release, uts.version) < 0)
+@@ -4829,8 +4827,11 @@ virQEMUCapsPtr
+ virQEMUCapsCacheLookup(virFileCachePtr cache,
+                        const char *binary)
+ {
++    virQEMUCapsCachePrivPtr priv = virFileCacheGetPriv(cache);
+     virQEMUCapsPtr ret = NULL;
+ 
++    priv->microcodeVersion = virHostCPUGetMicrocodeVersion();
++
+     ret = virFileCacheLookup(cache, binary);
+ 
+     VIR_DEBUG("Returning caps %p for %s", ret, binary);
+@@ -4876,10 +4877,13 @@ virQEMUCapsPtr
+ virQEMUCapsCacheLookupByArch(virFileCachePtr cache,
+                              virArch arch)
+ {
++    virQEMUCapsCachePrivPtr priv = virFileCacheGetPriv(cache);
+     virQEMUCapsPtr ret = NULL;
+     virArch target;
+     struct virQEMUCapsSearchData data = { .arch = arch };
+ 
++    priv->microcodeVersion = virHostCPUGetMicrocodeVersion();
++
+     ret = virFileCacheLookupByFunc(cache, virQEMUCapsCompareArch, &data);
+     if (!ret) {
+         /* If the first attempt at finding capabilities has failed, try
+diff --git a/src/qemu/qemu_capabilities.h b/src/qemu/qemu_capabilities.h
+index 3d3a978..956babc 100644
+--- a/src/qemu/qemu_capabilities.h
++++ b/src/qemu/qemu_capabilities.h
+@@ -574,8 +574,7 @@ void virQEMUCapsFilterByMachineType(virQEMUCapsPtr qemuCaps,
+ virFileCachePtr virQEMUCapsCacheNew(const char *libDir,
+                                     const char *cacheDir,
+                                     uid_t uid,
+-                                    gid_t gid,
+-                                    unsigned int microcodeVersion);
++                                    gid_t gid);
+ virQEMUCapsPtr virQEMUCapsCacheLookup(virFileCachePtr cache,
+                                       const char *binary);
+ virQEMUCapsPtr virQEMUCapsCacheLookupCopy(virFileCachePtr cache,
+diff --git a/src/qemu/qemu_driver.c b/src/qemu/qemu_driver.c
+index a0f7c71..75f8699 100644
+--- a/src/qemu/qemu_driver.c
++++ b/src/qemu/qemu_driver.c
+@@ -592,8 +592,6 @@ qemuStateInitialize(bool privileged,
+     char *hugepagePath = NULL;
+     char *memoryBackingPath = NULL;
+     size_t i;
+-    virCPUDefPtr hostCPU = NULL;
+-    unsigned int microcodeVersion = 0;
+ 
+     if (VIR_ALLOC(qemu_driver) < 0)
+         return -1;
+@@ -813,15 +811,10 @@ qemuStateInitialize(bool privileged,
+         run_gid = cfg->group;
+     }
+ 
+-    if ((hostCPU = virCPUProbeHost(virArchFromHost())))
+-        microcodeVersion = hostCPU->microcodeVersion;
+-    virCPUDefFree(hostCPU);
+-
+     qemu_driver->qemuCapsCache = virQEMUCapsCacheNew(cfg->libDir,
+                                                      cfg->cacheDir,
+                                                      run_uid,
+-                                                     run_gid,
+-                                                     microcodeVersion);
++                                                     run_gid);
+     if (!qemu_driver->qemuCapsCache)
+         goto error;
+ 
+diff --git a/tests/testutilsqemu.c b/tests/testutilsqemu.c
+index 8438613..4e53f03 100644
+--- a/tests/testutilsqemu.c
++++ b/tests/testutilsqemu.c
+@@ -707,7 +707,7 @@ int qemuTestDriverInit(virQEMUDriver *driver)
+ 
+     /* Using /dev/null for libDir and cacheDir automatically produces errors
+      * upon attempt to use any of them */
+-    driver->qemuCapsCache = virQEMUCapsCacheNew("/dev/null", "/dev/null", 0, 0, 0);
++    driver->qemuCapsCache = virQEMUCapsCacheNew("/dev/null", "/dev/null", 0, 0);
+     if (!driver->qemuCapsCache)
+         goto error;
+ 
+-- 
+2.7.4
+

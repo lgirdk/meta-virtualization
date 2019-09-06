@@ -1,0 +1,59 @@
+From 33998cdd47300fc3ca6cb8f85714c149440b9c8b Mon Sep 17 00:00:00 2001
+From: Jiri Denemark <jdenemar@redhat.com>
+Date: Fri, 5 Apr 2019 11:33:32 +0200
+Subject: [PATCH 01/11] cpu_x86: Do not cache microcode version
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The microcode version checks are used to invalidate cached CPU data we
+get from QEMU. To minimize /proc/cpuinfo parsing the microcode version
+was only read when libvirtd started and cached for the daemon's
+lifetime. However, the CPU microcode can change anytime (updating the
+microcode package can automatically upload it to the CPU) and we need to
+stop caching it to avoid using stale CPU model data.
+
+Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+Reviewed-by: Ján Tomko <jtomko@redhat.com>
+(cherry picked from commit be46f613261d3b655a1f15afd635087e68a9c39b)
+
+Upstream-Status: Backport
+Signed-off-by: Armin Kuster <akuster@mvista.com>
+
+---
+ src/cpu/cpu_x86.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/src/cpu/cpu_x86.c b/src/cpu/cpu_x86.c
+index cb27550..ce48ca6 100644
+--- a/src/cpu/cpu_x86.c
++++ b/src/cpu/cpu_x86.c
+@@ -163,7 +163,6 @@ struct _virCPUx86Map {
+ };
+ 
+ static virCPUx86MapPtr cpuMap;
+-static unsigned int microcodeVersion;
+ 
+ int virCPUx86DriverOnceInit(void);
+ VIR_ONCE_GLOBAL_INIT(virCPUx86Driver);
+@@ -1331,8 +1330,6 @@ virCPUx86DriverOnceInit(void)
+     if (!(cpuMap = virCPUx86LoadMap()))
+         return -1;
+ 
+-    microcodeVersion = virHostCPUGetMicrocodeVersion();
+-
+     return 0;
+ }
+ 
+@@ -2372,7 +2369,7 @@ virCPUx86GetHost(virCPUDefPtr cpu,
+         goto cleanup;
+ 
+     ret = x86DecodeCPUData(cpu, cpuData, models);
+-    cpu->microcodeVersion = microcodeVersion;
++    cpu->microcodeVersion = virHostCPUGetMicrocodeVersion();
+ 
+  cleanup:
+     virCPUx86DataFree(cpuData);
+-- 
+2.7.4
+
