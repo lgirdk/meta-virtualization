@@ -36,6 +36,13 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
            file://hook_support.py \
+           file://CVE-2019-10132_p1.patch \
+           file://CVE-2019-10132_p2.patch \
+           file://CVE-2019-10132_p3.patch \
+           file://CVE-2019-10161.patch \
+           file://CVE-2019-10166.patch \
+           file://CVE-2019-10167.patch \ 
+           file://CVE-2019-10168.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "aaf7b265ac2013d6eb184a86b5f7eeb9"
