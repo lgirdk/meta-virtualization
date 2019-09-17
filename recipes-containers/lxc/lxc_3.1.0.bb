@@ -5,10 +5,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
+		curl \
 		gzip \
 		xz \
 		tar \
-		wget \
 		libcap-bin \
 		bridge-utils \
 		dnsmasq \
@@ -41,6 +41,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	file://templates-actually-create-DOWNLOAD_TEMP-directory.patch \
 	file://template-make-busybox-template-compatible-with-core-.patch \
+	file://templates-use-curl-instead-of-wget.patch \
 	file://tests-our-init-is-not-busybox.patch \
 	file://tests-add-no-validate-when-using-download-template.patch \
 	file://dnsmasq.conf \
