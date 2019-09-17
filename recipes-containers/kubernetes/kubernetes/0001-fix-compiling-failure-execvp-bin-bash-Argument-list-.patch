@@ -1,0 +1,69 @@
+From dbca1bfc6ffca8a6536d91a716cb9c5e9bc2f8a0 Mon Sep 17 00:00:00 2001
+From: Hongxu Jia <hongxu.jia@windriver.com>
+Date: Tue, 17 Sep 2019 14:43:30 +0800
+Subject: [PATCH] fix compiling failure: execvp: /bin/bash: Argument list too
+ long
+
+Use GNU Make 4.2.1(such as fedora-29) to build k8s in a long directory,
+it failed with `execvp: /bin/bash: Argument list too long'
+[snip]
+$ cd /buildarea1/hjia/wrlinux-1019/I_/suspect_/that_/if_/you_/create_/your_/project_/in_/a_/very_/deep_/directory/build_master-wr_qemux86-64_faw_2019090509/build/tmp-glibc/work/core2-64-wrs-linux/kubernetes/v1.16.0-alpha+git7054e3ead7e1a00ca6ac3ec47ea355b76061a35a-r0/kubernetes-v1.16.0-alpha+git7054e3ead7e1a00ca6ac3ec47ea355b76061a35a/src/import
+$ make cross KUBE_BUILD_PLATFORMS=linux/amd64 GOLDFLAGS=""
+|+++ [0804 16:38:32] Building go targets for linux/amd64:
+|    ./vendor/k8s.io/code-generator/cmd/deepcopy-gen
+|make[1]: execvp: /bin/bash: Argument list too long
+|make[1]: *** [Makefile.generated_files:184: pkg/kubectl/cmd/testing/zz_generated.deepcopy.go] Error 127
+|make: *** [Makefile:557: generated_files] Error 2
+...
+[snip]
+
+From make manual [1]
+$?
+  The names of all the prerequisites that are newer than the target, with spaces between them.
+
+While two `$?' was passed to bash in a line, it caused above failure,
+drop a duplicated one could workaround the issue.
+
+[1] https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+
+Upstream-Status: Submitted [https://github.com/kubernetes/kubernetes/pull/82777]
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+---
+ src/import/build/root/Makefile.generated_files | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/import/build/root/Makefile.generated_files b/src/import/build/root/Makefile.generated_files
+index 4892325..f17f1f3 100644
+--- a/src/import/build/root/Makefile.generated_files
++++ b/src/import/build/root/Makefile.generated_files
+@@ -182,7 +182,7 @@ $(META_DIR)/$(DEEPCOPY_GEN).todo: $(DEEPCOPY_FILES)
+ 
+ $(DEEPCOPY_FILES): $(DEEPCOPY_GEN)
+ 	if [[ "$(DBG_CODEGEN)" == 1 ]]; then        \
+-	    echo "DBG: deepcopy needed $(@D): $?";  \
++	    echo "DBG: deepcopy needed $(@D):";  \
+ 	    ls -lf --full-time $@ $? || true;       \
+ 	fi
+ 	echo $(PRJ_SRC_PATH)/$(@D) >> $(META_DIR)/$(DEEPCOPY_GEN).todo
+@@ -276,7 +276,7 @@ $(META_DIR)/$(DEFAULTER_GEN).todo: $(DEFAULTER_FILES)
+ 
+ $(DEFAULTER_FILES): $(DEFAULTER_GEN)
+ 	if [[ "$(DBG_CODEGEN)" == 1 ]]; then         \
+-	    echo "DBG: defaulter needed $(@D): $?";  \
++	    echo "DBG: defaulter needed $(@D):";  \
+ 	    ls -lf --full-time $@ $? || true;        \
+ 	fi
+ 	echo $(PRJ_SRC_PATH)/$(@D) >> $(META_DIR)/$(DEFAULTER_GEN).todo
+@@ -380,7 +380,7 @@ $(META_DIR)/$(CONVERSION_GEN).todo: $(CONVERSION_FILES)
+ 
+ $(CONVERSION_FILES): $(CONVERSION_GEN)
+ 	if [[ "$(DBG_CODEGEN)" == 1 ]]; then          \
+-	    echo "DBG: conversion needed $(@D): $?";  \
++	    echo "DBG: conversion needed $(@D):";  \
+ 	    ls -lf --full-time $@ $? || true;         \
+ 	fi
+ 	echo $(PRJ_SRC_PATH)/$(@D) >> $(META_DIR)/$(CONVERSION_GEN).todo
+-- 
+2.7.4
+

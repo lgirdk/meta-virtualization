@@ -11,6 +11,7 @@ SRCREV_kubernetes = "7054e3ead7e1a00ca6ac3ec47ea355b76061a35a"
 SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
+           file://0001-fix-compiling-failure-execvp-bin-bash-Argument-list-.patch \
           "
 
 DEPENDS += "rsync-native \
