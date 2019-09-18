@@ -25,6 +25,7 @@ SRC_URI = "\
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
+	file://0001-imporve-hardcoded-CC-on-cross-compile-docker-ce.patch \
 	"
 
 require docker.inc
