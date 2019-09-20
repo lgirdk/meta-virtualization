@@ -1,0 +1,31 @@
+From 6ef63dfcc65d5401bc7cc7170d569cefcdadcb38 Mon Sep 17 00:00:00 2001
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 30 Aug 2019 17:49:22 +0200
+Subject: [PATCH] Makefile: don't fail if clean is called without a build
+
+Do not fail when calling the clean target without building first.
+
+Upstream-Status: Backport
+
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+---
+ Makefile | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index fb0e4fb..b525595 100644
+--- a/Makefile
++++ b/Makefile
+@@ -66,8 +66,7 @@ bin:
+ 
+ .PHONY: clean
+ clean:
+-	rm -f bin/conmon src/*.o
+-	rmdir bin
++	rm -rf bin/ src/*.o
+ 
+ .PHONY: install install.bin install.crio install.podman podman crio
+ install: install.bin
+-- 
+2.23.0
+
