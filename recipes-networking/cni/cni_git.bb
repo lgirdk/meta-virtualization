@@ -63,16 +63,20 @@ do_compile() {
 }
 
 do_install() {
-    localbindir="/opt/cni/bin"
+    localbindir="${libexecdir}/cni/"
 
     install -d ${D}${localbindir}
     install -d ${D}/${sysconfdir}/cni/net.d
 
     install -m 755 ${S}/src/import/cnitool/cnitool ${D}/${localbindir}
     install -m 755 -D ${WORKDIR}/plugins/bin/* ${D}/${localbindir}
+
+    # Parts of k8s expect the cni binaries to be available in /opt/cni
+    install -d ${D}/opt/cni
+    ln -sf ${libexecdir}/cni/ ${D}/opt/cni/bin
 }
 
-FILES_${PN} += "/opt/cni/bin/*"
+FILES_${PN} += "${libexecdir}/cni/* /opt/cni/bin"
 
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
