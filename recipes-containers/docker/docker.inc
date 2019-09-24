@@ -31,6 +31,15 @@ RDEPENDS_${PN} += "virtual/containerd virtual/runc"
 
 RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat"
 
+PROVIDES += "virtual/docker"
+
+# we want all the docker variant recpes to be installable via "docker"
+PACKAGE_NAME = "docker"
+RPROVIDES_${PN} += "docker"
+RPROVIDES_${PN}-dbg += "docker-dbg"
+RPROVIDES_${PN}-dev += "docker-dev"
+RPROVIDES_${PN}-contrip += "docker-dev"
+
 inherit pkgconfig
 PACKAGECONFIG ??= "docker-init"
 PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
