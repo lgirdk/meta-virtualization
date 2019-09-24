@@ -37,14 +37,20 @@ Forward-ported to v0.5.3.
 
 Signed-off-by: Paul Barker <paul@betafive.co.uk>
 ---
- basic.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ basic.mk | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/basic.mk b/basic.mk
-index 187dff3..fb080b7 100644
+index 187dff3..76a8d93 100644
 --- a/src/import/basic.mk
 +++ b/src/import/basic.mk
-@@ -50,7 +50,7 @@ $(NAME): $(wildcard *.go) $(wildcard */*.go) VERSION.txt
+@@ -45,12 +45,12 @@ build: prebuild $(NAME) ## Builds a dynamic executable or package.
+ 
+ $(NAME): $(wildcard *.go) $(wildcard */*.go) VERSION.txt
+ 	@echo "+ $@"
+-	$(GO) build -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o $(NAME) .
++	$(GO) build -a -pkgdir dontusecurrentpkgs -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o $(NAME) .
+ 
  .PHONY: static
  static: prebuild ## Builds a static executable.
  	@echo "+ $@"
@@ -54,5 +60,5 @@ index 187dff3..fb080b7 100644
  				${GO_LDFLAGS_STATIC} -o $(NAME) .
  
 -- 
-2.17.1
+2.23.0
 
