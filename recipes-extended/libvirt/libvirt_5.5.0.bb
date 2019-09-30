@@ -357,6 +357,8 @@ EXTRA_OECONF += " \
 
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
 
+PRIVATE_LIBS_${PN}-ptest_append = "libvirt-admin.so.0"
+
 do_compile_ptest() {
 	oe_runmake -C tests buildtest-TESTS
 }
