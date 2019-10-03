@@ -51,12 +51,6 @@ python __anonymous() {
     if 'security' not in d.getVar('BBFILE_COLLECTIONS').split():
         msg += "Make sure meta-security should be present as it provides 'libseccomp'"
         raise bb.parse.SkipRecipe(msg)
-    # ERROR: Nothing PROVIDES 'ostree' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
-    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
-    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'ostree']
-    elif 'cube' not in d.getVar('BBFILE_COLLECTIONS').split():
-        msg += "Make sure meta-cube should be present as it provides 'ostree'"
-        raise bb.parse.SkipRecipe(msg)
     # ERROR: Nothing PROVIDES 'libselinux' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
     # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
     # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'libselinux']
