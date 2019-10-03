@@ -14,6 +14,22 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
+python __anonymous() {
+    msg = ""
+    # ERROR: Nothing PROVIDES 'libseccomp' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
+    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
+    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'libseccomp']
+    if 'security' not in d.getVar('BBFILE_COLLECTIONS').split():
+        msg += "Make sure meta-security should be present as it provides 'libseccomp'"
+        raise bb.parse.SkipRecipe(msg)
+    # ERROR: Nothing PROVIDES 'libselinux' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
+    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
+    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'libselinux']
+    elif 'selinux' not in d.getVar('BBFILE_COLLECTIONS').split():
+        msg += "Make sure meta-selinux should be present as it provides 'libselinux'"
+        raise bb.parse.SkipRecipe(msg)
+}
+
 SRCREV = "00057929f5acfd98341964d85722383363376d52"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=master \
@@ -89,5 +105,7 @@ FILES_${PN} += " \
     ${sysconfdir}/cni \
 "
 
-RDEPENDS_${PN} += "conmon runc-opencontainers iptables cni skopeo"
+# Note that runc-opencontainers is the only currently tested
+# runc provider.
+RDEPENDS_${PN} += "conmon virtual/runc iptables cni skopeo"
 RRECOMMENDS_${PN} += "slirp4netns"
