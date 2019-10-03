@@ -66,6 +66,11 @@ EXTRA_OEMAKE = " \
      SYSTEMDDIR=${systemd_unitdir}/system USERSYSTEMDDIR=${systemd_unitdir}/user \
 "
 
+# remove 'docker' from the packageconfig if you don't want podman to
+# build and install the docker wrapper. If docker is enabled in the
+# packageconfig, the podman package will rconfict with docker.
+PACKAGECONFIG ?= "docker"
+
 do_compile() {
 	cd ${S}/src
 	rm -rf .gopath
@@ -95,7 +100,10 @@ do_compile() {
 do_install() {
 	cd ${S}/src/.gopath/src/"${PODMAN_PKG}"
 
-	oe_runmake install install.docker DESTDIR="${D}"
+	oe_runmake install DESTDIR="${D}"
+	if ${@bb.utils.contains('PACKAGECONFIG', 'docker', 'true', 'false', d)}; then
+		oe_runmake install.docker DESTDIR="${D}"
+	fi
 }
 
 FILES_${PN} += " \
@@ -109,3 +117,4 @@ FILES_${PN} += " \
 # runc provider.
 RDEPENDS_${PN} += "conmon virtual/runc iptables cni skopeo"
 RRECOMMENDS_${PN} += "slirp4netns"
+RCONFLICTS_${PN} = "${@bb.utils.contains('PACKAGECONFIG', 'docker', 'docker', '', d)}"
