@@ -24,7 +24,7 @@ python __anonymous() {
         raise bb.parse.SkipRecipe(msg)
 }
 
-SRCREV = "00057929f5acfd98341964d85722383363376d52"
+SRCREV = "233d95f4f0a815f11d1c1ae9aba16781c4eb2700"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=master \
 "
@@ -36,7 +36,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "1.5.1+git${SRCREV}"
+PV = "1.6.1+git${SRCREV}"
 
 PACKAGES =+ "${PN}-contrib"
 
