@@ -19,7 +19,11 @@ RDEPENDS_${PN} = " \
      libassuan \
 "
 
-SRC_URI = "git://github.com/containers/skopeo"
+SRC_URI = " \
+    git://github.com/containers/skopeo \
+    file://storage.conf \
+    file://registries.conf \
+"
 
 SRCREV = "1cf1e06582142c522543560f2bc6d6756696e8ad"
 PV = "v0.1.39-dev+git${SRCPV}"
@@ -68,6 +72,9 @@ do_install() {
 
 	install ${S}/src/import/skopeo ${D}/${sbindir}/
 	install ${S}/src/import/default-policy.json ${D}/${sysconfdir}/containers/policy.json
+
+	install ${WORKDIR}/storage.conf ${D}/${sysconfdir}/containers/storage.conf
+	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 }
 
 INSANE_SKIP_${PN} += "ldflags"
