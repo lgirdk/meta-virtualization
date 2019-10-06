@@ -107,8 +107,6 @@ FILES_${PN} += " \
     ${sysconfdir}/cni \
 "
 
-# Note that runc-opencontainers is the only currently tested
-# runc provider.
 RDEPENDS_${PN} += "conmon virtual/runc iptables cni skopeo"
 RRECOMMENDS_${PN} += "slirp4netns"
 RCONFLICTS_${PN} = "${@bb.utils.contains('PACKAGECONFIG', 'docker', 'docker', '', d)}"
