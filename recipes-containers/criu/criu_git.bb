@@ -38,7 +38,7 @@ S = "${WORKDIR}/git"
 #
 EXTRA_OEMAKE_arm += "ARCH=arm UNAME-M=${CRIU_BUILD_ARCH} WERROR=0"
 EXTRA_OEMAKE_x86-64 += "ARCH=x86 WERROR=0"
-EXTRA_OEMAKE_aarch64 += "ARCH=arm64 WERROR=0"
+EXTRA_OEMAKE_aarch64 += "ARCH=aarch64 WERROR=0"
 
 EXTRA_OEMAKE_append += "SBINDIR=${sbindir} LIBDIR=${libdir} INCLUDEDIR=${includedir} PIEGEN=no"
 EXTRA_OEMAKE_append += "LOGROTATEDIR=${sysconfdir} SYSTEMDUNITDIR=${systemd_unitdir}"
