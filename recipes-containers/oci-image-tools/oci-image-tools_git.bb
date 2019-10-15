@@ -13,9 +13,10 @@ DEPENDS = "\
           "
 
 SRC_URI = "git://github.com/opencontainers/image-tools.git \
-           file://0001-config-make-Config.User-mapping-errors-a-warning.patch"
+           file://0001-config-make-Config.User-mapping-errors-a-warning.patch \
+           file://0001-tool-respect-GO-and-GOBUILDFLAGS-when-building.patch"
 
-SRCREV = "e324098b70c87495404be6f341be459d2dfde64e"
+SRCREV = "93db3b16e6738bf9b8bee47d86ac93be5340838b"
 PV = "0.2.0-dev+git${SRCPV}"
 GO_IMPORT = "import"
 
