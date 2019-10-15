@@ -5,10 +5,10 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.16.0-alpha+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "7054e3ead7e1a00ca6ac3ec47ea355b76061a35a"
+PV = "v1.16.1+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "c97fe5036ef3df2967d086711e6c0c405941e14b"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.16;name=kubernetes \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
            file://0001-fix-compiling-failure-execvp-bin-bash-Argument-list-.patch \
