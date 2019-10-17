@@ -3,12 +3,12 @@ HOMEPAGE = "https://www.docker.com/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
-SRC_URI += "file://0001-Allow-newer-versions-of-requests.patch"
+SRC_URI += "file://0001-docker-compose-support-newer-minor-version-of-reques.patch"
 
 inherit pypi setuptools3
 
-SRC_URI[md5sum] = "8dcadf09143600fcb573b43f446c8f9a"
-SRC_URI[sha256sum] = "fb46a6a2c4d193a3ff1e4d7208eea920b629c81dc92257c87f3f93095cfb0bdf"
+SRC_URI[md5sum] = "a243f59b2d286c41ff6ed1c4d4b50996"
+SRC_URI[sha256sum] = "68b07193755440d5f8d4f47e6f3484212afc255d5b785a81353ea1e9298c1c2c"
 
 RDEPENDS_${PN} = "\
   ${PYTHON_PN}-cached-property \
