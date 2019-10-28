@@ -60,6 +60,9 @@ Container support components:
       - CNI multus (6-12)
   - Additional Container networking plugins (roadmap)
 
+  - h/w accelerated containers (12)
+      - fpga / pci / other
+
 Build system / workflow:
 
   - Binary reference package feed integration / container extension (12)
@@ -76,4 +79,9 @@ Build system / workflow:
       - skopeo ....
 
   - SDK based container update (12)
+
+  - devtool / recipe / manual: build -> deploy (k8s, other) (12)
+      - local / build host deploy and test (6)
+
+  - microservice reference workflow / container base
 
