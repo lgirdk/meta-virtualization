@@ -164,3 +164,4 @@ INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
 
+COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
