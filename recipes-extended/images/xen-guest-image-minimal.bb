@@ -1,6 +1,6 @@
 DESCRIPTION = "A Xen guest image."
 
-inherit core-image distro_features_check
+inherit core-image features_check
 
 IMAGE_INSTALL += " \
     packagegroup-core-boot \
