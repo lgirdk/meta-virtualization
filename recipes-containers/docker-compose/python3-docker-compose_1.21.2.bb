@@ -3,7 +3,7 @@ HOMEPAGE = "https://www.docker.com/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
-SRC_URI += "file://0001-docker-compose-support-newer-minor-version-of-reques.patch"
+SRC_URI += "file://0001-setup.py-remove-maximum-version-requirements.patch"
 
 inherit pypi setuptools3
 
