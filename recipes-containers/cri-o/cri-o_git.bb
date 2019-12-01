@@ -109,6 +109,9 @@ do_compile() {
 	# fixes the bin/crio build of oe_runmake binaries below
 	ln -sf ../../../../cmd/crio ${S}/src/import/src/github.com/cri-o/cri-o/cmd/
 
+	# workaround `use of vendored package not allowed' failure
+	mv ${S}/src/import/vendor/golang.org  ${S}/src/import/
+
 	cd ${S}/src/import
 
 	if [ "${CRIO_BUILD_CROSS}" = "1" ]; then
