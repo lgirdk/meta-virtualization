@@ -39,7 +39,7 @@ EXTRA_OECONF_SSL = "--with-ssl=${STAGING_DIR_HOST} \
                     --with-ssl-lib=${STAGING_DIR_HOST}${libdir} \
 "
 
-PACKAGECONFIG[ssl] = "${EXTRA_OECONF_SSL},--disable-ssl,openssl,"
+PACKAGECONFIG[ssl] = "${EXTRA_OECONF_SSL},--disable-ssl,openssl-native openssl,"
 PACKAGECONFIG[cmdargs] = "--enable-command-args,--disable-command-args,,"
 PACKAGECONFIG[bashcomp] = "--enable-bash-command-substitution,--disable-bash-command-substitution,,"
 
