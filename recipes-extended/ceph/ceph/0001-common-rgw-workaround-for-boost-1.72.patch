@@ -1,0 +1,62 @@
+From ea64c4909ffeae10e5d8e0a23604030e8849f803 Mon Sep 17 00:00:00 2001
+From: Kefu Chai <kchai@redhat.com>
+Date: Mon, 23 Dec 2019 16:26:13 +0800
+Subject: [PATCH] common,rgw: workaround for boost 1.72
+
+see also https://github.com/boostorg/coroutine/issues/46
+
+will need to remove this change once we require boost >= 1.73
+
+Signed-off-by: Kefu Chai <kchai@redhat.com>
+
+Upstream-Status: Backport [https://github.com/ceph/ceph/commit/ea64c4909ffeae10e5d8e0a23604030e8849f803]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ src/common/async/yield_context.h | 2 ++
+ src/rgw/rgw_asio_frontend.cc     | 2 ++
+ src/test/librados/asio.cc        | 2 ++
+ 3 files changed, 6 insertions(+)
+
+diff --git a/src/common/async/yield_context.h b/src/common/async/yield_context.h
+index fda9541eb4..436192c02f 100644
+--- a/src/common/async/yield_context.h
++++ b/src/common/async/yield_context.h
+@@ -14,6 +14,8 @@
+ 
+ #pragma once
+ 
++#include <boost/range/begin.hpp>
++#include <boost/range/end.hpp>
+ #include <boost/asio/io_context.hpp>
+ 
+ #include "acconfig.h"
+diff --git a/src/rgw/rgw_asio_frontend.cc b/src/rgw/rgw_asio_frontend.cc
+index 7df74225f6..deab1b0c66 100644
+--- a/src/rgw/rgw_asio_frontend.cc
++++ b/src/rgw/rgw_asio_frontend.cc
+@@ -7,6 +7,8 @@
+ 
+ #include <boost/asio.hpp>
+ #define BOOST_COROUTINES_NO_DEPRECATION_WARNING
++#include <boost/range/begin.hpp>
++#include <boost/range/end.hpp>
+ #include <boost/asio/spawn.hpp>
+ #include <boost/intrusive/list.hpp>
+ 
+diff --git a/src/test/librados/asio.cc b/src/test/librados/asio.cc
+index 9c86ad420c..8fa4bab197 100644
+--- a/src/test/librados/asio.cc
++++ b/src/test/librados/asio.cc
+@@ -21,6 +21,8 @@
+ 
+ #ifdef HAVE_BOOST_CONTEXT
+ #define BOOST_COROUTINES_NO_DEPRECATION_WARNING
++#include <boost/range/begin.hpp>
++#include <boost/range/end.hpp>
+ #include <boost/asio/spawn.hpp>
+ #endif
+ #include <boost/asio/use_future.hpp>
+-- 
+2.17.1
+

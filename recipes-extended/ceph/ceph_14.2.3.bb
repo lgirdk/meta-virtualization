@@ -13,6 +13,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://ceph.conf \
            file://0001-rgw-add-executor-type-for-basic_waitable_timers.patch \
            file://0001-rgw-beast-handle_connection-takes-io_context.patch \
+           file://0001-common-rgw-workaround-for-boost-1.72.patch \
 "
 SRC_URI[md5sum] = "e4a53270fba14bf34d0b4c2a2340042e"
 SRC_URI[sha256sum] = "63d0eddab80f7bcdd4e9ac86d2b36c6cc8c9e2d34f20e8e426ff1620d66748dd"
