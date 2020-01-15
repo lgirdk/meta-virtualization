@@ -24,7 +24,7 @@ python __anonymous() {
         raise bb.parse.SkipRecipe(msg)
 }
 
-SRCREV = "f3ffda1e08f19e9a6a88484136b5eed76533f21a"
+SRCREV = "b7ce1157b00af09f4a09e39b377aa3abff46ee05"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=master \
 "
@@ -36,15 +36,14 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "1.6.2+git${SRCREV}"
+PV = "1.7.0+git${SRCREV}"
 
 PACKAGES =+ "${PN}-contrib"
 
 PODMAN_PKG = "github.com/containers/libpod"
-BUILDTAGS ?= "seccomp varlink remoteclient \
+BUILDTAGS ?= "seccomp varlink \
 ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
-exclude_graphdriver_btrfs exclude_graphdriver_devicemapper \
-containers_image_ostree_stub"
+exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
 
 # overide LDFLAGS to allow podman to build without: "flag provided but not # defined: -Wl,-O1
 export LDFLAGS=""
