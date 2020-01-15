@@ -6,10 +6,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=61af0b6932ea7b12fb9142721043bc77"
 
 DEPENDS = "glib-2.0"
 
-SRCREV = "e217fdff82e0b1a6184a28c43043a4065083407f"
+SRCREV = "60b42f20f222df9da07a01ee444327348b9f54ee"
 SRC_URI = "\
     git://github.com/containers/conmon.git \
-    file://0001-Makefile-don-t-fail-if-clean-is-called-without-a-bui.patch \
 "
 
 SRC_URI[md5sum] = "5c711911d766d76813333c3812277574"
