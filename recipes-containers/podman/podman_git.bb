@@ -24,9 +24,10 @@ python __anonymous() {
         raise bb.parse.SkipRecipe(msg)
 }
 
-SRCREV = "233d95f4f0a815f11d1c1ae9aba16781c4eb2700"
+SRCREV = "5cc92849f7fc9dd734ca2fd8f3ae8830b9a7eb26"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=master \
+    git://github.com/containers/libpod.git;branch=v1.6 \
+    file://0001-Makefile-Fix-docker-documentation-install-and-genera.patch \
 "
 
 LICENSE = "Apache-2.0"
@@ -36,7 +37,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "1.6.1+git${SRCREV}"
+PV = "1.6.4+git${SRCREV}"
 
 PACKAGES =+ "${PN}-contrib"
 

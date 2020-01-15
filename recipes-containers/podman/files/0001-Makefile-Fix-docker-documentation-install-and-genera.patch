@@ -1,0 +1,43 @@
+From 9558797fb7bb019810d18f7acdde93adc35d02cc Mon Sep 17 00:00:00 2001
+From: Morten Linderud <morten@linderud.pw>
+Date: Sat, 2 Nov 2019 12:58:38 +0100
+Subject: [PATCH] [Makefile] Fix docker documentation install and generation
+
+The final versions of the documentation has been shifted from `docs/` to
+`docs/build/man`. Most of the Makefile has been changed accordingly, but
+the docker documentation generation was not.
+
+Introduced by #4354
+
+Signed-off-by: Morten Linderud <morten@linderud.pw>
+Upstream-Status: Backport
+Signed-off-by: Stefan Agner <stefan.agner@toradex.com>
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 98b7bbdf..feb8e0ca 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -376,7 +376,7 @@ podman-remote-%-release:
+ 	$(MAKE) podman-remote-v$(RELEASE_NUMBER)-$*.zip
+ 
+ docker-docs: docs
+-	(cd docs; ./dckrman.sh *.1)
++	(cd docs; ./dckrman.sh ./build/man/*.1)
+ 
+ changelog: ## Generate changelog
+ 	@echo "Creating changelog from $(CHANGELOG_BASE) to $(CHANGELOG_TARGET)"
+@@ -425,7 +425,7 @@ install.cni:
+ install.docker: docker-docs
+ 	install ${SELINUXOPT} -d -m 755 $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1
+ 	install ${SELINUXOPT} -m 755 docker $(DESTDIR)$(BINDIR)/docker
+-	install ${SELINUXOPT} -m 644 docs/docker*.1 -t $(DESTDIR)$(MANDIR)/man1
++	install ${SELINUXOPT} -m 644 docs/build/man/docker*.1 -t $(DESTDIR)$(MANDIR)/man1
+ 
+ install.systemd:
+ 	install ${SELINUXOPT} -m 755 -d ${DESTDIR}${SYSTEMDDIR}  ${DESTDIR}${USERSYSTEMDDIR} ${DESTDIR}${TMPFILESDIR}
+-- 
+2.17.1
+
