@@ -1,6 +1,5 @@
 # Meta-virtuailization PREFERED_VERSION
 
-PREFERRED_VERSION_python-blinker = "1.3"
 PREFERRED_VERSION_python-gevent = "1.0.1"
 PREFERRED_VERSION_python-m2crypto = "0.22.3"
 PREFERRED_VERSION_python-pyyaml = "5.1.2"
