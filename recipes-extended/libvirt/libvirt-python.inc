@@ -1,11 +1,11 @@
-inherit pythonnative python-dir
+inherit python3native python3-dir
 
 export STAGING_INCDIR
 export STAGING_LIBDIR
 export BUILD_SYS 
 export HOST_SYS
 
-RDEPENDS_${PN}-python += "python"
+RDEPENDS_${PN}-python += "python3"
 PACKAGECONFIG_${PN}-python[xen] = ",,,xen-python"
 
 PACKAGES += "${PN}-python-staticdev ${PN}-python-dev ${PN}-python-dbg ${PN}-python"
