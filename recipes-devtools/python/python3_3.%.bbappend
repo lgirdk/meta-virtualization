@@ -1,8 +1,1 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-
-DEPENDS += " ncurses"
-
-do_compile_prepend() {
-	export LIBRARY_PATH=${STAGING_DIR_TARGET}/lib
-}
-
+require ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', '${BPN}_virtualization.inc', '', d)}
