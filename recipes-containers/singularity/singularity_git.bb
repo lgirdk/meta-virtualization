@@ -19,7 +19,7 @@ SRCREV = "e214d4ebf0a1274b1c63b095fd55ae61c7e92947"
 
 S = "${WORKDIR}/git"
 
-inherit pythonnative autotools-brokensep
+inherit python3native autotools-brokensep
 EXTRA_OECONF = "--prefix=/usr/local"
 
 pkg_postinst_${PN}() {
