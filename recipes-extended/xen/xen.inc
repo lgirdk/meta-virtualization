@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bbb4b1bdc2c3b6743da3c39d03249095"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux-gnueabi'
 
-inherit autotools-brokensep setuptools update-rc.d systemd deploy
+inherit autotools-brokensep setuptools3 update-rc.d systemd deploy
 
 require xen-arch.inc
 
