@@ -13,15 +13,14 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "437561d2bbc09d734ae276dbfca337569f454d54"
-PV = "3.12+git${SRCPV}"
+SRCREV = "c703e3fd8404e506cc6156719b953ea0580d59a4"
+PV = "3.13+git${SRCPV}"
 
-SRC_URI = "git://github.com/xemul/criu.git;protocol=git \
+SRC_URI = "git://github.com/checkpoint-restore/criu.git \
            file://0001-criu-Fix-toolchain-hardcode.patch \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \
            file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
-           file://0001-x86-crtools-do-not-error-when-YMM-is-missing.patch \
           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
@@ -56,7 +55,9 @@ export BUILD_SYS
 export HOST_SYS
 export HOSTCFLAGS = "${BUILD_CFLAGS}"
 
-inherit setuptools
+inherit setuptools3
+
+B = "${S}"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[selinux] = ",,libselinux"
@@ -69,18 +70,24 @@ do_compile_prepend() {
 }
 
 do_compile () {
-	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=python2
+	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=python3
 }
 
 do_install () {
     export INSTALL_LIB="${libdir}/${PYTHON_DIR}/site-packages"
-    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" FULL_PYTHON=${PYTHON} PYTHON=python2 install
+    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" FULL_PYTHON=${PYTHON} PYTHON=python3 install
+
+    # python3's distutils has a feature of rewriting the interpeter on setup installed
+    # scripts. 'crit' is one of those scripts. The "executable" or "e" option to the
+    # setup call should fix it, but it is being ignored. So to avoid getting our native
+    # intepreter replaced in the script, we'll do an explicit update ourselves.
+    sed -i 's%^\#\!.*%\#\!/usr/bin/env python3%g' ${D}/usr/bin/crit
 }
 
 FILES_${PN} += "${systemd_unitdir}/ \
-            ${libdir}/python2.7/site-packages/ \
+            ${libdir}/python3*/site-packages/ \
             ${libdir}/pycriu/ \
-            ${libdir}/crit-0.0.1-py2.7.egg-info \
+            ${libdir}/crit-0.0.1-py3*.egg-info \
             "
 
 FILES_${PN}-staticdev += " \
