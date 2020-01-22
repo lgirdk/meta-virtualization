@@ -1,16 +1,2 @@
-do_install_append() {
+require ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', '${BPN}_virtualization.inc', '', d)}
 
-	echo                  >> ${D}${sysconfdir}/init.d/functions
-	echo success \(\) \{  >> ${D}${sysconfdir}/init.d/functions
-	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
-	echo \}               >> ${D}${sysconfdir}/init.d/functions
-	echo failure \(\) \{  >> ${D}${sysconfdir}/init.d/functions
-	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
-	echo \}               >> ${D}${sysconfdir}/init.d/functions
-	echo warning \(\) \{  >> ${D}${sysconfdir}/init.d/functions
-	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
-	echo \}               >> ${D}${sysconfdir}/init.d/functions
-	echo begin \(\) \{  >> ${D}${sysconfdir}/init.d/functions
-	echo \ \ \ \ echo \$* >> ${D}${sysconfdir}/init.d/functions
-	echo \}               >> ${D}${sysconfdir}/init.d/functions
-}
