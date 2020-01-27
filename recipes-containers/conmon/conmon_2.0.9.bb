@@ -20,6 +20,9 @@ inherit pkgconfig
 
 EXTRA_OEMAKE = "PREFIX=${prefix} BINDIR=${bindir} LIBEXECDIR=${libexecdir}"
 
+PACKAGECONFIG ??= "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
+PACKAGECONFIG[systemd] = ",,systemd"
+
 do_install() {
     oe_runmake 'DESTDIR=${D}' install
 }
