@@ -45,6 +45,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://tests-our-init-is-not-busybox.patch \
 	file://tests-add-no-validate-when-using-download-template.patch \
 	file://network-restore-ability-to-move-nl80211-devices.patch \
+        file://0001-container.conf-Add-option-to-set-keyring-SELinux-con.patch \
+        file://0002-container.conf-Add-option-to-disable-session-keyring.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
