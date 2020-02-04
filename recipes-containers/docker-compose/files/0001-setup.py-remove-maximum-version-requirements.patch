@@ -1,4 +1,4 @@
-From 2685716409c560cdf94aee6262ed8c32ad137133 Mon Sep 17 00:00:00 2001
+From 1d358acd46c9ca71d848fca8c2d677414257f247 Mon Sep 17 00:00:00 2001
 From: Chen Qi <Qi.Chen@windriver.com>
 Date: Fri, 22 Nov 2019 09:24:58 +0800
 Subject: [PATCH] setup.py: remove maximum version requirements
@@ -15,7 +15,7 @@ Signed-off-by: Ming Liu <liu.ming50@gmail.com>
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 23ae08a..eef2825 100644
+index 110441dc..eef28254 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -30,16 +30,16 @@ def find_version(*file_paths):
@@ -24,7 +24,7 @@ index 23ae08a..eef2825 100644
  install_requires = [
 -    'cached-property >= 1.2.0, < 2',
 -    'docopt >= 0.6.1, < 1',
--    'PyYAML >= 3.10, < 5',
+-    'PyYAML >= 3.10, < 6',
 -    'requests >= 2.20.0, < 3',
 -    'texttable >= 0.9.0, < 2',
 -    'websocket-client >= 0.32.0, < 1',
@@ -55,5 +55,5 @@ index 23ae08a..eef2825 100644
  
  
 -- 
-2.7.4
+2.25.0
 
