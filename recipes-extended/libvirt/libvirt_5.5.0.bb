@@ -43,7 +43,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
 SRC_URI[libvirt.md5sum] = "27c5fb6c8d2d46eb9e8165aeb3b499b0"
 SRC_URI[libvirt.sha256sum] = "2306ef0947a594f91ec9da4b8b0307bdb54b897f17de19f48e8ecdca08ff35e8"
 
-inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd
+inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r qemu; -r kvm"
 USERADD_PARAM_${PN} = "-r -g qemu -G kvm qemu"
