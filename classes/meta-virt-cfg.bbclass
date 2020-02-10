@@ -3,4 +3,4 @@
 # layer.conf load time, we delay using a special bbclass that simply includes
 # the META_VIRT_CONFIG_PATH file.
 
-include ${META_VIRT_CONFIG_PATH}
+include ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', '${META_VIRT_CONFIG_PATH}', '', d)}

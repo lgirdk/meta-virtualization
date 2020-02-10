@@ -3,4 +3,4 @@
 # layer.conf load time, we delay using a special bbclass that simply includes
 # the K8S_CONFIG_PATH file.
 
-include ${K8S_CONFIG_PATH}
+include ${@bb.utils.contains('DISTRO_FEATURES', 'k8s', '${K8S_CONFIG_PATH}', '', d)}
