@@ -13,10 +13,11 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://ceph.conf \
            file://0001-rgw-add-executor-type-for-basic_waitable_timers.patch \
            file://0001-common-rgw-workaround-for-boost-1.72.patch \
+           file://0001-rgw-beast-handle_connection-takes-io_context.patch \
 "
 
-SRC_URI[md5sum] = "10c22151123ce73b3fe49a6700fe24e0"
-SRC_URI[sha256sum] = "a1d20f2ba4e2d38a52f40e2e75e2ad136e78fa208b59348d3d45895cc4ca7e62"
+SRC_URI[md5sum] = "8100ce9820714554e6d4717f6f0aa4da"
+SRC_URI[sha256sum] = "9606dc80553bd97e138cd80b6bbbc117b6b26c66248e490a4e49fc0d4d853862"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
@@ -26,22 +27,22 @@ DEPENDS = "boost bzip2 curl expat gperf-native \
            valgrind xfsprogs zlib \
 "
 SYSTEMD_SERVICE_${PN} = " \
-	ceph-radosgw@.service \
-	ceph-radosgw.target \
+        ceph-radosgw@.service \
+        ceph-radosgw.target \
         ceph-mon@.service \
-	ceph-mon.target \
+        ceph-mon.target \
         ceph-mds@.service \
-	ceph-mds.target \
+        ceph-mds.target \
         ceph-osd@.service \
-	ceph-osd.target \
+        ceph-osd.target \
         ceph.target \
-	ceph-rbd-mirror@.service \
-	ceph-rbd-mirror.target \
-	ceph-volume@.service \
-	ceph-mgr@.service \
-	ceph-mgr.target \
-	ceph-crash.service \
-	rbdmap.service \
+        ceph-rbd-mirror@.service \
+        ceph-rbd-mirror.target \
+        ceph-volume@.service \
+        ceph-mgr@.service \
+        ceph-mgr.target \
+        ceph-crash.service \
+        rbdmap.service \
 "
 OECMAKE_GENERATOR = "Unix Makefiles"
 
@@ -69,10 +70,10 @@ do_configure_prepend () {
 }
 
 do_install_append () {
-	sed -i -e 's:${WORKDIR}.*python3:${bindir}/python:' ${D}${bindir}/ceph
-	sed -i -e 's:${WORKDIR}.*python3:${bindir}/python:' ${D}${bindir}/ceph-crash
-	sed -i -e 's:${WORKDIR}.*python3:${bindir}/python:' ${D}${bindir}/ceph-volume
-	sed -i -e 's:${WORKDIR}.*python3:${bindir}/python:' ${D}${bindir}/ceph-volume-systemd
+	sed -i -e 's:^#!/usr/bin/python$:&3:' \
+		-e 's:${WORKDIR}.*python3:${bindir}/python3:' \
+		${D}${bindir}/ceph ${D}${bindir}/ceph-crash \
+		${D}${bindir}/ceph-volume ${D}${bindir}/ceph-volume-systemd
 	find ${D} -name SOURCES.txt | xargs sed -i -e 's:${WORKDIR}::'
 	install -d ${D}${sysconfdir}/ceph
 	install -m 644 ${WORKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
@@ -118,7 +119,7 @@ FILES_${PN}-python = "\
                 ${PYTHON_SITEPACKAGES_DIR}/* \
 "
 RDEPENDS_${PN} += "\
-		python3 \
+		python3-core \
 		python3-misc \
 		python3-modules \
 		python3-prettytable \
