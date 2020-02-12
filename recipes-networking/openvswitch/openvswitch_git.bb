@@ -10,21 +10,21 @@ RDEPENDS_${PN}-ptest += "\
 	python3-datetime python3-netclient python3 sed \
 	ldd perl-module-socket perl-module-carp perl-module-exporter \
 	perl-module-xsloader python3-netserver python3-threading \
-	python3-resource findutils which \
+	python3-resource findutils which diffutils \
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.11+${SRCPV}"
+PV = "2.12+${SRCPV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "f22ca8011fdb7e81ffce5017cd26539bccf50e94"
+SRCREV = "6beb94976e2b3e0c51430b63214de14186d8db39"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.11 \
-           file://openvswitch-add-ptest-78e203138cb7253e9ca5ad8a2c4ed6bb6752f23e.patch \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.12 \
+           file://openvswitch-add-ptest-6beb94976e2b3e0c51430b63214de14186d8db39.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
            file://kernel_module.patch \
@@ -33,6 +33,7 @@ SRC_URI = "file://openvswitch-switch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
            file://systemd-update-tool-paths.patch \
            file://systemd-create-runtime-dirs.patch \
+           file://ovsdb-idlc.in-fix-dict-change-during-iteration.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
