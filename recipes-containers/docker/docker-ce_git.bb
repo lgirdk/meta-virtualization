@@ -44,6 +44,8 @@ PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 PACKAGES =+ "${PN}-contrib"
 
 DOCKER_PKG="github.com/docker/docker"
+# in order to exclude devicemapper and btrfs - https://github.com/docker/docker/issues/14056
+BUILD_TAGS = "exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
 
 inherit go
 inherit goarch
@@ -71,8 +73,7 @@ do_compile() {
 	export CGO_ENABLED="1"
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	# in order to exclude devicemapper and btrfs - https://github.com/docker/docker/issues/14056
-	export DOCKER_BUILDTAGS='exclude_graphdriver_btrfs exclude_graphdriver_devicemapper'
+	export DOCKER_BUILDTAGS='${BUILD_TAGS} ${PACKAGECONFIG_CONFARGS}'
 
 	export DISABLE_WARN_OUTSIDE_CONTAINER=1
 
