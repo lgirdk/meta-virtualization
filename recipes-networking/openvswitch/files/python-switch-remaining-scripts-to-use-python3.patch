@@ -10,13 +10,12 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
  ofproto/ipfix-gen-entities                            | 2 +-
  tests/test-l7.py                                      | 2 +-
- utilities/checkpatch.py                               | 2 +-
  utilities/ovs-dev.py                                  | 2 +-
  utilities/ovs-pipegen.py                              | 2 +-
  xenserver/etc_xapi.d_plugins_openvswitch-cfg-update   | 2 +-
  xenserver/opt_xensource_libexec_interface-reconfigure | 2 +-
  xenserver/usr_share_openvswitch_scripts_ovs-xapi-sync | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/ofproto/ipfix-gen-entities b/ofproto/ipfix-gen-entities
 index 0be7199..d2cce42 100755
@@ -38,16 +37,6 @@ index d7854a1..f09defb 100755
  # Copyright (c) 2015, 2016 Nicira, Inc.
  #
  # Licensed under the Apache License, Version 2.0 (the "License");
-diff --git a/utilities/checkpatch.py b/utilities/checkpatch.py
-index f929714..e17a1cf 100755
---- a/utilities/checkpatch.py
-+++ b/utilities/checkpatch.py
-@@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/env python3
- # Copyright (c) 2016, 2017 Red Hat, Inc.
- # Copyright (c) 2018 Nicira, Inc.
- #
 diff --git a/utilities/ovs-dev.py b/utilities/ovs-dev.py
 index 9ce0f04..839e13e 100755
 --- a/utilities/ovs-dev.py

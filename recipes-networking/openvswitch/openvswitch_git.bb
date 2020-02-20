@@ -5,7 +5,7 @@ DEPENDS += "virtual/kernel"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 RDEPENDS_${PN}-ptest += "\
-	python3-logging python3-syslog python3-io \
+	python3-logging python3-syslog python3-io python3-core \
 	python3-fcntl python3-shell python3-xml python3-math \
 	python3-datetime python3-netclient python3 sed \
 	ldd perl-module-socket perl-module-carp perl-module-exporter \
@@ -14,26 +14,23 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.12+${SRCPV}"
+PV = "2.13+${SRCPV}"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "6beb94976e2b3e0c51430b63214de14186d8db39"
+SRCREV = "71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.12 \
-           file://openvswitch-add-ptest-6beb94976e2b3e0c51430b63214de14186d8db39.patch \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.13 \
+           file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
            file://kernel_module.patch \
-           file://python-make-remaining-scripts-use-usr-bin-env.patch \
-           file://0002-Define-WAIT_ANY-if-not-provided-by-system.patch \
            file://python-switch-remaining-scripts-to-use-python3.patch \
            file://systemd-update-tool-paths.patch \
            file://systemd-create-runtime-dirs.patch \
-           file://ovsdb-idlc.in-fix-dict-change-during-iteration.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
