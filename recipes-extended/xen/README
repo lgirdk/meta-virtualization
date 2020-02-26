@@ -16,6 +16,15 @@ copy it to your Yocto layer as 'defconfig' inside of
 'recipes-extended/xen/files/' and then create a bbappend adding
 'file://defconfig' to your SRC_URI.
 
+To generate your own .config file for Xen, you can use the interactive
+menuconfig via bitbake:
+
+    bitbake xen -c menuconfig
+
+Select the config settings that you want and Save the file. If you save it to
+the default ".config" file when prompted by menuconfig, you can find it in the
+'xen' subdirectory of the build tree.
+
 security patches
 ----------------
 
