@@ -544,6 +544,7 @@ FILES_${PN}-xentrace = "\
     ${bindir}/xenalyze \
     ${sbindir}/xentrace \
     ${sbindir}/xentrace_setsize \
+    ${sbindir}/xentrace_setmask \
     "
 
 FILES_${PN}-xen-watchdog = "\
@@ -578,7 +579,6 @@ FILES_${PN}-xm-examples = "\
 
 FILES_${PN}-xenmon = "\
     ${sbindir}/xenbaked \
-    ${sbindir}/xentrace_setmask \
     ${sbindir}/xenmon.py \
     ${sbindir}/xenmon \
     "
