@@ -6,7 +6,7 @@ DESCRIPTION = "The Xen hypervisor"
 # this allows for varying the target architecture or toolchain used
 # to build the different components. eg. 32-bit tools and a 64-bit hypervisor.
 
-inherit deploy
+inherit deploy python3native
 
 PACKAGES = " \
     ${PN} \
@@ -34,7 +34,7 @@ do_configure() {
 }
 
 do_compile() {
-    oe_runmake xen
+    oe_runmake xen PYTHON="${PYTHON}"
 }
 
 do_install() {

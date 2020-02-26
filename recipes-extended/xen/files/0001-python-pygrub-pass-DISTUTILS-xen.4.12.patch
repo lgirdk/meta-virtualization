@@ -13,11 +13,14 @@ Signed-off-by: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
 Forward-ported to Xen 4.12.0
 Signed-off-by: Christopher Clark <christopher.clark6@baesystems.com>
 
+Modified to support pygrub installation with python 3
+Signed-off-by: Christopher Clark <christopher.clark6@baesystems.com>
+
 diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
 index 3063c49..513314b 100644
 --- a/tools/pygrub/Makefile
 +++ b/tools/pygrub/Makefile
-@@ -10,14 +10,15 @@ INSTALL_LOG = build/installed_files.txt
+@@ -10,14 +10,17 @@ INSTALL_LOG = build/installed_files.txt
  all: build
  .PHONY: build
  build:
@@ -32,6 +35,8 @@ index 3063c49..513314b 100644
 -		 --root="$(DESTDIR)" --install-scripts=$(LIBEXEC_BIN) --force
 +		 --root="$(DESTDIR)" --install-scripts=$(LIBEXEC_BIN) --force \
 +		 $(DISTUTILS_INSTALL_ARGS)
++	rm -f $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
++	$(INSTALL_PYTHON_PROG) src/pygrub $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
  	set -e; if [ $(bindir) != $(LIBEXEC_BIN) -a \
  	             "`readlink -f $(DESTDIR)/$(bindir)`" != \
  	             "`readlink -f $(LIBEXEC_BIN)`" ]; then \

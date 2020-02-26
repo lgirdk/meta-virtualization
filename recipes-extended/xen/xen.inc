@@ -43,7 +43,7 @@ DEPENDS = " \
     pciutils \
     pixman \
     procps \
-    python \
+    python3 \
     libaio \
     lzo \
     util-linux \
@@ -77,8 +77,8 @@ libexecdir = "${libdir}"
 export XEN_OS = "Linux"
 
 # this is used for the header (#!${bindir}/python) of the install python scripts
-export PYTHONPATH="${bindir}/python"
-export ac_cv_path_PYTHONPATH="${bindir}/python"
+export PYTHONPATH="${bindir}/env python3"
+export ac_cv_path_PYTHONPATH="${bindir}/env python3"
 export DISTUTILS_BUILD_ARGS
 export DISTUTILS_INSTALL_ARGS
 
@@ -207,6 +207,7 @@ EXTRA_OEMAKE += "XEN_CONFIG_EXPERT=y"
 EXTRA_OEMAKE += "debug=n"
 
 do_configure_common() {
+    cd ${S}
 
     #./configure --enable-xsmpolicy does not set XSM_ENABLE must be done manually
     if [ "${XSM_ENABLED}" = "1" ]; then
@@ -222,7 +223,9 @@ do_configure_common() {
 
     # do configure
     oe_runconf EXTRA_CFLAGS_XEN_CORE="${EXTRA_CFLAGS_XEN_CORE}" \
-               EXTRA_CFLAGS_XEN_TOOLS="${EXTRA_CFLAGS_XEN_TOOLS}"
+               EXTRA_CFLAGS_XEN_TOOLS="${EXTRA_CFLAGS_XEN_TOOLS}" \
+               PYTHON="${PYTHON}"
+
     if [ ! -e ${STAGING_INCDIR}/bits/long-double-32.h ]; then
         cp ${STAGING_INCDIR}/bits/long-double-64.h ${STAGING_INCDIR}/bits/long-double-32.h
     fi

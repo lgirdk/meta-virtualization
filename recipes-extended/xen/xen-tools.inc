@@ -1,7 +1,7 @@
 SUMMARY = "Xen hypervisor tools"
 DESCRIPTION = "Tools and utility software for the Xen hypervisor"
 
-inherit setuptools update-rc.d systemd deploy
+inherit setuptools3 update-rc.d systemd deploy
 require xen-blktap.inc
 
 RDEPENDS_${PN} = "\
@@ -47,21 +47,25 @@ RDEPENDS_${PN}-fsimage = " \
 
 RDEPENDS_${PN}-misc = " \
     perl \
-    python \
+    python3 \
+    ${PN}-xencov \
+    "
+
+RSUGGESTS_${PN}-misc = " \
+    ${PN}-xencons \
+    ${PN}-xenpvnetboot \
     "
 
 RDEPENDS_${PN}-python = " \
-    python \
+    python3 \
     "
 
 RDEPENDS_${PN}-pygrub = " \
+    python3 \
     ${PN}-python \
     "
 
-RDEPENDS_${PN}-remus = " \
-    bash \
-    python \
-    "
+RDEPENDS_${PN}-remus = "bash"
 
 RDEPENDS_${PN}-scripts-block = "\
     bash \
@@ -77,6 +81,8 @@ RDEPENDS_${PN}-scripts-network = "\
     ${PN}-scripts-common \
     ${PN}-volatiles \
     "
+
+RSUGGESTS_${PN}-xencov = "${PN}-xencov-split"
 
 RDEPENDS_${PN}-xencommons = "\
     bash \
@@ -97,7 +103,11 @@ RDEPENDS_${PN}-xendomains = "\
 
 RDEPENDS_${PN}-xl = "libgcc"
 
-RDEPENDS_${PN}-xentrace = "python"
+RDEPENDS_${PN}-xenmon = " \
+    python3 \
+    "
+
+RSUGGESTS_${PN}-xentrace = "${PN}-xentrace-format"
 
 RDEPENDS_${PN}-xen-watchdog = "bash"
 
@@ -160,6 +170,7 @@ PACKAGES = " \
     ${PN}-volatiles \
     ${PN}-xcutils \
     ${PN}-xencommons \
+    ${PN}-xencov \
     ${PN}-xend \
     ${PN}-xend-examples \
     ${PN}-xendomains \
@@ -188,8 +199,8 @@ RPROVIDES_${PN}-xenstored = "virtual/xenstored"
 
 FILES_${PN}-dbg += "\
     ${libdir}/xen/bin/.debug \
-    ${libdir}/python2.7/site-packages/.debug \
-    ${libdir}/python2.7/site-packages/xen/lowlevel/.debug \
+    ${libdir}/${PYTHON_DIR}/site-packages/.debug \
+    ${libdir}/${PYTHON_DIR}/site-packages/xen/lowlevel/.debug \
     ${libdir}/fs/xfs/.debug \
     ${libdir}/fs/ufs/.debug \
     ${libdir}/fs/ext2fs-lib/.debug \
@@ -202,8 +213,8 @@ FILES_${PN}-dbg += "\
     ${libdir}exec/.debug \
     ${libdir}/xen/libexec/.debug \
     ${bindir}/.debug \
-    ${libdir}/python2.7/dist-packages/.debug \
-    ${libdir}/python2.7/dist-packages/xen/lowlevel/.debug \
+    ${libdir}/${PYTHON_DIR}/dist-packages/.debug \
+    ${libdir}/${PYTHON_DIR}/dist-packages/xen/lowlevel/.debug \
     "
 
 FILES_${PN}-dev = "\
@@ -404,15 +415,11 @@ FILES_${PN}-livepatch += " \
     "
 
 FILES_${PN}-misc = "\
-    ${bindir}/xencons \
-    ${bindir}/xencov_split \
     ${bindir}/xen-detect \
-    ${libdir}/xen/bin/xenpvnetboot \
     ${libdir}/xen/bin/depriv-fd-checker \
     ${sbindir}/gtracestat \
     ${sbindir}/gtraceview \
     ${sbindir}/xen-bugtool \
-    ${sbindir}/xencov \
     ${sbindir}/xenperf \
     ${sbindir}/xenpm \
     ${sbindir}/xsview \
@@ -436,11 +443,10 @@ FILES_${PN}-pygrub = "\
     "
 
 FILES_${PN}-python = "\
-    ${libdir}/python2.7 \
+    ${libdir}/${PYTHON_DIR} \
     "
 
 FILES_${PN}-remus = "\
-    ${bindir}/remus \
     ${sysconfdir}/xen/scripts/remus-netbuf-setup \
     "
 
@@ -500,6 +506,10 @@ FILES_${PN}-xcutils = "\
     ${libdir}/xen/bin/xc_save \
     "
 
+FILES_${PN}-xencov = "\
+    ${sbindir}/xencov \
+    "
+
 FILES_${PN}-xend-examples = "\
     ${sysconfdir}/xen/xend-config.sxp \
     ${sysconfdir}/xen/xend-pci-permissive.sxp \
@@ -539,7 +549,6 @@ FILES_${PN}-xenstored = "\
 
 FILES_${PN}-xentrace = "\
     ${bindir}/xentrace \
-    ${bindir}/xentrace_format \
     ${bindir}/xentrace_setsize \
     ${libdir}/xen/bin/xenctx \
     ${bindir}/xenalyze \
@@ -665,11 +674,19 @@ do_stubs() {
 addtask stubs after do_configure before do_compile
 
 do_compile() {
-    oe_runmake tools
+    cd ${S}
+    oe_runmake tools PYTHON="${PYTHON}"
 }
 
 do_install() {
+    cd ${S}
     oe_runmake DESTDIR="${D}" install-tools
+
+    # Remove unported python 2 scripts -- see the separate xen-python2 recipe
+    rm -f ${D}${bindir}/xentrace_format \
+          ${D}${bindir}/xencons \
+          ${D}${bindir}/xencov_split \
+          ${D}${libdir}/xen/bin/xenpvnetboot
 
     # remove installed volatiles
     rm -rf ${D}${base_prefix}/run \

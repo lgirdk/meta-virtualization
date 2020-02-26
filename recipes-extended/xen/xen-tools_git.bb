@@ -6,6 +6,12 @@ XEN_BRANCH ?= "stable-${XEN_REL}"
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
     file://0001-python-pygrub-pass-DISTUTILS-xen.4.12.patch \
+    file://xen-tools-update-python-scripts-to-py3.patch \
+    file://xen-tools-libxl-gentypes-py3.patch \
+    file://xen-tools-python-fix-Wsign-compare-warnings.patch \
+    file://xen-tools-pygrub-change-tabs-into-spaces.patch \
+    file://xen-tools-pygrub-make-python-scripts-work-with-2.6-and-up.patch \
+    file://xen-tools-pygrub-py3.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=bbb4b1bdc2c3b6743da3c39d03249095"
