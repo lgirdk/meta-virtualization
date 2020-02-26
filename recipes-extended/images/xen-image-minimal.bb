@@ -16,6 +16,10 @@ IMAGE_INSTALL += " \
     qemu \
     "
 
+# The hypervisor may not be within the dom0 filesystem image but at least
+# ensure that it is deployable:
+do_build[depends] += "xen:do_deploy"
+
 # Networking for HVM-mode guests (x86/64 only) requires the tun kernel module
 IMAGE_INSTALL_append_x86    = "kernel-module-tun"
 IMAGE_INSTALL_append_x86-64 = "kernel-module-tun"
