@@ -217,7 +217,6 @@ PACKAGES = "\
     ${PN}-misc \
     ${PN}-pygrub \
     ${PN}-python \
-    ${PN}-qemu \
     ${PN}-remus \
     ${PN}-scripts-block \
     ${PN}-scripts-common \
@@ -546,92 +545,6 @@ FILES_${PN}-python = "\
     "
 
 INSANE_SKIP_${PN} = "already-stripped"
-INSANE_SKIP_${PN}-qemu = "arch"
-FILES_${PN}-qemu = " \
-    ${datadir}/xen/qemu \
-    ${libdir}/xen/bin/qemu-system-i386 \
-    ${libdir}/xen/bin/qemu-system-x86_64 \
-    ${libdir}/xen/bin/qemu-img \
-    ${libdir}/xen/bin/qemu-nbd \
-    ${libdir}/xen/bin/qemu-ga \
-    ${libdir}/xen/bin/qemu-io \
-    ${libdir}/xen/bin/qemu-dm \
-    ${libdir}/xen/bin/virtfs-proxy-helper \
-    /usr/libexec/qemu-bridge-helper \
-    ${libdir}/xen/libexec/qemu-bridge-helper \
-    /usr/etc/qemu \
-    /usr/etc/qemu/target-x86_64.conf \
-    ${libdir}/xen/etc/qemu/target-x86_64.conf \
-    ${datadir}/qemu-xen \
-    ${datadir}/qemu-xen/qemu \
-    ${datadir}/qemu-xen/qemu/bamboo.dtb \
-    ${datadir}/qemu-xen/qemu/pxe-pcnet.rom \
-    ${datadir}/qemu-xen/qemu/vgabios-vmware.bin \
-    ${datadir}/qemu-xen/qemu/pxe-eepro100.rom \
-    ${datadir}/qemu-xen/qemu/pxe-e1000.rom \
-    ${datadir}/qemu-xen/qemu/openbios-ppc \
-    ${datadir}/qemu-xen/qemu/multiboot.bin \
-    ${datadir}/qemu-xen/qemu/vgabios-cirrus.bin \
-    ${datadir}/qemu-xen/qemu/bios.bin \
-    ${datadir}/qemu-xen/qemu/vgabios-stdvga.bin \
-    ${datadir}/qemu-xen/qemu/palcode-clipper \
-    ${datadir}/qemu-xen/qemu/pxe-ne2k_pci.rom \
-    ${datadir}/qemu-xen/qemu/spapr-rtas.bin \
-    ${datadir}/qemu-xen/qemu/slof.bin \
-    ${datadir}/qemu-xen/qemu/vgabios-qxl.bin \
-    ${datadir}/qemu-xen/qemu/pxe-rtl8139.rom \
-    ${datadir}/qemu-xen/qemu/openbios-sparc64 \
-    ${datadir}/qemu-xen/qemu/pxe-virtio.rom \
-    ${datadir}/qemu-xen/qemu/kvmvapic.bin \
-    ${datadir}/qemu-xen/qemu/openbios-sparc32 \
-    ${datadir}/qemu-xen/qemu/petalogix-s3adsp1800.dtb \
-    ${datadir}/qemu-xen/qemu/sgabios.bin \
-    ${datadir}/qemu-xen/qemu/linuxboot.bin \
-    ${datadir}/qemu-xen/qemu/qemu-icon.bmp \
-    ${datadir}/qemu-xen/qemu/ppc_rom.bin \
-    ${datadir}/qemu-xen/qemu/vgabios.bin \
-    ${datadir}/qemu-xen/qemu/s390-zipl.rom \
-    ${datadir}/qemu-xen/qemu/petalogix-ml605.dtb \
-    ${datadir}/qemu-xen/qemu/keymaps \
-    ${datadir}/qemu-xen/qemu/keymaps/common \
-    ${datadir}/qemu-xen/qemu/keymaps/th \
-    ${datadir}/qemu-xen/qemu/keymaps/is \
-    ${datadir}/qemu-xen/qemu/keymaps/en-gb \
-    ${datadir}/qemu-xen/qemu/keymaps/ar \
-    ${datadir}/qemu-xen/qemu/keymaps/fr-be \
-    ${datadir}/qemu-xen/qemu/keymaps/ru \
-    ${datadir}/qemu-xen/qemu/keymaps/hu \
-    ${datadir}/qemu-xen/qemu/keymaps/de-ch \
-    ${datadir}/qemu-xen/qemu/keymaps/no \
-    ${datadir}/qemu-xen/qemu/keymaps/fr \
-    ${datadir}/qemu-xen/qemu/keymaps/pl \
-    ${datadir}/qemu-xen/qemu/keymaps/fr-ca \
-    ${datadir}/qemu-xen/qemu/keymaps/de \
-    ${datadir}/qemu-xen/qemu/keymaps/fr-ch \
-    ${datadir}/qemu-xen/qemu/keymaps/bepo \
-    ${datadir}/qemu-xen/qemu/keymaps/lv \
-    ${datadir}/qemu-xen/qemu/keymaps/ja \
-    ${datadir}/qemu-xen/qemu/keymaps/da \
-    ${datadir}/qemu-xen/qemu/keymaps/lt \
-    ${datadir}/qemu-xen/qemu/keymaps/hr \
-    ${datadir}/qemu-xen/qemu/keymaps/es \
-    ${datadir}/qemu-xen/qemu/keymaps/modifiers \
-    ${datadir}/qemu-xen/qemu/keymaps/sl \
-    ${datadir}/qemu-xen/qemu/keymaps/it \
-    ${datadir}/qemu-xen/qemu/keymaps/nl \
-    ${datadir}/qemu-xen/qemu/keymaps/fo \
-    ${datadir}/qemu-xen/qemu/keymaps/mk \
-    ${datadir}/qemu-xen/qemu/keymaps/pt-br \
-    ${datadir}/qemu-xen/qemu/keymaps/tr \
-    ${datadir}/qemu-xen/qemu/keymaps/sv \
-    ${datadir}/qemu-xen/qemu/keymaps/fi \
-    ${datadir}/qemu-xen/qemu/keymaps/en-us \
-    ${datadir}/qemu-xen/qemu/keymaps/et \
-    ${datadir}/qemu-xen/qemu/keymaps/nl-be \
-    ${datadir}/qemu-xen/qemu/keymaps/pt \
-    ${bindir}/qemu-nbd-xen \
-    ${bindir}/qemu-img-xen \
-    "
 
 FILES_${PN}-remus = "\
     ${bindir}/remus \
