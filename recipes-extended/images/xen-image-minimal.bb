@@ -16,6 +16,10 @@ IMAGE_INSTALL += " \
     qemu \
     "
 
+# Networking for HVM-mode guests (x86/64 only) requires the tun kernel module
+IMAGE_INSTALL_append_x86    = "kernel-module-tun"
+IMAGE_INSTALL_append_x86-64 = "kernel-module-tun"
+
 # Linux kernel option CONFIG_XEN_PCIDEV_BACKEND depends on X86
 XEN_PCIBACK_MODULE = ""
 XEN_PCIBACK_MODULE_x86    = "kernel-module-xen-pciback"
