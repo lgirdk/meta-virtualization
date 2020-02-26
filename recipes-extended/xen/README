@@ -1,7 +1,9 @@
 Xen
 ---
 
-For any issues with the xen recipes please make sure you CC cardoe@gentoo.org
+For any issues with the Xen recipes please make sure you CC:
+ christopher.w.clark@gmail.com
+ cardoe@gentoo.org
 
 configuring the hypervisor
 --------------------------
