@@ -49,6 +49,7 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
         file://0002-container.conf-Add-option-to-disable-session-keyring.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
+	file://0001-syscall_wrappers-rename-internal-memfd_create-to-mem.patch \
 	"
 
 SRC_URI[md5sum] = "4886c8d1c8e221fe526eefcb47857b85"
