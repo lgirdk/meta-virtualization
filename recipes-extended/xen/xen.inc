@@ -867,15 +867,27 @@ export CROSS_COMPILE="${TARGET_PREFIX}"
 # overide LDFLAGS to allow xen to build without: "x86_64-oe-linux-ld: unrecognized option '-Wl,-O1'"
 export LDFLAGS=""
 
-# Yocto injects -mfpmath=sse for some machine types into the CFLAGS which
-# conflicts with -mno-sse so instead we strip -mfpmath=sse instead of
-# patching the build to be ok with this
-TUNE_CCARGS := "${@oe.utils.str_filter_out('-mfpmath=sse', '${TUNE_CCARGS}', d)}"
-TUNE_CCARGS := "${@oe.utils.str_filter_out('-msse4.2', '${TUNE_CCARGS}', d)}"
+# Pass through the Yocto distro compiler flags via the Xen-provided variables.
+# Special handling:
+# - Yocto supplies the _FORTIFY_SOURCE flag via CC/CPP/CXX but then passes the
+#   optimization -O via C*FLAGS which is problematic when the CFLAGS are cleared
+#   within the build because compilation fails with the compiler stating
+#   "_FORTIFY_SOURCE requires compiling with optimization (-O)".
+# - Move HOST_CC_ARCH into the Xen-provided CFLAGS variables and keep
+#   TOOLCHAIN_OPTIONS set via CC: this enables hvmloader to be built correctly.
+#   It must not be compiled with SSE compiler options enabled and the Xen build
+#   explicitly clears CFLAGS to ensure that, so such options must not be passed
+#   in via the tool variable. hvmloader is required to run HVM-mode guest VMs.
+CC="${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS}"
+EXTRA_CFLAGS_XEN_CORE="${HOST_CC_ARCH} ${CFLAGS}"
+EXTRA_CFLAGS_XEN_TOOLS="${HOST_CC_ARCH} ${CFLAGS}"
+# 32-bit ARM needs the TUNE_CCARGS component of HOST_CC_ARCH to be passed
+# in CC to ensure that configure can compile binaries for the right arch.
+CC_arm="${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS}"
+EXTRA_CFLAGS_XEN_CORE_arm="${SECURITY_CFLAGS} ${CFLAGS}"
+EXTRA_CFLAGS_XEN_TOOLS_arm="${SECURITY_CFLAGS} ${CFLAGS}"
 
-# Supply the full set of compiler flags via the tool variables
-# Yocto supplys _FORTIFY_SOURCE via CC/CPP/CXX but optimization -O via C*FLAGS
-CC_append = " ${CFLAGS}"
+# There are no Xen-provided variables for C++, so append to the tool variables:
 CPP_append = " ${CPPFLAGS}"
 CXX_append = " ${CXXFLAGS}"
 
@@ -996,8 +1008,11 @@ do_configure() {
         bbfatal "Unable to copy defconfig to .config"
     fi
 
+    unset CFLAGS
+
     # do configure
-    oe_runconf
+    oe_runconf EXTRA_CFLAGS_XEN_CORE="${EXTRA_CFLAGS_XEN_CORE}" \
+               EXTRA_CFLAGS_XEN_TOOLS="${EXTRA_CFLAGS_XEN_TOOLS}"
     if [ ! -e ${STAGING_INCDIR}/bits/long-double-32.h ]; then
         cp ${STAGING_INCDIR}/bits/long-double-64.h ${STAGING_INCDIR}/bits/long-double-32.h
     fi
