@@ -47,20 +47,34 @@ do_install() {
 do_deploy() {
     install -d ${DEPLOYDIR}
 
-    if [ -f ${D}/boot/xen ]; then
-        install -m 0644 ${D}/boot/xen ${DEPLOYDIR}/xen-${MACHINE}
+    if [ -f ${B}/xen/xen.gz ]; then
+        install -m 0644 ${B}/xen/xen ${DEPLOYDIR}/xen-${MACHINE}
     fi
 
-    if [ -f ${D}/boot/xen.gz ]; then
-        install -m 0644 ${D}/boot/xen.gz ${DEPLOYDIR}/xen-${MACHINE}.gz
+    if [ -f ${B}/xen/xen.gz ]; then
+        install -m 0644 ${B}/xen/xen.gz ${DEPLOYDIR}/xen-${MACHINE}.gz
     fi
 
-    if [ -f ${D}/usr/lib64/efi/xen.efi ]; then
-        install -m 0644 ${D}/usr/lib64/efi/xen.efi ${DEPLOYDIR}/xen-${MACHINE}.efi
+    if [ -f ${B}/xen/xen.efi ]; then
+        install -m 0644 ${B}/xen/xen.efi ${DEPLOYDIR}/xen-${MACHINE}.efi
     fi
 }
-
-addtask deploy after do_populate_sysroot
+# Scheduling the do_deploy task:
+# - deploy copies files from ${B} that are written during do_compile so must
+#   at least run afer that task has completed
+# - the hypervisor binaries may be included in the image filesystem, so we
+#   must ensure that the binaries deployed match what is staged in the sysroot:
+#   so do deploy must run after do_populate_sysroot -- which is always after
+#   do_compile, so that handles 'after do_compile' too
+# - add the task before do_build to ensure that deployment has completed when
+#   the recipe build done stamp is written
+addtask deploy after do_populate_sysroot before do_build
+# To ensure that a deployed hypervisor has matching tools, add a dependency to
+# make sure that the tools have built and been staged:
+do_deploy[depends] += "xen-tools:do_populate_sysroot"
+# Also ensure anything that the tools recipe needs to deploy, such as a
+# XSM policy file, has been deployed first:
+do_deploy[depends] += "xen-tools:do_deploy"
 
 # Enable use of menuconfig directly from bitbake and also within the devshell
 OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO"
