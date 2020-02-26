@@ -197,7 +197,7 @@ FILES_${PN}-dbg += "\
     ${libdir}/fs/zfs/.debug \
     ${libdir}/fs/reiserfs/.debug \
     ${libdir}/fs/iso9660/.debug \
-    ${libdir}/fs/*/.debug \
+    ${libdir}/fs/**/.debug \
     ${sbindir}/.debug \
     ${libdir}exec/.debug \
     ${libdir}/xen/libexec/.debug \
@@ -346,8 +346,8 @@ FILES_${PN}-libfsimage-dev = " \
     "
 
 FILES_${PN}-fsimage = " \
-    ${libdir}/fs/*/*fsimage.so \
-    ${libdir}/xenfsimage/*/fsimage.so \
+    ${libdir}/fs/**/[a-z]*fsimage.so \
+    ${libdir}/xenfsimage/**/fsimage.so \
     "
 
 FILES_${PN}-init-xenstore-dom = "${libdir}/xen/bin/init-xenstore-domain"
