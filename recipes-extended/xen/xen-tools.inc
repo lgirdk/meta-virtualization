@@ -29,6 +29,7 @@ RDEPENDS_${PN} = "\
 RDEPENDS_${PN}-dev = ""
 
 RRECOMMENDS_${PN} = " \
+    ${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'seabios', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
     ${PN}-flask \
     ${PN}-hvmloader \
