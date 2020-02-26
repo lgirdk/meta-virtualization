@@ -12,7 +12,7 @@ IMAGE_INSTALL += " \
     kernel-module-xen-netback \
     ${@bb.utils.contains('MACHINE_FEATURES', 'pci', "${XEN_PCIBACK_MODULE}", '', d)} \
     kernel-module-xen-wdt \
-    xen-base \
+    xen-tools \
     qemu \
     "
 

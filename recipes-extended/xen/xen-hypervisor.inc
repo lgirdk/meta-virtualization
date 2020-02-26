@@ -1,0 +1,94 @@
+SUMMARY = "Xen hypervisor"
+DESCRIPTION = "The Xen hypervisor"
+
+# This recipe is for just the Xen hypervisor.
+# Separate recipes are used to build Xen and its components:
+# this allows for varying the target architecture or toolchain used
+# to build the different components. eg. 32-bit tools and a 64-bit hypervisor.
+
+inherit deploy
+
+PACKAGES = " \
+    ${PN} \
+    ${PN}-dbg \
+    ${PN}-efi \
+    "
+
+FILES_${PN} = " \
+    /boot/xen-* \
+    /boot/xen \
+    /boot/xen-*.gz \
+    /boot/xen.gz \
+    /boot/xen-syms-* \
+    "
+
+FILES_${PN}-dbg += "${libdir}/debug/*"
+
+FILES_${PN}-efi = " \
+    /boot/xen.efi \
+    ${exec_prefix}/lib64/efi/xen* \
+    "
+
+do_configure() {
+    do_configure_common
+}
+
+do_compile() {
+    oe_runmake xen
+}
+
+do_install() {
+    oe_runmake DESTDIR="${D}" install-xen
+}
+
+do_deploy() {
+    install -d ${DEPLOYDIR}
+
+    if [ -f ${D}/boot/xen ]; then
+        install -m 0644 ${D}/boot/xen ${DEPLOYDIR}/xen-${MACHINE}
+    fi
+
+    if [ -f ${D}/boot/xen.gz ]; then
+        install -m 0644 ${D}/boot/xen.gz ${DEPLOYDIR}/xen-${MACHINE}.gz
+    fi
+
+    if [ -f ${D}/usr/lib64/efi/xen.efi ]; then
+        install -m 0644 ${D}/usr/lib64/efi/xen.efi ${DEPLOYDIR}/xen-${MACHINE}.efi
+    fi
+}
+
+addtask deploy after do_populate_sysroot
+
+# Enable use of menuconfig directly from bitbake and also within the devshell
+OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO"
+HOST_EXTRACFLAGS = "${BUILD_CFLAGS} ${BUILD_LDFLAGS}"
+HOSTLDFLAGS = "${BUILD_LDFLAGS}"
+TERMINFO = "${STAGING_DATADIR_NATIVE}/terminfo"
+do_devshell[depends] += "ncurses-native:do_populate_sysroot"
+
+KCONFIG_CONFIG_COMMAND ??= "menuconfig"
+python do_menuconfig() {
+    import shutil
+
+    try:
+        mtime = os.path.getmtime("xen/.config")
+        shutil.copy("xen/.config", "xen/.config.orig")
+    except OSError:
+        mtime = 0
+
+    oe_terminal("${SHELL} -c \"cd xen; XEN_CONFIG_EXPERT=y make %s; if [ \$? -ne 0 ]; then echo 'Command failed.'; printf 'Press any key to continue... '; read r; fi\"" % d.getVar('KCONFIG_CONFIG_COMMAND'),
+        d.getVar('PN') + ' Configuration', d)
+
+    try:
+        newmtime = os.path.getmtime("xen/.config")
+    except OSError:
+        newmtime = 0
+
+    if newmtime > mtime:
+        bb.note("Configuration changed, recompile will be forced")
+        bb.build.write_taint('do_compile', d)
+}
+do_menuconfig[depends] += "ncurses-native:do_populate_sysroot"
+do_menuconfig[nostamp] = "1"
+do_menuconfig[dirs] = "${B}"
+addtask menuconfig after do_configure
