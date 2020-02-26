@@ -6,6 +6,9 @@ DESCRIPTION = "The Xen hypervisor"
 # this allows for varying the target architecture or toolchain used
 # to build the different components. eg. 32-bit tools and a 64-bit hypervisor.
 
+# The Xen hypervisor has a narrower compatible platform range than the Xen tools
+COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux-gnueabi'
+
 inherit deploy python3native
 
 PACKAGES = " \
