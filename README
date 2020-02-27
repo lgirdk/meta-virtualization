@@ -81,6 +81,7 @@ Maintenance
 Send pull requests, patches, comments or questions to meta-virtualization@lists.yoctoproject.org
 
 Maintainer: Bruce Ashfield <bruce.ashfield@gmail.com>
+see MAINTAINERS for more specific information
 
 When sending single patches, please using something like:
 $ git send-email -1 -M --to meta-virtualization@lists.yoctoproject.org --subject-prefix='meta-virtualization][PATCH'
