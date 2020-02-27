@@ -72,3 +72,16 @@ build_syslinux_cfg () {
 	echo "  APPEND /xen.gz ${SYSLINUX_XEN_ARGS} --- /vmlinuz ${SYSLINUX_KERNEL_ARGS} --- /initrd" >> ${SYSLINUX_CFG}
 }
 
+# Enable runqemu. eg: runqemu xen-image-minimal nographic slirp
+WKS_FILE_x86-64 = "directdisk-xen.wks"
+QB_MEM = "-m 400"
+QB_DEFAULT_KERNEL = ""
+QB_DEFAULT_FSTYPE = "wic"
+QB_FSINFO = "wic:kernel-in-fs"
+# qemux86-64 machine does not include 'wic' in IMAGE_FSTYPES, which is needed
+# to boot this image, so add it here:
+IMAGE_FSTYPES_qemux86-64 += "wic"
+# Networking: the qemuboot.bbclass default virtio network device works ok
+# and so does the emulated e1000 -- choose according to the network device
+# drivers that are present in your dom0 Linux kernel. To switch to e1000:
+# QB_NETWORK_DEVICE = "-device e1000,netdev=net0,mac=@MAC@"
