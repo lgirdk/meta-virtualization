@@ -13,6 +13,8 @@ Fix ptest for v2.5
 
 Signed-off-by: He Zhe <zhe.he@windriver.com>
 
+refresh patch to fix patch-fuzz warning
+Signed-off-by: Changqing Li <changqing.li@windriver.com>
 ---
  Makefile.am |  1 +
  test.mk     | 74 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -23,8 +25,8 @@ diff --git a/Makefile.am b/Makefile.am
 index 7889728..6435399 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -494,3 +494,4 @@ include windows/automake.mk
- include ovn/automake.mk
+@@ -497,3 +497,4 @@ include windows/automake.mk
+ include windows/automake.mk
  include selinux/automake.mk
  include build-aux/automake.mk
 +include test.mk
