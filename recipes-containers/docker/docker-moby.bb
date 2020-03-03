@@ -44,6 +44,7 @@ SRC_URI = "\
 	git://github.com/docker/cli;branch=19.03;name=cli;destsuffix=git/cli \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
+        file://0001-imporve-hardcoded-CC-on-cross-compile-docker-ce.patch \
 	"
 
 require docker.inc
