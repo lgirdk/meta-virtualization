@@ -6,6 +6,9 @@ SECTION = "console/tools"
 
 SRCREV ?= "a5fcafbfbee55261853fba07149c1c795f2baf58"
 
+# The same restriction as xen-tools.inc, because of the dependency on xen-tools-xentrace from xen-tools-xentrace-format
+COMPATIBLE_HOST = 'i686-.*-linux|(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux-gnueabi'
+
 XEN_REL ?= "4.12"
 XEN_BRANCH ?= "stable-4.12"
 
