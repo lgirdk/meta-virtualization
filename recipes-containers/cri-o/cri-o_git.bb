@@ -14,9 +14,9 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
  - Resource isolation as required by the CRI \
  "
 
-SRCREV_cri-o = "f61719a88b7de10a88c50e35640f4a7f1f53fbab"
+SRCREV_cri-o = "6d0ffae63b9b7d8f07e7f9cf50736a67fb31faf3"
 SRC_URI = "\
-	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.15;name=cri-o \
+	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.17;name=cri-o \
 	file://0001-Makefile-force-symlinks.patch \
         file://crio.conf \
 	"
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.15.0+git${SRCREV_cri-o}"
+PV = "1.17.0+git${SRCREV_cri-o}"
 
 DEPENDS = " \
     glib-2.0 \
@@ -62,7 +62,7 @@ python __anonymous() {
 PACKAGES =+ "${PN}-config"
 
 RDEPENDS_${PN} += " virtual/containerd virtual/runc"
-RDEPENDS_${PN} += " e2fsprogs-mke2fs"
+RDEPENDS_${PN} += " e2fsprogs-mke2fs conmon util-linux iptables conntrack-tools"
 
 inherit systemd
 inherit go
@@ -70,63 +70,14 @@ inherit goarch
 inherit pkgconfig
 
 EXTRA_OEMAKE="BUILDTAGS=''"
-CRIO_BUILD_CROSS ?= "1"
 
 do_compile() {
 	set +e
-	export GOPATH="${S}/src/import:${S}/src/import/vendor"
-
-	# link fixups for compilation
-	rm -f ${S}/src/import/vendor/src
-	ln -sf ./ ${S}/src/import/vendor/src
-
-	mkdir -p ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o
-	ln -sf ../../../../cmd ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/cmd
-	ln -sf ../../../../test ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/test
-	ln -sf ../../../../oci ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/oci
-	ln -sf ../../../../server ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/server
-	ln -sf ../../../../pkg ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/pkg
-	ln -sf ../../../../libpod ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/libpod
-	ln -sf ../../../../libkpod ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/libkpod
-	ln -sf ../../../../utils ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/utils
-	ln -sf ../../../../types ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/types
-	ln -sf ../../../../version ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/version
-	ln -sf ../../../../lib ${S}/src/import/vendor/github.com/kubernetes-sigs/cri-o/lib
-
-
-	rm -f ${S}/src/import/src
-	ln -sf ./ ${S}/src/import/src
-	mkdir -p ${S}/src/import/src/github.com/cri-o/cri-o/cmd
-	ln -sf ../../../../cmd/crio-config ${S}/src/import/src/github.com/cri-o/cri-o/cmd
-	ln -sf ../../../lib ${S}/src/import/src/github.com/cri-o/cri-o/lib
-	ln -sf ../../../oci ${S}/src/import/src/github.com/cri-o/cri-o/oci
-	ln -sf ../../../pkg ${S}/src/import/src/github.com/cri-o/cri-o/pkg
-	ln -sf ../../../utils ${S}/src/import/src/github.com/cri-o/cri-o/utils
-	ln -sf ../../../version ${S}/src/import/src/github.com/cri-o/cri-o/version
-	ln -sf ../../../server ${S}/src/import/src/github.com/cri-o/cri-o/server
-	ln -sf ../../../types ${S}/src/import/src/github.com/cri-o/cri-o/types
-
-	# fixes the bin/crio build of oe_runmake binaries below
-	ln -sf ../../../../cmd/crio ${S}/src/import/src/github.com/cri-o/cri-o/cmd/
-
-	# workaround `use of vendored package not allowed' failure
-	mv ${S}/src/import/vendor/golang.org  ${S}/src/import/
 
 	cd ${S}/src/import
 
-	if [ "${CRIO_BUILD_CROSS}" = "1" ]; then
-	    # New: using the -cross target. But this doesn't build conmon and pause. So
-	    #      keeping the old parts around if someone yells.
-	    oe_runmake local-cross
-	else
-	    # Build conmon/config.h, requires native versions of
-	    # cmd/crio-config/config.go and oci/oci.go
-	    (CGO_ENABLED=0 GO=go GOARCH=${BUILD_GOARCH} GOOS=${BUILD_GOOS} oe_runmake conmon/config.h)
-	    rm -f bin/crio-config
-	    rm -rf vendor/pkg
-
-	    oe_runmake binaries
-	fi
+	oe_runmake local-cross
+	oe_runmake binaries
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
@@ -141,6 +92,7 @@ do_install() {
     install -d ${D}/${libexecdir}/crio
     install -d ${D}/${sysconfdir}/crio
     install -d ${D}${systemd_unitdir}/system/
+    install -d ${D}/usr/share/containers/oci/hooks.d
 
     install ${WORKDIR}/crio.conf ${D}/${sysconfdir}/crio/crio.conf
 
@@ -149,19 +101,21 @@ do_install() {
     install -m 755 -D ${S}/src/import/test/testdata/* ${D}/${sysconfdir}/crio/config/
 
     install ${S}/src/import/bin/crio.cross.linux* ${D}/${localbindir}/crio
-
-    if [ "${CRIO_BUILD_CROSS}" = "1" ]; then
-	install ${S}/src/import/bin/conmon ${D}/${localbindir}/crio
-	install ${S}/src/import/bin/pause ${D}/${localbindir}/crio
-    fi
+    install ${S}/src/import/bin/crio-status ${D}/${localbindir}/
+    install ${S}/src/import/bin/pinns ${D}/${localbindir}/
 
     install -m 0644 ${S}/src/import/contrib/systemd/crio.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/contrib/systemd/crio-shutdown.service  ${D}${systemd_unitdir}/system/
+    install -m 0644 ${S}/src/import/contrib/systemd/crio-wipe.service  ${D}${systemd_unitdir}/system/
 }
 
 FILES_${PN}-config = "${sysconfdir}/crio/config/*"
 FILES_${PN} += "${systemd_unitdir}/system/*"
 FILES_${PN} += "/usr/local/bin/*"
+FILES_${PN} += "/usr/share/containers/oci/hooks.d"
+
+# don't clobber hooks.d
+ALLOW_EMPTY_${PN} = "1"
 
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
