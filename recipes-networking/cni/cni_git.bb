@@ -14,7 +14,7 @@ SRCREV_cni = "4cfb7b568922a3c79a23e438dc52fe537fc9687e"
 SRCREV_plugins = "1f33fb729ae2b8900785f896df2dc1f6fe5e8239"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni \
-        git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=plugins;name=plugins \
+        git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins \
 	"
 
 RPROVIDES_${PN} += "kubernetes-cni"
@@ -30,36 +30,22 @@ inherit go
 inherit goarch
 
 do_compile() {
-	# link fixups for compilation
-	rm -f ${S}/src/import/vendor/src
-	mkdir -p ${S}/src/import/vendor/
-	ln -sf ./ ${S}/src/import/vendor/src
-	rm -rf ${S}/src/import/plugins
-	rm -rf ${S}/src/import/vendor/github.com/containernetworking/plugins
+	mkdir -p ${S}/src/github.com/containernetworking
+	ln -sfr ${S}/src/import ${S}/src/github.com/containernetworking/cni
 
-	mkdir -p ${S}/src/import/vendor/github.com/containernetworking/cni
-
-	ln -sf ../../../../libcni ${S}/src/import/vendor/github.com/containernetworking/cni/libcni
-	ln -sf ../../../../pkg ${S}/src/import/vendor/github.com/containernetworking/cni/pkg
-	ln -sf ../../../../cnitool ${S}/src/import/vendor/github.com/containernetworking/cni/cnitool
-	ln -sf ${WORKDIR}/plugins ${S}/src/import/vendor/github.com/containernetworking/plugins
-
-	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
-	export CGO_ENABLED="1"
-
-	cd ${S}/src/import/vendor/github.com/containernetworking/cni/libcni
+	cd ${B}/src/github.com/containernetworking/cni/libcni
 	${GO} build
 
-	cd ${S}/src/import/vendor/github.com/containernetworking/cni/cnitool
+	cd ${B}/src/github.com/containernetworking/cni/cnitool
 	${GO} build
 
-	cd ${S}/src/import/vendor/github.com/containernetworking/plugins/
+	cd ${B}/src/github.com/containernetworking/plugins
 	PLUGINS="$(ls -d plugins/meta/*; ls -d plugins/ipam/*; ls -d plugins/main/* | grep -v windows)"
-	mkdir -p ${WORKDIR}/plugins/bin/
+	mkdir -p ${B}/plugins/bin/
 	for p in $PLUGINS; do
 	    plugin="$(basename "$p")"
 	    echo "building: $p"
-	    ${GO} build -o ${WORKDIR}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
+	    ${GO} build -mod=vendor -o ${B}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
 	done
 }
 
@@ -70,7 +56,7 @@ do_install() {
     install -d ${D}/${sysconfdir}/cni/net.d
 
     install -m 755 ${S}/src/import/cnitool/cnitool ${D}/${localbindir}
-    install -m 755 -D ${WORKDIR}/plugins/bin/* ${D}/${localbindir}
+    install -m 755 -D ${B}/plugins/bin/* ${D}/${localbindir}
 
     # Parts of k8s expect the cni binaries to be available in /opt/cni
     install -d ${D}/opt/cni
