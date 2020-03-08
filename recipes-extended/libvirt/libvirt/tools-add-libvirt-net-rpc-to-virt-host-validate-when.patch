@@ -1,4 +1,4 @@
-From ae4b40a1b3cb63a322716b6ad1762d53ada249e1 Mon Sep 17 00:00:00 2001
+From a1696741375c6faca0d09ae6b271a2c56fc2b6fe Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Tue, 7 May 2019 15:26:32 +0800
 Subject: [PATCH] tools: add libvirt-net-rpc to virt-host-validate when TLS is
@@ -15,16 +15,17 @@ Signed-off-by: Yunguo Wei <yunguo.wei@windriver.com>
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 [ddu: rebase to v5.3.0]
 Signed-off-by: Dengke Du <dengke.du@windriver.com>
----
- examples/Makefile.am | 19 +++++++++++++++++++
- tools/Makefile.am    | 12 ++++++++++++
- 2 files changed, 31 insertions(+)
 
-Index: libvirt-5.5.0/examples/Makefile.am
-===================================================================
---- libvirt-5.5.0.orig/examples/Makefile.am
-+++ libvirt-5.5.0/examples/Makefile.am
-@@ -77,6 +77,10 @@
+---
+ examples/Makefile.am | 20 ++++++++++++++++++++
+ tools/Makefile.am    | 12 ++++++++++++
+ 2 files changed, 32 insertions(+)
+
+diff --git a/examples/Makefile.am b/examples/Makefile.am
+index ad635bd..a94f41d 100644
+--- a/examples/Makefile.am
++++ b/examples/Makefile.am
+@@ -74,6 +74,10 @@ LDADD = \
  	$(top_builddir)/src/libvirt-admin.la \
  	$(NULL)
  
@@ -35,10 +36,11 @@ Index: libvirt-5.5.0/examples/Makefile.am
  noinst_PROGRAMS = \
  	c/admin/client_close \
  	c/admin/client_info \
-@@ -111,6 +115,21 @@
- c_misc_hellolibvirt_SOURCES = c/misc/hellolibvirt.c
- c_misc_openauth_SOURCES = c/misc/openauth.c
+@@ -111,6 +115,22 @@ c_misc_openauth_SOURCES = c/misc/openauth.c
+ examplesdir = $(docdir)/examples
  
+ adminexamplesdir = $(examplesdir)/c/admin
++
 +if WITH_GNUTLS
 +dominfo_info1_LDADD = $(top_builddir)/src/libvirt-net-rpc.la  \
 +               $(LDADD)    \
@@ -54,15 +56,15 @@ Index: libvirt-5.5.0/examples/Makefile.am
 +               $(NULL)
 +endif
 +
- if WITH_NWFILTER
+ adminexamples_DATA = $(ADMIN_EXAMPLES)
  
- nwfilterdir = $(sysconfdir)/libvirt/nwfilter
-Index: libvirt-5.5.0/tools/Makefile.am
-===================================================================
---- libvirt-5.5.0.orig/tools/Makefile.am
-+++ libvirt-5.5.0/tools/Makefile.am
-@@ -188,6 +188,12 @@
- 		../gnulib/lib/libgnu.la \
+ domainexamplesdir = $(examplesdir)/c/domain
+diff --git a/tools/Makefile.am b/tools/Makefile.am
+index 53df930..2a0a989 100644
+--- a/tools/Makefile.am
++++ b/tools/Makefile.am
+@@ -166,6 +166,12 @@ virt_host_validate_LDADD = \
+ 		$(GLIB_LIBS) \
  		$(NULL)
  
 +if WITH_GNUTLS
@@ -74,7 +76,7 @@ Index: libvirt-5.5.0/tools/Makefile.am
  virt_host_validate_CFLAGS = \
  		$(AM_CFLAGS) \
  		$(NULL)
-@@ -265,6 +271,12 @@
+@@ -262,6 +268,12 @@ virt_admin_CFLAGS = \
  		$(READLINE_CFLAGS)
  BUILT_SOURCES =
  

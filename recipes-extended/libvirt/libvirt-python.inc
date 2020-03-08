@@ -16,10 +16,9 @@ FILES_${PN}-python-dbg += "${PYTHON_SITEPACKAGES_DIR}/.debug/"
 FILES_${PN}-python = "${bindir}/* ${libdir}/* ${libdir}/${PYTHON_DIR}/*"
 
 SRC_URI += "http://libvirt.org/sources/python/libvirt-python-${PV}.tar.gz;name=libvirt_python"
-SRC_URI += "file://libvirt_api_xml_path.patch;patchdir=../libvirt-python-${PV}"
 
-SRC_URI[libvirt_python.md5sum] = "4c8c38c409f967b8b47e0d7c6df050a4"
-SRC_URI[libvirt_python.sha256sum] = "561cafedb83e41880405905f6309f4a86981cfe05edbbc83c839f7c47d8ba603"
+SRC_URI[libvirt_python.md5sum] = "2834626b07da6ac4ca1559abfd55c118"
+SRC_URI[libvirt_python.sha256sum] = "be644f4809c0e1d368e3ac065df3c66a26dcfe61ecb607ee9706e1799f22c35a"
 
 export LIBVIRT_API_PATH = "${S}/docs/libvirt-api.xml"
 export LIBVIRT_CFLAGS = "-I${S}/include"
@@ -41,6 +40,10 @@ python __anonymous () {
 
 do_compile_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
+		# we need the python bindings to look into our source dir, not
+		# the syroot staged pkgconfig entries. So we clear the sysroot
+		# for just this portion.
+		export PKG_CONFIG_SYSROOT_DIR=
 		cd ${WORKDIR}/${BPN}-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python3-native/python3 setup.py build
 	fi
@@ -48,6 +51,10 @@ do_compile_append() {
 
 do_install_append() {
 	if [ "${LIBVIRT_PYTHON_ENABLE}" = "1" ]; then
+		# we need the python bindings to look into our source dir, not
+		# the syroot staged pkgconfig entries. So we clear the sysroot
+		# for just this portion.
+		export PKG_CONFIG_SYSROOT_DIR=
 		cd ${WORKDIR}/${BPN}-python-${PV} && \
 		  ${STAGING_BINDIR_NATIVE}/python3-native/python3 setup.py install \
                        --install-lib=${D}/${PYTHON_SITEPACKAGES_DIR} ${LIBVIRT_INSTALL_ARGS}

@@ -1,4 +1,4 @@
-From 52fc46b4f8cfd36476f59c0796f4f39686b53953 Mon Sep 17 00:00:00 2001
+From 9d6bfb4a5e9b44c080ddf3bad4c364ffb0e9d84a Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Wed, 8 May 2019 10:20:47 +0800
 Subject: [PATCH] Add 'install-ptest' rule
@@ -17,15 +17,16 @@ Signed-off-by: He Zhe <zhe.he@windriver.com>
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 [DDU: Update context for v5.3.0]
 Signed-off-by: Dengke Du <dengke.du@windriver.com>
+
 ---
- tests/Makefile.am | 68 ++++++++++++++++++++++++++++++++++++++++++++++++-------
+ tests/Makefile.am | 68 +++++++++++++++++++++++++++++++++++++++++------
  1 file changed, 60 insertions(+), 8 deletions(-)
 
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 46d94d2..7d0387e 100644
+index 83326db..7a0aee3 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -29,11 +29,13 @@ AM_CPPFLAGS = \
+@@ -28,11 +28,13 @@ AM_CPPFLAGS = \
  
  WARN_CFLAGS += $(RELAXED_FRAME_LIMIT_CFLAGS)
  
@@ -41,9 +42,9 @@ index 46d94d2..7d0387e 100644
 +	-Dabs_srcdir="\"$(PTEST_DIR)/tests\"" \
 +	-Dabs_top_srcdir="\"$(PTEST_DIR)\"" \
  	$(LIBXML_CFLAGS) \
+ 	$(GLIB_CFLAGS) \
  	$(LIBNL_CFLAGS) \
- 	$(GNUTLS_CFLAGS) \
-@@ -465,10 +467,10 @@ TESTS = $(test_programs) \
+@@ -472,10 +474,10 @@ TESTS = $(test_programs) \
  
  VIR_TEST_EXPENSIVE ?= $(VIR_TEST_EXPENSIVE_DEFAULT)
  TESTS_ENVIRONMENT = \
@@ -55,12 +56,12 @@ index 46d94d2..7d0387e 100644
 +  abs_top_srcdir="$(PTEST_DIR)" \
 +  abs_builddir="$(PTEST_DIR)/tests" \
 +  abs_srcdir="$(PTEST_DIR)/tests" \
-   SHELL="$(SHELL)" \
    LIBVIRT_AUTOSTART=0 \
    LC_ALL=C \
-@@ -1535,5 +1537,55 @@ else ! WITH_CIL
- EXTRA_DIST += objectlocking.ml
- endif ! WITH_CIL
+   VIR_TEST_EXPENSIVE=$(VIR_TEST_EXPENSIVE) \
+@@ -1549,4 +1551,54 @@ else ! WITH_LINUX
+ EXTRA_DIST += virscsitest.c
+ endif  ! WITH_LINUX
  
 +buildtest-TESTS: $(TESTS) $(test_libraries) $(test_helpers)
 +
@@ -78,7 +79,7 @@ index 46d94d2..7d0387e 100644
 +	install ../src/libvirt_iohelper $(DEST_DIR)/src
 +	install -D ../src/libvirtd $(DEST_DIR)/src/libvirtd
 +	install -d $(DEST_DIR)/src/remote
-+	install -D $(top_srcdir)/src/remote/libvirtd.conf $(DEST_DIR)/src/remote/libvirtd.conf
++	install -D $(top_srcdir)/../build/src/remote/libvirtd.conf $(DEST_DIR)/src/remote/libvirtd.conf
 +	install -d $(DEST_DIR)/src/remote/.libs
 +	@(if [ -d ../src/remote/.libs ] ; then cd ../src/remote/.libs; fi; \
 +	install * $(DEST_DIR)/src/remote/.libs)
@@ -112,8 +113,4 @@ index 46d94d2..7d0387e 100644
 +	sed -i -e 's|$(BUILD_DIR)|$(PTEST_DIR)|g' $(DEST_DIR)/Makefile
 +	sed -i -e 's|^\(.*\.log:\) \(.*EXEEXT.*\)|\1|g' $(DEST_DIR)/tests/Makefile
 +
- CLEANFILES = *.cov *.gcov .libs/*.gcda .libs/*.gcno *.gcno *.gcda *.cmi *.cmx \
- 	objectlocking-files.txt
--- 
-2.7.4
-
+ CLEANFILES = *.cov *.gcov .libs/*.gcda .libs/*.gcno *.gcno *.gcda

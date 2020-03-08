@@ -8,6 +8,7 @@ SECTION = "console/tools"
 
 DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux e2fsprogs pm-utils \
 	   iptables dnsmasq readline libtasn1 libxslt-native acl libdevmapper libtirpc \
+           python3-docutils-native \
 	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)} \
 	   ${@bb.utils.contains('PACKAGECONFIG', 'gnutls', 'gnutls-native', '', d)}"
 
@@ -36,12 +37,13 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://install-missing-file.patch \
            file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
            file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
+           file://0001-build-drop-unnecessary-libgnu.la-reference.patch \
            file://hook_support.py \
            file://gnutls-helper.py \
           "
 
-SRC_URI[libvirt.md5sum] = "27c5fb6c8d2d46eb9e8165aeb3b499b0"
-SRC_URI[libvirt.sha256sum] = "2306ef0947a594f91ec9da4b8b0307bdb54b897f17de19f48e8ecdca08ff35e8"
+SRC_URI[libvirt.md5sum] = "a870e63f20fac2ccf98e716d05256145"
+SRC_URI[libvirt.sha256sum] = "167c185be45560e73dd3e14ed375778b555c01455192de2dafc4d0f74fabebc0"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
@@ -207,11 +209,9 @@ PACKAGECONFIG_remove_armeb = "numactl"
 PACKAGECONFIG[gnutls] = ",,,gnutls-bin"
 PACKAGECONFIG[qemu] = "--with-qemu --with-qemu-user=qemu --with-qemu-group=qemu,--without-qemu,qemu,"
 PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
-PACKAGECONFIG[xenapi] = "--with-xenapi,--without-xenapi,,"
 PACKAGECONFIG[libxl] = "--with-libxl=${STAGING_DIR_TARGET}/lib,--without-libxl,xen,"
 PACKAGECONFIG[openvz] = "--with-openvz,--without-openvz,,"
 PACKAGECONFIG[vmware] = "--with-vmware,--without-vmware,,"
-PACKAGECONFIG[phyp] = "--with-phyp,--without-phyp,,"
 PACKAGECONFIG[vbox] = "--with-vbox,--without-vbox,,"
 PACKAGECONFIG[esx] = "--with-esx,--without-esx,,"
 PACKAGECONFIG[hyperv] = "--with-hyperv,--without-hyperv,,"
@@ -241,6 +241,26 @@ PACKAGECONFIG[numad] = "--with-numad, --without-numad,"
 
 # Enable the Python tool support
 require libvirt-python.inc
+
+do_compile() {
+	cd ${B}/src
+	# There may be race condition, but without creating these directories
+	# in the source tree, generation of files fails.
+	for i in access admin logging esx locking rpc hyperv lxc \
+		    remote network storage interface nwfilter node_device \
+		    secret vbox qemu; do
+		mkdir -p $i;
+	done
+
+	cd ${B}
+	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${B}/src:"
+	oe_runmake all
+}
+
+do_install_prepend() {
+	# so the install routines can find the libvirt.pc in the source dir
+	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${B}/src:"
+}
 
 do_install_append() {
 	install -d ${D}/etc/init.d
