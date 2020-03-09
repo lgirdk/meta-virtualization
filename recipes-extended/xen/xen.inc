@@ -101,12 +101,12 @@ export LDFLAGS=""
 #   It must not be compiled with SSE compiler options enabled and the Xen build
 #   explicitly clears CFLAGS to ensure that, so such options must not be passed
 #   in via the tool variable. hvmloader is required to run HVM-mode guest VMs.
-CC="${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS}"
+CC="${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${CC_REPRODUCIBLE_OPTIONS}"
 EXTRA_CFLAGS_XEN_CORE="${HOST_CC_ARCH} ${CFLAGS}"
 EXTRA_CFLAGS_XEN_TOOLS="${HOST_CC_ARCH} ${CFLAGS}"
 # 32-bit ARM needs the TUNE_CCARGS component of HOST_CC_ARCH to be passed
 # in CC to ensure that configure can compile binaries for the right arch.
-CC_arm="${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS}"
+CC_arm="${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS} ${CC_REPRODUCIBLE_OPTIONS}"
 EXTRA_CFLAGS_XEN_CORE_arm="${SECURITY_CFLAGS} ${CFLAGS}"
 EXTRA_CFLAGS_XEN_TOOLS_arm="${SECURITY_CFLAGS} ${CFLAGS}"
 
@@ -155,10 +155,10 @@ EXTRA_OEMAKE += "${@['', 'XEN_WHOAMI=${PF} XEN_DOMAIN=${DISTRO} XEN_BUILD_HOST=$
                     [d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1']}${@get_build_time_vars(d)}"
 
 # Improve build reproducibility: compiler flags to remove filesystem differences.
-# Suppress __FILE__ via an alternative builtin.
-CC += "${@['', '-gno-record-gcc-switches -Wno-builtin-macro-redefined -D__FILE__=__VERSION__ ' + \
-               '-fdebug-prefix-map=${WORKDIR}=${PN}'] \
-          [d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1']}"
+CC_REPRODUCIBLE_OPTIONS = "${@['', '-gno-record-gcc-switches ' + \
+                                   '-ffile-prefix-map=${S}=${PN}-source ' + \
+                                   '-fdebug-prefix-map=${WORKDIR}=${PN}'] \
+                             [d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1']}"
 
 # check for XSM in package config to allow XSM_ENABLE to be set
 python () {
