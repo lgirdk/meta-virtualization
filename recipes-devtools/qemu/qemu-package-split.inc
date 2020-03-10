@@ -34,7 +34,7 @@ RDEPENDS_${PN}-microblaze_append_class-target = "${PN}"
 INSANE_SKIP_${PN}-arm_class-target = "file-rdeps"
 
 FILES_${PN}-support_class-target = "${bindir}/* ${libexecdir}/*"
-RDEPENDS_${PN}-support_class-target = "${PN}"
+RDEPENDS_${PN}-support_class-target = "${PN} bash"
 
 FILES_${PN}-firmware_class-target = "${datadir}/${PN}/*.bin ${datadir}/${PN}/*.rom ${datadir}/${PN}/*.img ${datadir}/${PN}/openbios* ${datadir}/${PN}/*.dtb ${datadir}/${PN}/u-boot*"
 RDEPENDS_${PN}-firmware_class-target = "${PN}"
