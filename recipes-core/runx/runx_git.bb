@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/lf-edge/runx"
 SUMMARY = "runx stuff"
 DESCRIPTION = "Xen Runtime for OCI"
 
-SRCREV_runx = "a6fe5ca3081f44e9085972d424c74707d4f0fc71"
+SRCREV_runx = "da0c75c58ae5232d19b1791c33545db3225e1ea9"
 SRC_URI = "\
 	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
           https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.tar.xz;destsuffix=git/kernel/build \
@@ -21,11 +21,6 @@ PV = "0.1-git${SRCREV_runx}"
 inherit distro_features_check
 REQUIRED_DISTRO_FEATURES = "vmsep"
 
-
-# TODO: for if we need a go shim
-# GO_IMPORT = "import"
-# inherit go
-# inherit goarch
 inherit pkgconfig
 
 # for the kernel build
@@ -33,14 +28,14 @@ inherit kernel-arch
 
 # we have a busybox bbappend that makes /bin available to the
 # sysroot, and hence gets us the target binary that we need
-DEPENDS = "busybox"
+DEPENDS = "busybox go-build"
 
 # for the kernel build phase
 DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-native"
 DEPENDS += "qemu-native"
 
 RDEPENDS_${PN} += " jq bash"
-RDEPENDS_${PN} += " xen-xl"
+RDEPENDS_${PN} += " xen-xl go-build socat daemonize"
 
 do_compile() {
     # we'll need this for the initrd later, so lets error if it isn't what
@@ -86,52 +81,6 @@ do_compile() {
     ${S}/kernel/make-initrd
 }
 
-do_build_go_shim() {
-
-    # placeholder for any go shim code we may need, i.e. console
-
-    # export GOARCH="${TARGET_GOARCH}"
-    # export GOROOT="${STAGING_LIBDIR_NATIVE}/${TARGET_SYS}/go"
-    # export GOPATH="${S}/src/import:${S}/src/import/vendor"
-
-    # # Pass the needed cflags/ldflags so that cgo
-    # # can find the needed headers files and libraries
-    # export CGO_ENABLED="1"
-    # export CFLAGS=""
-    # export LDFLAGS=""
-    # export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-    # export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-
-    # # link fixups for compilation
-    # rm -f ${S}/src/import/vendor/src
-    # ln -sf ./ ${S}/src/import/vendor/src
-
-    # mkdir -p ${S}/src/import/vendor/github.com/hyperhq/runv
-
-    # ln -sf src/import/cli
-    # ln -sf ../../../../api ${S}/src/import/vendor/github.com/hyperhq/runv/api
-    # ln -sf ../../../../cli ${S}/src/import/vendor/github.com/hyperhq/runv/cli
-    # ln -sf ../../../../lib ${S}/src/import/vendor/github.com/hyperhq/runv/lib
-    # ln -sf ../../../../driverloader ${S}/src/import/vendor/github.com/hyperhq/runv/driverloader
-    # ln -sf ../../../../factory ${S}/src/import/vendor/github.com/hyperhq/runv/factory
-    # ln -sf ../../../../hyperstart ${S}/src/import/vendor/github.com/hyperhq/runv/hyperstart
-    # ln -sf ../../../../hypervisor ${S}/src/import/vendor/github.com/hyperhq/runv/hypervisor
-    # ln -sf ../../../../template ${S}/src/import/vendor/github.com/hyperhq/runv/template
-
-    # export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
-    # export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
-
-    # # Pass the needed cflags/ldflags so that cgo
-    # # can find the needed headers files and libraries
-    # export CGO_ENABLED="1"
-    # export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-    # export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-
-    # oe_runmake build-shim
-
-    true
-}
-
 do_install() {
     install -d ${D}${bindir}
     install -m 755 ${S}/runX ${D}${bindir}
@@ -142,6 +91,8 @@ do_install() {
     install -m 755 ${S}/files/start ${D}/${datadir}/runX
     install -m 755 ${S}/files/state ${D}/${datadir}/runX
     install -m 755 ${S}/files/delete ${D}/${datadir}/runX
+    install -m 755 ${S}/files/serial_bridge ${D}/${datadir}/runX
+    install -m 755 ${S}/files/serial_start ${D}/${datadir}/runX
 
 
 }
