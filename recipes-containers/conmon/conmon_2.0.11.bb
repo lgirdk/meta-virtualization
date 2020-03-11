@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=61af0b6932ea7b12fb9142721043bc77"
 
 DEPENDS = "glib-2.0"
 
-SRCREV = "60b42f20f222df9da07a01ee444327348b9f54ee"
+SRCREV = "ff9d97a08d7a4b58267ac03719786e4e7258cecf"
 SRC_URI = "\
     git://github.com/containers/conmon.git \
 "
