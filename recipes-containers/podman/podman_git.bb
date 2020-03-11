@@ -97,6 +97,12 @@ do_install() {
 	if ${@bb.utils.contains('PACKAGECONFIG', 'docker', 'true', 'false', d)}; then
 		oe_runmake install.docker DESTDIR="${D}"
 	fi
+	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+		install -d ${D}${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/systemd/system/podman.service ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/systemd/system/podman.socket ${D}/${systemd_unitdir}/system
+		rm -f ${D}/${systemd_unitdir}/system/docker.service.rpm
+	fi
 }
 
 FILES_${PN} += " \
@@ -105,6 +111,8 @@ FILES_${PN} += " \
     ${nonarch_libdir}/tmpfiles.d/* \
     ${sysconfdir}/cni \
 "
+
+SYSTEMD_SERVICE_${PN} = "podman.service podman.socket"
 
 RDEPENDS_${PN} += "conmon virtual/runc iptables cni skopeo"
 RRECOMMENDS_${PN} += "slirp4netns"
