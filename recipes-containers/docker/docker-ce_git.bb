@@ -18,8 +18,8 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "f0e27e52c1d57597a9b2e50baad33feb80474b76"
-SRCREV_libnetwork = "9fd385be8302dbe1071a3ce124891893ff27f90f"
+SRCREV_docker = "afacb8b7f0d8d4f9d2a8e8736e9c993e672b41f3"
+SRCREV_libnetwork = "c7bae399e46fd620b8a006174b7327e4e6e647fd"
 SRC_URI = "\
 	git://github.com/docker/docker-ce.git;branch=19.03;name=docker \
 	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork \
@@ -38,7 +38,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "19.03.6-ce"
+DOCKER_VERSION = "19.03.8-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 PACKAGES =+ "${PN}-contrib"
