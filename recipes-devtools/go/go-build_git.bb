@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=945fc9aa694796a6337395cc291ddd
 S = "${WORKDIR}/git"
 PV = "0.1-git${SRCREV_runx}"
 
-inherit distro_features_check
+inherit features_check
 REQUIRED_DISTRO_FEATURES = "vmsep"
 
 inherit pkgconfig
