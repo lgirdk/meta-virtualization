@@ -375,6 +375,11 @@ EXTRA_OECONF += " \
     --with-test-suite \
     "
 
+# gcc9 end up mis-compiling qemuxml2argvtest.o with Og which then
+# crashes on target, so remove -Og and use -O2 as workaround
+SELECTED_OPTIMIZATION_remove_virtclass-multilib-lib32_mipsarch = "-Og"
+SELECTED_OPTIMIZATION_append_virtclass-multilib-lib32_mipsarch = " -O2"
+
 EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
 
 PRIVATE_LIBS_${PN}-ptest_append = "libvirt-admin.so.0"
