@@ -368,6 +368,9 @@ do_install_append() {
 	    # Force the connection to be tls.
 	    sed -i -e 's/^\(listen_tls\ =\ .*\)/#\1/' -e 's/^\(listen_tcp\ =\ .*\)/#\1/' ${D}/etc/libvirt/libvirtd.conf
 	fi
+
+	# virt-login-shell needs to run with setuid permission
+	chmod 4755 ${D}${bindir}/virt-login-shell
 }
 
 EXTRA_OECONF += " \
