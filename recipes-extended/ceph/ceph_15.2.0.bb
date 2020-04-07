@@ -2,7 +2,7 @@ SUMMARY = "User space components of the Ceph file system"
 LICENSE = "LGPLv2.1 & GPLv2 & Apache-2.0 & MIT"
 LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 \
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING;md5=601c21a554d728c3038ca292b83b8af0 \
+                    file://COPYING;md5=4eb012c221c5fd4b760029a2981a6754 \
 "
 inherit cmake python3native python3-dir systemd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
@@ -11,13 +11,13 @@ inherit cmake python3native python3-dir systemd
 SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://ceph.conf \
-           file://0001-rgw-add-executor-type-for-basic_waitable_timers.patch \
-           file://0001-common-rgw-workaround-for-boost-1.72.patch \
-           file://0001-rgw-beast-handle_connection-takes-io_context.patch \
 "
 
-SRC_URI[md5sum] = "8100ce9820714554e6d4717f6f0aa4da"
-SRC_URI[sha256sum] = "9606dc80553bd97e138cd80b6bbbc117b6b26c66248e490a4e49fc0d4d853862"
+SRC_URI[md5sum] = "1f9af648b4c6d19975aab2583ab99710"
+SRC_URI[sha256sum] = "4292c473d1714a6602c525d7582e4e03ec608f0a1cbc0dd338207e5c7068e0d3"
+SRC_URI[sha1sum] = "7158806ece1483fcccdf1172c20cc34d9401c543"
+SRC_URI[sha384sum] = "20e996dbf30d1e33a6d6aae36960190125ce263d306415bcec5d2b3032b8b8f730deeba3ca318576573127d08909404a"
+SRC_URI[sha512sum] = "07a3ff2ccf1a3abac652ff8c5f1611e7c628fcedcb280adc6cd49792b46fa50c7c29437dc57c2c4a6af708a6833abf8c1a386ef2142d30bd5e1f214ba7aec4f2"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
@@ -60,7 +60,8 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
                  -DWITH_RDMA=OFF \
                  -DWITH_RADOSGW_AMQP_ENDPOINT=OFF \
                  -DPYTHON_INSTALL_DIR=${PYTHON_SITEPACKAGES_DIR} -DPYTHON_DESIRED=3 \
-                 -DPYTHON_EXECUTABLE=${PYTHON} \
+                 -DPython3_EXECUTABLE=${PYTHON} \
+                 -DWITH_RADOSGW_KAFKA_ENDPOINT=OFF \
 "
 
 do_configure_prepend () {
