@@ -20,6 +20,7 @@ PV = "0.1-git${SRCREV_runx}"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "vmsep"
+GO_PARALLEL_BUILD ?= "${@oe.utils.parallel_make_argument(d, '-p %d')}"
 
 inherit pkgconfig
 
