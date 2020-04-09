@@ -1,7 +1,7 @@
 DESCRIPTION = "lxc aims to use these new functionnalities to provide an userspace container object"
 SECTION = "console/utils"
 LICENSE = "LGPLv2.1"
-LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
+LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -44,16 +44,12 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://templates-use-curl-instead-of-wget.patch \
 	file://tests-our-init-is-not-busybox.patch \
 	file://tests-add-no-validate-when-using-download-template.patch \
-	file://network-restore-ability-to-move-nl80211-devices.patch \
-        file://0001-container.conf-Add-option-to-set-keyring-SELinux-con.patch \
-        file://0002-container.conf-Add-option-to-disable-session-keyring.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
-	file://0001-syscall_wrappers-rename-internal-memfd_create-to-mem.patch \
 	"
 
-SRC_URI[md5sum] = "4886c8d1c8e221fe526eefcb47857b85"
-SRC_URI[sha256sum] = "5f903986a4b17d607eea28c0aa56bf1e76e8707747b1aa07d31680338b1cc3d4"
+SRC_URI[md5sum] = "5f19f13eafdde24c75ba459fc6c28156"
+SRC_URI[sha256sum] = "70bbaac1df097f32ee5493a5e67a52365f7cdda28529f40197d6160bbec4139d"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
