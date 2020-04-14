@@ -1,4 +1,4 @@
-From 51d88d9741c30ff4a798698514cac831ae61680b Mon Sep 17 00:00:00 2001
+From 06b2a3054b9526c89d5abc314c7d7cda35ddb6a5 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 31 May 2018 15:00:34 -0400
 Subject: [PATCH] tests: our init is not busybox

@@ -1,4 +1,4 @@
-From 3a7112a38d2c44b6fa49e0da1dc4765defd88dbb Mon Sep 17 00:00:00 2001
+From 96bf043ec0ed93613036c324174c149655cf52be Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 31 May 2018 11:44:44 -0400
 Subject: [PATCH] template: make busybox template compatible with
@@ -23,10 +23,10 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/templates/lxc-busybox.in b/templates/lxc-busybox.in
-index 9637a71..45b386f 100644
+index 8ba7cfe..effdb73 100644
 --- a/templates/lxc-busybox.in
 +++ b/templates/lxc-busybox.in
-@@ -181,6 +181,19 @@ configure_busybox()
+@@ -194,6 +194,19 @@ configure_busybox()
      return 1
    fi
  
@@ -46,7 +46,7 @@ index 9637a71..45b386f 100644
    # symlink busybox for the commands it supports
    # it would be nice to just use "chroot $rootfs busybox --install -s /bin"
    # but that only works right in a chroot with busybox >= 1.19.0
-@@ -189,9 +202,6 @@ configure_busybox()
+@@ -202,9 +215,6 @@ configure_busybox()
      ./busybox --list | grep -v busybox | xargs -n1 ln -s busybox
    )
  

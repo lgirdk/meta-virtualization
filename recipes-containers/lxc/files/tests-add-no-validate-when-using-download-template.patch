@@ -1,4 +1,4 @@
-From 1b334bdaf598600314a678509a702728721001a2 Mon Sep 17 00:00:00 2001
+From 1c2506434e744d8c6a86e42c9d8bae4cde7553f6 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 31 May 2018 15:14:26 -0400
 Subject: [PATCH] tests: add '--no-validate' when using download template
@@ -19,7 +19,7 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  5 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/tests/lxc-test-apparmor-mount b/src/tests/lxc-test-apparmor-mount
-index 56d598f..573cff8 100755
+index d21c948..9e1969b 100755
 --- a/src/tests/lxc-test-apparmor-mount
 +++ b/src/tests/lxc-test-apparmor-mount
 @@ -169,7 +169,7 @@ if [ -f /etc/lsb-release ]; then
