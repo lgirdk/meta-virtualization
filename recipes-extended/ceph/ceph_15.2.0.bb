@@ -43,6 +43,8 @@ SYSTEMD_SERVICE_${PN} = " \
         ceph-mgr.target \
         ceph-crash.service \
         rbdmap.service \
+        ceph-immutable-object-cache@.service \
+        ceph-immutable-object-cache.target \
 "
 OECMAKE_GENERATOR = "Unix Makefiles"
 
