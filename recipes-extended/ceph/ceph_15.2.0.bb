@@ -10,6 +10,7 @@ inherit cmake python3native python3-dir systemd
 
 SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
+           file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
 "
 
@@ -65,6 +66,8 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
                  -DPython3_EXECUTABLE=${PYTHON} \
                  -DWITH_RADOSGW_KAFKA_ENDPOINT=OFF \
 "
+
+export STAGING_DIR_HOST
 
 do_configure_prepend () {
 	echo "set( CMAKE_SYSROOT \"${RECIPE_SYSROOT}\" )" >> ${WORKDIR}/toolchain.cmake
