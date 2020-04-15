@@ -1,7 +1,7 @@
 require nagios-common.inc
 
 DESCRIPTION = "Nagios Remote Plugin Executor"
-HOMEPAGE = "http://exchange.nagios.org"
+HOMEPAGE = "http://www.nagios.com"
 SECTION = "console/network"
 PRIORITY = "optional"
 LICENSE = "GPLv2"
@@ -15,8 +15,11 @@ SRC_URI = "https://github.com/NagiosEnterprises/nrpe/releases/download/${SRCNAME
            file://nagios-nrpe.service \
 "
 
-SRC_URI[md5sum] = "8997e195fea93cdceb8c7ed8ac1d43bc"
-SRC_URI[sha256sum] = "8ad2d1846ab9011fdd2942b8fc0c99dfad9a97e57f4a3e6e394a4ead99c0f1f0"
+SRC_URI[md5sum] = "37b9e23b3e8d75308f8b31f3b61ee8a4"
+SRC_URI[sha256sum] = "c5d9d7023eaa49e6fe8cf95c6d101731f07972cf0f8818fa130c171bc9eabd55"
+SRC_URI[sha1sum] = "2150e274fc7f24905c63b8a996ed7218e2967478"
+SRC_URI[sha384sum] = "0ece79fb312c8d1ee0e6bde1be499f8090a5a86cf90b0b8dcbebb95c5f8f70b2cf9ac0a4064f726bee091c4147b61d82"
+SRC_URI[sha512sum] = "4d7cf6abc974bc79df54afc42644418e3f086a279c8c17d0fd104f19e3c21c0f3dae4fb4268dd134446ff9fe505159b0446372c5cac71cfe03a97479ed41c09b"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
