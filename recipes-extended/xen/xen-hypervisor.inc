@@ -47,7 +47,7 @@ do_install() {
 do_deploy() {
     install -d ${DEPLOYDIR}
 
-    if [ -f ${B}/xen/xen.gz ]; then
+    if [ -f ${B}/xen/xen ]; then
         install -m 0644 ${B}/xen/xen ${DEPLOYDIR}/xen-${MACHINE}
     fi
 
