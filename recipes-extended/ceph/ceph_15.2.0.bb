@@ -12,6 +12,11 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
+           file://0001-msg-async-ProtocolV2-avoid-AES-GCM-nonce-reuse-vulne.patch \
+           file://0001-msg-async-crypto_onwire-fix-endianness-of-nonce_t.patch \
+           file://0001-rgw-reject-unauthenticated-response-header-actions.patch \
+           file://0001-rgw-EPERM-to-ERR_INVALID_REQUEST.patch \
+           file://0001-rgw-reject-control-characters-in-response-header-act.patch \
 "
 
 SRC_URI[md5sum] = "1f9af648b4c6d19975aab2583ab99710"

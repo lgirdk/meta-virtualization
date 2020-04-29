@@ -1,0 +1,36 @@
+From 8f90658c731499722d5f4393c8ad70b971d05f77 Mon Sep 17 00:00:00 2001
+From: Matt Benjamin <mbenjamin@redhat.com>
+Date: Fri, 27 Mar 2020 18:13:48 +0100
+Subject: [PATCH] rgw: reject unauthenticated response-header actions
+
+Signed-off-by: Matt Benjamin <mbenjamin@redhat.com>
+Reviewed-by: Casey Bodley <cbodley@redhat.com>
+(cherry picked from commit d8dd5e513c0c62bbd7d3044d7e2eddcd897bd400)
+
+CVE: CVE-2020-1760
+Upstream Status: Backport [8f90658c731499722d5f4393c8ad70b971d05f77]
+
+Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+---
+ src/rgw/rgw_rest_s3.cc | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/rgw/rgw_rest_s3.cc b/src/rgw/rgw_rest_s3.cc
+index 532d738b58..1bfc8312de 100644
+--- a/src/rgw/rgw_rest_s3.cc
++++ b/src/rgw/rgw_rest_s3.cc
+@@ -298,6 +298,11 @@ int RGWGetObj_ObjStore_S3::send_response_data(bufferlist& bl, off_t bl_ofs,
+       bool exists;
+       string val = s->info.args.get(p->param, &exists);
+       if (exists) {
++	/* reject unauthenticated response header manipulation, see
++	 * https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html */
++	if (s->auth.identity->is_anonymous()) {
++	  return -EPERM;
++	}
+ 	if (strcmp(p->param, "response-content-type") != 0) {
+ 	  response_attrs[p->http_attr] = val;
+ 	} else {
+-- 
+2.20.1
+
