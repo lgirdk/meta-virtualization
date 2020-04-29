@@ -1,0 +1,64 @@
+From be7679007c3dfab3e19c22c38c36ccac91828e3b Mon Sep 17 00:00:00 2001
+From: "Robin H. Johnson" <rjohnson@digitalocean.com>
+Date: Fri, 27 Mar 2020 20:48:13 +0100
+Subject: [PATCH] rgw: reject control characters in response-header actions
+
+S3 GetObject permits overriding response header values, but those inputs
+need to be validated to insure only characters that are valid in an HTTP
+header value are present.
+
+Credit: Initial vulnerability discovery by William Bowling (@wcbowling)
+Credit: Further vulnerability discovery by Robin H. Johnson <rjohnson@digitalocean.com>
+Signed-off-by: Robin H. Johnson <rjohnson@digitalocean.com>
+
+CVE: CVE-2020-1760
+Upstream Status: Backport [be7679007c3dfab3e19c22c38c36ccac91828e3b]
+
+Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+---
+ src/rgw/rgw_rest_s3.cc | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/src/rgw/rgw_rest_s3.cc b/src/rgw/rgw_rest_s3.cc
+index f13ae23dd6..0de040968c 100644
+--- a/src/rgw/rgw_rest_s3.cc
++++ b/src/rgw/rgw_rest_s3.cc
+@@ -189,6 +189,15 @@ int decode_attr_bl_single_value(map<string, bufferlist>& attrs, const char *attr
+   return 0;
+ }
+ 
++inline bool str_has_cntrl(const std::string s) {
++  return std::any_of(s.begin(), s.end(), ::iscntrl);
++}
++
++inline bool str_has_cntrl(const char* s) {
++  std::string _s(s);
++  return str_has_cntrl(_s);
++}
++
+ int RGWGetObj_ObjStore_S3::send_response_data(bufferlist& bl, off_t bl_ofs,
+ 					      off_t bl_len)
+ {
+@@ -303,6 +312,19 @@ int RGWGetObj_ObjStore_S3::send_response_data(bufferlist& bl, off_t bl_ofs,
+ 	if (s->auth.identity->is_anonymous()) {
+ 	  return -ERR_INVALID_REQUEST;
+ 	}
++        /* HTTP specification says no control characters should be present in
++         * header values: https://tools.ietf.org/html/rfc7230#section-3.2
++         *      field-vchar    = VCHAR / obs-text
++         *
++         * Failure to validate this permits a CRLF injection in HTTP headers,
++         * whereas S3 GetObject only permits specific headers.
++         */
++        if(str_has_cntrl(val)) {
++          /* TODO: return a more distinct error in future;
++           * stating what the problem is */
++          return -ERR_INVALID_REQUEST;
++        }
++
+ 	if (strcmp(p->param, "response-content-type") != 0) {
+ 	  response_attrs[p->http_attr] = val;
+ 	} else {
+-- 
+2.20.1
+

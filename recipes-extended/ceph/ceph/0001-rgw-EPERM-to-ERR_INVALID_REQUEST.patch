@@ -1,0 +1,33 @@
+From 92da834cababc4dddd5dbbab5837310478d1e6d4 Mon Sep 17 00:00:00 2001
+From: Abhishek Lekshmanan <abhishek@suse.com>
+Date: Fri, 27 Mar 2020 19:29:01 +0100
+Subject: [PATCH] rgw: EPERM to ERR_INVALID_REQUEST
+
+As per Robin's comments and S3 spec
+
+Signed-off-by: Abhishek Lekshmanan <abhishek@suse.com>
+
+CVE: CVE-2020-1760
+Upstream Status: Backport [92da834cababc4dddd5dbbab5837310478d1e6d4]
+
+Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+---
+ src/rgw/rgw_rest_s3.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/rgw/rgw_rest_s3.cc b/src/rgw/rgw_rest_s3.cc
+index 1bfc8312de..f13ae23dd6 100644
+--- a/src/rgw/rgw_rest_s3.cc
++++ b/src/rgw/rgw_rest_s3.cc
+@@ -301,7 +301,7 @@ int RGWGetObj_ObjStore_S3::send_response_data(bufferlist& bl, off_t bl_ofs,
+ 	/* reject unauthenticated response header manipulation, see
+ 	 * https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html */
+ 	if (s->auth.identity->is_anonymous()) {
+-	  return -EPERM;
++	  return -ERR_INVALID_REQUEST;
+ 	}
+ 	if (strcmp(p->param, "response-content-type") != 0) {
+ 	  response_attrs[p->http_attr] = val;
+-- 
+2.20.1
+

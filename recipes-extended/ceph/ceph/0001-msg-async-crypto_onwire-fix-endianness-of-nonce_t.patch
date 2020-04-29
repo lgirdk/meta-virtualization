@@ -1,0 +1,61 @@
+From dfd1d81cec62e21e21696dc87d4db5f920e51a67 Mon Sep 17 00:00:00 2001
+From: Ilya Dryomov <idryomov@gmail.com>
+Date: Fri, 6 Mar 2020 20:16:45 +0100
+Subject: [PATCH] msg/async/crypto_onwire: fix endianness of nonce_t
+
+As a AES-GCM IV, nonce_t is implicitly shared between server and
+client.  Currently, if their endianness doesn't match, they are unable
+to communicate in secure mode because each gets its own idea of what
+the next nonce should be after the counter is incremented.
+
+Several RFCs state that the nonce counter should be BE, but since we
+use LE for everything on-disk and on-wire, make it LE.
+
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Reviewed-by: Radoslaw Zarzynski <rzarzyns@redhat.com>
+Reviewed-by: Sage Weil <sage@redhat.com>
+
+CVE: CVE-2020-1759
+Upstream Status: Backport [dfd1d81cec62e21e21696dc87d4db5f920e51a67]
+
+Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+---
+ src/msg/async/crypto_onwire.cc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/msg/async/crypto_onwire.cc b/src/msg/async/crypto_onwire.cc
+index 07e7fe6553..c39632cbd6 100644
+--- a/src/msg/async/crypto_onwire.cc
++++ b/src/msg/async/crypto_onwire.cc
+@@ -20,8 +20,8 @@ static constexpr const std::size_t AESGCM_TAG_LEN{16};
+ static constexpr const std::size_t AESGCM_BLOCK_LEN{16};
+ 
+ struct nonce_t {
+-  std::uint32_t random_seq;
+-  std::uint64_t random_rest;
++  ceph_le32 random_seq;
++  ceph_le64 random_rest;
+ 
+   bool operator==(const nonce_t& rhs) const {
+     return !memcmp(this, &rhs, sizeof(*this));
+@@ -99,7 +99,7 @@ void AES128GCM_OnWireTxHandler::reset_tx_handler(
+   buffer.reserve(std::accumulate(std::begin(update_size_sequence),
+     std::end(update_size_sequence), AESGCM_TAG_LEN));
+ 
+-  ++nonce.random_seq;
++  nonce.random_seq = nonce.random_seq + 1;
+ }
+ 
+ void AES128GCM_OnWireTxHandler::authenticated_encrypt_update(
+@@ -204,7 +204,7 @@ void AES128GCM_OnWireRxHandler::reset_rx_handler()
+ 	reinterpret_cast<const unsigned char*>(&nonce))) {
+     throw std::runtime_error("EVP_DecryptInit_ex failed");
+   }
+-  ++nonce.random_seq;
++  nonce.random_seq = nonce.random_seq + 1;
+ }
+ 
+ ceph::bufferlist AES128GCM_OnWireRxHandler::authenticated_decrypt_update(
+-- 
+2.20.1
+
