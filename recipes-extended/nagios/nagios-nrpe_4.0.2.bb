@@ -13,6 +13,7 @@ SRCNAME = "nrpe"
 SRC_URI = "https://github.com/NagiosEnterprises/nrpe/releases/download/${SRCNAME}-${PV}/${SRCNAME}-${PV}.tar.gz \
            file://check_nrpe.cfg \
            file://nagios-nrpe.service \
+           file://0001-Should-fix-235-nasty_metachars-was-not-being-returne.patch \
 "
 
 SRC_URI[md5sum] = "37b9e23b3e8d75308f8b31f3b61ee8a4"
