@@ -121,8 +121,8 @@ FILES_${PN}-networking += " \
 
 CACHED_CONFIGUREVARS += " \
     ac_cv_path_PYTHON='${STAGING_BINDIR_NATIVE}/python3-native/python3' \
-    am_cv_python_pyexecdir='${exec_prefix}/${libdir}/python3.5/site-packages' \
-    am_cv_python_pythondir='${prefix}/${libdir}/python3.5/site-packages' \
+    am_cv_python_pyexecdir='${PYTHON_SITEPACKAGES_DIR}' \
+    am_cv_python_pythondir='${PYTHON_SITEPACKAGES_DIR}' \
 "
 
 do_install_append() {
