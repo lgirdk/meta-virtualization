@@ -34,7 +34,7 @@ DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-nativ
 DEPENDS += "qemu-native"
 
 RDEPENDS_${PN} += " jq bash"
-RDEPENDS_${PN} += " xen-xl go-build socat daemonize"
+RDEPENDS_${PN} += " xen-tools-xl go-build socat daemonize"
 
 do_compile() {
     # we'll need this for the initrd later, so lets error if it isn't what
