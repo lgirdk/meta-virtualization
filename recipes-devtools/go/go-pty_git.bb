@@ -1,12 +1,12 @@
 DESCRIPTION = "PTY interface for Go"
-HOMEPAGE = "https://github.com/kr/pty"
+HOMEPAGE = "https://github.com/creack/pty"
 SECTION = "devel/go"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://License;md5=93958070863d769117fa33b129020050"
 
 SRCNAME = "pty"
 
-PKG_NAME = "github.com/kr/${SRCNAME}"
+PKG_NAME = "github.com/creack/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git"
 
 SRCREV = "05017fcccf23c823bfdea560dcc958a136e54fb7"
