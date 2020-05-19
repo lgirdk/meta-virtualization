@@ -42,8 +42,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://gnutls-helper.py \
           "
 
-SRC_URI[libvirt.md5sum] = "a870e63f20fac2ccf98e716d05256145"
-SRC_URI[libvirt.sha256sum] = "167c185be45560e73dd3e14ed375778b555c01455192de2dafc4d0f74fabebc0"
+SRC_URI[libvirt.md5sum] = "1bd4435f77924f5ec9928b538daf4a02"
+SRC_URI[libvirt.sha256sum] = "74069438d34082336e99a88146349e21130552b96efc3b7c562f6878127996f5"
 
 inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
