@@ -67,7 +67,7 @@ ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
 
 EXTRA_OECONF += "--enable-log-src-basename"
 
-CFLAGS_append = " -Wno-error=deprecated-declarations"
+CFLAGS_append = " -Wno-error=deprecated-declarations -Wno-error=stringop-overflow"
 
 PACKAGECONFIG ??= "templates \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
