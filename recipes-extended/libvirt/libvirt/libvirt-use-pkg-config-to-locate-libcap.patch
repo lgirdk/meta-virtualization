@@ -1,4 +1,4 @@
-From 57b645c6db405bf2e22f4589ea5560a14975058f Mon Sep 17 00:00:00 2001
+From 94bd514e1b6e602a48285db94e65050f8f0c2585 Mon Sep 17 00:00:00 2001
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 Date: Wed, 8 Apr 2015 13:03:03 -0400
 Subject: [PATCH] libvirt: use pkg-config to locate libcap

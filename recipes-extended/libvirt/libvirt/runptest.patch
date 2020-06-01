@@ -1,4 +1,4 @@
-From 9d6bfb4a5e9b44c080ddf3bad4c364ffb0e9d84a Mon Sep 17 00:00:00 2001
+From d210838a4433dd254c1a11b08b804ebe9ff5f378 Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Wed, 8 May 2019 10:20:47 +0800
 Subject: [PATCH] Add 'install-ptest' rule
@@ -23,7 +23,7 @@ Signed-off-by: Dengke Du <dengke.du@windriver.com>
  1 file changed, 60 insertions(+), 8 deletions(-)
 
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 83326db..7a0aee3 100644
+index ada5b8f..4a808dd 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
 @@ -28,11 +28,13 @@ AM_CPPFLAGS = \
@@ -44,7 +44,7 @@ index 83326db..7a0aee3 100644
  	$(LIBXML_CFLAGS) \
  	$(GLIB_CFLAGS) \
  	$(LIBNL_CFLAGS) \
-@@ -472,10 +474,10 @@ TESTS = $(test_programs) \
+@@ -474,10 +476,10 @@ TESTS = $(test_programs) \
  
  VIR_TEST_EXPENSIVE ?= $(VIR_TEST_EXPENSIVE_DEFAULT)
  TESTS_ENVIRONMENT = \
@@ -59,7 +59,7 @@ index 83326db..7a0aee3 100644
    LIBVIRT_AUTOSTART=0 \
    LC_ALL=C \
    VIR_TEST_EXPENSIVE=$(VIR_TEST_EXPENSIVE) \
-@@ -1549,4 +1551,54 @@ else ! WITH_LINUX
+@@ -1547,4 +1549,54 @@ else ! WITH_LINUX
  EXTRA_DIST += virscsitest.c
  endif  ! WITH_LINUX
  

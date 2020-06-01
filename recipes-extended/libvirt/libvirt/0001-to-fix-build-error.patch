@@ -1,4 +1,4 @@
-From 7cf1d66c4b01c40b45b8a38370c7ffee46dfb10a Mon Sep 17 00:00:00 2001
+From 3566bcacaa6408fb8f655d1749a20b2f30e0c765 Mon Sep 17 00:00:00 2001
 From: Lei Maohui <leimaohui@cn.fujitsu.com>
 Date: Fri, 31 Jul 2015 03:17:07 +0900
 Subject: [PATCH] to fix build error
@@ -23,10 +23,10 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/docs/Makefile.am b/docs/Makefile.am
-index 61862c4..c259535 100644
+index ce3d296..2c8180f 100644
 --- a/docs/Makefile.am
 +++ b/docs/Makefile.am
-@@ -360,7 +360,7 @@ EXTRA_DIST= \
+@@ -366,7 +366,7 @@ EXTRA_DIST= \
    aclperms.htmlinc \
    $(schema_DATA)
  
@@ -35,7 +35,7 @@ index 61862c4..c259535 100644
  
  aclperms.htmlinc: $(top_srcdir)/src/access/viraccessperm.h \
          $(top_srcdir)/scripts/genaclperms.py Makefile.am
-@@ -426,8 +426,7 @@ manpages/%.html.in: manpages/%.rst
+@@ -432,8 +432,7 @@ manpages/%.html.in: manpages/%.rst
  	$(AM_V_GEN)$(MKDIR_P) `dirname $@` && \
  	  $(RST2HTML) --strict $< > $@ || { rm $@ && exit 1; }
  
@@ -43,5 +43,5 @@ index 61862c4..c259535 100644
 -		$(acl_generated)
 +%.html.tmp: %.html.in site.xsl subsite.xsl page.xsl
  	$(AM_V_GEN)name=`echo $@ | sed -e 's/.tmp//'`; \
- 	  dir=`dirname $@` ; \
- 	  if test "$$dir" = "."; \
+ 	  genhtmlin=`echo $@ | sed -e 's/.tmp/.in/'`; \
+ 	  rst=`echo $@ | sed -e 's/.html.tmp/.rst/'`; \

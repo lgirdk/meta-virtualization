@@ -1,4 +1,4 @@
-From 75c974d28133ff85d299b7a53427653c47513a45 Mon Sep 17 00:00:00 2001
+From aa75f5136066d239d48a21373b3d96ee12378e8d Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Wed, 8 May 2019 17:24:17 +0800
 Subject: [PATCH] Install missing conf file
@@ -20,10 +20,10 @@ Signed-off-by: Dengke Du <dengke.du@windriver.com>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 7a0aee3..380637d 100644
+index 4a808dd..0c3e799 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -172,6 +172,7 @@ EXTRA_DIST = \
+@@ -173,6 +173,7 @@ EXTRA_DIST = \
  	$(NULL)
  
  test_helpers = commandhelper ssh
@@ -31,7 +31,7 @@ index 7a0aee3..380637d 100644
  test_programs = virshtest sockettest \
  	virhostcputest virbuftest \
  	commandtest seclabeltest \
-@@ -310,6 +311,7 @@ endif WITH_LXC
+@@ -311,6 +312,7 @@ endif WITH_LXC
  
  if WITH_OPENVZ
  test_programs += openvzutilstest
@@ -39,7 +39,7 @@ index 7a0aee3..380637d 100644
  endif WITH_OPENVZ
  
  if WITH_ESX
-@@ -1553,7 +1555,7 @@ endif  ! WITH_LINUX
+@@ -1551,7 +1553,7 @@ endif  ! WITH_LINUX
  
  buildtest-TESTS: $(TESTS) $(test_libraries) $(test_helpers)
  

@@ -1,9 +1,10 @@
-From 4945576d6c5c7cc9a21a58aaa312829567af13db Mon Sep 17 00:00:00 2001
+From 30a056069cb35804434fb036e51ae97f33c02025 Mon Sep 17 00:00:00 2001
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Sat, 7 Mar 2020 21:36:27 -0500
 Subject: [PATCH] build: drop unnecessary libgnu.la reference
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+
 ---
  tools/Makefile.am | 2 --
  1 file changed, 2 deletions(-)
@@ -28,6 +29,3 @@ index 2a0a989..93fe283 100644
                 $(NULL)
  endif
  
--- 
-2.19.1
-
