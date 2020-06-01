@@ -1,4 +1,4 @@
-From d074f34dd0fc671ab05367eda9cc7a965708fbed Mon Sep 17 00:00:00 2001
+From 79f5975db01af0599860ccca7ef44b0e27105a04 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Thu, 10 May 2018 12:05:04 -0400
 Subject: [PATCH] configure.ac: search for rpc/rpc.h in the sysroot

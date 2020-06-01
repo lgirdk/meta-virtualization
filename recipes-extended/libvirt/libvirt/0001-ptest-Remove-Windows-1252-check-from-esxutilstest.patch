@@ -1,4 +1,4 @@
-From 1601c21b653bf2bea2547e5efcf1f3cbb8b73f65 Mon Sep 17 00:00:00 2001
+From 7b265b06ca432c8d90df1af8e89f4b919b748ac2 Mon Sep 17 00:00:00 2001
 From: He Zhe <zhe.he@windriver.com>
 Date: Tue, 23 Aug 2016 02:28:47 -0400
 Subject: [PATCH] ptest: Remove Windows-1252 check from esxutilstest

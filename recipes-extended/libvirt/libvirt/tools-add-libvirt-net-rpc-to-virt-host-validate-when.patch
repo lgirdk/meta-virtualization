@@ -1,4 +1,4 @@
-From a1696741375c6faca0d09ae6b271a2c56fc2b6fe Mon Sep 17 00:00:00 2001
+From 7dc21edd851b260485b432c096f8e90f6fa07778 Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Tue, 7 May 2019 15:26:32 +0800
 Subject: [PATCH] tools: add libvirt-net-rpc to virt-host-validate when TLS is
