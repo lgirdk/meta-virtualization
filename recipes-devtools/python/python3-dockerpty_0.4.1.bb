@@ -7,3 +7,10 @@ inherit pypi setuptools3
 
 SRC_URI[md5sum] = "028bacb34536f3ee6a2ccd668c27e8e4"
 SRC_URI[sha256sum] = "69a9d69d573a0daa31bcd1c0774eeed5c15c295fe719c61aca550ed1393156ce"
+
+RDEPENDS_${PN} += "\
+  ${PYTHON_PN}-fcntl \
+  ${PYTHON_PN}-io \
+  ${PYTHON_PN}-six \
+  ${PYTHON_PN}-terminal \
+"
