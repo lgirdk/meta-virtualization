@@ -8,15 +8,15 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@xilinx.com>
  kernel/make-initrd | 18 ++++++++++++++++--
  1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/make-initrd b/kernel/make-initrd
-index 4c299dc..9ef386f 100755
---- a/kernel/make-initrd
-+++ b/kernel/make-initrd
-@@ -16,8 +16,22 @@ mkdir -p $tmpdir/sys
+Index: git/initrd/make-initrd
+===================================================================
+--- git.orig/initrd/make-initrd
++++ git/initrd/make-initrd
+@@ -23,8 +23,22 @@
  mkdir -p $tmpdir/lib
  mkdir -p $tmpdir/var
  mkdir -p $tmpdir/mnt
--cp `which busybox` $tmpdir/bin
+-cp "$busybox" $tmpdir/bin/busybox
 -$tmpdir/bin/busybox --install $tmpdir/bin
 +
 +
@@ -35,8 +35,5 @@ index 4c299dc..9ef386f 100755
 +    $tmpdir/bin/busybox --install $tmpdir/bin
 +fi
  
- cp $init $tmpdir/init
- chmod +x $tmpdir/init
--- 
-2.17.1
-
+ mkdir -p $tmpdir/etc/init.d
+ cp $init $tmpdir/etc/init.d/rcS
