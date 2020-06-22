@@ -12,6 +12,7 @@ SRC_URI = " \
     file://xen-tools-pygrub-change-tabs-into-spaces.patch \
     file://xen-tools-pygrub-make-python-scripts-work-with-2.6-and-up.patch \
     file://xen-tools-pygrub-py3.patch \
+    file://0001-xen-build-temporarily-inhibit-Werror.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=bbb4b1bdc2c3b6743da3c39d03249095"
