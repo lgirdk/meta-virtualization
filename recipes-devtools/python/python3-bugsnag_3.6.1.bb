@@ -8,18 +8,12 @@ DESCRIPTION = "\
   "
 SECTION = "devel/python"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://PKG-INFO;md5=9577253c24027f0c6027a4fded2134fc"
+LIC_FILES_CHKSUM = "file://PKG-INFO;md5=3bc101ebc0815bd849021892cd333dd4"
 
-SRCNAME = "bugsnag"
+SRC_URI[md5sum] = "93443091b052130cfe1daf7595249f9f"
+SRC_URI[sha256sum] = "8878437aa44ec485cecb255742035b3b98a6c7e7d167a943b5fbe597b2f8f7f9"
 
-SRC_URI = "https://pypi.python.org/packages/source/b/bugsnag/${SRCNAME}-${PV}.tar.gz"
-
-SRC_URI[md5sum] = "b97e16b068b5e7fdc3e3fa9f684e56cd"
-SRC_URI[sha256sum] = "67b8c01719e92f193f8424595a94e3a527bc0f9fcb7f2bc47a20af87de81929d"
-
-S = "${WORKDIR}/${SRCNAME}-${PV}"
-
-inherit setuptools3
+inherit pypi setuptools3
 
 DEPENDS += "python3-webob python3-flask python3-blinker"
 
