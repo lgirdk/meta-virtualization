@@ -6,18 +6,12 @@ DESCRIPTION = "\
   "
 SECTION = "devel/python"
 LICENSE = "BSD-3-Clause & MIT & Python-2.0 & BSD-2-Clause & NewRelic"
-LIC_FILES_CHKSUM = "file://newrelic/LICENSE;md5=2c3b4d48a631fe909df7a767726d4f6c"
+LIC_FILES_CHKSUM = "file://newrelic/LICENSE;md5=b4840908dbb9e62b3d8891e77187b34f"
 
-SRCNAME = "newrelic"
+SRC_URI[md5sum] = "53115aea6cbdf0e2721279c230230600"
+SRC_URI[sha256sum] = "340ebcdb0dd08bfb597c71598d6d8f746a93f7e4921f10b3616c9142c608a14d"
 
-SRC_URI = "https://pypi.python.org/packages/source/n/newrelic/${SRCNAME}-${PV}.tar.gz"
-
-SRC_URI[md5sum] = "45099c6d88dcf474267226469caa845e"
-SRC_URI[sha256sum] = "0e651f2ff48dd1fc538fc1297892cf726d1ad4fc0b2578aae6a47f10f16afb2c"
-
-S = "${WORKDIR}/${SRCNAME}-${PV}"
-
-inherit setuptools3
+inherit pypi setuptools3
 
 FILES_${PN}-dbg += "\
   ${PYTHON_SITEPACKAGES_DIR}/newrelic-${PV}/newrelic/*/.debug \
