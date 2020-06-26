@@ -35,9 +35,9 @@ DESCRIPTION = "Linux container runtime \
 #     to a docker.inc recipe
 
 # moby commit matches the docker-engine bump on the 19.03 branch'
-SRCREV_moby = "aa6a9891b09cce3d9004121294301a30d45d998d"
-SRCREV_libnetwork = "c7bae399e46fd620b8a006174b7327e4e6e647fd"
-SRCREV_cli = "eb310fca49568dccd87c6136f774ef6fff2a1b51"
+SRCREV_moby = "9dc6525e6118a25fab2be322d1914740ea842495"
+SRCREV_libnetwork = "026aabaa659832804b01754aaadd2c0f420c68b6"
+SRCREV_cli = "0ed913b885c8919944a2e4c8d0b80a318a8dd48b"
 SRC_URI = "\
 	git://github.com/moby/moby.git;branch=19.03;name=moby \
 	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork \
@@ -57,7 +57,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "19.03.8"
+DOCKER_VERSION = "19.03.12"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 PACKAGES =+ "${PN}-contrib"
