@@ -24,9 +24,9 @@ python __anonymous() {
         raise bb.parse.SkipRecipe(msg)
 }
 
-SRCREV = "444a19cdd2e6108c75f6c1aadc1a2a9138a8bd73"
+SRCREV = "a11c4ead10177a66ef2810a0a92ea8ce2299da07"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=master \
+    git://github.com/containers/libpod.git;branch=v2.0 \
 "
 
 LICENSE = "Apache-2.0"
@@ -36,7 +36,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "1.8.1+git${SRCREV}"
+PV = "2.0.1+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
@@ -78,7 +78,7 @@ do_compile() {
 
 	cd ${S}/src/.gopath/src/"${PODMAN_PKG}"
 
-	oe_runmake cmd/podman/varlink/iopodman.go GO=go
+	oe_runmake pkg/varlink/iopodman.go GO=go
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -92,6 +92,10 @@ do_compile() {
 
 do_install() {
 	cd ${S}/src/.gopath/src/"${PODMAN_PKG}"
+
+	export GOARCH="${BUILD_GOARCH}"
+	export GOPATH="${S}/src/.gopath"
+	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 
 	oe_runmake install DESTDIR="${D}"
 	if ${@bb.utils.contains('PACKAGECONFIG', 'docker', 'true', 'false', d)}; then
