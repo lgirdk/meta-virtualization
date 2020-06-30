@@ -113,6 +113,10 @@ RDEPENDS_${PN}-scripts-network = "\
     ${PN}-volatiles \
     "
 
+RSUGGESTS_${PN}-scripts-network = "\
+    ifupdown \
+    "
+
 RSUGGESTS_${PN}-xencov = "${PN}-xencov-split"
 
 RDEPENDS_${PN}-xencommons = "\
