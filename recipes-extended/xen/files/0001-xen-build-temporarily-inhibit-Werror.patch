@@ -4,6 +4,8 @@ Date: Thu, 18 Jun 2020 09:05:22 -0400
 Subject: [PATCH] xen/build: temporarily inhibit Werror
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+Rebased on Xen 4.13:
+Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
 ---
  tools/libxl/Makefile | 2 +-
  xen/Rules.mk         | 2 +-
@@ -13,8 +15,8 @@ diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
 index 6da342ed61..c67560e269 100644
 --- a/tools/libxl/Makefile
 +++ b/tools/libxl/Makefile
-@@ -11,7 +11,7 @@ MINOR = 0
- XLUMAJOR = 4.12
+@@ -14,7 +14,7 @@ MINOR = 0
+ XLUMAJOR = 4.13
  XLUMINOR = 0
  
 -CFLAGS += -Werror -Wno-format-zero-length -Wmissing-declarations \
@@ -38,3 +40,15 @@ index a151b3f625..a05ceec1e5 100644
 -- 
 2.19.1
 
+diff --git a/tools/debugger/kdd/Makefile b/tools/debugger/kdd/Makefile
+index 26116949d4..a72ad3b1e0 100644
+--- a/tools/debugger/kdd/Makefile
++++ b/tools/debugger/kdd/Makefile
+@@ -1,7 +1,6 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+-CFLAGS  += -Werror
+ CFLAGS  += $(CFLAGS_libxenctrl)
+ CFLAGS  += -DXC_WANT_COMPAT_MAP_FOREIGN_API
+ LDLIBS  += $(LDLIBS_libxenctrl)

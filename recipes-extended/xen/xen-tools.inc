@@ -65,6 +65,7 @@ RRECOMMENDS_${PN} = " \
     ${PN}-flask \
     ${PN}-hvmloader \
     ${PN}-shim \
+    ${PN}-ucode \
     ${PN}-xenpaging \
     "
 
@@ -202,6 +203,7 @@ PACKAGES = " \
     ${PN}-scripts-network \
     ${PN}-shim \
     ${PN}-staticdev \
+    ${PN}-ucode \
     ${PN}-volatiles \
     ${PN}-xcutils \
     ${PN}-xencommons \
@@ -527,6 +529,10 @@ FILES_${PN}-scripts-common = " \
 INSANE_SKIP_${PN}-shim = "arch"
 FILES_${PN}-shim = " \
     ${libdir}/xen/boot/xen-shim \
+    "
+
+FILES_${PN}-ucode = "\
+    ${sbindir}/xen-ucode \
     "
 
 FILES_${PN}-volatiles = "\
