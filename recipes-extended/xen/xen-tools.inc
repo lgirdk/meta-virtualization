@@ -53,7 +53,13 @@ RDEPENDS_${PN} = "\
 
 RDEPENDS_${PN}-dev = ""
 
+# Qemu is necessary on ARM platforms, and to support HVM guests on x86
+QEMU = "${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'qemu', '', d)}"
+QEMU_arm = "qemu"
+QEMU_aarch64 = "qemu"
+
 RRECOMMENDS_${PN} = " \
+    ${QEMU} \
     ${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'seabios', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
     ${PN}-flask \
