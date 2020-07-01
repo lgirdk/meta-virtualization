@@ -6,6 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=d2794c0df5b907fdace235a619d80314"
 SRCREV_distribution="2461543d988979529609e8cb6fca9ca190dc48da"
 SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.7;name=distribution;destsuffix=git/src/github.com/docker/distribution \
            file://docker-registry.service \
+           file://0001-build-use-to-use-cross-go-compiler.patch \
           "
 
 PACKAGES =+ "docker-registry"
