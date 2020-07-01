@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=b355a61a394a504dacde901c958f66
 
 SRC_URI = "git://github.com/opencontainers/runtime-tools.git \
            file://0001-Revert-implement-add-set-function-for-hooks-items.patch \
+           file://0001-build-use-for-cross-compiler.patch \
            "
 
 SRCREV = "6e7da8148f4de2c9e9c9d3b345576898d4f412cb"

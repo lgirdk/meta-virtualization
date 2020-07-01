@@ -1,0 +1,31 @@
+From b4ad9b2a57d6c736870657c06959ccc44b578f12 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Tue, 30 Jun 2020 23:47:08 -0400
+Subject: [PATCH] build: use  for cross compiler
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ a/src/import/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/import/Makefile a/src/import/Makefile
+index 77626d2..c3a0760 100644
+--- a/src/import/Makefile
++++ a/src/import/Makefile
+@@ -8,11 +8,11 @@ COMMIT=$(shell git rev-parse HEAD 2> /dev/null || true)
+ all: tool runtimetest
+ 
+ tool:
+-	go build -tags "$(BUILDTAGS)" -ldflags "-X main.gitCommit=${COMMIT}" -o oci-runtime-tool ./cmd/oci-runtime-tool
++	${GO} build -tags "$(BUILDTAGS)" -ldflags "-X main.gitCommit=${COMMIT}" -o oci-runtime-tool ./cmd/oci-runtime-tool
+ 
+ .PHONY: runtimetest
+ runtimetest:
+-	CGO_ENABLED=0 go build -installsuffix cgo -tags "$(BUILDTAGS)" -o runtimetest ./cmd/runtimetest
++	CGO_ENABLED=0 ${GO} build -installsuffix cgo -tags "$(BUILDTAGS)" -o runtimetest ./cmd/runtimetest
+ 
+ .PHONY: man
+ man:
+-- 
+2.19.1
+
