@@ -26,6 +26,8 @@ SRC_URI = "\
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
 	file://0001-imporve-hardcoded-CC-on-cross-compile-docker-ce.patch \
+        file://0001-dynbinary-use-go-cross-compiler.patch \
+        file://0001-cli-use-go-cross-compiler.patch \
 	"
 
 require docker.inc
