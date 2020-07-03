@@ -17,6 +17,9 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-rgw-reject-unauthenticated-response-header-actions.patch \
            file://0001-rgw-EPERM-to-ERR_INVALID_REQUEST.patch \
            file://0001-rgw-reject-control-characters-in-response-header-act.patch \
+           file://0001-mgr-require-all-caps-for-pre-octopus-tell-commands.patch \ 
+           file://0002-mon-enforce-caps-for-pre-octopus-client-tell-command.patch \
+           file://0003-PendingReleaseNotes-note-about-security-fix.patch \
 "
 
 SRC_URI[md5sum] = "1f9af648b4c6d19975aab2583ab99710"

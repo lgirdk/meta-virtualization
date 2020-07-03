@@ -1,0 +1,31 @@
+From 56800925651857821034ac9c8ec82d45635cc3b8 Mon Sep 17 00:00:00 2001
+From: Josh Durgin <jdurgin@redhat.com>
+Date: Wed, 13 May 2020 21:34:56 -0700
+Subject: [PATCH 3/3] PendingReleaseNotes: note about security fix
+
+Signed-off-by: Josh Durgin <jdurgin@redhat.com>
+
+Upstream-status: Backport 
+[https://github.com/ceph/ceph/commit/06f239fc35f35865d2cf92dda1ac8f4d5fe82bde]
+
+Signed-off-by: Liu Haitao <haitao.liu@windriver.com>
+---
+ PendingReleaseNotes | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/PendingReleaseNotes b/PendingReleaseNotes
+index c9fd4c79..6e07ce6d 100644
+--- a/PendingReleaseNotes
++++ b/PendingReleaseNotes
+@@ -1,6 +1,8 @@
+ >=15.0.0
+ --------
+ 
++* CVE-2020-10736: Fixes an authorization bypass in monitor and manager daemons
++
+ * The RGW "num_rados_handles" has been removed.
+   * If you were using a value of "num_rados_handles" greater than 1
+     multiply your current "objecter_inflight_ops" and 
+-- 
+2.25.1
+
