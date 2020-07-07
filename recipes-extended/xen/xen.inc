@@ -213,7 +213,7 @@ do_configure_common() {
     fi
 
     if [ -f "${WORKDIR}/defconfig" ]; then
-        cp "${WORKDIR}/defconfig" "${B}/xen/.config" || \
+        cp "${WORKDIR}/defconfig" "${S}/xen/.config" || \
         bbfatal "Unable to copy defconfig to .config"
     fi
 
