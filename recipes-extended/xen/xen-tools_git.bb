@@ -8,6 +8,7 @@ SRC_URI = " \
     file://0001-python-pygrub-pass-DISTUTILS-xen.4.12.patch \
     file://0001-xen-build-temporarily-inhibit-Werror.patch \
     file://xen-tools-kdd-stop-using-0-arrays-to-access-packet-contents.patch \
+    file://xen-tools-kdd-fix-build-again.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=4295d895d4b5ce9d070263d52f030e49"

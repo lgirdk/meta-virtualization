@@ -40,15 +40,3 @@ index a151b3f625..a05ceec1e5 100644
 -- 
 2.19.1
 
-diff --git a/tools/debugger/kdd/Makefile b/tools/debugger/kdd/Makefile
-index 26116949d4..a72ad3b1e0 100644
---- a/tools/debugger/kdd/Makefile
-+++ b/tools/debugger/kdd/Makefile
-@@ -1,7 +1,6 @@
- XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--CFLAGS  += -Werror
- CFLAGS  += $(CFLAGS_libxenctrl)
- CFLAGS  += -DXC_WANT_COMPAT_MAP_FOREIGN_API
- LDLIBS  += $(LDLIBS_libxenctrl)
