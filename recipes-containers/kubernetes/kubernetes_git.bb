@@ -42,10 +42,13 @@ do_compile() {
 	export GOARCH="${BUILD_GOARCH}"
 	# Pass the needed cflags/ldflags so that cgo can find the needed headers files and libraries
 	export CGO_ENABLED="1"
-	export CFLAGS=""
-	export LDFLAGS=""
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CFLAGS="${BUILD_CFLAGS}"
+	export LDFLAGS="${BUILD_LDFLAGS}"
+	export CGO_CFLAGS="${BUILD_CFLAGS}"
+	export CGO_LDFLAGS="${BUILD_LDFLAGS}"
+	export CC="${BUILD_CC}"
+	export LD="${BUILD_LD}"
+
 	make generated_files KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
 
 	# Build the target binaries
@@ -54,6 +57,11 @@ do_compile() {
 	export CGO_ENABLED="1"
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CFLAGS=""
+	export LDFLAGS=""
+	export CC="${CC}"
+	export LD="${LD}"
+
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
 	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS=""
 }
