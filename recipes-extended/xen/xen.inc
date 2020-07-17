@@ -193,6 +193,7 @@ do_post_patch() {
 do_post_patch_append_arm()  {
     # The hypervisor binary must not be built with the hard floating point ABI.
     echo "CC := \$(filter-out ${TUNE_CCARGS},\$(CC))" >> ${S}/xen/arch/arm/Rules.mk
+    echo "CPP := \$(filter-out ${TUNE_CCARGS},\$(CPP))" >> ${S}/xen/arch/arm/Rules.mk
 }
 
 addtask post_patch after do_patch before do_configure
