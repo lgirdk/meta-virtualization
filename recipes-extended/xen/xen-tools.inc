@@ -64,9 +64,12 @@ RRECOMMENDS_${PN} = " \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
     ${PN}-flask \
     ${PN}-hvmloader \
+    ${PN}-libxenhypfs \
     ${PN}-shim \
     ${PN}-ucode \
+    ${PN}-vchan \
     ${PN}-xenpaging \
+    ${PN}-xenhypfs \
     "
 
 RDEPENDS_${PN}-devd = " \
@@ -137,6 +140,10 @@ RDEPENDS_${PN}-xendomains = "\
     virtual/xenstored \
     "
 
+RDEPENDS_${PN}-xenhypfs = " \
+    ${PN}-libxenhypfs \
+    "
+
 RDEPENDS_${PN}-xl = "libgcc"
 
 RDEPENDS_${PN}-xenmon = " \
@@ -179,6 +186,8 @@ PACKAGES = " \
     ${PN}-libxengnttab-dev \
     ${PN}-libxenguest \
     ${PN}-libxenguest-dev \
+    ${PN}-libxenhypfs \
+    ${PN}-libxenhypfs-dev \
     ${PN}-libxenlight \
     ${PN}-libxenlight-dev \
     ${PN}-libxenstat \
@@ -204,6 +213,7 @@ PACKAGES = " \
     ${PN}-shim \
     ${PN}-staticdev \
     ${PN}-ucode \
+    ${PN}-vchan \
     ${PN}-volatiles \
     ${PN}-xcutils \
     ${PN}-xencommons \
@@ -211,6 +221,7 @@ PACKAGES = " \
     ${PN}-xend \
     ${PN}-xend-examples \
     ${PN}-xendomains \
+    ${PN}-xenhypfs \
     ${PN}-xenmon \
     ${PN}-xenpaging \
     ${PN}-xenpmd \
@@ -322,6 +333,12 @@ FILES_${PN}-libxenguest-dev = " \
     ${libdir}/libxenguest.so \
     ${libdir}/pkgconfig/xenguest.pc \
     ${datadir}/pkgconfig/xenguest.pc \
+    "
+
+FILES_${PN}-libxenhypfs = "${libdir}/libxenhypfs.so.*"
+FILES_${PN}-libxenhypfs-dev = " \
+    ${libdir}/libxenhypfs.so \
+    ${libdir}/pkgconfig/xenhypfs.pc \
     "
 
 FILES_${PN}-libxenlight = "${libdir}/libxenlight.so.*"
@@ -535,6 +552,10 @@ FILES_${PN}-ucode = "\
     ${sbindir}/xen-ucode \
     "
 
+FILES_${PN}-vchan = "\
+    ${bindir}/vchan-socket-proxy \
+    "
+
 FILES_${PN}-volatiles = "\
     ${sysconfdir}/default/volatiles/99_xen \
     ${sysconfdir}/tmpfiles.d/xen.conf \
@@ -555,6 +576,10 @@ FILES_${PN}-xend-examples = "\
     ${sysconfdir}/xen/xend-config.sxp \
     ${sysconfdir}/xen/xend-pci-permissive.sxp \
     ${sysconfdir}/xen/xend-pci-quirks.sxp \
+    "
+
+FILES_${PN}-xenhypfs = "\
+    ${sbindir}/xenhypfs \
     "
 
 FILES_${PN}-xenpaging = "\
