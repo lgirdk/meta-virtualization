@@ -1,7 +1,10 @@
 SUMMARY = "A simple CLI tool for packing rootfs into a single-layer OCI image"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://git/LICENSE;md5=948cd8e59069fad992b0469af9ad7966"
-SRC_URI = "git://github.com/jirutka/sloci-image.git"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=948cd8e59069fad992b0469af9ad7966"
+SRC_URI = "git://github.com/jirutka/sloci-image.git \
+           file://0001-sloci-image-fix-variant-quoting.patch \
+          "
+
 
 DEPENDS = ""
 
@@ -10,13 +13,13 @@ PV = "v0.1.0+git${SRCPV}"
 
 inherit native
 
-S = "${WORKDIR}"
+S = "${WORKDIR}/git"
 
 do_compile() { 
 	:
 }
 
 do_install() {
-	cd ${S}/git
+	cd ${S}
         make PREFIX="${exec_prefix}" DESTDIR=${D} install
 }
