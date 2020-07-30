@@ -13,6 +13,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI = " \
     git://git.ipxe.org/ipxe.git;protocol=https \
     file://ipxe-fix-hostcc-nopie-cflags.patch \
+    file://ipxe-intel-Avoid-spurious-compiler-warning-on-GCC-10.patch \
+    file://ipxe-golan-Add-explicit-type-casts-for-nodnic_queue_pair_.patch \
     "
 
 FILES_${PN} = "/usr/share/firmware/*.rom"
