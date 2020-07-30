@@ -16,6 +16,9 @@ SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.16;name=k
            file://CVE-2020-8552.patch \
            file://CVE-2020-8555.patch \
            file://CVE-2019-11254.patch \
+           file://CVE-2020-8557.patch \
+           file://CVE-2020-8558.patch \
+           file://CVE-2020-8559.patch \
           "
 
 DEPENDS += "rsync-native \
