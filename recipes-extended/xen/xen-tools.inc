@@ -730,6 +730,14 @@ ADD_SYSROOT32_CFLAGS_x86-64 = \
 # This x86-64 override is never intended for native use, so clear that.
 ADD_SYSROOT32_CFLAGS_class-native = ""
 
+EXTRA_OECONF += " \
+    --with-systemd=${systemd_unitdir}/system \
+    --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \
+    --with-initddir=${INIT_D_DIR} \
+    --with-sysconfig-leaf-dir=default \
+    --with-system-qemu=${bindir}/qemu-system-i386 \
+    "
+
 do_configure() {
     do_configure_common
 

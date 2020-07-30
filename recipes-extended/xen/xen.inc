@@ -118,17 +118,12 @@ EXTRA_OECONF += " \
     --exec-prefix=${prefix} \
     --prefix=${prefix} \
     --host=${HOST_SYS} \
-    --with-systemd=${systemd_unitdir}/system \
-    --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \
     --disable-stubdom \
     --disable-ioemu-stubdom \
     --disable-pv-grub \
     --disable-xenstore-stubdom \
     --disable-rombios \
     --disable-ocamltools \
-    --with-initddir=${INIT_D_DIR} \
-    --with-sysconfig-leaf-dir=default \
-    --with-system-qemu=/usr/bin/qemu-system-i386 \
     --disable-qemu-traditional \
     "
 
