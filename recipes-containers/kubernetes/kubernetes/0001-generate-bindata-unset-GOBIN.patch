@@ -1,0 +1,36 @@
+From 3a43ae2df86f8609d5b88863caf19667420ec171 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Fri, 31 Jul 2020 18:39:38 +0000
+Subject: [PATCH] generate-bindata: unset GOBIN
+
+go install is more strict with recent releases and when cross-compiling
+will generate the following error if GOBIN is set:
+
+  | go install: cannot install cross-compiled binaries when GOBIN is set
+  | make[2]: *** [Makefile.generated_files:622: gen_bindata] Error 1
+  | make[1]: *** [Makefile:545: generated_files] Error 2
+  | make: *** [Makefile:506: cross] Error 1
+  | WARNING: exit code 2 from a shell command.
+
+So we explicitly unset GOBIN to avoid the issue.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ src/import/hack/generate-bindata.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/import/hack/generate-bindata.sh b/src/import/hack/generate-bindata.sh
+index c12da77e54b..9a9f8ac3b2f 100755
+--- a/src/import/hack/generate-bindata.sh
++++ b/src/import/hack/generate-bindata.sh
+@@ -33,6 +33,7 @@ export GOBIN="${KUBE_OUTPUT_BINPATH}"
+ PATH="${GOBIN}:${PATH}"
+ 
+ # Install tools we need, but only from vendor/...
++unset GOBIN
+ go install k8s.io/kubernetes/vendor/github.com/go-bindata/go-bindata/go-bindata
+ 
+ # run the generation from the root directory for stable output
+-- 
+2.19.1
+

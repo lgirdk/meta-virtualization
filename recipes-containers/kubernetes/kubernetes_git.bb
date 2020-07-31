@@ -5,14 +5,15 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.18.3-beta+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "fe3ac3e38838a09dfd4b48d568083144211a95f8"
-SRCREV_kubernetes-release = "569a07bc48cf52e25ba4b1f33772b0e1a5999b27"
+PV = "v1.19.0-rc.3+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "bdc575e10c35a3e65a1c02bceea432832b7e4f4f"
+SRCREV_kubernetes-release = "e7fbf5b8b7e87ed1848cf3a0129f7a7dff2aa4ed"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.18;name=kubernetes \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.19;name=kubernetes \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
+           file://0001-generate-bindata-unset-GOBIN.patch \
           "
 
 DEPENDS += "rsync-native \
@@ -61,9 +62,10 @@ do_compile() {
 	export LDFLAGS=""
 	export CC="${CC}"
 	export LD="${LD}"
+	export GOBIN=""
 
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
-	make cross KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS=""
+	make cross GO=${GO} KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS=""
 }
 
 do_install() {
