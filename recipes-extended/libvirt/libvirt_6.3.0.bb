@@ -59,6 +59,7 @@ acpaths = "-I ./m4"
 CACHED_CONFIGUREVARS += "\
 ac_cv_path_XMLCATLOG=/usr/bin/xmlcatalog \
 ac_cv_path_AUGPARSE=/usr/bin/augparse \
+ac_cv_path_DMIDECODE=/usr/sbin/dmidecode \
 ac_cv_path_DNSMASQ=/usr/bin/dnsmasq \
 ac_cv_path_BRCTL=/usr/sbin/brctl \
 ac_cv_path_TC=/sbin/tc \
