@@ -340,10 +340,12 @@ do_install_append() {
 			break
 			;;
 		*)
-			chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
-			echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
-			    >> ${D}${sysconfdir}/default/volatiles/99_libvirt
-			break
+			if ${@bb.utils.contains('PACKAGECONFIG', 'qemu', 'true', 'false', d)}; then
+				chown -R qemu:qemu ${D}/${localstatedir}/lib/libvirt/qemu
+				echo "d qemu qemu 0755 ${localstatedir}/cache/libvirt/qemu none" \
+				    >> ${D}${sysconfdir}/default/volatiles/99_libvirt
+				break
+			fi
 			;;
 	esac
 
