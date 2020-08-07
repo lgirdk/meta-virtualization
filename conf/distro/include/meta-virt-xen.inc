@@ -17,3 +17,7 @@ RPI_SDIMG_EXTRA_DEPENDS_append_raspberrypi4-64 = " xen:do_deploy"
 DEPLOYPAYLOAD_raspberrypi4-64 = "xen-${MACHINE}:xen"
 # We need the GIC enabled for Xen to work
 RPI_EXTRA_CONFIG_append_raspberrypi4-64  = "\nenable_gic=1"
+# Increase boot partition for space for kernel and Xen
+BOOT_SPACE_raspberrypi4-64 = "61440"
+# Override the meta-raspberrypi default kernel preference
+PREFERRED_PROVIDER_virtual/kernel_raspberrypi4-64 = "linux-yocto-dev"
