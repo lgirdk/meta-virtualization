@@ -14,7 +14,7 @@ echo Add boot arguments for Xen
 fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=/soc/serial@7e215040 dom0_mem='@@RPI_DOM0_MEM@@' @@RPI_DEBUG_XEN_ARGS@@"
 
 echo Add boot arguments for dom0
-setenv dom0_bootargs "console=hvc0 earlyprintk=xen debug root=/dev/mmcblk0p2 rootwait"
+setenv dom0_bootargs "console=hvc0 earlycon=xenboot debug root=/dev/mmcblk0p2 rootwait"
 fdt set /chosen xen,dom0-bootargs \"${dom0_bootargs}\"
 
 echo Add a dom0 node to chosen to put Linux boot information in
