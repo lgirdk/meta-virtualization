@@ -17,5 +17,3 @@ RPI_SDIMG_EXTRA_DEPENDS_append_raspberrypi4-64 = " xen:do_deploy"
 DEPLOYPAYLOAD_raspberrypi4-64 = "xen-${MACHINE}:xen"
 # We need the GIC enabled for Xen to work
 RPI_EXTRA_CONFIG_append_raspberrypi4-64  = "\nenable_gic=1"
-# Align kernel version with current meta-virtualization kernel version
-PREFERRED_VERSION_linux-raspberrypi ?= "5.4.%"
