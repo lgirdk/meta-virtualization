@@ -3,9 +3,13 @@ SUMMARY = "runx stuff"
 DESCRIPTION = "Xen Runtime for OCI"
 
 SRCREV_runx = "f24efd33fb18469e9cfe4d1bfe8e2c90ec8c4e93"
+
+KERNEL_SRC_VER="linux-5.4"
+KERNEL_URL_VER="v5.x"
+
 SRC_URI = "\
 	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
-          https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.xz;destsuffix=git/kernel/build \
+          https://www.kernel.org/pub/linux/kernel/${KERNEL_URL_VER}/${KERNEL_SRC_VER}.tar.xz;destsuffix=git/kernel/build \
           file://0001-make-kernel-cross-compilation-tweaks.patch \
           file://0001-make-initrd-cross-install-tweaks.patch \
 	  "
@@ -45,12 +49,12 @@ do_compile() {
     # building.
     mkdir -p ${S}/kernel/build
     mkdir -p ${S}/kernel/src
-    cp ${DL_DIR}/linux-4.15.tar.xz ${S}/kernel/build/
+    cp ${DL_DIR}/${KERNEL_SRC_VER}.tar.xz ${S}/kernel/build/
 
     # In the future, we might want to link the extracted kernel source (if
     # we move patches to recipe space, but for now, we need make-kernel to
     # extract a copy and possibly patch it.
-    # ln -sf ${WORKDIR}/linux-4.15 ${S}/kernel/src/
+    # ln -sf ${WORKDIR}/${KERNEL_SRC_VER} ${S}/kernel/src/
 
     # build the kernel
     echo "[INFO]: runx: building the kernel"
