@@ -1,15 +1,15 @@
-def get_oemake_config(d):
-    plat = d.getVar('XVISOR_PLAT')
+def get_oemake_config(a, d):
+    import re
 
-    if plat is None:
-        return ""
-
-    if 'riscv/virt32' in plat:
-        return "generic-32b-defconfig"
-    if 'riscv/virt64' in plat:
-        return "generic-64b-defconfig"
-
-    return ""
+    if   re.match('armeb$', a):               return 'generic-v7-defconfig'
+    elif re.match('aarch64$', a):             return 'generic-v8-defconfig'
+    elif re.match('aarch64_be$', a):          return 'generic-v8-defconfig'
+    elif re.match('aarch64_ilp32$', a):       return 'generic-v8-defconfig'
+    elif re.match('aarch64_be_ilp32$', a):    return 'generic-v8-defconfig'
+    elif re.match('riscv32(eb|)$', a):        return 'generic-32b-defconfig'
+    elif re.match('riscv64(eb|)$', a):        return 'generic-64b-defconfig'
+    else:
+        bb.error("cannot map '%s' to a Xvisor defconfig" % a)
 
 def map_xvisor_arch(a, d):
     import re

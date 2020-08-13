@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 
 EXTRA_OEMAKE += "ARCH=\"${@map_xvisor_arch(d.getVar('TARGET_ARCH'), d)}\" I=${D}"
 
-CONFIG = "${@get_oemake_config(d)}"
+CONFIG = "${@get_oemake_config(d.getVar('TARGET_ARCH'), d)}"
 
 do_configure() {
     oe_runmake ${CONFIG}
@@ -35,11 +35,16 @@ do_install_append() {
 do_deploy () {
     install -d ${DEPLOY_DIR_IMAGE}
     install -m 755 ${D}/vmm.* ${DEPLOY_DIR_IMAGE}/
+
+    if [[ -f "${D}/*.dtb" ]]; then
+        install -m 755 ${D}/*.dtb ${DEPLOY_DIR_IMAGE}/
+    fi
 }
 
 addtask deploy after do_install
 
 FILES_${PN} += "/vmm.*"
+FILES_${PN} += "/*.dtb"
 
-COMPATIBLE_HOST = "(riscv64|riscv32).*"
+COMPATIBLE_HOST = "(aarch64|riscv64|riscv32).*"
 INHIBIT_PACKAGE_STRIP = "1"
