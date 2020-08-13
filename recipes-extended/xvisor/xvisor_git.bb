@@ -8,8 +8,9 @@ require xvisor-configs.inc
 
 inherit autotools-brokensep
 
-SRCREV = "58592ef18c71526a0045935d1e8eed5e8553b7d6"
-SRC_URI = "git://github.com/xvisor/xvisor.git \
+# This version support the RISC-V v0.5.0 Hypervisor extensions
+SRCREV = "b3dac5b1f61f23f21dc59b3880897cff78f3b618"
+SRC_URI = "git://github.com/avpatel/xvisor-next.git \
            file://0001-TESTS-Don-t-specify-mabi-or-march-for-RISC-V.patch \
           "
 
