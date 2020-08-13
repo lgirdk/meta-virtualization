@@ -10,3 +10,6 @@ alphabetical order as well.
 
 openvswitch.txt
 	- example on how to setup openvswitch with qemu/kvm.
+
+xvisor.txt
+	- example on how to setup Xvisor for RISC-V QEMU.
