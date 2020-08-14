@@ -25,6 +25,9 @@ Select the config settings that you want and Save the file. If you save it to
 the default ".config" file when prompted by menuconfig, you can find it in the
 'xen' subdirectory of the build tree.
 
+Configuration fragments are also supported. To use them you need to list the
+.cfg files in the SRC_URI.
+
 security patches
 ----------------
 

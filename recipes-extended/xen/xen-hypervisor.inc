@@ -9,7 +9,7 @@ DESCRIPTION = "The Xen hypervisor"
 # The Xen hypervisor has a narrower compatible platform range than the Xen tools
 COMPATIBLE_HOST = '(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux-gnueabi'
 
-inherit deploy python3native
+inherit deploy python3native cml1
 
 PACKAGES = " \
     ${PN} \
@@ -34,6 +34,18 @@ FILES_${PN}-efi = " \
 
 do_configure() {
     do_configure_common
+
+    # Handle the config fragments
+    cfgs="${@' '.join(find_cfgs(d))}"
+    if [ -n "${cfgs}" ]; then
+        # If .config is not present generate one in order
+        # to use the merge_config.sh
+        if [ ! -f "${S}/xen/.config" ] ; then
+            oe_runmake -C ${S}/xen defconfig
+        fi
+        ${S}/xen/tools/kconfig/merge_config.sh -m -O \
+            ${S}/xen ${S}/xen/.config "${cfgs}"
+    fi
 }
 
 do_compile() {
@@ -77,35 +89,12 @@ do_deploy[depends] += "xen-tools:do_populate_sysroot"
 do_deploy[depends] += "xen-tools:do_deploy"
 
 # Enable use of menuconfig directly from bitbake and also within the devshell
-OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO"
-HOST_EXTRACFLAGS = "${BUILD_CFLAGS} ${BUILD_LDFLAGS}"
-HOSTLDFLAGS = "${BUILD_LDFLAGS}"
-TERMINFO = "${STAGING_DATADIR_NATIVE}/terminfo"
 do_devshell[depends] += "ncurses-native:do_populate_sysroot"
 
-KCONFIG_CONFIG_COMMAND ??= "menuconfig"
-python do_menuconfig() {
-    import shutil
+# Pass the native library path for kconfig build when running the do_menuconfig
+# task
+CROSS_CURSES_LIB += "-L${STAGING_LIBDIR_NATIVE}"
 
-    try:
-        mtime = os.path.getmtime("xen/.config")
-        shutil.copy("xen/.config", "xen/.config.orig")
-    except OSError:
-        mtime = 0
-
-    oe_terminal("${SHELL} -c \"cd xen; XEN_CONFIG_EXPERT=y make %s; if [ \$? -ne 0 ]; then echo 'Command failed.'; printf 'Press any key to continue... '; read r; fi\"" % d.getVar('KCONFIG_CONFIG_COMMAND'),
-        d.getVar('PN') + ' Configuration', d)
-
-    try:
-        newmtime = os.path.getmtime("xen/.config")
-    except OSError:
-        newmtime = 0
-
-    if newmtime > mtime:
-        bb.note("Configuration changed, recompile will be forced")
-        bb.build.write_taint('do_compile', d)
-}
-do_menuconfig[depends] += "ncurses-native:do_populate_sysroot"
-do_menuconfig[nostamp] = "1"
-do_menuconfig[dirs] = "${B}"
-addtask menuconfig after do_configure
+# Specify the root dir of the .config file for do_menuconfig and do_diffconfig
+# tasks
+KCONFIG_CONFIG_ROOTDIR = "${S}/xen"
