@@ -18,7 +18,7 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "48a66213fe1747e8873f849862ff3fb981899fc6"
+SRCREV_docker = "ff3fbc9d55de9fce497cd058411f21f4a4dcdb7c"
 SRCREV_libnetwork = "026aabaa659832804b01754aaadd2c0f420c68b6"
 SRC_URI = "\
 	git://github.com/docker/docker-ce.git;branch=19.03;name=docker \
@@ -40,7 +40,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "19.03.12-ce"
+DOCKER_VERSION = "v19.03.13-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 PACKAGES =+ "${PN}-contrib"
