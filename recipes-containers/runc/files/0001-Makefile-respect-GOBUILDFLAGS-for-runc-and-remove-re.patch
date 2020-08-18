@@ -9,27 +9,24 @@ Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
  Makefile | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 0f26a1c8..a0c6b40b 100644
---- a/src/import/Makefile
-+++ b/src/import/Makefile
-@@ -30,7 +30,7 @@ SHELL := $(shell command -v bash 2>/dev/null)
- .DEFAULT: runc
+Index: git/src/import/Makefile
+===================================================================
+--- git.orig/src/import/Makefile
++++ git/src/import/Makefile
+@@ -23,7 +23,7 @@
+ 		GO_BUILDMODE := "-buildmode=pie"
+ 	endif
+ endif
+-GO_BUILD := $(GO) build $(MOD_VENDOR) $(GO_BUILDMODE) $(EXTRA_FLAGS) -tags "$(BUILDTAGS)" \
++GO_BUILD := $(GO) build $(GOBUILDFLAGS) $(MOD_VENDOR) $(GO_BUILDMODE) $(EXTRA_FLAGS) -tags "$(BUILDTAGS)" \
+ 	-ldflags "-X main.gitCommit=$(COMMIT) -X main.version=$(VERSION) $(EXTRA_LDFLAGS)"
+ GO_BUILD_STATIC := CGO_ENABLED=1 $(GO) build $(MOD_VENDOR) $(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo" \
+ 	-ldflags "-w -extldflags -static -X main.gitCommit=$(COMMIT) -X main.version=$(VERSION) $(EXTRA_LDFLAGS)"
+@@ -40,7 +40,6 @@
  
- runc: $(SOURCES)
--	$(GO) build -buildmode=pie $(EXTRA_FLAGS) -ldflags "-X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -tags "$(BUILDTAGS)" -o runc .
-+	$(GO) build $(GOBUILDFLAGS) $(EXTRA_FLAGS) -ldflags "-X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -tags "$(BUILDTAGS)" -o runc .
- 
- all: runc recvtty
- 
-@@ -41,7 +41,6 @@ contrib/cmd/recvtty/recvtty: $(SOURCES)
- 
- static: $(SOURCES)
- 	CGO_ENABLED=1 $(GO) build $(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo static_build" -installsuffix netgo -ldflags "-w -extldflags -static -X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -o runc .
--	CGO_ENABLED=1 $(GO) build $(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo static_build" -installsuffix netgo -ldflags "-w -extldflags -static -X main.gitCommit=${COMMIT} -X main.version=${VERSION} $(EXTRA_LDFLAGS)" -o contrib/cmd/recvtty/recvtty ./contrib/cmd/recvtty
+ static:
+ 	$(GO_BUILD_STATIC) -o runc .
+-	$(GO_BUILD_STATIC) -o contrib/cmd/recvtty/recvtty ./contrib/cmd/recvtty
  
  release:
  	script/release.sh -r release/$(VERSION) -v $(VERSION)
--- 
-2.17.1
-

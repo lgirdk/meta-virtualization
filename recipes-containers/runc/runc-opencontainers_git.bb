@@ -1,9 +1,8 @@
 include runc.inc
 
-SRCREV = "652297c7c7e6c94e8d064ad5916c32891a6fd388"
+SRCREV = "49a73463331bd8ff44bb8349e33f4b2e1ae34b4f"
 SRC_URI = " \
     git://github.com/opencontainers/runc;branch=master \
     file://0001-Makefile-respect-GOBUILDFLAGS-for-runc-and-remove-re.patch \
-    file://0001-Only-allow-proc-mount-if-it-is-procfs.patch \
     "
-RUNC_VERSION = "1.0.0-rc8"
+RUNC_VERSION = "1.0.0-rc92"

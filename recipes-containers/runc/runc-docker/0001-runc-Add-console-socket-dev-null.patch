@@ -12,11 +12,11 @@ Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
  utils_linux.go | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/utils_linux.go b/utils_linux.go
-index 8085f7fe..e6d31b35 100644
---- a/src/import/utils_linux.go
-+++ b/src/import/utils_linux.go
-@@ -227,6 +227,11 @@ type runner struct {
+Index: git/src/import/utils_linux.go
+===================================================================
+--- git.orig/src/import/utils_linux.go
++++ git/src/import/utils_linux.go
+@@ -267,6 +267,11 @@
  }
  
  func (r *runner) run(config *specs.Process) (int, error) {
@@ -25,9 +25,6 @@ index 8085f7fe..e6d31b35 100644
 +		r.consoleSocket = ""
 +		config.Terminal = false
 +	}
- 	if err := r.checkTerminal(config); err != nil {
- 		r.destroy()
- 		return -1, err
--- 
-2.11.0
-
+ 	var err error
+ 	defer func() {
+ 		if err != nil {

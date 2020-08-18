@@ -33,15 +33,17 @@ Index: git/src/import/signals.go
 ===================================================================
 --- git.orig/src/import/signals.go
 +++ git/src/import/signals.go
-@@ -6,6 +6,7 @@
+@@ -5,7 +5,9 @@
+ import (
  	"os"
  	"os/signal"
- 	"syscall" // only for Signal
-+	"strconv"
++	"syscall" // only for Signal
  
++        "strconv"
  	"github.com/opencontainers/runc/libcontainer"
  	"github.com/opencontainers/runc/libcontainer/system"
-@@ -56,9 +57,6 @@
+ 	"github.com/opencontainers/runc/libcontainer/utils"
+@@ -55,9 +57,6 @@
  func (h *signalHandler) forward(process *libcontainer.Process, tty *tty, detach bool) (int, error) {
  	// make sure we know the pid of our main process so that we can return
  	// after it dies.
@@ -51,12 +53,13 @@ Index: git/src/import/signals.go
  
  	pid1, err := process.Pid()
  	if err != nil {
-@@ -68,11 +66,60 @@
+@@ -67,12 +66,61 @@
  	if h.notifySocket != nil {
  		if detach {
  			h.notifySocket.run(pid1)
 -			return 0, nil
  		}
+ 		h.notifySocket.run(os.Getpid())
  		go h.notifySocket.run(0)
  	}
  
@@ -117,7 +120,7 @@ Index: git/src/import/utils_linux.go
 ===================================================================
 --- git.orig/src/import/utils_linux.go
 +++ git/src/import/utils_linux.go
-@@ -347,7 +347,7 @@
+@@ -349,7 +349,7 @@
  	if err != nil {
  		r.terminate(process)
  	}
@@ -125,4 +128,4 @@ Index: git/src/import/utils_linux.go
 +	if (detach && os.Getenv("SIGUSR1_PARENT_PID") == "") {
  		return 0, nil
  	}
- 	r.destroy()
+ 	if err == nil {
