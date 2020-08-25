@@ -67,9 +67,7 @@ EXTRA_OECONF += "--with-init-script=\
 ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'sysvinit,', '', d)}\
 ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
 
-EXTRA_OECONF += "--enable-log-src-basename"
-
-CFLAGS_append = " -Wno-error=deprecated-declarations -Wno-error=stringop-overflow"
+EXTRA_OECONF += "--enable-log-src-basename --disable-werror"
 
 PACKAGECONFIG ??= "templates \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
