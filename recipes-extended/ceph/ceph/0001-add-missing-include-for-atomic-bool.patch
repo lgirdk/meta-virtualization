@@ -1,0 +1,25 @@
+From 502be73be3c3645094525aa552f5e53d8782a004 Mon Sep 17 00:00:00 2001
+From: Sakib Sajal <sakib.sajal@windriver.com>
+Date: Fri, 28 Aug 2020 19:36:19 -0400
+Subject: [PATCH] add missing include for atomic<bool>
+
+Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+---
+ src/tools/rbd/action/Bench.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/tools/rbd/action/Bench.cc b/src/tools/rbd/action/Bench.cc
+index aa6edbc1..90c551c1 100644
+--- a/src/tools/rbd/action/Bench.cc
++++ b/src/tools/rbd/action/Bench.cc
+@@ -9,6 +9,7 @@
+ #include "common/ceph_mutex.h"
+ #include "include/types.h"
+ #include "global/signal_handler.h"
++#include <atomic>
+ #include <iostream>
+ #include <boost/accumulators/accumulators.hpp>
+ #include <boost/accumulators/statistics/stats.hpp>
+-- 
+2.27.0
+
