@@ -62,6 +62,9 @@ EXTRA_OECONF += "ac_cv_header_ltdl_h=no"
 # Prevent nagios from suffering host contamination if host has /bin/perl
 EXTRA_OECONF += "ac_cv_path_PERL=${bindir}/perl"
 
+# Fix build failure for gcc-10
+CFLAGS_append = " -fcommon"
+
 # Set to "1" to allow nagios-core post-init to modify Apache configuration
 NAGIOS_MODIFY_APACHE ??= "1"
 
