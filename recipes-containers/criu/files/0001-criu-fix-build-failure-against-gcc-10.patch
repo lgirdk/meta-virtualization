@@ -1,0 +1,87 @@
+From c6b9c083ecbd2060c7dc77a9264ef10aafa19063 Mon Sep 17 00:00:00 2001
+From: Sergei Trofimovich <slyfox@gentoo.org>
+Date: Sun, 2 Feb 2020 18:45:59 +0000
+Subject: [PATCH] criu: fix build failure against gcc-10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+On gcc-10 (and gcc-9 -fno-common) build fails as:
+
+```
+ld: criu/arch/x86/crtools.o:criu/include/cr_options.h:159:
+  multiple definition of `rpc_cfg_file'; criu/arch/x86/cpu.o:criu/include/cr_options.h:159: first defined here
+make[2]: *** [scripts/nmk/scripts/build.mk:164: criu/arch/x86/crtools.built-in.o] Error 1
+```
+
+gcc-10 will change the default from -fcommon to fno-common:
+https://gcc.gnu.org/PR85678.
+
+The error also happens if CFLAGS=-fno-common passed explicitly.
+
+Reported-by: Toralf Förster
+Bug: https://bugs.gentoo.org/707942
+Signed-off-by: Sergei Trofimovich <slyfox@gentoo.org>
+
+Upstream-Status: Backport [https://github.com/checkpoint-restore/criu/pull/936]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+
+---
+ criu/config.c             | 1 +
+ criu/include/cr_options.h | 2 +-
+ criu/include/pstree.h     | 2 +-
+ criu/include/tun.h        | 2 +-
+ 4 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/criu/config.c b/criu/config.c
+index 39aa071c..009a48a6 100644
+--- a/criu/config.c
++++ b/criu/config.c
+@@ -30,6 +30,7 @@
+ #include "common/xmalloc.h"
+ 
+ struct cr_options opts;
++char *rpc_cfg_file;
+ 
+ static int count_elements(char **to_count)
+ {
+diff --git a/criu/include/cr_options.h b/criu/include/cr_options.h
+index 82f76ad9..9c20aaea 100644
+--- a/criu/include/cr_options.h
++++ b/criu/include/cr_options.h
+@@ -147,7 +147,7 @@ struct cr_options {
+ };
+ 
+ extern struct cr_options opts;
+-char *rpc_cfg_file;
++extern char *rpc_cfg_file;
+ 
+ extern int parse_options(int argc, char **argv, bool *usage_error, bool *has_exec_cmd, int state);
+ extern int check_options();
+diff --git a/criu/include/pstree.h b/criu/include/pstree.h
+index 7303c1fe..61ab0ce0 100644
+--- a/criu/include/pstree.h
++++ b/criu/include/pstree.h
+@@ -42,7 +42,7 @@ enum {
+ };
+ #define FDS_EVENT (1 << FDS_EVENT_BIT)
+ 
+-struct pstree_item *current;
++extern struct pstree_item *current;
+ 
+ struct rst_info;
+ /* See alloc_pstree_item() for details */
+diff --git a/criu/include/tun.h b/criu/include/tun.h
+index ce0b266a..b82c445a 100644
+--- a/criu/include/tun.h
++++ b/criu/include/tun.h
+@@ -5,7 +5,7 @@
+ #define TUN_MINOR	200
+ #endif
+ 
+-struct ns_id *ns;
++extern struct ns_id *ns;
+ 
+ #include <linux/netlink.h>
+ 
