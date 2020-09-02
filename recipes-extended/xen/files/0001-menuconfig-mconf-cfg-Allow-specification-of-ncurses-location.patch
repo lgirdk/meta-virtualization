@@ -1,9 +1,12 @@
+From b300c18ab899b3c899e5405c96c20a32e51d77c8 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+Date: Mon, 2 Jul 2018 23:10:28 -0400
+Subject: [PATCH] xen: Fix menuconfig and add support for config fragments and
+
 Upstream-Status: Xen: Inappropriate [oe specific, cross compile issue]
 Upstream-Status: Kernel: Pending
 Signed-off-by: Diego Sueiro <diego.sueiro@arm.com>
 commit e6972e689a980ab28637e94e48c77eeace6abde5
-Author: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date:   Mon Jul 2 23:10:28 2018 -0400
 
     xen/kconfig,menuconfig,mconf-cfg: Allow specification of ncurses location
 
@@ -26,16 +29,21 @@ Date:   Mon Jul 2 23:10:28 2018 -0400
     cc: linux-kbuild@vger.kernel.org
     Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 
+---
+ xen/tools/kconfig/mconf-cfg.sh | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+ mode change 100755 => 100644 xen/tools/kconfig/mconf-cfg.sh
+
 diff --git a/xen/tools/kconfig/mconf-cfg.sh b/xen/tools/kconfig/mconf-cfg.sh
 old mode 100755
 new mode 100644
-index c812872..65a9b9e
+index c812872d7f..56eb4fc79f
 --- a/xen/tools/kconfig/mconf-cfg.sh
 +++ b/xen/tools/kconfig/mconf-cfg.sh
 @@ -4,6 +4,14 @@
  PKG="ncursesw"
  PKG2="ncurses"
-
+ 
 +if [ "$CROSS_CURSES_LIB" != "" ]; then
 +    echo libs=\'$CROSS_CURSES_LIB\'
 +    if [ x"$CROSS_CURSES_INC" != x ]; then
@@ -45,5 +53,5 @@ index c812872..65a9b9e
 +fi
 +
  if [ -n "$(command -v pkg-config)" ]; then
-       if pkg-config --exists $PKG; then
-               echo cflags=\"$(pkg-config --cflags $PKG)\"
+ 	if pkg-config --exists $PKG; then
+ 		echo cflags=\"$(pkg-config --cflags $PKG)\"
