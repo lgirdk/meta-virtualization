@@ -23,3 +23,5 @@ do_install() {
 	cd ${S}
         make PREFIX="${exec_prefix}" DESTDIR=${D} install
 }
+
+CLEANBROKEN = "1"
