@@ -74,10 +74,10 @@ build_syslinux_cfg () {
 
 # Enable runqemu. eg: runqemu xen-image-minimal nographic slirp
 WKS_FILE_x86-64 = "directdisk-xen.wks"
-QB_MEM = "-m 400"
-QB_DEFAULT_KERNEL = ""
-QB_DEFAULT_FSTYPE = "wic"
-QB_FSINFO = "wic:kernel-in-fs"
+QB_MEM ?= "-m 400"
+QB_DEFAULT_KERNEL ?= "none"
+QB_DEFAULT_FSTYPE ?= "wic"
+QB_FSINFO ?= "wic:kernel-in-fs"
 # qemux86-64 machine does not include 'wic' in IMAGE_FSTYPES, which is needed
 # to boot this image, so add it here:
 IMAGE_FSTYPES_qemux86-64 += "wic"
