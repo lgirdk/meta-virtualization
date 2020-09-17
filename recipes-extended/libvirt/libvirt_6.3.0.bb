@@ -283,23 +283,23 @@ do_install_append() {
 
 	    # We can't use 'notify' when we don't support 'sd_notify' dbus capabilities.
 	    sed -i -e 's/Type=notify/Type=forking/' \
-	           -e '/Type=forking/a PIDFile=${localstatedir}/run/libvirtd.pid' \
+	           -e '/Type=forking/a PIDFile=/run/libvirtd.pid' \
 		   ${D}/${systemd_unitdir}/system/libvirtd.service
 	fi
 
-	# The /var/run/libvirt directories created by the Makefile
-	# are wiped out in volatile, we need to create these at boot.
-	rm -rf ${D}${localstatedir}/run
+	# The /run/libvirt directories created by the Makefile are 
+	# wiped out in volatile, we need to create these at boot.
+	rm -rf ${D}/run
 	install -d ${D}${sysconfdir}/default/volatiles
-	echo "d root root 0755 ${localstatedir}/run/libvirt none" \
+	echo "d root root 0755 /run/libvirt none" \
 	     > ${D}${sysconfdir}/default/volatiles/99_libvirt
-	echo "d root root 0755 ${localstatedir}/run/libvirt/lockd none" \
+	echo "d root root 0755 /run/libvirt/lockd none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
-	echo "d root root 0755 ${localstatedir}/run/libvirt/lxc none" \
+	echo "d root root 0755 /run/libvirt/lxc none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
-	echo "d root root 0755 ${localstatedir}/run/libvirt/network none" \
+	echo "d root root 0755 /run/libvirt/network none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
-	echo "d root root 0755 ${localstatedir}/run/libvirt/qemu none" \
+	echo "d root root 0755 /run/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 
 	# Manually set permissions and ownership to match polkit recipe
@@ -379,6 +379,7 @@ do_install_append() {
 EXTRA_OECONF += " \
     --with-init-script=systemd \
     --with-test-suite \
+    --with-runstatedir=/run \
     "
 
 # gcc9 end up mis-compiling qemuxml2argvtest.o with Og which then
