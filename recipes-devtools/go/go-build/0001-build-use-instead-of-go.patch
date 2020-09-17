@@ -11,16 +11,16 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  gobuild/Makefile | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/import/gobuild/Makefile b/src/import/gobuild/Makefile
-index 694d9ce..149d573 100644
---- a/src/import/gobuild/Makefile
-+++ b/src/import/gobuild/Makefile
-@@ -19,10 +19,10 @@ dep: ${GODEPPATHS}
+Index: git/src/import/gobuild/Makefile
+===================================================================
+--- git.orig/src/import/gobuild/Makefile
++++ git/src/import/gobuild/Makefile
+@@ -19,10 +19,10 @@
  
  ${GODEPPATHS}:
  	mkdir -p ${GOSRC}
--	GOPATH=${GOPATH} go get $(subst ${GOSRC}/,,$@)
-+	GOPATH=${GOPATH} ${GO} get $(subst ${GOSRC}/,,$@)
+-	GOPATH=${GOPATH} go get -d $(subst ${GOSRC}/,,$@)
++	GOPATH=${GOPATH} ${GO} get -d $(subst ${GOSRC}/,,$@)
  
  ${BIN}: ${GODEPPATHS} $(filter %/$@.go, ${MAIN})
 -	GOPATH=${GOPATH} ${ARCH} go build $(filter %/$@.go, ${MAIN})
@@ -28,6 +28,3 @@ index 694d9ce..149d573 100644
  
  clean:
  	rm -f   ${BIN}
--- 
-2.19.1
-
