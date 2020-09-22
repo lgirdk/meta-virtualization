@@ -1,0 +1,35 @@
+From 1cf4ff2137252c63687f54e09626850cfab6e9f9 Mon Sep 17 00:00:00 2001
+From: Rob Woolley <Rob.Woolley@windriver.com>
+Date: Thu, 17 Sep 2020 19:41:06 -0700
+Subject: [PATCH] runX: add bounded / looping timeout
+
+On slower machines, we may need a longer timeout before giving
+up.
+
+Signed-off-by: Rob Woolley <Rob.Woolley@windriver.com>
+---
+ git/runX | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/runX b/runX
+index 492cb4c..70c95e1 100755
+--- a/runX
++++ b/runX
+@@ -119,7 +119,13 @@ then
+         daemonize $workpath/serial_start \
+           "$containerid" \
+           "$crundir"/console_pty
+-        sleep .1
++        for n in 5 4 3 2 1; do
++            if [ ! -l "$crundir"/console_pty ]; then
++              break;
++            else
++              sleep .1;
++            fi;
++        done
+         daemonize $workpath/serial_fd_handler \
+           "$guestconsole" \
+           "$crundir"/console_pty
+-- 
+2.17.1
+

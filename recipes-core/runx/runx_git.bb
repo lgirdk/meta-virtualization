@@ -12,6 +12,7 @@ SRC_URI = "\
           https://www.kernel.org/pub/linux/kernel/${KERNEL_URL_VER}/${KERNEL_SRC_VER}.tar.xz;destsuffix=git/kernel/build \
           file://0001-make-kernel-cross-compilation-tweaks.patch \
           file://0001-make-initrd-cross-install-tweaks.patch \
+          file://0001-runX-add-bounded-looping-timeout.patch \
 	  "
 SRC_URI[md5sum] = "ce9b2d974d27408a61c53a30d3f98fb9"
 SRC_URI[sha256sum] = "bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491"
@@ -31,7 +32,7 @@ inherit kernel-arch
 
 # we have a busybox bbappend that makes /bin available to the
 # sysroot, and hence gets us the target binary that we need
-DEPENDS = "busybox go-build"
+DEPENDS = "busybox-initrd go-build"
 
 # for the kernel build phase
 DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-native"
@@ -77,9 +78,8 @@ do_compile() {
 
     # construct the initrd
     echo "[INFO]: runx: constructing the initrd"
-
     cp ${STAGING_DIR_HOST}/bin/busybox.nosuid ${WORKDIR}/busybox
-    export QEMU_USER=`which qemu-${HOST_ARCH}`
+    export QEMU_USER="`which qemu-${HOST_ARCH}` -L ${STAGING_BASELIBDIR}/.."
     export BUSYBOX="${WORKDIR}/busybox"
     export CROSS_COMPILE="t"
     ${S}/initrd/make-initrd
