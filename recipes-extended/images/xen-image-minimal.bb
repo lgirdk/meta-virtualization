@@ -2,16 +2,16 @@ DESCRIPTION = "A minimal xen image"
 
 INITRD_IMAGE = "core-image-minimal-initramfs"
 
+XEN_KERNEL_MODULES ?= "kernel-module-xen-blkback kernel-module-xen-gntalloc \
+                       kernel-module-xen-gntdev kernel-module-xen-netback kernel-module-xen-wdt \
+                       ${@bb.utils.contains('MACHINE_FEATURES', 'pci', "${XEN_PCIBACK_MODULE}", '', d)} \
+                       ${@bb.utils.contains('MACHINE_FEATURES', 'acpi', 'kernel-module-xen-acpi-processor', '', d)} \
+                      "
+
 IMAGE_INSTALL += " \
     packagegroup-core-boot \
     packagegroup-core-ssh-openssh \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'acpi', 'kernel-module-xen-acpi-processor', '', d)} \
-    kernel-module-xen-blkback \
-    kernel-module-xen-gntalloc \
-    kernel-module-xen-gntdev \
-    kernel-module-xen-netback \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'pci', "${XEN_PCIBACK_MODULE}", '', d)} \
-    kernel-module-xen-wdt \
+    ${XEN_KERNEL_MODULES} \
     xen-tools \
     qemu \
     "
