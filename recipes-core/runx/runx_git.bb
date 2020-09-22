@@ -39,6 +39,7 @@ DEPENDS += "qemu-native bison-native"
 
 RDEPENDS_${PN} += " jq bash"
 RDEPENDS_${PN} += " xen-tools-xl go-build socat daemonize"
+RDEPENDS_${PN} += " qemu-system-i386 ca-certificates qemu qemu-keymaps"
 
 do_compile() {
     # we'll need this for the initrd later, so lets error if it isn't what
