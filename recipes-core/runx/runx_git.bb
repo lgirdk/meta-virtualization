@@ -14,6 +14,11 @@ SRC_URI = "\
           file://0001-make-initrd-cross-install-tweaks.patch \
           file://0001-runX-add-bounded-looping-timeout.patch \
 	  "
+
+SRC_URI += "file://0001-Add-busybox-cross-build-for-arm64.patch \
+            file://0002-don-t-call-busybox-install.patch \
+           "
+
 SRC_URI[md5sum] = "ce9b2d974d27408a61c53a30d3f98fb9"
 SRC_URI[sha256sum] = "bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491"
 
@@ -33,6 +38,7 @@ inherit kernel-arch
 # we have a busybox bbappend that makes /bin available to the
 # sysroot, and hence gets us the target binary that we need
 DEPENDS = "busybox-initrd go-build"
+DEPENDS += "resolvconf"
 
 # for the kernel build phase
 DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-native"
@@ -41,6 +47,8 @@ DEPENDS += "qemu-native bison-native"
 RDEPENDS_${PN} += " jq bash"
 RDEPENDS_${PN} += " xen-tools-xl go-build socat daemonize"
 RDEPENDS_${PN} += " qemu-system-i386 ca-certificates qemu qemu-keymaps"
+
+RUNX_USE_INTERNAL_BUSYBOX ?= ""
 
 do_compile() {
     # we'll need this for the initrd later, so lets error if it isn't what
@@ -77,11 +85,22 @@ do_compile() {
     ${S}/kernel/make-kernel
 
     # construct the initrd
-    echo "[INFO]: runx: constructing the initrd"
-    cp ${STAGING_DIR_HOST}/bin/busybox.nosuid ${WORKDIR}/busybox
-    export QEMU_USER="`which qemu-${HOST_ARCH}` -L ${STAGING_BASELIBDIR}/.."
-    export BUSYBOX="${WORKDIR}/busybox"
-    export CROSS_COMPILE="t"
+    bbnote "runx: constructing the initrd"
+    if [ -z "${RUNX_USE_INTERNAL_BUSYBOX}" ]; then
+        bbnote "runx: using external busybox"
+        cp ${STAGING_DIR_HOST}/bin/busybox.nosuid ${WORKDIR}/busybox
+        export QEMU_USER="`which qemu-${HOST_ARCH}` -L ${STAGING_BASELIBDIR}/.."
+        export BUSYBOX="${WORKDIR}/busybox"
+        export CROSS_COMPILE="${TARGET_PREFIX}"
+    else
+        bbnote "runx: using internal busybox"
+        export CC="${CC}"
+        export LD="${LD}"
+        export CFLAGS="${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} ${CFLAGS}"
+        export LDFLAGS="${TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH} ${LDFLAGS}"
+        export HOSTCFLAGS="${BUILD_CFLAGS} ${BUILD_LDFLAGS}"
+        export CROSS_COMPILE="${TARGET_PREFIX}"
+    fi
     ${S}/initrd/make-initrd
 }
 
