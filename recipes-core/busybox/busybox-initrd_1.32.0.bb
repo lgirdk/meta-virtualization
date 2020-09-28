@@ -5,6 +5,7 @@ require recipes-core/busybox/busybox_${PV}.bb
 SRC_URI += "file://init.cfg \
             file://mdev.cfg \
             file://runx.cfg \
+            ${@bb.utils.contains('DISTRO_FEATURES', 'vmsep', 'file://static.cfg', '', d)} \
             file://initrd.cfg"
 
 S = "${WORKDIR}/busybox-${PV}"
