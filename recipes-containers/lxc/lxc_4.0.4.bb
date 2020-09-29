@@ -47,6 +47,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}/${BPN}-${PV}.tar.gz \
 	file://templates-use-curl-instead-of-wget.patch \
 	file://tests-our-init-is-not-busybox.patch \
 	file://tests-add-no-validate-when-using-download-template.patch \
+	file://0001-remove-deprecated-options-in-lxc.service-fixes-3527.patch \
+	file://0001-Remove-obsolete-setting-regarding-the-Standard-Outpu.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
