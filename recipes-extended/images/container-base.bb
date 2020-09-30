@@ -18,7 +18,19 @@ IMAGE_INSTALL = " \
        base-files \
        base-passwd \
        netbase \
+       ${CONTAINER_SHELL} \
 "
+
+# If the following is configured in local.conf (or the distro):
+#      PACKAGE_EXTRA_ARCHS_append = " container-dummy-provides"
+# 
+# it has been explicitly # indicated that we don't want or need a shell, so we'll
+# add the dummy provides.
+# 
+# This is required, since there are postinstall scripts in base-files and base-passwd
+# that reference /bin/sh and we'll get a rootfs error if there's no shell or no dummy
+# provider.
+CONTAINER_SHELL ?= "${@bb.utils.contains('PACKAGE_EXTRA_ARCHS', 'container-dummy-provides', 'container-dummy-provides', 'busybox', d)}"
 
 # Allow build with or without a specific kernel
 IMAGE_CONTAINER_NO_DUMMY = "1"
