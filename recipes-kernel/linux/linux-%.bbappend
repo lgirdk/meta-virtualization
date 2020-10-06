@@ -4,7 +4,9 @@
 LINUX_MAJOR = "${@(d.getVar('LINUX_VERSION') or "x.y").split('.')[0]}"
 LINUX_MINOR = "${@(d.getVar('LINUX_VERSION') or "x.y").split('.')[1]}"
 
-include ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'linux-yocto_${LINUX_MAJOR}.${LINUX_MINOR}_virtualization.inc', '', d)}
+KERNEL_META_TYPE ?= "${@bb.utils.contains('SRC_URI', 'type=kmeta', 'yocto', '', d)}"
+
+include ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'linux-${KERNEL_META_TYPE}_${LINUX_MAJOR}.${LINUX_MINOR}_virtualization.inc', '', d)}
 
 
 
