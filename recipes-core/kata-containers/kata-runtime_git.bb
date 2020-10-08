@@ -4,16 +4,20 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/github.com/kata-containers/runtime/LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
 GO_IMPORT = "github.com/kata-containers/runtime"
-SRCREV = "f4cf2137be58c3778d87a8ee8e258e68d1ede888"
+SRCREV = "04c77eb20e9bd603cab5c711bcbe7c69db58b040"
 SRC_URI = "git://${GO_IMPORT}.git \
+           file://0001-makefile-allow-SKIP_GO_VERSION_CHECK-to-be-overriden.patch \
           "
 RDEPENDS_${PN}-dev_append = "bash"
+
+CONTAINER_KERNEL ?= ""
+CONTAINER_INITRD ?= ""
 RDEPENDS_${PN} = " \
                  qemu \
-                 hyperstart \
+                 ${CONTAINER_KERNEL} \
+		 ${CONTAINER_INITRD} \
                  "
-
-# grpc
+DEPENDS += "yq-native"
 
 S = "${WORKDIR}/git"
 
@@ -28,6 +32,8 @@ do_compile() {
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
 	cd ${S}/src/${GO_IMPORT}
+
+	export SKIP_GO_VERSION_CHECK="1"
 	oe_runmake runtime
 }
 
@@ -36,7 +42,7 @@ do_install() {
 	cp ${WORKDIR}/git/src/${GO_IMPORT}/kata-runtime ${D}/${bindir}
 	
 	mkdir -p ${D}/${datadir}/defaults/kata-containers/
-	cp ${WORKDIR}/git/src/${GO_IMPORT}/cli/config/configuration.toml ${D}/${datadir}/defaults/kata-containers/
+	cp ${WORKDIR}/git/src/${GO_IMPORT}/cli/config/configuration-qemu.toml ${D}/${datadir}/defaults/kata-containers/configuration.toml
 
 	sed -e 's|/usr/bin/qemu-lite-system-x86_64|/usr/bin/qemu-system-x86_64|' -i ${D}/${datadir}/defaults/kata-containers/configuration.toml
 	sed -e 's|/usr/share/kata-containers/vmlinuz.container|/var/lib/hyper/kernel|' -i ${D}/${datadir}/defaults/kata-containers/configuration.toml
@@ -47,11 +53,6 @@ do_install() {
 
 	# /usr/share/defaults/kata-containers/configuration.toml: file /usr/libexec/kata-containers/kata-shim does not exist
 	# fork/exec /usr/libexec/kata-containers/kata-proxy: no such file or directory
-
-	#64  mknod /dev/kvm c 10 232
-	#68  kata-runtime --log=/dev/stdout run --bundle /opt/container/cube-server foo
-	
-	
 }
 
 FILES_${PN} += "${datadir}/defaults/kata-containers/*"
