@@ -247,8 +247,8 @@ RPROVIDES_${PN}-xenstored = "virtual/xenstored"
 
 FILES_${PN}-dbg += "\
     ${libdir}/xen/bin/.debug \
-    ${libdir}/${PYTHON_DIR}/site-packages/.debug \
-    ${libdir}/${PYTHON_DIR}/site-packages/xen/lowlevel/.debug \
+    ${nonarch_libdir}/${PYTHON_DIR}/site-packages/.debug \
+    ${nonarch_libdir}/${PYTHON_DIR}/site-packages/xen/lowlevel/.debug \
     ${libdir}/fs/xfs/.debug \
     ${libdir}/fs/ufs/.debug \
     ${libdir}/fs/ext2fs-lib/.debug \
@@ -261,8 +261,8 @@ FILES_${PN}-dbg += "\
     ${libdir}exec/.debug \
     ${libdir}/xen/libexec/.debug \
     ${bindir}/.debug \
-    ${libdir}/${PYTHON_DIR}/dist-packages/.debug \
-    ${libdir}/${PYTHON_DIR}/dist-packages/xen/lowlevel/.debug \
+    ${nonarch_libdir}/${PYTHON_DIR}/dist-packages/.debug \
+    ${nonarch_libdir}/${PYTHON_DIR}/dist-packages/xen/lowlevel/.debug \
     "
 
 FILES_${PN}-dev = "\
@@ -497,7 +497,7 @@ FILES_${PN}-pygrub = "\
     "
 
 FILES_${PN}-python = "\
-    ${libdir}/${PYTHON_DIR} \
+    ${nonarch_libdir}/${PYTHON_DIR} \
     "
 
 FILES_${PN}-remus = "\
