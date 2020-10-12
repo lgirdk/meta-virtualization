@@ -6,7 +6,7 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
 
 # Apache-2.0 for containerd
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/import/LICENSE.code;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
+LIC_FILES_CHKSUM ?= "file://src/import/LICENSE.code;md5=aadc30f9c14d876ded7bedc0afd2d3d7"
 
 SRC_URI += "file://containerd.service"
 
@@ -38,7 +38,7 @@ do_compile() {
     # without this, the stress test parts of the build fail
     cp ${S}/src/import/*.go ${S}/src/import/vendor/src/github.com/containerd/containerd
 
-    for c in content errdefs fs images mount snapshots linux api runtimes defaults progress \
+    for c in content timeout ttrpcutil oom stdio process errdefs fs images mount snapshots linux api runtimes defaults progress \
 		     protobuf reference diff platforms runtime remotes version archive dialer gc metadata \
 		     metrics filters identifiers labels leases plugin server services \
 		     cmd cio containers namespaces oci events log reaper sys rootfs nvidia seed apparmor seccomp; do
@@ -64,6 +64,7 @@ do_compile() {
     export BUILDTAGS="no_btrfs static_build netgo"
     export CFLAGS="${CFLAGS}"
     export LDFLAGS="${LDFLAGS}"
+    export SHIM_CGO_ENABLED=${CGO_ENABLED}
 
     cd ${S}/src/import
     oe_runmake binaries
