@@ -80,6 +80,8 @@ do_install() {
 
 	cp ${S}/src/import/bin/containerd ${D}/${bindir}/containerd
 	cp ${S}/src/import/bin/containerd-shim ${D}/${bindir}/containerd-shim
+	cp ${S}/src/import/bin/containerd-shim-runc-v1 ${D}/${bindir}/containerd-shim-runc-v1
+	cp ${S}/src/import/bin/containerd-shim-runc-v2 ${D}/${bindir}/containerd-shim-runc-v2
 	cp ${S}/src/import/bin/ctr ${D}/${bindir}/containerd-ctr
 	
 	ln -sf containerd ${D}/${bindir}/docker-containerd
