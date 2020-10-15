@@ -1,0 +1,48 @@
+From 441df8a24a2c80e320f140b5d9bc352c7ce8a64a Mon Sep 17 00:00:00 2001
+From: Robert Yang <liezhi.yang@windriver.com>
+Date: Thu, 15 Oct 2020 07:27:35 +0000
+Subject: [PATCH] src/import/build/root/Makefile.generated_files: Fix race issue for installing
+ go2make
+
+The src/import/build/root/Makefile.generated_files are called several times during the build, so the
+following target which installs go2make will also run several times:
+
+$(META_DIR)/$(GO_PKGDEPS_FILE): FORCE
+
+It runs automatically when the Makefile is called because of:
+sinclude $(META_DIR)/$(GO_PKGDEPS_FILE)
+
+So there is a race issue of go2make when parallel build:
+hack/run-in-gopath.sh: line 34: build/tmp-glibc/work/corei7-64-wrs-linux/kubernetes/1.18.8-r0/git/src/import/_output/local/go/bin/go2make: No such file or directory
+
+It is because the first process is using go2make, but then the second process
+removes it and reinstall it.
+
+Check whether go2make has been installed or not before install it can fix the
+problem.
+
+Upstream-Status: Pending
+
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
+ src/import/build/root/Makefile.generated_files | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/import/build/root/Makefile.generated_files b/src/import/build/root/Makefile.generated_files
+index c8cbf27..e3f1593 100644
+--- a/src/import/build/root/Makefile.generated_files
++++ b/src/import/build/root/Makefile.generated_files
+@@ -63,7 +63,9 @@ $(META_DIR)/$(GO_PKGDEPS_FILE): FORCE
+ 	if [[ "$(DBG_CODEGEN)" == 1 ]]; then          \
+ 	    echo "DBG: calculating Go dependencies";  \
+ 	fi
+-	hack/run-in-gopath.sh go install ./hack/make-rules/helpers/go2make
++	if [ ! -e _output/local/go/bin/go2make ]; then \
++		hack/run-in-gopath.sh go install ./hack/make-rules/helpers/go2make; \
++	fi
+ 	hack/run-in-gopath.sh go2make                     \
+ 	    k8s.io/kubernetes/...                         \
+ 	    --prune  k8s.io/kubernetes/staging            \
+-- 
+2.26.2
+
