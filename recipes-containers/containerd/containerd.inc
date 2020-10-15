@@ -64,7 +64,7 @@ do_compile() {
     export BUILDTAGS="no_btrfs static_build netgo"
     export CFLAGS="${CFLAGS}"
     export LDFLAGS="${LDFLAGS}"
-    export SHIM_CGO_ENABLED=${CGO_ENABLED}
+    export SHIM_CGO_ENABLED="${CGO_ENABLED}"
 
     cd ${S}/src/import
     oe_runmake binaries
