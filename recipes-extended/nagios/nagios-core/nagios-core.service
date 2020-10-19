@@ -6,7 +6,7 @@ After=network.target local-fs.target
 Type=forking
 User=nagios
 Group=nagios
-PIDFile=/var/run/nagios/nagios.pid
+PIDFile=/run/nagios/nagios.pid
 # Verify Nagios config before start as upstream suggested
 ExecStartPre=/usr/bin/nagios -v /etc/nagios/nagios.cfg
 ExecStart=/usr/bin/nagios -d /etc/nagios/nagios.cfg
