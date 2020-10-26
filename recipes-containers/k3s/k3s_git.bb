@@ -66,6 +66,7 @@ SYSTEMD_SERVICE_${PN}-agent = "${@bb.utils.contains('DISTRO_FEATURES','systemd',
 SYSTEMD_AUTO_ENABLE_${PN}-agent = "disable"
 
 FILES_${PN}-agent = "${BIN_PREFIX}/bin/k3s-agent"
+FILES_${PN} += "${BIN_PREFIX}/bin/*"
 
 RDEPENDS_${PN} = "cni conntrack-tools coreutils findutils iproute2 ipset virtual/containerd"
 RDEPENDS_${PN}-server = "${PN}"
