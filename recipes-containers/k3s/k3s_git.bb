@@ -44,7 +44,6 @@ do_install() {
         install -d "${D}${BIN_PREFIX}/bin"
         install -m 755 "${S}/src/import/dist/artifacts/k3s" "${D}${BIN_PREFIX}/bin"
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/crictl"
-        ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/ctr"
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/kubectl"
         install -m 755 "${WORKDIR}/k3s-clean" "${D}${BIN_PREFIX}/bin"
         install -D -m 0644 "${WORKDIR}/cni-containerd-net.conf" "${D}/${sysconfdir}/cni/net.d/10-containerd-net.conf"
