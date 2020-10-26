@@ -88,6 +88,8 @@ do_install() {
 	ln -sf containerd-shim ${D}/${bindir}/docker-containerd-shim
 	ln -sf containerd-ctr ${D}/${bindir}/docker-containerd-ctr
 
+	ln -sf containerd-ctr ${D}/${bindir}/ctr
+
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
 		install -m 644 ${WORKDIR}/containerd.service ${D}/${systemd_unitdir}/system
