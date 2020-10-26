@@ -16,9 +16,12 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.18;name=k3s \
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
 SRCREV_k3s = "630bebf94b9dce6b8cd3d402644ed023b3af8f90"
 
+CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
+
 inherit go
 inherit goarch
 inherit systemd
+inherit cni_networking
 
 PACKAGECONFIG = ""
 PACKAGECONFIG[upx] = ",,upx-native"
@@ -46,7 +49,7 @@ do_install() {
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/crictl"
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/kubectl"
         install -m 755 "${WORKDIR}/k3s-clean" "${D}${BIN_PREFIX}/bin"
-        install -D -m 0644 "${WORKDIR}/cni-containerd-net.conf" "${D}/${sysconfdir}/cni/net.d/10-containerd-net.conf"
+
         if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
                 install -D -m 0644 "${WORKDIR}/k3s.service" "${D}${systemd_system_unitdir}/k3s.service"
                 install -D -m 0644 "${WORKDIR}/k3s-agent.service" "${D}${systemd_system_unitdir}/k3s-agent.service"
