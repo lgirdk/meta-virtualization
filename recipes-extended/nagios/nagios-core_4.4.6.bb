@@ -20,8 +20,8 @@ SRC_URI = "http://prdownloads.sourceforge.net/sourceforge/${SRCNAME}/${SRCNAME}-
            file://nagios-core-systemd-volatile.conf \
            "
 
-SRC_URI[md5sum] = "8beb253b1236ee1407f698b5d2a2d894"
-SRC_URI[sha256sum] = "bba8f0e8dc8cf72f7a7ae4e8ce9c60f5bd315629421b9ec34818a28b8da49f67"
+SRC_URI[md5sum] = "ba849e9487e13859381eb117127bfee2"
+SRC_URI[sha256sum] = "ab0d5a52caf01e6f4dcd84252c4eb5df5a24f90bb7f951f03875eef54f5ab0f4"
 
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
@@ -158,3 +158,5 @@ CVE_PRODUCT = "nagios_core"
 ALTERNATIVE_PRIORITY_${PN} = '20'
 ALTERNATIVE_${PN} = "nagios"
 ALTERNATIVE_LINK_NAME[nagios] = "${localstatedir}/nagios"
+
+INSANE_SKIP_${PN} = "already-stripped"
