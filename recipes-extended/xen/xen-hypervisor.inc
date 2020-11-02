@@ -55,6 +55,8 @@ do_compile() {
 do_install() {
     oe_runmake DESTDIR="${D}" install-xen
 }
+# The do_install also ships files in /boot and /usr/lib64
+SYSROOT_DIRS += "/boot ${exec_prefix}/lib64"
 
 do_deploy() {
     install -d ${DEPLOYDIR}
