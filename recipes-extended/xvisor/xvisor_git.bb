@@ -48,3 +48,7 @@ FILES_${PN} += "/*.dtb"
 
 COMPATIBLE_HOST = "(aarch64|riscv64|riscv32).*"
 INHIBIT_PACKAGE_STRIP = "1"
+
+# ERROR: xvisor-git-r0 do_package_qa: QA Issue: File /vmm.elf in package xvisor doesn't have GNU_HASH (didn't pass LDFLAGS?) [ldflags]
+# ERROR: xvisor-git-r0 do_package_qa: QA Issue: xvisor: ELF binary /vmm.elf has relocations in .text [textrel]
+INSANE_SKIP_${PN} += "ldflags textrel"
