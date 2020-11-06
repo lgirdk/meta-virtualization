@@ -19,3 +19,7 @@ KERNEL_FEATURES_append = " cfg/virtio.scc"
 
 # xen kernel support
 SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"
+
+# k8s and k3s kernel support
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'k8s', ' file://kubernetes.scc', '', d)}"
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'k3s', ' file://kubernetes.scc', '', d)}"
