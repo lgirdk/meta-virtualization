@@ -496,7 +496,9 @@ FILES_${PN}-pygrub = "\
     ${libdir}/xen/bin/pygrub \
     "
 
+# Depending on the version of Xen libdir or nonarch libdir is used
 FILES_${PN}-python = "\
+    ${libdir}/${PYTHON_DIR} \
     ${nonarch_libdir}/${PYTHON_DIR} \
     "
 
