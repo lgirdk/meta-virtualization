@@ -3,7 +3,6 @@ DESCRIPTION = "Lightweight Kubernetes, intended to be a fully compliant Kubernet
 HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
-PV = "v1.18.9+k3s1-dirty"
 
 SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.18;name=k3s \
            file://k3s.service \
@@ -15,6 +14,8 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.18;name=k3s \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
 SRCREV_k3s = "630bebf94b9dce6b8cd3d402644ed023b3af8f90"
+
+PV = "v1.18.9+git${SRCPV}"
 
 CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
 
@@ -68,9 +69,11 @@ SYSTEMD_AUTO_ENABLE_${PN}-agent = "disable"
 FILES_${PN}-agent = "${BIN_PREFIX}/bin/k3s-agent"
 FILES_${PN} += "${BIN_PREFIX}/bin/*"
 
-RDEPENDS_${PN} = "cni conntrack-tools coreutils findutils iproute2 ipset virtual/containerd"
+RDEPENDS_${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 ipset virtual/containerd"
 RDEPENDS_${PN}-server = "${PN}"
 RDEPENDS_${PN}-agent = "${PN}"
+
+RRECOMMENDS_${PN} = "kernel-module-xt-comment kernel-module-xt-mark kernel-module-xt-connmark kernel-module-vxlan"
 
 RCONFLICTS_${PN} = "kubectl"
 
