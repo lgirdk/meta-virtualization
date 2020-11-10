@@ -68,3 +68,5 @@ FILES_${PN} += "${libexecdir}/cni/* /opt/cni/bin"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
+
+RDEPENDS_${PN} += " ca-certificates"
