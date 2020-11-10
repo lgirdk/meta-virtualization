@@ -22,7 +22,6 @@ EXTRA_OEMAKE += "GODEBUG=1"
 PROVIDES += "virtual/containerd"
 RPROVIDES_${PN} = "virtual/containerd"
 
-
 S = "${WORKDIR}/git"
 
 PV = "${CONTAINERD_VERSION}+git${SRCPV}"
@@ -116,3 +115,5 @@ FILES_${PN} += "${systemd_system_unitdir}/*"
 INSANE_SKIP_${PN} += "ldflags already-stripped"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
+
+RDEPENDS_${BPN} += " virtual/runc"
