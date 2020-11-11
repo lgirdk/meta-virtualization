@@ -21,6 +21,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0002-mon-enforce-caps-for-pre-octopus-client-tell-command.patch \
            file://0003-PendingReleaseNotes-note-about-security-fix.patch \
            file://0001-add-missing-include-for-atomic-bool.patch \
+           file://0001-cmake-add-support-for-python3.9.patch \
 "
 
 SRC_URI[md5sum] = "1f9af648b4c6d19975aab2583ab99710"
