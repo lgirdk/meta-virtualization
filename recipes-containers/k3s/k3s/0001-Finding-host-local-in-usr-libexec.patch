@@ -9,19 +9,16 @@ Signed-off-by: <erikja@axis.com>
  pkg/agent/config/config.go | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/pkg/agent/config/config.go b/pkg/agent/config/config.go
-index b4296f360a..6af9dab895 100644
---- a/pkg/agent/config/config.go
-+++ b/pkg/agent/config/config.go
-@@ -308,7 +308,7 @@ func get(envInfo *cmds.Agent) (*config.Node, error) {
- 		return nil, err
+Index: import/pkg/agent/config/config.go
+===================================================================
+--- import.orig/pkg/agent/config/config.go
++++ import/pkg/agent/config/config.go
+@@ -445,7 +445,7 @@
  	}
  
--	hostLocal, err := exec.LookPath("host-local")
-+	hostLocal, err := exec.LookPath("/usr/libexec/cni/host-local")
- 	if err != nil {
- 		return nil, errors.Wrapf(err, "failed to find host-local")
- 	}
--- 
-2.11.0
-
+ 	if !nodeConfig.NoFlannel {
+-		hostLocal, err := exec.LookPath("host-local")
++		hostLocal, err := exec.LookPath("/usr/libexec/cni/host-local")
+ 		if err != nil {
+ 			return nil, errors.Wrapf(err, "failed to find host-local")
+ 		}

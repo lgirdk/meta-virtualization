@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.18;name=k3s \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.19;name=k3s \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
@@ -13,9 +13,9 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.18;name=k3s \
            file://0001-Finding-host-local-in-usr-libexec.patch;patchdir=src/import \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "630bebf94b9dce6b8cd3d402644ed023b3af8f90"
+SRCREV_k3s = "970fbc66d384ce15bda6684c8610e65b406154ca"
 
-PV = "v1.18.9+git${SRCPV}"
+PV = "v1.19.3+git${SRCPV}"
 
 CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
 
