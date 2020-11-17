@@ -80,7 +80,7 @@ do_compile() {
 }
 
 do_install() {
-    oe_runmake 'DESTDIR=${D}' install
+    oe_runmake 'DESTDIR=${D}' install-unstripped
     oe_runmake 'DESTDIR=${D}' install-init
     oe_runmake 'DESTDIR=${D}' install-config
     oe_runmake 'DESTDIR=${D}' install-commandmode
@@ -158,5 +158,3 @@ CVE_PRODUCT = "nagios_core"
 ALTERNATIVE_PRIORITY_${PN} = '20'
 ALTERNATIVE_${PN} = "nagios"
 ALTERNATIVE_LINK_NAME[nagios] = "${localstatedir}/nagios"
-
-INSANE_SKIP_${PN} = "already-stripped"
