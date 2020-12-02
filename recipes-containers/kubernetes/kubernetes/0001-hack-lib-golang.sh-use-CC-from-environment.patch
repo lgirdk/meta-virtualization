@@ -11,30 +11,27 @@ Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
  hack/lib/golang.sh | 4 ----
  1 file changed, 4 deletions(-)
 
-diff --git a/hack/lib/golang.sh b/hack/lib/golang.sh
-index c5d4634..563e2b4b 100755
---- a/src/import/hack/lib/golang.sh
-+++ b/src/import/hack/lib/golang.sh
-@@ -278,19 +278,15 @@ kube::golang::set_platform_envs() {
+Index: kubernetes-v1.20.0-rc.3+git98bc258bf5516b6c60860e06845b899eab29825d/src/import/hack/lib/golang.sh
+===================================================================
+--- kubernetes-v1.20.0-rc.3+git98bc258bf5516b6c60860e06845b899eab29825d.orig/src/import/hack/lib/golang.sh
++++ kubernetes-v1.20.0-rc.3+git98bc258bf5516b6c60860e06845b899eab29825d/src/import/hack/lib/golang.sh
+@@ -400,19 +400,15 @@
      case "${platform}" in
        "linux/arm")
          export CGO_ENABLED=1
--        export CC=arm-linux-gnueabihf-gcc
+-        export CC=${KUBE_LINUX_ARM_CC:-arm-linux-gnueabihf-gcc}
          ;;
        "linux/arm64")
          export CGO_ENABLED=1
--        export CC=aarch64-linux-gnu-gcc
+-        export CC=${KUBE_LINUX_ARM64_CC:-aarch64-linux-gnu-gcc}
          ;;
        "linux/ppc64le")
          export CGO_ENABLED=1
--        export CC=powerpc64le-linux-gnu-gcc
+-        export CC=${KUBE_LINUX_PPC64LE_CC:-powerpc64le-linux-gnu-gcc}
          ;;
        "linux/s390x")
          export CGO_ENABLED=1
--        export CC=s390x-linux-gnu-gcc
+-        export CC=${KUBE_LINUX_S390X_CC:-s390x-linux-gnu-gcc}
          ;;
      esac
    fi
--- 
-2.9.5
-

@@ -5,11 +5,11 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.19.0-rc.3+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "bdc575e10c35a3e65a1c02bceea432832b7e4f4f"
+PV = "v1.20.0-rc.3+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "98bc258bf5516b6c60860e06845b899eab29825d"
 SRCREV_kubernetes-release = "e7fbf5b8b7e87ed1848cf3a0129f7a7dff2aa4ed"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.19;name=kubernetes \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.20;name=kubernetes \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
@@ -20,6 +20,7 @@ SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.19;name=k
 
 DEPENDS += "rsync-native \
             coreutils-native \
+            go-native \
            "
 
 LICENSE = "Apache-2.0"
@@ -48,7 +49,9 @@ do_compile() {
 	export CFLAGS="${BUILD_CFLAGS}"
 	export LDFLAGS="${BUILD_LDFLAGS}"
 	export CGO_CFLAGS="${BUILD_CFLAGS}"
-	export CGO_LDFLAGS="${BUILD_LDFLAGS}"
+	# as of go 1.15.5, there are some flags the CGO doesn't like. Rather than
+	# clearing them all, we sed away the ones we don't want.
+	export CGO_LDFLAGS="$(echo ${BUILD_LDFLAGS} | sed 's/-Wl,-O1//g' | sed 's/-Wl,--dynamic-linker.*?( \|$\)//g')"
 	export CC="${BUILD_CC}"
 	export LD="${BUILD_LD}"
 
