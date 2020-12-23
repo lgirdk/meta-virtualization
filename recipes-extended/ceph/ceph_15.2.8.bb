@@ -12,23 +12,15 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
-           file://0001-msg-async-ProtocolV2-avoid-AES-GCM-nonce-reuse-vulne.patch \
-           file://0001-msg-async-crypto_onwire-fix-endianness-of-nonce_t.patch \
-           file://0001-rgw-reject-unauthenticated-response-header-actions.patch \
-           file://0001-rgw-EPERM-to-ERR_INVALID_REQUEST.patch \
-           file://0001-rgw-reject-control-characters-in-response-header-act.patch \
-           file://0001-mgr-require-all-caps-for-pre-octopus-tell-commands.patch \ 
-           file://0002-mon-enforce-caps-for-pre-octopus-client-tell-command.patch \
-           file://0003-PendingReleaseNotes-note-about-security-fix.patch \
            file://0001-add-missing-include-for-atomic-bool.patch \
            file://0001-cmake-add-support-for-python3.9.patch \
 "
 
-SRC_URI[md5sum] = "1f9af648b4c6d19975aab2583ab99710"
-SRC_URI[sha256sum] = "4292c473d1714a6602c525d7582e4e03ec608f0a1cbc0dd338207e5c7068e0d3"
-SRC_URI[sha1sum] = "7158806ece1483fcccdf1172c20cc34d9401c543"
-SRC_URI[sha384sum] = "20e996dbf30d1e33a6d6aae36960190125ce263d306415bcec5d2b3032b8b8f730deeba3ca318576573127d08909404a"
-SRC_URI[sha512sum] = "07a3ff2ccf1a3abac652ff8c5f1611e7c628fcedcb280adc6cd49792b46fa50c7c29437dc57c2c4a6af708a6833abf8c1a386ef2142d30bd5e1f214ba7aec4f2"
+SRC_URI[md5sum] = "cab93dadfe38888561d390fd58b8c947"
+SRC_URI[sha256sum] = "64c5eaf8c1e4092e59bc538e9241b6d5cf4ffca92563031abbea8b37b4cab9da"
+SRC_URI[sha1sum] = "77b60c3775cd6e38f2d07870aee550368105c74b"
+SRC_URI[sha384sum] = "2173c5176e9ff3745e4bc493585a8cf14e9e7737cf575551a010b7b84cd6b88b378dc93e6509b3a696732c51f530fa60"
+SRC_URI[sha512sum] = "66c7322575165b4747955ac9de34f9f9e2d4361c8cd8498819383883045601b92f786c4336c79369d6f019db1c4524c492faa40cdceed7fc1b2b373ca6ab5065"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
