@@ -8,18 +8,15 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  git/cli/scripts/build/dynbinary | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git git/cli/scripts/build/dynbinary git/cli/scripts/build/dynbinary
-index 4feb7e71d8..f990d0e040 100755
---- git/cli/scripts/build/dynbinary
+Index: git/cli/scripts/build/dynbinary
+===================================================================
+--- git.orig/cli/scripts/build/dynbinary
 +++ git/cli/scripts/build/dynbinary
-@@ -9,6 +9,6 @@ source ./scripts/build/.variables
+@@ -19,6 +19,6 @@
+                 ;;
+ esac
  
- echo "Building dynamically linked $TARGET"
- export CGO_ENABLED=1
--go build -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" -buildmode=pie "${SOURCE}"
-+${GO}  build -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" -buildmode=pie "${SOURCE}"
+-go build -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" ${GO_BUILDMODE} "${SOURCE}"
++${GO} build -o "${TARGET}" -tags pkcs11 --ldflags "${LDFLAGS}" ${GO_BUILDMODE} "${SOURCE}"
  
  ln -sf "$(basename "${TARGET}")" build/docker
--- 
-2.19.1
-
