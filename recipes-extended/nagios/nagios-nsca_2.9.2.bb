@@ -82,3 +82,5 @@ SYSTEMD_AUTO_ENABLE_${PN}-daemon = "enable"
 INITSCRIPT_PACKAGES = "${PN}-daemon"
 INITSCRIPT_NAME_${PN}-daemon = "nsca"
 INITSCRIPT_PARAMS_${PN}-daemon = "defaults"
+
+PNBLACKLIST[nagios-nsca] ?= "Depends on libmcrypt, which is considered abandonware"
