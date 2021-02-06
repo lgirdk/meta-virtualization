@@ -20,13 +20,13 @@ RDEPENDS_${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo \
+    git://github.com/containers/skopeo;branch=release-1.2 \
     file://storage.conf \
     file://registries.conf \
 "
 
-SRCREV = "1cf1e06582142c522543560f2bc6d6756696e8ad"
-PV = "v0.1.39-dev+git${SRCPV}"
+SRCREV = "6c0e35a50c404c88eba84b4c611e6ea06ed33a44"
+PV = "v1.2.2-dev+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
@@ -63,14 +63,14 @@ do_compile() {
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	cd ${S}/src/import
 
-	oe_runmake binary-local
+	oe_runmake bin/skopeo
 }
 
 do_install() {
 	install -d ${D}/${sbindir}
 	install -d ${D}/${sysconfdir}/containers
 
-	install ${S}/src/import/skopeo ${D}/${sbindir}/
+	install ${S}/src/import/bin/skopeo ${D}/${sbindir}/
 	install ${S}/src/import/default-policy.json ${D}/${sysconfdir}/containers/policy.json
 
 	install ${WORKDIR}/storage.conf ${D}/${sysconfdir}/containers/storage.conf
