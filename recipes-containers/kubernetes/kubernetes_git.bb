@@ -6,8 +6,8 @@ maintenance, and scaling of applications. \
 "
 
 PV = "v1.20.0-rc.3+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "98bc258bf5516b6c60860e06845b899eab29825d"
-SRCREV_kubernetes-release = "e7fbf5b8b7e87ed1848cf3a0129f7a7dff2aa4ed"
+SRCREV_kubernetes = "9158049ccd96cea766756c2c6370b728472e2246"
+SRCREV_kubernetes-release = "cf1e18a801c2ec6cc8c3d3b83bf1cbc4cf0dbc53"
 
 SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.20;name=kubernetes \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release \
