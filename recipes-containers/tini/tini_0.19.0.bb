@@ -4,7 +4,7 @@ DESCRIPTION = "Tini is the simplest init you could think of. All Tini does is \
 spawn a single child (Tini is meant to be run in a container), and wait for \
 it to exit all the while reaping zombies and performing signal forwarding. "
 
-SRCREV = "fec3683b971d9c3ef73f284f176672c44b448662"
+SRCREV = "b9f42a0e7bb46efea0c9e3d8610c96ab53b467f8"
 SRC_URI = " \
   git://github.com/krallin/tini.git \
   file://0001-Do-not-strip-the-output-binary-allow-yocto-to-do-thi.patch \
