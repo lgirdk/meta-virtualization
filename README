@@ -34,6 +34,7 @@ that may also be enabled:
  - selinux: enables functionality in libvirt and lxc
  - systemd: enable systemd services and unit files (for recipes for support)
  - sysvinit: enable sysvinit scripts (for recipes with support)
+ - seccomp: enable seccomp support for packages that have the capability.
 
 Dependencies
 ------------

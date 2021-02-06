@@ -14,10 +14,14 @@ inherit go
 inherit goarch
 inherit pkgconfig
 
-PACKAGECONFIG ??= "static"
 PACKAGECONFIG[seccomp] = "seccomp,,libseccomp"
 # This PACKAGECONFIG serves the purpose of whether building runc as static or not
 PACKAGECONFIG[static] = ""
+
+PACKAGECONFIG ??= "static \
+                   ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'seccomp', '', d)} \
+	          "
+
 
 PROVIDES += "virtual/runc"
 RPROVIDES_${PN} = "virtual/runc"
