@@ -5,8 +5,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=435b266b3899aa8a959f17d41c56def8"
 
 inherit pypi setuptools3
 
-SRC_URI[md5sum] = "6c25d3b92596dc529edc337cc837eae1"
-SRC_URI[sha256sum] = "5a5690f24c27d4b43dcbe6b3fae91ba680713208e99ee863352b3bae37bcaa83"
+SRC_URI[md5sum] = "48486752654e04eef6c8a79f0d279b30"
+SRC_URI[sha256sum] = "2f148b590414915d029dad7551f4cdf0b03a774dc9baa674480217236d260cc1"
+
 
 SRC_URI += "file://0001-setup.py-remove-maximum-version-requirements.patch \
             file://0001-setup.py-import-fastentrypoints.patch \
