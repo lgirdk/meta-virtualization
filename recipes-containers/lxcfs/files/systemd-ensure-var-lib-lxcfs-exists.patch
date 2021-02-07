@@ -10,18 +10,15 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  config/init/systemd/lxcfs.service | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/config/init/systemd/lxcfs.service b/config/init/systemd/lxcfs.service
-index 95e3ee9..d887203 100644
---- a/config/init/systemd/lxcfs.service
-+++ b/config/init/systemd/lxcfs.service
-@@ -5,6 +5,7 @@ Before=lxc.service
+Index: lxcfs-4.0.7/config/init/systemd/lxcfs.service
+===================================================================
+--- lxcfs-4.0.7.orig/config/init/systemd/lxcfs.service
++++ lxcfs-4.0.7/config/init/systemd/lxcfs.service
+@@ -5,6 +5,7 @@
  Documentation=man:lxcfs(1)
  
  [Service]
 +ExecStartPre=-/bin/mkdir /var/lib/lxcfs
- ExecStart=/usr/bin/lxcfs /var/lib/lxcfs/
+ ExecStart=/usr/bin/lxcfs /usr/local/var/lib/lxcfs
  KillMode=process
  Restart=on-failure
--- 
-2.7.4
-

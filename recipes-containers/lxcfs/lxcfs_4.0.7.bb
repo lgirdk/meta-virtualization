@@ -1,5 +1,5 @@
 SUMMARY = "LXCFS is a userspace filesystem created to avoid kernel limitations"
-LICENSE = "Apache-2.0"
+LICENSE = "LGPL-2.1+"
 
 inherit autotools pkgconfig systemd
 
@@ -9,9 +9,9 @@ SRC_URI = " \
     file://systemd-ensure-var-lib-lxcfs-exists.patch \
 "
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
-SRC_URI[md5sum] = "bfc41f949caeabd0468189480222f25e"
-SRC_URI[sha256sum] = "890aa30d960d9b1e53b0c0712bf645c1f1924f750e32cd090f368c1338bd462f"
+LIC_FILES_CHKSUM = "file://COPYING;md5=29ae50a788f33f663405488bc61eecb1"
+SRC_URI[md5sum] = "9d963976207fb0ca4701428ae0587aeb"
+SRC_URI[sha256sum] = "3f28e2f4b04c0090aaf88b72666505f0313768a5254dd48a14c43cf78c543ec8"
 
 DEPENDS += "fuse"
 RDEPENDS_${PN} += "fuse"
