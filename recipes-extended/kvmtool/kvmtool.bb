@@ -11,14 +11,13 @@ inherit kernel-arch
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git \
            file://external-crosscompiler.patch \
-           file://0001-Avoid-pointers-for-address-of-packed-members.patch \
            file://0001-kvmtool-9p-fixed-compilation-error.patch \
            file://0002-kvmtool-add-EXTRA_CFLAGS-variable.patch \
            file://0003-kvmtool-Werror-disabled.patch \
            "
 
-SRCREV = "0e1882a49f81cb15d328ef83a78849c0ea26eecc"
-PV = "4.14.0+git${SRCPV}"
+SRCREV = "90b2d3adadf218dfc6bdfdfcefe269843360223c"
+PV = "5.10.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

@@ -1,14 +1,23 @@
+From b89ba4256cb6074aee74ea5386bc5ca8e75d4653 Mon Sep 17 00:00:00 2001
+From: Stefan Agner <stefan@agner.ch>
+Date: Tue, 6 Sep 2016 11:51:40 -0700
+Subject: [PATCH] kvmtool: add lightweight hypervisor native Linux KVM tool
+
 Upstream-Status: Inappropriate [embedded specific]
 
 This allows OpenEmbedded to pass in cross compiler configuration using
 the default envirnment variables. It is required so that kvmtool can
 be linked against the cross-compiled libfdt library.
 
+---
+ Makefile | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
 diff --git a/Makefile b/Makefile
-index 1f0196f..8bfb068 100644
+index 35bb118..3787df2 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -14,11 +14,6 @@ export E Q
+@@ -18,12 +18,6 @@ export E Q
  include config/utilities.mak
  include config/feature-tests.mak
  
@@ -16,11 +25,12 @@ index 1f0196f..8bfb068 100644
 -CFLAGS	:=
 -LD	:= $(CROSS_COMPILE)ld
 -LDFLAGS	:=
+-OBJCOPY	:= $(CROSS_COMPILE)objcopy
 -
  FIND	:= find
  CSCOPE	:= cscope
  TAGS	:= ctags
-@@ -297,7 +292,7 @@ $(warning No static libc found. Skipping guest init)
+@@ -319,7 +313,7 @@ $(warning No static libc found. Skipping guest init)
  endif
  
  ifeq (y,$(ARCH_WANT_LIBFDT))
