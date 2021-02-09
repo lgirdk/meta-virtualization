@@ -1,4 +1,4 @@
-inherit python3native python3-dir
+inherit python3native python3-dir python3targetconfig
 
 export STAGING_INCDIR
 export STAGING_LIBDIR
