@@ -14,9 +14,9 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
  - Resource isolation as required by the CRI \
  "
 
-SRCREV_cri-o = "6d0ffae63b9b7d8f07e7f9cf50736a67fb31faf3"
+SRCREV_cri-o = "7f6ccb579c26519df8cefbf6c9220bd65e25830a"
 SRC_URI = "\
-	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.17;name=cri-o \
+	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.21;name=cri-o \
 	file://0001-Makefile-force-symlinks.patch \
         file://crio.conf \
 	"
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.17.0+git${SRCREV_cri-o}"
+PV = "1.21.0+git${SRCREV_cri-o}"
 
 DEPENDS = " \
     glib-2.0 \
