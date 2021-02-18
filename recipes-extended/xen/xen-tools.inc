@@ -234,6 +234,8 @@ PACKAGES = " \
     ${PN}-xl-examples \
     ${PN}-xm \
     ${PN}-xm-examples \
+    ${PN}-xen-access \
+    ${PN}-xen-memshare \
     "
 
 PROVIDES =+ " \
@@ -633,6 +635,7 @@ FILES_${PN}-xen-watchdog = "\
 
 FILES_${PN}-xl = "\
     ${sysconfdir}/bash_completion.d/xl.sh \
+    ${sysconfdir}/bash_completion.d/xl \
     ${sysconfdir}/xen/xl.conf \
     ${libdir}/xen/bin/libxl-save-helper \
     ${sbindir}/xl \
@@ -642,6 +645,7 @@ FILES_${PN}-xl = "\
 FILES_${PN}-xl-examples = "\
     ${sysconfdir}/xen/xlexample.hvm \
     ${sysconfdir}/xen/xlexample.pvlinux \
+    ${sysconfdir}/xen/xlexample.pvhlinux \
     "
 
 FILES_${PN}-xm-examples = "\
@@ -692,6 +696,16 @@ FILES_${PN}-xendomains += "\
     ${sysconfdir}/sysconfig/xendomains \
     ${systemd_unitdir}/system/xendomains.service \
     "
+FILES_${PN}-xen-access += "\
+    ${sbindir}/xen-access \
+    "
+
+FILES_${PN}-xen-memshare += "\
+    ${sbindir}/xen-memshare \
+    "
+
+# memshare is only built for x86, so allow empty package for other archs
+ALLOW_EMPTY_${PN}-xen-memshare = "1"
 
 INSANE_SKIP_${PN} = "already-stripped"
 
