@@ -3,7 +3,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 PRIORITY = "optional"
 
-SRCREV_crun = "0e9229ae34caaebcb86f1fde18de3acaf18c6d9a"
+SRCREV_crun = "858ff2f605983ed420b09fd716c9c8e0cee5c174"
 SRCREV_libocispec = "ece5f6aede6488396f9c84bc985df09f95204e1d"
 SRCREV_ispec = "79b036d80240ae530a8de15e1d21c7ab9292c693"
 SRCREV_rspec = "7413a7f753e1bd9a6a9c6dc7f96f55888cbbd476"
@@ -15,7 +15,7 @@ SRC_URI = "git://github.com/containers/crun.git;branch=master;name=crun \
            git://github.com/opencontainers/image-spec.git;branch=master;name=ispec;destsuffix=git/libocispec/image-spec \
           "
 
-PV = "0.17+git${SRCREV_crun}"
+PV = "0.18+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
 inherit autotools-brokensep pkgconfig
