@@ -107,7 +107,7 @@ do_install() {
 		install -d ${D}${systemd_unitdir}/system
 		install -m 644 ${WORKDIR}/containerd.service ${D}/${systemd_unitdir}/system
 	        # adjust from /usr/local/bin to /usr/bin/
-		sed -e "s:/usr/local/bin/containerd:${bindir}/docker-containerd:g" -i ${D}/${systemd_unitdir}/system/containerd.service
+		sed -e "s:/usr/local/bin/containerd:${bindir}/containerd:g" -i ${D}/${systemd_unitdir}/system/containerd.service
 	fi
 }
 
