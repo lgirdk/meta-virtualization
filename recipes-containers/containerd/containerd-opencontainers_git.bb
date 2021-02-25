@@ -9,7 +9,6 @@ SRCREV = "33d90b72d1e44987118ac111d4f7a108d412099b"
 SRC_URI = "git://github.com/containerd/containerd;branch=release/1.4 \
            file://0001-build-use-oe-provided-GO-and-flags.patch \
            file://0001-Add-build-option-GODEBUG-1.patch \
-           file://containerd.service \
           "
 
 # Apache-2.0 for containerd
@@ -105,7 +104,7 @@ do_install() {
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
-		install -m 644 ${WORKDIR}/containerd.service ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/containerd.service ${D}/${systemd_unitdir}/system
 	        # adjust from /usr/local/bin to /usr/bin/
 		sed -e "s:/usr/local/bin/containerd:${bindir}/containerd:g" -i ${D}/${systemd_unitdir}/system/containerd.service
 	fi
