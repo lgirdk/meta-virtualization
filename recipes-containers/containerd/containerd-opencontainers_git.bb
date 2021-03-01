@@ -78,6 +78,7 @@ do_compile() {
     export CFLAGS="${CFLAGS}"
     export LDFLAGS="${LDFLAGS}"
     export SHIM_CGO_ENABLED="${CGO_ENABLED}"
+    export GO111MODULE=off
 
     cd ${S}/src/import
     oe_runmake binaries
