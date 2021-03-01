@@ -78,6 +78,7 @@ do_compile() {
 	export DOCKER_BUILDTAGS='${BUILD_TAGS} ${PACKAGECONFIG_CONFARGS}'
 
 	export DISABLE_WARN_OUTSIDE_CONTAINER=1
+	export GO111MODULE=off
 
 	cd ${S}/src/import/components/engine
 
