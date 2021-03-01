@@ -29,6 +29,7 @@ do_compile() {
 	export LDFLAGS=""
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export GO111MODULE=off
 
 	# link fixups for compilation
 	rm -f ${S}/src/import/vendor/src
