@@ -18,3 +18,6 @@ S = "${WORKDIR}/git"
 
 inherit go
 
+do_compile_prepend() {
+	export GO111MODULE=off
+}
