@@ -39,6 +39,7 @@ do_compile_prepend() {
 
     # arrange for the fetched dependencies to be found
     export GOPATH="${GOPATH}:${WORKDIR}/build/vendor/"
+    export GO111MODULE=off
 }
 
 
