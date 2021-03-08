@@ -4,10 +4,10 @@
 
 require irqbalance.inc
 
-# commit tagged as version 1.6.0
+# commit tagged as version 1.7.0
 #
-SRCREV = "b47eea84cbb93f533b0cba2f1aaf9ca4da8706b9"
-PV = "1.6.0"
+SRCREV = "641edc6f5d56f1b3eb8be0fa8a8e9b6a22e53218"
+PV = "1.7.0"
 
 SRC_URI = "git://github.com/Irqbalance/irqbalance \
            file://add-initscript.patch \
