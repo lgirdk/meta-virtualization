@@ -34,7 +34,7 @@ RDEPENDS_${PN} += "\
     libpng \
     fontconfig \
     apache2 \
-    php \
+    php-cli \
     nagios-base \
 "
 
