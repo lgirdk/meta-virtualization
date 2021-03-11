@@ -14,22 +14,21 @@ RDEPENDS_${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.13+${SRCPV}"
+PV = "2.15+${SRCPV}"
 CVE_VERSION = "2.13.0"
 
 FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3"
+SRCREV = "8dc1733eaea866dce033b3c44853e1b09bf59fc7"
 SRC_URI = "file://openvswitch-switch \
            file://openvswitch-switch-setup \
            file://openvswitch-testcontroller \
            file://openvswitch-testcontroller-setup \
-           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.13 \
+           git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.15 \
            file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
            file://run-ptest \
            file://disable_m4_check.patch \
            file://kernel_module.patch \
-           file://python-switch-remaining-scripts-to-use-python3.patch \
            file://systemd-update-tool-paths.patch \
            file://systemd-create-runtime-dirs.patch \
            file://0001-ovs-use-run-instead-of-var-run-for-in-systemd-units.patch \

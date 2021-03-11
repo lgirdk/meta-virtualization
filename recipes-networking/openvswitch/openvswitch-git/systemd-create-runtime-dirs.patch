@@ -1,6 +1,6 @@
-From 6876e0c155b7f83e1f8545446e2dd69c2b7989f2 Mon Sep 17 00:00:00 2001
+From fc540d0dee7d1f801c781905735f0f4619aba511 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
-Date: Tue, 4 Sep 2018 15:38:59 -0400
+Date: Thu, 11 Mar 2021 11:26:58 +0800
 Subject: [PATCH] systemd: create runtime dirs
 
 The recommendation would be to make use of "RuntimeDirectory=" and
@@ -11,21 +11,22 @@ directories won't exist.
 
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
- rhel/usr_lib_systemd_system_ovsdb-server.service | 1 +
- 1 file changed, 1 insertion(+)
+ rhel/usr_lib_systemd_system_ovsdb-server.service | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rhel/usr_lib_systemd_system_ovsdb-server.service b/rhel/usr_lib_systemd_system_ovsdb-server.service
-index aad557f..69b0bf6 100644
+index 5002ddf10..74e5acb7f 100644
 --- a/rhel/usr_lib_systemd_system_ovsdb-server.service
 +++ b/rhel/usr_lib_systemd_system_ovsdb-server.service
-@@ -11,6 +11,7 @@ PIDFile=/var/run/openvswitch/ovsdb-server.pid
- Restart=on-failure
- EnvironmentFile=/etc/openvswitch/default.conf
- EnvironmentFile=-/etc/sysconfig/openvswitch
+@@ -17,7 +17,7 @@ EnvironmentFile=-/run/openvswitch.useropts
+ # remove openvswitch.useropts first to reload a fresh
+ # OVS_USER_ID from default.conf or sysconfig.
+ ExecStartPre=/bin/rm -f /run/openvswitch.useropts
+-
 +ExecStartPre=-/bin/mkdir /var/run/openvswitch /var/log/openvswitch
  ExecStartPre=-/bin/chown ${OVS_USER_ID} /var/run/openvswitch /var/log/openvswitch
- ExecStartPre=/bin/sh -c 'rm -f /run/openvswitch.useropts; /bin/echo "OVS_USER_ID=${OVS_USER_ID}" > /run/openvswitch.useropts'
+ ExecStartPre=/bin/sh -c '/bin/echo "OVS_USER_ID=${OVS_USER_ID}" > /run/openvswitch.useropts'
  ExecStartPre=/bin/sh -c 'if [ "$${OVS_USER_ID/:*/}" != "root" ]; then /bin/echo "OVS_USER_OPT=--ovs-user=${OVS_USER_ID}" >> /run/openvswitch.useropts; fi'
 -- 
-2.7.4
+2.17.1
 
