@@ -83,7 +83,17 @@ RDEPENDS_${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 
 RDEPENDS_${PN}-server = "${PN}"
 RDEPENDS_${PN}-agent = "${PN}"
 
-RRECOMMENDS_${PN} = "kernel-module-xt-comment kernel-module-xt-mark kernel-module-xt-connmark kernel-module-vxlan"
+RRECOMMENDS_${PN} = "\
+                     kernel-module-xt-addrtype \
+                     kernel-module-xt-nat \
+                     kernel-module-xt-multiport \
+                     kernel-module-xt-conntrack \
+                     kernel-module-xt-comment \
+                     kernel-module-xt-mark \
+                     kernel-module-xt-connmark \
+                     kernel-module-vxlan \
+                     kernel-module-xt-masquerade \
+                     "
 
 RCONFLICTS_${PN} = "kubectl"
 
