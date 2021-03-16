@@ -40,8 +40,12 @@ do_compile() {
         export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
         export CGO_ENABLED="1"
         export GOFLAGS="-mod=vendor"
+
+        TAGS="static_build ctrd no_btrfs netcgo osusergo providerless"
+
         cd ${S}/src/import
-        ${GO} build -tags providerless -ldflags "${GO_BUILD_LDFLAGS}" -o ./dist/artifacts/k3s ./cmd/server/main.go
+        ${GO} build -tags "$TAGS" -ldflags "${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
+
         # Use UPX if it is enabled (and thus exists) to compress binary
         if command -v upx > /dev/null 2>&1; then
                 upx -9 ./dist/artifacts/k3s
