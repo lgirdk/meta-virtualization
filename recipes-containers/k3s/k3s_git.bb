@@ -33,6 +33,9 @@ GO_BUILD_LDFLAGS = "-X github.com/rancher/k3s/pkg/version.Version=${PV} \
                    "
 BIN_PREFIX ?= "${exec_prefix}/local"
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 do_compile() {
         export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
         export CGO_ENABLED="1"
