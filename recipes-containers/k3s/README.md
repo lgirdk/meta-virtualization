@@ -25,7 +25,6 @@ The convenience script `k3s-agent` can be used to set up a k3s agent (service):
 ```shell
 k3s-agent -t <token> -s https://<master>:6443
 ```
-
 (Here `<token>` is found in `/var/lib/rancher/k3s/server/node-token` at the
 k3s master.)
 
@@ -34,20 +33,53 @@ Example:
 k3s-agent -t /var/lib/rancher/k3s/server/node-token -s https://localhost:6443
 ```
 
+If you are running an all in one node (both the server and agent) for testing
+purposes, do not run the above script. It will perform cleanup and break flannel
+networking on your host.
+
+Instead, run the following (note the space between 'k3s' and 'agent'):
+
+```shell
+k3s agent -t /var/lib/rancher/k3s/server/token --server http://localhost:6443/
+```
+
 ## Notes:
 
-if running under qemu, the default of 256M of memory is not enough, k3s will
-OOM and exit.
+Memory:
 
-Boot with qemuparams="-m 2048" to boot with 2G of memory (or choose the
-appropriate amount for your configuration)
+  if running under qemu, the default of 256M of memory is not enough, k3s will
+  OOM and exit.
 
-Disk: if using qemu and core-image* you'll need to add extra space in your disks
-to ensure containers can start. The following in your image recipe, or local.conf
-would add 2G of extra space to the rootfs:
+  Boot with qemuparams="-m 2048" to boot with 2G of memory (or choose the
+  appropriate amount for your configuration)
+
+Disk:
+
+  if using qemu and core-image* you'll need to add extra space in your disks
+  to ensure containers can start. The following in your image recipe, or
+  local.conf would add 2G of extra space to the rootfs:
 
 ```shell
 IMAGE_ROOTFS_EXTRA_SPACE = "2097152"
+```
+
+## Example qemux86-64 boot line:
+
+```shell
+runqemu qemux86-64 nographic kvm slirp qemuparams="-m 2048"
+```
+
+k3s logs can be seen via:
+
+
+```shell
+% journalctl -u k3s
+```
+
+or
+
+```shell
+% journalctl -xe
 ```
 
 ## Example output from qemux86-64 running k3s server:
@@ -56,7 +88,6 @@ IMAGE_ROOTFS_EXTRA_SPACE = "2097152"
 root@qemux86-64:~# kubectl get nodes
 NAME         STATUS   ROLES    AGE   VERSION
 qemux86-64   Ready    master   46s   v1.18.9-k3s1
-
 
 root@qemux86-64:~# kubectl get pods -n kube-system
 NAME                                     READY   STATUS      RESTARTS   AGE
@@ -234,5 +265,4 @@ Events:
   Normal   NodeHasNoDiskPressure    10m (x2 over 10m)  kubelet     Node qemux86-64 status is now: NodeHasNoDiskPressure
   Normal   NodeHasSufficientPID     10m (x2 over 10m)  kubelet     Node qemux86-64 status is now: NodeHasSufficientPID
   Normal   NodeReady                10m                kubelet     Node qemux86-64 status is now: NodeReady
-
-```shell
+```
