@@ -11,7 +11,7 @@ DEPENDS = "libvirt libcheck bison fuse byacc-native"
 SRC_URI = "git://github.com/libvmi/libvmi.git \
 "
 
-SRCREV = "6934e8a4758018983ec53ec791dd14a7d6ac31a9"
+SRCREV = "e8c2061d11c42e5868cbf48229f59b5e7071395a"
 
 S = "${WORKDIR}/git"
 
@@ -29,6 +29,7 @@ FILES_${PN}-dev = "${includedir} ${libdir}/${BPN}.so ${libdir}/*.la \
 
 PACKAGECONFIG ??= "json-c"
 PACKAGECONFIG[xen] = "--enable-xen,--disable-xen,xen,"
+PACKAGECONFIG[kvm] = "--disable-kvm-legacy,--enable-kvm-legacy,kvm,"
 PACKAGECONFIG[json-c] = ",,json-c,"
 
 # We include a sample conf file to which we have added
