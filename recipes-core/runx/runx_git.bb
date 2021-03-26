@@ -2,7 +2,7 @@ HOMEPAGE = "https://github.com/lf-edge/runx"
 SUMMARY = "runx stuff"
 DESCRIPTION = "Xen Runtime for OCI"
 
-SRCREV_runx = "f24efd33fb18469e9cfe4d1bfe8e2c90ec8c4e93"
+SRCREV_runx = "edc9350a79ede0365066c9743080e3dc6430d602"
 
 KERNEL_SRC_VER="linux-5.4"
 KERNEL_URL_VER="v5.x"
@@ -11,13 +11,9 @@ SRC_URI = "\
 	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
           https://www.kernel.org/pub/linux/kernel/${KERNEL_URL_VER}/${KERNEL_SRC_VER}.tar.xz;destsuffix=git/kernel/build \
           file://0001-make-kernel-cross-compilation-tweaks.patch \
-          file://0001-make-initrd-cross-install-tweaks.patch \
-          file://0001-runX-add-bounded-looping-timeout.patch \
+          file://0001-make-kernel-bump-to-v5.4.104-for-gcc10-fixes.patch \
+          file://0001-make-initrd-allow-externally-provided-busybox.patch \
 	  "
-
-SRC_URI += "file://0001-Add-busybox-cross-build-for-arm64.patch \
-            file://0002-don-t-call-busybox-install.patch \
-           "
 
 SRC_URI[md5sum] = "ce9b2d974d27408a61c53a30d3f98fb9"
 SRC_URI[sha256sum] = "bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491"
@@ -26,7 +22,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=945fc9aa694796a6337395cc291ddd8c"
 
 S = "${WORKDIR}/git"
-PV = "0.1-git${SRCREV_runx}"
+PV = "v1.0-git${SRCREV_runx}"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "vmsep"
@@ -42,6 +38,7 @@ DEPENDS += "resolvconf"
 
 # for the kernel build phase
 DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-native"
+DEPENDS += "elfutils-native"
 DEPENDS += "qemu-native bison-native"
 
 RDEPENDS_${PN} += " jq bash"
@@ -91,6 +88,7 @@ do_compile() {
         cp ${STAGING_DIR_HOST}/bin/busybox.nosuid ${WORKDIR}/busybox
         export QEMU_USER="`which qemu-${HOST_ARCH}` -L ${STAGING_BASELIBDIR}/.."
         export BUSYBOX="${WORKDIR}/busybox"
+        export busybox="${WORKDIR}/busybox"
         export CROSS_COMPILE="${TARGET_PREFIX}"
     else
         bbnote "runx: using internal busybox"
