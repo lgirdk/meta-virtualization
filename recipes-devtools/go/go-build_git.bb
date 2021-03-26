@@ -44,6 +44,7 @@ do_compile() {
     export CC="${CC}"
     export LD="${LD}"
     export GOBIN=""
+    export GO111MODULE=off
 
     oe_runmake GO=${GO}
 }
