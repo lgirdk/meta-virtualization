@@ -13,3 +13,5 @@ SRC_URI[md5sum] = "fb8b77d4ac10a971570419dd3613196e"
 SRC_URI[sha256sum] = "4856c8cb4150b900cc7dccbdf16f542fb8c12e97b17639979e58760847f7cf35"
 
 inherit pypi setuptools3
+
+RDEPENDS_${PN} += "python3-botocore python3-urllib3 python3-unixadmin"
