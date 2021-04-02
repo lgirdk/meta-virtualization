@@ -4,6 +4,10 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit packagegroup
 
+# k3s has this restriction
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 PACKAGES = "\
     packagegroup-kubernetes-base \
     packagegroup-k8s-host \
