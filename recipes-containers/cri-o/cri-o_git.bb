@@ -43,21 +43,7 @@ RDEPENDS_${PN} = " \
     libdevmapper \
     "
 
-python __anonymous() {
-    msg = ""
-    # ERROR: Nothing PROVIDES 'libseccomp' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
-    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
-    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'libseccomp']
-    if 'security' not in d.getVar('BBFILE_COLLECTIONS').split():
-        msg += "Make sure meta-security should be present as it provides 'libseccomp'"
-        raise bb.parse.SkipRecipe(msg)
-    # ERROR: Nothing PROVIDES 'libselinux' (but /buildarea/layers/meta-virtualization/recipes-containers/cri-o/cri-o_git.bb DEPENDS on or otherwise requires it).
-    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
-    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'cri-o', 'libselinux']
-    elif 'selinux' not in d.getVar('BBFILE_COLLECTIONS').split():
-        msg += "Make sure meta-selinux should be present as it provides 'libselinux'"
-        raise bb.parse.SkipRecipe(msg)
-}
+PNBLACKLIST[cri-o] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'security', bb.utils.contains('BBFILE_COLLECTIONS', 'selinux', '', 'Depends on libselinux from meta-selinux which is not included', d), 'Depends on libseccomp from meta-security which is not included', d)}"
 
 PACKAGES =+ "${PN}-config"
 

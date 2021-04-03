@@ -44,12 +44,4 @@ RDEPENDS_packagegroup-containerd = " \
     virtual/containerd \
 "
 
-python __anonymous() {
-    msg = ""
-    # ERROR: Nothing PROVIDES 'libseccomp' (but meta-virtualization/recipes-containers/podman/ DEPENDS on or otherwise requires it).
-    # ERROR: Required build target 'meta-world-pkgdata' has no buildable providers.
-    # Missing or unbuildable dependency chain was: ['meta-world-pkgdata', 'podman', 'libseccomp']
-    if 'security' not in d.getVar('BBFILE_COLLECTIONS').split():
-        msg += "Make sure meta-security should be present as it provides 'libseccomp'"
-        raise bb.parse.SkipRecipe(msg)
-}
+PNBLACKLIST[packagegroup-container] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'security', '', 'Depends on podman which depends on libseccomp from meta-security which is not included', d)}"
