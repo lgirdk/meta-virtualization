@@ -27,12 +27,16 @@ EXTRA_OEMAKE = " \
     ISOLINUX_BIN="${STAGING_DIR_TARGET}/usr/share/syslinux/isolinux.bin" \
     CROSS_COMPILE="${TARGET_PREFIX}" \
     EXTRA_HOST_CFLAGS="${BUILD_CFLAGS}" \
-    EXTRA_HOST_LDFLAGS="${BUILD_LDFLAGS}""
+    EXTRA_HOST_LDFLAGS="${BUILD_LDFLAGS}" \
+"
 
 S = "${WORKDIR}/git/src"
 
 do_compile() {
-   oe_runmake
+    # Makefile.housekeeping:111: GNU gold is unsuitable for building iPXE
+    # Makefile.housekeeping:112: Use GNU ld instead
+    sed -i 's#\(^LD.*$(CROSS_COMPILE)ld\)$#\1.bfd#g' -i ${S}/Makefile
+    oe_runmake
 }
 
 do_install() {
