@@ -4,6 +4,9 @@ LICENSE = "GPLv2"
 DEPENDS = "binutils-native perl-native syslinux mtools-native cdrtools-native xz"
 LIC_FILES_CHKSUM = "file://../COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
+# syslinux has this restriction
+COMPATIBLE_HOST_class-target = '(x86_64|i.86).*-(linux|freebsd.*)'
+
 SRCREV = "18dc73d27edb55ebe9cb13c58d59af3da3bd374b"
 PV = "gitr${SRCPV}"
 PR = "r0"
