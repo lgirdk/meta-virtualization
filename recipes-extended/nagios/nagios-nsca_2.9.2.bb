@@ -22,6 +22,8 @@ S = "${WORKDIR}/${SRCNAME}-${PV}"
 
 inherit update-rc.d autotools-brokensep systemd dos2unix
 
+PNBLACKLIST[nagios-nsca] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Rdepends on nagios-base provided by nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
+
 DEPENDS = "libmcrypt"
 
 EXTRA_OECONF += "--with-nsca-user=${NAGIOS_USER} \

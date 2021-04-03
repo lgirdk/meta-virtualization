@@ -38,6 +38,8 @@ RDEPENDS_${PN} += "\
     nagios-base \
 "
 
+PNBLACKLIST[nagios-core] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on apache2 from meta-webserver which is not included', d)}"
+
 acpaths = "-I ${S}/autoconf-macros"
 
 # Set default password for the hardcoded Nagios admin user "nagiosadmin".
