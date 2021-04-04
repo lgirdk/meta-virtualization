@@ -10,10 +10,11 @@ SRC_URI = "git://github.com/lkundrak/${BPN}.git;protocol=https"
 S = "${WORKDIR}/git"
 
 BBCLASSEXTEND = "native"
-EXTRA_OEMAKE = "VERSION=${PV} PREFIX=${prefix} DIST=${D}"
+EXTRA_OEMAKE = "VERSION=${PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}'"
 
 do_compile() {
-
+	# ${S}/Makefile does respect LDFLAGS, but ${S}/cpp/Makefile doesn't when building bcc-cpp
+	sed -i 's#$(CC) $(CFLAGS) -o bcc-cpp#$(CC) $(CFLAGS) $(LDFLAGS) -o bcc-cpp#g' ${S}/cpp/Makefile
 	oe_runmake make.fil
 	oe_runmake -f make.fil bcc86 as86 ld86
 
