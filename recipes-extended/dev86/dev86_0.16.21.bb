@@ -3,14 +3,11 @@ HOMEPAGE = "http://www.debath.co.uk/dev86/"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 SECTION = "console/tools"
-PR="r0"
 
-SRC_URI="https://github.com/lkundrak/dev86/archive/v${PV}.tar.gz"
+SRCREV = "c6f36cbafa979710b809f117562773dbd6825918"
+SRC_URI = "git://github.com/lkundrak/${BPN}.git;protocol=https"
 
-SRC_URI[md5sum] = "288af53f256300777efc91d97c082fda"
-SRC_URI[sha256sum] = "533f2a0d2ed61223040f27e5cd007a11d969aaf34f6b709ece122b1e6fc50580"
-
-S = "${WORKDIR}/dev86-${PV}"
+S = "${WORKDIR}/git"
 
 BBCLASSEXTEND = "native"
 EXTRA_OEMAKE = "VERSION=${PV} PREFIX=${prefix} DIST=${D}"
