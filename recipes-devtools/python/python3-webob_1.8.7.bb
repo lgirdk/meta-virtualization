@@ -6,8 +6,7 @@ LIC_FILES_CHKSUM = "file://docs/license.txt;md5=8ed3584bcc78c16da363747ccabc5af5
 
 PYPI_PACKAGE = "WebOb"
 
-SRC_URI[md5sum] = "1761f416e8cf53f6fb674149cc223bd1"
-SRC_URI[sha256sum] = "05aaab7975e0ee8af2026325d656e5ce14a71f1883c52276181821d6d5bf7086"
+SRC_URI[sha256sum] = "b64ef5141be559cfade448f044fa45c2260351edcb6a8ef6b7e00c7dcef0c323"
 
 inherit setuptools3 pypi
 
