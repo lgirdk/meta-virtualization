@@ -8,8 +8,7 @@ SECTION = "devel/python"
 LICENSE = "BSD-3-Clause & MIT & Python-2.0 & BSD-2-Clause & NewRelic"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2b42edef8fa55315f34f2370b4715ca9"
 
-SRC_URI[md5sum] = "0acf701c37ceb590e2a12d358ced16d7"
-SRC_URI[sha256sum] = "e96689fc75eb2b1591903ad9e74225f5e1da734afcd3151d318c53f6635b5dda"
+SRC_URI[sha256sum] = "3dec4647de67609570c4e305f2b6432a00e0a0940a7ac69660ee92268b49d6e7"
 
 inherit pypi setuptools3
 
