@@ -5,8 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=fd0120fc2e9f841c73ac707a30389af5"
 
 inherit pypi setuptools3
 
-SRC_URI[md5sum] = "b130f3e1c3442d21c1a0c9ae17776f4e"
-SRC_URI[sha256sum] = "fba9c46340e3d690ad5a9d0dbf06677cd91425de3afa7e9c0c187298ee4ddd0d"
+SRC_URI[sha256sum] = "7f36f4ba2c0d81d219f4595e35f70d56cc94f9ac40a6acdf51d6ca210ce65035"
 
 RDEPENDS_${PN} += " \
     python3-bcrypt \
