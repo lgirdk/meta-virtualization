@@ -8,10 +8,9 @@ DESCRIPTION = "\
   "
 SECTION = "devel/python"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://PKG-INFO;md5=3bc101ebc0815bd849021892cd333dd4"
+LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=8;endline=8;md5=8227180126797a0148f94f483f3e1489"
 
-SRC_URI[md5sum] = "93443091b052130cfe1daf7595249f9f"
-SRC_URI[sha256sum] = "8878437aa44ec485cecb255742035b3b98a6c7e7d167a943b5fbe597b2f8f7f9"
+SRC_URI[sha256sum] = "7a49dacf055a8c6dda4ce714acd91fabe9546f1ad826276918a26603a8b5489a"
 
 inherit pypi setuptools3
 
