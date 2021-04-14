@@ -11,7 +11,6 @@ DEPENDS += "python3-six python3-flask"
 
 PYPI_PACKAGE = "Flask-Cors"
 
-SRC_URI[md5sum] = "551cc4c0305a171d28caa2b3bc838867"
-SRC_URI[sha256sum] = "72170423eb4612f0847318afff8c247b38bd516b7737adfc10d1c2cdbb382d16"
+SRC_URI[sha256sum] = "b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"
 
 inherit pypi setuptools3
