@@ -7,4 +7,5 @@ SRC_URI += " \
 	    file://mount-cifs.cfg \
 	    file://ps-extras.cfg \
 	    file://getopt.cfg \
+	    file://nsenter.cfg \
            "
