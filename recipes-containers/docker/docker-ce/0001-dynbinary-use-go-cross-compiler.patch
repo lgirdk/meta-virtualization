@@ -8,19 +8,16 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  hack/make/.binary | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/import/components/engine/hack/make/.binary b/src/import/components/engine/hack/make/.binary
-index 53de6749e5..47ab2a754f 100644
---- a/src/import/components/engine/hack/make/.binary
-+++ b/src/import/components/engine/hack/make/.binary
-@@ -81,7 +81,7 @@ esac
+Index: git/src/import/components/engine/hack/make/.binary
+===================================================================
+--- git.orig/src/import/components/engine/hack/make/.binary
++++ git/src/import/components/engine/hack/make/.binary
+@@ -81,7 +81,7 @@
  
- echo "Building: $DEST/$BINARY_FULLNAME"
- echo "GOOS=\"${GOOS}\" GOARCH=\"${GOARCH}\" GOARM=\"${GOARM}\""
--go build \
-+${GO} build \
- 	-o "$DEST/$BINARY_FULLNAME" \
- 	"${BUILDFLAGS[@]}" \
- 	-ldflags "
--- 
-2.19.1
-
+ 	echo "Building: $DEST/$BINARY_FULLNAME"
+ 	echo "GOOS=\"${GOOS}\" GOARCH=\"${GOARCH}\" GOARM=\"${GOARM}\""
+-	go build \
++	${GO} build \
+ 		-o "$DEST/$BINARY_FULLNAME" \
+ 		"${BUILDFLAGS[@]}" \
+ 		-ldflags "
