@@ -35,16 +35,16 @@ DESCRIPTION = "Linux container runtime \
 #     to a docker.inc recipe
 
 # moby commit matches the docker-engine bump on the 19.03 branch'
-SRCREV_moby = "11ecfe8a81b7040738333f777681e55e2a867160"
+SRCREV_moby = "8728dd246c3ab53105434eef8ffe997b6fd14dc6"
 SRCREV_libnetwork = "b3507428be5b458cb0e2b4086b13531fb0706e46"
-SRCREV_cli = "41b3ea7e472c504c1b7fe8e3347d329ab97b8112"
+SRCREV_cli = "370c28948e3c12dce3d1df60b6f184990618553f"
 SRC_URI = "\
 	git://github.com/moby/moby.git;branch=20.10;name=moby \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
 	git://github.com/docker/cli;branch=20.10;name=cli;destsuffix=git/cli \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
-        file://0001-cli-use-go-cross-compiler.patch \
+        file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
         file://0001-dynbinary-use-go-cross-compiler.patch \
 	"
 
@@ -58,7 +58,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "20.10.3"
+DOCKER_VERSION = "20.10.6"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 PACKAGES =+ "${PN}-contrib"
