@@ -13,15 +13,13 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "c703e3fd8404e506cc6156719b953ea0580d59a4"
-PV = "3.13+git${SRCPV}"
+SRCREV = "e49ce513c8df43e8d3b30b7acfbe7bd496d89862"
+PV = "3.14+git${SRCPV}"
 
-SRC_URI = "git://github.com/checkpoint-restore/criu.git \
-           file://0001-criu-Fix-toolchain-hardcode.patch \
+SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=criu-dev \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \
            file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
-           file://0001-criu-fix-build-failure-against-gcc-10.patch \
           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
