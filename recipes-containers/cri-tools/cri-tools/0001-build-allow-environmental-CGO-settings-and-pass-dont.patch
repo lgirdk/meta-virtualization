@@ -33,20 +33,17 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  src/import/Makefile | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index acf0fc0..130988c 100644
---- a/src/import/Makefile
-+++ b/src/import/Makefile
-@@ -63,7 +63,8 @@ critest:
- 	     $(PROJECT)/cmd/critest
+Index: cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54/src/import/Makefile
+===================================================================
+--- cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54.orig/src/import/Makefile
++++ cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54/src/import/Makefile
+@@ -73,7 +73,8 @@
+ 	@$(MAKE) -B $(CRICTL)
  
- crictl:
--	CGO_ENABLED=0 $(GO_BUILD) -o $(CURDIR)/_output/crictl$(BIN_EXT) \
-+	$(GO_BUILD) -o $(CURDIR)/_output/crictl$(BIN_EXT) \
+ $(CRICTL):
+-	CGO_ENABLED=0 $(GO_BUILD) -o $@ \
++	$(GO_BUILD) -o $@ \
 +		-a -pkgdir dontusecurrentpkgs \
  		-ldflags '$(GO_LDFLAGS)' \
  		-tags '$(BUILDTAGS)' \
  		$(PROJECT)/cmd/crictl
--- 
-2.19.1
-
