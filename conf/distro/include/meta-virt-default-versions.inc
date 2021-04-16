@@ -1,3 +1,4 @@
 # Meta-virtuailization PREFERED_VERSION
 
-# placeholder for preferred versions
+PREFERRED_VERSION_xen ?= "4.14+stable%"
+PREFERRED_VERSION_xen-tools ?= "4.14+stable%"
