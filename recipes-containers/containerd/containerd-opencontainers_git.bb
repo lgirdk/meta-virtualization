@@ -5,8 +5,8 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
                support as well as checkpoint and restore for cloning and live migration of containers."
 
 
-SRCREV = "33d90b72d1e44987118ac111d4f7a108d412099b"
-SRC_URI = "git://github.com/containerd/containerd;branch=release/1.4 \
+SRCREV = "6ef0d383e360e1c13be75656df83612bda0775fe"
+SRC_URI = "git://github.com/containerd/containerd;branch=master \
            file://0001-build-use-oe-provided-GO-and-flags.patch \
            file://0001-Add-build-option-GODEBUG-1.patch \
           "
@@ -15,7 +15,7 @@ SRC_URI = "git://github.com/containerd/containerd;branch=release/1.4 \
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=1269f40c0d099c21a871163984590d89"
 
-CONTAINERD_VERSION = "v1.4.3"
+CONTAINERD_VERSION = "v1.5.0-rc"
 
 EXTRA_OEMAKE += "GODEBUG=1"
 
@@ -53,7 +53,8 @@ do_compile() {
     for c in content timeout ttrpcutil oom stdio process errdefs fs images mount snapshots linux api runtimes defaults progress \
 		     protobuf reference diff platforms runtime remotes version archive dialer gc metadata \
 		     metrics filters identifiers labels leases plugin server services \
-		     cmd cio containers namespaces oci events log reaper sys rootfs nvidia seed apparmor seccomp; do
+		     cmd cio containers namespaces oci events log reaper sys rootfs nvidia seed apparmor seccomp \
+		     cap cri userns atomic ioutil os registrar seutil runtimeoptions netns; do
         if [ -d ${S}/src/import/${c} ]; then
 	    ln -sfn ${S}/src/import/${c} ${S}/src/import/vendor/github.com/containerd/containerd/${c}
         fi
