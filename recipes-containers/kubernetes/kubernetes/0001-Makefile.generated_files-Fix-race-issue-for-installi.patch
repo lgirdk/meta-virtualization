@@ -28,11 +28,11 @@ Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
  src/import/build/root/Makefile.generated_files | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/src/import/build/root/Makefile.generated_files b/src/import/build/root/Makefile.generated_files
-index c8cbf27..e3f1593 100644
---- a/src/import/build/root/Makefile.generated_files
-+++ b/src/import/build/root/Makefile.generated_files
-@@ -63,7 +63,9 @@ $(META_DIR)/$(GO_PKGDEPS_FILE): FORCE
+Index: kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/build/root/Makefile.generated_files
+===================================================================
+--- kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630.orig/src/import/build/root/Makefile.generated_files
++++ kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/build/root/Makefile.generated_files
+@@ -67,7 +67,9 @@
  	if [[ "$(DBG_CODEGEN)" == 1 ]]; then          \
  	    echo "DBG: calculating Go dependencies";  \
  	fi
@@ -40,9 +40,6 @@ index c8cbf27..e3f1593 100644
 +	if [ ! -e _output/local/go/bin/go2make ]; then \
 +		hack/run-in-gopath.sh go install ./hack/make-rules/helpers/go2make; \
 +	fi
- 	hack/run-in-gopath.sh go2make                     \
- 	    k8s.io/kubernetes/...                         \
- 	    --prune  k8s.io/kubernetes/staging            \
--- 
-2.26.2
-
+ 	hack/run-in-gopath.sh go2make                       \
+ 	    k8s.io/kubernetes/...                           \
+ 	    --prune  k8s.io/kubernetes/staging              \
