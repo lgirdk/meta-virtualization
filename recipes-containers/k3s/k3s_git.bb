@@ -13,9 +13,9 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.20;name=k3s \
            file://0001-Finding-host-local-in-usr-libexec.patch;patchdir=src/import \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "bc400f5396a3dd05584c5f45768a5ea6c43971d1"
+SRCREV_k3s = "8d0432824a9fd9474b67138b7630c33f285d332f"
 
-PV = "v1.20.4+k3s1"
+PV = "v1.20.6+k3s1"
 
 CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
 
