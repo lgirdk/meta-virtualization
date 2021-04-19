@@ -6,7 +6,7 @@ LICENSE = "BSD-2-Clause"
 # https://static.sched.com/hosted_files/xendeveloperanddesignsummit2017/79/xtf.pdf
 
 SRC_URI = "git://xenbits.xen.org/xtf"
-SRCREV = "8ab15139728a8efd3ebbb60beb16a958a6a93fa1"
+SRCREV = "b0bc49846c154b79243f39d461a4515804bcaf53"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux'
 
@@ -17,23 +17,6 @@ PV = "0+git${SRCPV}"
 S = "${WORKDIR}/git"
 
 inherit python3native
-
-# To build 32-bit binaries some files from 32-bit glibc are needed.
-# To enable multilib, please add the following to your local.conf -:
-#
-#    require conf/multilib.conf
-#    MULTILIBS = "multilib:lib32"
-#    DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
-
-# Use this multilib prefix for x86 32-bit to match local.conf:
-MLPREFIX32 = "lib32-"
-# Add the multilib 32-bit glibc to DEPENDS only when necessary:
-# The DEPENDS on a multilib 32-bit glibc is only added when target is x86-64
-# This x86-64 override is never intended for native use, so clear that.
-GLIBC32 = ""
-GLIBC32_x86-64 = "${MLPREFIX32}glibc"
-GLIBC32_class-native = ""
-DEPENDS += "${GLIBC32}"
 
 PACKAGES = "${PN}"
 
@@ -47,7 +30,7 @@ RDEPENDS_${PN} = " \
     "
 
 do_compile() {
-    oe_runmake CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS} -I${RECIPE_SYSROOT}/../${MLPREFIX32}recipe-sysroot/usr/include" \
+    oe_runmake CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}" \
                CPP="${CPP}" \
                OBJCOPY="${OBJCOPY}" \
                PYTHON="${PYTHON}"
