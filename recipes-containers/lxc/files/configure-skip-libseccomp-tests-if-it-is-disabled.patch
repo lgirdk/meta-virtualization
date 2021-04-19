@@ -6,6 +6,8 @@ Subject: [PATCH] configure: skip libseccomp tests if it is disabled
 Move the block checking for libseccomp api compatibility inside
 AM_COND_IF([ENABLE_SECCOMP] ... ).
 
+Upstream-Status: submitted [https://github.com/lxc/lxc/pull/3623]
+
 Signed-off-by: Eneas U de Queiroz <cotequeiroz@gmail.com>
 ---
  configure.ac | 17 ++++++++---------
