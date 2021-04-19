@@ -6,29 +6,6 @@ COMPATIBLE_HOST = 'i686-.*-linux|(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux
 inherit setuptools3 update-rc.d systemd deploy
 require xen-blktap.inc
 
-# To build hvmloader, which is needed on x86-64 targets when 'hvm' is enabled
-# in PACKAGECONFIG, to support running HVM-mode guest VMs, some files from
-# 32-bit glibc are needed.
-# Add the multilib 32-bit glibc to DEPENDS only when necessary.
-#
-# To enable multilib, please add the following to your local.conf -:
-#
-#    require conf/multilib.conf
-#    MULTILIBS = "multilib:lib32"
-#    DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
-
-# Use this multilib prefix for x86 32-bit to match local.conf:
-MLPREFIX32 = "lib32-"
-
-# The DEPENDS on a multilib 32-bit glibc is only added when target is x86-64
-# and 'hvm' is enabled in PACKAGECONFIG.
-# This x86-64 override is never intended for native use, so clear that.
-GLIBC32 = ""
-GLIBC32_x86-64 = \
-    "${@bb.utils.contains('PACKAGECONFIG', 'hvm', '${MLPREFIX32}glibc', '', d)}"
-GLIBC32_class-native = ""
-DEPENDS += "${GLIBC32}"
-
 RDEPENDS_${PN} = "\
     bash perl xz \
     ${PN}-console \
@@ -736,16 +713,6 @@ SYSTEMD_SERVICE_${PN}-xencommons = " \
     "
 SYSTEMD_SERVICE_${PN}-xendomains = "xendomains.service"
 
-# To build hvmloader, which is needed on x86-64 targets when 'hvm' is enabled
-# in PACKAGECONFIG, additional CFLAGS are needed to set the 32-bit sysroot.
-RECIPE_SYSROOT32 = "${WORKDIR}/${MLPREFIX32}recipe-sysroot"
-ADD_SYSROOT32_CFLAGS = ""
-ADD_SYSROOT32_CFLAGS_x86-64 = \
-    "${@bb.utils.contains('PACKAGECONFIG', 'hvm', \
-        'CFLAGS += "--sysroot=${RECIPE_SYSROOT32}"', '', d)}"
-# This x86-64 override is never intended for native use, so clear that.
-ADD_SYSROOT32_CFLAGS_class-native = ""
-
 EXTRA_OECONF += " \
     --with-systemd=${systemd_unitdir}/system \
     --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \
@@ -756,10 +723,6 @@ EXTRA_OECONF += " \
 
 do_configure() {
     do_configure_common
-
-    if [ -n '${ADD_SYSROOT32_CFLAGS}' ] ; then
-        echo '${ADD_SYSROOT32_CFLAGS}' >>"${S}/tools/firmware/Rules.mk"
-    fi
 }
 
 do_compile() {
