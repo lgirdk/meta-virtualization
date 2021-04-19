@@ -1,0 +1,178 @@
+From 73b13705af7c3bb8fdf11932eb68788d090a443f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Date: Thu, 4 Mar 2021 16:49:00 +0100
+Subject: [PATCH] firmware: provide a stand alone set of headers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The current build of the firmware relies on having 32bit compatible
+headers installed in order to build some of the 32bit firmware.
+Usually this can be solved by using the -ffreestanding compiler option
+which drops the usage of the system headers in favor of a private set
+of freestanding headers provided by the compiler itself that are not
+tied to libc.
+
+However such option is broken at least in the gcc compiler provided in
+Alpine Linux, as the system include path (ie: /usr/include) takes
+precedence over the gcc private include path:
+
+#include <...> search starts here:
+ /usr/include
+ /usr/lib/gcc/x86_64-alpine-linux-musl/10.2.1/include
+
+And the headers in /usr/include are exclusively 64bit.
+
+Since -ffreestanding is currently broken on at least that distro, and
+for resilience against future compilers also having the option broken
+provide a set of stand alone 32bit headers required for the firmware
+build.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+Applied to Xen 4.14 by: Christopher Clark <christopher.w.clark@gmail.com>
+---
+ tools/firmware/Rules.mk                       | 13 +++++++
+ tools/firmware/include/stdarg.h               | 10 +++++
+ tools/firmware/include/stdbool.h              |  9 +++++
+ tools/firmware/include/stddef.h               | 10 +++++
+ tools/firmware/include/stdint.h               | 39 +++++++++++++++++++
+ tools/firmware/rombios/32bit/rombios_compat.h |  4 +-
+ 6 files changed, 82 insertions(+), 3 deletions(-)
+ create mode 100644 tools/firmware/include/stdarg.h
+ create mode 100644 tools/firmware/include/stdbool.h
+ create mode 100644 tools/firmware/include/stddef.h
+ create mode 100644 tools/firmware/include/stdint.h
+
+diff --git a/tools/firmware/include/stdarg.h b/tools/firmware/include/stdarg.h
+new file mode 100644
+index 0000000000..c5e3761cd2
+--- /dev/null
++++ b/tools/firmware/include/stdarg.h
+@@ -0,0 +1,10 @@
++#ifndef _STDARG_H_
++#define _STDARG_H_
++
++typedef __builtin_va_list va_list;
++#define va_copy(dest, src) __builtin_va_copy(dest, src)
++#define va_start(ap, last) __builtin_va_start(ap, last)
++#define va_end(ap) __builtin_va_end(ap)
++#define va_arg __builtin_va_arg
++
++#endif
+diff --git a/tools/firmware/include/stdbool.h b/tools/firmware/include/stdbool.h
+new file mode 100644
+index 0000000000..0cf76b106c
+--- /dev/null
++++ b/tools/firmware/include/stdbool.h
+@@ -0,0 +1,9 @@
++#ifndef _STDBOOL_H_
++#define _STDBOOL_H_
++
++#define bool _Bool
++#define true 1
++#define false 0
++#define __bool_true_false_are_defined 1
++
++#endif
+diff --git a/tools/firmware/include/stddef.h b/tools/firmware/include/stddef.h
+new file mode 100644
+index 0000000000..c7f974608a
+--- /dev/null
++++ b/tools/firmware/include/stddef.h
+@@ -0,0 +1,10 @@
++#ifndef _STDDEF_H_
++#define _STDDEF_H_
++
++typedef __SIZE_TYPE__ size_t;
++
++#define NULL ((void*)0)
++
++#define offsetof(t, m) __builtin_offsetof(t, m)
++
++#endif
+diff --git a/tools/firmware/include/stdint.h b/tools/firmware/include/stdint.h
+new file mode 100644
+index 0000000000..16a0b6de19
+--- /dev/null
++++ b/tools/firmware/include/stdint.h
+@@ -0,0 +1,39 @@
++#ifndef _STDINT_H_
++#define _STDINT_H_
++
++#if defined(__LP64__) || defined(__P64__)
++#error "32bit only header"
++#endif
++
++typedef unsigned char uint8_t;
++typedef signed char int8_t;
++
++typedef unsigned short uint16_t;
++typedef signed short int16_t;
++
++typedef unsigned int uint32_t;
++typedef signed int int32_t;
++
++typedef unsigned long long uint64_t;
++typedef signed long long int64_t;
++
++#define INT8_MIN        (-0x7f-1)
++#define INT16_MIN       (-0x7fff-1)
++#define INT32_MIN       (-0x7fffffff-1)
++#define INT64_MIN       (-0x7fffffffffffffffll-1)
++
++#define INT8_MAX        0x7f
++#define INT16_MAX       0x7fff
++#define INT32_MAX       0x7fffffff
++#define INT64_MAX       0x7fffffffffffffffll
++
++#define UINT8_MAX       0xff
++#define UINT16_MAX      0xffff
++#define UINT32_MAX      0xffffffffu
++#define UINT64_MAX      0xffffffffffffffffull
++
++typedef uint32_t uintptr_t;
++
++#define UINTPTR_MAX     UINT32_MAX
++
++#endif
+diff --git a/tools/firmware/rombios/32bit/rombios_compat.h b/tools/firmware/rombios/32bit/rombios_compat.h
+index 3fe7d67721..8ba4c17ffd 100644
+--- a/tools/firmware/rombios/32bit/rombios_compat.h
++++ b/tools/firmware/rombios/32bit/rombios_compat.h
+@@ -8,9 +8,7 @@
+ 
+ #define ADDR_FROM_SEG_OFF(seg, off)  (void *)((((uint32_t)(seg)) << 4) + (off))
+ 
+-typedef unsigned char uint8_t;
+-typedef unsigned short int uint16_t;
+-typedef unsigned int uint32_t;
++#include <stdint.h>
+ 
+ typedef uint8_t  Bit8u;
+ typedef uint16_t Bit16u;
+diff --git a/tools/firmware/Rules.mk b/tools/firmware/Rules.mk
+index 26bbddccd4..cb388b7011 100644
+--- a/tools/firmware/Rules.mk
++++ b/tools/firmware/Rules.mk
+@@ -17,3 +17,16 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ 
+ # Extra CFLAGS suitable for an embedded type of environment.
+ CFLAGS += -fno-builtin -msoft-float
++
++# Use our own set of stand alone headers to build firmware.
++#
++# Ideally using -ffreestanding should be enough, but that relies on the
++# compiler having the right order for include paths (ie: compiler private
++# headers before system ones) or the libc headers having proper arch-agnostic
++# freestanding support. This is not the case in Alpine at least which searches
++# system headers before compiler ones and has arch-specific libc headers. This
++# has been reported upstream:
++# https://gitlab.alpinelinux.org/alpine/aports/-/issues/12477
++# In the meantime (and for resilience against broken systems) use our own set
++# of headers that provide what's needed for the firmware build.
++CFLAGS += -nostdinc -I$(XEN_ROOT)/tools/firmware/include
+-- 
+2.25.1
+
