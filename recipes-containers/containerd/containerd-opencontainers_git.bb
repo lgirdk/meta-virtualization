@@ -9,6 +9,7 @@ SRCREV = "33d90b72d1e44987118ac111d4f7a108d412099b"
 SRC_URI = "git://github.com/containerd/containerd;branch=release/1.4 \
            file://0001-build-use-oe-provided-GO-and-flags.patch \
            file://0001-Add-build-option-GODEBUG-1.patch \
+           file://CVE-2021-3121.patch \
           "
 
 # Apache-2.0 for containerd
