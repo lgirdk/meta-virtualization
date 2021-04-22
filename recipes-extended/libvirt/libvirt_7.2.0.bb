@@ -1,7 +1,6 @@
 DESCRIPTION = "A toolkit to interact with the virtualization capabilities of recent versions of Linux." 
 HOMEPAGE = "http://libvirt.org"
 LICENSE = "LGPLv2.1+ & GPLv2+"
-LICENSE_${PN}-ptest = "GPLv2+ & LGPLv2.1+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING.LESSER;md5=4b54a1fd55a448865a0b32d41598759d"
 SECTION = "console/tools"
@@ -16,9 +15,7 @@ DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux
 #
 RDEPENDS_${PN} = "gettext-runtime"
 
-RDEPENDS_${PN}-ptest += "make gawk perl bash"
-
-RDEPENDS_libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd"
+RDEPENDS_libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd ebtables"
 RDEPENDS_libvirt-libvirtd_append_x86-64 = " dmidecode"
 RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 
@@ -26,88 +23,33 @@ RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
 RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
-           file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
            file://libvirtd.sh \
            file://libvirtd.conf \
            file://dnsmasq.conf \
-           file://runptest.patch \
-           file://run-ptest \
-           file://libvirt-use-pkg-config-to-locate-libcap.patch \
-           file://0001-to-fix-build-error.patch \
-           file://install-missing-file.patch \
-           file://0001-ptest-Remove-Windows-1252-check-from-esxutilstest.patch \
-           file://configure.ac-search-for-rpc-rpc.h-in-the-sysroot.patch \
-           file://0001-build-drop-unnecessary-libgnu.la-reference.patch \
            file://hook_support.py \
            file://gnutls-helper.py \
           "
 
-SRC_URI[libvirt.md5sum] = "1bd4435f77924f5ec9928b538daf4a02"
-SRC_URI[libvirt.sha256sum] = "74069438d34082336e99a88146349e21130552b96efc3b7c562f6878127996f5"
+SRC_URI[libvirt.md5sum] = "92044b629216e44adce63224970a54a3"
+SRC_URI[libvirt.sha256sum] = "01f459d0c7ba5009622a628dba1a026200e8f4a299fea783b936a71d7e0ed1d0"
 
-inherit autotools gettext update-rc.d pkgconfig ptest systemd useradd perlnative
+inherit meson gettext update-rc.d pkgconfig systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "-r qemu; -r kvm"
 USERADD_PARAM_${PN} = "-r -g qemu -G kvm qemu"
 
-# Override the default set in autotools.bbclass so that we will use relative pathnames
-# to our local m4 files.  This prevents an "Argument list too long" error during configuration
-# if our project is in a directory with an absolute pathname of more than about 125 characters.
-#
-acpaths = "-I ./m4"
 
-CACHED_CONFIGUREVARS += "\
-ac_cv_path_XMLCATLOG=/usr/bin/xmlcatalog \
-ac_cv_path_AUGPARSE=/usr/bin/augparse \
-ac_cv_path_DMIDECODE=/usr/sbin/dmidecode \
-ac_cv_path_DNSMASQ=/usr/bin/dnsmasq \
-ac_cv_path_BRCTL=/usr/sbin/brctl \
-ac_cv_path_TC=/sbin/tc \
-ac_cv_path_UDEVADM=/sbin/udevadm \
-ac_cv_path_MODPROBE=/sbin/modprobe \
-ac_cv_path_IP_PATH=/bin/ip \
-ac_cv_path_IPTABLES_PATH=/usr/sbin/iptables \
-ac_cv_path_IP6TABLES_PATH=/usr/sbin/ip6tables \
-ac_cv_path_MOUNT=/bin/mount \
-ac_cv_path_UMOUNT=/bin/umount \
-ac_cv_path_MKFS=/usr/sbin/mkfs \
-ac_cv_path_SHOWMOUNT=/usr/sbin/showmount \
-ac_cv_path_PVCREATE=/usr/sbin/pvcreate \
-ac_cv_path_VGCREATE=/usr/sbin/vgcreate \
-ac_cv_path_LVCREATE=/usr/sbin/lvcreate \
-ac_cv_path_PVREMOVE=/usr/sbin/pvremove \
-ac_cv_path_VGREMOVE=/usr/sbin/vgremove \
-ac_cv_path_LVREMOVE=/usr/sbin/lvremove \
-ac_cv_path_LVCHANGE=/usr/sbin/lvchange \
-ac_cv_path_VGCHANGE=/usr/sbin/vgchange \
-ac_cv_path_VGSCAN=/usr/sbin/vgscan \
-ac_cv_path_PVS=/usr/sbin/pvs \
-ac_cv_path_VGS=/usr/sbin/vgs \
-ac_cv_path_LVS=/usr/sbin/lvs \
-ac_cv_path_PARTED=/usr/sbin/parted \
-ac_cv_path_DMSETUP=/usr/sbin/dmsetup"
-
-# Ensure that libvirt uses polkit rather than policykit, whether the host has
-# pkcheck installed or not, and ensure the path is correct per our config.
-CACHED_CONFIGUREVARS += "ac_cv_path_PKCHECK_PATH=${bindir}/pkcheck"
-
-# Some other possible paths we are not yet setting
-#ac_cv_path_RPCGEN=
-#ac_cv_path_XSLTPROC=
-#ac_cv_path_RADVD=
-#ac_cv_path_UDEVSETTLE=
-#ac_cv_path_EBTABLES_PATH=
-#ac_cv_path_PKG_CONFIG=
-#ac_cv_path_ac_pt_PKG_CONFIG
-#ac_cv_path_POLKIT_AUTH=
-#ac_cv_path_DTRACE=
-#ac_cv_path_ISCSIADM=
-#ac_cv_path_MSGFMT=
-#ac_cv_path_GMSGFMT=
-#ac_cv_path_XGETTEXT=
-#ac_cv_path_MSGMERGE=
-#ac_cv_path_SCRUB=
-#ac_cv_path_PYTHON=
+EXTRA_OEMESON += "--cross-file ${WORKDIR}/meson-${PN}.cross"
+do_write_config_append() {
+    cat >${WORKDIR}/meson-${PN}.cross <<EOF
+[binaries]
+iptables = '/usr/sbin/iptables'
+ip6tables = '/usr/sbin/ip6tables'
+dmidecode = '/usr/sbin/dmidecode'
+ebtables = '/sbin/ebtables'
+dnsmasq = '/usr/bin/dnsmasq'
+EOF
+}
 
 ALLOW_EMPTY_${PN} = "1"
 
@@ -167,31 +109,12 @@ SYSTEMD_SERVICE_${PN}-libvirtd = " \
     virtlockd.socket \
     "
 
-
-PRIVATE_LIBS_${PN}-ptest = " \
-	libvirt-lxc.so.0 \
-	libvirt.so.0 \
-	libvirt-qemu.so.0 \
-	lockd.so \
-	libvirt_driver_secret.so \
-	libvirt_driver_nodedev.so \
-	libvirt_driver_vbox.so \
-	libvirt_driver_interface.so \
-	libvirt_driver_uml.so \
-	libvirt_driver_network.so \
-	libvirt_driver_nwfilter.so \
-	libvirt_driver_qemu.so \
-	libvirt_driver_storage.so \
-	libvirt_driver_lxc.so \
-    "
-
 # xen-minimal config
 #PACKAGECONFIG ??= "xen libxl xen-inotify test remote libvirtd"
 
 # full config
-PACKAGECONFIG ??= "qemu yajl openvz vmware vbox esx iproute2 lxc test \
-                   remote macvtap libvirtd netcf udev python ebtables \
-                   fuse iproute2 firewalld libpcap \
+PACKAGECONFIG ??= "gnutls qemu yajl openvz vmware vbox esx lxc test remote \
+                   libvirtd netcf udev python fuse firewalld libpcap \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'libxl', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'polkit', 'polkit', '', d)} \
@@ -208,37 +131,34 @@ PACKAGECONFIG_remove_armeb = "numactl"
 # enable,disable,depends,rdepends
 #
 PACKAGECONFIG[gnutls] = ",,,gnutls-bin"
-PACKAGECONFIG[qemu] = "--with-qemu --with-qemu-user=qemu --with-qemu-group=qemu,--without-qemu,qemu,"
-PACKAGECONFIG[yajl] = "--with-yajl,--without-yajl,yajl,yajl"
-PACKAGECONFIG[libxl] = "--with-libxl=${STAGING_DIR_TARGET}/lib,--without-libxl,xen,"
-PACKAGECONFIG[openvz] = "--with-openvz,--without-openvz,,"
-PACKAGECONFIG[vmware] = "--with-vmware,--without-vmware,,"
-PACKAGECONFIG[vbox] = "--with-vbox,--without-vbox,,"
-PACKAGECONFIG[esx] = "--with-esx,--without-esx,,"
-PACKAGECONFIG[hyperv] = "--with-hyperv,--without-hyperv,,"
-PACKAGECONFIG[polkit] = "--with-polkit,--without-polkit,polkit,polkit"
-PACKAGECONFIG[lxc] = "--with-lxc,--without-lxc, lxc,"
-PACKAGECONFIG[test] = "--with-test=yes,--with-test=no,,"
-PACKAGECONFIG[remote] = "--with-remote,--without-remote,,"
-PACKAGECONFIG[macvtap] = "--with-macvtap=yes,--with-macvtap=no,libnl,libnl"
-PACKAGECONFIG[libvirtd] = "--with-libvirtd,--without-libvirtd,,"
-PACKAGECONFIG[netcf] = "--with-netcf,--without-netcf,netcf,netcf"
-PACKAGECONFIG[dtrace] = "--with-dtrace,--without-dtrace,,"
-PACKAGECONFIG[udev] = "--with-udev --with-pciaccess,--without-udev,udev libpciaccess,"
-PACKAGECONFIG[selinux] = "--with-selinux,--without-selinux,libselinux,"
-PACKAGECONFIG[ebtables] = "ac_cv_path_EBTABLES_PATH=/sbin/ebtables,ac_cv_path_EBTABLES_PATH=,ebtables,ebtables"
+PACKAGECONFIG[qemu] = "-Ddriver_qemu=enabled -Dqemu_user=qemu -Dqemu_group=qemu,-Ddriver_qemu=disabled,qemu,"
+PACKAGECONFIG[yajl] = "-Dyajl=enabled,-Dyajl=disabled,yajl,yajl"
+PACKAGECONFIG[libxl] = "-Ddriver_libxl=enabled,-Ddriver_libxl=disabled,xen,"
+PACKAGECONFIG[openvz] = "-Ddriver_openvz=enabled,-Ddriver_openvz=disabled,,"
+PACKAGECONFIG[vmware] = "-Ddriver_vmware=enabled,-Ddriver_vmware=disabled,,"
+PACKAGECONFIG[vbox] = "-Ddriver_vbox=enabled,-Ddriver_vbox=disabled,,"
+PACKAGECONFIG[esx] = "-Ddriver_esx=enabled,-Ddriver_esx=disabled,,"
+PACKAGECONFIG[hyperv] = "-Ddriver_hyperv=enabled,-Ddriver_hyperv=disabled,,"
+PACKAGECONFIG[polkit] = "-Dpolkit=enabled,-Dpolkit=disabled,polkit,polkit"
+PACKAGECONFIG[lxc] = "-Ddriver_lxc=enabled,-Ddriver_lxc=disabled,lxc,"
+PACKAGECONFIG[test] = "-Ddriver_test=enabled,-Ddriver_test=disabled,,"
+PACKAGECONFIG[remote] = "-Ddriver_remote=enabled,-Ddriver_remote=disabled,,"
+PACKAGECONFIG[libvirtd] = "-Ddriver_libvirtd=enabled,-Ddriver_libvirtd=disabled,,"
+PACKAGECONFIG[netcf] = "-Dnetcf=enabled,-Dnetcf=disabled,netcf,netcf"
+PACKAGECONFIG[dtrace] = "-Ddtrace=enabled,-Ddtrace=disabled,,"
+PACKAGECONFIG[udev] = "-Dudev=enabled -Dpciaccess=enabled,-Dudev=disabled,udev libpciaccess,"
+PACKAGECONFIG[selinux] = "-Dselinux=enabled,-Dselinux=disabled,libselinux,"
 PACKAGECONFIG[python] = ",,python3,"
-PACKAGECONFIG[sasl] = "--with-sasl,--without-sasl,cyrus-sasl,cyrus-sasl"
-PACKAGECONFIG[iproute2] = "ac_cv_path_IP_PATH=/sbin/ip,ac_cv_path_IP_PATH=,iproute2,iproute2"
-PACKAGECONFIG[numactl] = "--with-numactl,--without-numactl,numactl,"
-PACKAGECONFIG[fuse] = "--with-fuse,--without-fuse,fuse,"
-PACKAGECONFIG[audit] = "--with-audit,--without-audit,audit,"
-PACKAGECONFIG[libcap-ng] = "--with-capng,--without-capng,libcap-ng,"
-PACKAGECONFIG[wireshark] = "--with-wireshark-dissector,--without-wireshark-dissector,wireshark libwsutil,"
-PACKAGECONFIG[apparmor-profiles] = "--with-apparmor-profiles, --without-apparmor-profiles,"
-PACKAGECONFIG[firewalld] = "--with-firewalld, --without-firewalld,"
-PACKAGECONFIG[libpcap] = "--with-libpcap, --without-libpcap,libpcap,libpcap"
-PACKAGECONFIG[numad] = "--with-numad, --without-numad,"
+PACKAGECONFIG[sasl] = "-Dsasl=enabled,-Dsasl=disabled,cyrus-sasl,cyrus-sasl"
+PACKAGECONFIG[numactl] = "-Dnumactl=enabled,-Dnumactl=disabled,numactl,"
+PACKAGECONFIG[fuse] = "-Dfuse=enabled,-Dfuse=disabled,fuse,"
+PACKAGECONFIG[audit] = "-Daudit=enabled,-Daudit=disabled,audit,"
+PACKAGECONFIG[libcap-ng] = "-Dcapng=enabled,-Dcapng=disabled,libcap-ng,"
+PACKAGECONFIG[wireshark] = "-Dwireshark_dissector=enabled,-Dwireshark_dissector=disabled,wireshark libwsutil,"
+PACKAGECONFIG[apparmor_profiles] = "-Dapparmor_profiles=true, -Dapparmor_profiles=false,"
+PACKAGECONFIG[firewalld] = "-Dfirewalld=enabled, -Dfirewalld=disabled,"
+PACKAGECONFIG[libpcap] = "-Dlibpcap=enabled, -Dlibpcap=disabled,libpcap,libpcap"
+PACKAGECONFIG[numad] = "-Dnumad=enabled, -Dnumad=disabled,"
 
 # Enable the Python tool support
 require libvirt-python.inc
@@ -255,7 +175,7 @@ do_compile() {
 
 	cd ${B}
 	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${B}/src:"
-	oe_runmake all
+	ninja all
 }
 
 do_install_prepend() {
@@ -278,6 +198,8 @@ do_install_append() {
 	fi
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+            mkdir -p ${D}/lib
+            mv ${D}/usr/lib/systemd ${D}/lib
 	    # This variable is used by libvirtd.service to start libvirtd in the right mode
 	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/sysconfig/libvirtd
 
@@ -285,6 +207,8 @@ do_install_append() {
 	    sed -i -e 's/Type=notify/Type=forking/' \
 	           -e '/Type=forking/a PIDFile=/run/libvirtd.pid' \
 		   ${D}/${systemd_unitdir}/system/libvirtd.service
+	else
+	    rm -rf ${D}/usr/lib/systemd
 	fi
 
 	# The /run/libvirt directories created by the Makefile are 
@@ -360,7 +284,7 @@ do_install_append() {
 	    # connection via 127.0.0.1 is available out of box.
 	    install -d ${D}/etc/pki/CA
 	    install -d ${D}/etc/pki/libvirt/private
-	    install -m 0755 ${WORKDIR}/gnutls-helper.py ${D}/${bindir}
+            install -m 0755 ${WORKDIR}/gnutls-helper.py ${D}/${bindir}
 	    install -m 0644 ${WORKDIR}/cakey.pem ${D}/${sysconfdir}/pki/libvirt/private/cakey.pem
 	    install -m 0644 ${WORKDIR}/cacert.pem ${D}/${sysconfdir}/pki/CA/cacert.pem
 	    install -m 0644 ${WORKDIR}/serverkey.pem ${D}/${sysconfdir}/pki/libvirt/private/serverkey.pem
@@ -376,35 +300,16 @@ do_install_append() {
 	chmod 4755 ${D}${bindir}/virt-login-shell
 }
 
-EXTRA_OECONF += " \
-    --with-init-script=systemd \
-    --with-test-suite \
-    --with-runstatedir=/run \
+EXTRA_OEMESON += " \
+    -Dinit_script=systemd \
+    -Drunstatedir=/run \
+    -Dtests=enabled \
     "
 
 # gcc9 end up mis-compiling qemuxml2argvtest.o with Og which then
 # crashes on target, so remove -Og and use -O2 as workaround
 SELECTED_OPTIMIZATION_remove_virtclass-multilib-lib32_mipsarch = "-Og"
 SELECTED_OPTIMIZATION_append_virtclass-multilib-lib32_mipsarch = " -O2"
-
-EXTRA_OEMAKE = "BUILD_DIR=${B} DEST_DIR=${D}${PTEST_PATH} PTEST_DIR=${PTEST_PATH} SYSTEMD_UNIT_DIR=${systemd_system_unitdir}"
-
-PRIVATE_LIBS_${PN}-ptest_append = "libvirt-admin.so.0"
-
-do_compile_ptest() {
-	oe_runmake -C tests buildtest-TESTS
-}
-
-do_install_ptest() {
-	oe_runmake -C tests install-ptest
-
-	find ${S}/tests -maxdepth 1 -type d -exec cp -r {} ${D}${PTEST_PATH}/tests/ \;
-
-	# remove .la files for ptest, they aren't required and can trigger QA errors
-	for i in `find ${D}${PTEST_PATH} -type f \( -name *.la -o -name *.o \)`; do
-                rm -f $i
-	done
-}
 
 pkg_postinst_${PN}() {
         if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
