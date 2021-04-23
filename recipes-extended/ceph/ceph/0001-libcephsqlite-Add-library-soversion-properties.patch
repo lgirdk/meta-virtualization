@@ -1,0 +1,31 @@
+From ce36ce7d1c0f954d1532a759f4d7b09d87287dac Mon Sep 17 00:00:00 2001
+From: Saul Wold <saul.wold@windriver.com>
+Date: Thu, 22 Apr 2021 08:05:57 -0700
+Subject: [PATCH] libcephsqlite: Add library soversion properties
+
+This additional properties are needed to ensure the library
+is installed with an soversion so that when the library is
+packaged it gets packaged corectly in the ceph package and
+ceph-dev package as the link.
+
+Upstream-Status: pending
+Signed-off-by: Saul Wold <saul.wold@windriver.com>
+---
+ src/CMakeLists.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 37db48f86..8dc7bdb56 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -804,6 +804,10 @@ if(WITH_LIBCEPHSQLITE)
+   set(cephsqlite_srcs libcephsqlite.cc SimpleRADOSStriper.cc)
+   add_library(cephsqlite ${CEPH_SHARED} ${cephsqlite_srcs})
+   target_link_libraries(cephsqlite PRIVATE cls_lock_client librados ceph-common SQLite3::SQLite3 ${EXTRALIBS})
++  set_target_properties(cephsqlite PROPERTIES
++    OUTPUT_NAME cephsqlite
++    VERSION 1.0.0
++    SOVERSION 1)
+   install(TARGETS cephsqlite DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ endif(WITH_LIBCEPHSQLITE)
+ 

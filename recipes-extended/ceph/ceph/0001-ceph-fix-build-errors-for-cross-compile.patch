@@ -1,10 +1,15 @@
-From 4712fe18405ffea31405308357a8e7fca358bcce Mon Sep 17 00:00:00 2001
+From 2a3ccc8079040a7e783b8a9091618878e7cf0719 Mon Sep 17 00:00:00 2001
 From: Dengke Du <dengke.du@windriver.com>
 Date: Mon, 11 Mar 2019 09:14:09 +0800
 Subject: [PATCH] ceph: fix build errors for cross compile
 
 1. set the cross compile sysroot to find the rocksdb library
 2. correct the install path for library in Distutils.cmake
+3. remove / disable the sanity_check(), for some reasong the
+   sanity check gets the wrong settings and will not link 
+   correctly, but the actual build works correctly, this needs
+   more investigation later, earlier versions of the patch also
+   removed it but no comment on why. (sgw)
 
 Upstream-Status: Inappropriate [oe specific]
 
@@ -14,18 +19,20 @@ Adjust context for v14.2.3
 
 Signed-off-by: He Zhe <zhe.he@windriver.com>
 Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
+Signed-off-by: Saul Wold <saul.wold@windriver.com>
+
 ---
  cmake/modules/Distutils.cmake      | 25 +++++--------------------
  cmake/modules/FindRocksDB.cmake    |  4 ++--
  src/compressor/zstd/CMakeLists.txt |  2 +-
- src/pybind/cephfs/setup.py         |  8 --------
- src/pybind/rados/setup.py          |  8 --------
- src/pybind/rbd/setup.py            |  8 --------
- src/pybind/rgw/setup.py            |  8 --------
- 7 files changed, 8 insertions(+), 55 deletions(-)
+ src/pybind/cephfs/setup.py         | 18 +++++-------------
+ src/pybind/rados/setup.py          | 11 ++---------
+ src/pybind/rbd/setup.py            | 18 +++++-------------
+ src/pybind/rgw/setup.py            | 18 +++++-------------
+ 7 files changed, 25 insertions(+), 71 deletions(-)
 
 diff --git a/cmake/modules/Distutils.cmake b/cmake/modules/Distutils.cmake
-index 5fe929499d..802eb37e32 100644
+index ff01aaf81..18656c5a5 100644
 --- a/cmake/modules/Distutils.cmake
 +++ b/cmake/modules/Distutils.cmake
 @@ -18,17 +18,8 @@ function(distutils_install_module name)
@@ -39,9 +46,9 @@ index 5fe929499d..802eb37e32 100644
 -      list(APPEND options
 -        --root=\$ENV{DESTDIR}
 -        --single-version-externally-managed)
--      if(NOT \"${DU_INSTALL_SCRIPT}\" STREQUAL \"\")
--        list(APPEND options --install-script=${DU_INSTALL_SCRIPT})
--      endif()
+-    endif()
+-    if(NOT \"${DU_INSTALL_SCRIPT}\" STREQUAL \"\")
+-      list(APPEND options --install-script=${DU_INSTALL_SCRIPT})
 -    endif()
 +    list(APPEND options --root=${CMAKE_DESTDIR})
 +    list(APPEND options --install-lib=${PYTHON_SITEPACKAGES_DIR})
@@ -51,7 +58,7 @@ index 5fe929499d..802eb37e32 100644
 @@ -50,7 +41,7 @@ function(distutils_add_cython_module target name src)
    # Note: no quotes, otherwise distutils will execute "/usr/bin/ccache gcc"
    # CMake's implicit conversion between strings and lists is wonderful, isn't it?
-   string(REPLACE " " ";" cflags ${CMAKE_C_FLAGS})
+   set(cflags ${COMPILE_OPTIONS})
 -  list(APPEND cflags -iquote${CMAKE_SOURCE_DIR}/src/include -w)
 +  list(APPEND cflags -iquote${CMAKE_SOURCE_DIR}/src/include -w --sysroot=${CMAKE_SYSROOT})
    # This little bit of magic wipes out __Pyx_check_single_interpreter()
@@ -75,7 +82,7 @@ index 5fe929499d..802eb37e32 100644
         COMMAND
             ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
 diff --git a/cmake/modules/FindRocksDB.cmake b/cmake/modules/FindRocksDB.cmake
-index c5dd3dfaf6..be38597af2 100644
+index c5dd3dfaf..be38597af 100644
 --- a/cmake/modules/FindRocksDB.cmake
 +++ b/cmake/modules/FindRocksDB.cmake
 @@ -9,9 +9,9 @@
@@ -91,7 +98,7 @@ index c5dd3dfaf6..be38597af2 100644
  if(ROCKSDB_INCLUDE_DIR AND EXISTS "${ROCKSDB_INCLUDE_DIR}/rocksdb/version.h")
    foreach(ver "MAJOR" "MINOR" "PATCH")
 diff --git a/src/compressor/zstd/CMakeLists.txt b/src/compressor/zstd/CMakeLists.txt
-index a5ebdaf538..a234068150 100644
+index b53b0d944..4955711a9 100644
 --- a/src/compressor/zstd/CMakeLists.txt
 +++ b/src/compressor/zstd/CMakeLists.txt
 @@ -9,7 +9,7 @@ ExternalProject_Add(zstd_ext
@@ -104,81 +111,111 @@ index a5ebdaf538..a234068150 100644
               -G${CMAKE_GENERATOR}
    BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/libzstd
 diff --git a/src/pybind/cephfs/setup.py b/src/pybind/cephfs/setup.py
-index 19ae6c329a..c9a25ccfff 100755
+index c3d40df05..24c26c3ed 100755
 --- a/src/pybind/cephfs/setup.py
 +++ b/src/pybind/cephfs/setup.py
-@@ -135,14 +135,6 @@ def check_sanity():
+@@ -137,19 +137,11 @@ def check_sanity():
      finally:
          shutil.rmtree(tmp_dir)
  
 -
--if 'BUILD_DOC' in os.environ.keys():
--    pass
+-if 'BUILD_DOC' in os.environ or 'READTHEDOCS' in os.environ:
+-    ext_args = {}
+-    cython_constants = dict(BUILD_DOC=True)
+-    cythonize_args = dict(compile_time_env=cython_constants)
 -elif check_sanity():
--    pass
+-    ext_args = get_python_flags(['cephfs'])
+-    cython_constants = dict(BUILD_DOC=False)
+-    include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
+-    cythonize_args = dict(compile_time_env=cython_constants,
+-                          include_path=include_path)
 -else:
 -    sys.exit(1)
--
++ext_args = get_python_flags(['cephfs'])
++cython_constants = dict(BUILD_DOC=False)
++include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
++cythonize_args = dict(compile_time_env=cython_constants,
++                      include_path=include_path)
+ 
  cmdclass = {}
  try:
-     from Cython.Build import cythonize
 diff --git a/src/pybind/rados/setup.py b/src/pybind/rados/setup.py
-index e2c5696404..4e99d26721 100755
+index 0d1047825..cff85a063 100755
 --- a/src/pybind/rados/setup.py
 +++ b/src/pybind/rados/setup.py
-@@ -134,14 +134,6 @@ def check_sanity():
+@@ -131,15 +131,8 @@ def check_sanity():
      finally:
          shutil.rmtree(tmp_dir)
  
 -
--if 'BUILD_DOC' in os.environ.keys():
--    pass
+-if 'BUILD_DOC' in os.environ or 'READTHEDOCS' in os.environ:
+-    ext_args = {}
+-    cython_constants = dict(BUILD_DOC=True)
 -elif check_sanity():
--    pass
+-    ext_args = get_python_flags(['rados'])
+-    cython_constants = dict(BUILD_DOC=False)
 -else:
 -    sys.exit(1)
--
++ext_args = get_python_flags(['rados'])
++cython_constants = dict(BUILD_DOC=False)
+ 
  cmdclass = {}
  try:
-     from Cython.Build import cythonize
 diff --git a/src/pybind/rbd/setup.py b/src/pybind/rbd/setup.py
-index 634484f140..f5bbbdab4f 100755
+index 73ea4555f..e7f57ddb5 100755
 --- a/src/pybind/rbd/setup.py
 +++ b/src/pybind/rbd/setup.py
-@@ -133,14 +133,6 @@ def check_sanity():
+@@ -135,19 +135,11 @@ def check_sanity():
      finally:
          shutil.rmtree(tmp_dir)
  
 -
--if 'BUILD_DOC' in os.environ.keys():
--    pass
+-if 'BUILD_DOC' in os.environ or 'READTHEDOCS' in os.environ:
+-    ext_args = {}
+-    cython_constants = dict(BUILD_DOC=True)
+-    cythonize_args = dict(compile_time_env=cython_constants)
 -elif check_sanity():
--    pass
+-    ext_args = get_python_flags(['rados', 'rbd'])
+-    cython_constants = dict(BUILD_DOC=False)
+-    include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
+-    cythonize_args = dict(compile_time_env=cython_constants,
+-                          include_path=include_path)
 -else:
 -    sys.exit(1)
--
++ext_args = get_python_flags(['rados', 'rbd'])
++cython_constants = dict(BUILD_DOC=False)
++include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
++cythonize_args = dict(compile_time_env=cython_constants,
++                      include_path=include_path)
+ 
  cmdclass = {}
  try:
-     from Cython.Build import cythonize
 diff --git a/src/pybind/rgw/setup.py b/src/pybind/rgw/setup.py
-index eb1591a460..b9f2428cf9 100755
+index 663604e8f..489c9ba1f 100755
 --- a/src/pybind/rgw/setup.py
 +++ b/src/pybind/rgw/setup.py
-@@ -134,14 +134,6 @@ def check_sanity():
+@@ -135,19 +135,11 @@ def check_sanity():
      finally:
          shutil.rmtree(tmp_dir)
  
 -
--if 'BUILD_DOC' in os.environ.keys():
--    pass
+-if 'BUILD_DOC' in os.environ or 'READTHEDOCS' in os.environ:
+-    ext_args = {}
+-    cython_constants = dict(BUILD_DOC=True)
+-    cythonize_args = dict(compile_time_env=cython_constants)
 -elif check_sanity():
--    pass
+-    ext_args = get_python_flags(['rados', 'rgw'])
+-    cython_constants = dict(BUILD_DOC=False)
+-    include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
+-    cythonize_args = dict(compile_time_env=cython_constants,
+-                          include_path=include_path)
 -else:
 -    sys.exit(1)
--
++ext_args = get_python_flags(['rados', 'rgw'])
++cython_constants = dict(BUILD_DOC=False)
++include_path = [os.path.join(os.path.dirname(__file__), "..", "rados")]
++cythonize_args = dict(compile_time_env=cython_constants,
++                      include_path=include_path)
+ 
  cmdclass = {}
  try:
-     from Cython.Build import cythonize
--- 
-2.20.1
-
