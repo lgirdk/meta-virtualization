@@ -52,8 +52,6 @@ layers: meta-oe
         meta-networking
         meta-filesystems
         meta-python
-        meta-security
-        meta-perl
 
 BBFILE_PRIORITY_openembedded-layer = "4"
 
