@@ -18,7 +18,9 @@ SRC_URI = "git://github.com/containers/crun.git;branch=master;name=crun \
 PV = "0.18+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
-inherit autotools-brokensep pkgconfig
+REQUIRED_DISTRO_FEATURES ?= "systemd"
+
+inherit autotools-brokensep pkgconfig features_check
 
 PACKAGECONFIG ??= ""
 
