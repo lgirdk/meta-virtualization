@@ -25,6 +25,9 @@ fdt set /chosen/dom0 compatible "multiboot,module"
 
 # Tell Xen where PCI is
 fdt set /scb/pcie@7d500000 device_type "pci"
+# Workaround to fix:
+# "Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0"
+fdt rm /scb/pcie@7d500000/pci@1,0/usb@1,0
 
 echo Delay to allow the MMC card to be ready
 sleep 1
