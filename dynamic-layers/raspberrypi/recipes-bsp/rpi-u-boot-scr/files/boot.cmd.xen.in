@@ -30,10 +30,13 @@ echo Delay to allow the MMC card to be ready
 sleep 1
 
 echo Load Xen into memory
-fatload mmc 0:1 ${xen_loadaddr} xen
+fatload mmc 1:1 ${xen_loadaddr} xen
+echo Xen loaded, size: 0x$filesize
+
 echo Load Linux kernel into memory
-fatload mmc 0:1 ${kernel_loadaddr} Image
+fatload mmc 1:1 ${kernel_loadaddr} Image
 setenv kernel_size 0x$filesize
+echo Linux loaded, size: 0x$filesize
 
 echo Set the address and size for the Linux kernel so Xen can pick it up
 fdt set /chosen/dom0 reg <${kernel_loadaddr} ${kernel_size}>
