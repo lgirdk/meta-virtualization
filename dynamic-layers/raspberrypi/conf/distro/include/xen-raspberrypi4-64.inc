@@ -21,3 +21,5 @@ BOOT_SPACE = "61440"
 # Override the meta-raspberrypi default kernel preference
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
 KERNEL_DEVICETREE ?= "broadcom/bcm2711-rpi-4-b.dtb"
+
+PREFERRED_PROVIDER_u-boot-default-script ?= "xen-rpi-u-boot-scr"
