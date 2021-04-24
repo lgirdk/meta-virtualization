@@ -21,7 +21,7 @@ echo Add a dom0 node to chosen to put Linux boot information in
 fdt mknode /chosen dom0
 
 echo Set this for the Linux boot command
-fdt set /chosen/dom0 compatible "xen,linux-zimage", "xen,multiboot-module"
+fdt set /chosen/dom0 compatible "multiboot,module"
 
 # Tell Xen where PCI is
 fdt set /scb/pcie@7d500000 device_type "pci"
