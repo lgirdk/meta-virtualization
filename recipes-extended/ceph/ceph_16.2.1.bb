@@ -72,9 +72,9 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-libcephsqlite-Add-library-soversion-properties.patch \
            "
 
-SRC_URI[sha1sum] = "f8cc85e4cc519d7e469a0c3c8327bd1675f0b287"
-SRC_URI[sha384sum] = "29a75a733e5ae8039a5ad603558a9707e36b8c337419039ee97351cdbad57875fa57a365fcde29124cee72734608e245"
-SRC_URI[sha512sum] = "aeb9a91c33221c64ea24603dc88cab346bf0abdf0d41ff85c2e1cf134130737ec1fab1246be0a2fa3af8a655ae1dabb69688855f229f54438e60cb8098175b8e"
+SRC_URI[sha1sum] = "2a977307df2e054361e2c20e378ecc50b399b1ee"
+SRC_URI[sha384sum] = "1974cd6877afcc8d90aa389326f9462174f47260d26066b7b6e09d4218622226d504c9d5405fea5b295bf68364c1990b"
+SRC_URI[sha512sum] = "42e404aa41565485dc4c08b66efb3de719adee72cfc535586992e15ab4601bfbd909ef61abf412badbbfa7ef13bf91a7c0576fbbf3f9f687bc7b465b21a8c416"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
