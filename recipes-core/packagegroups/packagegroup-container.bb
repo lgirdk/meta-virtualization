@@ -44,4 +44,3 @@ RDEPENDS_packagegroup-containerd = " \
     virtual/containerd \
 "
 
-PNBLACKLIST[packagegroup-container] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'security', '', 'Depends on podman which depends on libseccomp from meta-security which is not included', d)}"
