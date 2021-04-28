@@ -35,7 +35,7 @@ DESCRIPTION = "Linux container runtime \
 #     to a docker.inc recipe
 
 # moby commit matches the docker-engine bump on the 19.03 branch'
-SRCREV_moby = "8728dd246c3ab53105434eef8ffe997b6fd14dc6"
+SRCREV_moby = "ce826938232fbee567c8805460a8b2c82dc2e493"
 SRCREV_libnetwork = "b3507428be5b458cb0e2b4086b13531fb0706e46"
 SRCREV_cli = "370c28948e3c12dce3d1df60b6f184990618553f"
 SRC_URI = "\
