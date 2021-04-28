@@ -52,3 +52,5 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f
 
 DOCKER_VERSION = "20.10.6-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
+
+CVE_PRODUCT = "docker"
