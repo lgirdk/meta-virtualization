@@ -68,3 +68,5 @@ SYSTEMD_SERVICE_docker-registry = "${@bb.utils.contains('DISTRO_FEATURES','syste
 SYSTEMD_AUTO_ENABLE_docker-registry = "enable"
 
 RDEPENDS_${PN}-ptest_remove = "${PN}"
+
+CVE_PRODUCT = "docker_registry"
