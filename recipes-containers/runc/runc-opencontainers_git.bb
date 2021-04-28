@@ -7,3 +7,5 @@ SRC_URI = " \
     file://0001-Only-allow-proc-mount-if-it-is-procfs.patch \
     "
 RUNC_VERSION = "1.0.0-rc8"
+
+CVE_PRODUCT = "runc"
