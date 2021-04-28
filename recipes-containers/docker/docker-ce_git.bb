@@ -18,7 +18,7 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "42aa775803d44af077f0e0099c67708ad0814fe7"
+SRCREV_docker = "24ee78d705ae57b2cea7666dc1b1db56f2a94454"
 SRCREV_libnetwork = "55e924b8a84231a065879156c0de95aefc5f5435"
 SRC_URI = "\
 	git://github.com/docker/docker-ce.git;branch=master;name=docker \
