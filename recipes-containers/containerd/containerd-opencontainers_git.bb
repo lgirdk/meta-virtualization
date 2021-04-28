@@ -14,3 +14,5 @@ EXTRA_OEMAKE += "GODEBUG=1"
 
 PROVIDES += "virtual/containerd"
 RPROVIDES_${PN} = "virtual/containerd"
+
+CVE_PRODUCT = "containerd"
