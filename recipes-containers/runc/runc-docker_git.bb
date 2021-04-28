@@ -10,3 +10,5 @@ SRC_URI = "git://github.com/opencontainers/runc;nobranch=1;name=runc-docker \
           "
 
 RUNC_VERSION = "1.0.0-rc93"
+
+CVE_PRODUCT = "runc"
