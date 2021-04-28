@@ -6,3 +6,5 @@ SRC_URI = " \
     file://0001-Makefile-respect-GOBUILDFLAGS-for-runc-and-remove-re.patch \
     "
 RUNC_VERSION = "1.0.0-rc92"
+
+CVE_PRODUCT = "runc"
