@@ -5,13 +5,13 @@ Subject: [PATCH] cli: use external GO111MODULE and cross compiler
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
- git/src/import/components/cli/scripts/build/binary | 3 +--
+ git/cli/scripts/build/binary | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git git/src/import/components/cli/scripts/build/binary git/src/import/components/cli/scripts/build/binary
+diff --git git/cli/scripts/build/binary git/cli/scripts/build/binary
 index e4c5e12a6b..7c47b75c2f 100755
---- git/src/import/components/cli/scripts/build/binary
-+++ git/src/import/components/cli/scripts/build/binary
+--- git/cli/scripts/build/binary
++++ git/cli/scripts/build/binary
 @@ -73,8 +73,7 @@ fi
  
  echo "Building $GO_LINKMODE $(basename "${TARGET}")"

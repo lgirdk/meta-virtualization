@@ -8,10 +8,10 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  hack/make/.binary | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: git/src/import/components/engine/hack/make/.binary
+Index: git/src/import/hack/make/.binary
 ===================================================================
---- git.orig/src/import/components/engine/hack/make/.binary
-+++ git/src/import/components/engine/hack/make/.binary
+--- git.orig/src/import/hack/make/.binary
++++ git/src/import/hack/make/.binary
 @@ -81,7 +81,7 @@
  
  	echo "Building: $DEST/$BINARY_FULLNAME"

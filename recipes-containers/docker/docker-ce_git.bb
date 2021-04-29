@@ -18,29 +18,43 @@ DESCRIPTION = "Linux container runtime \
  subtle and/or glaring issues. \
  "
 
-SRCREV_docker = "24ee78d705ae57b2cea7666dc1b1db56f2a94454"
-SRCREV_libnetwork = "55e924b8a84231a065879156c0de95aefc5f5435"
+#
+# https://github.com/docker/docker-ce-packaging.git
+#  common.mk:
+#    DOCKER_CLI_REPO    ?= https://github.com/docker/cli.git
+#    DOCKER_ENGINE_REPO ?= https://github.com/docker/docker.git
+#    REF                ?= HEAD
+#    DOCKER_CLI_REF     ?= $(REF)
+#    DOCKER_ENGINE_REF  ?= $(REF)
+#
+# These follow the tags for our releases in the listed repositories
+# so we get that tag, and make it our SRCREVS:
+#
+
+SRCREV_docker = "8728dd246c3ab53105434eef8ffe997b6fd14dc6"
+SRCREV_libnetwork = "b3507428be5b458cb0e2b4086b13531fb0706e46"
+SRCREV_cli = "370c28948e3c12dce3d1df60b6f184990618553f"
 SRC_URI = "\
-	git://github.com/docker/docker-ce.git;branch=master;name=docker \
-	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/docker.git;branch=20.10;name=docker \
+	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
+	git://github.com/docker/cli;branch=20.10;name=cli;destsuffix=git/cli \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
         file://0001-dynbinary-use-go-cross-compiler.patch \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
-        file://0001-build-use-build-script-without-docker.patch \
 	"
 
 require docker.inc
 
 # Apache-2.0 for docker
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/import/components/engine/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-DOCKER_VERSION = "v20.10.0-beta1-ce"
+DOCKER_VERSION = "20.10.6-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 PACKAGES =+ "${PN}-contrib"
@@ -62,9 +76,10 @@ do_compile() {
 	cd ${S}/src/import
 	rm -rf .gopath
 	mkdir -p .gopath/src/"$(dirname "${DOCKER_PKG}")"
-	ln -sf ../../../../components/engine/ .gopath/src/"${DOCKER_PKG}"
+	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
 
-	ln -sf ${S}/src/import/components/cli .gopath/src/github.com/docker/cli
+	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ${WORKDIR}/git/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -80,7 +95,7 @@ do_compile() {
 	export DISABLE_WARN_OUTSIDE_CONTAINER=1
 	export GO111MODULE=off
 
-	cd ${S}/src/import/components/engine
+	cd ${S}/src/import/
 
 	# this is the unsupported build structure that doesn't rely on an
 	# existing docker to build this:
@@ -93,7 +108,7 @@ do_compile() {
 	oe_runmake cross-local
 
         # build the cli
-	cd ${S}/src/import/components/cli
+	cd ${S}/src/import/.gopath/src/github.com/docker/cli
 	export CFLAGS=""
 	export LDFLAGS=""
 	export DOCKER_VERSION=${DOCKER_VERSION}
@@ -102,15 +117,15 @@ do_compile() {
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${S}/src/import/components/cli/build/docker ${D}/${bindir}/docker
-	cp ${S}/src/import/components/engine/bundles/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
+	cp ${WORKDIR}/git/cli/build/docker ${D}/${bindir}/docker
+	cp ${S}/src/import/bundles/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
 	cp ${WORKDIR}/git/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
-		install -m 644 ${S}/src/import/components/engine/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/init/systemd/docker.* ${D}/${systemd_unitdir}/system
 		# replaces one copied from above with one that uses the local registry for a mirror
-		install -m 644 ${S}/src/import/components/engine/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
+		install -m 644 ${S}/src/import/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
 		rm -f ${D}/${systemd_unitdir}/system/docker.service.rpm
 	else
 		install -d ${D}${sysconfdir}/init.d
@@ -125,7 +140,7 @@ do_install() {
 	fi
 
 	mkdir -p ${D}${datadir}/docker/
-	install -m 0755 ${S}/src/import/components/engine/contrib/check-config.sh ${D}${datadir}/docker/
+	install -m 0755 ${S}/src/import/contrib/check-config.sh ${D}${datadir}/docker/
 }
 
 FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
