@@ -9,6 +9,3 @@ do_deploy_append() {
            uboot-mkimage -A arm64 -T kernel -a ${XENIMAGE_KERNEL_LOADADDRESS} -e ${XENIMAGE_KERNEL_LOADADDRESS} -C none -d ${DEPLOYDIR}/xen-${MACHINE} ${DEPLOYDIR}/xen.ub
        fi
 }
-
-deltask do_deploy_setscene
-deltask do_populate_sysroot_setscene
