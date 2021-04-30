@@ -158,3 +158,21 @@ FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
 PACKAGES =+ "${PN}-contrib"
 FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
 RDEPENDS_${PN}-contrib += "bash"
+
+# By the docker-packaging repository and https://docs.docker.com/engine/install/centos/#installation-methods
+# docker is packaged by most distros with a split between the engine and the CLI.
+#
+# We do the same here, by introducing the -cli package
+#
+# But to keep existing use cases working, we also create a RDEPENDS between the main
+# docker package (the engine) and the cli, so existing "docker" package installs will
+# continue to work the same way. To have separate and non-redepending packages created
+# set the DOCKER_UNIFIED_PACKAGE variable to False
+#
+PACKAGES =+ "${PN}-cli"
+FILES_${PN}-cli += "${bindir}/docker"
+
+# set to "False" if packages should be generated for the cli and engine, and
+# NOT rdepend to get a classic one-package install
+DOCKER_UNIFIED_PACKAGE ?= "True"
+RDEPENDS_${PN} += "${@bb.utils.contains("DOCKER_UNIFIED_PACKAGE", "True", "${PN}-cli", "", d)}"
