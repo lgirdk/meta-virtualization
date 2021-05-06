@@ -6,13 +6,13 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
 RDEPENDS_${PN} = "skopeo \
                  "
 
-SRCREV_umoci = "6e68a6a2ae3e12ad78110ab9e68aa56f8281498f"
-SRC_URI = "git://github.com/openSUSE/umoci;branch=master;name=umoci;destsuffix=git/src/github.com/openSUSE/umoci \
+SRCREV_umoci = "758044fc26ad65eb900143e90d1e22c2d6e4484d"
+SRC_URI = "git://github.com/opencontainers/umoci.git;branch=master;name=umoci;destsuffix=github.com/opencontainers/umoci \
           "
 
-PV = "v0.3.1-dev+git${SRCPV}"
-S = "${WORKDIR}/git/src/github.com/openSUSE/umoci"
-GO_IMPORT = "github.com/openSUSE/umoci"
+PV = "v0.4.7-dev+git${SRCPV}"
+S = "${WORKDIR}/github.com/opencontainers/umoci"
+GO_IMPORT = "github.com/opencontainers/umoci"
 
 inherit goarch
 inherit go
