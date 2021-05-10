@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=19cbd64715b51267a47bf3750cc6a8a5"
 SRCNAME = "systemd"
 
 PKG_NAME = "github.com/coreos/go-${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git"
+SRC_URI = "git://${PKG_NAME}.git;branch=main"
 
 SRCREV = "b4a58d95188dd092ae20072bac14cece0e67c388"
 PV = "4+git${SRCPV}"
