@@ -9,6 +9,8 @@ SRC_URI = "git://github.com/lkundrak/${BPN}.git;protocol=https"
 
 S = "${WORKDIR}/git"
 
+DEPENDS = "gperf-native"
+
 BBCLASSEXTEND = "native"
 EXTRA_OEMAKE = "VERSION=${PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}'"
 
