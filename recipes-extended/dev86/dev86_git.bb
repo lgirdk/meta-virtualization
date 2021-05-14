@@ -9,6 +9,8 @@ PV = "${BASE_PV}+git${SRCPV}"
 SRCREV = "e254e0b19651d3b8a20225b40281c9974a95dec4"
 SRC_URI = "git://github.com/jbruchon/${BPN}.git;protocol=https \
     file://0001-cpp-Makefile-respect-LDFLAGS-when-building-bcc-cpp.patch \
+    file://0003-cpp-update-token1.tok-to-make-new-gperf-happy-regen..patch \
+    file://0004-regen-token2.h-token1.h-with-gperf-3.1.patch \
 "
 SRC_URI_append_class-target = " \
     file://0002-Makefile-use-ifdefg-from-dev86-native-instead-of-tar.patch \
