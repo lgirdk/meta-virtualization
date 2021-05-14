@@ -24,6 +24,8 @@ BBCLASSEXTEND = "native"
 EXTRA_OEMAKE = "VERSION=${BASE_PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}'"
 
 do_compile() {
+	# always regenerate token1.h, token2.h for deterministic behavior
+	rm -f ${S}/cpp/token1.h ${S}/cpp/token2.h
 	oe_runmake make.fil
 	oe_runmake -f make.fil bcc86 as86 ld86
 }
