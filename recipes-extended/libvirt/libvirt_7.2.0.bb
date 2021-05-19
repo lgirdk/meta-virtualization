@@ -65,7 +65,7 @@ FILES_${PN}-libvirtd = " \
 	${sysconfdir}/libvirt/libvirtd.conf \
         /usr/lib/sysctl.d/60-libvirtd.conf \
 	${sbindir}/libvirtd \
-	${systemd_unitdir}/system/* \
+	${systemd_system_unitdir} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '', '${libexecdir}/libvirt-guests.sh', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'gnutls', '${sysconfdir}/pki/libvirt/* ${sysconfdir}/pki/CA/*', '', d)} \
         "
@@ -199,17 +199,21 @@ do_install_append() {
 	fi
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
-            mkdir -p ${D}/lib
-            mv ${D}/usr/lib/systemd ${D}/lib
+            if [ "${systemd_system_unitdir}" != "${prefix}/lib/systemd/system" ] ; then
+                # ./src/meson.build:    systemd_unit_dir = prefix / 'lib' / 'systemd' / 'system'
+                # ./tools/meson.build:    install_dir: prefix / 'lib' / 'systemd' / 'system',
+                mkdir -p ${D}${systemd_system_unitdir}
+                mv ${D}${prefix}/lib/systemd/system/* ${D}${systemd_system_unitdir}
+                rmdir ${D}${prefix}/lib/systemd/system ${D}${prefix}/lib/systemd
+            fi
+
 	    # This variable is used by libvirtd.service to start libvirtd in the right mode
 	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/sysconfig/libvirtd
 
 	    # We can't use 'notify' when we don't support 'sd_notify' dbus capabilities.
 	    sed -i -e 's/Type=notify/Type=forking/' \
 	           -e '/Type=forking/a PIDFile=/run/libvirtd.pid' \
-		   ${D}/${systemd_unitdir}/system/libvirtd.service
-	else
-	    rm -rf ${D}/usr/lib/systemd
+		   ${D}/${systemd_system_unitdir}/libvirtd.service
 	fi
 
 	# The /run/libvirt directories created by the Makefile are 
@@ -302,7 +306,7 @@ do_install_append() {
 }
 
 EXTRA_OEMESON += " \
-    -Dinit_script=systemd \
+    -Dinit_script=${@bb.utils.contains('DISTRO_FEATURES','systemd','systemd','none', d)} \
     -Drunstatedir=/run \
     -Dtests=enabled \
     "
