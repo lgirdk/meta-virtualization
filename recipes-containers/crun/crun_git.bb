@@ -10,7 +10,7 @@ SRCREV_rspec = "19e92ca817772b4466f2ed2b8d808dfb7a8ab4be"
 
 SRCREV_FORMAT = "crun_rspec"
 SRC_URI = "git://github.com/containers/crun.git;branch=master;name=crun \
-           git://github.com/containers/libocispec.git;branch=master;name=libocispec;destsuffix=git/libocispec \
+           git://github.com/containers/libocispec.git;branch=main;name=libocispec;destsuffix=git/libocispec \
            git://github.com/opencontainers/runtime-spec.git;branch=master;name=rspec;destsuffix=git/libocispec/runtime-spec \
            git://github.com/opencontainers/image-spec.git;branch=master;name=ispec;destsuffix=git/libocispec/image-spec \
           "
