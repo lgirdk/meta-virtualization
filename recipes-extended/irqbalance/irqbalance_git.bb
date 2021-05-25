@@ -6,8 +6,8 @@ require irqbalance.inc
 
 # commit tagged as version 1.7.0
 #
-SRCREV = "641edc6f5d56f1b3eb8be0fa8a8e9b6a22e53218"
-PV = "1.7.0"
+SRCREV = "bd5aaf5a8613c8eadfbf9f0908fd8260125aae28"
+PV = "1.8.0"
 
 SRC_URI = "git://github.com/Irqbalance/irqbalance \
            file://add-initscript.patch \
