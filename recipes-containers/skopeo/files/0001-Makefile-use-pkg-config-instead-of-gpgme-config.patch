@@ -1,0 +1,35 @@
+From 4f60614b51df50f5d28495cf2e270dd6ab5fea7d Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Tue, 25 May 2021 13:42:56 -0400
+Subject: [PATCH] Makefile: use pkg-config instead of gpgme-config
+
+OE taints gpgme-config to produce the following flag when called:
+
+   --should-not-have-used-/usr/bin/gpgme-config
+
+Which breaks the build. We change to use pkg-config, and skopeo
+builds as it did before.
+
+Upstream-Status: inappropriate OE specific
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/import/Makefile b/src/import/Makefile
+index 6bacd12e..8a94b236 100644
+--- a/src/import/Makefile
++++ b/src/import/Makefile
+@@ -8,7 +8,7 @@ export GOPROXY=https://proxy.golang.org
+ # supports only pkg-config, not general shell scripts, and gpgme does not install a pkg-config file.
+ # If gpgme is not installed or gpgme-config can’t be found for other reasons, the error is silently ignored
+ # (and the user will probably find out because the cgo compilation will fail).
+-GPGME_ENV := CGO_CFLAGS="$(shell gpgme-config --cflags 2>/dev/null)" CGO_LDFLAGS="$(shell gpgme-config --libs 2>/dev/null)"
++GPGME_ENV := CGO_CFLAGS="$(shell pkg-config gpgme --cflags 2>/dev/null)" CGO_LDFLAGS="$(shell pkg-config gpgme --libs 2>/dev/null)"
+ 
+ # Normally empty, DESTDIR can be used to relocate the entire install-tree
+ DESTDIR ?=
+-- 
+2.19.1
+

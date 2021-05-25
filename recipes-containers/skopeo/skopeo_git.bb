@@ -20,13 +20,14 @@ RDEPENDS_${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=release-1.2 \
+    git://github.com/containers/skopeo;branch=master \
+    file://0001-Makefile-use-pkg-config-instead-of-gpgme-config.patch \
     file://storage.conf \
     file://registries.conf \
 "
 
-SRCREV = "e7880c4a8991966f16e367f085d42375ad70197e"
-PV = "v1.2.3-dev+git${SRCPV}"
+SRCREV = "8efffce8befc2de87670ba75d6c86ada61e869fd"
+PV = "v1.3.0+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
@@ -62,6 +63,8 @@ do_compile() {
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	cd ${S}/src/import
+
+	export GO111MODULE=off
 
 	oe_runmake bin/skopeo
 }
