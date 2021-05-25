@@ -34,9 +34,9 @@ DESCRIPTION = "Linux container runtime \
 #   - The common components of this recipe and docker-ce do need to be moved
 #     to a docker.inc recipe
 
-SRCREV_moby = "ce826938232fbee567c8805460a8b2c82dc2e493"
-SRCREV_libnetwork = "b3507428be5b458cb0e2b4086b13531fb0706e46"
-SRCREV_cli = "370c28948e3c12dce3d1df60b6f184990618553f"
+SRCREV_moby = "3db8385b187168d99680aa8b68ffb5020c606982"
+SRCREV_libnetwork = "64b7a4574d1426139437d20e81c0b6d391130ec8"
+SRCREV_cli = "e0d47b1c0b0c4689e8e4c5da901d7046e5e0e512"
 SRC_URI = "\
 	git://github.com/moby/moby.git;branch=20.10;name=moby \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork \
