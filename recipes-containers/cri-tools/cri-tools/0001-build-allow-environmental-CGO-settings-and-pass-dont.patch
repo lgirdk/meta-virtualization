@@ -33,11 +33,11 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  src/import/Makefile | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-Index: cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54/src/import/Makefile
+Index: cri-tools-1.21.0+gitde32df077e6b0e9e31ce367dfc34c1b6b46e30fa/src/import/Makefile
 ===================================================================
---- cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54.orig/src/import/Makefile
-+++ cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54/src/import/Makefile
-@@ -73,7 +73,8 @@
+--- cri-tools-1.21.0+gitde32df077e6b0e9e31ce367dfc34c1b6b46e30fa.orig/src/import/Makefile
++++ cri-tools-1.21.0+gitde32df077e6b0e9e31ce367dfc34c1b6b46e30fa/src/import/Makefile
+@@ -74,7 +74,8 @@
  	@$(MAKE) -B $(CRICTL)
  
  $(CRICTL):
@@ -45,5 +45,5 @@ Index: cri-tools-1.21.0+gitfa50f4af0f6beba20264bfb3fd4d1d34e42f7b54/src/import/M
 +	$(GO_BUILD) -o $@ \
 +		-a -pkgdir dontusecurrentpkgs \
  		-ldflags '$(GO_LDFLAGS)' \
+ 		-trimpath \
  		-tags '$(BUILDTAGS)' \
- 		$(PROJECT)/cmd/crictl
