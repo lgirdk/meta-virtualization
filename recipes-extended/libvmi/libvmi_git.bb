@@ -4,14 +4,14 @@ HOMEPAGE = "https://github.com/libvmi/libvmi"
 LICENSE = "LGPLv3"
 LIC_FILES_CHKSUM = "file://COPYING.LESSER;md5=e6a600fd5e1d9cbde2d983680233ad02"
 SECTION = "console/tools"
-PV = "0.12.0"
+PV = "0.14.0"
 
 DEPENDS = "libvirt libcheck bison fuse byacc-native"
 
 SRC_URI = "git://github.com/libvmi/libvmi.git \
 "
 
-SRCREV = "e8c2061d11c42e5868cbf48229f59b5e7071395a"
+SRCREV = "3f5b0d5b3cef8639df4cd7ff52d42e04baf262fd"
 
 S = "${WORKDIR}/git"
 
