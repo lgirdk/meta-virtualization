@@ -14,6 +14,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://ceph.conf \
            file://0001-add-missing-include-for-atomic-bool.patch \
            file://0001-cmake-add-support-for-python3.9.patch \
+           file://0001-SnappyCompressor.h-fix-snappy-compiler-error.patch \
 "
 
 SRC_URI[sha1sum] = "9c76b298e1e659b9c5501003ac77fb28aab7823d"
