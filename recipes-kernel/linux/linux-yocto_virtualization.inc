@@ -15,7 +15,8 @@ KERNEL_MODULE_AUTOLOAD += "${@bb.utils.contains('DISTRO_FEATURES', 'kvm', 'kvm',
 # aufs kernel support required for xen-image-minimal
 KERNEL_FEATURES_append += "${@bb.utils.contains('DISTRO_FEATURES', 'aufs', ' features/aufs/aufs-enable.scc', '', d)}"
 
-KERNEL_FEATURES_append = " cfg/virtio.scc"
+
+KERNEL_FEATURES_append = "${@bb.utils.contains('SRC_URI', 'kernel-cache', 'cfg/virtio.scc', '', d)}"
 
 # xen kernel support
 SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"
