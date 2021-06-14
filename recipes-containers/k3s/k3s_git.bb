@@ -13,7 +13,7 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.21;name=k3s \
            file://0001-Finding-host-local-in-usr-libexec.patch;patchdir=src/import \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "75dba57f9b1de3ec0403b148c52c348e1dee2a5e"
+SRCREV_k3s = "eac48f69bce086a789585e0158de79c06b2ff50e"
 
 PV = "v1.21.1+k3s1"
 
