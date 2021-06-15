@@ -33,6 +33,8 @@ do_compile() {
 	mkdir -p ${S}/src/github.com/containernetworking
 	ln -sfr ${S}/src/import ${S}/src/github.com/containernetworking/cni
 
+	export GO111MODULE=off
+
 	cd ${B}/src/github.com/containernetworking/cni/libcni
 	${GO} build
 
@@ -45,7 +47,7 @@ do_compile() {
 	for p in $PLUGINS; do
 	    plugin="$(basename "$p")"
 	    echo "building: $p"
-	    ${GO} build -mod=vendor -o ${B}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
+	    ${GO} build -o ${B}/plugins/bin/$plugin github.com/containernetworking/plugins/$p
 	done
 }
 
