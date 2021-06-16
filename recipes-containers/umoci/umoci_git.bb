@@ -77,4 +77,4 @@ do_install() {
 }
 
 INSANE_SKIP_${PN} += "ldflags already-stripped"
-BBCLASSEXTEND = "native"
+BBCLASSEXTEND = "native nativesdk"
