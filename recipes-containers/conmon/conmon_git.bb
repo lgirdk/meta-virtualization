@@ -8,7 +8,7 @@ DEPENDS = "glib-2.0 go-md2man-native"
 
 SRCREV = "31614525ebc5fd9668a6e084b5638d71b903bf6d"
 SRC_URI = "\
-    git://github.com/containers/conmon.git \
+    git://github.com/containers/conmon.git;branch=main \
 "
 
 PV = "2.0.28+git${SRCPV}"
