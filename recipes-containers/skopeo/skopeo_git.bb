@@ -5,7 +5,8 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=7e611105d3e369954840a6668c4385
 
 DEPENDS = " \
     gpgme \
-    multipath-tools \
+    libdevmapper \
+    lvm2 \
     btrfs-tools \
     glib-2.0 \
     ostree \
@@ -80,4 +81,16 @@ do_install() {
 	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 }
 
+do_install_append_class-native() {
+    create_cmdline_wrapper ${D}/${sbindir}/skopeo \
+        --policy ${sysconfdir}/containers/policy.json
+}
+
+do_install_append_class-nativesdk() {
+    create_cmdline_wrapper ${D}/${sbindir}/skopeo \
+        --policy ${sysconfdir}/containers/policy.json
+}
+
 INSANE_SKIP_${PN} += "ldflags"
+
+BBCLASSEXTEND = "native nativesdk"
