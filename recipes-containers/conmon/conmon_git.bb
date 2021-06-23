@@ -4,7 +4,10 @@ HOMEPAGE = "https://github.com/containers/conmon"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=61af0b6932ea7b12fb9142721043bc77"
 
-DEPENDS = "glib-2.0 go-md2man-native"
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
+DEPENDS = "glib-2.0 go-md2man-native libseccomp"
 
 SRCREV = "1ef246896b4f6566964ed861b98cd32d0e7bf7a2"
 SRC_URI = "\
