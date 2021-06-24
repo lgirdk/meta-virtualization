@@ -6,6 +6,9 @@ DESCRIPTION = "Podman is a daemonless container engine for developing, \
     `alias docker=podman`. \
     "
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 DEPENDS = " \
     go-metalinter-native \
     go-md2man-native \
