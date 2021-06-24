@@ -9,7 +9,8 @@ PACKAGES = "\
     packagegroup-lxc \
     packagegroup-docker \
     packagegroup-oci \
-    packagegroup-podman \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', \
+                         'packagegroup-podman', '', d)} \
     packagegroup-containerd \
     "
 
