@@ -11,16 +11,14 @@ SRC_URI = "git://github.com/jbruchon/${BPN}.git;protocol=https \
     file://0001-cpp-Makefile-respect-LDFLAGS-when-building-bcc-cpp.patch \
     file://0003-cpp-update-token1.tok-to-make-new-gperf-happy-regen..patch \
     file://0004-regen-token2.h-token1.h-with-gperf-3.1.patch \
-"
-SRC_URI_append_class-target = " \
-    file://0002-Makefile-use-ifdefg-from-dev86-native-instead-of-tar.patch \
+	file://cross.patch \
 "
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "gperf-native dev86-native"
+DEPENDS = "gperf-native"
 
-BBCLASSEXTEND = "native"
+BBCLASSEXTEND = "native nativesdk"
 EXTRA_OEMAKE = "VERSION=${BASE_PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}' INEXE=''"
 
 do_compile() {
@@ -39,10 +37,6 @@ do_install() {
 	oe_runmake install-bcc
 	ln -s ../lib/bcc/bcc-cpp ${D}${prefix}/bin/bcc-cpp
 	ln -s ../lib/bcc/bcc-cc1 ${D}${prefix}/bin/bcc-cc1
-}
-
-do_install_append_class-native() {
-        install -v -m 755 ${B}/ifdefg ${D}${bindir}
 }
 
 FILES_${PN} += "${libdir}/bcc"
