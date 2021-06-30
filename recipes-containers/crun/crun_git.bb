@@ -24,6 +24,9 @@ inherit autotools-brokensep pkgconfig features_check
 
 PACKAGECONFIG ??= ""
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 DEPENDS = "yajl libcap go-md2man-native m4-native"
 # TODO: is there a packageconfig to turn this off ?
 DEPENDS += "libseccomp"
