@@ -29,6 +29,9 @@ GO_IMPORT = "import"
 
 PV = "1.22.0+git${SRCREV_cri-o}"
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 DEPENDS = " \
     glib-2.0 \
     btrfs-tools \
