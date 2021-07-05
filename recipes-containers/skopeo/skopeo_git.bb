@@ -84,6 +84,9 @@ do_install() {
 do_install_append_class-native() {
     create_cmdline_wrapper ${D}/${sbindir}/skopeo \
         --policy ${sysconfdir}/containers/policy.json
+
+    create_wrapper ${D}/${sbindir}/skopeo.real \
+        LD_LIBRARY_PATH=${STAGING_LIBDIR_NATIVE}
 }
 
 do_install_append_class-nativesdk() {
