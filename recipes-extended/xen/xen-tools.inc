@@ -727,7 +727,8 @@ do_configure() {
 
 do_compile() {
     cd ${S}
-    oe_runmake tools PYTHON="${PYTHON}"
+    oe_runmake tools PYTHON="${PYTHON}" \
+                     EXTRA_CFLAGS_XEN_TOOLS="${EXTRA_CFLAGS_XEN_TOOLS}"
 }
 
 do_install() {

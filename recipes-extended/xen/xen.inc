@@ -92,6 +92,16 @@ export LDFLAGS=""
 
 # Pass through the Yocto distro compiler flags via the Xen-provided variables.
 # Special handling:
+# - The Yocto distro compiler flags are typically set to be appropriate for
+#   user-space software rather than for generation of a hypervisor binary, so
+#   only pass the debug prefix map to the hypervisor build:
+EXTRA_CFLAGS_XEN_CORE="${DEBUG_PREFIX_MAP}"
+
+# - The Xen tools build for x86 systems with HVM-mode enabled includes hvmloader
+#   which fails to build when "-m64" is included in flags set via the
+#   EXTRA_CFLAGS_XEN_TOOLS: so clear TUNE_CCARGS on x86 to prevent that.
+TUNE_CCARGS_x86-64=""
+
 # - Yocto supplies the _FORTIFY_SOURCE flag via CC/CPP/CXX but then passes the
 #   optimization -O via C*FLAGS which is problematic when the CFLAGS are cleared
 #   within the build because compilation fails with the compiler stating
@@ -102,12 +112,10 @@ export LDFLAGS=""
 #   explicitly clears CFLAGS to ensure that, so such options must not be passed
 #   in via the tool variable. hvmloader is required to run HVM-mode guest VMs.
 CC="${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${CC_REPRODUCIBLE_OPTIONS}"
-EXTRA_CFLAGS_XEN_CORE="${HOST_CC_ARCH} ${CFLAGS}"
 EXTRA_CFLAGS_XEN_TOOLS="${HOST_CC_ARCH} ${CFLAGS}"
 # 32-bit ARM needs the TUNE_CCARGS component of HOST_CC_ARCH to be passed
 # in CC to ensure that configure can compile binaries for the right arch.
 CC_arm="${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS} ${CC_REPRODUCIBLE_OPTIONS}"
-EXTRA_CFLAGS_XEN_CORE_arm="${SECURITY_CFLAGS} ${CFLAGS}"
 EXTRA_CFLAGS_XEN_TOOLS_arm="${SECURITY_CFLAGS} ${CFLAGS}"
 
 # There are no Xen-provided variables for C++, so append to the tool variables:

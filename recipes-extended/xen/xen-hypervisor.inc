@@ -49,7 +49,8 @@ do_configure() {
 }
 
 do_compile() {
-    oe_runmake xen PYTHON="${PYTHON}"
+    oe_runmake xen PYTHON="${PYTHON}" \
+                   EXTRA_CFLAGS_XEN_CORE="${EXTRA_CFLAGS_XEN_CORE}"
 }
 
 do_install() {
