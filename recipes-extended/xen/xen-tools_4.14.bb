@@ -1,4 +1,4 @@
-SRCREV ?= "ad844aa352559a8b1f36e391a27d9d7dbddbdc36"
+SRCREV ?= "b6a8c4f72def4d1135ff42660a86276ce2565c8c"
 
 XEN_REL ?= "4.14"
 XEN_BRANCH ?= "stable-${XEN_REL}"
@@ -8,6 +8,7 @@ SRC_URI = " \
     file://0001-python-pygrub-pass-DISTUTILS-xen-4.14.patch \
     file://0001-firmware-provide-a-stand-alone-set-of-headers-Xen-4.14.patch \
     file://0001-tools-firmware-Build-firmware-as-ffreestanding-Xen-4.14.patch \
+    file://0001-libs-foreignmemory-Fix-osdep_xenforeignmemory_map-pr.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=419739e325a50f3d7b4501338e44a4e5"

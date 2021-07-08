@@ -725,12 +725,9 @@ do_configure() {
     do_configure_common
 }
 
-# Workaround when compiling with gcc-11
-EXTRA_CFLAGS_XEN_TOOLS_append = " -Wno-vla-parameter"
-
 do_compile() {
     cd ${S}
-    oe_runmake tools EXTRA_CFLAGS_XEN_TOOLS="${EXTRA_CFLAGS_XEN_TOOLS}" PYTHON="${PYTHON}"
+    oe_runmake tools PYTHON="${PYTHON}"
 }
 
 do_install() {
