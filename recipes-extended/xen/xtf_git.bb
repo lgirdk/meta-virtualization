@@ -6,7 +6,7 @@ LICENSE = "BSD-2-Clause"
 # https://static.sched.com/hosted_files/xendeveloperanddesignsummit2017/79/xtf.pdf
 
 SRC_URI = "git://xenbits.xen.org/xtf"
-SRCREV = "b0bc49846c154b79243f39d461a4515804bcaf53"
+SRCREV = "3e800027016ea4eb19887bf626b46f45fc43fa5d"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux'
 
@@ -32,6 +32,7 @@ RDEPENDS_${PN} = " \
 do_compile() {
     oe_runmake CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}" \
                CPP="${CPP}" \
+               LD="${LD}" \
                OBJCOPY="${OBJCOPY}" \
                PYTHON="${PYTHON}"
     # switch the shebang to python3
