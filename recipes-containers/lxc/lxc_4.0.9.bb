@@ -49,12 +49,10 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}/${BPN}-${PV}.tar.gz \
 	file://tests-add-no-validate-when-using-download-template.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
-	file://configure-skip-libseccomp-tests-if-it-is-disabled.patch \
-	file://commands-fix-check-for-seccomp-notify-support.patch \
 	"
 
-SRC_URI[md5sum] = "732571c7cb4ab845068afb227bf35256"
-SRC_URI[sha256sum] = "9165dabc0bb6ef7f2fda2009aee90b20fbefe77ed8008347e9f06048eba1e463"
+SRC_URI[md5sum] = "365fcca985038910e19a1e0fff15ed07"
+SRC_URI[sha256sum] = "1fcf0610e9140eceb4be2334eb537bb9c5a213faea77c793ab3c62b86f37e52b"
 
 
 
