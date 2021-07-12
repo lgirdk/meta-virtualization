@@ -21,7 +21,7 @@ RDEPENDS_${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=master \
+    git://github.com/containers/skopeo;branch=main \
     file://0001-Makefile-use-pkg-config-instead-of-gpgme-config.patch \
     file://storage.conf \
     file://registries.conf \
