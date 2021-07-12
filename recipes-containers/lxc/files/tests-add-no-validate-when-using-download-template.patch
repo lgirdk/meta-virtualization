@@ -18,11 +18,11 @@ Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
  src/tests/lxc-test-usernic.in     | 2 +-
  5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/src/tests/lxc-test-apparmor-mount b/src/tests/lxc-test-apparmor-mount
-index d21c948..9e1969b 100755
---- a/src/tests/lxc-test-apparmor-mount
-+++ b/src/tests/lxc-test-apparmor-mount
-@@ -169,7 +169,7 @@ if [ -f /etc/lsb-release ]; then
+Index: lxc-4.0.9/src/tests/lxc-test-apparmor-mount
+===================================================================
+--- lxc-4.0.9.orig/src/tests/lxc-test-apparmor-mount
++++ lxc-4.0.9/src/tests/lxc-test-apparmor-mount
+@@ -170,7 +170,7 @@
      done
  fi
  
@@ -31,11 +31,11 @@ index d21c948..9e1969b 100755
  
  echo "test default confined container"
  run_cmd lxc-start -n $cname -d -lDEBUG -o "$logfile"
-diff --git a/src/tests/lxc-test-autostart b/src/tests/lxc-test-autostart
-index e5b651b..d15b79b 100755
---- a/src/tests/lxc-test-autostart
-+++ b/src/tests/lxc-test-autostart
-@@ -55,7 +55,7 @@ if [ -f /etc/lsb-release ]; then
+Index: lxc-4.0.9/src/tests/lxc-test-autostart
+===================================================================
+--- lxc-4.0.9.orig/src/tests/lxc-test-autostart
++++ lxc-4.0.9/src/tests/lxc-test-autostart
+@@ -55,7 +55,7 @@
      done
  fi
  
@@ -44,11 +44,11 @@ index e5b651b..d15b79b 100755
  CONTAINER_PATH=$(dirname $(lxc-info -n $CONTAINER_NAME -c lxc.rootfs.path -H) | sed -e 's/dir://')
  cp $CONTAINER_PATH/config $CONTAINER_PATH/config.bak
  
-diff --git a/src/tests/lxc-test-no-new-privs b/src/tests/lxc-test-no-new-privs
-index 8642992..e72bdf0 100755
---- a/src/tests/lxc-test-no-new-privs
-+++ b/src/tests/lxc-test-no-new-privs
-@@ -47,7 +47,7 @@ if type dpkg >/dev/null 2>&1; then
+Index: lxc-4.0.9/src/tests/lxc-test-no-new-privs
+===================================================================
+--- lxc-4.0.9.orig/src/tests/lxc-test-no-new-privs
++++ lxc-4.0.9/src/tests/lxc-test-no-new-privs
+@@ -49,7 +49,7 @@
  	ARCH=$(dpkg --print-architecture)
  fi
  
@@ -57,24 +57,24 @@ index 8642992..e72bdf0 100755
  echo "lxc.no_new_privs = 1" >> /var/lib/lxc/c1/config
  
  lxc-start -n c1
-diff --git a/src/tests/lxc-test-unpriv b/src/tests/lxc-test-unpriv
-index 16ff12d..0958d48 100755
---- a/src/tests/lxc-test-unpriv
-+++ b/src/tests/lxc-test-unpriv
-@@ -173,7 +173,7 @@ run_cmd mkdir -p $HDIR/.cache/lxc
+Index: lxc-4.0.9/src/tests/lxc-test-unpriv
+===================================================================
+--- lxc-4.0.9.orig/src/tests/lxc-test-unpriv
++++ lxc-4.0.9/src/tests/lxc-test-unpriv
+@@ -178,7 +178,7 @@
      cp -R /var/cache/lxc/download $HDIR/.cache/lxc && \
      chown -R $TUSER: $HDIR/.cache/lxc
  
--run_cmd lxc-create -t download -n c1 -- -d ubuntu -r $release -a $ARCH
-+run_cmd lxc-create -t download -n c1 -- --no-validate -d ubuntu -r $release -a $ARCH
+-run_cmd lxc-create -t download -n c1 -l trace -o "${UNPRIV_LOG}" -- -d ubuntu -r $release -a $ARCH
++run_cmd lxc-create -t download -n c1 -l trace -o "${UNPRIV_LOG}" -- --no-validate -d ubuntu -r $release -a $ARCH
  
  # Make sure we can start it - twice
  
-diff --git a/src/tests/lxc-test-usernic.in b/src/tests/lxc-test-usernic.in
-index 3e35008..f489286 100755
---- a/src/tests/lxc-test-usernic.in
-+++ b/src/tests/lxc-test-usernic.in
-@@ -146,7 +146,7 @@ if [ -f /etc/lsb-release ]; then
+Index: lxc-4.0.9/src/tests/lxc-test-usernic.in
+===================================================================
+--- lxc-4.0.9.orig/src/tests/lxc-test-usernic.in
++++ lxc-4.0.9/src/tests/lxc-test-usernic.in
+@@ -147,7 +147,7 @@
  fi
  
  # Create three containers
