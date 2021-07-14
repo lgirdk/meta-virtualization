@@ -12,7 +12,7 @@ SRCREV_FORMAT = "crun_rspec"
 SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun \
            git://github.com/containers/libocispec.git;branch=main;name=libocispec;destsuffix=git/libocispec \
            git://github.com/opencontainers/runtime-spec.git;branch=master;name=rspec;destsuffix=git/libocispec/runtime-spec \
-           git://github.com/opencontainers/image-spec.git;branch=master;name=ispec;destsuffix=git/libocispec/image-spec \
+           git://github.com/opencontainers/image-spec.git;branch=main;name=ispec;destsuffix=git/libocispec/image-spec \
           "
 
 PV = "0.10.2+git${SRCREV_crun}"
