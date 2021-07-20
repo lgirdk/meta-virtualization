@@ -17,7 +17,7 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
-SRCREV = "ab4d0cf908e9d24d321b52b419ebfb4ab5802029"
+SRCREV = "09e8afe3a9f19aefc45b3004a56f7d8f87f13abf"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=v3.2 \
 "
@@ -29,7 +29,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "3.2.1+git${SRCPV}"
+PV = "3.2.3+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
