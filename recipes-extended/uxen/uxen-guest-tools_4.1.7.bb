@@ -19,4 +19,4 @@ LIC_FILES_CHKSUM = "file://../Bromium-4.1.8-Open-Source-Software.pdf;md5=cf120df
 
 S = "${WORKDIR}/uxen-vmsupport-linux-${PV}"
 
-inherit module
+inherit module dos2unix
