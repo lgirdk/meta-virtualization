@@ -10,7 +10,7 @@ SRC_URI[sha256sum] = "b64ef5141be559cfade448f044fa45c2260351edcb6a8ef6b7e00c7dce
 
 inherit setuptools3 pypi
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
 	python3-sphinx \
 	"
 

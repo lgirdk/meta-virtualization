@@ -14,7 +14,7 @@ DEPENDS = " \
 
 inherit go
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
      gpgme \
      libgpg-error \
      libassuan \
@@ -81,7 +81,7 @@ do_install() {
 	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 }
 
-do_install_append_class-native() {
+do_install:append:class-native() {
     create_cmdline_wrapper ${D}/${sbindir}/skopeo \
         --policy ${sysconfdir}/containers/policy.json
 
@@ -89,11 +89,11 @@ do_install_append_class-native() {
         LD_LIBRARY_PATH=${STAGING_LIBDIR_NATIVE}
 }
 
-do_install_append_class-nativesdk() {
+do_install:append:class-nativesdk() {
     create_cmdline_wrapper ${D}/${sbindir}/skopeo \
         --policy ${sysconfdir}/containers/policy.json
 }
 
-INSANE_SKIP_${PN} += "ldflags"
+INSANE_SKIP:${PN} += "ldflags"
 
 BBCLASSEXTEND = "native nativesdk"

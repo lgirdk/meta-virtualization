@@ -26,11 +26,11 @@ S = "${WORKDIR}/git"
 
 inherit autotools systemd
 
-do_install_append () {
+do_install:append () {
         # install our init based on start-stop-daemon
         install -D -m 0755 ${WORKDIR}/diod ${D}${sysconfdir}/init.d/diod
         # install a real(not commented) configuration file for diod
         install -m 0644 ${WORKDIR}/diod.conf ${D}${sysconfdir}/diod.conf
 }
 
-FILES_${PN} += "${systemd_unitdir}"
+FILES:${PN} += "${systemd_unitdir}"

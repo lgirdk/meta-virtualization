@@ -1,8 +1,8 @@
 # Skip QA check for library symbolic links (core issue is a packaging problem within 
 # Singularity build / config: read up on the dev-so test for more info)
-INSANE_SKIP_${PN} += "dev-so"
+INSANE_SKIP:${PN} += "dev-so"
 
-RDEPENDS_${PN} += "glibc python3 ca-certificates openssl bash e2fsprogs-mke2fs"
+RDEPENDS:${PN} += "glibc python3 ca-certificates openssl bash e2fsprogs-mke2fs"
 
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://COPYRIGHT.md;md5=be78c34e483dd7d8439358b1e024b294 \
@@ -21,7 +21,7 @@ S = "${WORKDIR}/git"
 inherit python3native autotools-brokensep
 EXTRA_OECONF = "--prefix=/usr/local"
 
-pkg_postinst_${PN}() {
+pkg_postinst:${PN}() {
     # python3 expects CA certificates to be installed in a different place to where
     # they are actually installed. These lines link the two locations.
     rm -r $D${libdir}/ssl/certs

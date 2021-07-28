@@ -17,4 +17,4 @@ inherit core-image
 
 # Enable runqemu. eg: runqemu xvisor-image-minimal nographic slirp
 QB_DEFAULT_KERNEL = "vmm.bin"
-QB_OPT_APPEND_append_riscv64 = " -cpu rv64,x-h=true "
+QB_OPT_APPEND:append:riscv64 = " -cpu rv64,x-h=true "

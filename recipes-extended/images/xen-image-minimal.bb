@@ -21,13 +21,13 @@ IMAGE_INSTALL += " \
 do_build[depends] += "xen:do_deploy"
 
 # Networking for HVM-mode guests (x86/64 only) requires the tun kernel module
-IMAGE_INSTALL_append_x86    = "kernel-module-tun"
-IMAGE_INSTALL_append_x86-64 = "kernel-module-tun"
+IMAGE_INSTALL:append:x86    = "kernel-module-tun"
+IMAGE_INSTALL:append:x86-64 = "kernel-module-tun"
 
 # Linux kernel option CONFIG_XEN_PCIDEV_BACKEND depends on X86
 XEN_PCIBACK_MODULE = ""
-XEN_PCIBACK_MODULE_x86    = "kernel-module-xen-pciback"
-XEN_PCIBACK_MODULE_x86-64 = "kernel-module-xen-pciback"
+XEN_PCIBACK_MODULE:x86    = "kernel-module-xen-pciback"
+XEN_PCIBACK_MODULE:x86-64 = "kernel-module-xen-pciback"
 
 LICENSE = "MIT"
 
@@ -41,21 +41,21 @@ do_check_xen_state() {
 
 addtask check_xen_state before do_rootfs
 
-syslinux_iso_populate_append() {
+syslinux_iso_populate:append() {
 	install -m 0444 ${STAGING_DATADIR}/syslinux/libcom32.c32 ${ISODIR}${ISOLINUXDIR}
 	install -m 0444 ${STAGING_DATADIR}/syslinux/mboot.c32 ${ISODIR}${ISOLINUXDIR}
 }
 
-syslinux_hddimg_populate_append() {
+syslinux_hddimg_populate:append() {
 	install -m 0444 ${STAGING_DATADIR}/syslinux/libcom32.c32 ${HDDDIR}${SYSLINUXDIR}
 	install -m 0444 ${STAGING_DATADIR}/syslinux/mboot.c32 ${HDDDIR}${SYSLINUXDIR}
 }
 
-grubefi_populate_append() {
+grubefi_populate:append() {
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz ${DEST}${EFIDIR}/xen.gz
 }
 
-syslinux_populate_append() {
+syslinux_populate:append() {
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/xen-${MACHINE}.gz ${DEST}/xen.gz
 }
 
@@ -74,6 +74,7 @@ build_syslinux_cfg () {
 
 # Enable runqemu. eg: runqemu xen-image-minimal nographic slirp
 WKS_FILE_x86-64 = "directdisk-xen.wks"
+QB_MEM ?= "-m 400"
 QB_DEFAULT_KERNEL ?= "none"
 QB_DEFAULT_FSTYPE ?= "wic"
 QB_DEFAULT_FSTYPE_qemux86-64 = "wic"
@@ -81,7 +82,7 @@ QB_FSINFO ?= "wic:kernel-in-fs"
 QB_SERIAL_OPT = "-serial mon:stdio"
 # qemux86-64 machine does not include 'wic' in IMAGE_FSTYPES, which is needed
 # to boot this image, so add it here:
-IMAGE_FSTYPES_qemux86-64 += "wic"
+IMAGE_FSTYPES:qemux86-64 += "wic"
 # Networking: the qemuboot.bbclass default virtio network device works ok
 # and so does the emulated e1000 -- choose according to the network device
 # drivers that are present in your dom0 Linux kernel. To switch to e1000:

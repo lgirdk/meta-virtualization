@@ -13,4 +13,4 @@ SRC_URI[sha256sum] = "c45e7d3aef8965ae1b42c9855c31ded19fbb38cfad0a34cc37dc880ded
 
 inherit pypi setuptools3
 
-RDEPENDS_${PN} += "python3-botocore python3-urllib3 python3-unixadmin"
+RDEPENDS:${PN} += "python3-botocore python3-urllib3 python3-unixadmin"

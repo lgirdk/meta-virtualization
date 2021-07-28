@@ -16,7 +16,7 @@ DEPENDS += "python3-setuptools-scm-native"
 
 SRC_URI += "file://0001-setup.py-tweak-setuptools_scm-version-dependency.patch"
 
-FILES_${PN}-dbg += "\
+FILES:${PN}-dbg += "\
   ${PYTHON_SITEPACKAGES_DIR}/newrelic-${PV}/newrelic/*/.debug \
   ${PYTHON_SITEPACKAGES_DIR}/newrelic-${PV}/newrelic/packages/*/.debug/ \
   "

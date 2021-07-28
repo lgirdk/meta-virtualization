@@ -8,11 +8,11 @@ SRCREV = "04c77eb20e9bd603cab5c711bcbe7c69db58b040"
 SRC_URI = "git://${GO_IMPORT}.git \
            file://0001-makefile-allow-SKIP_GO_VERSION_CHECK-to-be-overriden.patch \
           "
-RDEPENDS_${PN}-dev_append = "bash"
+RDEPENDS:${PN}-dev:append = "bash"
 
 CONTAINER_KERNEL ?= ""
 CONTAINER_INITRD ?= ""
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
                  qemu \
                  ${CONTAINER_KERNEL} \
 		 ${CONTAINER_INITRD} \
@@ -55,6 +55,6 @@ do_install() {
 	# fork/exec /usr/libexec/kata-containers/kata-proxy: no such file or directory
 }
 
-FILES_${PN} += "${datadir}/defaults/kata-containers/*"
+FILES:${PN} += "${datadir}/defaults/kata-containers/*"
 
 deltask compile_ptest_base

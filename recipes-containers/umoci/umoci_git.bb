@@ -3,8 +3,8 @@ SUMMARY = "umoci modifies Open Container images"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-RDEPENDS_${PN} = "skopeo"
-RDEPENDS_${PN}_class-native = ""
+RDEPENDS:${PN} = "skopeo"
+RDEPENDS:${PN}:class-native = ""
 
 SRCREV_umoci = "758044fc26ad65eb900143e90d1e22c2d6e4484d"
 SRC_URI = "git://github.com/opencontainers/umoci.git;branch=master;name=umoci;destsuffix=github.com/opencontainers/umoci \
@@ -22,7 +22,7 @@ inherit go
 EXTRA_OEMAKE="BUILDTAGS=''"
 
 
-do_compile_class-native () {
+do_compile:class-native () {
     export GOARCH="${BUILD_GOARCH}"
 
     # Pass the needed cflags/ldflags so that cgo can find the needed headers files and libraries
@@ -76,5 +76,5 @@ do_install() {
     install ${S}/umoci ${D}/${sbindir}
 }
 
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
 BBCLASSEXTEND = "native nativesdk"

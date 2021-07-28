@@ -1,12 +1,12 @@
-DEPENDS_append_class-target = " cni"
+DEPENDS:append:class-target = " cni"
 
-PACKAGES_prepend = "${PN}-cni "
+PACKAGES:prepend = "${PN}-cni "
 
-FILES_${PN}-cni = "${sysconfdir}/cni/net.d/*"
+FILES:${PN}-cni = "${sysconfdir}/cni/net.d/*"
 
-RDEPENDS_${PN}-cni = "cni"
+RDEPENDS:${PN}-cni = "cni"
 
-do_install_append() {
+do_install:append() {
     if [ -z "${CNI_NETWORKING_FILES}" ]; then
 	bbfatal "cni-networking was inherited, but no networking configuration was provided via CNI_NETWORKING_FILES"
     fi

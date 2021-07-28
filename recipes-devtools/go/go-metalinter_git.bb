@@ -21,4 +21,4 @@ do_install() {
 	cp -r ${S}/* ${D}${prefix}/local/go/src/${PKG_NAME}/
 }
 
-FILES_${PN} += "${prefix}/local/go/src/${PKG_NAME}/*"
+FILES:${PN} += "${prefix}/local/go/src/${PKG_NAME}/*"

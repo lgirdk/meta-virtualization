@@ -59,17 +59,17 @@ do_configure() {
     oe_runconf || die "make failed"
 }
 
-do_install_append() {
+do_install:append() {
      sed -i '1s,#! /usr/bin/perl -w.*,#! ${bindir}/env perl,' ${D}${libdir}/nagios/plugins/*
 }
 
-RDEPENDS_${PN} += "\
+RDEPENDS:${PN} += "\
     iputils \
     nagios-base \
     perl \
     bash \
 "
 
-FILES_${PN} += "${datadir} \
+FILES:${PN} += "${datadir} \
                 ${NAGIOS_PLUGIN_DIR} \
 "

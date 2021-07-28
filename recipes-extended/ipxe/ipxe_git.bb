@@ -5,13 +5,13 @@ DEPENDS = "binutils-native perl-native syslinux mtools-native cdrtools-native xz
 LIC_FILES_CHKSUM = "file://../COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 # syslinux has this restriction
-COMPATIBLE_HOST_class-target = '(x86_64|i.86).*-(linux|freebsd.*)'
+COMPATIBLE_HOST:class-target = '(x86_64|i.86).*-(linux|freebsd.*)'
 
 SRCREV = "18dc73d27edb55ebe9cb13c58d59af3da3bd374b"
 PV = "1.20.1+git${SRCPV}"
 PR = "r0"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = " \
     git://github.com/ipxe/ipxe.git;protocol=https \
@@ -21,7 +21,7 @@ SRC_URI = " \
     file://build-be-explicit-about-fcommon-compiler-directive.patch \
     "
 
-FILES_${PN} = "/usr/share/firmware/*.rom"
+FILES:${PN} = "/usr/share/firmware/*.rom"
 
 EXTRA_OEMAKE = " \
     ISOLINUX_BIN="${STAGING_DIR_TARGET}/usr/share/syslinux/isolinux.bin" \

@@ -19,7 +19,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504         
 SRC_URI[md5sum] = "9df3b7de6376850d09161137e7a9b61f"
 SRC_URI[sha256sum] = "eb70cc62b29aa83e10a653233acebf4bb154d00d0c87dc2a2c6e2da75e5e81fd"
 
-FILES_${PN} = "/usr/share/firmware"
+FILES:${PN} = "/usr/share/firmware"
 
 DEPENDS += "util-linux-native file-native bison-native flex-native gettext-native acpica-native"
 

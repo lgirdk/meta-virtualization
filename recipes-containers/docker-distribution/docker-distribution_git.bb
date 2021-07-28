@@ -58,16 +58,16 @@ do_install() {
 	install -d ${D}/${localstatedir}/lib/registry/
 }
 
-INSANE_SKIP_${PN} += "ldflags already-stripped"
-INSANE_SKIP_${MLPREFIX}docker-registry += "ldflags already-stripped textrel"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
+INSANE_SKIP:${MLPREFIX}docker-registry += "ldflags already-stripped textrel"
 
-FILES_docker-registry = "${sbindir}/*"
-FILES_docker-registry += "${systemd_unitdir}/system/docker-registry.service"
-FILES_docker-registry += "${sysconfdir}/docker-distribution/*"
-FILES_docker-registry += "${localstatedir}/lib/registry/"
+FILES:docker-registry = "${sbindir}/*"
+FILES:docker-registry += "${systemd_unitdir}/system/docker-registry.service"
+FILES:docker-registry += "${sysconfdir}/docker-distribution/*"
+FILES:docker-registry += "${localstatedir}/lib/registry/"
 
-SYSTEMD_SERVICE_docker-registry = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker-registry.service','',d)}"
-SYSTEMD_AUTO_ENABLE_docker-registry = "enable"
+SYSTEMD_SERVICE:docker-registry = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker-registry.service','',d)}"
+SYSTEMD_AUTO_ENABLE:docker-registry = "enable"
 
 RDEPENDS_${PN}-ptest_remove = "${PN}"
 

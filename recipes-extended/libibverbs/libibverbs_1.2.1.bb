@@ -16,19 +16,19 @@ inherit autotools
 
 DEPENDS = "libnl pkgconfig-native"
 PACKAGES += "${PN}-utils"
-FILES_${PN} = "${sysconfdir} ${libdir}/*.so.*"
-FILES_${PN}-utils = "${bindir}"
+FILES:${PN} = "${sysconfdir} ${libdir}/*.so.*"
+FILES:${PN}-utils = "${bindir}"
 
 PACKAGECONFIG ??= ""
 PACKAGECONFIG[valgrind] = "--with-valgrind,--without-valgrind,valgrind,"
 
-do_install_append() {
+do_install:append() {
         mkdir -p ${D}${sysconfdir}/libibverbs.d
         rm -f ${D}${libdir}/libibverbs.la
 }
 
 PROVIDES = "virtual/libibverbs"
-RPROVIDES_${PN} = "virtual/libibverbs"
+RPROVIDES:${PN} = "virtual/libibverbs"
 
-COMPATIBLE_HOST_mipsarch = "none"
-COMPATIBLE_HOST_arm = "none"
+COMPATIBLE_HOST:mipsarch = "none"
+COMPATIBLE_HOST:arm = "none"

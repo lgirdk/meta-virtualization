@@ -20,25 +20,25 @@ DEPENDS = " \
     libtool \
     "
 
-DEPENDS_append_class-target = " lvm2"
-RDEPENDS_${PN} = "util-linux util-linux-unshare iptables \
+DEPENDS:append:class-target = " lvm2"
+RDEPENDS:${PN} = "util-linux util-linux-unshare iptables \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'aufs', 'aufs-util', '', d)} \
                   ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'cgroup-lite', d)} \
                   bridge-utils \
                   ca-certificates \
                  "
-RDEPENDS_${PN} += "virtual/containerd virtual/runc"
+RDEPENDS:${PN} += "virtual/containerd virtual/runc"
 
-RRECOMMENDS_${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat kernel-module-nf-conntrack-netlink kernel-module-xt-addrtype kernel-module-xt-masquerade"
+RRECOMMENDS:${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat kernel-module-nf-conntrack-netlink kernel-module-xt-addrtype kernel-module-xt-masquerade"
 
 PROVIDES += "virtual/docker"
 
 # we want all the docker variant recpes to be installable via "docker"
 PACKAGE_NAME = "docker"
-RPROVIDES_${PN} += "docker"
-RPROVIDES_${PN}-dbg += "docker-dbg"
-RPROVIDES_${PN}-dev += "docker-dev"
-RPROVIDES_${PN}-contrip += "docker-dev"
+RPROVIDES:${PN} += "docker"
+RPROVIDES:${PN}-dbg += "docker-dbg"
+RPROVIDES:${PN}-dev += "docker-dev"
+RPROVIDES:${PN}-contrip += "docker-dev"
 
 inherit pkgconfig
 PACKAGECONFIG ??= "docker-init"
@@ -139,26 +139,26 @@ do_install() {
 
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.socket','',d)}"
-SYSTEMD_AUTO_ENABLE_${PN} = "enable"
+SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.socket','',d)}"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
-INITSCRIPT_NAME_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
-INITSCRIPT_PARAMS_${PN} = "defaults"
+INITSCRIPT_NAME:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
+INITSCRIPT_PARAMS:${PN} = "defaults"
 
 inherit useradd
 USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "-r docker"
+GROUPADD_PARAM:${PN} = "-r docker"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
 
-INSANE_SKIP_${PN} += "ldflags textrel"
+INSANE_SKIP:${PN} += "ldflags textrel"
 
-FILES_${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
+FILES:${PN} += "${systemd_unitdir}/system/* ${sysconfdir}/docker"
 
 PACKAGES =+ "${PN}-contrib"
-FILES_${PN}-contrib += "${datadir}/docker/check-config.sh"
-RDEPENDS_${PN}-contrib += "bash"
+FILES:${PN}-contrib += "${datadir}/docker/check-config.sh"
+RDEPENDS:${PN}-contrib += "bash"
 
 # By the docker-packaging repository and https://docs.docker.com/engine/install/centos/#installation-methods
 # docker is packaged by most distros with a split between the engine and the CLI.
@@ -171,9 +171,9 @@ RDEPENDS_${PN}-contrib += "bash"
 # set the DOCKER_UNIFIED_PACKAGE variable to False
 #
 PACKAGES =+ "${PN}-cli"
-FILES_${PN}-cli += "${bindir}/docker"
+FILES:${PN}-cli += "${bindir}/docker"
 
 # set to "False" if packages should be generated for the cli and engine, and
 # NOT rdepend to get a classic one-package install
 DOCKER_UNIFIED_PACKAGE ?= "True"
-RDEPENDS_${PN} += "${@bb.utils.contains("DOCKER_UNIFIED_PACKAGE", "True", "${PN}-cli", "", d)}"
+RDEPENDS:${PN} += "${@bb.utils.contains("DOCKER_UNIFIED_PACKAGE", "True", "${PN}-cli", "", d)}"

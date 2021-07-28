@@ -36,6 +36,6 @@ go_grpc_sysroot_preprocess () {
     cp -r ${D}${prefix}/local/go/src/${PKG_NAME} ${SYSROOT_DESTDIR}${prefix}/local/go/src/$(dirname ${PKG_NAME})
 }
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     ${prefix}/local/go/src/${PKG_NAME}/* \
 "

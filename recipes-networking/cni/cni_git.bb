@@ -17,7 +17,7 @@ SRC_URI = "\
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins \
 	"
 
-RPROVIDES_${PN} += "kubernetes-cni"
+RPROVIDES:${PN} += "kubernetes-cni"
 
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
@@ -65,10 +65,10 @@ do_install() {
     ln -sf ${libexecdir}/cni/ ${D}/opt/cni/bin
 }
 
-FILES_${PN} += "${libexecdir}/cni/* /opt/cni/bin"
+FILES:${PN} += "${libexecdir}/cni/* /opt/cni/bin"
 
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
 
-RDEPENDS_${PN} += " ca-certificates"
+RDEPENDS:${PN} += " ca-certificates"

@@ -41,9 +41,9 @@ DEPENDS += "openssl-native coreutils-native util-linux-native xz-native bc-nativ
 DEPENDS += "elfutils-native"
 DEPENDS += "qemu-native bison-native"
 
-RDEPENDS_${PN} += " jq bash"
-RDEPENDS_${PN} += " xen-tools-xl go-build socat daemonize"
-RDEPENDS_${PN} += " qemu-system-i386 ca-certificates qemu qemu-keymaps"
+RDEPENDS:${PN} += " jq bash"
+RDEPENDS:${PN} += " xen-tools-xl go-build socat daemonize"
+RDEPENDS:${PN} += " qemu-system-i386 ca-certificates qemu qemu-keymaps"
 
 RUNX_USE_INTERNAL_BUSYBOX ?= ""
 
@@ -120,7 +120,7 @@ do_install() {
 
 deltask compile_ptest_base
 
-FILES_${PN} += "${bindir}/* ${datadir}/runX/*"
+FILES:${PN} += "${bindir}/* ${datadir}/runX/*"
 
 INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"

@@ -22,7 +22,7 @@ IMAGE_INSTALL = " \
 "
 
 # If the following is configured in local.conf (or the distro):
-#      PACKAGE_EXTRA_ARCHS_append = " container-dummy-provides"
+#      PACKAGE_EXTRA_ARCHS:append = " container-dummy-provides"
 # 
 # it has been explicitly # indicated that we don't want or need a shell, so we'll
 # add the dummy provides.

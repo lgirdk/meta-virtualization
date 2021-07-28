@@ -41,7 +41,7 @@ DEPENDS = " \
     libseccomp \
     libselinux \
     "
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     cni \
     libdevmapper \
     "
@@ -50,8 +50,8 @@ PNBLACKLIST[cri-o] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'security', bb
 
 PACKAGES =+ "${PN}-config"
 
-RDEPENDS_${PN} += " virtual/containerd virtual/runc"
-RDEPENDS_${PN} += " e2fsprogs-mke2fs conmon util-linux iptables conntrack-tools"
+RDEPENDS:${PN} += " virtual/containerd virtual/runc"
+RDEPENDS:${PN} += " e2fsprogs-mke2fs conmon util-linux iptables conntrack-tools"
 
 inherit systemd
 inherit go
@@ -70,8 +70,8 @@ do_compile() {
 }
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-SYSTEMD_SERVICE_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','crio.service','',d)}"
-SYSTEMD_AUTO_ENABLE_${PN} = "enable"
+SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','crio.service','',d)}"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 do_install() {
     set +e
@@ -98,15 +98,15 @@ do_install() {
     install -m 0644 ${S}/src/import/contrib/systemd/crio-wipe.service  ${D}${systemd_unitdir}/system/
 }
 
-FILES_${PN}-config = "${sysconfdir}/crio/config/*"
-FILES_${PN} += "${systemd_unitdir}/system/*"
-FILES_${PN} += "/usr/local/bin/*"
-FILES_${PN} += "/usr/share/containers/oci/hooks.d"
+FILES:${PN}-config = "${sysconfdir}/crio/config/*"
+FILES:${PN} += "${systemd_unitdir}/system/*"
+FILES:${PN} += "/usr/local/bin/*"
+FILES:${PN} += "/usr/share/containers/oci/hooks.d"
 
 # don't clobber hooks.d
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
 
 deltask compile_ptest_base
 

@@ -17,8 +17,8 @@ INITSCRIPT_PARAMS = "start 8 2 3 4 5 . stop 20 0 1 6 ."
 # Keeps the sysvinit scripts out of the image if building
 # where systemd is in use.
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "cgroups-init.service"
-SYSTEMD_AUTO_ENABLE_${PN} = "mask"
+SYSTEMD_SERVICE:${PN} = "cgroups-init.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "mask"
 
 
 do_install() {

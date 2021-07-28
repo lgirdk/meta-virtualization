@@ -14,11 +14,11 @@ DESCRIPTION = "A minimal Xen Test Framework (XTF) image for testing the Xen hype
 
 IMAGE_NAME="xtf"
 
-IMAGE_INSTALL_append = " xtf"
+IMAGE_INSTALL:append = " xtf"
 
 QB_DEFAULT_FSTYPE = "wic"
 
 # Set the dom0 memory level lower than that assigned to qemu so that Xen has
 # some available memory for allocating to the XTF microkernel guests to run:
 QB_MEM = "-m 400"
-SYSLINUX_XEN_ARGS_append = " dom0_mem=256M"
+SYSLINUX_XEN_ARGS:append = " dom0_mem=256M"

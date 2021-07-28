@@ -12,7 +12,7 @@ SRC_URI[sha256sum] = "9d24c33d4bfb7831e2069cf3644936a53ef3de21d467872b54ce2ea308
 
 BBCLASSEXTEND = "native"
 
-FILES_${PN} = "${bindir}/biossums"
+FILES:${PN} = "${bindir}/biossums"
 
 S = "${WORKDIR}/vgabios-${PV}"
 

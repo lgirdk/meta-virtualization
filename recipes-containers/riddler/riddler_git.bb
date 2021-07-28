@@ -18,7 +18,7 @@ inherit go
 
 # In addition to hosts go does not like, we do not build for mips.
 #
-COMPATIBLE_HOST_mipsarch = "null"
+COMPATIBLE_HOST:mipsarch = "null"
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 

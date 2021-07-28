@@ -32,5 +32,5 @@ do_install() {
     oe_runmake 'DESTDIR=${D}' install-exec-am
 }
 
-FILES_${PN} += "${libexecdir}/oci/hooks.d/"
+FILES:${PN} += "${libexecdir}/oci/hooks.d/"
 

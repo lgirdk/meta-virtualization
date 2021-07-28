@@ -20,11 +20,11 @@ inherit python3native
 
 PACKAGES = "${PN}"
 
-FILES_${PN} = " \
+FILES:${PN} = " \
     ${libexecdir}/* \
     "
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     xen-tools-xl \
     python3 \
     "
@@ -51,6 +51,6 @@ do_install() {
 
 INSANE_SKIP = "arch"
 # xen-tools-xl is a runtime but not build time dependency
-INSANE_SKIP_${PN} = "build-deps"
+INSANE_SKIP:${PN} = "build-deps"
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"

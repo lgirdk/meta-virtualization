@@ -21,8 +21,8 @@ inherit autotools-brokensep pkgconfig
 # bitbake should be able to properly populate the -dev package and the main
 # packages. Since libvmi uses the form libXX.1.0.0.so it breaks this automatic
 # packaging so we need to be more explicit about what goes where.
-FILES_${PN} += "${libdir}/libvmi-0.9.so"
-FILES_${PN}-dev = "${includedir} ${libdir}/${BPN}.so ${libdir}/*.la \
+FILES:${PN} += "${libdir}/libvmi-0.9.so"
+FILES:${PN}-dev = "${includedir} ${libdir}/${BPN}.so ${libdir}/*.la \
                 ${libdir}/*.o ${libdir}/pkgconfig ${datadir}/pkgconfig \
                 ${datadir}/aclocal ${base_libdir}/*.o \
                 ${libdir}/${BPN}/*.la ${base_libdir}/*.la"
@@ -33,7 +33,7 @@ PACKAGECONFIG[kvm] = "--disable-kvm-legacy,--enable-kvm-legacy,kvm,"
 PACKAGECONFIG[json-c] = ",,json-c,"
 
 # We include a sample conf file to which we have added
-do_install_append () {
+do_install:append () {
 	mkdir ${D}${sysconfdir}
 	cp etc/*.conf ${D}${sysconfdir}
 }

@@ -13,14 +13,14 @@ DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux
 
 # libvirt-guests.sh needs gettext.sh
 #
-RDEPENDS_${PN} = "gettext-runtime"
+RDEPENDS:${PN} = "gettext-runtime"
 
-RDEPENDS_libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd ebtables"
-RDEPENDS_libvirt-libvirtd_append_x86-64 = " dmidecode"
-RDEPENDS_libvirt-libvirtd_append_x86 = " dmidecode"
+RDEPENDS:libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd ebtables"
+RDEPENDS:libvirt-libvirtd:append:x86-64 = " dmidecode"
+RDEPENDS:libvirt-libvirtd:append:x86 = " dmidecode"
 
 #connman blocks the 53 port and libvirtd can't start its DNS service
-RCONFLICTS_${PN}_libvirtd = "connman"
+RCONFLICTS:${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://libvirtd.sh \
@@ -36,12 +36,12 @@ SRC_URI[libvirt.sha256sum] = "01f459d0c7ba5009622a628dba1a026200e8f4a299fea783b9
 
 inherit meson gettext update-rc.d pkgconfig systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "-r qemu; -r kvm"
-USERADD_PARAM_${PN} = "-r -g qemu -G kvm qemu"
+GROUPADD_PARAM:${PN} = "-r qemu; -r kvm"
+USERADD_PARAM:${PN} = "-r -g qemu -G kvm qemu"
 
 
 EXTRA_OEMESON += "--cross-file ${WORKDIR}/meson-${PN}.cross"
-do_write_config_append() {
+do_write_config:append() {
     cat >${WORKDIR}/meson-${PN}.cross <<EOF
 [binaries]
 iptables = '/usr/sbin/iptables'
@@ -52,13 +52,13 @@ dnsmasq = '/usr/bin/dnsmasq'
 EOF
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
 PACKAGES =+ "${PN}-libvirtd ${PN}-virsh"
 
-ALLOW_EMPTY_${PN}-libvirtd = "1"
+ALLOW_EMPTY:${PN}-libvirtd = "1"
 
-FILES_${PN}-libvirtd = " \
+FILES:${PN}-libvirtd = " \
 	${sysconfdir}/init.d \
 	${sysconfdir}/sysctl.d \
 	${sysconfdir}/logrotate.d \
@@ -70,12 +70,12 @@ FILES_${PN}-libvirtd = " \
 	${@bb.utils.contains('PACKAGECONFIG', 'gnutls', '${sysconfdir}/pki/libvirt/* ${sysconfdir}/pki/CA/*', '', d)} \
         "
 
-FILES_${PN}-virsh = " \
+FILES:${PN}-virsh = " \
     ${bindir}/virsh \
     ${datadir}/bash-completion/completions/virsh \
 "
 
-FILES_${PN} += "${libdir}/libvirt/connection-driver \
+FILES:${PN} += "${libdir}/libvirt/connection-driver \
 	    ${datadir}/augeas \
 	    ${@bb.utils.contains('PACKAGECONFIG', 'polkit', '${datadir}/polkit-1', '', d)} \
 	    ${datadir}/bash-completion/completions/vsh \
@@ -83,27 +83,27 @@ FILES_${PN} += "${libdir}/libvirt/connection-driver \
 	    /usr/lib/firewalld/zones/libvirt.xml \
 	    "
 
-FILES_${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
-FILES_${PN}-staticdev += "${libdir}/*.a ${libdir}/libvirt/connection-driver/*.a ${libdir}/libvirt/lock-driver/*.a"
+FILES:${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
+FILES:${PN}-staticdev += "${libdir}/*.a ${libdir}/libvirt/connection-driver/*.a ${libdir}/libvirt/lock-driver/*.a"
 
-CONFFILES_${PN} += "${sysconfdir}/libvirt/libvirt.conf \
+CONFFILES:${PN} += "${sysconfdir}/libvirt/libvirt.conf \
                     ${sysconfdir}/libvirt/lxc.conf \
                     ${sysconfdir}/libvirt/qemu-lockd.conf \
                     ${sysconfdir}/libvirt/qemu.conf \
                     ${sysconfdir}/libvirt/virt-login-shell.conf \
                     ${sysconfdir}/libvirt/virtlockd.conf"
 
-CONFFILES_${PN}-libvirtd = "${sysconfdir}/logrotate.d/libvirt ${sysconfdir}/logrotate.d/libvirt.lxc \
+CONFFILES:${PN}-libvirtd = "${sysconfdir}/logrotate.d/libvirt ${sysconfdir}/logrotate.d/libvirt.lxc \
                             ${sysconfdir}/logrotate.d/libvirt.qemu ${sysconfdir}/logrotate.d/libvirt.uml \
                             ${sysconfdir}/libvirt/libvirtd.conf \
                             /usr/lib/sysctl.d/libvirtd.conf"
 
 INITSCRIPT_PACKAGES = "${PN}-libvirtd"
-INITSCRIPT_NAME_${PN}-libvirtd = "libvirtd"
-INITSCRIPT_PARAMS_${PN}-libvirtd = "defaults 72"
+INITSCRIPT_NAME:${PN}-libvirtd = "libvirtd"
+INITSCRIPT_PARAMS:${PN}-libvirtd = "defaults 72"
 
 SYSTEMD_PACKAGES = "${PN}-libvirtd"
-SYSTEMD_SERVICE_${PN}-libvirtd = " \
+SYSTEMD_SERVICE:${PN}-libvirtd = " \
     libvirtd.service \
     virtlockd.service \
     libvirt-guests.service \
@@ -122,12 +122,12 @@ PACKAGECONFIG ??= "gnutls qemu yajl openvz vmware vbox esx lxc test remote \
                   "
 
 # qemu is NOT compatible with mips64
-PACKAGECONFIG_remove_mipsarchn32 = "qemu"
-PACKAGECONFIG_remove_mipsarchn64 = "qemu"
+PACKAGECONFIG:remove:mipsarchn32 = "qemu"
+PACKAGECONFIG:remove:mipsarchn64 = "qemu"
 
 # numactl is NOT compatible with arm
-PACKAGECONFIG_remove_arm = "numactl"
-PACKAGECONFIG_remove_armeb = "numactl"
+PACKAGECONFIG:remove:arm = "numactl"
+PACKAGECONFIG:remove:armeb = "numactl"
 
 # enable,disable,depends,rdepends
 #
@@ -179,12 +179,12 @@ do_compile() {
 	ninja all
 }
 
-do_install_prepend() {
+do_install:prepend() {
 	# so the install routines can find the libvirt.pc in the source dir
 	export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${B}/src:"
 }
 
-do_install_append() {
+do_install:append() {
 	install -d ${D}/etc/init.d
 	install -d ${D}/etc/libvirt
 	install -d ${D}/etc/dnsmasq.d
@@ -313,10 +313,10 @@ EXTRA_OEMESON += " \
 
 # gcc9 end up mis-compiling qemuxml2argvtest.o with Og which then
 # crashes on target, so remove -Og and use -O2 as workaround
-SELECTED_OPTIMIZATION_remove_virtclass-multilib-lib32_mipsarch = "-Og"
-SELECTED_OPTIMIZATION_append_virtclass-multilib-lib32_mipsarch = " -O2"
+SELECTED_OPTIMIZATION:remove:virtclass-multilib-lib32:mipsarch = "-Og"
+SELECTED_OPTIMIZATION:append:virtclass-multilib-lib32:mipsarch = " -O2"
 
-pkg_postinst_${PN}() {
+pkg_postinst:${PN}() {
         if [ -z "$D" ] && [ -e /etc/init.d/populate-volatile.sh ] ; then
                 /etc/init.d/populate-volatile.sh update
         fi

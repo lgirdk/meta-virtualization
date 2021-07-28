@@ -88,7 +88,7 @@ def oci_map_subarch(a, f, d):
             return ''
     return ''
 
-# the IMAGE_CMD_oci comes from the .inc
+# the IMAGE_CMD:oci comes from the .inc
 OCI_IMAGE_BACKEND_INC ?= "${@"image-oci-" + "${OCI_IMAGE_BACKEND}" + ".inc"}"
 include ${OCI_IMAGE_BACKEND_INC}
 

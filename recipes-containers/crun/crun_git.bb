@@ -33,7 +33,7 @@ DEPENDS += "libseccomp"
 DEPENDS += "systemd"
 DEPENDS += "oci-image-spec oci-runtime-spec"
 
-do_configure_prepend () {
+do_configure:prepend () {
     ./autogen.sh
 }
 

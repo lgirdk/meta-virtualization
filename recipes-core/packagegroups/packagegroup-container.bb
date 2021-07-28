@@ -16,32 +16,32 @@ PACKAGES = "\
 
 # everything and the kitchen sink, used for building/installing
 # many things at once.
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     packagegroup-lxc \
     packagegroup-docker \
     packagegroup-oci \
 "
 
-RDEPENDS_packagegroup-lxc = " \
+RDEPENDS:packagegroup-lxc = " \
     lxc \
 "
 
-RDEPENDS_packagegroup-docker = " \
+RDEPENDS:packagegroup-docker = " \
     docker \
 "
 
-RDEPENDS_packagegroup-podman = " \
+RDEPENDS:packagegroup-podman = " \
     podman \
 "
 
-RDEPENDS_packagegroup-oci = " \
+RDEPENDS:packagegroup-oci = " \
     virtual/runc \
     oci-systemd-hook \
     oci-runtime-tools \
     oci-image-tools \
 "
 
-RDEPENDS_packagegroup-containerd = " \
+RDEPENDS:packagegroup-containerd = " \
     virtual/containerd \
 "
 

@@ -11,16 +11,16 @@ EXTRA_OECONF += "--sysconfdir=${NAGIOS_CONF_DIR} \
                  --localstatedir=${NAGIOS_STATE_DIR} \
 "
 
-FILES_${PN}-dbg += "${NAGIOS_PLUGIN_DIR}/.debug"
+FILES:${PN}-dbg += "${NAGIOS_PLUGIN_DIR}/.debug"
 
 DEPENDS = "nagios-core"
 
-COMPATIBLE_HOST_aarch64 = "null"
+COMPATIBLE_HOST:aarch64 = "null"
 
 inherit useradd
 
 USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "-r ${NAGIOS_GROUP}; -r nagcmd"
-USERADD_PARAM_${PN} = "-r -M -g ${NAGIOS_GROUP} ${NAGIOS_USER}"
+GROUPADD_PARAM:${PN} = "-r ${NAGIOS_GROUP}; -r nagcmd"
+USERADD_PARAM:${PN} = "-r -M -g ${NAGIOS_GROUP} ${NAGIOS_USER}"
 
-FILESYSTEM_PERMS_TABLES_append = " files/fs-perms-nagios.txt"
+FILESYSTEM_PERMS_TABLES:append = " files/fs-perms-nagios.txt"

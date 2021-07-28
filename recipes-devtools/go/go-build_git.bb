@@ -26,7 +26,7 @@ inherit pkgconfig
 GO_IMPORT = "import"
 inherit go
 
-RDEPENDS_${PN}-dev = "bash"
+RDEPENDS:${PN}-dev = "bash"
 
 do_compile() {
 
@@ -55,4 +55,4 @@ do_install() {
     install -m 755 ${B}/src/import/gobuild/serial_fd_handler ${D}${datadir}/runX/
 }
 
-FILES_${PN} += "${datadir}/runX/*"
+FILES:${PN} += "${datadir}/runX/*"

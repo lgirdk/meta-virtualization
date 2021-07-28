@@ -7,4 +7,4 @@ SRC_URI[sha256sum] = "c853d6c2321e2f2328282c7d49d7b1a06201826ba0e7049c6975ab5f22
 
 inherit pypi setuptools3
 
-RDEPENDS_${PN} += "python3-jmespath python3-dateutil python3-logging"
+RDEPENDS:${PN} += "python3-jmespath python3-dateutil python3-logging"

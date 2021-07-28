@@ -14,8 +14,8 @@ SRC_URI[sha256sum] = "9d24c33d4bfb7831e2069cf3644936a53ef3de21d467872b54ce2ea308
 
 PR = "r0"
 
-FILES_${PN} = "/usr/share/firmware/${PN}-${PV}*.bin"
-FILES_${PN}-dbg = "/usr/share/firmware/${PN}-${PV}*.debug.bin"
+FILES:${PN} = "/usr/share/firmware/${PN}-${PV}*.bin"
+FILES:${PN}-dbg = "/usr/share/firmware/${PN}-${PV}*.debug.bin"
 
 S = "${WORKDIR}/${PN}-${PV}"
 

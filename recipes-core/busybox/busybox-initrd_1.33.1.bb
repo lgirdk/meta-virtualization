@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/busybox-initrd:${COREBASE}/meta/recipes-core/busybox/busybox:${COREBASE}/meta/recipes-core/busybox/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/busybox-initrd:${COREBASE}/meta/recipes-core/busybox/busybox:${COREBASE}/meta/recipes-core/busybox/files:"
 
 require recipes-core/busybox/busybox_${PV}.bb
 
@@ -18,4 +18,4 @@ SECURITY_STRINGFORMAT = ""
 SYSROOT_DIRS += "/bin"
 BUSYBOX_SPLIT_SUID = "0"
 
-FILES_${PN} += "${sysconfdir}/init.d/*"
+FILES:${PN} += "${sysconfdir}/init.d/*"

@@ -72,18 +72,18 @@ do_install() {
 PACKAGES =+ "${PN}-server ${PN}-agent"
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}-server ${PN}-agent','',d)}"
-SYSTEMD_SERVICE_${PN}-server = "${@bb.utils.contains('DISTRO_FEATURES','systemd','k3s.service','',d)}"
-SYSTEMD_SERVICE_${PN}-agent = "${@bb.utils.contains('DISTRO_FEATURES','systemd','k3s-agent.service','',d)}"
-SYSTEMD_AUTO_ENABLE_${PN}-agent = "disable"
+SYSTEMD_SERVICE:${PN}-server = "${@bb.utils.contains('DISTRO_FEATURES','systemd','k3s.service','',d)}"
+SYSTEMD_SERVICE:${PN}-agent = "${@bb.utils.contains('DISTRO_FEATURES','systemd','k3s-agent.service','',d)}"
+SYSTEMD_AUTO_ENABLE:${PN}-agent = "disable"
 
-FILES_${PN}-agent = "${BIN_PREFIX}/bin/k3s-agent"
-FILES_${PN} += "${BIN_PREFIX}/bin/*"
+FILES:${PN}-agent = "${BIN_PREFIX}/bin/k3s-agent"
+FILES:${PN} += "${BIN_PREFIX}/bin/*"
 
-RDEPENDS_${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 ipset virtual/containerd"
-RDEPENDS_${PN}-server = "${PN}"
-RDEPENDS_${PN}-agent = "${PN}"
+RDEPENDS:${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 ipset virtual/containerd"
+RDEPENDS:${PN}-server = "${PN}"
+RDEPENDS:${PN}-agent = "${PN}"
 
-RRECOMMENDS_${PN} = "\
+RRECOMMENDS:${PN} = "\
                      kernel-module-xt-addrtype \
                      kernel-module-xt-nat \
                      kernel-module-xt-multiport \
@@ -95,7 +95,7 @@ RRECOMMENDS_${PN} = "\
                      kernel-module-xt-masquerade \
                      "
 
-RCONFLICTS_${PN} = "kubectl"
+RCONFLICTS:${PN} = "kubectl"
 
 INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"

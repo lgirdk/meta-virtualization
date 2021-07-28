@@ -4,7 +4,7 @@ DEPENDS += "virtual/kernel"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-RDEPENDS_${PN}-ptest += "\
+RDEPENDS:${PN}-ptest += "\
 	python3-logging python3-syslog python3-io python3-core \
 	python3-fcntl python3-shell python3-xml python3-math \
 	python3-datetime python3-netclient python3 sed \
@@ -17,7 +17,7 @@ S = "${WORKDIR}/git"
 PV = "2.15+${SRCPV}"
 CVE_VERSION = "2.13.0"
 
-FILESEXTRAPATHS_append := "${THISDIR}/${PN}-git:"
+FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
 SRCREV = "8dc1733eaea866dce033b3c44853e1b09bf59fc7"
 SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=git;branch=branch-2.15 \
@@ -45,7 +45,7 @@ PACKAGECONFIG[ssl] = ",--disable-ssl,openssl,"
 # EXTRA_OECONF += "--with-linux=${STAGING_KERNEL_BUILDDIR} --with-linux-source=${STAGING_KERNEL_DIR} KARCH=${TARGET_ARCH}"
 
 # silence a warning
-FILES_${PN} += "/lib/modules"
+FILES:${PN} += "/lib/modules"
 
 inherit ptest
 
@@ -55,6 +55,6 @@ do_install_ptest() {
 	oe_runmake test-install
 }
 
-do_install_append() {
+do_install:append() {
 	oe_runmake modules_install INSTALL_MOD_PATH=${D}
 }

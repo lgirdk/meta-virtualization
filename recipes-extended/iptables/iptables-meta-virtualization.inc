@@ -1,4 +1,4 @@
-RRECOMMENDS_${PN} += "kernel-module-ip6-tables \
+RRECOMMENDS:${PN} += "kernel-module-ip6-tables \
                       kernel-module-ip-tables \
                       kernel-module-ip6table-filter \
                       kernel-module-iptable-filter \

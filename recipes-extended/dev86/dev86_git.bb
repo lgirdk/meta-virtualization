@@ -39,4 +39,4 @@ do_install() {
 	ln -s ../lib/bcc/bcc-cc1 ${D}${prefix}/bin/bcc-cc1
 }
 
-FILES_${PN} += "${libdir}/bcc"
+FILES:${PN} += "${libdir}/bcc"

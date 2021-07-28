@@ -1,4 +1,4 @@
-IMAGE_CMD_oci() {
+IMAGE_CMD:oci() {
     sloci_options=""
 
     bbdebug 1 "OCI image settings:"

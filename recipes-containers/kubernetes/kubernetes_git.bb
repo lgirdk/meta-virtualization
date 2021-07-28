@@ -87,30 +87,30 @@ do_install() {
 
 PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc"
 
-ALLOW_EMPTY_${PN} = "1"
-INSANE_SKIP_${PN} += "ldflags already-stripped"
-INSANE_SKIP_${PN}-misc += "ldflags already-stripped"
+ALLOW_EMPTY:${PN} = "1"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN}-misc += "ldflags already-stripped"
 
 # Note: we are explicitly *not* adding docker to the rdepends, since we allow
 #       backends like cri-o to be used.
-RDEPENDS_${PN} += "kubeadm \
+RDEPENDS:${PN} += "kubeadm \
                    kubectl \
                    kubelet \
                    cni"
 
-RDEPENDS_kubeadm = "kubelet kubectl"
-FILES_kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
+RDEPENDS:kubeadm = "kubelet kubectl"
+FILES:kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
 
-RDEPENDS_kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
-FILES_kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
+RDEPENDS:kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
+FILES:kubelet = "${bindir}/kubelet ${systemd_unitdir}/system/kubelet.service ${sysconfdir}/kubernetes/manifests/"
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet','',d)}"
-SYSTEMD_SERVICE_kubelet = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet.service','',d)}"
-SYSTEMD_AUTO_ENABLE_kubelet = "enable"
+SYSTEMD_SERVICE:kubelet = "${@bb.utils.contains('DISTRO_FEATURES','systemd','kubelet.service','',d)}"
+SYSTEMD_AUTO_ENABLE:kubelet = "enable"
 
-FILES_kubectl = "${bindir}/kubectl"
-FILES_kube-proxy = "${bindir}/kube-proxy"
-FILES_${PN}-misc = "${bindir}"
+FILES:kubectl = "${bindir}/kubectl"
+FILES:kube-proxy = "${bindir}/kube-proxy"
+FILES:${PN}-misc = "${bindir}"
 
 
 deltask compile_ptest_base

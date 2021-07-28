@@ -21,7 +21,7 @@ INITSCRIPT_PARAMS = "defaults"
 inherit autotools update-rc.d pkgconfig systemd
 
 SYSTEMD_PACKAGES = "irqbalance"
-SYSTEMD_SERVICE_irqbalance = "irqbalanced.service"
+SYSTEMD_SERVICE:irqbalance = "irqbalanced.service"
 
 EXTRA_OECONF = "--program-transform-name= \
 	       "

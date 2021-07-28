@@ -29,7 +29,7 @@ DEPENDS = "boost bzip2 curl expat gperf-native \
            python3 python3-cython-native rabbitmq-c rocksdb snappy udev \
            valgrind xfsprogs zlib \
 "
-SYSTEMD_SERVICE_${PN} = " \
+SYSTEMD_SERVICE:${PN} = " \
         ceph-radosgw@.service \
         ceph-radosgw.target \
         ceph-mon@.service \
@@ -72,13 +72,13 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
 
 export STAGING_DIR_HOST
 
-do_configure_prepend () {
+do_configure:prepend () {
 	echo "set( CMAKE_SYSROOT \"${RECIPE_SYSROOT}\" )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( CMAKE_DESTDIR \"${D}\" )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( PYTHON_SITEPACKAGES_DIR \"${PYTHON_SITEPACKAGES_DIR}\" )" >> ${WORKDIR}/toolchain.cmake
 }
 
-do_install_append () {
+do_install:append () {
 	sed -i -e 's:^#!/usr/bin/python$:&3:' \
 		-e 's:${WORKDIR}.*python3:${bindir}/python3:' \
 		${D}${bindir}/ceph ${D}${bindir}/ceph-crash \
@@ -94,7 +94,7 @@ do_install_append () {
 	rm ${D}${systemd_unitdir}/system/ceph-fuse.target ${D}${systemd_unitdir}/system/ceph-fuse@.service
 }
 
-do_install_append_class-target () {
+do_install:append:class-target () {
 	if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
 		install -d ${D}${sysconfdir}/tmpfiles.d
 		echo "d /var/lib/ceph/crash/posted 0755 root root - -" > ${D}${sysconfdir}/tmpfiles.d/ceph-placeholder.conf
@@ -106,28 +106,28 @@ do_install_append_class-target () {
 	fi
 }
 
-pkg_postinst_${PN}() {
+pkg_postinst:${PN}() {
 	if [ -z "$D" ] && [ -e ${sysconfdir}/init.d/populate-volatile.sh ] ; then
 		${sysconfdir}/init.d/populate-volatile.sh update
 	fi
 }
 
-FILES_${PN} += "\
+FILES:${PN} += "\
 		${libdir}/rados-classes/*.so.* \
 		${libdir}/ceph/compressor/*.so \
 		${libdir}/rados-classes/*.so \
 		${libdir}/ceph/*.so \
 "
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     /etc/tmpfiles.d/ceph-placeholder.conf \
     /etc/default/volatiles/99_ceph-placeholder \
 "
 
-FILES_${PN}-python = "\
+FILES:${PN}-python = "\
                 ${PYTHON_SITEPACKAGES_DIR}/* \
 "
-RDEPENDS_${PN} += "\
+RDEPENDS:${PN} += "\
 		python3-core \
 		python3-misc \
 		python3-modules \
@@ -138,8 +138,8 @@ COMPATIBLE_HOST = "(x86_64).*"
 PACKAGES += " \
 	${PN}-python \
 "
-INSANE_SKIP_${PN}-python += "ldflags"
-INSANE_SKIP_${PN} += "dev-so"
+INSANE_SKIP:${PN}-python += "ldflags"
+INSANE_SKIP:${PN} += "dev-so"
 CCACHE_DISABLE = "1"
 
 CVE_PRODUCT = "ceph ceph_storage ceph_storage_mon ceph_storage_osd"

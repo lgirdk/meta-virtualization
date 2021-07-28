@@ -30,7 +30,7 @@ GO_IMPORT = "github.com/mikefarah/yq"
 
 inherit go
 
-do_compile_prepend() {
+do_compile:prepend() {
     # arrange for some of the golang built ins to be found
     (
 	cd ${WORKDIR}/build/src/
@@ -43,7 +43,7 @@ do_compile_prepend() {
 }
 
 
-do_install_append() {
+do_install:append() {
     # these bring in dependencies for the -dev package on bash, and we don't
     # need them .. so we remove them to avoid needing that rdepends
     rm -rf ${D}/${prefix}/lib/go/src/${GO_IMPORT}/debian/rules

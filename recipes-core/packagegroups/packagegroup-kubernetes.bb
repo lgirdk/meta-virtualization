@@ -18,26 +18,26 @@ PACKAGES = "\
 
 KUBERNETES_CRI ?= "containerd"
 
-RDEPENDS_packagegroup-kubernetes-base = " \
+RDEPENDS:packagegroup-kubernetes-base = " \
     packagegroup-${KUBERNETES_CRI} \
     packagegroup-oci \
 "
 
-RDEPENDS_packagegroup-k8s-host = " \
+RDEPENDS:packagegroup-k8s-host = " \
     packagegroup-kubernetes-base \
 "
 
-RDEPENDS_packagegroup-k8s-node = " \
+RDEPENDS:packagegroup-k8s-node = " \
     packagegroup-kubernetes-base \
 "
 
-RDEPENDS_packagegroup-k3s-host = " \
+RDEPENDS:packagegroup-k3s-host = " \
     packagegroup-kubernetes-base \
     k3s-server \
     k3s-cni \
 "
 
-RDEPENDS_packagegroup-k3s-node = " \
+RDEPENDS:packagegroup-k3s-node = " \
     packagegroup-kubernetes-base \
     k3s-agent \
     k3s-cni \

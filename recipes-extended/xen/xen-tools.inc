@@ -6,7 +6,7 @@ COMPATIBLE_HOST = 'i686-.*-linux|(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux
 inherit setuptools3 update-rc.d systemd deploy
 require xen-blktap.inc
 
-RDEPENDS_${PN} = "\
+RDEPENDS:${PN} = "\
     bash perl xz \
     ${PN}-console \
     ${PN}-libxenguest \
@@ -28,14 +28,14 @@ RDEPENDS_${PN} = "\
     ${PN}-xl \
     "
 
-RDEPENDS_${PN}-dev = ""
+RDEPENDS:${PN}-dev = ""
 
 # Qemu is necessary on ARM platforms, and to support HVM guests on x86
 QEMU = "${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'qemu', '', d)}"
-QEMU_arm = "qemu"
-QEMU_aarch64 = "qemu"
+QEMU:arm = "qemu"
+QEMU:aarch64 = "qemu"
 
-RRECOMMENDS_${PN} = " \
+RRECOMMENDS:${PN} = " \
     ${QEMU} \
     ${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'seabios', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
@@ -49,58 +49,58 @@ RRECOMMENDS_${PN} = " \
     ${PN}-xenhypfs \
     "
 
-RDEPENDS_${PN}-devd = " \
+RDEPENDS:${PN}-devd = " \
     ${PN}-xl \
     "
 
-RDEPENDS_${PN}-fsimage = " \
+RDEPENDS:${PN}-fsimage = " \
     libext2fs \
     "
 
-RDEPENDS_${PN}-misc = " \
+RDEPENDS:${PN}-misc = " \
     perl \
     python3 \
     ${PN}-xencov \
     "
 
-RSUGGESTS_${PN}-misc = " \
+RSUGGESTS:${PN}-misc = " \
     ${PN}-xencons \
     ${PN}-xenpvnetboot \
     "
 
-RDEPENDS_${PN}-python = " \
+RDEPENDS:${PN}-python = " \
     python3 \
     "
 
-RDEPENDS_${PN}-pygrub = " \
+RDEPENDS:${PN}-pygrub = " \
     python3 \
     ${PN}-python \
     "
 
-RDEPENDS_${PN}-remus = "bash"
+RDEPENDS:${PN}-remus = "bash"
 
-RDEPENDS_${PN}-scripts-block = "\
+RDEPENDS:${PN}-scripts-block = "\
     bash \
     ${PN}-scripts-common \
     ${PN}-volatiles \
     "
 
-RDEPENDS_${PN}-scripts-common = "bash"
+RDEPENDS:${PN}-scripts-common = "bash"
 
-RDEPENDS_${PN}-scripts-network = "\
+RDEPENDS:${PN}-scripts-network = "\
     bash \
     bridge-utils \
     ${PN}-scripts-common \
     ${PN}-volatiles \
     "
 
-RSUGGESTS_${PN}-scripts-network = "\
+RSUGGESTS:${PN}-scripts-network = "\
     ifupdown \
     "
 
-RSUGGESTS_${PN}-xencov = "${PN}-xencov-split"
+RSUGGESTS:${PN}-xencov = "${PN}-xencov-split"
 
-RDEPENDS_${PN}-xencommons = "\
+RDEPENDS:${PN}-xencommons = "\
     bash \
     ${PN}-console \
     ${PN}-xenstore \
@@ -109,7 +109,7 @@ RDEPENDS_${PN}-xencommons = "\
     ${PN}-scripts-common \
     "
 
-RDEPENDS_${PN}-xendomains = "\
+RDEPENDS:${PN}-xendomains = "\
     bash \
     ${PN}-console \
     ${PN}-scripts-block \
@@ -117,19 +117,19 @@ RDEPENDS_${PN}-xendomains = "\
     virtual/xenstored \
     "
 
-RDEPENDS_${PN}-xenhypfs = " \
+RDEPENDS:${PN}-xenhypfs = " \
     ${PN}-libxenhypfs \
     "
 
-RDEPENDS_${PN}-xl = "libgcc"
+RDEPENDS:${PN}-xl = "libgcc"
 
-RDEPENDS_${PN}-xenmon = " \
+RDEPENDS:${PN}-xenmon = " \
     python3 \
     "
 
-RSUGGESTS_${PN}-xentrace = "${PN}-xentrace-format"
+RSUGGESTS:${PN}-xentrace = "${PN}-xentrace-format"
 
-RDEPENDS_${PN}-xen-watchdog = "bash"
+RDEPENDS:${PN}-xen-watchdog = "bash"
 
 PACKAGES = " \
     ${PN} \
@@ -222,9 +222,9 @@ PROVIDES =+ " \
 
 # There are multiple implementations of the XenStore daemon, so we use a
 # virtual package to allow for substitution.
-RPROVIDES_${PN}-xenstored = "virtual/xenstored"
+RPROVIDES:${PN}-xenstored = "virtual/xenstored"
 
-FILES_${PN}-dbg += "\
+FILES:${PN}-dbg += "\
     ${libdir}/xen/bin/.debug \
     ${nonarch_libdir}/${PYTHON_DIR}/site-packages/.debug \
     ${nonarch_libdir}/${PYTHON_DIR}/site-packages/xen/lowlevel/.debug \
@@ -244,18 +244,18 @@ FILES_${PN}-dbg += "\
     ${nonarch_libdir}/${PYTHON_DIR}/dist-packages/xen/lowlevel/.debug \
     "
 
-FILES_${PN}-dev = "\
+FILES:${PN}-dev = "\
     ${includedir} \
     "
 
-FILES_${PN}-doc = "\
+FILES:${PN}-doc = "\
     ${sysconfdir}/xen/README \
     ${sysconfdir}/xen/README.incompatibilities \
     ${datadir}/doc \
     ${datadir}/man \
     "
 
-FILES_${PN}-staticdev += "\
+FILES:${PN}-staticdev += "\
     ${libdir}/libxenguest.a \
     ${libdir}/libxenlight.a \
     ${libdir}/libxenvchan.a \
@@ -265,122 +265,122 @@ FILES_${PN}-staticdev += "\
     ${libdir}/libxenstore.a \
     "
 
-FILES_${PN}-libxencall = "${libdir}/libxencall.so.*"
-FILES_${PN}-libxencall-dev = " \
+FILES:${PN}-libxencall = "${libdir}/libxencall.so.*"
+FILES:${PN}-libxencall-dev = " \
     ${libdir}/libxencall.so \
     ${libdir}/pkgconfig/xencall.pc \
     ${datadir}/pkgconfig/xencall.pc \
     "
 
-FILES_${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
-FILES_${PN}-libxenctrl-dev = " \
+FILES:${PN}-libxenctrl = "${libdir}/libxenctrl.so.*"
+FILES:${PN}-libxenctrl-dev = " \
     ${libdir}/libxenctrl.so \
     ${libdir}/pkgconfig/xencontrol.pc \
     ${datadir}/pkgconfig/xencontrol.pc \
     "
 
-FILES_${PN}-libxendevicemodel = "${libdir}/libxendevicemodel.so.*"
-FILES_${PN}-libxendevicemodel-dev = " \
+FILES:${PN}-libxendevicemodel = "${libdir}/libxendevicemodel.so.*"
+FILES:${PN}-libxendevicemodel-dev = " \
     ${libdir}/libxendevicemodel.so \
     ${libdir}/pkgconfig/xendevicemodel.pc \
     ${datadir}/pkgconfig/xendevicemodel.pc \
     "
 
-FILES_${PN}-libxenevtchn = "${libdir}/libxenevtchn.so.*"
-FILES_${PN}-libxenevtchn-dev = " \
+FILES:${PN}-libxenevtchn = "${libdir}/libxenevtchn.so.*"
+FILES:${PN}-libxenevtchn-dev = " \
     ${libdir}/libxenevtchn.so \
     ${libdir}/pkgconfig/xenevtchn.pc \
     ${datadir}/pkgconfig/xenevtchn.pc \
     "
 
-FILES_${PN}-libxenforeignmemory = "${libdir}/libxenforeignmemory.so.*"
-FILES_${PN}-libxenforeignmemory-dev = " \
+FILES:${PN}-libxenforeignmemory = "${libdir}/libxenforeignmemory.so.*"
+FILES:${PN}-libxenforeignmemory-dev = " \
     ${libdir}/libxenforeignmemory.so \
     ${libdir}/pkgconfig/xenforeignmemory.pc \
     ${datadir}/pkgconfig/xenforeignmemory.pc \
     "
 
-FILES_${PN}-libxengnttab = "${libdir}/libxengnttab.so.*"
-FILES_${PN}-libxengnttab-dev = " \
+FILES:${PN}-libxengnttab = "${libdir}/libxengnttab.so.*"
+FILES:${PN}-libxengnttab-dev = " \
     ${libdir}/libxengnttab.so \
     ${libdir}/pkgconfig/xengnttab.pc \
     ${datadir}/pkgconfig/xengnttab.pc \
     "
 
-FILES_${PN}-libxenguest = "${libdir}/libxenguest.so.*"
-FILES_${PN}-libxenguest-dev = " \
+FILES:${PN}-libxenguest = "${libdir}/libxenguest.so.*"
+FILES:${PN}-libxenguest-dev = " \
     ${libdir}/libxenguest.so \
     ${libdir}/pkgconfig/xenguest.pc \
     ${datadir}/pkgconfig/xenguest.pc \
     "
 
-FILES_${PN}-libxenhypfs = "${libdir}/libxenhypfs.so.*"
-FILES_${PN}-libxenhypfs-dev = " \
+FILES:${PN}-libxenhypfs = "${libdir}/libxenhypfs.so.*"
+FILES:${PN}-libxenhypfs-dev = " \
     ${libdir}/libxenhypfs.so \
     ${libdir}/pkgconfig/xenhypfs.pc \
     "
 
-FILES_${PN}-libxenlight = "${libdir}/libxenlight.so.*"
-FILES_${PN}-libxenlight-dev = " \
+FILES:${PN}-libxenlight = "${libdir}/libxenlight.so.*"
+FILES:${PN}-libxenlight-dev = " \
     ${libdir}/libxenlight.so \
     ${libdir}/pkgconfig/xenlight.pc \
     ${datadir}/pkgconfig/xenlight.pc \
     "
 
-FILES_${PN}-libxenstat = "${libdir}/libxenstat.so.*"
-FILES_${PN}-libxenstat-dev = " \
+FILES:${PN}-libxenstat = "${libdir}/libxenstat.so.*"
+FILES:${PN}-libxenstat-dev = " \
     ${libdir}/libxenstat.so \
     ${libdir}/pkgconfig/xenstat.pc \
     ${datadir}/pkgconfig/xenstat.pc \
     "
 
-FILES_${PN}-libxenstore = "${libdir}/libxenstore.so.*"
-FILES_${PN}-libxenstore-dev = " \
+FILES:${PN}-libxenstore = "${libdir}/libxenstore.so.*"
+FILES:${PN}-libxenstore-dev = " \
     ${libdir}/libxenstore.so \
     ${libdir}/pkgconfig/xenstore.pc \
     ${datadir}/pkgconfig/xenstore.pc \
     "
 
-FILES_${PN}-libxentoolcore = "${libdir}/libxentoolcore.so.*"
-FILES_${PN}-libxentoolcore-dev = " \
+FILES:${PN}-libxentoolcore = "${libdir}/libxentoolcore.so.*"
+FILES:${PN}-libxentoolcore-dev = " \
     ${libdir}/libxentoolcore.so \
     ${libdir}/pkgconfig/xentoolcore.pc \
     ${datadir}/pkgconfig/xentoolcore.pc \
     "
 
-FILES_${PN}-libxentoollog = "${libdir}/libxentoollog.so.*"
-FILES_${PN}-libxentoollog-dev = " \
+FILES:${PN}-libxentoollog = "${libdir}/libxentoollog.so.*"
+FILES:${PN}-libxentoollog-dev = " \
     ${libdir}/libxentoollog.so \
     ${libdir}/pkgconfig/xentoollog.pc \
     ${datadir}/pkgconfig/xentoollog.pc \
     "
 
-FILES_${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
-FILES_${PN}-libxenvchan-dev = " \
+FILES:${PN}-libxenvchan = "${libdir}/libxenvchan.so.*"
+FILES:${PN}-libxenvchan-dev = " \
     ${libdir}/libxenvchan.so \
     ${libdir}/pkgconfig/xenvchan.pc \
     ${datadir}/pkgconfig/xenvchan.pc \
     "
 
-FILES_${PN}-libxlutil = "${libdir}/libxlutil.so.*"
-FILES_${PN}-libxlutil-dev = " \
+FILES:${PN}-libxlutil = "${libdir}/libxlutil.so.*"
+FILES:${PN}-libxlutil-dev = " \
     ${libdir}/libxlutil.so \
     ${libdir}/pkgconfig/xlutil.pc \
     ${datadir}/pkgconfig/xlutil.pc \
     "
-FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
-FILES_${PN}-libvhd-dev = " \
+FILES:${PN}-libvhd = "${libdir}/libvhd.so.*"
+FILES:${PN}-libvhd-dev = " \
     ${libdir}/libvhd.so \
     ${libdir}/pkgconfig/vhd.pc \
     ${datadir}/pkgconfig/vhd.pc \
     "
 
-FILES_${PN}-libfsimage = " \
+FILES:${PN}-libfsimage = " \
     ${libdir}/libfsimage.so.* \
     ${libdir}/libxenfsimage.so.* \
     "
 
-FILES_${PN}-libfsimage-dev = " \
+FILES:${PN}-libfsimage-dev = " \
     ${libdir}/libfsimage.so \
     ${libdir}/libxenfsimage.so \
     ${libdir}/pkgconfig/fsimage.pc \
@@ -389,38 +389,38 @@ FILES_${PN}-libfsimage-dev = " \
     ${datadir}/pkgconfig/xenfsimage.pc \
     "
 
-FILES_${PN}-fsimage = " \
+FILES:${PN}-fsimage = " \
     ${libdir}/fs/**/[a-z]*fsimage.so \
     ${libdir}/xenfsimage/**/fsimage.so \
     "
 
-FILES_${PN}-init-xenstore-dom = "${libdir}/xen/bin/init-xenstore-domain"
+FILES:${PN}-init-xenstore-dom = "${libdir}/xen/bin/init-xenstore-domain"
 
-FILES_${PN} = "\
+FILES:${PN} = "\
     ${sysconfdir}/xen/auto \
     ${sysconfdir}/xen/cpupool \
     ${localstatedir}/xen/dump \
     "
 
-FILES_${PN}-console = "\
+FILES:${PN}-console = "\
     ${libdir}/xen/bin/xenconsole \
     ${sbindir}/xenconsoled \
     "
 
-FILES_${PN}-cpuid = "\
+FILES:${PN}-cpuid = "\
     ${bindir}/xen-cpuid \
     "
 
-FILES_${PN}-devd = "\
+FILES:${PN}-devd = "\
     ${sysconfdir}/init.d/xendriverdomain \
     ${systemd_unitdir}/system/xendriverdomain.service \
     "
 
-FILES_${PN}-flask = "\
+FILES:${PN}-flask = "\
     /boot/xenpolicy-* \
     "
 
-FILES_${PN}-flask-tools = "\
+FILES:${PN}-flask-tools = "\
     ${sbindir}/flask-get-bool \
     ${sbindir}/flask-getenforce \
     ${sbindir}/flask-label-pci \
@@ -429,25 +429,25 @@ FILES_${PN}-flask-tools = "\
     ${sbindir}/flask-setenforce \
     "
 
-FILES_${PN}-gdbsx = "\
+FILES:${PN}-gdbsx = "\
     ${sbindir}/gdbsx \
     "
 
-INSANE_SKIP_${PN}-hvmloader = "arch"
-FILES_${PN}-hvmloader = "\
+INSANE_SKIP:${PN}-hvmloader = "arch"
+FILES:${PN}-hvmloader = "\
     ${libdir}/xen/boot/hvmloader \
     "
 
-FILES_${PN}-kdd = "\
+FILES:${PN}-kdd = "\
     ${sbindir}/kdd \
     ${sbindir}/xen-kdd \
     "
 
-FILES_${PN}-livepatch += " \
+FILES:${PN}-livepatch += " \
     ${sbindir}/xen-livepatch \
     "
 
-FILES_${PN}-misc = "\
+FILES:${PN}-misc = "\
     ${bindir}/xen-detect \
     ${libdir}/xen/bin/depriv-fd-checker \
     ${sbindir}/gtracestat \
@@ -470,22 +470,22 @@ FILES_${PN}-misc = "\
     ${libdir}/xen/bin/convert-legacy-stream \
     "
 
-FILES_${PN}-pygrub = "\
+FILES:${PN}-pygrub = "\
     ${bindir}/pygrub \
     ${libdir}/xen/bin/pygrub \
     "
 
 # Depending on the version of Xen libdir or nonarch libdir is used
-FILES_${PN}-python = "\
+FILES:${PN}-python = "\
     ${libdir}/${PYTHON_DIR} \
     ${nonarch_libdir}/${PYTHON_DIR} \
     "
 
-FILES_${PN}-remus = "\
+FILES:${PN}-remus = "\
     ${sysconfdir}/xen/scripts/remus-netbuf-setup \
     "
 
-FILES_${PN}-scripts-network = " \
+FILES:${PN}-scripts-network = " \
     ${sysconfdir}/xen/scripts/colo-proxy-setup \
     ${sysconfdir}/xen/scripts/network-bridge \
     ${sysconfdir}/xen/scripts/network-nat \
@@ -500,7 +500,7 @@ FILES_${PN}-scripts-network = " \
     ${sysconfdir}/xen/scripts/vif-setup \
     "
 
-FILES_${PN}-scripts-block = " \
+FILES:${PN}-scripts-block = " \
     ${sysconfdir}/xen/scripts/blktap \
     ${sysconfdir}/xen/scripts/block \
     ${sysconfdir}/xen/scripts/block-common.sh \
@@ -513,7 +513,7 @@ FILES_${PN}-scripts-block = " \
     ${sysconfdir}/xen/scripts/vscsi \
     "
 
-FILES_${PN}-scripts-common = " \
+FILES:${PN}-scripts-common = " \
     ${sysconfdir}/xen/scripts/external-device-migrate \
     ${sysconfdir}/xen/scripts/hotplugpath.sh \
     ${sysconfdir}/xen/scripts/locking.sh \
@@ -524,59 +524,59 @@ FILES_${PN}-scripts-common = " \
     ${sysconfdir}/xen/scripts/xen-script-common.sh \
     "
 
-INSANE_SKIP_${PN}-shim = "arch"
-FILES_${PN}-shim = " \
+INSANE_SKIP:${PN}-shim = "arch"
+FILES:${PN}-shim = " \
     ${libdir}/xen/boot/xen-shim \
     "
 
-FILES_${PN}-ucode = "\
+FILES:${PN}-ucode = "\
     ${sbindir}/xen-ucode \
     "
 
-FILES_${PN}-vchan = "\
+FILES:${PN}-vchan = "\
     ${bindir}/vchan-socket-proxy \
     "
 
-FILES_${PN}-volatiles = "\
+FILES:${PN}-volatiles = "\
     ${sysconfdir}/default/volatiles/99_xen \
     ${sysconfdir}/tmpfiles.d/xen.conf \
     "
 
-FILES_${PN}-xcutils = "\
+FILES:${PN}-xcutils = "\
     ${libdir}/xen/bin/lsevtchn \
     ${libdir}/xen/bin/readnotes \
     ${libdir}/xen/bin/xc_restore \
     ${libdir}/xen/bin/xc_save \
     "
 
-FILES_${PN}-xencov = "\
+FILES:${PN}-xencov = "\
     ${sbindir}/xencov \
     "
 
-FILES_${PN}-xend-examples = "\
+FILES:${PN}-xend-examples = "\
     ${sysconfdir}/xen/xend-config.sxp \
     ${sysconfdir}/xen/xend-pci-permissive.sxp \
     ${sysconfdir}/xen/xend-pci-quirks.sxp \
     "
 
-FILES_${PN}-xenhypfs = "\
+FILES:${PN}-xenhypfs = "\
     ${sbindir}/xenhypfs \
     "
 
-FILES_${PN}-xenpaging = "\
+FILES:${PN}-xenpaging = "\
     ${libdir}/xen/bin/xenpaging \
     ${localstatedir}/lib/xen/xenpaging \
     "
 
-FILES_${PN}-xenpmd = "\
+FILES:${PN}-xenpmd = "\
     ${sbindir}/xenpmd \
     "
 
-FILES_${PN}-xenstat = "\
+FILES:${PN}-xenstat = "\
     ${sbindir}/xentop \
     "
 
-FILES_${PN}-xenstore = "\
+FILES:${PN}-xenstore = "\
     ${bindir}/xenstore \
     ${bindir}/xenstore-chmod \
     ${bindir}/xenstore-control \
@@ -589,12 +589,12 @@ FILES_${PN}-xenstore = "\
     ${bindir}/xenstore-write \
     "
 
-FILES_${PN}-xenstored = "\
+FILES:${PN}-xenstored = "\
     ${sbindir}/xenstored \
     ${localstatedir}/lib/xenstored \
     "
 
-FILES_${PN}-xentrace = "\
+FILES:${PN}-xentrace = "\
     ${bindir}/xentrace \
     ${bindir}/xentrace_setsize \
     ${libdir}/xen/bin/xenctx \
@@ -604,13 +604,13 @@ FILES_${PN}-xentrace = "\
     ${sbindir}/xentrace_setmask \
     "
 
-FILES_${PN}-xen-watchdog = "\
+FILES:${PN}-xen-watchdog = "\
     ${sbindir}/xenwatchdogd \
     ${sysconfdir}/init.d/xen-watchdog \
     ${systemd_unitdir}/system/xen-watchdog.service \
     "
 
-FILES_${PN}-xl = "\
+FILES:${PN}-xl = "\
     ${sysconfdir}/bash_completion.d/xl.sh \
     ${sysconfdir}/bash_completion.d/xl \
     ${sysconfdir}/xen/xl.conf \
@@ -619,13 +619,13 @@ FILES_${PN}-xl = "\
     ${libdir}/xen/bin/xen-init-dom0 \
     "
 
-FILES_${PN}-xl-examples = "\
+FILES:${PN}-xl-examples = "\
     ${sysconfdir}/xen/xlexample.hvm \
     ${sysconfdir}/xen/xlexample.pvlinux \
     ${sysconfdir}/xen/xlexample.pvhlinux \
     "
 
-FILES_${PN}-xm-examples = "\
+FILES:${PN}-xm-examples = "\
     ${sysconfdir}/xen/xmexample1 \
     ${sysconfdir}/xen/xmexample2 \
     ${sysconfdir}/xen/xmexample3 \
@@ -636,19 +636,19 @@ FILES_${PN}-xm-examples = "\
     ${sysconfdir}/xen/xmexample.vti \
     "
 
-FILES_${PN}-xenmon = "\
+FILES:${PN}-xenmon = "\
     ${sbindir}/xenbaked \
     ${sbindir}/xenmon.py \
     ${sbindir}/xenmon \
     "
 
-FILES_${PN}-xm = "\
+FILES:${PN}-xm = "\
     ${sysconfdir}/xen/xm-config.xml \
     ${datadir}/xen/create.dtd \
     ${sbindir}/xm \
     "
 
-FILES_${PN}-xencommons += "\
+FILES:${PN}-xencommons += "\
     ${sysconfdir}/default/xencommons \
     ${sysconfdir}/init.d/xencommons \
     ${sysconfdir}/xen/scripts/launch-xenstore \
@@ -661,49 +661,49 @@ FILES_${PN}-xencommons += "\
     ${systemd_unitdir}/system/var-lib-xenstored.mount \
     "
 
-FILES_${PN}-xend += " \
+FILES:${PN}-xend += " \
     ${sysconfdir}/init.d/xend \
     ${sbindir}/xend \
     "
 
-FILES_${PN}-xendomains += "\
+FILES:${PN}-xendomains += "\
     ${libdir}/xen/bin/xendomains \
     ${sysconfdir}/default/xendomains \
     ${sysconfdir}/init.d/xendomains \
     ${sysconfdir}/sysconfig/xendomains \
     ${systemd_unitdir}/system/xendomains.service \
     "
-FILES_${PN}-xen-access += "\
+FILES:${PN}-xen-access += "\
     ${sbindir}/xen-access \
     "
 
-FILES_${PN}-xen-memshare += "\
+FILES:${PN}-xen-memshare += "\
     ${sbindir}/xen-memshare \
     "
 
 # memshare is only built for x86, so allow empty package for other archs
-ALLOW_EMPTY_${PN}-xen-memshare = "1"
+ALLOW_EMPTY:${PN}-xen-memshare = "1"
 
-INSANE_SKIP_${PN} = "already-stripped"
+INSANE_SKIP:${PN} = "already-stripped"
 
 # configure init.d scripts
 INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xencommons ${PN}-xen-watchdog ${PN}-xendomains ${PN}-devd"
-INITSCRIPT_NAME_${PN}-xencommons = "xencommons"
-INITSCRIPT_PARAMS_${PN}-xencommons = "defaults 80"
-INITSCRIPT_NAME_${PN}-xen-watchdog = "xen-watchdog"
-INITSCRIPT_PARAMS_${PN}-xen-watchdog = "defaults 81"
-INITSCRIPT_NAME_${PN}-xend = "xend"
-INITSCRIPT_PARAMS_${PN}-xend = "defaults 82"
-INITSCRIPT_NAME_${PN}-xendomains = "xendomains"
-INITSCRIPT_PARAMS_${PN}-xendomains = "defaults 83"
-INITSCRIPT_NAME_${PN}-devd = "xendriverdomain"
-INITSCRIPT_PARAMS_${PN}-devd = "defaults 82"
+INITSCRIPT_NAME:${PN}-xencommons = "xencommons"
+INITSCRIPT_PARAMS:${PN}-xencommons = "defaults 80"
+INITSCRIPT_NAME:${PN}-xen-watchdog = "xen-watchdog"
+INITSCRIPT_PARAMS:${PN}-xen-watchdog = "defaults 81"
+INITSCRIPT_NAME:${PN}-xend = "xend"
+INITSCRIPT_PARAMS:${PN}-xend = "defaults 82"
+INITSCRIPT_NAME:${PN}-xendomains = "xendomains"
+INITSCRIPT_PARAMS:${PN}-xendomains = "defaults 83"
+INITSCRIPT_NAME:${PN}-devd = "xendriverdomain"
+INITSCRIPT_PARAMS:${PN}-devd = "defaults 82"
 
 # systemd packages
 SYSTEMD_PACKAGES = "${PN}-xen-watchdog ${PN}-xencommons ${PN}-xendomains ${PN}-devd"
-SYSTEMD_SERVICE_${PN}-devd = "xendriverdomain.service"
-SYSTEMD_SERVICE_${PN}-xen-watchdog = "xen-watchdog.service"
-SYSTEMD_SERVICE_${PN}-xencommons = " \
+SYSTEMD_SERVICE:${PN}-devd = "xendriverdomain.service"
+SYSTEMD_SERVICE:${PN}-xen-watchdog = "xen-watchdog.service"
+SYSTEMD_SERVICE:${PN}-xencommons = " \
     proc-xen.mount \
     var-lib-xenstored.mount \
     xen-qemu-dom0-disk-backend.service \
@@ -711,7 +711,7 @@ SYSTEMD_SERVICE_${PN}-xencommons = " \
     xen-init-dom0.service \
     xenstored.service \
     "
-SYSTEMD_SERVICE_${PN}-xendomains = "xendomains.service"
+SYSTEMD_SERVICE:${PN}-xendomains = "xendomains.service"
 
 EXTRA_OECONF += " \
     --with-systemd=${systemd_unitdir}/system \
@@ -788,7 +788,7 @@ do_install() {
     fi
 }
 
-pkg_postinst_${PN}-volatiles() {
+pkg_postinst:${PN}-volatiles() {
     if [ -z "$D" ]; then
         if command -v systemd-tmpfiles >/dev/null; then
             systemd-tmpfiles --create ${sysconfdir}/tmpfiles.d/xen.conf

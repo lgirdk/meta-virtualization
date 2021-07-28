@@ -8,7 +8,7 @@ SRCREV = "bcc35aeca3ef6fa0976005c9e93525906aefed2f"
 SRC_URI = "git://${GO_IMPORT}.git \
           "
 
-RDEPENDS_${PN}-dev_append = "bash"
+RDEPENDS:${PN}-dev:append = "bash"
 
 S = "${WORKDIR}/git"
 

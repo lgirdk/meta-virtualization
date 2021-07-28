@@ -59,7 +59,7 @@ do_compile() {
     oe_runmake all
 }
 
-do_install_append() {
+do_install:append() {
     oe_runmake 'DESTDIR=${D}' install-daemon
     oe_runmake 'DESTDIR=${D}' install-config
 
@@ -83,26 +83,26 @@ do_install_append() {
 
 PACKAGES = "${PN}-dbg ${PN}-plugin ${PN}-daemon"
 
-FILES_${PN}-plugin = "${NAGIOS_PLUGIN_DIR} \
+FILES:${PN}-plugin = "${NAGIOS_PLUGIN_DIR} \
                       ${NAGIOS_PLUGIN_CONF_DIR} \
 "
 
-FILES_${PN}-daemon = "${sysconfdir} \
+FILES:${PN}-daemon = "${sysconfdir} \
                       ${bindir} \
                       ${nonarch_libdir}/tmpfiles.d/ \
                       ${localstatedir} \
 "
 
-RDEPENDS_${PN}-daemon = "nagios-base"
-RDEPENDS_${PN}-plugin = "nagios-base"
+RDEPENDS:${PN}-daemon = "nagios-base"
+RDEPENDS:${PN}-plugin = "nagios-base"
 
 SYSTEMD_PACKAGES = "${PN}-daemon"
-SYSTEMD_SERVICE_${PN}-daemon = "nagios-nrpe.service"
-SYSTEMD_AUTO_ENABLE_${PN}-daemon = "enable"
+SYSTEMD_SERVICE:${PN}-daemon = "nagios-nrpe.service"
+SYSTEMD_AUTO_ENABLE:${PN}-daemon = "enable"
 
 INITSCRIPT_PACKAGES = "${PN}-daemon"
-INITSCRIPT_NAME_${PN}-daemon = "nrpe"
-INITSCRIPT_PARAMS_${PN}-daemon = "defaults"
+INITSCRIPT_NAME:${PN}-daemon = "nrpe"
+INITSCRIPT_PARAMS:${PN}-daemon = "defaults"
 
-ALTERNATIVE_${PN}-daemon = "nagios"
+ALTERNATIVE:${PN}-daemon = "nagios"
 ALTERNATIVE_LINK_NAME[nagios] = "${localstatedir}/nagios"

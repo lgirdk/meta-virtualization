@@ -26,39 +26,39 @@ BLKTAP_RRECOMMENDS ?= " \
     virtual/libvhd \
     "
 
-RPROVIDES_${PN}-blktap = "virtual/blktap"
-RPROVIDES_${PN}-libblktap = "virtual/libblktap"
-RPROVIDES_${PN}-libblktapctl = "virtual/libblktapctl"
-RPROVIDES_${PN}-libvhd = "virtual/libvhd"
+RPROVIDES:${PN}-blktap = "virtual/blktap"
+RPROVIDES:${PN}-libblktap = "virtual/libblktap"
+RPROVIDES:${PN}-libblktapctl = "virtual/libblktapctl"
+RPROVIDES:${PN}-libvhd = "virtual/libvhd"
 
-FILES_${PN}-blktap-staticdev += "\
+FILES:${PN}-blktap-staticdev += "\
     ${libdir}/libblktapctl.a \
     ${libdir}/libvhd.a \
     ${libdir}/libblktap.a \
     "
 
-FILES_${PN}-libblktapctl = "${libdir}/libblktapctl.so.*"
-FILES_${PN}-libblktapctl-dev = " \
+FILES:${PN}-libblktapctl = "${libdir}/libblktapctl.so.*"
+FILES:${PN}-libblktapctl-dev = " \
     ${libdir}/libblktapctl.so \
     ${libdir}/pkgconfig/xenblktapctl.pc \
     ${datadir}/pkgconfig/xenblktapctl.pc \
     "
 
-FILES_${PN}-libvhd = "${libdir}/libvhd.so.*"
-FILES_${PN}-libvhd-dev = " \
+FILES:${PN}-libvhd = "${libdir}/libvhd.so.*"
+FILES:${PN}-libvhd-dev = " \
     ${libdir}/libvhd.so \
     ${libdir}/pkgconfig/vhd.pc \
     ${datadir}/pkgconfig/vhd.pc \
     "
 
-FILES_${PN}-libblktap = "${libdir}/libblktap.so.*"
-FILES_${PN}-libblktap-dev = " \
+FILES:${PN}-libblktap = "${libdir}/libblktap.so.*"
+FILES:${PN}-libblktap-dev = " \
     ${libdir}/libblktap.so \
     ${libdir}/pkgconfig/blktap.pc \
     ${datadir}/pkgconfig/blktap.pc \
     "
 
-FILES_${PN}-blktap = "\
+FILES:${PN}-blktap = "\
     ${sbindir}/blktapctrl \
     ${sbindir}/img2qcow \
     ${sbindir}/lock-util \

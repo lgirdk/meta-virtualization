@@ -1,4 +1,4 @@
-IMAGE_CMD_oci() {
+IMAGE_CMD:oci() {
     umoci_options=""
 
     bbdebug 1 "UMOCI image settings:"

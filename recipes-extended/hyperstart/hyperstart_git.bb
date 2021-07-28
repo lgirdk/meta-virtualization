@@ -23,4 +23,4 @@ do_install() {
         install -m644 ${S}/build/arch/x86_64/kernel ${D}/var/lib/hyper/
 }
 
-FILES_${PN} += "/var/lib/hyper"
+FILES:${PN} += "/var/lib/hyper"

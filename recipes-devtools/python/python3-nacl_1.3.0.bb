@@ -16,7 +16,7 @@ DEPENDS += "\
     python3-pip-native \
 "
 
-RDEPENDS_${PN}_class-target += " \
+RDEPENDS:${PN}:class-target += " \
     python3-cffi \
     python3-pycparser \
 "

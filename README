@@ -8,7 +8,7 @@ The bbappend files for some recipes (e.g. linux-yocto) in this layer need to
 have 'virtualization' in DISTRO_FEATURES to have effect. To enable them, add
 in configuration file the following line.
 
-  DISTRO_FEATURES_append = " virtualization"
+  DISTRO_FEATURES:append = " virtualization"
 
 If meta-virtualization is included, but virtualization is not enabled as a
 distro feature a warning is printed at parse time:

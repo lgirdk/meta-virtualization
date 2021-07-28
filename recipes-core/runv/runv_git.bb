@@ -22,7 +22,7 @@ inherit autotools-brokensep
 PACKAGECONFIG[xen] = "--with-xen,--without-xen,"
 AUTOTOOLS_SCRIPT_PATH = "${S}/src/import/"
 
-RDEPENDS_${PN} += " qemu hyperstart"
+RDEPENDS:${PN} += " qemu hyperstart"
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
@@ -76,6 +76,6 @@ do_install() {
 
 deltask compile_ptest_base
 
-FILES_${PN} += "/usr/local/bin/*"
+FILES:${PN} += "/usr/local/bin/*"
 
-INSANE_SKIP_${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped"

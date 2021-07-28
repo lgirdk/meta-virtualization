@@ -29,7 +29,7 @@ GO_IMPORT = "import"
 
 PV = "1.21.0+git${SRCREV_cri-tools}"
 
-RPROVIDES_${PN} += "crictl"
+RPROVIDES:${PN} += "crictl"
 PACKAGES =+ "${PN}-critest"
 
 inherit go
@@ -66,12 +66,12 @@ do_install() {
     install -m 755 -D ${S}/src/import/build/bin/* ${D}/${bindir}
 }
 
-FILES_${PN}-critest = "${bindir}/critest"
+FILES:${PN}-critest = "${bindir}/critest"
 
 # don't clobber hooks.d
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
-INSANE_SKIP_${PN} += "ldflags already-stripped textrel"
+INSANE_SKIP:${PN} += "ldflags already-stripped textrel"
 
 deltask compile_ptest_base
 
