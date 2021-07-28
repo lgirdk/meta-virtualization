@@ -31,7 +31,7 @@ XEN_PCIBACK_MODULE_x86-64 = "kernel-module-xen-pciback"
 
 LICENSE = "MIT"
 
-inherit core-image
+inherit core-image qemuboot-xen-defaults qemuboot-xen-dtb
 
 do_check_xen_state() {
     if [ "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' yes', 'no', d)}" = "no" ]; then
@@ -74,10 +74,11 @@ build_syslinux_cfg () {
 
 # Enable runqemu. eg: runqemu xen-image-minimal nographic slirp
 WKS_FILE_x86-64 = "directdisk-xen.wks"
-QB_MEM ?= "-m 400"
 QB_DEFAULT_KERNEL ?= "none"
 QB_DEFAULT_FSTYPE ?= "wic"
+QB_DEFAULT_FSTYPE_qemux86-64 = "wic"
 QB_FSINFO ?= "wic:kernel-in-fs"
+QB_SERIAL_OPT = "-serial mon:stdio"
 # qemux86-64 machine does not include 'wic' in IMAGE_FSTYPES, which is needed
 # to boot this image, so add it here:
 IMAGE_FSTYPES_qemux86-64 += "wic"
