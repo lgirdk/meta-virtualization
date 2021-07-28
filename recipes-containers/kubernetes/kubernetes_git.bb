@@ -16,6 +16,7 @@ SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.20;name=k
            file://0001-generate-bindata-unset-GOBIN.patch \
            file://0001-build-golang.sh-convert-remaining-go-calls-to-use.patch \
            file://0001-Makefile.generated_files-Fix-race-issue-for-installi.patch \
+           file://CVE-2021-20206.patch \
           "
 
 DEPENDS += "rsync-native \
