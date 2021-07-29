@@ -9,7 +9,7 @@ S = "${WORKDIR}/git"
 
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=8e5f5f691f01c9fdfa7a7f2d535be619"
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     python3-core \
     python3-dtc \
     python3-humanfriendly \
