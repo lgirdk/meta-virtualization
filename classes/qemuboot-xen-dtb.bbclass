@@ -176,7 +176,7 @@ do_write_xen_qemuboot_dtb() {
     # Not all architectures qemuboot with a device tree binary, so check
     # to see if one is needed. This allows this bbclass file to be used
     # in the same image recipe for multiple architectures.
-    if [ -n "${QB_DTB}" ] ; then
+    if [ -n "${QB_DTB}" ] && [ -n "${QB_SYSTEM_NAME}" ] ; then
         generate_xen_qemuboot_dtb
     fi
 }
