@@ -36,7 +36,7 @@
 # to be sure, we'll repeat it here.
 ROOTFS_BOOTSTRAP_INSTALL = ""
 # we want container and tar.bz2's to be created
-IMAGE_TYPEDEP_oci = "container tar.bz2"
+IMAGE_TYPEDEP:oci = "container tar.bz2"
 
 # sloci is the script/project that will create the oci image
 # OCI_IMAGE_BACKEND ?= "sloci-image"
