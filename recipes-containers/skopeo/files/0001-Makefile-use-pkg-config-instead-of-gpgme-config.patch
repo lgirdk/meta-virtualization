@@ -1,6 +1,6 @@
-From 4f60614b51df50f5d28495cf2e270dd6ab5fea7d Mon Sep 17 00:00:00 2001
+From 1dd54dce3159f52a2d33693de95d124d1acb6ba9 Mon Sep 17 00:00:00 2001
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Tue, 25 May 2021 13:42:56 -0400
+Date: Tue, 24 Aug 2021 09:25:07 -0400
 Subject: [PATCH] Makefile: use pkg-config instead of gpgme-config
 
 OE taints gpgme-config to produce the following flag when called:
@@ -18,7 +18,7 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/import/Makefile b/src/import/Makefile
-index 6bacd12e..8a94b236 100644
+index 5721b06d..31875d44 100644
 --- a/src/import/Makefile
 +++ b/src/import/Makefile
 @@ -8,7 +8,7 @@ export GOPROXY=https://proxy.golang.org
@@ -28,7 +28,7 @@ index 6bacd12e..8a94b236 100644
 -GPGME_ENV := CGO_CFLAGS="$(shell gpgme-config --cflags 2>/dev/null)" CGO_LDFLAGS="$(shell gpgme-config --libs 2>/dev/null)"
 +GPGME_ENV := CGO_CFLAGS="$(shell pkg-config gpgme --cflags 2>/dev/null)" CGO_LDFLAGS="$(shell pkg-config gpgme --libs 2>/dev/null)"
  
- # Normally empty, DESTDIR can be used to relocate the entire install-tree
+ # The following variables very roughly follow https://www.gnu.org/prep/standards/standards.html#Makefile-Conventions .
  DESTDIR ?=
 -- 
 2.19.1
