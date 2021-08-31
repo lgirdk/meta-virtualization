@@ -31,7 +31,7 @@ XEN_PCIBACK_MODULE:x86-64 = "kernel-module-xen-pciback"
 
 LICENSE = "MIT"
 
-inherit core-image qemuboot-xen-defaults qemuboot-xen-dtb
+inherit core-image qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-testimage-network
 
 do_check_xen_state() {
     if [ "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' yes', 'no', d)}" = "no" ]; then
