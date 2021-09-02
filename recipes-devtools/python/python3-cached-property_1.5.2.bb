@@ -1,5 +1,7 @@
 SUMMARY = "A decorator for caching properties in classes."
-HOMEPAGE = "https://github.com/pydanny/cached-property"
+DESCRIPTION = "Makes caching of time or computational expensive properties quick and easy."
+HOMEPAGE = "https://pypi.org/project/cached-property/"
+SECTION = "devel/python"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=db7ff60c4e14f58534201242803d8abc"
 
