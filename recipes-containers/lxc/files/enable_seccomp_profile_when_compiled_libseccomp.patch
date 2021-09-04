@@ -1,0 +1,46 @@
+From 3d46e1d1f8e904fddd4fab3e8d0c6cf57d2ddd4e Mon Sep 17 00:00:00 2001
+From: Maximilian Blenk <Maximilian.Blenk@bmw.de>
+Date: Mon, 23 Aug 2021 22:04:40 +0200
+Subject: [PATCH] config: enable seccomp profile only when compiled with
+ libseccomp
+
+Make lxc fail if seccomp.profile is specified but lxc is compiled
+without seccomp support. Currently, seccomp.profile is silently ignored
+if is specified in such a scenario. This could lead to the false
+impression that the seccomp filter is applied while it actually isn't.
+
+Signed-off-by: Maximilian Blenk <Maximilian.Blenk@bmw.de>
+---
+ src/lxc/confile.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+Upstream-Status: Submitted [https://github.com/lxc/lxc/pull/3947/commits/3d46e1d1f8e904fddd4fab3e8d0c6cf57d2ddd4e]
+
+diff --git a/src/lxc/confile.c b/src/lxc/confile.c
+index d8b96c6921..1cc8da15f1 100644
+--- a/src/lxc/confile.c
++++ b/src/lxc/confile.c
+@@ -1211,7 +1211,11 @@ static int set_config_seccomp_notify_proxy(const char *key, const char *value,
+ static int set_config_seccomp_profile(const char *key, const char *value,
+ 				      struct lxc_conf *lxc_conf, void *data)
+ {
++#ifdef HAVE_SECCOMP
+ 	return set_config_path_item(&lxc_conf->seccomp.seccomp, value);
++#else
++	return ret_set_errno(-1, ENOSYS);
++#endif
+ }
+ 
+ static int set_config_execute_cmd(const char *key, const char *value,
+@@ -4383,7 +4387,11 @@ static int get_config_seccomp_notify_proxy(const char *key, char *retv, int inle
+ static int get_config_seccomp_profile(const char *key, char *retv, int inlen,
+ 				      struct lxc_conf *c, void *data)
+ {
++#ifdef HAVE_SECCOMP
+ 	return lxc_get_conf_str(retv, inlen, c->seccomp.seccomp);
++#else
++	return ret_errno(ENOSYS);
++#endif
+ }
+ 
+ static int get_config_autodev(const char *key, char *retv, int inlen,
