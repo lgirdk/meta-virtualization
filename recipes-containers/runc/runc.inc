@@ -26,7 +26,7 @@ PACKAGECONFIG ??= "static \
 
 
 PROVIDES += "virtual/runc"
-RPROVIDES:${PN} = "virtual/runc"
+RPROVIDES:${PN} = "virtual-runc"
 
 GO_IMPORT = "import"
 

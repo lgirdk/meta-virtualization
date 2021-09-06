@@ -35,7 +35,7 @@ RDEPENDS:packagegroup-podman = " \
 "
 
 RDEPENDS:packagegroup-oci = " \
-    virtual/runc \
+    virtual-runc \
     oci-systemd-hook \
     oci-runtime-tools \
     oci-image-tools \

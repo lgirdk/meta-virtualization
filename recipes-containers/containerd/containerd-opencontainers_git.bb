@@ -122,6 +122,6 @@ INSANE_SKIP:${PN} += "ldflags already-stripped"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
 
-RDEPENDS:${BPN} += " virtual/runc"
+RDEPENDS:${BPN} += " virtual-runc"
 
 CVE_PRODUCT = "containerd"
