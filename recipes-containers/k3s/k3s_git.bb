@@ -79,7 +79,7 @@ SYSTEMD_AUTO_ENABLE:${PN}-agent = "disable"
 FILES:${PN}-agent = "${BIN_PREFIX}/bin/k3s-agent"
 FILES:${PN} += "${BIN_PREFIX}/bin/*"
 
-RDEPENDS:${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 ipset virtual/containerd"
+RDEPENDS:${PN} = "k3s-cni conntrack-tools coreutils findutils iptables iproute2 ipset virtual-containerd"
 RDEPENDS:${PN}-server = "${PN}"
 RDEPENDS:${PN}-agent = "${PN}"
 

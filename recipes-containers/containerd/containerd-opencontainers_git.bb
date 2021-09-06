@@ -20,7 +20,7 @@ CONTAINERD_VERSION = "v1.5.5"
 EXTRA_OEMAKE += "GODEBUG=1"
 
 PROVIDES += "virtual/containerd"
-RPROVIDES:${PN} = "virtual/containerd"
+RPROVIDES:${PN} = "virtual-containerd"
 
 S = "${WORKDIR}/git"
 

@@ -50,7 +50,7 @@ PNBLACKLIST[cri-o] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'security', bb
 
 PACKAGES =+ "${PN}-config"
 
-RDEPENDS:${PN} += " virtual/containerd virtual-runc"
+RDEPENDS:${PN} += " virtual-containerd virtual-runc"
 RDEPENDS:${PN} += " e2fsprogs-mke2fs conmon util-linux iptables conntrack-tools"
 
 inherit systemd

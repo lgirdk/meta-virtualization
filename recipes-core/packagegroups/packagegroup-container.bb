@@ -42,6 +42,6 @@ RDEPENDS:packagegroup-oci = " \
 "
 
 RDEPENDS:packagegroup-containerd = " \
-    virtual/containerd \
+    virtual-containerd \
 "
 
