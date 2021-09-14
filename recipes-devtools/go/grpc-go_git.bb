@@ -1,8 +1,8 @@
 DESCRIPTION = "The Go language implementation of gRPC. HTTP/2 based RPC"
 HOMEPAGE = "https://github.com/grpc/grpc-go"
 SECTION = "devel/go"
-LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=a4bad33881612090c6035d8393175996"
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 SRCNAME = "grpc-go"
 
