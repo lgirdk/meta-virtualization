@@ -4,7 +4,7 @@ INSANE_SKIP:${PN} += "dev-so"
 
 RDEPENDS:${PN} += "glibc python3 ca-certificates openssl bash e2fsprogs-mke2fs"
 
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause | Apache-2.0"
 LIC_FILES_CHKSUM = "file://COPYRIGHT.md;md5=be78c34e483dd7d8439358b1e024b294 \
                     file://LICENSE-LBNL.md;md5=45a007b527e1a9507aa7fa869f8d7ede \
                     file://LICENSE.md;md5=df4326b473db6424033f1d98a5645e30 \
