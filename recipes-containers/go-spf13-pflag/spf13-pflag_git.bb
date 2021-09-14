@@ -9,8 +9,8 @@ SRCNAME = "pflag"
 PKG_NAME = "github.com/spf13/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
 
-SRCREV = "9ff6c6923cfffbcd502984b8e0c80539a94968b7"
-PV = "v1.0.0-rc4+git${SRCPV}"
+SRCREV = "d5e0c0615acee7028e1e2740a11102313be88de1"
+PV = "v1.0.5+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
