@@ -9,8 +9,8 @@ SRCNAME = "errors"
 PKG_NAME = "github.com/pkg/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
 
-SRCREV = "248dadf4e9068a0b3e79f02ed0a610d935de5302"
-PV = "v0.8.0+git${SRCPV}"
+SRCREV = "5dd12d0cfe7f152f80558d591504ce685299311e"
+PV = "v0.8.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
