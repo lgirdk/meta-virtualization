@@ -1,7 +1,7 @@
 DESCRIPTION = "Simple error handling primitives"
 HOMEPAGE = "https://github.com/pkg/errors"
 SECTION = "devel/go"
-LICENSE = "BSD"
+LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=6fe682a02df52c6653f33bd0f7126b5a"
 
 SRCNAME = "errors"
