@@ -9,8 +9,8 @@ SRCNAME = "grpc-go"
 PKG_NAME = "google.golang.org/grpc"
 SRC_URI = "git://github.com/grpc/${SRCNAME}.git;destsuffix=git/src/${PKG_NAME}"
 
-SRCREV = "777daa17ff9b5daef1cfdf915088a2ada3332bf0"
-PV = "1.4.0+git${SRCPV}"
+SRCREV = "5d8e5aad40bedb696205b96b786f1d0e1326b3f8"
+PV = "1.41.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
