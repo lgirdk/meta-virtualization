@@ -1,7 +1,7 @@
 DESCRIPTION = "Python documentation generator"
 HOMEPAGE = "http://sphinx-doc.org/"
 SECTION = "devel/python"
-LICENSE = "BSD"
+LICENSE = "BSD-2-Clause & BSD-3-Clause & MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=82cc7d23060a75a07b820eaaf75abecf"
 
 PYPI_PACKAGE = "Sphinx"
