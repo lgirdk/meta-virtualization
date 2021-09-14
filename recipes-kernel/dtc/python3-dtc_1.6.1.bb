@@ -2,7 +2,7 @@ SUMMARY = "Python Library for the Device Tree Compiler"
 HOMEPAGE = "https://devicetree.org/"
 DESCRIPTION = "A python library for the Device Tree Compiler, a tool used to manipulate Device Tree files which contain a data structure for describing hardware."
 SECTION = "bootloader"
-LICENSE = "GPLv2 | BSD"
+LICENSE = "GPLv2 | BSD-2-Clause"
 
 DEPENDS = "flex-native bison-native swig-native libyaml dtc"
 
