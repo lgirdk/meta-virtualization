@@ -1,7 +1,7 @@
 DESCRIPTION = "Drop-in replacement for Go's flag package, implementing POSIX/GNU-style --flags."
 HOMEPAGE = "https://github.com/spf13/pflag"
 SECTION = "devel/go"
-LICENSE = "BSD"
+LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=1e8b7dc8b906737639131047a590f21d"
 
 SRCNAME = "pflag"
