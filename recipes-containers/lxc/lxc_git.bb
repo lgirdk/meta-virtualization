@@ -36,7 +36,7 @@ RDEPENDS_${PN}-ptest += "file make gmp nettle gnutls bash libgcc"
 
 RDEPENDS_${PN}-networking += "iptables"
 
-SRC_URI = "http://linuxcontainers.org/downloads/${BPN}/${BPN}-${PV}.tar.gz \
+SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-4.0 \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://run-ptest \
 	file://lxc-fix-B-S.patch \
@@ -52,12 +52,10 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}/${BPN}-${PV}.tar.gz \
         file://enable_seccomp_profile_when_compiled_libseccomp.patch \
 	"
 
-SRC_URI[md5sum] = "365fcca985038910e19a1e0fff15ed07"
-SRC_URI[sha256sum] = "1fcf0610e9140eceb4be2334eb537bb9c5a213faea77c793ab3c62b86f37e52b"
+SRCREV = "cec7cb14b2a4367d4cb21a90e1b90d0f98a9d874"
+PV = "4.0.10+git${SRCPV}"
 
-
-
-S = "${WORKDIR}/${BPN}-${PV}"
+S = "${WORKDIR}/git"
 
 # Let's not configure for the host distro.
 #
