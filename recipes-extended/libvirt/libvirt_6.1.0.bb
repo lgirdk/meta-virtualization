@@ -41,6 +41,10 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://hook_support.py \
            file://gnutls-helper.py \
            file://CVE-2020-10701.patch \
+           file://CVE-2020-25637_1.patch \
+           file://CVE-2020-25637_2.patch \
+           file://CVE-2020-25637_3.patch \
+           file://CVE-2020-25637_4.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "a870e63f20fac2ccf98e716d05256145"
