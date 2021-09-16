@@ -34,6 +34,8 @@ Credit to OSS-Fuzz.
 
 Fuzzer regression test will fail only with AddressSanitizer enabled.
 
+Upstream-status: Backport
+
 Reported-at: https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=27851
 Fixes: f839892a206a ("OF support and translation of generic encap and decap")
 Acked-by: William Tu <u9012063@gmail.com>
