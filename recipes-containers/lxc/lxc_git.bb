@@ -50,6 +50,7 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-4.0 \
 	file://dnsmasq.conf \
 	file://lxc-net \
         file://enable_seccomp_profile_when_compiled_libseccomp.patch \
+        file://fix_c_command.patch \
 	"
 
 SRCREV = "cec7cb14b2a4367d4cb21a90e1b90d0f98a9d874"

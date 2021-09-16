@@ -1,0 +1,36 @@
+From 9becf309a81806ef08acf9ca99ab95c1bcfa1f65 Mon Sep 17 00:00:00 2001
+From: Maximilian Blenk <Maximilian.Blenk@bmw.de>
+Date: Mon, 23 Aug 2021 15:39:28 +0200
+Subject: [PATCH] attach: Fix -c command
+
+Currently, the -c command (to set the selinux context) seems to be
+broken because the passed context is ignored and always overwritten by
+the context specified in the config file. The intention behind the -c
+imho was to be able to manually overwrite this behavior. This patch
+ensures that the selinux context will be set if passed via the command
+line.
+
+Signed-off-by: Maximilian Blenk <Maximilian.Blenk@bmw.de>
+---
+ src/lxc/tools/lxc_attach.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Upstream-Status: Backport [https://github.com/lxc/lxc/commit/9becf309a81806ef08acf9ca99ab95c1bcfa1f65.patch]
+Comment: No change in any hunk
+
+diff --git a/src/lxc/tools/lxc_attach.c b/src/lxc/tools/lxc_attach.c
+index 0374d980b4..e6b388b20c 100644
+--- a/src/lxc/tools/lxc_attach.c
++++ b/src/lxc/tools/lxc_attach.c
+@@ -379,7 +379,10 @@ int main(int argc, char *argv[])
+ 		attach_options.gid = my_args.gid;
+ 
+ 	// selinux_context will be NULL if not set
+-	attach_options.lsm_label = selinux_context;
++	if (selinux_context) {
++		attach_options.attach_flags |= LXC_ATTACH_LSM_LABEL;
++		attach_options.lsm_label = selinux_context;
++	}
+ 
+ 	if (command.program) {
+ 		ret = c->attach_run_wait(c, &attach_options, command.program,
