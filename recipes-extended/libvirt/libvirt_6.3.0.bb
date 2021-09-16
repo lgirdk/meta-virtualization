@@ -40,6 +40,10 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://0001-build-drop-unnecessary-libgnu.la-reference.patch \
            file://hook_support.py \
            file://gnutls-helper.py \
+           file://CVE-2020-25637_1.patch \
+           file://CVE-2020-25637_2.patch \
+           file://CVE-2020-25637_3.patch \
+           file://CVE-2020-25637_4.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "1bd4435f77924f5ec9928b538daf4a02"
