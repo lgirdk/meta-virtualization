@@ -23,7 +23,7 @@ SRC_URI[sha384sum] = "2a2f177e5b68f6f5d13b253a8d4daba9e956b4a79a40a4775aee288b60
 SRC_URI[sha512sum] = "08266a2e9a7ca5a37e03f340873571fd012c630dd898a87241cd97c29760b2bf41fe64c8883e7b08e0f83c26245072cd26e69ecb1db02378d1ec38335ba1cd0f"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
-           keyutils libaio rdma-core lz4 \
+           keyutils libaio libibverbs lz4 \
            nspr nss \
            oath openldap openssl \
            python3 python3-cython-native rabbitmq-c rocksdb snappy udev \
