@@ -50,7 +50,7 @@ do_compile() {
 	export CGO_CFLAGS="${BUILD_CFLAGS}"
 	# as of go 1.15.5, there are some flags the CGO doesn't like. Rather than
 	# clearing them all, we sed away the ones we don't want.
-	export CGO_LDFLAGS="$(echo ${BUILD_LDFLAGS} | sed 's/-Wl,-O1//g' | sed 's/-Wl,--dynamic-linker.*?( \|$\)//g')"
+	export CGO_LDFLAGS="$(echo ${BUILD_LDFLAGS} | sed 's/-Wl,-O1//g' | sed 's/-Wl,--dynamic-linker.*?\( \|$\)//g')"
 	export CC="${BUILD_CC}"
 	export LD="${BUILD_LD}"
 
