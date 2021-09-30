@@ -13,10 +13,6 @@ fdt resize 0x1000
 echo Add boot arguments for Xen
 fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=/soc/serial@7e215040 dom0_mem='@@RPI_DOM0_MEM@@' @@RPI_DEBUG_XEN_ARGS@@"
 
-echo Add boot arguments for dom0
-setenv dom0_bootargs "console=hvc0 earlycon=xenboot debug root=/dev/mmcblk0p2 rootwait"
-fdt set /chosen xen,dom0-bootargs \"${dom0_bootargs}\"
-
 echo Add a dom0 node to chosen to put Linux boot information in
 fdt mknode /chosen dom0
 
@@ -31,6 +27,13 @@ fdt rm /scb/pcie@7d500000/pci@1,0/usb@1,0
 
 echo Delay to allow the MMC card to be ready
 sleep 1
+
+# Retrieve PARTUUID for the rootfs partition of the sdcard
+part uuid mmc 1:2 rootfs_partuuid
+
+echo Add boot arguments for dom0
+setenv dom0_bootargs "console=hvc0 earlycon=xenboot debug root=PARTUUID=${rootfs_partuuid} rootwait"
+fdt set /chosen xen,dom0-bootargs \"${dom0_bootargs}\"
 
 echo Load Xen into memory
 fatload mmc 1:1 ${xen_loadaddr} xen
