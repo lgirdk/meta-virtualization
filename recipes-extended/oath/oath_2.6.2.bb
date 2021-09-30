@@ -12,7 +12,7 @@ S = "${WORKDIR}/${BPN}-toolkit-${PV}"
 SRC_URI[md5sum] = "4a05cd4768764843bd5493609a6bdb17"
 SRC_URI[sha256sum] = "b03446fa4b549af5ebe4d35d7aba51163442d255660558cd861ebce536824aa0"
 
-inherit autotools
+inherit autotools pkgconfig
 
 # Specify any options you want to pass to the configure script using EXTRA_OECONF:
 EXTRA_OECONF = ""
