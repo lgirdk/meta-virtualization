@@ -2,7 +2,7 @@ HOMEPAGE = "http://xen.org"
 LICENSE = "GPLv2"
 SECTION = "console/tools"
 
-inherit autotools-brokensep
+inherit autotools-brokensep pkgconfig
 
 require xen-arch.inc
 
