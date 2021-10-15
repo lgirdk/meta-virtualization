@@ -7,7 +7,7 @@ DESCRIPTION = "Podman is a daemonless container engine for developing, \
     "
 
 inherit features_check
-REQUIRED_DISTRO_FEATURES ?= "seccomp"
+REQUIRED_DISTRO_FEATURES ?= "seccomp ipv6"
 
 DEPENDS = " \
     go-metalinter-native \
