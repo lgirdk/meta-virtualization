@@ -7,12 +7,14 @@ SRCREV_crun = "360f5d02c37d5f7a67d38622010228ae2eeb80f1"
 SRCREV_libocispec = "c9b8b9524814550a489aa6d38b2dec95633ffa15"
 SRCREV_ispec = "79b036d80240ae530a8de15e1d21c7ab9292c693"
 SRCREV_rspec = "7413a7f753e1bd9a6a9c6dc7f96f55888cbbd476"
+SRCREV_yajl = "f344d21280c3e4094919fd318bc5ce75da91fc06"
 
 SRCREV_FORMAT = "crun_rspec"
 SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun \
            git://github.com/containers/libocispec.git;branch=main;name=libocispec;destsuffix=git/libocispec \
            git://github.com/opencontainers/runtime-spec.git;branch=master;name=rspec;destsuffix=git/libocispec/runtime-spec \
            git://github.com/opencontainers/image-spec.git;branch=main;name=ispec;destsuffix=git/libocispec/image-spec \
+           git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl \
           "
 
 PV = "0.18+git${SRCREV_crun}"
@@ -34,7 +36,10 @@ DEPENDS += "systemd"
 DEPENDS += "oci-image-spec oci-runtime-spec"
 
 do_configure:prepend () {
-    ./autogen.sh
+    # extracted from autogen.sh in crun source. This avoids
+    # git submodule fetching.
+    mkdir -p m4
+    autoreconf -fi
 }
 
 do_install() {
