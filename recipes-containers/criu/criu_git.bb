@@ -13,10 +13,10 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "e49ce513c8df43e8d3b30b7acfbe7bd496d89862"
-PV = "3.14+git${SRCPV}"
+SRCREV = "4a1731891e91e62f15c40c361aff2a8a54d91bb3"
+PV = "3.16.1+git${SRCPV}"
 
-SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=criu-dev \
+SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \
            file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
