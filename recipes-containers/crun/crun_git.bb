@@ -3,10 +3,10 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 PRIORITY = "optional"
 
-SRCREV_crun = "360f5d02c37d5f7a67d38622010228ae2eeb80f1"
-SRCREV_libocispec = "c9b8b9524814550a489aa6d38b2dec95633ffa15"
-SRCREV_ispec = "79b036d80240ae530a8de15e1d21c7ab9292c693"
-SRCREV_rspec = "7413a7f753e1bd9a6a9c6dc7f96f55888cbbd476"
+SRCREV_crun = "718b94edc37e010a866d8b6b69ec0d30ada24613"
+SRCREV_libocispec = "fb3c221d5849de9184f88b6929ce4a8c8fb55be9"
+SRCREV_ispec = "54a822e528b91c8db63b873ad56daf200a2e5e61"
+SRCREV_rspec = "ab23082b188344f6fbb63a441ea00ffc2852d06d"
 SRCREV_yajl = "f344d21280c3e4094919fd318bc5ce75da91fc06"
 
 SRCREV_FORMAT = "crun_rspec"
@@ -17,7 +17,7 @@ SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun \
            git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl \
           "
 
-PV = "0.18+git${SRCREV_crun}"
+PV = "1.2+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
 REQUIRED_DISTRO_FEATURES ?= "systemd"
