@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING;md5=4eb012c221c5fd4b760029a2981a6754 \
 "
-inherit cmake python3native python3-dir systemd
+inherit cmake pkgconfig python3native python3-dir systemd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
 # pybind mix cmake and python setup environment, would case a lot of errors.
 
