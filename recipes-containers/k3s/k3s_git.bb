@@ -95,6 +95,7 @@ RRECOMMENDS:${PN} = "\
                      kernel-module-xt-connmark \
                      kernel-module-vxlan \
                      kernel-module-xt-masquerade \
+                     kernel-module-xt-statistic \
                      "
 
 RCONFLICTS:${PN} = "kubectl"
