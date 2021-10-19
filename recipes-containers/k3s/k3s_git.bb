@@ -11,6 +11,7 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s \
            file://k3s-clean \
            file://cni-containerd-net.conf \
            file://0001-Finding-host-local-in-usr-libexec.patch;patchdir=src/import \
+           file://k3s-killall.sh \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
 SRCREV_k3s = "737f722315b9832e9180fa232253d28ae1f2272f"
@@ -60,6 +61,7 @@ do_install() {
         # ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/ctr"
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/kubectl"
         install -m 755 "${WORKDIR}/k3s-clean" "${D}${BIN_PREFIX}/bin"
+        install -m 755 "${WORKDIR}/k3s-killall.sh" "${D}${BIN_PREFIX}/bin"
 
         if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
                 install -D -m 0644 "${WORKDIR}/k3s.service" "${D}${systemd_system_unitdir}/k3s.service"
