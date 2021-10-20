@@ -16,6 +16,7 @@ SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni \
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins \
 	"
+SRCREV_FORMAT = "cni_plugins"
 
 RPROVIDES_${PN} += "kubernetes-cni"
 
