@@ -31,7 +31,6 @@ DEPENDS += "systemd"
 DEPENDS += "oci-image-spec oci-runtime-spec"
 
 do_configure_prepend () {
-do_configure_prepend () {
     # extracted from autogen.sh in crun source. This avoids
     # git submodule fetching.
     mkdir -p m4
