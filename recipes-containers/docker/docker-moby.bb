@@ -48,6 +48,7 @@ SRC_URI = "\
         file://0001-dynbinary-use-go-cross-compiler.patch \
 	"
 
+SRCREV_FORMAT = "moby_libnetwork"
 require docker.inc
 
 # Apache-2.0 for docker
