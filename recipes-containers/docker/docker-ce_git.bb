@@ -20,6 +20,7 @@ DESCRIPTION = "Linux container runtime \
 
 SRCREV_docker = "99e3ed89195c4e551e87aad1e7453b65456b03ad"
 SRCREV_libnetwork = "55e924b8a84231a065879156c0de95aefc5f5435"
+SRCREV_FORMAT = "docker_libnetwork"
 SRC_URI = "\
 	git://github.com/docker/docker-ce.git;branch=19.03;name=docker \
 	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork \
