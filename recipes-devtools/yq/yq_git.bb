@@ -14,6 +14,7 @@ SRCREV_pflag = "6971c29c4a22981adeaee7f4b437c0cffe08c031"
 SRCREV_logging = "b2cb9fa56473e98db8caba80237377e83fe44db5"
 SRCREV_yaml = "eeeca48fe7764f320e4870d231902bf9c1be2c08"
 
+SRCREV_FORMAT = "yq_color"
 SRC_URI = "git://${GO_IMPORT};name=yq \
            git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color \
            git://github.com/goccy/go-yaml;name=lexer;destsuffix=build/vendor/src/github.com/goccy/go-yaml/ \
