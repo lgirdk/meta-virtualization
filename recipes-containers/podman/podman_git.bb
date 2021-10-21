@@ -109,6 +109,10 @@ FILES:${PN} += " \
 
 SYSTEMD_SERVICE:${PN} = "podman.service podman.socket"
 
-RDEPENDS:${PN} += "conmon virtual-runc iptables cni skopeo"
+# The other option for this is "busybox", since meta-virt ensures
+# that busybox is configured with nsenter
+VIRTUAL-RUNTIME_base-utils-nsenter ?= "util-linux-nsenter"
+
+RDEPENDS:${PN} += "conmon virtual-runc iptables cni skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter}"
 RRECOMMENDS:${PN} += "slirp4netns kernel-module-xt-masquerade kernel-module-xt-comment"
 RCONFLICTS:${PN} = "${@bb.utils.contains('PACKAGECONFIG', 'docker', 'docker', '', d)}"
