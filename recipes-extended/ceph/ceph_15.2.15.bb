@@ -12,15 +12,11 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
-           file://0001-add-missing-include-for-atomic-bool.patch \
-           file://0001-cmake-add-support-for-python3.9.patch \
+           file://0001-cmake-add-support-for-python3.10.patch \
            file://0001-SnappyCompressor.h-fix-snappy-compiler-error.patch \
 "
 
-SRC_URI[sha1sum] = "9c76b298e1e659b9c5501003ac77fb28aab7823d"
-SRC_URI[sha256sum] = "8710f6700de83765138df8eb4fc7a5e7c66104dd838033e0827a1850f250ac85"
-SRC_URI[sha384sum] = "2a2f177e5b68f6f5d13b253a8d4daba9e956b4a79a40a4775aee288b60c612fe13b417d6baf77944c32b1181b2136f68"
-SRC_URI[sha512sum] = "08266a2e9a7ca5a37e03f340873571fd012c630dd898a87241cd97c29760b2bf41fe64c8883e7b08e0f83c26245072cd26e69ecb1db02378d1ec38335ba1cd0f"
+SRC_URI[sha256sum] = "5dccdaff2ebe18d435b32bfc06f8b5f474bf6ac0432a6a07d144b7c56700d0bf"
 
 DEPENDS = "boost bzip2 curl expat gperf-native \
            keyutils libaio libibverbs lz4 \
@@ -133,6 +129,7 @@ RDEPENDS:${PN} += "\
 		python3-modules \
 		python3-prettytable \
 		${PN}-python \
+		gawk \
 "
 COMPATIBLE_HOST = "(x86_64).*"
 PACKAGES += " \
