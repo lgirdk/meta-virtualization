@@ -1,4 +1,5 @@
-SRCREV ?= "e680cc48b7184d3489873d6776f84ba1fc238ced"
+# master status on 2020-10-21
+SRCREV ?= "23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9"
 
 XEN_REL ?= "4.16"
 XEN_BRANCH ?= "master"
@@ -7,8 +8,6 @@ SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
     file://xen-arm64-implement-atomic-fetch-add.patch \
     file://0001-menuconfig-mconf-cfg-Allow-specification-of-ncurses-location.patch \
-    file://0001-x86-make-hypervisor-build-with-gcc11.patch \
-    file://0001-x86-work-around-build-issue-with-GNU-ld-2.37.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=419739e325a50f3d7b4501338e44a4e5"

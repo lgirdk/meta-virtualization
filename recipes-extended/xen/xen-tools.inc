@@ -102,6 +102,7 @@ RSUGGESTS:${PN}-xencov = "${PN}-xencov-split"
 
 RDEPENDS:${PN}-xencommons = "\
     bash \
+    util-linux-prlimit \
     ${PN}-console \
     ${PN}-xenstore \
     virtual/xenstored \
@@ -213,6 +214,9 @@ PACKAGES = " \
     ${PN}-xm-examples \
     ${PN}-xen-access \
     ${PN}-xen-memshare \
+    ${PN}-test \
+    ${PN}-xen-vmtrace \
+    ${PN}-xen-mceinj \
     "
 
 PROVIDES =+ " \
@@ -683,6 +687,31 @@ FILES:${PN}-xen-memshare += "\
 
 # memshare is only built for x86, so allow empty package for other archs
 ALLOW_EMPTY:${PN}-xen-memshare = "1"
+
+FILES:${PN}-test += "\
+    ${libdir}/xen/bin/test-xenstore \
+    ${libdir}/xen/bin/test-resource \
+    ${libdir}/xen/bin/test-cpu-policy \
+    ${libdir}/xen/bin/test-tsx \
+    "
+
+# test-xenstore and test-resource currently only exist in 4.16
+# test-cpu-policy and test-tsx only exist in 4.16 for x86
+ALLOW_EMPTY:${PN}-test = "1"
+
+FILES:${PN}-xen-mceinj +="\
+    ${sbindir}/xen-mceinj \
+    "
+
+# xen-mceinj is only built for x86 4.16, so allow empty package
+ALLOW_EMPTY:${PN}-xen-mceinj = "1"
+
+FILES:${PN}-xen-vmtrace +="\
+    ${sbindir}/xen-vmtrace \
+    "
+
+# xen-vmtrace is only built for x86 4.16, so allow empty package
+ALLOW_EMPTY:${PN}-xen-vmtrace = "1"
 
 INSANE_SKIP:${PN} = "already-stripped"
 
