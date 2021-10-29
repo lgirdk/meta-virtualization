@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/kata-containers/runtime/LICENSE;md5=86
 
 GO_IMPORT = "github.com/kata-containers/runtime"
 SRCREV = "04c77eb20e9bd603cab5c711bcbe7c69db58b040"
-SRC_URI = "git://${GO_IMPORT}.git \
+SRC_URI = "git://${GO_IMPORT}.git;branch=master \
            file://0001-makefile-allow-SKIP_GO_VERSION_CHECK-to-be-overriden.patch \
           "
 RDEPENDS_${PN}-dev_append = "bash"

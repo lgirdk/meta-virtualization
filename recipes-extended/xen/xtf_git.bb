@@ -5,7 +5,7 @@ LICENSE = "BSD-2-Clause"
 # For additional reference on XTF, please see:
 # https://static.sched.com/hosted_files/xendeveloperanddesignsummit2017/79/xtf.pdf
 
-SRC_URI = "git://xenbits.xen.org/xtf"
+SRC_URI = "git://xenbits.xen.org/xtf;branch=master"
 SRCREV = "b0bc49846c154b79243f39d461a4515804bcaf53"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux'

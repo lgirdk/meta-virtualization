@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=9949b99212edd6b1e24ce702376c3baf"
 SRCNAME = "go-patricia"
 
 PKG_NAME = "github.com/tchap/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git"
+SRC_URI = "git://${PKG_NAME}.git;branch=master"
 
 SRCREV = "666120de432aea38ab06bd5c818f04f4129882c9"
 PV = "2.2.6+git${SRCPV}"

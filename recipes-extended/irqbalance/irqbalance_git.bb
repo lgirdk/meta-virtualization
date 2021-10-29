@@ -9,7 +9,7 @@ require irqbalance.inc
 SRCREV = "641edc6f5d56f1b3eb8be0fa8a8e9b6a22e53218"
 PV = "1.7.0"
 
-SRC_URI = "git://github.com/Irqbalance/irqbalance \
+SRC_URI = "git://github.com/Irqbalance/irqbalance;branch=master \
            file://add-initscript.patch \
            file://irqbalance-Add-status-and-reload-commands.patch \
            file://irqbalanced.service \

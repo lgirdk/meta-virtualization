@@ -7,7 +7,7 @@ SECTION = "console/tools"
 BASE_PV="0.16.21"
 PV = "${BASE_PV}+git${SRCPV}"
 SRCREV = "e254e0b19651d3b8a20225b40281c9974a95dec4"
-SRC_URI = "git://github.com/jbruchon/${BPN}.git;protocol=https \
+SRC_URI = "git://github.com/jbruchon/${BPN}.git;protocol=https;branch=master \
     file://0001-cpp-Makefile-respect-LDFLAGS-when-building-bcc-cpp.patch \
     file://0003-cpp-update-token1.tok-to-make-new-gperf-happy-regen..patch \
     file://0004-regen-token2.h-token1.h-with-gperf-3.1.patch \
