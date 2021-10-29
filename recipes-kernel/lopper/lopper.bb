@@ -3,7 +3,7 @@ DESCRIPTION = "Tool for manipulation of system device tree files"
 LICENSE = "BSD-3-Clause"
 SECTION = "bootloader"
 
-SRC_URI = "git://github.com/devicetree-org/lopper.git"
+SRC_URI = "git://github.com/devicetree-org/lopper.git;branch=master"
 SRCREV = "0c23e51d585608ab04009ccf3499f168e2f4d478"
 S = "${WORKDIR}/git"
 

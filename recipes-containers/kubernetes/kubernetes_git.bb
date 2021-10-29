@@ -1,4 +1,4 @@
-HOMEPAGE = "git://github.com/kubernetes/kubernetes"
+HOMEPAGE = "git://github.com/kubernetes/kubernetes;branch=master"
 SUMMARY = "Production-Grade Container Scheduling and Management"
 DESCRIPTION = "Kubernetes is an open source system for managing containerized \
 applications across multiple hosts, providing basic mechanisms for deployment, \

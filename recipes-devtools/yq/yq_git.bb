@@ -15,14 +15,14 @@ SRCREV_logging = "b2cb9fa56473e98db8caba80237377e83fe44db5"
 SRCREV_yaml = "eeeca48fe7764f320e4870d231902bf9c1be2c08"
 
 SRCREV_FORMAT = "yq_color"
-SRC_URI = "git://${GO_IMPORT};name=yq \
-           git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color \
-           git://github.com/goccy/go-yaml;name=lexer;destsuffix=build/vendor/src/github.com/goccy/go-yaml/ \
-           git://github.com/kylelemons/godebug;name=debug;destsuffix=build/vendor/src/github.com/kylelemons/godebug/ \
-	   git://github.com/pkg/errors;name=errors;destsuffix=build/vendor/src/github.com/pkg/errors/ \
-	   git://github.com/spf13/cobra;name=cobra;destsuffix=build/vendor/src/github.com/spf13/cobra \
-	   git://github.com/spf13/pflag;name=pflag;destsuffix=build/vendor/src/github.com/spf13/pflag \
-	   git://github.com/op/go-logging.git;name=logging;destsuffix=build/vendor/src/gopkg.in/op/go-logging.v1 \
+SRC_URI = "git://${GO_IMPORT};name=yq;branch=master \
+           git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color;branch=master \
+           git://github.com/goccy/go-yaml;name=lexer;destsuffix=build/vendor/src/github.com/goccy/go-yaml/;branch=master \
+           git://github.com/kylelemons/godebug;name=debug;destsuffix=build/vendor/src/github.com/kylelemons/godebug/;branch=master \
+	   git://github.com/pkg/errors;name=errors;destsuffix=build/vendor/src/github.com/pkg/errors/;branch=master \
+	   git://github.com/spf13/cobra;name=cobra;destsuffix=build/vendor/src/github.com/spf13/cobra;branch=master \
+	   git://github.com/spf13/pflag;name=pflag;destsuffix=build/vendor/src/github.com/spf13/pflag;branch=master \
+	   git://github.com/op/go-logging.git;name=logging;destsuffix=build/vendor/src/gopkg.in/op/go-logging.v1;branch=master \
 	   git://github.com/go-yaml/yaml.git;name=yaml;branch=v3;destsuffix=build/vendor/src/gopkg.in/yaml.v3 \
            "
 

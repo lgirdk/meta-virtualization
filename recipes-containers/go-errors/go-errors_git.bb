@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=6fe682a02df52c6653f33bd0f
 SRCNAME = "errors"
 
 PKG_NAME = "github.com/pkg/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
+SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master"
 
 SRCREV = "5dd12d0cfe7f152f80558d591504ce685299311e"
 PV = "v0.8.1+git${SRCPV}"
