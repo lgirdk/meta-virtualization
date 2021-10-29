@@ -154,7 +154,7 @@ generate_xen_qemuboot_dtb() {
     QEMUBOOT_DTB="${IMGDEPLOYDIR}/${QB_DTB}"
     QEMUBOOT_DTB_LINK="${IMGDEPLOYDIR}/${QB_DTB_LINK}"
 
-    lopper.py --werror --verbose \
+    lopper --werror --verbose \
         -i "${B}/lop-insert-xen-section.dts" \
         -i "${B}/lop-xen-cmdline.dts" \
         ${LOP_MODULE_ARGS} \
