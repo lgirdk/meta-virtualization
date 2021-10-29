@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
 inherit autotools-brokensep 
 
-SRC_URI = "git://github.com/hyperhq/hyperstart.git"
+SRC_URI = "git://github.com/hyperhq/hyperstart.git;branch=master"
 SRC_URI += "file://0001-container.c-Fix-compiler-errors-that-gcc-8.1.0-repor.patch"
 
 SRCREV = "c0c07d218b482dd07f9068b52a6e7468ae4172ac"

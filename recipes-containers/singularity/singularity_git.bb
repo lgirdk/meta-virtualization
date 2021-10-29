@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://COPYRIGHT.md;md5=be78c34e483dd7d8439358b1e024b294 \
                     file://LICENSE.md;md5=df4326b473db6424033f1d98a5645e30 \
                     file://debian/copyright;md5=ed267cf386d9b75ab1f27f407e935b10"
 
-SRC_URI = "git://github.com/singularityware/singularity.git;protocol=https \
+SRC_URI = "git://github.com/singularityware/singularity.git;protocol=https;branch=master \
     file://0001-Use-python3.patch \
 "
 PV = "2.3.1+git${SRCPV}"

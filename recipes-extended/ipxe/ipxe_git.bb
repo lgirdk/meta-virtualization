@@ -14,7 +14,7 @@ PR = "r0"
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = " \
-    git://github.com/ipxe/ipxe.git;protocol=https \
+    git://github.com/ipxe/ipxe.git;protocol=https;branch=master \
     file://ipxe-fix-hostcc-nopie-cflags.patch \
     file://ipxe-intel-Avoid-spurious-compiler-warning-on-GCC-10.patch \
     file://ipxe-golan-Add-explicit-type-casts-for-nodnic_queue_pair_.patch \

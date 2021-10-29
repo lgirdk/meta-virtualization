@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://License;md5=93958070863d769117fa33b129020050"
 SRCNAME = "pty"
 
 PKG_NAME = "github.com/creack/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git"
+SRC_URI = "git://${PKG_NAME}.git;branch=master"
 
 SRCREV = "05017fcccf23c823bfdea560dcc958a136e54fb7"
 
