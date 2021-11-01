@@ -46,15 +46,12 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-4.0 \
 	file://template-make-busybox-template-compatible-with-core-.patch \
 	file://templates-use-curl-instead-of-wget.patch \
 	file://tests-our-init-is-not-busybox.patch \
-	file://tests-add-no-validate-when-using-download-template.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
-        file://enable_seccomp_profile_when_compiled_libseccomp.patch \
-        file://fix_c_command.patch \
 	"
 
-SRCREV = "cec7cb14b2a4367d4cb21a90e1b90d0f98a9d874"
-PV = "4.0.10+git${SRCPV}"
+SRCREV = "48e079bf318982ae7d5684feeb7358870fa71c10"
+PV = "4.0.11+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
