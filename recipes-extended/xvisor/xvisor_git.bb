@@ -10,7 +10,7 @@ inherit autotools-brokensep
 
 # This version support the RISC-V v0.5.0 Hypervisor extensions
 SRCREV = "b3dac5b1f61f23f21dc59b3880897cff78f3b618"
-SRC_URI = "git://github.com/avpatel/xvisor-next.git;branch=master \
+SRC_URI = "git://github.com/avpatel/xvisor-next.git;branch=master;protocol=https \
     file://0001-TESTS-Don-t-specify-mabi-or-march-for-RISC-V.patch \
     file://0001-EMULATORS-Allow-Xvisor-to-compile-with-gcc-10.patch \
 "

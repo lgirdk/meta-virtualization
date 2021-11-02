@@ -11,7 +11,7 @@ DEPENDS = "glib-2.0 go-md2man-native libseccomp"
 
 SRCREV = "1ef246896b4f6566964ed861b98cd32d0e7bf7a2"
 SRC_URI = "\
-    git://github.com/containers/conmon.git;branch=main \
+    git://github.com/containers/conmon.git;branch=main;protocol=https \
 "
 
 PV = "2.0.29+git${SRCPV}"
