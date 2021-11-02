@@ -19,7 +19,7 @@ DEPENDS = " \
 
 SRCREV = "6e8de00bb224f9931d7402648f0177e7357ed079"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=v3.4 \
+    git://github.com/containers/libpod.git;branch=v3.4;protocol=https \
 "
 
 LICENSE = "Apache-2.0"

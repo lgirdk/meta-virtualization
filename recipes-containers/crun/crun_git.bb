@@ -10,11 +10,11 @@ SRCREV_rspec = "ab23082b188344f6fbb63a441ea00ffc2852d06d"
 SRCREV_yajl = "f344d21280c3e4094919fd318bc5ce75da91fc06"
 
 SRCREV_FORMAT = "crun_rspec"
-SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun \
-           git://github.com/containers/libocispec.git;branch=main;name=libocispec;destsuffix=git/libocispec \
-           git://github.com/opencontainers/runtime-spec.git;branch=main;name=rspec;destsuffix=git/libocispec/runtime-spec \
-           git://github.com/opencontainers/image-spec.git;branch=main;name=ispec;destsuffix=git/libocispec/image-spec \
-           git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl \
+SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun;protocol=https \
+           git://github.com/containers/libocispec.git;branch=main;name=libocispec;destsuffix=git/libocispec;protocol=https \
+           git://github.com/opencontainers/runtime-spec.git;branch=main;name=rspec;destsuffix=git/libocispec/runtime-spec;protocol=https \
+           git://github.com/opencontainers/image-spec.git;branch=main;name=ispec;destsuffix=git/libocispec/image-spec;protocol=https \
+           git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl;protocol=https \
           "
 
 PV = "0.18+git${SRCREV_crun}"

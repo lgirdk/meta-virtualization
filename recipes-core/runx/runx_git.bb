@@ -8,7 +8,7 @@ KERNEL_SRC_VER="linux-5.4"
 KERNEL_URL_VER="v5.x"
 
 SRC_URI = "\
-	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
+	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \
           https://www.kernel.org/pub/linux/kernel/${KERNEL_URL_VER}/${KERNEL_SRC_VER}.tar.xz;destsuffix=git/kernel/build \
           file://0001-make-kernel-cross-compilation-tweaks.patch \
           file://0001-make-kernel-bump-to-v5.4.104-for-gcc10-fixes.patch \

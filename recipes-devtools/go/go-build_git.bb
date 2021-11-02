@@ -5,7 +5,7 @@ DESCRIPTION = "Xen Runtime for OCI"
 SRCREV_runx = "f24efd33fb18469e9cfe4d1bfe8e2c90ec8c4e93"
 
 SRC_URI = "\
-	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
+	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \
           file://0001-build-use-instead-of-go.patch \
 	  "
 SRC_URI[md5sum] = "0d701ac1e2a67d47ce7127432df2c32b"

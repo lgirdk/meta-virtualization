@@ -3,7 +3,7 @@ SUMMARY = "Convert `docker inspect` to opencontainers (OCI compatible) runc spec
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
 
-SRC_URI = "git://github.com/jfrazelle/riddler;branch=master \
+SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https \
            file://0001-build-use-to-select-cross-compiler.patch \
           "
 

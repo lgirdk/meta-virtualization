@@ -1,4 +1,4 @@
-HOMEPAGE = "git://github.com/kubernetes/kubernetes;branch=master"
+HOMEPAGE = "git://github.com/kubernetes/kubernetes;branch=master;protocol=https"
 SUMMARY = "Production-Grade Container Scheduling and Management"
 DESCRIPTION = "Kubernetes is an open source system for managing containerized \
 applications across multiple hosts, providing basic mechanisms for deployment, \
@@ -13,8 +13,8 @@ PE = "1"
 BBCLASSEXTEND = "devupstream:target"
 LIC_FILES_CHKSUM:class-devupstream = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 DEFAULT_PREFERENCE:class-devupstream = "-1"
-SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes \
-                             git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release \
+SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
+                             git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https \
                             "
 SRCREV_kubernetes:class-devupstream = "f6331c74b673d3039240edc77cd66696bbefdd9c"
 SRCREV_kubernetes-release:class-devupstream = "7c1aa83dac555de6f05500911467b70aca4949f0"
@@ -22,8 +22,8 @@ PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
 
 SRCREV_FORMAT ?= "kubernetes_release"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.22;name=kubernetes \
-           git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release"
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.22;name=kubernetes;protocol=https \
+           git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https"
 
 SRC_URI:append = " \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \

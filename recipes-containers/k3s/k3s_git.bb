@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.21;name=k3s \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.21;name=k3s;protocol=https \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
