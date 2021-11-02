@@ -6,8 +6,8 @@ SRCREV_runx = "da0c75c58ae5232d19b1791c33545db3225e1ea9"
 SRCREV_runc = "e4363b038787addfa12e8b0acf5417d4fba01693"
 
 SRC_URI = "\
-	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
-	  git://github.com/opencontainers/runc.git;nobranch=1;destsuffix=runc;name=runc \
+	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \
+	  git://github.com/opencontainers/runc.git;nobranch=1;destsuffix=runc;name=runc;protocol=https \
 	  "
 SRC_URI[md5sum] = "0d701ac1e2a67d47ce7127432df2c32b"
 SRC_URI[sha256sum] = "5a26478906d5005f4f809402e981518d2b8844949199f60c4b6e1f986ca2a769"

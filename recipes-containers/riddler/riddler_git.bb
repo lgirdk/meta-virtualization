@@ -3,7 +3,7 @@ SUMMARY = "Convert `docker inspect` to opencontainers (OCI compatible) runc spec
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
 
-SRC_URI = "git://github.com/jfrazelle/riddler;branch=master"
+SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https"
 SRCREV = "23befa0b232877b5b502b828e24161d801bd67f6"
 PV = "0.1.0+git${SRCPV}"
 GO_IMPORT = "import"

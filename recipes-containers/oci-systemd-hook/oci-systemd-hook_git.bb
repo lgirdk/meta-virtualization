@@ -7,7 +7,7 @@ PRIORITY = "optional"
 DEPENDS = "yajl util-linux"
 
 SRCREV = "05e692346ca73e022754332a7da641230dae2ffe"
-SRC_URI = "git://github.com/projectatomic/oci-systemd-hook \
+SRC_URI = "git://github.com/projectatomic/oci-systemd-hook;branch=master;protocol=https \
            file://0001-selinux-drop-selinux-support.patch \
            file://0001-configure-drop-selinux-support.patch \
            file://0001-Add-additional-cgroup-mounts-from-root-NS-automatica.patch \

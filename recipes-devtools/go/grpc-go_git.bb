@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=a4bad33881612090c6035d839
 SRCNAME = "grpc-go"
 
 PKG_NAME = "google.golang.org/grpc"
-SRC_URI = "git://github.com/grpc/${SRCNAME}.git;destsuffix=git/src/${PKG_NAME}"
+SRC_URI = "git://github.com/grpc/${SRCNAME}.git;destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "777daa17ff9b5daef1cfdf915088a2ada3332bf0"
 PV = "1.4.0+git${SRCPV}"

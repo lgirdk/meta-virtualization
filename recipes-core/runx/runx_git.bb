@@ -4,7 +4,7 @@ DESCRIPTION = "Xen Runtime for OCI"
 
 SRCREV_runx = "da0c75c58ae5232d19b1791c33545db3225e1ea9"
 SRC_URI = "\
-	  git://github.com/lf-edge/runx;nobranch=1;name=runx \
+	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \
           https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.tar.xz;destsuffix=git/kernel/build \
           file://0001-make-kernel-cross-compilation-tweaks.patch \
           file://0001-make-initrd-cross-install-tweaks.patch \

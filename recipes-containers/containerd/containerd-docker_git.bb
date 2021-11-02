@@ -1,6 +1,6 @@
 SRCREV = "3addd840653146c90a254301d6c3a663c7fd6429"
 SRC_URI = "\
-	git://github.com/docker/containerd.git;branch=v0.2.x;destsuffix=git/src/github.com/containerd/containerd \
+	git://github.com/docker/containerd.git;branch=v0.2.x;destsuffix=git/src/github.com/containerd/containerd;protocol=https \
 	"
 
 include containerd.inc

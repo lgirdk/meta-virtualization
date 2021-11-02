@@ -12,7 +12,7 @@ DEPENDS = "\
            spf13-pflag \
           "
 
-SRC_URI = "git://github.com/opencontainers/image-tools.git \
+SRC_URI = "git://github.com/opencontainers/image-tools.git;branch=master;protocol=https \
            file://0001-config-make-Config.User-mapping-errors-a-warning.patch \
            file://0001-tool-respect-GO-and-GOBUILDFLAGS-when-building.patch"
 

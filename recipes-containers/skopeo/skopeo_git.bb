@@ -20,7 +20,7 @@ RDEPENDS_${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=release-1.2 \
+    git://github.com/containers/skopeo;branch=release-1.2;protocol=https \
     file://storage.conf \
     file://registries.conf \
 "

@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 PV = "1.0.24+git${SRCPV}"
 SRCREV = "0ea3fe3d829b5085307cd27a512708d99ef48199"
-SRC_URI = "git://github.com/chaos/diod.git;protocol=git \
+SRC_URI = "git://github.com/chaos/diod.git;protocol=https;branch=master \
            file://diod \
            file://diod.conf \
            file://0001-build-allow-builds-to-work-with-separate-build-dir.patch \

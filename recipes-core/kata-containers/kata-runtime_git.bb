@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/kata-containers/runtime/LICENSE;md5=86
 
 GO_IMPORT = "github.com/kata-containers/runtime"
 SRCREV = "f4cf2137be58c3778d87a8ee8e258e68d1ede888"
-SRC_URI = "git://${GO_IMPORT}.git \
+SRC_URI = "git://${GO_IMPORT}.git;branch=master \
           "
 RDEPENDS_${PN}-dev_append = "bash"
 RDEPENDS_${PN} = " \

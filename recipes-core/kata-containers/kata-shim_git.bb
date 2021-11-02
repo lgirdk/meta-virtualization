@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/kata-containers/shim/LICENSE;md5=86d3f
 
 GO_IMPORT = "github.com/kata-containers/shim"
 SRCREV = "bcc35aeca3ef6fa0976005c9e93525906aefed2f"
-SRC_URI = "git://${GO_IMPORT}.git \
+SRC_URI = "git://${GO_IMPORT}.git;branch=master \
           "
 
 RDEPENDS_${PN}-dev_append = "bash"

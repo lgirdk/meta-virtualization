@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c50f6bd9c1e15ed0bad3bea18e3c1b7f"
 SRCNAME = "mux"
 
 PKG_NAME = "github.com/gorilla/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git"
+SRC_URI = "git://${PKG_NAME}.git;branch=master"
 
 SRCREV = "136d54f81f00414c45c3c68dd47e98cc97519c5e"
 

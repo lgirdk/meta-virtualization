@@ -9,7 +9,7 @@ do_configure[depends] += "virtual/kernel:do_shared_workdir"
 
 inherit kernel-arch
 
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git \
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git;branch=master \
            file://external-crosscompiler.patch \
            file://0001-Avoid-pointers-for-address-of-packed-members.patch \
            file://0001-kvmtool-9p-fixed-compilation-error.patch \

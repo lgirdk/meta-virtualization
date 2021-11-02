@@ -6,7 +6,7 @@ it to exit all the while reaping zombies and performing signal forwarding. "
 
 SRCREV = "fec3683b971d9c3ef73f284f176672c44b448662"
 SRC_URI = " \
-  git://github.com/krallin/tini.git \
+  git://github.com/krallin/tini.git;branch=master;protocol=https \
   file://0001-Do-not-strip-the-output-binary-allow-yocto-to-do-thi.patch \
   "
 

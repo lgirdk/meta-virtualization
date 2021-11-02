@@ -11,7 +11,7 @@ PR = "r0"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = " \
-    git://git.ipxe.org/ipxe.git;protocol=https \
+    git://git.ipxe.org/ipxe.git;protocol=https;branch=master \
     file://ipxe-fix-hostcc-nopie-cflags.patch \
     "
 

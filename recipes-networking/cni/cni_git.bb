@@ -13,8 +13,8 @@ SRCREV_cni = "4cfb7b568922a3c79a23e438dc52fe537fc9687e"
 # Version 0.8.5
 SRCREV_plugins = "1f33fb729ae2b8900785f896df2dc1f6fe5e8239"
 SRC_URI = "\
-	git://github.com/containernetworking/cni.git;nobranch=1;name=cni \
-        git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins \
+	git://github.com/containernetworking/cni.git;nobranch=1;name=cni;protocol=https \
+        git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
 	"
 
 RPROVIDES_${PN} += "kubernetes-cni"

@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=1e8b7dc8b906737639131047a
 SRCNAME = "pflag"
 
 PKG_NAME = "github.com/spf13/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME}"
+SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master"
 
 SRCREV = "9ff6c6923cfffbcd502984b8e0c80539a94968b7"
 PV = "v1.0.0-rc4+git${SRCPV}"

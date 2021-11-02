@@ -8,7 +8,7 @@ DEPENDS = "glib-2.0"
 
 SRCREV = "ff9d97a08d7a4b58267ac03719786e4e7258cecf"
 SRC_URI = "\
-    git://github.com/containers/conmon.git;branch=main \
+    git://github.com/containers/conmon.git;branch=main;protocol=https \
 "
 
 SRC_URI[md5sum] = "5c711911d766d76813333c3812277574"

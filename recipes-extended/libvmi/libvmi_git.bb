@@ -8,7 +8,7 @@ PV = "0.12.0"
 
 DEPENDS = "libvirt libcheck bison fuse byacc-native"
 
-SRC_URI = "git://github.com/libvmi/libvmi.git \
+SRC_URI = "git://github.com/libvmi/libvmi.git;branch=master;protocol=https \
 "
 
 SRCREV = "6934e8a4758018983ec53ec791dd14a7d6ac31a9"

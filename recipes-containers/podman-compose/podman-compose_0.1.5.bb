@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 inherit setuptools3 pypi
 
-SRC_URI = "git://github.com/containers/podman-compose.git;branch=devel"
+SRC_URI = "git://github.com/containers/podman-compose.git;branch=devel;protocol=https"
 
 SRCREV = "6289d25a42cfdb5dfcac863b1b1b4ace32ce31b7"
 

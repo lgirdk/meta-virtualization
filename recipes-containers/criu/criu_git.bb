@@ -16,7 +16,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 SRCREV = "c703e3fd8404e506cc6156719b953ea0580d59a4"
 PV = "3.13+git${SRCPV}"
 
-SRC_URI = "git://github.com/checkpoint-restore/criu.git \
+SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
            file://0001-criu-Fix-toolchain-hardcode.patch \
            file://0002-criu-Skip-documentation-install.patch \
            file://0001-criu-Change-libraries-install-directory.patch \

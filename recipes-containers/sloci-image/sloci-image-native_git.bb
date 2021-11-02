@@ -1,7 +1,7 @@
 SUMMARY = "A simple CLI tool for packing rootfs into a single-layer OCI image"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://git/LICENSE;md5=948cd8e59069fad992b0469af9ad7966"
-SRC_URI = "git://github.com/jirutka/sloci-image.git"
+SRC_URI = "git://github.com/jirutka/sloci-image.git;branch=master;protocol=https"
 
 DEPENDS = ""
 

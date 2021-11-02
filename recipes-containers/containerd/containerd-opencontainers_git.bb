@@ -1,5 +1,5 @@
 SRCREV = "3b3e9d5f62a114153829f9fbe2781d27b0a2ddac"
-SRC_URI = "git://github.com/containerd/containerd;branch=release/1.2 \
+SRC_URI = "git://github.com/containerd/containerd;branch=release/1.2;protocol=https \
            file://0001-build-use-oe-provided-GO-and-flags.patch \
            file://0001-Add-build-option-GODEBUG-1.patch \
           "

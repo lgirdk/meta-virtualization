@@ -39,9 +39,9 @@ SRCREV_moby = "420b1d36250f9cfdc561f086f25a213ecb669b6f"
 SRCREV_libnetwork = "c7bae399e46fd620b8a006174b7327e4e6e647fd"
 SRCREV_cli = "eb310fca49568dccd87c6136f774ef6fff2a1b51"
 SRC_URI = "\
-	git://github.com/moby/moby.git;branch=19.03;name=moby \
-	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork \
-	git://github.com/docker/cli;branch=19.03;name=cli;destsuffix=git/cli \
+	git://github.com/moby/moby.git;branch=19.03;name=moby;protocol=https \
+	git://github.com/docker/libnetwork.git;branch=bump_19.03;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
+	git://github.com/docker/cli;branch=19.03;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
         file://0001-imporve-hardcoded-CC-on-cross-compile-docker-ce.patch \
