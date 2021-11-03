@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE.code;md5=9cd86830b557232ce55e
 SRCNAME = "go-digest"
 
 PKG_NAME = "github.com/opencontainers/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master"
+SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "b6234c321f263c503268e3b205f3d9755f9d14ed"
 PV = "v1.0.0-rc0+git${SRCPV}"
