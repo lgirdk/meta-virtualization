@@ -96,6 +96,10 @@ RRECOMMENDS:${PN} = "\
                      kernel-module-vxlan \
                      kernel-module-xt-masquerade \
                      kernel-module-xt-statistic \
+                     kernel-module-xt-physdev \
+                     kernel-module-xt-nflog \
+                     kernel-module-xt-limit \
+                     kernel-module-nfnetlink-log \
                      "
 
 RCONFLICTS:${PN} = "kubectl"
