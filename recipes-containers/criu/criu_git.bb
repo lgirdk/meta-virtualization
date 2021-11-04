@@ -38,8 +38,8 @@ EXTRA_OEMAKE:arm += "ARCH=arm UNAME-M=${CRIU_BUILD_ARCH} WERROR=0"
 EXTRA_OEMAKE:x86-64 += "ARCH=x86 WERROR=0"
 EXTRA_OEMAKE:aarch64 += "ARCH=aarch64 WERROR=0"
 
-EXTRA_OEMAKE:append += "SBINDIR=${sbindir} LIBDIR=${libdir} INCLUDEDIR=${includedir} PIEGEN=no"
-EXTRA_OEMAKE:append += "LOGROTATEDIR=${sysconfdir} SYSTEMDUNITDIR=${systemd_unitdir}"
+EXTRA_OEMAKE:append = " SBINDIR=${sbindir} LIBDIR=${libdir} INCLUDEDIR=${includedir} PIEGEN=no"
+EXTRA_OEMAKE:append = " LOGROTATEDIR=${sysconfdir} SYSTEMDUNITDIR=${systemd_unitdir}"
 
 CFLAGS += "-D__USE_GNU -D_GNU_SOURCE " 
 
