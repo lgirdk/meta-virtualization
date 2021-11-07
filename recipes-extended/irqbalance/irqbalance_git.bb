@@ -4,10 +4,8 @@
 
 require irqbalance.inc
 
-# commit tagged as version 1.7.0
-#
-SRCREV = "bd5aaf5a8613c8eadfbf9f0908fd8260125aae28"
-PV = "1.8.0"
+SRCREV = "a97266548398870c2dde034e48a8c9e3c1893acb"
+PV = "1.8.0+git${SRCPV}"
 
 SRC_URI = "git://github.com/Irqbalance/irqbalance;branch=master;protocol=https \
            file://add-initscript.patch \
@@ -16,3 +14,5 @@ SRC_URI = "git://github.com/Irqbalance/irqbalance;branch=master;protocol=https \
           "
 
 S = "${WORKDIR}/git"
+
+CFLAGS += "-Wno-error=format-security"
