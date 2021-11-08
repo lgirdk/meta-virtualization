@@ -14,9 +14,9 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s;protoco
            file://k3s-killall.sh \
           "
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "737f722315b9832e9180fa232253d28ae1f2272f"
+SRCREV_k3s = "61a2aab25eeb97c26fa3f2b177e4355a7654c991"
 
-PV = "v1.22.2+k3s1"
+PV = "v1.22.3+k3s1"
 
 CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
 
