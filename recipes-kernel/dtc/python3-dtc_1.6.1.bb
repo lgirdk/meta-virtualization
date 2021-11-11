@@ -6,7 +6,8 @@ LICENSE = "GPLv2 | BSD-2-Clause"
 
 DEPENDS = "flex-native bison-native swig-native libyaml dtc"
 
-SRC_URI = "git://git.kernel.org/pub/scm/utils/dtc/dtc.git;branch=master"
+SRC_URI = "git://git.kernel.org/pub/scm/utils/dtc/dtc.git;branch=master \
+           file://ssize.patch"
 
 UPSTREAM_CHECK_GITTAGREGEX = "v(?P<pver>\d+(\.\d+)+)"
 
