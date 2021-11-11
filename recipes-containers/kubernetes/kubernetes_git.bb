@@ -6,7 +6,7 @@ maintenance, and scaling of applications. \
 "
 
 PV = "v1.22.2+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "8b5a19147530eaac9476b0ab82980b4088bbc1b2"
+SRCREV_kubernetes = "a82c1e722590eb1b94f9c7dcba51be67bf37a4e2"
 SRCREV_kubernetes-release = "7c1aa83dac555de6f05500911467b70aca4949f0"
 PE = "1"
 
@@ -16,7 +16,7 @@ DEFAULT_PREFERENCE:class-devupstream = "-1"
 SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
                              git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https \
                             "
-SRCREV_kubernetes:class-devupstream = "f6331c74b673d3039240edc77cd66696bbefdd9c"
+SRCREV_kubernetes:class-devupstream = "d2f6eb6339de25cef04850b6d9be8335d52324cd"
 SRCREV_kubernetes-release:class-devupstream = "7c1aa83dac555de6f05500911467b70aca4949f0"
 PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
 
