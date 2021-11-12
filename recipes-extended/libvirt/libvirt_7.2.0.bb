@@ -54,6 +54,7 @@ EOF
 }
 
 ALLOW_EMPTY:${PN} = "1"
+INSANE_SKIP:${PN} += "empty-dirs"
 
 PACKAGES =+ "${PN}-libvirtd ${PN}-virsh"
 
