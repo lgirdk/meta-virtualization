@@ -32,10 +32,8 @@ SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
 
-DPDK_INSTALL_DIR ?= "/opt/dpdk"
-
 PACKAGECONFIG ?= "libcap-ng"
-PACKAGECONFIG[dpdk] = "--with-dpdk=${STAGING_DIR_TARGET}${DPDK_INSTALL_DIR}/share/${TARGET_ARCH}-native-linuxapp-gcc,,dpdk,dpdk"
+PACKAGECONFIG[dpdk] = "--with-dpdk=shared,,dpdk,dpdk"
 PACKAGECONFIG[libcap-ng] = "--enable-libcapng,--disable-libcapng,libcap-ng,"
 PACKAGECONFIG[ssl] = ",--disable-ssl,openssl,"
 
