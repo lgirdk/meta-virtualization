@@ -3,7 +3,7 @@ SUMMARY = "The Docker toolset to pack, ship, store, and deliver content"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d2794c0df5b907fdace235a619d80314"
 
-SRCREV_distribution="61e7e208239878249a7ee4dae3c16c2d08a32d19"
+SRCREV_distribution= "f7365390ef0c8bc43de18e3e87df48b495139488"
 SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.7;name=distribution;destsuffix=git/src/github.com/docker/distribution;protocol=https \
            file://docker-registry.service \
            file://0001-build-use-to-use-cross-go-compiler.patch \
@@ -11,7 +11,7 @@ SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.7;name=dist
 
 PACKAGES =+ "docker-registry"
 
-PV = "v2.7.1"
+PV = "v2.7.1+git${SRCPV}"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
 GO_IMPORT = "import"
