@@ -12,6 +12,7 @@ LIC_FILES_CHKSUM = "file://COPYRIGHT.md;md5=be78c34e483dd7d8439358b1e024b294 \
 
 SRC_URI = "git://github.com/singularityware/singularity.git;protocol=https;branch=master \
     file://0001-Use-python3.patch \
+    file://0001-configure.ac-drop-2nd-AM_INIT_AUTOMAKE.patch \
 "
 PV = "2.3.1+git${SRCPV}"
 SRCREV = "e214d4ebf0a1274b1c63b095fd55ae61c7e92947"
