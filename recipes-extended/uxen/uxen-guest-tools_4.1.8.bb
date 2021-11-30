@@ -12,6 +12,7 @@ SRC_URI = " \
     file://0001-vm-support-fix-build-for-kernel-s-5.4.patch \
     file://0002-vm-support-fix-build-for-kernel-s-5.15.patch \
     file://0003-vm-support-fix-build-for-kernel-s-5.14.patch \
+    file://0004-uxenhc-fix-DMODULE-not-working-on-module-build-comma.patch \
 "
 
 SRC_URI[uxen.sha384sum] = "be2233bc6506a23350d76c03ac28ea7ea381e1dc6ed5ce996e8ac71e6a3316fcaa2ed070c622618bd226f43a4d6db5d4"
