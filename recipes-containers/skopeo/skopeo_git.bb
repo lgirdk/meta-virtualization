@@ -21,14 +21,14 @@ RDEPENDS:${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=release-1.4;protocol=https \
+    git://github.com/containers/skopeo;branch=main;protocol=https \
     file://0001-Makefile-use-pkg-config-instead-of-gpgme-config.patch \
     file://storage.conf \
     file://registries.conf \
 "
 
-SRCREV = "01e51ce610e3cfe1230a10af982e962c4ad1c990"
-PV = "v1.4.1+git${SRCPV}"
+SRCREV = "1d24e657fa4a07a39939391902f8030f37716c32"
+PV = "v1.5.2+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
