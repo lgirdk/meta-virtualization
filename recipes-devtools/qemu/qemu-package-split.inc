@@ -10,7 +10,7 @@ PACKAGES:prepend:class-target = "${PN}-x86_64 \
                     "
 
 FILES:${PN}-x86_64:class-target = "${bindir}/qemu-system-x86_64 ${bindir}/qemu-x86_64"
-RDEPENDS:${PN}-x86_64:append:class_target = "${PN}"
+RDEPENDS:${PN}-x86_64:append:class-target = "${PN}"
 INSANE_SKIP:${PN}-x86_64:class-target = "file-rdeps"
 
 FILES:${PN}-i386:class-target = "${bindir}/qemu-i386"
