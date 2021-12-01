@@ -21,7 +21,7 @@ S = "${WORKDIR}/git"
 DEPENDS = "gperf-native dev86-native"
 
 BBCLASSEXTEND = "native"
-EXTRA_OEMAKE = "VERSION=${BASE_PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}'"
+EXTRA_OEMAKE = "VERSION=${BASE_PV} PREFIX=${prefix} DIST=${D} LDFLAGS='${LDFLAGS}' INEXE=''"
 
 do_compile() {
 	# always regenerate token1.h, token2.h for deterministic behavior
@@ -45,7 +45,4 @@ do_install_append_class-native() {
         install -v -m 755 ${B}/ifdefg ${D}${bindir}
 }
 
-COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
 FILES_${PN} += "${libdir}/bcc"
-
-INSANE_SKIP_${PN} = "already-stripped"
