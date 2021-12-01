@@ -34,19 +34,6 @@ index 0b9ef3f..04957a8 100644
          if (!uxen_hcbase) {
              ret = -ENOMEM;
              goto out;
-@@ -149,8 +154,11 @@ static void __exit uxen_hypercall_exit(void)
- {
- }
- 
-+
-+#define KBUILD_MODFILE "uxenhc"
-+
- module_init(uxen_hypercall_init);
- module_exit(uxen_hypercall_exit);
-+MODULE_LICENSE("GPL");
- MODULE_AUTHOR("paulian.marinca@bromium.com");
- MODULE_DESCRIPTION("uXen hypercall support");
--MODULE_LICENSE("GPL");
 diff --git a/v4vvsock/v4v_vsock.c b/v4vvsock/v4v_vsock.c
 index 8d80d7d..cd7e8ce 100644
 --- a/v4vvsock/v4v_vsock.c
