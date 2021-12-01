@@ -8,6 +8,8 @@ require xvisor-configs.inc
 
 inherit autotools-brokensep
 
+PV = "0.3.0+git${SRCPV}"
+
 # This version support the RISC-V v0.5.0 Hypervisor extensions
 SRCREV = "6b23764a1439f9d08b2ed2f363da522460d8a22b"
 SRC_URI = "git://github.com/avpatel/xvisor-next.git;branch=master;protocol=https \
