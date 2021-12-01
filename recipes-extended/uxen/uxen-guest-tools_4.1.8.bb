@@ -9,6 +9,7 @@ SRC_URI = " \
     https://www.bromium.com/wp-content/uploads/2019/11/uxen-${PV}.zip;name=uxen \
     https://www.bromium.com/wp-content/uploads/2019/11/Bromium-4.1.8-Open-Source-Software.pdf;name=license \
     file://fix-Makefile-for-OE-kernel-build.patch \
+    file://0001-vm-support-fix-build-for-kernel-s-5.4.patch \
     "
 
 SRC_URI[uxen.sha384sum] = "be2233bc6506a23350d76c03ac28ea7ea381e1dc6ed5ce996e8ac71e6a3316fcaa2ed070c622618bd226f43a4d6db5d4"
