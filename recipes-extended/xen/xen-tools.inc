@@ -94,7 +94,7 @@ RDEPENDS:${PN}-scripts-network = "\
     ${PN}-volatiles \
     "
 
-RSUGGESTS:${PN}-scripts-network = "\
+RRECOMMENDS:${PN}-scripts-network = "\
     ifupdown \
     "
 
