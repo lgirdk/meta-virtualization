@@ -32,3 +32,5 @@ M:      Christopher Clark <christopher.w.clark@gmail.com>
 F:      recipes-extended/xen/
 F:      recipes-extended/uxen/
 F:      recipes-extended/images/*xen*.bb
+F:      recipes-extended/images/xtf*.bb
+F:      dynamic-layers/raspberrypi/
