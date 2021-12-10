@@ -31,6 +31,7 @@ SRC_URI:append = " \
            file://0001-build-golang.sh-convert-remaining-go-calls-to-use.patch \
            file://0001-Makefile.generated_files-Fix-race-issue-for-installi.patch \
            file://cni-containerd-net.conflist \
+           file://k8s-init \
           "
 
 DEPENDS += "rsync-native \
@@ -100,11 +101,16 @@ do_install() {
 
     install -m 0644 ${WORKDIR}/git/release/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service ${D}${systemd_unitdir}/system/
     install -m 0644 ${WORKDIR}/git/release/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf  ${D}${systemd_unitdir}/system/kubelet.service.d/
+
+    if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+	install -d "${D}${BIN_PREFIX}/bin"
+	install -m 755 "${WORKDIR}/k8s-init" "${D}${BIN_PREFIX}/bin"
+    fi
 }
 
 CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conflist"
 
-PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc"
+PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc ${PN}-host"
 
 ALLOW_EMPTY:${PN} = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped"
@@ -130,6 +136,10 @@ SYSTEMD_AUTO_ENABLE:kubelet = "enable"
 FILES:kubectl = "${bindir}/kubectl"
 FILES:kube-proxy = "${bindir}/kube-proxy"
 FILES:${PN}-misc = "${bindir}"
+
+ALLOW_EMPTY:${PN}-host = "1"
+FILE:${PN}-host = "${BIN_PREFIX}/bin/k8s-init"
+RDEPENDS:${PN}-host = "${PN}"
 
 RRECOMMENDS:${PN} = "\
                      kernel-module-xt-addrtype \
