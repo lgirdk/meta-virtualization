@@ -5,15 +5,15 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.22.2+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "a82c1e722590eb1b94f9c7dcba51be67bf37a4e2"
+PV = "v1.23.1+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "dd1b0a124713105e94ed58ffc2115ee8c1fd9f72"
 SRCREV_kubernetes-release = "7c1aa83dac555de6f05500911467b70aca4949f0"
 PE = "1"
 
 BBCLASSEXTEND = "devupstream:target"
 LIC_FILES_CHKSUM:class-devupstream = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 DEFAULT_PREFERENCE:class-devupstream = "-1"
-SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
+SRC_URI:classedevupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
                              git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https \
                             "
 SRCREV_kubernetes:class-devupstream = "d2f6eb6339de25cef04850b6d9be8335d52324cd"
@@ -22,7 +22,7 @@ PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
 
 SRCREV_FORMAT ?= "kubernetes_release"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.22;name=kubernetes;protocol=https \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.23;name=kubernetes;protocol=https \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https"
 
 SRC_URI:append = " \
@@ -30,6 +30,7 @@ SRC_URI:append = " \
            file://0001-cross-don-t-build-tests-by-default.patch \
            file://0001-build-golang.sh-convert-remaining-go-calls-to-use.patch \
            file://0001-Makefile.generated_files-Fix-race-issue-for-installi.patch \
+           file://cni-containerd-net.conflist \
           "
 
 DEPENDS += "rsync-native \
@@ -45,6 +46,7 @@ GO_IMPORT = "import"
 inherit systemd
 inherit go
 inherit goarch
+inherit cni_networking
 
 COMPATIBLE_HOST = '(x86_64.*|arm.*|aarch64.*)-linux'
 
@@ -100,6 +102,8 @@ do_install() {
     install -m 0644 ${WORKDIR}/git/release/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf  ${D}${systemd_unitdir}/system/kubelet.service.d/
 }
 
+CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conflist"
+
 PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc"
 
 ALLOW_EMPTY:${PN} = "1"
@@ -111,9 +115,9 @@ INSANE_SKIP:${PN}-misc += "ldflags already-stripped"
 RDEPENDS:${PN} += "kubeadm \
                    kubectl \
                    kubelet \
-                   cni"
+                   kubernetes-cni"
 
-RDEPENDS:kubeadm = "kubelet kubectl"
+RDEPENDS:kubeadm = "kubelet kubectl cri-tools conntrack-tools"
 FILES:kubeadm = "${bindir}/kubeadm ${systemd_unitdir}/system/kubelet.service.d/*"
 
 RDEPENDS:kubelet = "iptables socat util-linux ethtool iproute2 ebtables iproute2-tc"
@@ -127,5 +131,21 @@ FILES:kubectl = "${bindir}/kubectl"
 FILES:kube-proxy = "${bindir}/kube-proxy"
 FILES:${PN}-misc = "${bindir}"
 
+RRECOMMENDS:${PN} = "\
+                     kernel-module-xt-addrtype \
+                     kernel-module-xt-nat \
+                     kernel-module-xt-multiport \
+                     kernel-module-xt-conntrack \
+                     kernel-module-xt-comment \
+                     kernel-module-xt-mark \
+                     kernel-module-xt-connmark \
+                     kernel-module-vxlan \
+                     kernel-module-xt-masquerade \
+                     kernel-module-xt-statistic \
+                     kernel-module-xt-physdev \
+                     kernel-module-xt-nflog \
+                     kernel-module-xt-limit \
+                     kernel-module-nfnetlink-log \
+                     "
 
 deltask compile_ptest_base
