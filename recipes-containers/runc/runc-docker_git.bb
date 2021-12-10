@@ -9,6 +9,6 @@ SRC_URI = "git://github.com/opencontainers/runc;branch=release-1.0;name=runc-doc
            file://0001-runc-docker-SIGUSR1-daemonize.patch \
           "
 
-RUNC_VERSION = "1.0.2"
+RUNC_VERSION = "1.0.3"
 
 CVE_PRODUCT = "runc"
