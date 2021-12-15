@@ -32,6 +32,7 @@ SRC_URI:append = " \
            file://0001-Makefile.generated_files-Fix-race-issue-for-installi.patch \
            file://cni-containerd-net.conflist \
            file://k8s-init \
+           file://99-kubernetes.conf \
           "
 
 DEPENDS += "rsync-native \
@@ -105,6 +106,9 @@ do_install() {
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 	install -d "${D}${BIN_PREFIX}/bin"
 	install -m 755 "${WORKDIR}/k8s-init" "${D}${BIN_PREFIX}/bin"
+
+	install -d ${D}${sysconfdir}/sysctl.d
+	install -m 0644 "${WORKDIR}/99-kubernetes.conf" "${D}${sysconfdir}/sysctl.d"
     fi
 }
 
@@ -135,7 +139,7 @@ SYSTEMD_AUTO_ENABLE:kubelet = "enable"
 
 FILES:kubectl = "${bindir}/kubectl"
 FILES:kube-proxy = "${bindir}/kube-proxy"
-FILES:${PN}-misc = "${bindir}"
+FILES:${PN}-misc = "${bindir} ${sysconfdir}/sysctl.d"
 
 ALLOW_EMPTY:${PN}-host = "1"
 FILE:${PN}-host = "${BIN_PREFIX}/bin/k8s-init"
