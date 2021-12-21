@@ -4,7 +4,7 @@ SECTION = "devel/python"
 LICENSE = "GPLv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c6dd79b6ec2130a3364f6fa9d6380408"
 
-SRCREV = "1431c8a1bddaabf85e1bbb32bf316a3aef20036e"
+SRCREV = "a97fd062f7dbd4b824fd006edd08927ef9dbf24a"
 SRC_URI = "git://github.com/canonical/cloud-init;branch=main;protocol=https \
     file://cloud-init-source-local-lsb-functions.patch \
     file://0001-setup.py-check-for-install-anywhere-in-args.patch \
@@ -55,5 +55,6 @@ RDEPENDS:${PN} = "python3 \
                   python3-jsonschema \
                   python3-pyyaml \
                   python3-oauthlib \
+                  bash \
                  "
 

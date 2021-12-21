@@ -16,19 +16,16 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  setup.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/setup.py b/setup.py
-index cbacf48e..5f13d9eb 100755
---- a/setup.py
-+++ b/setup.py
-@@ -87,7 +87,7 @@ def render_tmpl(template, mode=None):
+Index: git/setup.py
+===================================================================
+--- git.orig/setup.py
++++ git/setup.py
+@@ -87,7 +87,7 @@
  
      # older versions of tox use bdist (xenial), and then install from there.
      # newer versions just use install.
--    if not (sys.argv[1] == 'install' or sys.argv[1].startswith('bdist*')):
+-    if not (sys.argv[1] == "install" or sys.argv[1].startswith("bdist*")):
 +    if not ('install' in sys.argv or sys.argv[1].startswith('bdist*')):
          return template
  
      tmpl_ext = ".tmpl"
--- 
-2.25.1
-
