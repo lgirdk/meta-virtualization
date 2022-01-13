@@ -17,7 +17,7 @@ SRCREV = "ecaeb97fec013973360e94888a7de645f084345c"
 
 S = "${WORKDIR}/git"
 
-inherit distutils3
+inherit setuptools3-base pkgconfig
 
 DISTUTILS_SETUP_PATH = "${S}/pylibfdt"
 
