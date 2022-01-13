@@ -653,10 +653,10 @@ FILES:${PN}-xm = "\
     "
 
 FILES:${PN}-xencommons += "\
+    ${nonarch_libdir}/modules-load.d/xen.conf \
     ${sysconfdir}/default/xencommons \
     ${sysconfdir}/init.d/xencommons \
     ${sysconfdir}/xen/scripts/launch-xenstore \
-    ${systemd_unitdir}/modules-load.d/xen.conf \
     ${systemd_unitdir}/system/proc-xen.mount \
     ${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service \
     ${systemd_unitdir}/system/xenconsoled.service \
@@ -744,7 +744,6 @@ SYSTEMD_SERVICE:${PN}-xendomains = "xendomains.service"
 
 EXTRA_OECONF += " \
     --with-systemd=${systemd_unitdir}/system \
-    --with-systemd-modules-load=${systemd_unitdir}/modules-load.d \
     --with-initddir=${INIT_D_DIR} \
     --with-sysconfig-leaf-dir=default \
     --with-system-qemu=${bindir}/qemu-system-i386 \
