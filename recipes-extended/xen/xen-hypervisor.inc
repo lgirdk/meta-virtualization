@@ -103,3 +103,7 @@ CROSS_CURSES_LIB += "-L${STAGING_LIBDIR_NATIVE}"
 # Specify the root dir of the .config file for do_menuconfig and do_diffconfig
 # tasks
 KCONFIG_CONFIG_ROOTDIR = "${S}/xen"
+
+# Xen is setting all CC flags on its own. Make sure that they are not modified
+# for aarch64, e.g. with architecture-specific optimizations.
+TUNE_CCARGS:aarch64=""
