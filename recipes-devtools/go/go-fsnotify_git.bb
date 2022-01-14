@@ -2,15 +2,15 @@ DESCRIPTION = "A golang registry for global request variables."
 HOMEPAGE = "https://github.com/go-fsnotify/fsnotify"
 SECTION = "devel/go"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=c38914c9a7ab03bb2b96d4baaee10769"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=68f2948d3c4943313d07e084a362486c"
 
 SRCNAME = "fsnotify"
 
 PKG_NAME = "github.com/fsnotify/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
-SRCREV = "836bfd95fecc0f1511dd66bdbf2b5b61ab8b00b6"
-PV = "1.2.11+git${SRCPV}"
+SRCREV = "af855d7e6014ec848882bb2ed7d40d536872d275"
+PV = "v1.5.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
