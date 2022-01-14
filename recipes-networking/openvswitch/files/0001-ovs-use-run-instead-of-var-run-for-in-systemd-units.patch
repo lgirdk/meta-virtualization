@@ -96,7 +96,7 @@ index 74e5acb7f..39698f238 100644
  ExecStartPre=/bin/rm -f /run/openvswitch.useropts
 -ExecStartPre=-/bin/mkdir /var/run/openvswitch /var/log/openvswitch
 -ExecStartPre=-/bin/chown ${OVS_USER_ID} /var/run/openvswitch /var/log/openvswitch
-+ExecStartPre=-/bin/mkdir /run/openvswitch /var/log/openvswitch
++ExecStartPre=-/bin/mkdir -p /run/openvswitch /var/log/openvswitch
 +ExecStartPre=-/bin/chown ${OVS_USER_ID} /run/openvswitch /var/log/openvswitch
  ExecStartPre=/bin/sh -c '/bin/echo "OVS_USER_ID=${OVS_USER_ID}" > /run/openvswitch.useropts'
  ExecStartPre=/bin/sh -c 'if [ "$${OVS_USER_ID/:*/}" != "root" ]; then /bin/echo "OVS_USER_OPT=--ovs-user=${OVS_USER_ID}" >> /run/openvswitch.useropts; fi'
