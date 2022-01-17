@@ -1,0 +1,34 @@
+Upstream-Status: Backport
+Signed-off-by: Ross Burton <ross.burton@arm.com>
+
+From c691776ddb26acbd3674722caafacaf7b6e3e807 Mon Sep 17 00:00:00 2001
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 10 Nov 2021 19:11:32 -0600
+Subject: [PATCH] pylibfdt: Use setuptools instead of distutils
+
+The use of setuptools is favored over distutils. setuptools is needed to
+support building Python 'wheels' and for pip support.
+
+Signed-off-by: Rob Herring <robh@kernel.org>
+Message-Id: <20211111011135.2386773-2-robh@kernel.org>
+Signed-off-by: David Gibson <david@gibson.dropbear.id.au>
+---
+ pylibfdt/setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pylibfdt/setup.py b/pylibfdt/setup.py
+index ef40f15..f065a59 100755
+--- a/pylibfdt/setup.py
++++ b/pylibfdt/setup.py
+@@ -10,7 +10,7 @@ Copyright (C) 2017 Google, Inc.
+ Written by Simon Glass <sjg@chromium.org>
+ """
+ 
+-from distutils.core import setup, Extension
++from setuptools import setup, Extension
+ import os
+ import re
+ import sys
+-- 
+2.25.1
+

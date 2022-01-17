@@ -7,6 +7,7 @@ LICENSE = "GPLv2 | BSD-2-Clause"
 DEPENDS = "flex-native bison-native swig-native libyaml dtc"
 
 SRC_URI = "git://git.kernel.org/pub/scm/utils/dtc/dtc.git;branch=master \
+           file://setuptools.patch \
            file://ssize.patch"
 
 UPSTREAM_CHECK_GITTAGREGEX = "v(?P<pver>\d+(\.\d+)+)"
@@ -17,13 +18,13 @@ SRCREV = "ecaeb97fec013973360e94888a7de645f084345c"
 
 S = "${WORKDIR}/git"
 
-inherit setuptools3-base pkgconfig
+inherit setuptools3 pkgconfig
 
-DISTUTILS_SETUP_PATH = "${S}/pylibfdt"
+SETUPTOOLS_SETUP_PATH = "${S}/pylibfdt"
 
 do_configure:prepend() {
     oe_runmake -C "${S}" version_gen.h
-    mv "${S}/version_gen.h" "${DISTUTILS_SETUP_PATH}/"
+    mv "${S}/version_gen.h" "${SETUPTOOLS_SETUP_PATH}/"
 }
 
 BBCLASSEXTEND = "native nativesdk"
