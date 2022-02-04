@@ -18,7 +18,7 @@ S = "${WORKDIR}/${BPN}-${PV}"
 
 inherit autotools gettext
 
-PNBLACKLIST[nagios-plugins] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
+SKIP_RECIPE[nagios-plugins] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
 
 EXTRA_OECONF += "--with-sysroot=${STAGING_DIR_HOST} \
                  --with-nagios-user=${NAGIOS_USER} \

@@ -26,7 +26,7 @@ S = "${WORKDIR}/${SRCNAME}-${PV}"
 
 inherit autotools-brokensep update-rc.d systemd update-alternatives
 
-PNBLACKLIST[nagios-nrpe] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
+SKIP_RECIPE[nagios-nrpe] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
 
 # IP address of server which proxy should connect to
 MONITORING_PROXY_SERVER_IP ??= "192.168.7.2"

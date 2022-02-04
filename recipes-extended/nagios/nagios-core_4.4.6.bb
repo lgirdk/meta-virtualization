@@ -38,7 +38,7 @@ RDEPENDS:${PN} += "\
     nagios-base \
 "
 
-PNBLACKLIST[nagios-core] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on apache2 from meta-webserver which is not included', d)}"
+SKIP_RECIPE[nagios-core] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on apache2 from meta-webserver which is not included', d)}"
 
 acpaths = "-I ${S}/autoconf-macros"
 
