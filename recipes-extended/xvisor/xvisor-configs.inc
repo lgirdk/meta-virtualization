@@ -9,7 +9,7 @@ def get_oemake_config(a, d):
     elif re.match('riscv32(eb|)$', a):        return 'generic-32b-defconfig'
     elif re.match('riscv64(eb|)$', a):        return 'generic-64b-defconfig'
     else:
-        bb.error("cannot map '%s' to a Xvisor defconfig" % a)
+        bb.note("cannot map '%s' to a Xvisor defconfig" % a)
 
 def map_xvisor_arch(a, d):
     import re
@@ -22,4 +22,4 @@ def map_xvisor_arch(a, d):
     elif re.match('aarch64_be_ilp32$', a):      return 'arm'
     elif re.match('riscv(32|64|)(eb|)$', a):    return 'riscv'
     else:
-        bb.error("cannot map '%s' to a Xvisor architecture" % a)
+        bb.note("cannot map '%s' to a Xvisor architecture" % a)
