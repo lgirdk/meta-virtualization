@@ -8,7 +8,7 @@ which can lead to better performance and IO balance on SMP systems."
 HOMEPAGE = "http://code.google.com/p/irqbalance/"
 BUGTRACKER = "http://code.google.com/p/irqbalance/issues/list"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
 		    file://irqbalance.c;beginline=6;endline=8;md5=b94e153694672307b503b1bc87dc9e24 \
 		   "

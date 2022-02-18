@@ -1,4 +1,4 @@
-LICENSE = "GPLv3 & LGPLv2.1"
+LICENSE = "GPL-3.0-only & LGPL-2.1-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=62e1e33aebac5b1bc9fc48a866e2f61b \
                     file://oathtool/COPYING;md5=d32239bcb673463ab874e80d47fae504 \
                     file://liboath/COPYING;md5=4fbd65380cdd255951079008b364516c \

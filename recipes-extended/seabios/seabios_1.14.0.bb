@@ -1,6 +1,6 @@
 DESCRIPTION = "SeaBIOS"
 HOMEPAGE = "http://www.coreboot.org/SeaBIOS"
-LICENSE = "LGPLv3"
+LICENSE = "LGPL-3.0-only"
 SECTION = "firmware"
 
 inherit python3native

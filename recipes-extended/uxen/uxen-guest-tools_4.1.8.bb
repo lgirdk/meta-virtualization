@@ -1,7 +1,7 @@
 SUMMARY = "uXen type-2 Open Source hypervisor Linux guest tools"
 DESCRIPTION = "Linux guest virtual machine tools for the uXen hypervisor"
 HOMEPAGE = "https://www.bromium.com/opensource"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 COMPATIBLE_HOST = '(x86_64.*).*-linux'
 

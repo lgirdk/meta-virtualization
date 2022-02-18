@@ -4,7 +4,7 @@ DESCRIPTION = "Nagios Service Check Acceptor"
 HOMEPAGE = "http://exchange.nagios.org"
 SECTION = "console/network"
 PRIORITY = "optional"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://src/nsca.c;beginline=1;endline=16;md5=dd7a195cc7d8a3ebcfabd65360d0cab4"
 

@@ -5,7 +5,7 @@ Although the kernel client supports several 9P variants, diod only supports \
 9P2000.L, and only in its feature-complete form, as it appeared in 2.6.38."
 SECTION = "console/network"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 PV = "1.0.24+git${SRCPV}"

@@ -1,6 +1,6 @@
 HOMEPAGE = "https://github.com/opencontainers/runtime-tools"
 SUMMARY = "oci-runtime-tool is a collection of tools for working with the OCI runtime specification"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=b355a61a394a504dacde901c958f662c"
 
 SRC_URI = "git://github.com/opencontainers/runtime-tools.git;branch=master;protocol=https \

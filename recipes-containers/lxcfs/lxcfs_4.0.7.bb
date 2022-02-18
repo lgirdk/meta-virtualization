@@ -1,5 +1,5 @@
 SUMMARY = "LXCFS is a userspace filesystem created to avoid kernel limitations"
-LICENSE = "LGPL-2.1+"
+LICENSE = "LGPL-2.1-or-later"
 
 inherit autotools pkgconfig systemd
 

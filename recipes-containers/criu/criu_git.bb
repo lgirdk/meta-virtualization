@@ -7,7 +7,7 @@ it was frozen at. The distinctive feature of the CRIU project is that it is \
 mainly implemented in user space"
 HOMEPAGE = "http://criu.org"
 SECTION = "console/tools"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 EXCLUDE_FROM_WORLD = "1"
 

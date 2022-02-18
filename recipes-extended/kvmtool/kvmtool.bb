@@ -1,7 +1,7 @@
 SUMMARY = "Native Linux KVM tool"
 DESCRIPTION = "kvmtool is a lightweight tool for hosting KVM guests."
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=fcb02dc552a041dee27e4b85c7396067"
 
 DEPENDS = "dtc libaio zlib"

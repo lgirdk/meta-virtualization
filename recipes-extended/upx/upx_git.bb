@@ -6,7 +6,7 @@ SRC_URI = "gitsm://github.com/upx/upx;branch=devel;protocol=https \
     file://0001-MyCom.h-fix-build-with-gcc-11.patch;patchdir=src/lzma-sdk \
 "
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=353753597aa110e0ded3508408c6374a"
 
 DEPENDS = "zlib libucl xz"

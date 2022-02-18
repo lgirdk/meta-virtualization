@@ -1,6 +1,6 @@
 DESCRIPTION = "OCI systemd hook enables users to run systemd in docker and OCI"
 SECTION = "console/utils"
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d32239bcb673463ab874e80d47fae504"
 PRIORITY = "optional"
 

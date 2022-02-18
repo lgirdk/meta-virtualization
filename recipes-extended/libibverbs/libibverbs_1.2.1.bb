@@ -3,7 +3,7 @@ DESCRIPTION = "Libibverbs is a library that allows userspace processes to use In
 HOMEPAGE = "http://www.openfabrics.org/downloads/verbs/"
 SECTION = "libs/devel"
 
-LICENSE = "GPLv2 | BSD-2-Clause"
+LICENSE = "GPL-2.0-only | BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://COPYING;md5=7c557f27dd795ba77cc419dddc656b51"
 
 # Official repo is at git://git.kernel.org/pub/scm/libs/infiniband/libibverbs.git

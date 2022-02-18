@@ -1,6 +1,6 @@
 DESCRIPTION = "Plex86/Bochs LGPL VGABios"
 HOMEPAGE = "http://www.nongnu.org/vgabios/"
-LICENSE = "LGPLv2.1"
+LICENSE = "LGPL-2.1-only"
 SECTION = "firmware"
 
 DEPENDS = "dev86-native biossums-native"

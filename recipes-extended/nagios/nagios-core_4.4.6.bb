@@ -4,7 +4,7 @@ DESCRIPTION = "A host/service/network monitoring and management system core file
 HOMEPAGE = "http://www.nagios.org"
 SECTION = "console/network"
 PRIORITY = "optional"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4c4203caac58013115c9ca4b85f296ae"
 

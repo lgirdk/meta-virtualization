@@ -1,7 +1,7 @@
 DESCRIPTION = "An introspection library, written in C, focused on reading \
                and writing memory from virtual machines (VM's)."
 HOMEPAGE = "https://github.com/libvmi/libvmi"
-LICENSE = "LGPLv3"
+LICENSE = "LGPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING.LESSER;md5=e6a600fd5e1d9cbde2d983680233ad02"
 SECTION = "console/tools"
 PV = "0.14.0"

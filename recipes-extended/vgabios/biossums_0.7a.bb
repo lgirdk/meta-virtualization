@@ -1,6 +1,6 @@
 DESCRIPTION = "biossums tool for building Plex86/Bochs LGPL VGABios"
 HOMEPAGE = "http://www.nongnu.org/vgabios/"
-LICENSE = "LGPLv2.1"
+LICENSE = "LGPL-2.1-only"
 SECTION = "firmware"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=dcf3c825659e82539645da41a7908589"

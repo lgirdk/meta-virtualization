@@ -1,5 +1,5 @@
 HOMEPAGE = "http://xen.org"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 SECTION = "console/tools"
 
 inherit autotools-brokensep pkgconfig
