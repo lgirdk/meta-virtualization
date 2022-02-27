@@ -7,7 +7,10 @@ SRC_URI = "git://github.com/devicetree-org/lopper.git;branch=master;protocol=htt
 SRCREV = "3c81fcce08eeb64cbbde1535abd83572985a8689"
 S = "${WORKDIR}/git"
 
-PV="v1.0+git${SRCPV}"
+BASEVERSION = "1.0"
+PV="v${BASEVERSION}+git${SRCPV}"
+
+PYPA_WHEEL = "${PIP_INSTALL_DIST_PATH}/${BPN}-${BASEVERSION}-*.whl"
 
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=8e5f5f691f01c9fdfa7a7f2d535be619"
 
