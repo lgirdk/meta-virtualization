@@ -19,6 +19,8 @@ SRCREV = "4048aed12b81c5a0154b9af438edc99ec7d2b6a1"
 PV = "1.6.1+git${SRCPV}"
 S = "${WORKDIR}/git"
 
+PYPA_WHEEL = "${S}/dist/libfdt-1.6.2*.whl"
+
 inherit setuptools3 pkgconfig
 
 BBCLASSEXTEND = "native nativesdk"
