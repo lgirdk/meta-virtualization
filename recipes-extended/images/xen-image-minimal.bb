@@ -5,7 +5,7 @@ INITRD_IMAGE = "core-image-minimal-initramfs"
 XEN_KERNEL_MODULES ?= "kernel-module-xen-blkback kernel-module-xen-gntalloc \
                        kernel-module-xen-gntdev kernel-module-xen-netback kernel-module-xen-wdt \
                        ${@bb.utils.contains('MACHINE_FEATURES', 'pci', "${XEN_PCIBACK_MODULE}", '', d)} \
-                       ${@bb.utils.contains('MACHINE_FEATURES', 'acpi', 'kernel-module-xen-acpi-processor', '', d)} \
+                       ${@bb.utils.contains('MACHINE_FEATURES', 'acpi', '${XEN_ACPI_PROCESSOR_MODULE}', '', d)} \
                       "
 
 IMAGE_INSTALL += " \
@@ -28,6 +28,9 @@ IMAGE_INSTALL:append:x86-64 = "kernel-module-tun"
 XEN_PCIBACK_MODULE = ""
 XEN_PCIBACK_MODULE:x86    = "kernel-module-xen-pciback"
 XEN_PCIBACK_MODULE:x86-64 = "kernel-module-xen-pciback"
+XEN_ACPI_PROCESSOR_MODULE = ""
+XEN_ACPI_PROCESSOR_MODULE:x86    = "kernel-module-xen-acpi-processor"
+XEN_ACPI_PROCESSOR_MODULE:x86-64 = "kernel-module-xen-acpi-processor"
 
 LICENSE = "MIT"
 
