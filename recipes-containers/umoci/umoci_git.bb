@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
 RDEPENDS:${PN} = "skopeo"
 RDEPENDS:${PN}:class-native = ""
 
-SRCREV_umoci = "758044fc26ad65eb900143e90d1e22c2d6e4484d"
+SRCREV_umoci = "fa8e9f875805f24ede2c52f1cda2abeab944c560"
 SRC_URI = "git://github.com/opencontainers/umoci.git;branch=main;name=umoci;destsuffix=github.com/opencontainers/umoci;protocol=https \
           "
 
