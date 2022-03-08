@@ -31,7 +31,7 @@ DESCRIPTION = "Linux container runtime \
 # so we get that tag, and make it our SRCREVS:
 #
 
-SRCREV_docker = "d24c6dc5cf5e68dfb30027b2db454099566a9b9e"
+SRCREV_docker = "906f57ff5b7100013dfef066ea8fe367706468df"
 SRCREV_libnetwork = "64b7a4574d1426139437d20e81c0b6d391130ec8"
 SRCREV_cli = "62eae52c2a76f4c1dcf79dfc7b5ea3bf5eebab8b"
 SRCREV_FORMAT = "docker_libnetwork"
@@ -51,7 +51,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "20.10.8-ce"
+DOCKER_VERSION = "20.10.12-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 CVE_PRODUCT = "docker"
