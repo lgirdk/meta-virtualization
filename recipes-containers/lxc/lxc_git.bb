@@ -50,8 +50,8 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-4.0 \
 	file://lxc-net \
 	"
 
-SRCREV = "48e079bf318982ae7d5684feeb7358870fa71c10"
-PV = "4.0.11+git${SRCPV}"
+SRCREV = "5ba5725cb4a210c25707beeca64fde5f561d1c71"
+PV = "4.0.12+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 

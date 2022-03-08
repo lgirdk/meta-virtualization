@@ -12,11 +12,11 @@ Signed-off-by: Yanfei Xu <yanfei.xu@windriver.com>
  templates/lxc-download.in | 10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/templates/lxc-download.in b/templates/lxc-download.in
-index e8570692a..f7291b0cc 100755
---- a/templates/lxc-download.in
-+++ b/templates/lxc-download.in
-@@ -75,9 +75,9 @@ cleanup() {
+Index: git/templates/lxc-download.in
+===================================================================
+--- git.orig/templates/lxc-download.in
++++ git/templates/lxc-download.in
+@@ -59,9 +59,9 @@
    fi
  }
  
@@ -28,18 +28,19 @@ index e8570692a..f7291b0cc 100755
        return 0
      fi
    done
-@@ -86,8 +86,8 @@ wget_wrapper() {
+@@ -70,8 +70,9 @@
  }
  
  download_file() {
 -  if ! wget_wrapper --user-agent="lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -T 30 -q "https://${DOWNLOAD_SERVER}/$1" -O "$2" >/dev/null 2>&1; then
--    if ! wget_wrapper --user-agent="lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -T 30 -q "http://${DOWNLOAD_SERVER}/$1" -O "$2" >/dev/null 2>&1; then
+-    if [ "$3" = "noexit" ]; then
 +  if ! curl_wrapper --user-agent="lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -m 30 -s "https://${DOWNLOAD_SERVER}/$1" -o "$2" >/dev/null 2>&1; then
 +    if ! curl_wrapper --user-agent="lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -m 30 -s "http://${DOWNLOAD_SERVER}/$1" -o "$2" >/dev/null 2>&1; then
-       if [ "$3" = "noexit" ]; then
-         return 1
-       else
-@@ -277,7 +277,7 @@ while :; do
++      if [ "$3" = "noexit" ]; then
+       return 1
+     else
+       echo "ERROR: Failed to download https://${DOWNLOAD_SERVER}/$1" 1>&2
+@@ -176,7 +177,7 @@
  done
  
  # Check for required binaries
@@ -48,6 +49,3 @@ index e8570692a..f7291b0cc 100755
    if ! command -V "${bin}" >/dev/null 2>&1; then
      echo "ERROR: Missing required tool: ${bin}" 1>&2
      exit 1
--- 
-2.27.0
-
