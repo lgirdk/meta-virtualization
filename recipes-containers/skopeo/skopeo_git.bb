@@ -27,8 +27,8 @@ SRC_URI = " \
     file://registries.conf \
 "
 
-SRCREV = "1d24e657fa4a07a39939391902f8030f37716c32"
-PV = "v1.5.2+git${SRCPV}"
+SRCREV = "3e2defd6d37b742adde2aac6cb01f6c3c17da8e2"
+PV = "v1.6.1+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
