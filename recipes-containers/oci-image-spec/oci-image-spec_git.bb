@@ -9,8 +9,8 @@ SRCNAME = "image-spec"
 PKG_NAME = "github.com/opencontainers/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=main;protocol=https"
 
-SRCREV = "54a822e528b91c8db63b873ad56daf200a2e5e61"
-PV = "v1.0.1+git${SRCPV}"
+SRCREV = "02efb9a75ee11e05937b535cc5f228f9343ab2f5"
+PV = "v1.0.2+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
