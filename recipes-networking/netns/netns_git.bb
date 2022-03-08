@@ -1,13 +1,13 @@
 HOMEPAGE = "https://github.com/jfrazelle/netns"
 SUMMARY = "Runc hook for setting up default bridge networking."
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=48ef0979a2bcc3fae14ff30b8a7f5dbf"
+LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=7bac31faf84a2d7e88972f562a3ebbe5"
 
 SRC_URI = "git://github.com/genuinetools/netns;branch=master;protocol=https \
            file://Makefile-force-rebuilding-all-packages-to-avoid-cgo.patch \
           "
-SRCREV = "9b103a19b917cc3762a33b7d78244b1d5e45ccfd"
-PV = "0.5.3"
+SRCREV = "00d5d07ab1c8afcf481ffa5958719943b6ecfde4"
+PV = "0.5.3+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
@@ -29,8 +29,7 @@ do_compile() {
 	# they are not under the src directory.
 	ln -sfn . "${S}/src/import/vendor/src"
 	mkdir -p "${S}/src/import/vendor/src/github.com/genuinetools/netns"
-	ln -sfn "${S}/src/import/ipallocator" "${S}/src/import/vendor/src/github.com/genuinetools/netns/ipallocator"
-	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/genuinetools/netns/version"
+
 	export GOPATH="${S}/src/import/vendor"
 
 	# Pass the needed cflags/ldflags so that cgo
@@ -40,6 +39,7 @@ do_compile() {
 	export LDFLAGS=""
 	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export GOFLAGS="-mod=vendor"
 
 	cd ${S}/src/import
 	# Static builds work but are not recommended. See Makefile*cgo patch.
