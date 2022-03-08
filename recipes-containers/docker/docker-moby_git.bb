@@ -34,9 +34,9 @@ DESCRIPTION = "Linux container runtime \
 #   - The common components of this recipe and docker-ce do need to be moved
 #     to a docker.inc recipe
 
-SRCREV_moby = "7bd682c48c076fd398275925a18394eba46cb8d0"
+SRCREV_moby = "906f57ff5b7100013dfef066ea8fe367706468df"
 SRCREV_libnetwork = "64b7a4574d1426139437d20e81c0b6d391130ec8"
-SRCREV_cli = "b485636f4b90ed5a91a1f403e65ffced469c641a"
+SRCREV_cli = "a224086349269551becacce16e5842ceeb2a98d6"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
 	git://github.com/moby/moby.git;branch=20.10;name=moby;protocol=https \
@@ -54,7 +54,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "20.10.10"
+DOCKER_VERSION = "20.10.12"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 CVE_PRODUCT = "docker"
