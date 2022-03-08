@@ -655,14 +655,14 @@ FILES:${PN}-xm = "\
 FILES:${PN}-xencommons += "\
     ${nonarch_libdir}/modules-load.d/xen.conf \
     ${sysconfdir}/default/xencommons \
-    ${sysconfdir}/init.d/xencommons \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', '${sysconfdir}/init.d/xencommons', d)} \
     ${sysconfdir}/xen/scripts/launch-xenstore \
     ${systemd_unitdir}/system/proc-xen.mount \
-    ${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service \
-    ${systemd_unitdir}/system/xenconsoled.service \
-    ${systemd_unitdir}/system/xen-init-dom0.service \
-    ${systemd_unitdir}/system/xenstored.service \
-    ${systemd_unitdir}/system/var-lib-xenstored.mount \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xenconsoled.service', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xen-init-dom0.service', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xenstored.service', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/var-lib-xenstored.mount', '', d)} \
     "
 
 FILES:${PN}-xend += " \
