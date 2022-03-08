@@ -4,12 +4,11 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=b355a61a394a504dacde901c958f662c"
 
 SRC_URI = "git://github.com/opencontainers/runtime-tools.git;branch=master;protocol=https \
-           file://0001-Revert-implement-add-set-function-for-hooks-items.patch \
            file://0001-build-use-for-cross-compiler.patch \
            "
 
-SRCREV = "6e7da8148f4de2c9e9c9d3b345576898d4f412cb"
-PV = "0.1.0+git${SRCPV}"
+SRCREV = "0105384f68e16803891d0a17d9067b1def6a2778"
+PV = "0.9.0+git${SRCPV}"
 GO_IMPORT = "import"
 
 INSANE_SKIP:${PN} += "ldflags textrel"
@@ -31,6 +30,12 @@ do_compile() {
 	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export GO111MODULE=off
 
+	# fixes:
+	# cannot find package runtime/cgo (using -importcfg)
+	#        ... recipe-sysroot-native/usr/lib/aarch64-poky-linux/go/pkg/tool/linux_amd64/link:
+	#        cannot open file : open : no such file or directory
+	export GO_BUILD_FLAGS="-a -pkgdir dontusecurrentpkgs"
+
 	# link fixups for compilation
 	rm -f ${S}/src/import/vendor/src
 	ln -sf ./ ${S}/src/import/vendor/src
@@ -40,9 +45,12 @@ do_compile() {
 	ln -sf ../../../../cmd ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/cmd
 	ln -sf ../../../../error ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/error
 	ln -sf ../../../../specerror ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/specerror
+	ln -sf ../../../../cgroups ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/cgroups
+	ln -sf ../../../../filepath ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/filepath
+	ln -sf ../../../../validation ${S}/src/import/vendor/github.com/opencontainers/runtime-tools/validation
 	cd ${S}/src/import
 
-	oe_runmake
+	oe_runmake tool
 }
 
 do_install() {

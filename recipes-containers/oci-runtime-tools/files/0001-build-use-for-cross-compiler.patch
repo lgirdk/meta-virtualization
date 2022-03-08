@@ -8,24 +8,21 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  a/src/import/Makefile | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/import/Makefile a/src/import/Makefile
-index 77626d2..c3a0760 100644
---- a/src/import/Makefile
-+++ a/src/import/Makefile
-@@ -8,11 +8,11 @@ COMMIT=$(shell git rev-parse HEAD 2> /dev/null || true)
- all: tool runtimetest
+Index: oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/src/import/Makefile
+===================================================================
+--- oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68.orig/src/import/Makefile
++++ oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/src/import/Makefile
+@@ -13,11 +13,11 @@
+ all: tool runtimetest validation-executables
  
  tool:
--	go build -tags "$(BUILDTAGS)" -ldflags "-X main.gitCommit=${COMMIT}" -o oci-runtime-tool ./cmd/oci-runtime-tool
-+	${GO} build -tags "$(BUILDTAGS)" -ldflags "-X main.gitCommit=${COMMIT}" -o oci-runtime-tool ./cmd/oci-runtime-tool
+-	go build $(BUILD_FLAGS) -o oci-runtime-tool ./cmd/oci-runtime-tool
++	${GO} build $(BUILD_FLAGS) -o oci-runtime-tool ./cmd/oci-runtime-tool
  
  .PHONY: runtimetest
  runtimetest:
--	CGO_ENABLED=0 go build -installsuffix cgo -tags "$(BUILDTAGS)" -o runtimetest ./cmd/runtimetest
-+	CGO_ENABLED=0 ${GO} build -installsuffix cgo -tags "$(BUILDTAGS)" -o runtimetest ./cmd/runtimetest
+-	go build $(STATIC_BUILD_FLAGS) -o runtimetest ./cmd/runtimetest
++	${GO} build $(STATIC_BUILD_FLAGS) -o runtimetest ./cmd/runtimetest
  
  .PHONY: man
  man:
--- 
-2.19.1
-
