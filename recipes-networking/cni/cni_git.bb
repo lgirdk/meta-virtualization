@@ -9,9 +9,9 @@ Because of this focus, CNI has a wide range of support and the specification \
 is simple to implement. \
 "
 
-SRCREV_cni = "b5ab16f010e822936eb974690ecec38ba69afc01"
+SRCREV_cni = "35efaabf93d23a28fb2fb01dccbe80caed196d19"
 # Version 0.9.1
-SRCREV_plugins = "78702e9d8a2cdb6931fab433f1d1e6789162954f"
+SRCREV_plugins = "b8a10bbe111e9db72433f357c37077554ada7ca1"
 SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni;protocol=https \
@@ -22,7 +22,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464
 
 GO_IMPORT = "import"
 
-PV = "v0.8.0+git${SRCREV_cni}"
+PV = "v1.0.1+git${SRCREV_cni}"
 
 inherit go
 inherit goarch
