@@ -48,6 +48,14 @@ do_configure() {
     fi
 }
 
+# The hypervisor binary for arm must not be built with the hard floating point
+# ABI. Override CC and CPP when invoking make so that they do not contain
+# TUNE_CCARGS.
+EXTRA_OEMAKE:arm += "CC='${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS} \
+                         ${CC_REPRODUCIBLE_OPTIONS}' \
+                     CPP='${CCACHE}${HOST_PREFIX}gcc -E ${TOOLCHAIN_OPTIONS} \
+                         ${CC_REPRODUCIBLE_OPTIONS}'"
+
 do_compile() {
     oe_runmake xen PYTHON="${PYTHON}" \
                    EXTRA_CFLAGS_XEN_CORE="${EXTRA_CFLAGS_XEN_CORE}"
