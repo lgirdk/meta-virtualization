@@ -31,6 +31,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://0002-meson-Fix-compatibility-with-Meson-0.58.patch \
            file://0001-security-fix-SELinux-label-generation-logic.patch \
            file://0001-storage_driver-Unlock-object-on-ACL-fail-in-storageP.patch \
+           file://0001-docs-Fix-template-matching-in-page.xsl.patch \
           "
 
 SRC_URI[libvirt.md5sum] = "92044b629216e44adce63224970a54a3"
