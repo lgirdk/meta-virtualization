@@ -22,7 +22,7 @@ do_install:append() {
 }
 
 inherit pkgconfig
-inherit setuptools3 
+inherit setuptools3_legacy
 inherit update-rc.d
 inherit systemd
 
