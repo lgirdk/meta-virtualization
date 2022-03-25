@@ -28,14 +28,9 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://dnsmasq.conf \
            file://hook_support.py \
            file://gnutls-helper.py \
-           file://0002-meson-Fix-compatibility-with-Meson-0.58.patch \
-           file://0001-security-fix-SELinux-label-generation-logic.patch \
-           file://0001-storage_driver-Unlock-object-on-ACL-fail-in-storageP.patch \
-           file://0001-docs-Fix-template-matching-in-page.xsl.patch \
           "
 
-SRC_URI[libvirt.md5sum] = "92044b629216e44adce63224970a54a3"
-SRC_URI[libvirt.sha256sum] = "01f459d0c7ba5009622a628dba1a026200e8f4a299fea783b936a71d7e0ed1d0"
+SRC_URI[libvirt.sha256sum] = "3c6c43becffeb34a3f397c616206aa69a893ff8bf5e8208393c84e8e75352934"
 
 inherit meson gettext update-rc.d pkgconfig systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
@@ -160,7 +155,7 @@ PACKAGECONFIG[fuse] = "-Dfuse=enabled,-Dfuse=disabled,fuse,"
 PACKAGECONFIG[audit] = "-Daudit=enabled,-Daudit=disabled,audit,"
 PACKAGECONFIG[libcap-ng] = "-Dcapng=enabled,-Dcapng=disabled,libcap-ng,"
 PACKAGECONFIG[wireshark] = "-Dwireshark_dissector=enabled,-Dwireshark_dissector=disabled,wireshark libwsutil,"
-PACKAGECONFIG[apparmor_profiles] = "-Dapparmor_profiles=true, -Dapparmor_profiles=false,"
+PACKAGECONFIG[apparmor_profiles] = "-Dapparmor_profiles=enabled, -Dapparmor_profiles=disabled,"
 PACKAGECONFIG[firewalld] = "-Dfirewalld=enabled, -Dfirewalld=disabled,"
 PACKAGECONFIG[libpcap] = "-Dlibpcap=enabled, -Dlibpcap=disabled,libpcap,libpcap"
 PACKAGECONFIG[numad] = "-Dnumad=enabled, -Dnumad=disabled,"
@@ -212,7 +207,7 @@ do_install:append() {
             fi
 
 	    # This variable is used by libvirtd.service to start libvirtd in the right mode
-	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/sysconfig/libvirtd
+	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/init.d/libvirtd
 
 	    # We can't use 'notify' when we don't support 'sd_notify' dbus capabilities.
 	    sed -i -e 's/Type=notify/Type=forking/' \
