@@ -14,20 +14,19 @@ RDEPENDS:${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.15.3+${SRCPV}"
-CVE_VERSION = "2.15.3"
+PV = "2.17.0+${SRCPV}"
+CVE_VERSION = "2.17.0"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "e4d2df62e65a615e19f62e2fd294709be8d75cdc"
-SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.15 \
+SRCREV = "2404d45367d104e74cc9eea50d27dcaa8c8917c0"
+SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.17 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
             file://disable_m4_check.patch \
             file://kernel_module.patch \
             file://systemd-update-tool-paths.patch \
             file://systemd-create-runtime-dirs.patch \
-            file://0001-ovs-use-run-instead-of-var-run-for-in-systemd-units.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
