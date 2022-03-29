@@ -4,7 +4,7 @@
 
 require irqbalance.inc
 
-SRCREV = "a97266548398870c2dde034e48a8c9e3c1893acb"
+SRCREV = "b3adb5fd1496833e4e2cebc958d3919178cd5e3d"
 PV = "1.8.0+git${SRCPV}"
 
 SRC_URI = "git://github.com/Irqbalance/irqbalance;branch=master;protocol=https \
