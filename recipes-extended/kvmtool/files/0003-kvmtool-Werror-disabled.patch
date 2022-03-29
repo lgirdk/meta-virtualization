@@ -1,4 +1,4 @@
-From 532043e6937b78b12d89d0c6001f0e1853143247 Mon Sep 17 00:00:00 2001
+From 459ebaebf368869ae26eb8031ff44a789e238988 Mon Sep 17 00:00:00 2001
 From: Cevat Bostancioglu <bostancioglucevat@gmail.com>
 Date: Wed, 19 Jun 2019 20:36:56 +0300
 Subject: [PATCH] WERROR override disabled.
@@ -10,7 +10,7 @@ WERROR override causes gcc sizeof-pointer-memaccess,  format-truncation errors.
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile b/Makefile
-index ece3d2a..da6c1f0 100644
+index 2ce753f..fe2e3cb 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -4,6 +4,7 @@

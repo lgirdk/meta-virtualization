@@ -1,4 +1,4 @@
-From 6b864b05b7aea74f375502250e99f54564cfe829 Mon Sep 17 00:00:00 2001
+From e04b44c12402494ef5619205bfff03dab3e3d9cb Mon Sep 17 00:00:00 2001
 From: Dariusz Pelowski <dariusz.pelowski@gmail.com>
 Date: Sun, 5 Nov 2017 12:39:52 +0100
 Subject: [PATCH] kvmtool: 9p: fixed compilation error
