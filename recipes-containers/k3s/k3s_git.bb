@@ -4,20 +4,6 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-# SRC_URI = "git://github.com/rancher/k3s.git;branch=master;name=k3s;protocol=https \
-#            file://k3s.service \
-#            file://k3s-agent.service \
-#            file://k3s-agent \
-#            file://k3s-clean \
-#            file://cni-containerd-net.conf \
-#            file://0001-Finding-host-local-in-usr-libexec.patch;patchdir=src/import \
-#            file://k3s-killall.sh \
-#           "
-
-# SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-# SRCREV_k3s = "830c330aad8b50502ded05afbdb75d16dc5c3343"
-# PV = "v1.23.3+k3s1"
-
 SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s;protocol=https \
            file://k3s.service \
            file://k3s-agent.service \
@@ -28,9 +14,12 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s;protoco
            file://k3s-killall.sh \
            file://modules.txt \
           "
+
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
 SRCREV_k3s = "4262c6b91a43ef8411870f72ff8b8715949f90e2"
-PV = "v1.22.6+k3s1"
+
+SRCREV_FORMAT = "k3s_fuse"
+PV = "v1.22.6+k3s1+git${SRCREV_k3s}"
 
 # bazil.org/fuse v0.0.0-20160811212531-371fbbdaa898
 # [1] git ls-remote https://github.com/bazil/fuse 371fbbdaa8987b715bdd21d6adc4c9b20155f748 
