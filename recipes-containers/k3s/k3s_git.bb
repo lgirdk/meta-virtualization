@@ -219,7 +219,7 @@ SRC_URI += "git://github.com/alexflint/go-filemutex;name=go-filemutex;protocol=h
 # github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883
 # [1] git ls-remote https://github.com/andreyvit/diff c7f18ee00883bfd3b00e0a2bf7607827e0148ad4 
 SRCREV_diff="c7f18ee00883bfd3b00e0a2bf7607827e0148ad4"
-SRC_URI += "git://github.com/andreyvit/diff;name=diff;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/github.com/andreyvit/diff"
+SRC_URI += "git://github.com/andreyvit/diff;name=diff;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/github.com/andreyvit/diff;apply=no"
 
 # github.com/andybalholm/cascadia v1.0.0
 # [1] git ls-remote https://github.com/andybalholm/cascadia 901648c87902174f774fac311d7f176f8647bdaa 
