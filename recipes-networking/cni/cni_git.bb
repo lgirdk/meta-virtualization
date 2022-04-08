@@ -12,10 +12,12 @@ is simple to implement. \
 SRCREV_cni = "35efaabf93d23a28fb2fb01dccbe80caed196d19"
 # Version 0.9.1
 SRCREV_plugins = "b8a10bbe111e9db72433f357c37077554ada7ca1"
+SRCREV_flannel_plugin = "076c4462d6c6887614fc881b806b690b9e56ceb2"
 SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni;protocol=https \
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
+        git://github.com/flannel-io/cni-plugin;branch=main;name=flannel_plugin;protcol=https;destsuffix=${S}/src/github.com/containernetworking/plugins/plugins/meta/flannel \
 	"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
