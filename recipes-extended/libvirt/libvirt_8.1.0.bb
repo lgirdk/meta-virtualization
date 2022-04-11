@@ -63,6 +63,7 @@ FILES:${PN}-libvirtd = " \
 	${sysconfdir}/logrotate.d \
 	${sysconfdir}/libvirt/libvirtd.conf \
         /usr/lib/sysctl.d/60-libvirtd.conf \
+	/usr/lib/sysctl.d/60-qemu-postcopy-migration.conf \
 	${sbindir}/libvirtd \
 	${systemd_system_unitdir} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', '', '${libexecdir}/libvirt-guests.sh', d)} \
