@@ -17,7 +17,7 @@ SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;nobranch=1;name=cni;protocol=https \
         git://github.com/containernetworking/plugins.git;nobranch=1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
-        git://github.com/flannel-io/cni-plugin;branch=main;name=flannel_plugin;protcol=https;destsuffix=${S}/src/github.com/containernetworking/plugins/plugins/meta/flannel \
+        git://github.com/flannel-io/cni-plugin;branch=main;name=flannel_plugin;protocol=https;destsuffix=${S}/src/github.com/containernetworking/plugins/plugins/meta/flannel \
 	"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
