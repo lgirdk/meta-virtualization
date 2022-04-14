@@ -2704,6 +2704,10 @@ RRECOMMENDS:${PN} = "\
                      kernel-module-xt-nflog \
                      kernel-module-xt-limit \
                      kernel-module-nfnetlink-log \
+                     kernel-module-ip-vs \
+                     kernel-module-ip-vs-rr \
+                     kernel-module-ip-vs-sh \
+                     kernel-module-ip-vs-wrr \
                      "
 
 RCONFLICTS:${PN} = "kubectl"
