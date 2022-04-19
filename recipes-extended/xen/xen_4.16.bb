@@ -1,8 +1,8 @@
-# master status on 2022-04-05
-SRCREV ?= "14dd241aad8af447680ac73e8579990e2c09c1e7"
+# xen 4.16.1 release sha
+SRCREV ?= "f26544492298cb82d66f9bf36e29d2f75b3133f2"
 
-XEN_REL ?= "4.17"
-XEN_BRANCH ?= "master"
+XEN_REL ?= "4.16"
+XEN_BRANCH ?= "stable-${XEN_REL}"
 
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
@@ -11,11 +11,9 @@ SRC_URI = " \
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=419739e325a50f3d7b4501338e44a4e5"
 
-PV = "${XEN_REL}+git${SRCPV}"
+PV = "${XEN_REL}+stable${SRCPV}"
 
 S = "${WORKDIR}/git"
-
-DEFAULT_PREFERENCE ??= "-1"
 
 require xen.inc
 require xen-hypervisor.inc
