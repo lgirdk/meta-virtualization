@@ -807,12 +807,23 @@ do_install() {
         done
     fi
 
-    # fixup default path to qemu-system-i386
-    sed -i 's#\(test -z "$QEMU_XEN" && QEMU_XEN=\).*$#\1"/usr/bin/qemu-system-i386"#' ${D}/etc/init.d/xencommons
-
     if [ -e ${D}${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service ]; then
         sed -i 's#ExecStart=.*qemu-system-i386\(.*\)$#ExecStart=/usr/bin/qemu-system-i386\1#' \
             ${D}${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service
+    fi
+
+    if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
+        rm -f ${D}/${sysconfdir}/init.d/xencommons
+    else
+        # fixup default path to qemu-system-i386
+        sed -i 's#\(test -z "$QEMU_XEN" && QEMU_XEN=\).*$#\1"/usr/bin/qemu-system-i386"#' ${D}/etc/init.d/xencommons
+
+        # remove the uncondiontally installed systemd service files
+        rm -f ${D}/${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service
+        rm -f ${D}/${systemd_unitdir}/system/xenconsoled.service
+        rm -f ${D}/${systemd_unitdir}/system/xen-init-dom0.service
+        rm -f ${D}/${systemd_unitdir}/system/xenstored.service
+        rm -f ${D}/${systemd_unitdir}/system/var-lib-xenstored.mount
     fi
 }
 
