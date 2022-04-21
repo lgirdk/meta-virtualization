@@ -716,7 +716,8 @@ ALLOW_EMPTY:${PN}-xen-vmtrace = "1"
 INSANE_SKIP:${PN} = "already-stripped"
 
 # configure init.d scripts
-INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xencommons ${PN}-xen-watchdog ${PN}-xendomains ${PN}-devd"
+INITSCRIPT_PACKAGES = "${PN}-xend ${PN}-xen-watchdog ${PN}-xendomains ${PN}-devd"
+INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${PN}-xencommons}', '', d)}"
 INITSCRIPT_NAME:${PN}-xencommons = "xencommons"
 INITSCRIPT_PARAMS:${PN}-xencommons = "defaults 80"
 INITSCRIPT_NAME:${PN}-xen-watchdog = "xen-watchdog"
