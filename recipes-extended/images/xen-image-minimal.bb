@@ -21,8 +21,8 @@ IMAGE_INSTALL += " \
 do_build[depends] += "xen:do_deploy"
 
 # Networking for HVM-mode guests (x86/64 only) requires the tun kernel module
-IMAGE_INSTALL:append:x86    = "kernel-module-tun"
-IMAGE_INSTALL:append:x86-64 = "kernel-module-tun"
+IMAGE_INSTALL:append:x86    = " kernel-module-tun"
+IMAGE_INSTALL:append:x86-64 = " kernel-module-tun"
 
 # Linux kernel option CONFIG_XEN_PCIDEV_BACKEND depends on X86
 XEN_PCIBACK_MODULE = ""
