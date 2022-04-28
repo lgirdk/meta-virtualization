@@ -30,14 +30,9 @@ RDEPENDS:${PN} = "\
 
 RDEPENDS:${PN}-dev = ""
 
-# Qemu is necessary on ARM platforms, and to support HVM guests on x86
-QEMU = "${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'qemu', '', d)}"
-QEMU:arm = "qemu"
-QEMU:aarch64 = "qemu"
-
 RRECOMMENDS:${PN} = " \
-    ${QEMU} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'hvm', 'seabios', '', d)} \
+    qemu \
+    ${@bb.utils.contains('XEN_TARGET_ARCH', 'x86_64', 'seabios ipxe vgabios', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
     ${PN}-flask \
     ${PN}-hvmloader \
