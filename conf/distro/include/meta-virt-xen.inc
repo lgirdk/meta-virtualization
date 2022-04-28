@@ -12,4 +12,5 @@ include ${@bb.utils.contains('MACHINE', 'raspberrypi4-64', \
     '${XEN_RPI4_64_CONFIG_PATH}', '', d)}
 
 # Set serial for working qemuboot console
+SERIAL_CONSOLES:qemuarm ?= "115200;ttyAMA0"
 SERIAL_CONSOLES:qemuarm64 ?= "115200;ttyAMA0"
