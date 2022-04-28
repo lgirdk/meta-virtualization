@@ -34,6 +34,8 @@ XEN_ACPI_PROCESSOR_MODULE:x86-64 = "kernel-module-xen-acpi-processor"
 
 LICENSE = "MIT"
 
+QB_NETWORK_XEN_BRIDGE = "1"
+
 inherit core-image
 # Only inherit the qemuboot classes when building for a qemu machine
 QB_QEMU_CLASSES = ""
