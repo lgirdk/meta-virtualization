@@ -34,7 +34,11 @@ XEN_ACPI_PROCESSOR_MODULE:x86-64 = "kernel-module-xen-acpi-processor"
 
 LICENSE = "MIT"
 
-inherit core-image qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-testimage-network
+inherit core-image
+# Only inherit the qemuboot classes when building for a qemu machine
+QB_QEMU_CLASSES = ""
+QB_QEMU_CLASSES:qemuall = "qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-xen-u-boot qemuboot-testimage-network"
+inherit ${QB_QEMU_CLASSES}
 
 do_check_xen_state() {
     if [ "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' yes', 'no', d)}" = "no" ]; then
