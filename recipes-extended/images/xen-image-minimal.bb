@@ -36,10 +36,10 @@ LICENSE = "MIT"
 
 QB_NETWORK_XEN_BRIDGE = "1"
 
-inherit core-image
+inherit core-image qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-testimage-network
 # Only inherit the qemuboot classes when building for a qemu machine
 QB_QEMU_CLASSES = ""
-QB_QEMU_CLASSES:qemuall = "qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-xen-u-boot qemuboot-testimage-network"
+QB_QEMU_CLASSES:qemuall = "qemuboot-xen-defaults qemuboot-xen-dtb qemuboot-testimage-network"
 inherit ${QB_QEMU_CLASSES}
 
 do_check_xen_state() {
