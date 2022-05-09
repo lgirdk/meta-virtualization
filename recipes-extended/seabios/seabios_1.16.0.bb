@@ -15,9 +15,7 @@ S = "${WORKDIR}/${PN}-${PV}"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504         \
                     file://COPYING.LESSER;md5=6a6a8e020838b23406c81b19c1d46df6  \
                     "
-
-SRC_URI[md5sum] = "9df3b7de6376850d09161137e7a9b61f"
-SRC_URI[sha256sum] = "eb70cc62b29aa83e10a653233acebf4bb154d00d0c87dc2a2c6e2da75e5e81fd"
+SRC_URI[sha256sum] = "d44d8e97ad56f3fd23ed3076077a770d37a5e7bae22daa59656ff41c3334fb34"
 
 FILES:${PN} = "/usr/share/firmware"
 
@@ -26,6 +24,9 @@ DEPENDS += "util-linux-native file-native bison-native flex-native gettext-nativ
 TUNE_CCARGS = ""
 EXTRA_OEMAKE += "HOSTCC='${BUILD_CC}'"
 EXTRA_OEMAKE += "CROSS_PREFIX=${TARGET_PREFIX}"
+
+# Can not yet compile with clang e.g.
+TOOLCHAIN = "gcc"
 
 COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
 
