@@ -23,13 +23,13 @@ SRC_URI = " \
 
 FILES:${PN} = "/usr/share/firmware/*.rom"
 
-EXTRA_OEMAKE = " \
+EXTRA_OEMAKE = ' \
     ISOLINUX_BIN="${STAGING_DIR_TARGET}/usr/share/syslinux/isolinux.bin" \
     CROSS_COMPILE="${TARGET_PREFIX}" \
     EXTRA_HOST_CFLAGS="${BUILD_CFLAGS}" \
     EXTRA_HOST_LDFLAGS="${BUILD_LDFLAGS}" \
     NO_WERROR="1" \
-"
+'
 
 S = "${WORKDIR}/git/src"
 
@@ -44,3 +44,5 @@ do_install() {
     install -d ${D}/usr/share/firmware
     install ${S}/bin/*.rom ${D}/usr/share/firmware/
 }
+
+TOOLCHAIN = "gcc"
