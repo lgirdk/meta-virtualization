@@ -29,6 +29,7 @@
 # See also: Other QB_ variables as defined by the qemuboot.bbclass.
 
 write_lops_xen_section() {
+    DOM0_BOOTARGS="$2"
     cat <<EOF >"$1"
 /dts-v1/;
 / {
@@ -47,7 +48,7 @@ write_lops_xen_section() {
         };
         lop_2 {
             compatible = "system-device-tree-v1,lop,modify";
-            modify = "/chosen:xen,dom0-bootargs:${QB_XEN_DOM0_BOOTARGS}";
+            modify = "/chosen:xen,dom0-bootargs:${DOM0_BOOTARGS}";
         };
         lop_3 {
             compatible = "system-device-tree-v1,lop,modify";
@@ -118,8 +119,7 @@ generate_xen_qemuboot_dtb() {
         -device qemu-xhci \
         -device usb-tablet \
         -device usb-kbd \
-        -machine virt,gic-version=3 \
-        -machine virtualization=true \
+        ${QB_MACHINE} \
         ${QB_CPU} \
         ${QB_SMP} \
         ${QB_MEM} \
@@ -129,7 +129,8 @@ generate_xen_qemuboot_dtb() {
 
     # Lopper generates temporary files in cwd, so run it within ${B}
     cd "${B}"
-    write_lops_xen_section "${B}/lop-insert-xen-section.dts"
+    write_lops_xen_section "${B}/lop-insert-xen-section.dts" \
+        "${QB_XEN_DOM0_BOOTARGS}"
 
     write_lop_add_to_xen_cmdline "${B}/lop-xen-cmdline.dts" \
         "${QB_XEN_CMDLINE_EXTRA}"
