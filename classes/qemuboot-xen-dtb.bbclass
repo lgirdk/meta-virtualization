@@ -63,6 +63,21 @@ write_lops_xen_section() {
 EOF
 }
 
+write_lop_rm_pci() {
+    cat <<EOF >"$1"
+/dts-v1/;
+/ {
+    compatible = "system-device-tree-v1";
+    lops {
+        lop_1 {
+            compatible = "system-device-tree-v1,lop,modify";
+            modify = "/pcie@10000000::";
+        };
+     };
+};
+EOF
+}
+
 write_lop_add_to_xen_cmdline() {
     EXTRA_XEN_BOOTARGS="$2"
     cat <<EOF >"$1"
@@ -134,6 +149,13 @@ generate_xen_qemuboot_dtb() {
 
     write_lop_add_to_xen_cmdline "${B}/lop-xen-cmdline.dts" \
         "${QB_XEN_CMDLINE_EXTRA}"
+
+    # On Qemu Arm32, Dom0 accessing PCI config space ends up in an
+    # infinite loop. Remove pci node from the device tree
+    if [ "${MACHINE}" = "qemuarm" ]; then
+        write_lop_rm_pci "${B}/lop-rm-pci.dts"
+        LOP_MODULE_ARGS="${LOP_MODULE_ARGS} -i ${B}/lop-rm-pci.dts"
+    fi
 
     if [ -z "${QB_XEN_DOMAIN_MODULES}" ]; then
         bbwarn "No domain modules: please set QB_XEN_DOMAIN_MODULES"
