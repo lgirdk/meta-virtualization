@@ -13,8 +13,8 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "4a1731891e91e62f15c40c361aff2a8a54d91bb3"
-PV = "3.16.1+git${SRCPV}"
+SRCREV = "4f8f295e57e68740699479d12c1ad251e6dd859f"
+PV = "3.17+git${SRCPV}"
 
 SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
            file://0002-criu-Skip-documentation-install.patch \
@@ -55,6 +55,7 @@ export HOST_SYS
 export HOSTCFLAGS = "${BUILD_CFLAGS}"
 
 inherit setuptools3
+inherit pkgconfig
 
 B = "${S}"
 
@@ -74,7 +75,7 @@ do_compile () {
 
 do_install () {
     export INSTALL_LIB="${libdir}/${PYTHON_DIR}/site-packages"
-    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" FULL_PYTHON=${PYTHON} PYTHON=python3 install
+    oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" PLUGINDIR="${localstatedir}/lib" FULL_PYTHON=${PYTHON} PYTHON=python3 install
 
     # python3's distutils has a feature of rewriting the interpeter on setup installed
     # scripts. 'crit' is one of those scripts. The "executable" or "e" option to the
