@@ -1,6 +1,6 @@
 Build ifdef using BUILD_CC, not CC.
 
-Upstream-Status: Pending
+Upstream-Status: Submitted [https://github.com/jbruchon/dev86/pull/22]
 Signed-off-by: Ross Burton <ross.burton@arm.com>
 
 diff --git a/Makefile b/Makefile
