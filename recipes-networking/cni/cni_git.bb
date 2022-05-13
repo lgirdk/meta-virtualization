@@ -9,7 +9,7 @@ Because of this focus, CNI has a wide range of support and the specification \
 is simple to implement. \
 "
 
-SRCREV_cni = "35efaabf93d23a28fb2fb01dccbe80caed196d19"
+SRCREV_cni = "940e66269988c38f4c09b00bda4456d2db007b35"
 # Version 0.9.1
 SRCREV_plugins = "b8a10bbe111e9db72433f357c37077554ada7ca1"
 SRCREV_flannel_plugin = "076c4462d6c6887614fc881b806b690b9e56ceb2"
@@ -24,7 +24,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464
 
 GO_IMPORT = "import"
 
-PV = "v1.0.1+git${SRCREV_cni}"
+PV = "v1.1.0+git${SRCREV_cni}"
 
 inherit go
 inherit goarch
