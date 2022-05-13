@@ -118,7 +118,7 @@ PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc ${PN}-host"
 
 ALLOW_EMPTY:${PN} = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped"
-INSANE_SKIP:${PN}-misc += "ldflags already-stripped"
+INSANE_SKIP:${PN}-misc += "ldflags already-stripped textrel"
 
 # Note: we are explicitly *not* adding docker to the rdepends, since we allow
 #       backends like cri-o to be used.
