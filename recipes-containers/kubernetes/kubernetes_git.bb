@@ -5,8 +5,8 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.23.6+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "fbcfa33018159c033aee77b0d5456df6771aa9b5"
+PV = "v1.24.0+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "8b1b4db3834ddf7cf1b97137180f413cb9e2186f"
 SRCREV_kubernetes-release = "7c1aa83dac555de6f05500911467b70aca4949f0"
 PE = "1"
 
@@ -22,14 +22,13 @@ PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
 
 SRCREV_FORMAT ?= "kubernetes_release"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.23;name=kubernetes;protocol=https \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.24;name=kubernetes;protocol=https \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https"
 
 SRC_URI:append = " \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
            file://0001-build-golang.sh-convert-remaining-go-calls-to-use.patch \
-           file://0001-Makefile.generated_files-Fix-race-issue-for-installi.patch \
            file://cni-containerd-net.conflist \
            file://k8s-init \
            file://99-kubernetes.conf \

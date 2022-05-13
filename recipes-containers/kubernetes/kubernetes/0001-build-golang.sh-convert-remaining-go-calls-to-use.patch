@@ -8,11 +8,11 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  hack/lib/golang.sh | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/src/import/hack/lib/golang.sh b/src/import/hack/lib/golang.sh
-index e9148ec08fa..71d3c987563 100755
---- a/src/import/hack/lib/golang.sh
-+++ b/src/import/hack/lib/golang.sh
-@@ -651,7 +651,7 @@ kube::golang::build_some_binaries() {
+Index: kubernetes-v1.24.0+git8b1b4db3834ddf7cf1b97137180f413cb9e2186f/src/import/hack/lib/golang.sh
+===================================================================
+--- kubernetes-v1.24.0+git8b1b4db3834ddf7cf1b97137180f413cb9e2186f.orig/src/import/hack/lib/golang.sh
++++ kubernetes-v1.24.0+git8b1b4db3834ddf7cf1b97137180f413cb9e2186f/src/import/hack/lib/golang.sh
+@@ -652,7 +652,7 @@
          kube::golang::create_coverage_dummy_test "${package}"
          kube::util::trap_add "kube::golang::delete_coverage_dummy_test \"${package}\"" EXIT
  
@@ -21,7 +21,7 @@ index e9148ec08fa..71d3c987563 100755
            -covermode count \
            -coverpkg k8s.io/...,k8s.io/kubernetes/vendor/k8s.io/... \
            "${build_args[@]}" \
-@@ -663,13 +663,13 @@ kube::golang::build_some_binaries() {
+@@ -664,13 +664,13 @@
      done
      if [[ "${#uncovered[@]}" != 0 ]]; then
        V=2 kube::log::info "Building ${uncovered[*]} without coverage..."
@@ -37,15 +37,12 @@ index e9148ec08fa..71d3c987563 100755
     fi
  }
  
-@@ -725,7 +725,7 @@ kube::golang::build_binaries_for_platform() {
+@@ -729,7 +729,7 @@
      testpkg=$(dirname "${test}")
  
      mkdir -p "$(dirname "${outfile}")"
 -    go test -c \
 +    $GO test -c \
        ${goflags:+"${goflags[@]}"} \
-       -gcflags "${gogcflags:-}" \
-       -asmflags "${goasmflags:-}" \
--- 
-2.19.1
-
+       -gcflags="${gogcflags}" \
+       -asmflags="${goasmflags}" \
