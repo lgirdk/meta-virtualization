@@ -208,12 +208,11 @@ do_install:append() {
                 rmdir ${D}${prefix}/lib/systemd/system ${D}${prefix}/lib/systemd
             fi
 
-	    # This variable is used by libvirtd.service to start libvirtd in the right mode
-	    sed -i '/#LIBVIRTD_ARGS="--listen"/a LIBVIRTD_ARGS="--listen --daemon"' ${D}/${sysconfdir}/init.d/libvirtd
-
 	    # We can't use 'notify' when we don't support 'sd_notify' dbus capabilities.
+	    # Change default LIBVIRTD_ARGS to start libvirtd in the right mode.
 	    sed -i -e 's/Type=notify/Type=forking/' \
 	           -e '/Type=forking/a PIDFile=/run/libvirtd.pid' \
+	           -e 's/\(Environment=LIBVIRTD_ARGS="--timeout 120"\)/#\1\nEnvironment=LIBVIRTD_ARGS="--listen --daemon"/' \
 		   ${D}/${systemd_system_unitdir}/libvirtd.service
 	fi
 
