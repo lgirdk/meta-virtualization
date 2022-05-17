@@ -17,7 +17,7 @@ DEPENDS = " \
     libgpg-error \
 "
 
-SRCREV = "ff962bb92d7f5fea9f819c4ef8a484bdceb3747b"
+SRCREV = "cd51747647c5e1fac812c00a2e9e1985693a95e1"
 SRC_URI = " \
     git://github.com/containers/podman-tui;protocol=https;branch=main \
 "
