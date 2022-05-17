@@ -17,9 +17,9 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
-SRCREV = "717edd7b844dcd66468f5d991991d87e9fc14c12"
+SRCREV = "cedbbfa543651a13055a1fe093a4d0a2a28ccdfd"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=v4.0;protocol=https \
+    git://github.com/containers/libpod.git;branch=v4.1;protocol=https \
 "
 
 LICENSE = "Apache-2.0"
@@ -29,7 +29,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "4.0.1+git${SRCPV}"
+PV = "4.1.0+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
