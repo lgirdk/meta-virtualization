@@ -1,0 +1,91 @@
+From 5a4087004d1adbbb223925f3306db0e5824a2bdc Mon Sep 17 00:00:00 2001
+From: Stefano Stabellini <sstabellini@kernel.org>
+Date: Tue, 9 Feb 2021 11:53:34 -0800
+Subject: [PATCH] xen: workaround missing device_type property in pci/pcie
+ nodes
+
+PCI buses differ from default buses in a few important ways, so it is
+important to detect them properly. Normally, PCI buses are expected to
+have the following property:
+
+    device_type = "pci"
+
+In reality, it is not always the case. To handle PCI bus nodes that
+don't have the device_type property, also consider the node name: if the
+node name is "pcie" or "pci" then consider the bus as a PCI bus.
+
+This commit is based on the Linux kernel commit
+d1ac0002dd29 "of: address: Work around missing device_type property in
+pcie nodes".
+
+This fixes Xen boot on RPi4. Some RPi4 kernels have the following node
+on their device trees:
+
+&pcie0 {
+	pci@1,0 {
+		#address-cells = <3>;
+		#size-cells = <2>;
+		ranges;
+
+		reg = <0 0 0 0 0>;
+
+		usb@1,0 {
+			reg = <0x10000 0 0 0 0>;
+			resets = <&reset RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+		};
+	};
+};
+
+The pci@1,0 node is a PCI bus. If we parse the node and its children as
+a default bus, the reg property under usb@1,0 would have to be
+interpreted as an address range mappable by the CPU, which is not the
+case and would break.
+
+Link: https://lore.kernel.org/xen-devel/YBmQQ3Tzu++AadKx@mattapan.m5p.com/
+[fix style on commit]
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
+Tested-by: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
+---
+ xen/common/device_tree.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+index 18825e333e..03d25a81ce 100644
+--- a/xen/common/device_tree.c
++++ b/xen/common/device_tree.c
+@@ -563,14 +563,28 @@ static unsigned int dt_bus_default_get_flags(const __be32 *addr)
+  * PCI bus specific translator
+  */
+ 
++static bool dt_node_is_pci(const struct dt_device_node *np)
++{
++    bool is_pci = !strcmp(np->name, "pcie") || !strcmp(np->name, "pci");
++
++    if ( is_pci )
++        printk(XENLOG_WARNING "%s: Missing device_type\n", np->full_name);
++
++    return is_pci;
++}
++
+ static bool_t dt_bus_pci_match(const struct dt_device_node *np)
+ {
+     /*
+      * "pciex" is PCI Express "vci" is for the /chaos bridge on 1st-gen PCI
+      * powermacs "ht" is hypertransport
++     *
++     * If none of the device_type match, and that the node name is
++     * "pcie" or "pci", accept the device as PCI (with a warning).
+      */
+     return !strcmp(np->type, "pci") || !strcmp(np->type, "pciex") ||
+-        !strcmp(np->type, "vci") || !strcmp(np->type, "ht");
++        !strcmp(np->type, "vci") || !strcmp(np->type, "ht") ||
++        dt_node_is_pci(np);
+ }
+ 
+ static void dt_bus_pci_count_cells(const struct dt_device_node *np,
+-- 
+2.25.1
+
