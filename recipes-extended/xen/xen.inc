@@ -11,6 +11,7 @@ PACKAGECONFIG ??= " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
     "
 
+PACKAGECONFIG[lzo] = ",,lzo"
 PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
 PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd,systemd,"
@@ -41,7 +42,6 @@ DEPENDS = " \
     procps \
     python3 \
     libaio \
-    lzo \
     util-linux \
     xz \
     yajl \
