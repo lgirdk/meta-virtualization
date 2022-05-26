@@ -81,7 +81,7 @@ do_install () {
     # scripts. 'crit' is one of those scripts. The "executable" or "e" option to the
     # setup call should fix it, but it is being ignored. So to avoid getting our native
     # intepreter replaced in the script, we'll do an explicit update ourselves.
-    sed -i 's%^\#\!.*%\#\!/usr/bin/env python3%g' ${D}/usr/bin/crit
+    sed -i 's%^\#\!.*%\#\!/usr/bin/env python3%' ${D}/usr/bin/crit ${D}${libdir}/python3*/site-packages/crit-0.0.1-py3*.egg/EGG-INFO/scripts/crit
 }
 
 FILES:${PN} += "${systemd_unitdir}/ \
