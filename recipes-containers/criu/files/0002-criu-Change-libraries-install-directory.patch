@@ -1,25 +1,25 @@
-From f64fbca70e6049dad3c404d871f2383d97725d2d Mon Sep 17 00:00:00 2001
+From dcbf7f8ad1b07ff718eac2ce79ed522ac1cee189 Mon Sep 17 00:00:00 2001
 From: Mark Asselstine <mark.asselstine@windriver.com>
 Date: Fri, 8 Sep 2017 15:11:31 -0400
-Subject: [PATCH] criu: Change libraries install directory
+Subject: [PATCH 2/3] criu: Change libraries install directory
 
 Install the libraries into /usr/lib(or /usr/lib64)
 
 Signed-off-by: Jianchuan Wang <jianchuan.wang@windriver.com>
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
-
 ---
  Makefile.install | 13 -------------
  1 file changed, 13 deletions(-)
 
 diff --git a/Makefile.install b/Makefile.install
-index 1def3cf..d020eef 100644
+index 1b02b70af..2839ef5fe 100644
 --- a/Makefile.install
 +++ b/Makefile.install
 @@ -9,19 +9,6 @@ LIBEXECDIR	?= $(PREFIX)/libexec
  RUNDIR		?= /run
+ PLUGINDIR	?= /var/lib/criu
  
- #
+-#
 -# For recent Debian/Ubuntu with multiarch support.
 -DEB_HOST_MULTIARCH := $(shell dpkg-architecture -qDEB_HOST_MULTIARCH 2>/dev/null)
 -ifneq "$(DEB_HOST_MULTIARCH)" ""
@@ -32,7 +32,9 @@ index 1def3cf..d020eef 100644
 -        endif
 -endif
 -
--#
+ #
  # LIBDIR falls back to the standard path.
  LIBDIR ?= $(PREFIX)/lib
- 
+-- 
+2.25.1
+
