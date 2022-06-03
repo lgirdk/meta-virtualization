@@ -19,6 +19,8 @@ RDEPENDS:${PN} = " \
                  "
 DEPENDS += "yq-native"
 
+SKIP_RECIPE[kata-runtime] ?= "kata containers are currently broken, patches accepted"
+
 S = "${WORKDIR}/git"
 
 inherit go

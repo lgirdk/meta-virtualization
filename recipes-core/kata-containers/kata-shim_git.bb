@@ -8,6 +8,8 @@ SRCREV = "bcc35aeca3ef6fa0976005c9e93525906aefed2f"
 SRC_URI = "git://${GO_IMPORT}.git;branch=master;protocol=https \
           "
 
+SKIP_RECIPE[kata-shim] ?= "kata containers are currently broken, patches accepted"
+
 RDEPENDS:${PN}-dev:append = "bash"
 
 S = "${WORKDIR}/git"

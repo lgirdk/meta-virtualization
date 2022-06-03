@@ -10,6 +10,8 @@ SRC_URI = "git://${GO_IMPORT}.git;branch=master;protocol=https \
 
 RDEPENDS:${PN}-dev:append = "bash"
 
+SKIP_RECIPE[kata-agent] ?= "kata containers are currently broken, patches accepted"
+
 S = "${WORKDIR}/git"
 
 inherit go
