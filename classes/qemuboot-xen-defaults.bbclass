@@ -23,8 +23,10 @@ QB_DEFAULT_KERNEL:qemuarm = "xen-${MACHINE}"
 
 # 64-bit Arm: gic version 3
 QB_MACHINE:qemuarm64 = "-machine virt,gic-version=3 -machine virtualization=true"
-# 32-bit Arm
-QB_MACHINE:qemuarm = "-machine virt -machine virtualization=true"
+# 32-bit Arm: highmem=off
+# Disable highmem so that qemu does not use highmem IO regions that end up
+# being placed at the 256GiB mark (e.g. ECAM space) and can cause issues in Xen.
+QB_MACHINE:qemuarm = "-machine virt,highmem=off -machine virtualization=true"
 
 # Increase the default qemu memory allocation to allow for the hypervisor.
 # Use a weak assignment to allow for change of default and override elsewhere.
