@@ -16,8 +16,7 @@ S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
 GO_IMPORT = "import"
 
-inherit goarch
-inherit go
+inherit goarch go systemd
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
@@ -66,6 +65,7 @@ FILES:docker-registry += "${systemd_unitdir}/system/docker-registry.service"
 FILES:docker-registry += "${sysconfdir}/docker-distribution/*"
 FILES:docker-registry += "${localstatedir}/lib/registry/"
 
+SYSTEMD_PACKAGES = "docker-registry"
 SYSTEMD_SERVICE:docker-registry = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker-registry.service','',d)}"
 SYSTEMD_AUTO_ENABLE:docker-registry = "enable"
 
