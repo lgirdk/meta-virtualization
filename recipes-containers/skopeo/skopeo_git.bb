@@ -9,7 +9,6 @@ DEPENDS = " \
     lvm2 \
     btrfs-tools \
     glib-2.0 \
-    ostree \
 "
 
 inherit go
@@ -61,8 +60,8 @@ do_compile() {
 	export CGO_ENABLED="1"
 	export CFLAGS=""
 	export LDFLAGS=""
-	export CGO_CFLAGS="${BUILDSDK_CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
-	export CGO_LDFLAGS="${BUILDSDK_LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
+	export CGO_CFLAGS="${TARGET_CFLAGS}"
+	export CGO_LDFLAGS="${TARGET_LDFLAGS}"
 	cd ${S}/src/import
 
 	export GO111MODULE=off
