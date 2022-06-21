@@ -56,6 +56,8 @@ RDEPENDS:${PN} = "python3 \
                   python3-jsonschema \
                   python3-pyyaml \
                   python3-oauthlib \
+                  python3-netifaces \
+                  python3-charset-normalizer \
                   bash \
                  "
 
