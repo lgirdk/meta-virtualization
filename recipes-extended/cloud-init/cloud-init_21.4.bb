@@ -26,8 +26,9 @@ inherit setuptools3_legacy
 inherit update-rc.d
 inherit systemd
 
-# setup.py calls "pkg-config systemd --variable=systemdsystemunitdir" and needs to find our systemd
+# setup.py calls "pkg-config systemd --variable=systemdsystemunitdir" and needs to find our dev manager
 DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
+DEPENDS += "${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'udev', '', d)}"
 
 inherit python3native
 
