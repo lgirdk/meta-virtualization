@@ -1,0 +1,125 @@
+From 3e18f3a4db638a3df48f49aa0a539f8bb048afc9 Mon Sep 17 00:00:00 2001
+From: Andrei Gherzan <andrei.gherzan@huawei.com>
+Date: Tue, 5 Jul 2022 11:51:56 +0200
+Subject: [PATCH] Rename BUILDFLAGS to GOBUILDFLAGS
+
+Yocto uses GOBUILDFLAGS to pass the right build flags while the Makefile
+uses BUILDFLAGS. Align them accordingly.
+
+See go.bbclass for more information.
+
+Upstream-Status: Inappropriate [OE specific]
+Signed-off-by: Andrei Gherzan <andrei.gherzan@huawei.com>
+---
+ Makefile | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index cb230d8e9..538b28d41 100644
+--- a/Makefile
++++ b/Makefile
+@@ -69,7 +69,7 @@ PRE_COMMIT = $(shell command -v bin/venv/bin/pre-commit ~/.local/bin/pre-commit
+ # triggered.
+ SOURCES = $(shell find . -path './.*' -prune -o \( \( -name '*.go' -o -name '*.c' \) -a ! -name '*_test.go' \) -print)
+ 
+-BUILDFLAGS := -mod=vendor $(BUILDFLAGS)
++GOBUILDFLAGS := -mod=vendor $(GOBUILDFLAGS)
+ 
+ BUILDTAGS_CROSS ?= containers_image_openpgp exclude_graphdriver_btrfs exclude_graphdriver_devicemapper exclude_graphdriver_overlay
+ CONTAINER_RUNTIME := $(shell command -v podman 2> /dev/null || echo docker)
+@@ -264,11 +264,11 @@ gofmt: ## Verify the source code gofmt
+ 
+ .PHONY: test/checkseccomp/checkseccomp
+ test/checkseccomp/checkseccomp: .gopathok $(wildcard test/checkseccomp/*.go)
+-	$(GOCMD) build $(BUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -tags "$(BUILDTAGS)" -o $@ ./test/checkseccomp
++	$(GOCMD) build $(GOBUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -tags "$(BUILDTAGS)" -o $@ ./test/checkseccomp
+ 
+ .PHONY: test/testvol/testvol
+ test/testvol/testvol: .gopathok $(wildcard test/testvol/*.go)
+-	$(GOCMD) build $(BUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -o $@ ./test/testvol
++	$(GOCMD) build $(GOBUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -o $@ ./test/testvol
+ 
+ .PHONY: volume-plugin-test-image
+ volume-plugin-test-img:
+@@ -276,7 +276,7 @@ volume-plugin-test-img:
+ 
+ .PHONY: test/goecho/goecho
+ test/goecho/goecho: .gopathok $(wildcard test/goecho/*.go)
+-	$(GOCMD) build $(BUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -o $@ ./test/goecho
++	$(GOCMD) build $(GOBUILDFLAGS) $(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' -o $@ ./test/goecho
+ 
+ test/version/version: .gopathok version/version.go
+ 	$(GO) build -o $@ ./test/version/
+@@ -318,7 +318,7 @@ ifeq (,$(findstring systemd,$(BUILDTAGS)))
+ 		distro for journald support."
+ endif
+ 	$(GOCMD) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		$(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' \
+ 		-tags "$(BUILDTAGS)" \
+ 		-o $@ ./cmd/podman
+@@ -329,14 +329,14 @@ $(SRCBINDIR):
+ 
+ $(SRCBINDIR)/podman$(BINSFX): $(SRCBINDIR) .gopathok $(SOURCES) go.mod go.sum
+ 	$(GOCMD) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		$(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' \
+ 		-tags "${REMOTETAGS}" \
+ 		-o $@ ./cmd/podman
+ 
+ $(SRCBINDIR)/podman-remote-static: $(SRCBINDIR) .gopathok $(SOURCES) go.mod go.sum
+ 	$(GOCMD) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		$(GO_LDFLAGS) '$(LDFLAGS_PODMAN_STATIC)' \
+ 		-tags "${REMOTETAGS}" \
+ 		-o $@ ./cmd/podman
+@@ -371,7 +371,7 @@ podman-winpath: .gopathok $(SOURCES) go.mod go.sum
+ 	CGO_ENABLED=0 \
+ 		GOOS=windows \
+ 		$(GO) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		-ldflags -H=windowsgui \
+ 		-o bin/windows/winpath.exe \
+ 		./cmd/winpath
+@@ -390,14 +390,14 @@ podman-mac-helper: ## Build podman-mac-helper for macOS
+ 		GOOS=darwin \
+ 		GOARCH=$(GOARCH) \
+ 		$(GO) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		-o bin/darwin/podman-mac-helper \
+ 		./cmd/podman-mac-helper
+ 
+ bin/rootlessport: .gopathok $(SOURCES) go.mod go.sum
+ 	CGO_ENABLED=$(CGO_ENABLED) \
+ 		$(GO) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		-o $@ ./cmd/rootlessport
+ 
+ .PHONY: rootlessport
+@@ -420,7 +420,7 @@ bin/podman.cross.%: .gopathok
+ 	GOARCH="$${TARGET##*.}"; \
+ 	CGO_ENABLED=0 \
+ 		$(GO) build \
+-		$(BUILDFLAGS) \
++		$(GOBUILDFLAGS) \
+ 		$(GO_LDFLAGS) '$(LDFLAGS_PODMAN)' \
+ 		-tags '$(BUILDTAGS_CROSS)' \
+ 		-o "$@" ./cmd/podman
+@@ -864,7 +864,7 @@ install.tools: .install.goimports .install.gitvalidation .install.md2man .instal
+ .PHONY: .install.ginkgo
+ .install.ginkgo: .gopathok
+ 	if [ ! -x "$(GOBIN)/ginkgo" ]; then \
+-		$(GO) install $(BUILDFLAGS) ./vendor/github.com/onsi/ginkgo/ginkgo ; \
++		$(GO) install $(GOBUILDFLAGS) ./vendor/github.com/onsi/ginkgo/ginkgo ; \
+ 	fi
+ 
+ .PHONY: .install.gitvalidation
+-- 
+2.25.1
+
