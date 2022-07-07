@@ -5,7 +5,7 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
                support as well as checkpoint and restore for cloning and live migration of containers."
 
 
-SRCREV = "d12516713c315ea9e651eb1df89cf32ff7c8137c"
+SRCREV = "4e92d8e7e439530f5bb17e57a77481e9aa3da851"
 SRC_URI = "git://github.com/containerd/containerd;branch=release/1.6;protocol=https \
            file://0001-Add-build-option-GODEBUG-1.patch \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
@@ -15,8 +15,8 @@ SRC_URI = "git://github.com/containerd/containerd;branch=release/1.6;protocol=ht
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=1269f40c0d099c21a871163984590d89"
 
-CONTAINERD_VERSION = "v1.6.1"
-CVE_VERSION = "1.6.1"
+CONTAINERD_VERSION = "v1.6.6"
+CVE_VERSION = "1.6.6"
 
 EXTRA_OEMAKE += "GODEBUG=1"
 
@@ -56,7 +56,7 @@ do_compile() {
 		     metrics filters identifiers labels leases plugin server services \
 		     cmd cio containers namespaces oci events log reaper sys rootfs nvidia seed apparmor seccomp \
 		     cap cri userns atomic ioutil os registrar seutil runtimeoptions netns \
-                     shutdown schedcore tracing; do
+                     shutdown schedcore tracing kmutex; do
         if [ -d ${S}/src/import/${c} ]; then
 	    ln -sfn ${S}/src/import/${c} ${S}/src/import/vendor/github.com/containerd/containerd/${c}
         fi
