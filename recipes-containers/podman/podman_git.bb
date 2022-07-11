@@ -21,6 +21,7 @@ SRCREV = "cedbbfa543651a13055a1fe093a4d0a2a28ccdfd"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=v4.1;protocol=https \
     file://0001-Rename-BUILDFLAGS-to-GOBUILDFLAGS.patch;patchdir=src/import \
+    ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://00-podman-rootless.conf', '', d)} \
 "
 
 LICENSE = "Apache-2.0"
@@ -97,6 +98,11 @@ do_install() {
 	# Silence docker emulation warnings.
 	mkdir -p ${D}/etc/containers
 	touch ${D}/etc/containers/nodocker
+
+	if ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'true', 'false', d)}; then
+		install -d "${D}${sysconfdir}/sysctl.d"
+		install -m 0644 "${WORKDIR}/00-podman-rootless.conf" "${D}${sysconfdir}/sysctl.d"
+	fi
 }
 
 FILES:${PN} += " \
@@ -112,6 +118,9 @@ SYSTEMD_SERVICE:${PN} = "podman.service podman.socket"
 # that busybox is configured with nsenter
 VIRTUAL-RUNTIME_base-utils-nsenter ?= "util-linux-nsenter"
 
-RDEPENDS:${PN} += "conmon virtual-runc iptables cni skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter}"
+RDEPENDS:${PN} += "\
+	conmon virtual-runc iptables cni skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter} \
+	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
+"
 RRECOMMENDS:${PN} += "slirp4netns kernel-module-xt-masquerade kernel-module-xt-comment"
 RCONFLICTS:${PN} = "${@bb.utils.contains('PACKAGECONFIG', 'docker', 'docker', '', d)}"

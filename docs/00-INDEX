@@ -11,5 +11,8 @@ alphabetical order as well.
 openvswitch.txt
 	- example on how to setup openvswitch with qemu/kvm.
 
+podman.txt
+	- documentation on podman container engine integration.
+
 xvisor.txt
 	- example on how to setup Xvisor for RISC-V QEMU.
