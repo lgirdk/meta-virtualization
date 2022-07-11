@@ -1,0 +1,32 @@
+From 7e5992d6121aed0cfcbfaf70472f28d87cff1426 Mon Sep 17 00:00:00 2001
+From: Andrei Gherzan <andrei.gherzan@huawei.com>
+Date: Mon, 11 Jul 2022 20:36:06 +0200
+Subject: [PATCH] Fix buffer overflow on workdir path
+
+We make sure that the path used for workdir is reallocated before
+appending. This was initially included in upstream as part of
+https://github.com/containers/fuse-overlayfs/commit/d5b725b6f18a437db66bfc1456d04c3bf658f66a.
+
+Signed-off-by: Andrei Gherzan <andrei.gherzan@huawei.com>
+Upstream-Status: Backport
+---
+ main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/main.c b/main.c
+index e5bdda1..118a6cb 100644
+--- a/main.c
++++ b/main.c
+@@ -5039,6 +5039,9 @@ main (int argc, char *argv[])
+       if (path == NULL)
+         goto err_out1;
+       mkdir (path, 0700);
++      path = realloc(path, strlen(path)+strlen("/work")+1);
++      if (!path)
++        error (EXIT_FAILURE, errno, "allocating workdir path");
+       strcat (path, "/work");
+       mkdir (path, 0700);
+       free (lo.workdir);
+-- 
+2.25.1
+
