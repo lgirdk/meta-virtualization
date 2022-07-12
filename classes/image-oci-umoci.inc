@@ -58,48 +58,48 @@ IMAGE_CMD:oci() {
     bbdebug 1 "OCI: configuring image"
     if [ -n "${OCI_IMAGE_LABELS}" ]; then
 	for l in ${OCI_IMAGE_LABELS}; do
-	    bbdebug 1 "OCI: umoci config --image $image_name  --config.label $l"
-	    umoci config --image $image_name  --config.label $l
+	    bbdebug 1 "OCI: umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label $l"
+	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label $l
 	done
     fi
     if [ -n "${OCI_IMAGE_ENV_VARS}" ]; then
 	for l in ${OCI_IMAGE_ENV_VARS}; do
-	    bbdebug 1 "umoci config --image $image_name --config.env $l"
-	    umoci config --image $image_name --config.env $l
+	    bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env $l"
+	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env $l
 	done
     fi
     if [ -n "${OCI_IMAGE_PORTS}" ]; then
 	for l in ${OCI_IMAGE_PORTS}; do
-	    bbdebug 1 "umoci config --image $image_name --config.exposedports $l"
-	    umoci config --image $image_name --config.exposedports $l
+	    bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG} --config.exposedports $l"
+	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.exposedports $l
 	done
     fi
     if [ -n "${OCI_IMAGE_RUNTIME_UID}" ]; then
-	bbdebug 1 "umoci config --image $image_name  --config.user ${OCI_IMAGE_RUNTIME_UID}"
-	umoci config --image $image_name  --config.user ${OCI_IMAGE_RUNTIME_UID}
+	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --config.user ${OCI_IMAGE_RUNTIME_UID}"
+	umoci config --image $image_name:${OCI_IMAGE_TAG} --config.user ${OCI_IMAGE_RUNTIME_UID}
     fi
     if [ -n "${OCI_IMAGE_WORKINGDIR}" ]; then
-	bbdebug 1 "umoci config --image $image_name  --config.workingdir ${OCI_IMAGE_WORKINGDIR}"
-	umoci config --image $image_name  --config.workingdir ${OCI_IMAGE_WORKINGDIR}
+	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --config.workingdir ${OCI_IMAGE_WORKINGDIR}"
+	umoci config --image $image_name:${OCI_IMAGE_TAG} --config.workingdir ${OCI_IMAGE_WORKINGDIR}
     fi
     if [ -n "${OCI_IMAGE_OS}" ]; then
-	bbdebug 1 "umoci config --image $image_name  --os ${OCI_IMAGE_OS}"
-	umoci config --image $image_name  --os ${OCI_IMAGE_OS}
+	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --os ${OCI_IMAGE_OS}"
+	umoci config --image $image_name:${OCI_IMAGE_TAG} --os ${OCI_IMAGE_OS}
     fi
 
-    bbdebug 1 "umoci config --image $image_name  --architecture ${OCI_IMAGE_ARCH}"
-    umoci config --image $image_name  --architecture ${OCI_IMAGE_ARCH}
+    bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --architecture ${OCI_IMAGE_ARCH}"
+    umoci config --image $image_name:${OCI_IMAGE_TAG} --architecture ${OCI_IMAGE_ARCH}
     # NOTE: umoci doesn't currently expose setting the architecture variant,
     #       so if you need it use sloci instead
     if [ -n "${OCI_IMAGE_SUBARCH}" ]; then
 	bbnote "OCI: image subarch is set to: ${OCI_IMAGE_SUBARCH}, but umoci does not"
 	bbnote "     expose variants. use sloci instead if this is important"
     fi
-    umoci config --image $image_name  --config.entrypoint ${OCI_IMAGE_ENTRYPOINT}
+    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.entrypoint ${OCI_IMAGE_ENTRYPOINT}
     if [ -n "${OCI_IMAGE_ENTRYPOINT_ARGS}" ]; then
-	umoci config --image $image_name  --config.cmd "${OCI_IMAGE_ENTRYPOINT_ARGS}"
+	umoci config --image $image_name:${OCI_IMAGE_TAG} --config.cmd "${OCI_IMAGE_ENTRYPOINT_ARGS}"
     fi
-    umoci config --image $image_name  --author ${OCI_IMAGE_AUTHOR_EMAIL}
+    umoci config --image $image_name:${OCI_IMAGE_TAG} --author ${OCI_IMAGE_AUTHOR_EMAIL}
 
     # make a tar version of the image direcotry
     if [ -n "${OCI_IMAGE_TAR_OUTPUT}" ]; then
