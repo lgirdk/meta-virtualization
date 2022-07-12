@@ -93,6 +93,10 @@ do_install() {
 	if ${@bb.utils.contains('PACKAGECONFIG', 'docker', 'true', 'false', d)}; then
 		oe_runmake install.docker DESTDIR="${D}"
 	fi
+
+	# Silence docker emulation warnings.
+	mkdir -p ${D}/etc/containers
+	touch ${D}/etc/containers/nodocker
 }
 
 FILES:${PN} += " \
