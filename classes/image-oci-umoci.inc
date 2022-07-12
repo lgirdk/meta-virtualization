@@ -82,6 +82,10 @@ IMAGE_CMD:oci() {
 	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --config.workingdir ${OCI_IMAGE_WORKINGDIR}"
 	umoci config --image $image_name:${OCI_IMAGE_TAG} --config.workingdir ${OCI_IMAGE_WORKINGDIR}
     fi
+    if [ -n "${OCI_IMAGE_STOPSIGNAL}" ]; then
+	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --config.stopsignal ${OCI_IMAGE_STOPSIGNAL}"
+	umoci config --image $image_name:${OCI_IMAGE_TAG} --config.stopsignal ${OCI_IMAGE_STOPSIGNAL}
+    fi
     if [ -n "${OCI_IMAGE_OS}" ]; then
 	bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG}  --os ${OCI_IMAGE_OS}"
 	umoci config --image $image_name:${OCI_IMAGE_TAG} --os ${OCI_IMAGE_OS}

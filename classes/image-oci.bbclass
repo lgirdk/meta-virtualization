@@ -58,6 +58,7 @@ OCI_IMAGE_SUBARCH ?= "${@oci_map_subarch(d.getVar('TARGET_ARCH'), d.getVar('TUNE
 OCI_IMAGE_ENTRYPOINT ?= "sh"
 OCI_IMAGE_ENTRYPOINT_ARGS ?= ""
 OCI_IMAGE_WORKINGDIR ?= ""
+OCI_IMAGE_STOPSIGNAL ?= ""
 
 # List of ports to expose from a container running this image:
 #  PORT[/PROT]  
