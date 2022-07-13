@@ -7,12 +7,10 @@ inherit autotools-brokensep pkgconfig
 require xen-arch.inc
 
 PACKAGECONFIG ??= " \
-    sdl \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
     "
 
 PACKAGECONFIG[lzo] = ",,lzo"
-PACKAGECONFIG[sdl] = "--enable-sdl,--disable-sdl,virtual/libsdl,"
 PACKAGECONFIG[xsm] = "--enable-xsmpolicy,--disable-xsmpolicy,checkpolicy-native,"
 PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd,systemd,"
 PACKAGECONFIG[externalblktap] = ",,,"
