@@ -83,7 +83,9 @@ build_syslinux_cfg () {
 
 # Enable runqemu. eg: runqemu xen-image-minimal nographic slirp
 WKS_FILE:x86-64 = "directdisk-xen.wks"
+WKS_FILE_DEPENDS_DEFAULT:x86-64 = "syslinux-native"
 WKS_FILE:qemux86-64 = "qemuboot-xen-x86-64.wks"
+WKS_FILE_DEPENDS_DEFAULT:qemux86-64 = "syslinux-native"
 QB_MEM ?= "-m 400"
 QB_DEFAULT_KERNEL ?= "none"
 QB_DEFAULT_FSTYPE ?= "wic"
