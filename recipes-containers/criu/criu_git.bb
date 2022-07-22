@@ -17,9 +17,9 @@ SRCREV = "4f8f295e57e68740699479d12c1ad251e6dd859f"
 PV = "3.17+git${SRCPV}"
 
 SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
-           file://0002-criu-Skip-documentation-install.patch \
-           file://0001-criu-Change-libraries-install-directory.patch \
-           file://lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
+           file://0001-criu-Skip-documentation-install.patch \
+           file://0002-criu-Change-libraries-install-directory.patch \
+           file://0003-lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
