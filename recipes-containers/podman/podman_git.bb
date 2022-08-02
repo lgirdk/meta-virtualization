@@ -44,6 +44,9 @@ exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
 # overide LDFLAGS to allow podman to build without: "flag provided but not # defined: -Wl,-O1
 export LDFLAGS=""
 
+# https://github.com/llvm/llvm-project/issues/53999
+TOOLCHAIN = "gcc"
+
 inherit go goarch
 inherit systemd pkgconfig
 
