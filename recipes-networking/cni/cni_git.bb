@@ -28,6 +28,9 @@ PV = "v1.1.0+git${SRCREV_cni}"
 inherit go
 inherit goarch
 
+# https://github.com/llvm/llvm-project/issues/53999
+TOOLCHAIN = "gcc"
+
 do_compile() {
 	mkdir -p ${S}/src/github.com/containernetworking
 	ln -sfr ${S}/src/import ${S}/src/github.com/containernetworking/cni
