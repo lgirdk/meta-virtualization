@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s;protocol=https \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=master;name=k3s;protocol=https \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
@@ -16,10 +16,10 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.22;name=k3s;protoco
           "
 
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "4262c6b91a43ef8411870f72ff8b8715949f90e2"
+SRCREV_k3s = "24da6adfa98cd05849edf1c42de3862f843a05f4"
 
 SRCREV_FORMAT = "k3s_fuse"
-PV = "v1.22.6+k3s1+git${SRCREV_k3s}"
+PV = "v1.24.3+k3s1+git${SRCREV_k3s}"
 
 include src_uri.inc
 
@@ -49,7 +49,8 @@ do_compile() {
         export CGO_ENABLED="1"
         export GOFLAGS="-mod=vendor"
 
-        TAGS="static_build ctrd no_btrfs netcgo osusergo providerless"
+        # TAGS="static_build ctrd no_btrfs netcgo osusergo providerless"
+	TAGS="static_build netcgo osusergo providerless"
 
         cd ${S}/src/import
 
@@ -57,23 +58,25 @@ do_compile() {
            bitbucket.org/bertimus9/systemstat:bitbucket.org/bertimus9/systemstat \
            cloud.google.com/go:github.com/googleapis/google-cloud-go \
            cloud.google.com/go/bigquery:github.com/googleapis/google-cloud-go/bigquery//bigquery \
-           cloud.google.com/go/datastore:github.com/googleapis/google-cloud-go/bigquery//datastore \
-           cloud.google.com/go/firestore:github.com/googleapis/google-cloud-go/bigquery//firestore \
-           cloud.google.com/go/pubsub:github.com/googleapis/google-cloud-go/bigquery//pubsub \
-           cloud.google.com/go/storage:github.com/googleapis/google-cloud-go/bigquery//storage \
+           cloud.google.com/go/datastore:github.com/googleapis/google-cloud-go/datastore//datastore \
+           cloud.google.com/go/firestore:github.com/googleapis/google-cloud-go/datastore//firestore \
+           cloud.google.com/go/pubsub:github.com/googleapis/google-cloud-go/pubsub//pubsub \
+           cloud.google.com/go/storage:github.com/googleapis/google-cloud-go/storage//storage \
            dmitri.shuralyov.com/gpu/mtl:dmitri.shuralyov.com/gpu/mtl \
            github.com/360EntSecGroup-Skylar/excelize:github.com/360EntSecGroup-Skylar/excelize \
            github.com/Azure/azure-sdk-for-go:github.com/Azure/azure-sdk-for-go \
            github.com/Azure/go-ansiterm:github.com/Azure/go-ansiterm \
            github.com/Azure/go-autorest:github.com/Azure/go-autorest \
            github.com/Azure/go-autorest/autorest:github.com/Azure/go-autorest/autorest//autorest \
-           github.com/Azure/go-autorest/autorest/adal:github.com/Azure/go-autorest/autorest//autorest/adal \
-           github.com/Azure/go-autorest/autorest/date:github.com/Azure/go-autorest/autorest//autorest/date \
-           github.com/Azure/go-autorest/autorest/mocks:github.com/Azure/go-autorest/autorest//autorest/mocks \
-           github.com/Azure/go-autorest/autorest/to:github.com/Azure/go-autorest/autorest//autorest/to \
-           github.com/Azure/go-autorest/autorest/validation:github.com/Azure/go-autorest/autorest//autorest/validation \
-           github.com/Azure/go-autorest/logger:github.com/Azure/go-autorest/autorest//logger \
-           github.com/Azure/go-autorest/tracing:github.com/Azure/go-autorest/autorest//tracing \
+           github.com/Azure/go-autorest/autorest/adal:github.com/Azure/go-autorest/autorest/adal//autorest/adal \
+           github.com/Azure/go-autorest/autorest/azure/auth:github.com/Azure/go-autorest/autorest/azure/auth//autorest/azure/auth \
+           github.com/Azure/go-autorest/autorest/azure/cli:github.com/Azure/go-autorest/autorest/azure/cli//autorest/azure/cli \
+           github.com/Azure/go-autorest/autorest/date:github.com/Azure/go-autorest/autorest/date//autorest/date \
+           github.com/Azure/go-autorest/autorest/mocks:github.com/Azure/go-autorest/autorest/mocks//autorest/mocks \
+           github.com/Azure/go-autorest/autorest/to:github.com/Azure/go-autorest/autorest/to//autorest/to \
+           github.com/Azure/go-autorest/autorest/validation:github.com/Azure/go-autorest/autorest/validation//autorest/validation \
+           github.com/Azure/go-autorest/logger:github.com/Azure/go-autorest/logger//logger \
+           github.com/Azure/go-autorest/tracing:github.com/Azure/go-autorest/tracing//tracing \
            github.com/BurntSushi/toml:github.com/BurntSushi/toml \
            github.com/BurntSushi/xgb:github.com/BurntSushi/xgb \
            github.com/GoogleCloudPlatform/k8s-cloud-provider:github.com/GoogleCloudPlatform/k8s-cloud-provider \
@@ -87,6 +90,7 @@ do_compile() {
            github.com/PuerkitoBio/purell:github.com/PuerkitoBio/purell \
            github.com/PuerkitoBio/urlesc:github.com/PuerkitoBio/urlesc \
            github.com/Rican7/retry:github.com/Rican7/retry \
+           github.com/agext/levenshtein:github.com/agext/levenshtein \
            github.com/agnivade/levenshtein:github.com/agnivade/levenshtein \
            github.com/ajstarks/svgo:github.com/ajstarks/svgo \
            github.com/alecthomas/template:github.com/alecthomas/template \
@@ -95,20 +99,28 @@ do_compile() {
            github.com/andreyvit/diff:github.com/andreyvit/diff \
            github.com/andybalholm/cascadia:github.com/andybalholm/cascadia \
            github.com/antihax/optional:github.com/antihax/optional \
+           github.com/antlr/antlr4/runtime/Go/antlr:github.com/antlr/antlr4/runtime/Go/antlr//runtime/Go/antlr \
+           github.com/apparentlymart/go-dump:github.com/apparentlymart/go-dump \
+           github.com/apparentlymart/go-textseg:github.com/apparentlymart/go-textseg \
+           github.com/apparentlymart/go-textseg/v13:github.com/apparentlymart/go-textseg/v13 \
            github.com/armon/circbuf:github.com/armon/circbuf \
            github.com/armon/consul-api:github.com/armon/consul-api \
            github.com/armon/go-metrics:github.com/armon/go-metrics \
            github.com/armon/go-radix:github.com/armon/go-radix \
+           github.com/armon/go-socks5:github.com/armon/go-socks5 \
            github.com/asaskevich/govalidator:github.com/asaskevich/govalidator \
            github.com/auth0/go-jwt-middleware:github.com/auth0/go-jwt-middleware \
+           github.com/aws/aws-lambda-go:github.com/aws/aws-lambda-go \
            github.com/aws/aws-sdk-go:github.com/aws/aws-sdk-go \
            github.com/benbjohnson/clock:github.com/benbjohnson/clock \
            github.com/beorn7/perks:github.com/beorn7/perks \
+           github.com/bgentry/go-netrc:github.com/bgentry/go-netrc \
            github.com/bgentry/speakeasy:github.com/bgentry/speakeasy \
-           github.com/bits-and-blooms/bitset:github.com/bits-and-blooms/bitset \
            github.com/bketelsen/crypt:github.com/bketelsen/crypt \
            github.com/blang/semver:github.com/blang/semver \
+           github.com/blang/semver/v4:github.com/blang/semver/v4//v4 \
            github.com/boltdb/bolt:github.com/boltdb/bolt \
+           github.com/boombuler/barcode:github.com/boombuler/barcode \
            github.com/bronze1man/goStrongswanVici:github.com/bronze1man/goStrongswanVici \
            github.com/buger/jsonparser:github.com/buger/jsonparser \
            github.com/canonical/go-dqlite:github.com/canonical/go-dqlite \
@@ -126,6 +138,7 @@ do_compile() {
            github.com/cloudnativelabs/kube-router:github.com/cloudnativelabs/kube-router \
            github.com/clusterhq/flocker-go:github.com/clusterhq/flocker-go \
            github.com/cncf/udpa/go:github.com/cncf/udpa/go//go \
+           github.com/cncf/xds/go:github.com/cncf/xds/go//go \
            github.com/cockroachdb/datadriven:github.com/cockroachdb/datadriven \
            github.com/cockroachdb/errors:github.com/cockroachdb/errors \
            github.com/cockroachdb/logtags:github.com/cockroachdb/logtags \
@@ -174,6 +187,7 @@ do_compile() {
            github.com/dgrijalva/jwt-go:github.com/dgrijalva/jwt-go \
            github.com/dgryski/go-farm:github.com/dgryski/go-farm \
            github.com/dgryski/go-sip13:github.com/dgryski/go-sip13 \
+           github.com/dimchansky/utfbom:github.com/dimchansky/utfbom \
            github.com/dnaeon/go-vcr:github.com/dnaeon/go-vcr \
            github.com/docker/cli:github.com/docker/cli \
            github.com/docker/distribution:github.com/docker/distribution \
@@ -183,16 +197,19 @@ do_compile() {
            github.com/docker/go-events:github.com/docker/go-events \
            github.com/docker/go-metrics:github.com/docker/go-metrics \
            github.com/docker/go-units:github.com/docker/go-units \
+           github.com/docker/spdystream:github.com/docker/spdystream \
            github.com/docopt/docopt-go:github.com/docopt/docopt-go \
            github.com/dustin/go-humanize:github.com/dustin/go-humanize \
            github.com/dustmop/soup:github.com/dustmop/soup \
            github.com/eapache/channels:github.com/eapache/channels \
            github.com/eapache/queue:github.com/eapache/queue \
            github.com/elazarl/goproxy:github.com/elazarl/goproxy \
+           github.com/elazarl/goproxy/ext:github.com/elazarl/goproxy/ext//ext \
            github.com/emicklei/go-restful:github.com/emicklei/go-restful \
            github.com/envoyproxy/go-control-plane:github.com/envoyproxy/go-control-plane \
            github.com/envoyproxy/protoc-gen-validate:github.com/envoyproxy/protoc-gen-validate \
            github.com/erikdubbelboer/gspt:github.com/erikdubbelboer/gspt \
+           github.com/etcd-io/gofail:github.com/etcd-io/gofail \
            github.com/euank/go-kmsg-parser:github.com/euank/go-kmsg-parser \
            github.com/evanphx/json-patch:github.com/evanphx/json-patch \
            github.com/exponent-io/jsonpath:github.com/exponent-io/jsonpath \
@@ -207,6 +224,7 @@ do_compile() {
            github.com/frankban/quicktest:github.com/frankban/quicktest \
            github.com/fsnotify/fsnotify:github.com/fsnotify/fsnotify \
            github.com/fvbommel/sortorder:github.com/fvbommel/sortorder \
+           github.com/getkin/kin-openapi:github.com/getkin/kin-openapi \
            github.com/getsentry/raven-go:github.com/getsentry/raven-go \
            github.com/ghodss/yaml:github.com/ghodss/yaml \
            github.com/globalsign/mgo:github.com/globalsign/mgo \
@@ -235,7 +253,6 @@ do_compile() {
            github.com/go-stack/stack:github.com/go-stack/stack \
            github.com/go-task/slim-sprig:github.com/go-task/slim-sprig \
            github.com/go-test/deep:github.com/go-test/deep \
-           github.com/goccy/go-json:github.com/goccy/go-json \
            github.com/godbus/dbus:github.com/godbus/dbus \
            github.com/godbus/dbus/v5:github.com/godbus/dbus/v5 \
            github.com/gofrs/flock:github.com/gofrs/flock \
@@ -253,6 +270,9 @@ do_compile() {
            github.com/golangplus/testing:github.com/golangplus/testing \
            github.com/google/btree:github.com/google/btree \
            github.com/google/cadvisor:github.com/google/cadvisor \
+           github.com/google/cel-go:github.com/google/cel-go \
+           github.com/google/cel-spec:github.com/google/cel-spec \
+           github.com/google/gnostic:github.com/google/gnostic \
            github.com/google/go-cmp:github.com/google/go-cmp \
            github.com/google/go-containerregistry:github.com/google/go-containerregistry \
            github.com/google/gofuzz:github.com/google/gofuzz \
@@ -264,7 +284,6 @@ do_compile() {
            github.com/google/uuid:github.com/google/uuid \
            github.com/googleapis/gax-go/v2:github.com/googleapis/gax-go/v2//v2 \
            github.com/googleapis/gnostic:github.com/googleapis/gnostic \
-           github.com/google/gnostic:github.com/googleapis/gnostic \
            github.com/gophercloud/gophercloud:github.com/gophercloud/gophercloud \
            github.com/gopherjs/gopherjs:github.com/gopherjs/gopherjs \
            github.com/gorilla/mux:github.com/gorilla/mux \
@@ -273,27 +292,34 @@ do_compile() {
            github.com/grpc-ecosystem/go-grpc-middleware:github.com/grpc-ecosystem/go-grpc-middleware \
            github.com/grpc-ecosystem/go-grpc-prometheus:github.com/grpc-ecosystem/go-grpc-prometheus \
            github.com/grpc-ecosystem/grpc-gateway:github.com/grpc-ecosystem/grpc-gateway \
+           github.com/gruntwork-io/go-commons:github.com/gruntwork-io/go-commons \
+           github.com/gruntwork-io/terratest:github.com/gruntwork-io/terratest \
            github.com/hanwen/go-fuse/v2:github.com/hanwen/go-fuse/v2 \
            github.com/hashicorp/consul/api:github.com/hashicorp/consul/api//api \
            github.com/hashicorp/consul/sdk:github.com/hashicorp/consul/sdk//sdk \
            github.com/hashicorp/errwrap:github.com/hashicorp/errwrap \
            github.com/hashicorp/go-cleanhttp:github.com/hashicorp/go-cleanhttp \
+           github.com/hashicorp/go-getter:github.com/hashicorp/go-getter \
            github.com/hashicorp/go-hclog:github.com/hashicorp/go-hclog \
            github.com/hashicorp/go-immutable-radix:github.com/hashicorp/go-immutable-radix \
            github.com/hashicorp/go-msgpack:github.com/hashicorp/go-msgpack \
            github.com/hashicorp/go-multierror:github.com/hashicorp/go-multierror \
            github.com/hashicorp/go-retryablehttp:github.com/hashicorp/go-retryablehttp \
            github.com/hashicorp/go-rootcerts:github.com/hashicorp/go-rootcerts \
+           github.com/hashicorp/go-safetemp:github.com/hashicorp/go-safetemp \
            github.com/hashicorp/go-sockaddr:github.com/hashicorp/go-sockaddr \
            github.com/hashicorp/go-syslog:github.com/hashicorp/go-syslog \
            github.com/hashicorp/go-uuid:github.com/hashicorp/go-uuid \
+           github.com/hashicorp/go-version:github.com/hashicorp/go-version \
            github.com/hashicorp/go.net:github.com/hashicorp/go.net \
            github.com/hashicorp/golang-lru:github.com/hashicorp/golang-lru \
            github.com/hashicorp/hcl:github.com/hashicorp/hcl \
+           github.com/hashicorp/hcl/v2:github.com/hashicorp/hcl/v2 \
            github.com/hashicorp/logutils:github.com/hashicorp/logutils \
            github.com/hashicorp/mdns:github.com/hashicorp/mdns \
            github.com/hashicorp/memberlist:github.com/hashicorp/memberlist \
            github.com/hashicorp/serf:github.com/hashicorp/serf \
+           github.com/hashicorp/terraform-json:github.com/hashicorp/terraform-json \
            github.com/heketi/heketi:github.com/heketi/heketi \
            github.com/heketi/tests:github.com/heketi/tests \
            github.com/hpcloud/tail:github.com/hpcloud/tail \
@@ -305,6 +331,7 @@ do_compile() {
            github.com/ishidawataru/sctp:github.com/ishidawataru/sctp \
            github.com/j-keck/arping:github.com/j-keck/arping \
            github.com/jessevdk/go-flags:github.com/jessevdk/go-flags \
+           github.com/jinzhu/copier:github.com/jinzhu/copier \
            github.com/jmespath/go-jmespath:github.com/jmespath/go-jmespath \
            github.com/jmespath/go-jmespath/internal/testify:github.com/jmespath/go-jmespath/internal/testify//internal/testify \
            github.com/joho/godotenv:github.com/joho/godotenv \
@@ -346,6 +373,7 @@ do_compile() {
            github.com/mattn/go-runewidth:github.com/mattn/go-runewidth \
            github.com/mattn/go-shellwords:github.com/mattn/go-shellwords \
            github.com/mattn/go-sqlite3:github.com/mattn/go-sqlite3 \
+           github.com/mattn/go-zglob:github.com/mattn/go-zglob \
            github.com/matttproud/golang_protobuf_extensions:github.com/matttproud/golang_protobuf_extensions \
            github.com/mdlayher/ethernet:github.com/mdlayher/ethernet \
            github.com/mdlayher/ethtool:github.com/mdlayher/ethtool \
@@ -357,23 +385,26 @@ do_compile() {
            github.com/miekg/pkcs11:github.com/miekg/pkcs11 \
            github.com/mikioh/ipaddr:github.com/mikioh/ipaddr \
            github.com/mindprince/gonvml:github.com/mindprince/gonvml \
+           github.com/minio/highwayhash:github.com/minio/highwayhash \
            github.com/minio/md5-simd:github.com/minio/md5-simd \
            github.com/minio/minio-go/v7:github.com/minio/minio-go/v7 \
            github.com/minio/sha256-simd:github.com/minio/sha256-simd \
            github.com/minio/sio:github.com/minio/sio \
            github.com/mistifyio/go-zfs:github.com/mistifyio/go-zfs \
            github.com/mitchellh/cli:github.com/mitchellh/cli \
+           github.com/mitchellh/copystructure:github.com/mitchellh/copystructure \
            github.com/mitchellh/go-homedir:github.com/mitchellh/go-homedir \
            github.com/mitchellh/go-testing-interface:github.com/mitchellh/go-testing-interface \
            github.com/mitchellh/go-wordwrap:github.com/mitchellh/go-wordwrap \
            github.com/mitchellh/gox:github.com/mitchellh/gox \
            github.com/mitchellh/iochan:github.com/mitchellh/iochan \
            github.com/mitchellh/mapstructure:github.com/mitchellh/mapstructure \
+           github.com/mitchellh/reflectwalk:github.com/mitchellh/reflectwalk \
            github.com/moby/ipvs:github.com/moby/ipvs \
            github.com/moby/locker:github.com/moby/locker \
            github.com/moby/spdystream:github.com/moby/spdystream \
            github.com/moby/sys/mountinfo:github.com/moby/sys/mountinfo//mountinfo \
-           github.com/moby/sys/symlink:github.com/moby/sys/mountinfo//symlink \
+           github.com/moby/sys/symlink:github.com/moby/sys/symlink/symlink \
            github.com/moby/term:github.com/moby/term \
            github.com/moby/vpnkit:github.com/moby/vpnkit \
            github.com/modern-go/concurrent:github.com/modern-go/concurrent \
@@ -387,11 +418,19 @@ do_compile() {
            github.com/mwitkow/go-conntrack:github.com/mwitkow/go-conntrack \
            github.com/mxk/go-flowrate:github.com/mxk/go-flowrate \
            github.com/natefinch/lumberjack:github.com/natefinch/lumberjack \
+           github.com/nats-io/jsm.go:github.com/nats-io/jsm.go \
+           github.com/nats-io/jwt/v2:github.com/nats-io/jwt/v2//v2 \
+           github.com/nats-io/nats-server/v2:github.com/nats-io/nats-server/v2 \
+           github.com/nats-io/nats.go:github.com/nats-io/nats.go \
+           github.com/nats-io/nkeys:github.com/nats-io/nkeys \
+           github.com/nats-io/nuid:github.com/nats-io/nuid \
+           github.com/networkplumbing/go-nft:github.com/networkplumbing/go-nft \
            github.com/niemeyer/pretty:github.com/niemeyer/pretty \
            github.com/nxadm/tail:github.com/nxadm/tail \
            github.com/oklog/ulid:github.com/oklog/ulid \
            github.com/olekukonko/tablewriter:github.com/olekukonko/tablewriter \
            github.com/onsi/ginkgo:github.com/onsi/ginkgo \
+           github.com/onsi/ginkgo/v2:github.com/onsi/ginkgo/v2 \
            github.com/onsi/gomega:github.com/onsi/gomega \
            github.com/opencontainers/go-digest:github.com/opencontainers/go-digest \
            github.com/opencontainers/image-spec:github.com/opencontainers/image-spec \
@@ -399,6 +438,7 @@ do_compile() {
            github.com/opencontainers/runtime-spec:github.com/opencontainers/runtime-spec \
            github.com/opencontainers/selinux:github.com/opencontainers/selinux \
            github.com/opentracing/opentracing-go:github.com/opentracing/opentracing-go \
+           github.com/oracle/oci-go-sdk:github.com/oracle/oci-go-sdk \
            github.com/osrg/gobgp:github.com/osrg/gobgp \
            github.com/otiai10/copy:github.com/otiai10/copy \
            github.com/otiai10/curr:github.com/otiai10/curr \
@@ -406,7 +446,6 @@ do_compile() {
            github.com/pascaldekloe/goe:github.com/pascaldekloe/goe \
            github.com/paulmach/orb:github.com/paulmach/orb \
            github.com/pborman/uuid:github.com/pborman/uuid \
-           github.com/pelletier/go-buffruneio:github.com/pelletier/go-buffruneio \
            github.com/pelletier/go-toml:github.com/pelletier/go-toml \
            github.com/peterbourgon/diskv:github.com/peterbourgon/diskv \
            github.com/pierrec/lz4:github.com/pierrec/lz4 \
@@ -415,6 +454,7 @@ do_compile() {
            github.com/pmezard/go-difflib:github.com/pmezard/go-difflib \
            github.com/posener/complete:github.com/posener/complete \
            github.com/pquerna/cachecontrol:github.com/pquerna/cachecontrol \
+           github.com/pquerna/otp:github.com/pquerna/otp \
            github.com/prometheus/client_golang:github.com/prometheus/client_golang \
            github.com/prometheus/client_model:github.com/prometheus/client_model \
            github.com/prometheus/common:github.com/prometheus/common \
@@ -430,6 +470,7 @@ do_compile() {
            github.com/remyoudompheng/bigfft:github.com/remyoudompheng/bigfft \
            github.com/robfig/cron/v3:github.com/robfig/cron/v3 \
            github.com/rogpeppe/fastuuid:github.com/rogpeppe/fastuuid \
+           github.com/rogpeppe/go-charset:github.com/rogpeppe/go-charset \
            github.com/rogpeppe/go-internal:github.com/rogpeppe/go-internal \
            github.com/rootless-containers/rootlesskit:github.com/rootless-containers/rootlesskit \
            github.com/rs/xid:github.com/rs/xid \
@@ -439,9 +480,12 @@ do_compile() {
            github.com/ryanuber/columnize:github.com/ryanuber/columnize \
            github.com/safchain/ethtool:github.com/safchain/ethtool \
            github.com/satori/go.uuid:github.com/satori/go.uuid \
+           github.com/sclevine/agouti:github.com/sclevine/agouti \
            github.com/sean-/seed:github.com/sean-/seed \
+           github.com/sebdah/goldie:github.com/sebdah/goldie \
            github.com/seccomp/libseccomp-golang:github.com/seccomp/libseccomp-golang \
            github.com/sergi/go-diff:github.com/sergi/go-diff \
+           github.com/shengdoushi/base58:github.com/shengdoushi/base58 \
            github.com/shurcooL/sanitized_anchor_name:github.com/shurcooL/sanitized_anchor_name \
            github.com/sirupsen/logrus:github.com/sirupsen/logrus \
            github.com/smartystreets/assertions:github.com/smartystreets/assertions \
@@ -455,6 +499,7 @@ do_compile() {
            github.com/spf13/jwalterweatherman:github.com/spf13/jwalterweatherman \
            github.com/spf13/pflag:github.com/spf13/pflag \
            github.com/spf13/viper:github.com/spf13/viper \
+           github.com/spyzhov/ajson:github.com/spyzhov/ajson \
            github.com/stefanberger/go-pkcs11uri:github.com/stefanberger/go-pkcs11uri \
            github.com/stoewer/go-strcase:github.com/stoewer/go-strcase \
            github.com/storageos/go-api:github.com/storageos/go-api \
@@ -466,8 +511,10 @@ do_compile() {
            github.com/tencentcloud/tencentcloud-sdk-go:github.com/tencentcloud/tencentcloud-sdk-go \
            github.com/tidwall/pretty:github.com/tidwall/pretty \
            github.com/tmc/grpc-websocket-proxy:github.com/tmc/grpc-websocket-proxy \
-           github.com/u-root/u-root:github.com/u-root/u-root \
+           github.com/tmccombs/hcl2json:github.com/tmccombs/hcl2json \
+           github.com/u-root/uio:github.com/u-root/uio \
            github.com/ugorji/go:github.com/ugorji/go \
+           github.com/ulikunitz/xz:github.com/ulikunitz/xz \
            github.com/urfave/cli:github.com/urfave/cli \
            github.com/urfave/cli/v2:github.com/urfave/cli/v2 \
            github.com/urfave/negroni:github.com/urfave/negroni \
@@ -475,22 +522,27 @@ do_compile() {
            github.com/vektah/gqlparser:github.com/vektah/gqlparser \
            github.com/vishvananda/netlink:github.com/vishvananda/netlink \
            github.com/vishvananda/netns:github.com/vishvananda/netns \
+           github.com/vmihailenco/msgpack:github.com/vmihailenco/msgpack \
+           github.com/vmihailenco/msgpack/v4:github.com/vmihailenco/msgpack/v4 \
+           github.com/vmihailenco/tagparser:github.com/vmihailenco/tagparser \
            github.com/vmware/govmomi:github.com/vmware/govmomi \
-           github.com/willf/bitset:github.com/willf/bitset \
            github.com/xiang90/probing:github.com/xiang90/probing \
            github.com/xlab/treeprint:github.com/xlab/treeprint \
            github.com/xordataexchange/crypt:github.com/xordataexchange/crypt \
+           github.com/yl2chen/cidranger:github.com/yl2chen/cidranger \
            github.com/yuin/goldmark:github.com/yuin/goldmark \
+           github.com/zclconf/go-cty:github.com/zclconf/go-cty \
+           github.com/zclconf/go-cty-debug:github.com/zclconf/go-cty-debug \
            go.etcd.io/bbolt:go.etcd.io/bbolt \
-           go.etcd.io/etcd:go.etcd.io/etcd \
-           go.etcd.io/etcd/client/pkg/v3:github.com/etcd-io/etcd/client/pkg/v3//client/pkg \
-           go.etcd.io/etcd/client/v2:github.com/etcd-io/etcd/client/v2//client/v2 \
-           go.etcd.io/etcd/pkg/v3:github.com/etcd-io/etcd/client/pkg/v3//pkg \
-           go.etcd.io/etcd/raft/v3:github.com/etcd-io/etcd/client/pkg/v3//raft \
            go.etcd.io/etcd/api/v3:github.com/k3s-io/etcd/api/v3//api \
+           go.etcd.io/etcd/client/pkg/v3:github.com/k3s-io/etcd/api/v3//client/pkg \
            go.etcd.io/etcd/client/v3:github.com/k3s-io/etcd/api/v3//client/v3 \
            go.etcd.io/etcd/etcdutl/v3:github.com/k3s-io/etcd/api/v3//etcdutl \
            go.etcd.io/etcd/server/v3:github.com/k3s-io/etcd/api/v3//server \
+           go.etcd.io/etcd/client/v2:github.com/etcd-io/etcd/client/v2//client/v2 \
+           go.etcd.io/etcd/pkg/v3:github.com/etcd-io/etcd/client/v2//pkg \
+           go.etcd.io/etcd/raft/v3:github.com/etcd-io/etcd/client/v2//raft \
+           go.etcd.io/etcd/tests/v3:github.com/etcd-io/etcd/client/v2//tests \
            go.mozilla.org/pkcs7:go.mozilla.org/pkcs7 \
            go.opencensus.io:go.opencensus.io \
            go.opentelemetry.io/contrib:go.opentelemetry.io/contrib \
@@ -534,7 +586,7 @@ do_compile() {
            google.golang.org/api:google.golang.org/api \
            google.golang.org/appengine:google.golang.org/appengine \
            google.golang.org/genproto:google.golang.org/genproto \
-           google.golang.org/grpc:google.golang.org/grpc \
+           google.golang.org/grpc:github.com/grpc/grpc-go  \
            google.golang.org/grpc/cmd/protoc-gen-go-grpc:google.golang.org/grpc/cmd/protoc-gen-go-grpc \
            google.golang.org/protobuf:google.golang.org/protobuf \
            gopkg.in/airbrake/gobrake.v2:gopkg.in/airbrake/gobrake.v2 \
@@ -599,17 +651,17 @@ do_compile() {
            rsc.io/pdf:rsc.io/pdf \
            rsc.io/quote/v3:github.com/rsc/quote/v3//v3 \
            rsc.io/sampler:rsc.io/sampler \
-           sigs.k8s.io/apiserver-network-proxy/konnectivity-client:github.com/kubernetes-sigs/apiserver-network-proxy/konnectivity-client//konnectivity-client \
+           sigs.k8s.io/apiserver-network-proxy/konnectivity-client:sigs.k8s.io/apiserver-network-proxy/konnectivity-client//konnectivity-client \
            sigs.k8s.io/cli-utils:sigs.k8s.io/cli-utils \
            sigs.k8s.io/controller-runtime:sigs.k8s.io/controller-runtime \
-           sigs.k8s.io/kustomize/api:github.com/kubernetes-sigs/kustomize/api//api \
-           sigs.k8s.io/kustomize/cmd/config:github.com/kubernetes-sigs/kustomize/api//cmd/config \
-           sigs.k8s.io/kustomize/kustomize/v4:github.com/kubernetes-sigs/kustomize/api//kustomize \
-           sigs.k8s.io/kustomize/kyaml:github.com/kubernetes-sigs/kustomize/api//kyaml \
-           sigs.k8s.io/structured-merge-diff/v4:github.com/kubernetes-sigs/structured-merge-diff/v4 \
+           sigs.k8s.io/json:sigs.k8s.io/json \
+           sigs.k8s.io/kustomize/api:sigs.k8s.io/kustomize/api//api \
+           sigs.k8s.io/kustomize/cmd/config:sigs.k8s.io/kustomize/cmd/config//cmd/config \
+           sigs.k8s.io/kustomize/kustomize/v4:sigs.k8s.io/kustomize/kustomize/v4//kustomize \
+           sigs.k8s.io/kustomize/kyaml:sigs.k8s.io/kustomize/kyaml//kyaml \
+           sigs.k8s.io/structured-merge-diff/v4:sigs.k8s.io/structured-merge-diff/v4 \
            sigs.k8s.io/testing_frameworks:sigs.k8s.io/testing_frameworks \
-           sigs.k8s.io/yaml:sigs.k8s.io/yaml \
-           sigs.k8s.io/json:sigs.k8s.io/json"
+           sigs.k8s.io/yaml:sigs.k8s.io/yaml"
 	for s in $sites; do
             site_dest=$(echo $s | cut -d: -f1)
             site_source=$(echo $s | cut -d: -f2)
@@ -620,8 +672,14 @@ do_compile() {
         ln -sf vendor.copy vendor
 
         # these are bad symlinks, go validates them and breaks the build if they are present
-        rm -f vendor/go.etcd.io/etcd/client/v3/example_*
-        rm -f vendor/go.etcd.io/etcd/client/v3/concurrency/example_*.go
+        rm -f vendor/go.etcd.io/etcd/client/v*/example_*
+        rm -f vendor/go.etcd.io/etcd/client/v*/concurrency/example_*.go
+
+	# Note: if no_brtfs is used in the tags, we'll violate build
+	#       constraints, and the following files need to have them
+	#       removed for the build to continue:
+	#
+	#         vendor/github.com/containerd/containerd/snapshots/btrfs/plugin/*.go
 
         cp ${WORKDIR}/modules.txt vendor/
 
@@ -689,4 +747,4 @@ RRECOMMENDS:${PN} = "\
 RCONFLICTS:${PN} = "kubectl"
 
 INHIBIT_PACKAGE_STRIP = "1"
-INSANE_SKIP:${PN} += "ldflags already-stripped"
+INSANE_SKIP:${PN} += "ldflags already-stripped textrel"
