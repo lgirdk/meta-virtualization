@@ -36,48 +36,51 @@ RDEPENDS:${PN}-ptest += "file make gmp nettle gnutls bash libgcc"
 
 RDEPENDS:${PN}-networking += "iptables"
 
-SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-4.0;protocol=https \
+SRC_URI = "git://github.com/lxc/lxc.git;branch=master;protocol=https \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://run-ptest \
-	file://lxc-fix-B-S.patch \
-	file://lxc-doc-upgrade-to-use-docbook-3.1-DTD.patch \
-	file://logs-optionally-use-base-filenames-to-report-src-fil.patch \
 	file://templates-actually-create-DOWNLOAD_TEMP-directory.patch \
 	file://template-make-busybox-template-compatible-with-core-.patch \
 	file://templates-use-curl-instead-of-wget.patch \
+	file://0001-download-don-t-try-compatbility-index.patch \
 	file://tests-our-init-is-not-busybox.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
 
-SRCREV = "5ba5725cb4a210c25707beeca64fde5f561d1c71"
-PV = "4.0.12+git${SRCPV}"
+SRCREV = "133aa416ca2a5996090ec0e697e253646364d274"
+PV = "5.0.1+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
 # Let's not configure for the host distro.
 #
-PTEST_CONF = "${@bb.utils.contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
-EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
+PTEST_CONF = "${@bb.utils.contains('DISTRO_FEATURES', 'ptest', '-Dtests=true', '', d)}"
 
-EXTRA_OECONF += "--with-init-script=\
-${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'sysvinit,', '', d)}\
-${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
-
-EXTRA_OECONF += "--enable-log-src-basename --disable-werror"
+# No meson equivalent for --with-distro
+# EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
+EXTRA_OEMESON += "${PTEST_CONF}"
+# No meson equivalent for these yet
+# EXTRA_OECONF += "--enable-log-src-basename --disable-werror"
 
 PACKAGECONFIG ??= "templates \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'seccomp', '', d)} \
 "
-PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api-docs,,"
-PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
-PACKAGECONFIG[apparmor] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
+
+# Meson doesn't seem to be as fine grained as the autotools releases
+# PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api-docs,,"
+PACKAGECONFIG[doc] = "-Dman=true,-Dman=false,,"
+# No meson equiv found for rpath yet
+# PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
+PACKAGECONFIG[apparmor] = "-Dapparmor=true,-Dapparmor=false,apparmor,apparmor"
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
-PACKAGECONFIG[selinux] = "--enable-selinux,--disable-selinux,libselinux,libselinux"
-PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
-PACKAGECONFIG[systemd] = "--with-systemdsystemunitdir=${systemd_unitdir}/system/,--without-systemdsystemunitdir,systemd,"
+PACKAGECONFIG[selinux] = "-Dselinux=true,-Dselinux=false,libselinux,libselinux"
+PACKAGECONFIG[seccomp] ="-Dseccomp=true,-Dseccomp=false,libseccomp,libseccomp"
+# meson equiv for the unitdir found yet
+# PACKAGECONFIG[systemd] = "--with-systemdsystemunitdir=${systemd_unitdir}/system/,--without-systemdsystemunitdir,systemd,"
+PACKAGECONFIG[systemd] = "-Dinit-script=systemd,-Dinit-script=sysvinit,systemd,"
 
 # required by python3 to run setup.py
 export BUILD_SYS
@@ -85,18 +88,18 @@ export HOST_SYS
 export STAGING_INCDIR
 export STAGING_LIBDIR
 
-inherit autotools pkgconfig ptest update-rc.d systemd python3native
+inherit meson pkgconfig ptest update-rc.d systemd python3native
 
 SYSTEMD_PACKAGES = "${PN} ${PN}-networking"
-SYSTEMD_SERVICE:${PN} = "lxc.service"
+SYSTEMD_SERVICE:${PN} = "lxc.service lxc-monitord.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "disable"
 SYSTEMD_SERVICE:${PN}-networking = "lxc-net.service"
 SYSTEMD_AUTO_ENABLE:${PN}-networking = "enable"
 
-INITSCRIPT_PACKAGES = "${PN} ${PN}-networking"
-INITSCRIPT_NAME:${PN} = "lxc-containers"
+INITSCRIPT_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', '${PN}', d)} ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', '${PN}-networking',d)}"
+INITSCRIPT_NAME:${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'lxc-containers', d)}"
 INITSCRIPT_PARAMS:${PN} = "defaults"
-INITSCRIPT_NAME:${PN}-networking = "lxc-net"
+INITSCRIPT_NAME:${PN}-networking = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'lxc-net', d)}"
 INITSCRIPT_PARAMS:${PN}-networking = "defaults"
 
 FILES:${PN}-doc = "${mandir} ${infodir}"
@@ -117,11 +120,12 @@ FILES:${PN}-networking += " \
     ${sysconfdir}/default/lxc-net \
 "
 
-CACHED_CONFIGUREVARS += " \
-    ac_cv_path_PYTHON='${STAGING_BINDIR_NATIVE}/python3-native/python3' \
-    am_cv_python_pyexecdir='${PYTHON_SITEPACKAGES_DIR}' \
-    am_cv_python_pythondir='${PYTHON_SITEPACKAGES_DIR}' \
-"
+# Not needed for meson
+# CACHED_CONFIGUREVARS += " \
+#     ac_cv_path_PYTHON='${STAGING_BINDIR_NATIVE}/python3-native/python3' \
+#     am_cv_python_pyexecdir='${PYTHON_SITEPACKAGES_DIR}' \
+#     am_cv_python_pythondir='${PYTHON_SITEPACKAGES_DIR}' \
+#"
 
 do_install:append() {
 	# The /var/cache/lxc directory created by the Makefile
@@ -134,8 +138,15 @@ do_install:append() {
 	for i in `grep -l "#! */bin/bash" ${D}${datadir}/lxc/hooks/*`; do \
 	    sed -e 's|#! */bin/bash|#!/bin/sh|' -i $i; done
 
-	install -d ${D}${sysconfdir}/init.d
-	install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
+	if "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}"; then
+	    # nothing special for systemd at the moment
+	    true
+	else
+	    # with meson, these aren't built unless sysvinit is the enabled
+	    # init system.
+	    install -d ${D}${sysconfdir}/init.d
+	    install -m 755 config/init/sysvinit/lxc* ${D}${sysconfdir}/init.d
+	fi
 
 	# since python3-native is used for install location this will not be
 	# suitable for the target and we will have to correct the package install
