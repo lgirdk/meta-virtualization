@@ -17,11 +17,10 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
-SRCREV = "cedbbfa543651a13055a1fe093a4d0a2a28ccdfd"
+SRCREV = "754ec89a8a185d308ca5ed08afaf34d6cbda08da"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=v4.1;protocol=https \
+    git://github.com/containers/libpod.git;branch=v4.2;protocol=https \
     file://0001-Rename-BUILDFLAGS-to-GOBUILDFLAGS.patch;patchdir=src/import \
-    file://0002-Define-ActKillThread-equal-to-ActKill.patch;patchdir=src/import/vendor/github.com/seccomp/libseccomp-golang \
     ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://50-podman-rootless.conf', '', d)} \
 "
 
@@ -32,7 +31,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "4.1.0+git${SRCPV}"
+PV = "4.2.0+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
