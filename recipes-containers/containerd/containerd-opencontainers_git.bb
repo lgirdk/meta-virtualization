@@ -5,7 +5,7 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
                support as well as checkpoint and restore for cloning and live migration of containers."
 
 
-SRCREV = "4e92d8e7e439530f5bb17e57a77481e9aa3da851"
+SRCREV = "579a6380ec93ab92a6e7f26167fe4f18dfcf2a4b"
 SRC_URI = "git://github.com/containerd/containerd;branch=release/1.6;protocol=https \
            file://0001-Add-build-option-GODEBUG-1.patch \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
@@ -15,8 +15,8 @@ SRC_URI = "git://github.com/containerd/containerd;branch=release/1.6;protocol=ht
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=1269f40c0d099c21a871163984590d89"
 
-CONTAINERD_VERSION = "v1.6.6"
-CVE_VERSION = "1.6.6"
+CONTAINERD_VERSION = "v1.6.8"
+CVE_VERSION = "1.6.8"
 
 EXTRA_OEMAKE += "GODEBUG=1"
 
