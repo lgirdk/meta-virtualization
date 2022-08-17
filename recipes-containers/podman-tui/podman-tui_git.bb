@@ -17,7 +17,7 @@ DEPENDS = " \
     libgpg-error \
 "
 
-SRCREV = "cd51747647c5e1fac812c00a2e9e1985693a95e1"
+SRCREV = "8f2b80ffbd2518c2e95ddd092e009cc385a0633c"
 SRC_URI = " \
     git://github.com/containers/podman-tui;protocol=https;branch=main \
 "
@@ -29,7 +29,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v0.3.0+git${SRCPV}"
+PV = "v0.5.0+git${SRCPV}"
 
 PODMAN_PKG = "github.com/containers/podman-tui"
 
