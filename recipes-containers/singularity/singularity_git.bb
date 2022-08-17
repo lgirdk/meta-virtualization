@@ -2,7 +2,7 @@
 # Singularity build / config: read up on the dev-so test for more info)
 INSANE_SKIP:${PN} += "dev-so"
 
-RDEPENDS:${PN} += "glibc python3 ca-certificates openssl bash e2fsprogs-mke2fs"
+RDEPENDS:${PN} += "python3 ca-certificates openssl bash e2fsprogs-mke2fs"
 
 LICENSE = "BSD-3-Clause | Apache-2.0"
 LIC_FILES_CHKSUM = "file://COPYRIGHT.md;md5=be78c34e483dd7d8439358b1e024b294 \
