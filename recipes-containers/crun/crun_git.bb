@@ -3,7 +3,7 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 PRIORITY = "optional"
 
-SRCREV_crun = "ba3cb60ff73d00637e5ccbe7efd2ab0988b765f9"
+SRCREV_crun = "ce7533af1831880b637900b3d4d1b2d0bce9ef4b"
 SRCREV_libocispec = "fb3c221d5849de9184f88b6929ce4a8c8fb55be9"
 SRCREV_ispec = "54a822e528b91c8db63b873ad56daf200a2e5e61"
 SRCREV_rspec = "8d0d6d41d096a8589dc998fa744e26763986a07b"
@@ -17,7 +17,7 @@ SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun;protocol=h
            git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl;protocol=https \
           "
 
-PV = "1.4.5+git${SRCREV_crun}"
+PV = "1.5.0+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
 REQUIRED_DISTRO_FEATURES ?= "systemd"
