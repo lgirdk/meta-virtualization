@@ -20,7 +20,6 @@ DEPENDS = " \
 SRCREV = "754ec89a8a185d308ca5ed08afaf34d6cbda08da"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=v4.2;protocol=https \
-    file://0001-Rename-BUILDFLAGS-to-GOBUILDFLAGS.patch;patchdir=src/import \
     ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://50-podman-rootless.conf', '', d)} \
 "
 
@@ -45,6 +44,9 @@ export LDFLAGS=""
 
 # https://github.com/llvm/llvm-project/issues/53999
 TOOLCHAIN = "gcc"
+
+# podmans Makefile expects BUILDFLAGS to be set but go.bbclass defines them in GOBUILDFLAGS
+export BUILDFLAGS="${GOBUILDFLAGS}"
 
 inherit go goarch
 inherit systemd pkgconfig
