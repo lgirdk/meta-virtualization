@@ -10,7 +10,6 @@ PV = "1.8.0+git${SRCPV}"
 SRC_URI = "git://github.com/Irqbalance/irqbalance;branch=master;protocol=https \
            file://add-initscript.patch \
            file://irqbalance-Add-status-and-reload-commands.patch \
-           file://irqbalanced.service \
           "
 
 S = "${WORKDIR}/git"

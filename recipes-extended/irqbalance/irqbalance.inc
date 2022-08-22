@@ -42,6 +42,5 @@ do_install () {
         chmod 755 ${D}${sysconfdir}/init.d/irqbalanced
 
         install -d ${D}${systemd_unitdir}/system
-        install -m 0644 ${WORKDIR}/irqbalanced.service ${D}${systemd_unitdir}/system
-        sed -i -e 's,@SBINDIR@,${sbindir},g' ${D}${systemd_unitdir}/system/irqbalanced.service
+        install -m 0644 ${S}/misc/irqbalance.service ${D}${systemd_unitdir}/system/irqbalanced.service
 }
