@@ -44,6 +44,7 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=master;protocol=https \
 	file://templates-use-curl-instead-of-wget.patch \
 	file://0001-download-don-t-try-compatbility-index.patch \
 	file://tests-our-init-is-not-busybox.patch \
+	file://0001-use-sd_bus_call_method_async-to-replace-the-asyncv-o.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
 	"
