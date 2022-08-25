@@ -35,6 +35,12 @@ S = "${WORKDIR}/git"
 inherit goarch
 inherit pkgconfig
 
+# This CVE was fixed in the container image go library skopeo is using.
+# See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10214
+# https://github.com/containers/image/issues/654
+CVE_CHECK_IGNORE += "CVE-2019-10214"
+
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
 EXTRA_OEMAKE="BUILDTAGS=''"
