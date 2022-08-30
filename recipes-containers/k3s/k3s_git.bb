@@ -33,8 +33,8 @@ inherit cni_networking
 PACKAGECONFIG = ""
 PACKAGECONFIG[upx] = ",,upx-native"
 GO_IMPORT = "import"
-GO_BUILD_LDFLAGS = "-X github.com/rancher/k3s/pkg/version.Version=${PV} \
-                    -X github.com/rancher/k3s/pkg/version.GitCommit=${@d.getVar('SRCREV_k3s', d, 1)[:8]} \
+GO_BUILD_LDFLAGS = "-X github.com/k3s-io/k3s/pkg/version.Version=${PV} \
+                    -X github.com/k3s-io/k3s/pkg/version.GitCommit=${@d.getVar('SRCREV_k3s', d, 1)[:8]} \
                     -w -s \
                    "
 BIN_PREFIX ?= "${exec_prefix}/local"
