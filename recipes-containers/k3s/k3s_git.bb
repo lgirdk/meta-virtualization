@@ -683,7 +683,7 @@ do_compile() {
 
         cp ${WORKDIR}/modules.txt vendor/
 
-        ${GO} build -tags "$TAGS" -ldflags "${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
+        ${GO} build -trimpath -tags "$TAGS" -ldflags "${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
 
         # Use UPX if it is enabled (and thus exists) to compress binary
         if command -v upx > /dev/null 2>&1; then
