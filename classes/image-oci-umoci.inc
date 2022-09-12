@@ -112,4 +112,6 @@ IMAGE_CMD:oci() {
 
     # We could make this optional, since the bundle is directly runnable via runc
     rm -rf $image_bundle_name
+
+    ln -sf $image_name ${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci
 }
