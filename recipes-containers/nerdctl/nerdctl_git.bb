@@ -64,7 +64,7 @@ do_compile() {
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
-	export GOFLAGS="-mod=vendor"
+	export GOFLAGS="-mod=vendor -trimpath"
 
 	# this moves all the fetches into the proper vendor structure
 	# expected for build
