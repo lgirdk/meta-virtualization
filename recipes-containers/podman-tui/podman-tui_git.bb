@@ -54,7 +54,7 @@ do_compile() {
 	export GOFLAGS="-mod=vendor"
 
 	# oe_runmake BUILDTAGS="${BUILDTAGS}"
-	${GO} build -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o bin/podman-tui
+	${GO} build -trimpath -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o bin/podman-tui
 }
 
 do_install() {
