@@ -23,6 +23,7 @@ SRC_URI = " \
     git://github.com/containers/skopeo;branch=main;protocol=https \
     file://storage.conf \
     file://registries.conf \
+    file://0001-makefile-add-GOBUILDFLAGS-to-go-build-call.patch \
 "
 
 SRCREV = "b95e081162382f9a28f400bee10046ce72b957fe"
@@ -70,6 +71,8 @@ do_compile() {
 	cd ${S}/src/import
 
 	export GO111MODULE=off
+	export GOBUILDFLAGS="-trimpath"
+	export EXTRA_LDFLAGS="-s -w"
 
 	oe_runmake bin/skopeo
 }
@@ -98,6 +101,6 @@ do_install:append:class-nativesdk() {
         --policy ${sysconfdir}/containers/policy.json
 }
 
-INSANE_SKIP:${PN} += "ldflags"
+INSANE_SKIP:${PN} += "ldflags already-stripped"
 
 BBCLASSEXTEND = "native nativesdk"
