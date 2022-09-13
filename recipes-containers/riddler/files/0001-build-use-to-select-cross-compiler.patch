@@ -17,12 +17,12 @@ index c6976af..f3c8d17 100644
  build:
  	@echo "+ $@"
 -	@go build -tags "$(BUILDTAGS) cgo" .
-+	@${GO} build -tags "$(BUILDTAGS) cgo" .
++	@${GO} build ${GOBUILDFLAGS} -tags "$(BUILDTAGS) cgo" .
  
  static:
  	@echo "+ $@"
 -	CGO_ENABLED=1 go build -tags "$(BUILDTAGS) cgo static_build" -ldflags "-w -extldflags -static" -o riddler .
-+	CGO_ENABLED=1 ${GO} build -tags "$(BUILDTAGS) cgo static_build" -ldflags "-w -extldflags -static" -o riddler .
++	CGO_ENABLED=1 ${GO} build ${GOBUILDFLAGS} -tags "$(BUILDTAGS) cgo static_build" -ldflags "-w -extldflags -static" -o riddler .
  
  fmt:
  	@echo "+ $@"

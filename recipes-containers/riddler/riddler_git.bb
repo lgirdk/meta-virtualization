@@ -47,6 +47,7 @@ do_compile() {
 	export CGO_CFLAGS="${TARGET_CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS}"
 	export GO111MODULE=off
+	export GOBUILDFLAGS="-trimpath"
 
 	cd ${S}/src/import
 
