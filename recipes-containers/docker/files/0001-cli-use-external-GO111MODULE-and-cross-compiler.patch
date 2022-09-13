@@ -19,6 +19,6 @@ Index: git/cli/scripts/build/binary
 -export GO111MODULE=auto
  
 -go build -o "${TARGET}" -tags "${GO_BUILDTAGS}" --ldflags "${GO_LDFLAGS}" ${GO_BUILDMODE} "${SOURCE}"
-+${GO} build -o "${TARGET}" -tags "${GO_BUILDTAGS}" --ldflags "${GO_LDFLAGS}" ${GO_BUILDMODE} "${SOURCE}"
++${GO} build -trimpath -o "${TARGET}" -tags "${GO_BUILDTAGS}" --ldflags "${GO_LDFLAGS}" ${GO_BUILDMODE} "${SOURCE}"
  
  ln -sf "$(basename "${TARGET}")" "$(dirname "${TARGET}")/docker"
