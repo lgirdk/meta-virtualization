@@ -39,7 +39,7 @@ do_compile() {
 	export LDFLAGS=""
 	export CGO_CFLAGS="${TARGET_CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS}"
-	export GOFLAGS="-mod=vendor"
+	export GOFLAGS="-mod=vendor -trimpath"
 
 	cd ${S}/src/import
 	# Static builds work but are not recommended. See Makefile*cgo patch.
