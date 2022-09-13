@@ -40,6 +40,8 @@ do_compile:class-native () {
     export GOPATH="${WORKDIR}/git/"
     export GO111MODULE=off
 
+    export BUILD_FLAGS="-trimpath"
+
     cd ${S}
 
     # why static ? patchelf will be run on dynamic binaries and it breaks
