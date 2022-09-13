@@ -24,7 +24,7 @@ Index: git/src/import/gobuild/Makefile
  
  ${BIN}: ${GODEPPATHS} $(filter %/$@.go, ${MAIN})
 -	GOPATH=${GOPATH} ${ARCH} go build $(filter %/$@.go, ${MAIN})
-+	GOPATH=${GOPATH} ${ARCH} ${GO} build $(filter %/$@.go, ${MAIN})
++	GOPATH=${GOPATH} ${ARCH} ${GO} build -trimpath $(filter %/$@.go, ${MAIN})
  
  clean:
  	rm -f   ${BIN}
