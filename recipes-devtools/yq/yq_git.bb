@@ -13,17 +13,19 @@ SRCREV_cobra = "b97b5ead31f7d34f764ac8666e40c214bb8e06dc"
 SRCREV_pflag = "6971c29c4a22981adeaee7f4b437c0cffe08c031"
 SRCREV_logging = "b2cb9fa56473e98db8caba80237377e83fe44db5"
 SRCREV_yaml = "eeeca48fe7764f320e4870d231902bf9c1be2c08"
+SRCREV_xerrors="5ec99f83aff198f5fbd629d6c8d8eb38a04218ca"
 
 SRCREV_FORMAT = "yq_color"
 SRC_URI = "git://${GO_IMPORT};name=yq;branch=master;protocol=https \
-           git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color;branch=master;protocol=https \
+           git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color;branch=main;protocol=https \
            git://github.com/goccy/go-yaml;name=lexer;destsuffix=build/vendor/src/github.com/goccy/go-yaml/;branch=master;protocol=https \
            git://github.com/kylelemons/godebug;name=debug;destsuffix=build/vendor/src/github.com/kylelemons/godebug/;branch=master;protocol=https \
 	   git://github.com/pkg/errors;name=errors;destsuffix=build/vendor/src/github.com/pkg/errors/;branch=master;protocol=https \
-	   git://github.com/spf13/cobra;name=cobra;destsuffix=build/vendor/src/github.com/spf13/cobra;branch=master;protocol=https \
+	   git://github.com/spf13/cobra;name=cobra;destsuffix=build/vendor/src/github.com/spf13/cobra;branch=main;protocol=https \
 	   git://github.com/spf13/pflag;name=pflag;destsuffix=build/vendor/src/github.com/spf13/pflag;branch=master;protocol=https \
 	   git://github.com/op/go-logging.git;name=logging;destsuffix=build/vendor/src/gopkg.in/op/go-logging.v1;branch=master;protocol=https \
 	   git://github.com/go-yaml/yaml.git;name=yaml;branch=v3;destsuffix=build/vendor/src/gopkg.in/yaml.v3;protocol=https \
+           git://github.com/golang/xerrors;name=xerrors;protocol=https;nobranch=1;destsuffix=build/vendor/src/golang.org/x/xerrors \
            "
 
 PV = "1.13.1+git${SRCREV_yq}"
