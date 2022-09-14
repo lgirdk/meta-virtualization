@@ -52,6 +52,8 @@ do_compile() {
 	export CGO_LDFLAGS="${TARGET_LDFLAGS}"
 	export GO111MODULE=off
 
+	export GOBUILDFLAGS="-trimpath"
+
 	cd ${S}/src/import
 
 	oe_runmake tool
