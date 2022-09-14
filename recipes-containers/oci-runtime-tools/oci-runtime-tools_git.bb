@@ -35,6 +35,7 @@ do_compile() {
 	#        ... recipe-sysroot-native/usr/lib/aarch64-poky-linux/go/pkg/tool/linux_amd64/link:
 	#        cannot open file : open : no such file or directory
 	export GO_BUILD_FLAGS="-a -pkgdir dontusecurrentpkgs"
+	export EXTRA_FLAGS="-trimpath"
 
 	# link fixups for compilation
 	rm -f ${S}/src/import/vendor/src
