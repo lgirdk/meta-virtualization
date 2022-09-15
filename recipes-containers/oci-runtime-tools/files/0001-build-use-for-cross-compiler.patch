@@ -5,13 +5,13 @@ Subject: [PATCH] build: use  for cross compiler
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
- a/src/import/Makefile | 4 ++--
+ a/Makefile | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/src/import/Makefile
+Index: oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/Makefile
 ===================================================================
---- oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68.orig/src/import/Makefile
-+++ oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/src/import/Makefile
+--- oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68.orig/Makefile
++++ oci-runtime-tools-0.9.0+gitAUTOINC+0105384f68/Makefile
 @@ -13,11 +13,11 @@
  all: tool runtimetest validation-executables
  
