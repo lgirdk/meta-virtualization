@@ -13,10 +13,10 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  Makefile | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git git.orig/src/import/Makefile git.orig/src/import/Makefile
+diff --git git.orig/Makefile git.orig/Makefile
 index 4a6c13042..debb57925 100644
---- git.orig/src/import/Makefile
-+++ git.orig/src/import/Makefile
+--- git.orig/Makefile
++++ git.orig/Makefile
 @@ -130,7 +130,6 @@ TESTFLAGS_RACE=
  # See Golang issue re: '-trimpath': https://github.com/golang/go/issues/13809
  GO_GCFLAGS=$(shell				\

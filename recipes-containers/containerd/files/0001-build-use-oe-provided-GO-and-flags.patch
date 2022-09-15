@@ -12,10 +12,10 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  Makefile | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-Index: git/src/import/Makefile
+Index: git/Makefile
 ===================================================================
---- git.orig/src/import/Makefile
-+++ git/src/import/Makefile
+--- git.orig/Makefile
++++ git/Makefile
 @@ -121,7 +121,7 @@
  TESTFLAGS_PARALLEL ?= 8
  
