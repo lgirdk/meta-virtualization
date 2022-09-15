@@ -13,10 +13,10 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/import/Makefile b/src/import/Makefile
+diff --git a/Makefile b/Makefile
 index bacb341..1bfe021 100644
---- a/src/import/Makefile
-+++ b/src/import/Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -27,7 +27,7 @@ check-license:
  
  .PHONY: tool
