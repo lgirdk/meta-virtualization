@@ -1,17 +1,17 @@
 HOMEPAGE = "https://github.com/jfrazelle/riddler"
 SUMMARY = "Convert `docker inspect` to opencontainers (OCI compatible) runc spec."
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=20ce4c6a4f32d6ee4a68e3a7506db3f1"
 
-SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https \
+SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https;destsuffix=git/src/github.com/jessfraz/riddler \
            file://0001-build-use-to-select-cross-compiler.patch \
           "
 
 SRCREV = "23befa0b232877b5b502b828e24161d801bd67f6"
 PV = "0.1.0+git${SRCPV}"
-GO_IMPORT = "import"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/git/src/github.com/jessfraz/riddler"
+GO_IMPORT = "github.com/jessfraz/riddler"
 
 inherit goarch
 inherit go
@@ -27,17 +27,7 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOROOT="${STAGING_LIBDIR}/go"
-	# Setup vendor directory so that it can be used in GOPATH.
-	#
-	# Go looks in a src directory under any directory in GOPATH but riddler
-	# uses 'vendor' instead of 'vendor/src'. We can fix this with a symlink.
-	#
-	# We also need to link in the ipallocator directory as that is not under
-	# a src directory.
-	ln -sfn . "${S}/src/import/vendor/src"
-	mkdir -p "${S}/src/import/vendor/src/github.com/jessfraz/riddler"
-	ln -sfn "${S}/src/import/parse" "${S}/src/import/vendor/src/github.com/jessfraz/riddler/parse"
-	export GOPATH="${S}/src/import/vendor"
+	export GOPATH="${S}/src/import/vendor:${WORKDIR}/git/"
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -49,12 +39,12 @@ do_compile() {
 	export GO111MODULE=off
 	export GOBUILDFLAGS="-trimpath"
 
-	cd ${S}/src/import
+	cd ${S}
 
 	oe_runmake static
 }
 
 do_install() {
 	install -d ${D}/${sbindir}
-	install ${S}/src/import/riddler ${D}/${sbindir}/riddler
+	install ${S}/riddler ${D}/${sbindir}/riddler
 }
