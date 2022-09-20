@@ -13,7 +13,7 @@ PE = "1"
 BBCLASSEXTEND = "devupstream:target"
 LIC_FILES_CHKSUM:class-devupstream = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 DEFAULT_PREFERENCE:class-devupstream = "-1"
-SRC_URI:classedevupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
+SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=master;name=kubernetes;protocol=https \
                              git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https \
                             "
 SRCREV_kubernetes:class-devupstream = "d2f6eb6339de25cef04850b6d9be8335d52324cd"
@@ -142,7 +142,7 @@ FILES:kube-proxy = "${bindir}/kube-proxy"
 FILES:${PN}-misc = "${bindir} ${sysconfdir}/sysctl.d"
 
 ALLOW_EMPTY:${PN}-host = "1"
-FILE:${PN}-host = "${BIN_PREFIX}/bin/k8s-init"
+FILES:${PN}-host = "${BIN_PREFIX}/bin/k8s-init"
 RDEPENDS:${PN}-host = "${PN}"
 
 RRECOMMENDS:${PN} = "\
