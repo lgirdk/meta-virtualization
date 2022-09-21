@@ -16,7 +16,7 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git;branch
            file://0003-kvmtool-Werror-disabled.patch \
            "
 
-SRCREV = "faae833a746f1c59f64fb05e9c08e62b5b0002eb"
+SRCREV = "336751fb10ef24e65cd2f25c450da1d52ff5b33c"
 PV = "5.10.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
