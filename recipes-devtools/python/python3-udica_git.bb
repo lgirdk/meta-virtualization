@@ -13,6 +13,8 @@ S = "${WORKDIR}/git"
 SRC_URI[md5sum] = "9cc5156a2ff6458a8f52114b9bbc0d7e"
 SRC_URI[sha256sum] = "3e8bc47534e0ca9331d72c32f2881bb13b93ded0bcdeab3c833fb7cf61c0a9a5"
 
+SKIP_RECIPE[python3-udica] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'selinux', '', 'Depends on libselinux from meta-selinux which is not included', d)}"
+
 RDEPENDS:${PN} += " \
               selinux-python \
               "
