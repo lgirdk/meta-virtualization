@@ -17,6 +17,12 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-buffer.h-add-missing-header-file-due-to-gcc-upgrade.patch \
            file://0002-common-fix-FTBFS-due-to-dout-need_dynamic-on-GCC-12.patch \
            file://CVE-2021-3979.patch \
+           file://0001-kv-rocksdb_cache-drop-ROCKSDB_PRIszt.patch \
+           file://0002-kv-rocksdb_cache-reorder-ShardedCache-methods-declar.patch \
+           file://0003-kv-rocksdb_cache-define-DeleterFn-function-pointer-t.patch \
+           file://0004-kv-rocksdb_cache-implement-methods-required-by-rocks.patch \
+           file://0005-kv-rocksdb_cache-mark-Shard-const.patch \
+           file://0006-rocksdb-build-with-rocksdb-7.y.z.patch \
 "
 
 SRC_URI[sha256sum] = "5dccdaff2ebe18d435b32bfc06f8b5f474bf6ac0432a6a07d144b7c56700d0bf"
