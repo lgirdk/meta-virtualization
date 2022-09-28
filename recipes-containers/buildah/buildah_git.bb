@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/containers/buildah/LICENSE;md5=e3fc50a
 S = "${WORKDIR}/git"
 
 BUILDAH_VERSION = "1.27"
-SRCREV_buildah = "db8d5921a770e7536b34c56d062b47795b548d35"
+SRCREV_buildah = "13622b1404172ce2de1332f95f2b0d3d7e4781d1"
 
 PV = "${BUILDAH_VERSION}"
 
