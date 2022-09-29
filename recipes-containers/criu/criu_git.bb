@@ -13,14 +13,16 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "4f8f295e57e68740699479d12c1ad251e6dd859f"
-PV = "3.17+git${SRCPV}"
+SRCREV = "d46f40f4ff0c724e0b9f0f8a2e8c043806897e94"
+PV = "3.17.1+git${SRCPV}"
 
 SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
            file://0001-criu-Skip-documentation-install.patch \
            file://0002-criu-Change-libraries-install-directory.patch \
            file://0003-lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
-          "
+           file://0004-criu-fix-conflicting-headers.patch \
+           file://0005-mount-add-definition-for-FSOPEN_CLOEXEC.patch \
+           "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
@@ -81,7 +83,9 @@ do_install () {
     # scripts. 'crit' is one of those scripts. The "executable" or "e" option to the
     # setup call should fix it, but it is being ignored. So to avoid getting our native
     # intepreter replaced in the script, we'll do an explicit update ourselves.
-    sed -i 's%^\#\!.*%\#\!/usr/bin/env python3%' ${D}/usr/bin/crit ${D}${libdir}/python3*/site-packages/crit-0.0.1-py3*.egg/EGG-INFO/scripts/crit
+    sed -i 's%^\#\!.*%\#\!/usr/bin/env python3%' ${D}/usr/bin/crit ${D}${libdir}/python3*/site-packages/crit-*-py3*.egg/EGG-INFO/scripts/crit
+
+    rm -rf ${D}/__pycache__
 }
 
 FILES:${PN} += "${systemd_unitdir}/ \

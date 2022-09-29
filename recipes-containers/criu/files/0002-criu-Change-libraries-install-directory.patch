@@ -7,6 +7,10 @@ Install the libraries into /usr/lib(or /usr/lib64)
 
 Signed-off-by: Jianchuan Wang <jianchuan.wang@windriver.com>
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
+
+Rebase for criu 3.17.1.
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
 ---
  Makefile.install | 13 -------------
  1 file changed, 13 deletions(-)
@@ -17,7 +21,7 @@ index 1b02b70af..2839ef5fe 100644
 +++ b/Makefile.install
 @@ -9,19 +9,6 @@ LIBEXECDIR	?= $(PREFIX)/libexec
  RUNDIR		?= /run
- PLUGINDIR	?= /var/lib/criu
+ PLUGINDIR	?= $(PREFIX)/lib/criu
  
 -#
 -# For recent Debian/Ubuntu with multiarch support.
