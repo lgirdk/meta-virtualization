@@ -40,7 +40,8 @@ inherit python3native
 PACKAGES += "${PN}-systemd"
 
 FILES:${PN} += "${sysconfdir}/* \
-                ${datadir}/*"
+                ${datadir}/* \
+                ${nonarch_libdir}/${BPN}/*"
 
 FILES:${PN}-systemd += "${systemd_unitdir}/*"
 RDEPENDS:${PN}-systemd += " ${PN}"
