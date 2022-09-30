@@ -8,6 +8,7 @@ SRCREV = "b9f42a0e7bb46efea0c9e3d8610c96ab53b467f8"
 SRC_URI = " \
   git://github.com/krallin/tini.git;branch=master;protocol=https \
   file://0001-Do-not-strip-the-output-binary-allow-yocto-to-do-thi.patch \
+  file://0001-tini.c-a-function-declaration-without-a-prototype-is.patch \
   "
 
 LICENSE = "MIT"
