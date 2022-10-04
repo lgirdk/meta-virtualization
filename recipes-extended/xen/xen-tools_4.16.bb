@@ -1,5 +1,5 @@
-# xen 4.16.1 release sha
-SRCREV ?= "f26544492298cb82d66f9bf36e29d2f75b3133f2"
+# xen 4.16.2 release sha
+SRCREV ?= "cea5ed49bb5716698a11312a3f38bc8865cd1e67"
 
 XEN_REL ?= "4.16"
 XEN_BRANCH ?= "stable-${XEN_REL}"
