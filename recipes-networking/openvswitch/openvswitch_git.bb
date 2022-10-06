@@ -53,5 +53,5 @@ do_install_ptest() {
 }
 
 do_install:append() {
-	oe_runmake modules_install INSTALL_MOD_PATH=${D}
+	oe_runmake modules_install INSTALL_MOD_PATH=${D}${root_prefix}
 }
