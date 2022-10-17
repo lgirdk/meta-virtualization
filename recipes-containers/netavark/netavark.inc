@@ -1,3 +1,5 @@
+inherit ptest
+
 PACKAGECONFIG ?= "aardvark-dns"
 
 # From the documentation of netavark
@@ -7,9 +9,38 @@ PACKAGECONFIG ?= "aardvark-dns"
 PACKAGECONFIG[aardvark-dns]= " , , , aardvark-dns"
 
 
+SRC_URI += " \
+    file://run-ptest \
+    file://tests.patch \
+"
+
 # Cargo installs the binary to bin so move it to where podman expects it
 do_install:append() {
     install -d ${D}${libexecdir}/podman/
     mv ${D}${bindir}/* ${D}${libexecdir}/podman/
     rm -rf ${D}${bindir}/
 }
+
+
+do_install_ptest () {
+	cp -r ${S}/test ${D}${PTEST_PATH}
+}
+
+RDEPENDS:${PN}-ptest += " \
+    bats \
+    bash \
+    coreutils \
+    jq \
+    iproute2 \
+    dbus-daemon-proxy \
+    util-linux-unshare \
+    nmap \
+    procps-ps \
+    util-linux-nsenter \
+    bind-utils \
+"
+
+
+# bind-utils is used to install dig
+# procps is necessary because the ps from busybox is
+# not having the same behavior

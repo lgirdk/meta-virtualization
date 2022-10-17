@@ -1,0 +1,3 @@
+#!/bin/bash
+
+NETAVARK=/usr/libexec/podman/netavark bats ./test/
