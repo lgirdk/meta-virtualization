@@ -122,9 +122,11 @@ PACKAGECONFIG ??= "gnutls qemu yajl openvz vmware vbox esx lxc test remote \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'polkit', 'polkit', '', d)} \
                   "
 
-# qemu is NOT compatible with mips64
+# qemu is NOT compatible with mips64, powerpc and riscv32
 PACKAGECONFIG:remove:mipsarchn32 = "qemu"
 PACKAGECONFIG:remove:mipsarchn64 = "qemu"
+PACKAGECONFIG:remove:powerpc = "qemu"
+PACKAGECONFIG:remove:riscv32 = "qemu"
 
 # numactl is NOT compatible with arm
 PACKAGECONFIG:remove:arm = "numactl"
