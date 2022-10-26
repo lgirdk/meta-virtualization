@@ -17,9 +17,9 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
-SRCREV = "754ec89a8a185d308ca5ed08afaf34d6cbda08da"
+SRCREV = "9ce592fcb9c8dd067eaa4321626d0e77820ea39e"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=v4.2;protocol=https \
+    git://github.com/containers/libpod.git;branch=v4.3;protocol=https \
     ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://50-podman-rootless.conf', '', d)} \
     file://run-ptest \
 "
@@ -31,7 +31,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "4.2.0+git${SRCPV}"
+PV = "4.3.0+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
@@ -126,6 +126,7 @@ FILES:${PN} += " \
     ${systemd_unitdir}/system/* \
     ${systemd_unitdir}/user/* \
     ${nonarch_libdir}/tmpfiles.d/* \
+    ${datadir}/user-tmpfiles.d/* \
     ${sysconfdir}/cni \
 "
 
