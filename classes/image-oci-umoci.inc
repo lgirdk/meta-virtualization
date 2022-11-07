@@ -108,6 +108,8 @@ IMAGE_CMD:oci() {
     # make a tar version of the image direcotry
     if [ -n "${OCI_IMAGE_TAR_OUTPUT}" ]; then
 	tar -cf "$image_name.tar" "$image_name"
+	# create a convenience symlink
+	ln -sf "$image_name.tar" "${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci.tar"
     fi
 
     # We could make this optional, since the bundle is directly runnable via runc
