@@ -1,15 +1,16 @@
 HOMEPAGE = "http://upx.sourceforge.net"
 SUMMARY = "Ultimate executable compressor."
 
-SRCREV = "4e1ae22a1a07be5135c68b25ff05058ae8ae48e1"
+SRCREV = "8d1a98e03bf281b2cee459b6c27347e56d13c6a8"
 SRC_URI = "gitsm://github.com/upx/upx;branch=devel;protocol=https \
-    file://0001-MyCom.h-fix-build-with-gcc-11.patch;patchdir=src/lzma-sdk \
 "
 
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=353753597aa110e0ded3508408c6374a"
 
-DEPENDS = "zlib libucl xz"
+DEPENDS = "zlib libucl xz cmake-native"
+
+# inherit cmake
 
 S = "${WORKDIR}/git"
 
@@ -29,7 +30,7 @@ do_compile() {
 
 do_install:append() {
     install -d ${D}${bindir}
-    install -m 755 ${B}/src/upx.out ${D}${bindir}/upx
+    install -m 755 ${B}/build/release/upx ${D}${bindir}/upx
 }
 
 BBCLASSEXTEND = "native"
