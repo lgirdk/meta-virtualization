@@ -20,6 +20,8 @@ S = "${WORKDIR}/git"
 
 inherit pkgconfig
 
+export GOCACHE = "${B}/.cache"
+
 EXTRA_OEMAKE = "PREFIX=${prefix} BINDIR=${bindir} LIBEXECDIR=${libexecdir}"
 
 PACKAGECONFIG ??= "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)}"
