@@ -27,3 +27,10 @@ inherit meson pkgconfig gtk-icon-cache mime mime-xdg gobject-introspection
 
 FILES:${PN} += "${datadir}"
 GIR_MESON_OPTION = ''
+
+do_compile:append() {
+    # glib-mkenums is embedding full paths into this file. There's no
+    # option to it to use a sysroot style variable. So to avoid QA
+    # errors, we sed WORKDIR out and make its includes relative
+    sed -i "s,${WORKDIR}/build/,," src/virt-viewer-enums.c
+}
