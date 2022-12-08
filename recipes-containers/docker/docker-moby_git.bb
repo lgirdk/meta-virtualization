@@ -34,14 +34,14 @@ DESCRIPTION = "Linux container runtime \
 #   - The common components of this recipe and docker-ce do need to be moved
 #     to a docker.inc recipe
 
-SRCREV_moby = "4ed81ac0e2504489839226ce42abc614cc4d4860"
+SRCREV_moby = "3fd34324a8abc7573fa3b06190a1338263ef1ee7"
 SRCREV_libnetwork = "dcdf8f176d1e13ad719e913e796fb698d846de98"
-SRCREV_cli = "baeda1f82a10204ec5708d5fbba130ad76cfee49"
+SRCREV_cli = "83ca73f9aa7a1c442171ef2602af4d303d9de9c2"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
-	git://github.com/moby/moby.git;branch=20.10;name=moby;protocol=https \
+	git://github.com/moby/moby.git;branch=23.0;name=moby;protocol=https \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
-	git://github.com/docker/cli;branch=20.10;name=cli;destsuffix=git/cli;protocol=https \
+	git://github.com/docker/cli;branch=master;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
@@ -56,7 +56,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "20.10.21"
+DOCKER_VERSION = "23.0-beta"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 CVE_PRODUCT = "docker mobyproject:moby"
