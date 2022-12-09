@@ -106,14 +106,25 @@ IMAGE_CMD:oci() {
     umoci config --image $image_name:${OCI_IMAGE_TAG} --author ${OCI_IMAGE_AUTHOR_EMAIL}
 
     # make a tar version of the image direcotry
+    #  1) image_name.tar: compatible with oci tar format, blobs and rootfs
+    #     are at the top level. Can load directly from something like podman
+    #  2) image_name-dir.tar: original format from meta-virt, is just a tar'd
+    #     up oci image directory (compatible with skopeo :dir format)
     if [ -n "${OCI_IMAGE_TAR_OUTPUT}" ]; then
-	tar -cf "$image_name.tar" "$image_name"
+        (
+	    cd "$image_name"
+	    tar -cf ../"$image_name.tar" "."
+	)
+	tar -cf "$image_name-dir.tar" "$image_name"
+
 	# create a convenience symlink
 	ln -sf "$image_name.tar" "${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci.tar"
+	ln -sf "$image_name-dir.tar" "${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci-dir.tar"
     fi
 
     # We could make this optional, since the bundle is directly runnable via runc
     rm -rf $image_bundle_name
 
+    # This is the OCI image directory, which is technically the "image" as specified
     ln -sf $image_name ${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci
 }
