@@ -45,6 +45,8 @@ SRC_URI = "\
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
 	"
 
+DOCKER_COMMIT = "${SRCREV_docker}"
+
 require docker.inc
 
 # Apache-2.0 for docker

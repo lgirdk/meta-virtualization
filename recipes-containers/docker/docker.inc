@@ -97,14 +97,14 @@ do_compile() {
 	# this is the unsupported built structure
 	# that doesn't rely on an existing docker
 	# to build this:
-	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_moby}" ./hack/make.sh dynbinary
+	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${DOCKER_COMMIT}" ./hack/make.sh dynbinary
 
         # build the cli
 	cd ${S}/src/import/.gopath/src/github.com/docker/cli
 	export CFLAGS=""
 	export LDFLAGS=""
 	export DOCKER_VERSION=${DOCKER_VERSION}
-	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${SRCREV_moby}" make dynbinary
+	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${DOCKER_COMMIT}" make dynbinary
 
 	# build the proxy
 	cd ${S}/src/import/.gopath/src/github.com/docker/libnetwork
