@@ -34,8 +34,8 @@ Index: git/libnetwork/Makefile
  	@echo "🐳 $@"
 -	go build -o "bin/dnet-$$GOOS-$$GOARCH" ./cmd/dnet
 -	go build -o "bin/docker-proxy-$$GOOS-$$GOARCH" ./cmd/proxy
-+	@$(GO) build -trimpath -linkshared $(GOBUILDFLAGS) -o "bin/docker-proxy-$$GOOS-$$GOARCH" ./cmd/proxy
-+	@$(GO) build -trimpath -linkshared $(GOBUILDFLAGS) -o "bin/dnet-$$GOOS-$$GOARCH" ./cmd/dnet
++	@$(GO) build -trimpath $(GO_LINKSHARED) $(GOBUILDFLAGS) -o "bin/docker-proxy-$$GOOS-$$GOARCH" ./cmd/proxy
++	@$(GO) build -trimpath $(GO_LINKSHARED) $(GOBUILDFLAGS) -o "bin/dnet-$$GOOS-$$GOARCH" ./cmd/dnet
  
  # Rebuild protocol buffers.
  # These may need to be rebuilt after vendoring updates, so .proto files are declared .PHONY so they are always rebuilt.
