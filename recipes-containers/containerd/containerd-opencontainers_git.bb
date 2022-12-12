@@ -7,8 +7,8 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
 
 SRCREV = "579a6380ec93ab92a6e7f26167fe4f18dfcf2a4b"
 SRC_URI = "git://github.com/containerd/containerd;branch=release/1.6;protocol=https \
-           file://0001-Add-build-option-GODEBUG-1.patch \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
+           file://0001-build-don-t-use-gcflags-to-define-trimpath.patch \
           "
 
 # Apache-2.0 for containerd
@@ -18,7 +18,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=1269f40c0d099c21a871163984590d
 CONTAINERD_VERSION = "v1.6.8"
 CVE_VERSION = "1.6.8"
 
-EXTRA_OEMAKE += "GODEBUG=1"
+# EXTRA_OEMAKE += "GODEBUG=1"
 
 PROVIDES += "virtual/containerd"
 RPROVIDES:${PN} = "virtual-containerd"
@@ -84,7 +84,7 @@ do_compile() {
     # cannot find package runtime/cgo (using -importcfg)
     #        ... recipe-sysroot-native/usr/lib/aarch64-poky-linux/go/pkg/tool/linux_amd64/link:
     #        cannot open file : open : no such file or directory
-    export GO_BUILD_FLAGS="-a -pkgdir dontusecurrentpkgs"
+    export GO_BUILD_FLAGS="-trimpath -a -pkgdir dontusecurrentpkgs"
     export GO111MODULE=off
 
     cd ${S}/src/import
