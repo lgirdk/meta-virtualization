@@ -35,7 +35,7 @@ DESCRIPTION = "Linux container runtime \
 #     to a docker.inc recipe
 
 SRCREV_moby = "f756502055d2e36a84f2068e6620bea5ecf09058"
-SRCREV_libnetwork = "64b7a4574d1426139437d20e81c0b6d391130ec8"
+SRCREV_libnetwork = "339b972b464ee3d401b5788b2af9e31d09d6b7da"
 SRCREV_cli = "a224086349269551becacce16e5842ceeb2a98d6"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
