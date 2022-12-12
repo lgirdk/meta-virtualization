@@ -17,7 +17,7 @@ Index: git/src/import/hack/make/.binary
  	echo "Building: $DEST/$BINARY_FULLNAME"
  	echo "GOOS=\"${GOOS}\" GOARCH=\"${GOARCH}\" GOARM=\"${GOARM}\""
 -	go build \
-+	${GO} build \
++	${GO} build -trimpath \
  		-o "$DEST/$BINARY_FULLNAME" \
  		"${BUILDFLAGS[@]}" \
  		-ldflags "
