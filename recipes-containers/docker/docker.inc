@@ -120,8 +120,7 @@ do_install() {
 		# replaces one copied from above with one that uses the local registry for a mirror
 		install -m 644 ${S}/src/import/contrib/init/systemd/docker.service ${D}/${systemd_unitdir}/system
 		rm -f ${D}/${systemd_unitdir}/system/docker.service.rpm
-	fi
-	if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
+	else
 		install -d ${D}${sysconfdir}/init.d
 		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
@@ -142,8 +141,10 @@ SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',
 SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.socket','',d)}"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
-INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','${PN}','',d)}"
-INITSCRIPT_NAME:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','docker.init','',d)}"
+# inverted logic warning. We ony want the sysvinit init to be installed if systemd
+# is NOT in the distro features
+INITSCRIPT_PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES','systemd','', '${PN}',d)}"
+INITSCRIPT_NAME:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','', 'docker.init',d)}"
 INITSCRIPT_PARAMS:${PN} = "defaults"
 
 inherit useradd
