@@ -66,6 +66,9 @@ PACKAGECONFIG[selinux] = ",,libselinux"
 
 CLEANBROKEN = "1"
 
+# WARNING: criu-3.17.1 do_package_qa: QA Issue: criu: ELF binary /usr/sbin/criu has relocations in .text [textrel]
+INSANE_SKIP:${PN} += "textrel"
+
 do_compile:prepend() {
     rm -rf ${S}/images/google/protobuf/descriptor.proto
     ln -s  ${PKG_CONFIG_SYSROOT_DIR}/usr/include/google/protobuf/descriptor.proto ${S}/images/google/protobuf/descriptor.proto
