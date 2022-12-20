@@ -16,6 +16,8 @@ SRCREV = "1e99e5e4f409da91638eb79067ec738994c28ef5"
 PV = "11.0+git${SRCPV}"
 S = "${WORKDIR}/git"
 
+REQUIRED_DISTRO_FEATURES = "opengl"
+
 PACKAGECONFIG ?= "libvirt spice vte"
 
 PACKAGECONFIG[libvirt] = "-Dlibvirt=enabled,-Dlibvirt=disabled,libvirt libvirt-glib"
@@ -23,7 +25,7 @@ PACKAGECONFIG[spice] = "-Dspice=enabled,-Dspice=disabled,spice-gtk spice-protoco
 PACKAGECONFIG[vnc] = "-Dvnc=enabled,-Dvnc=disabled,gtk-vnc"
 PACKAGECONFIG[vte] = "-Dvte=enabled,-Dvte=disabled,vte"
 
-inherit meson pkgconfig gtk-icon-cache mime mime-xdg gobject-introspection
+inherit meson pkgconfig gtk-icon-cache mime mime-xdg gobject-introspection features_check
 
 FILES:${PN} += "${datadir}"
 GIR_MESON_OPTION = ''
