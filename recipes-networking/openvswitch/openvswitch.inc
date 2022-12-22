@@ -132,7 +132,6 @@ do_install:append() {
 	install -d ${D}/usr/share/openvswitch/scripts/
 	install -m 755 ${S}/rhel/usr_share_openvswitch_scripts_ovs-systemd-reload ${D}/usr/share/openvswitch/scripts/ovs-systemd-reload
 
-	oe_runmake modules_install INSTALL_MOD_PATH=${D}${root_prefix}
 	install -d ${D}${libdir}/python${PYTHON_BASEVERSION}/site-packages
 	cp -r ${S}/python/ovstest/ ${D}${libdir}/python${PYTHON_BASEVERSION}/site-packages/
 }

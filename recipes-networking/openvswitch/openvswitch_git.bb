@@ -14,17 +14,16 @@ RDEPENDS:${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.17.1+${SRCPV}"
+PV = "3.0.3+${SRCPV}"
 CVE_VERSION = "2.17.1"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "41bb202fb37f184b0a8820a029c62d03c118614e"
-SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.17 \
+SRCREV = "7b5c4240c1ed5f38e476cf08819869dc14f55e8a"
+SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.0 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
             file://disable_m4_check.patch \
-            file://kernel_module.patch \
             file://systemd-update-tool-paths.patch \
             file://systemd-create-runtime-dirs.patch \
            "
@@ -52,6 +51,3 @@ do_install_ptest() {
 	oe_runmake test-install
 }
 
-do_install:append() {
-	oe_runmake modules_install INSTALL_MOD_PATH=${D}${root_prefix}
-}
