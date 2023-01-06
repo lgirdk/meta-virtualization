@@ -1,5 +1,5 @@
-# xen 4.16.2 release sha
-SRCREV ?= "cea5ed49bb5716698a11312a3f38bc8865cd1e67"
+# xen 4.16.3 release sha
+SRCREV ?= "556c2e817c9cf23b675eb4eaa2dc091f7bb3039f"
 
 XEN_REL ?= "4.16"
 XEN_BRANCH ?= "stable-${XEN_REL}"
@@ -7,7 +7,6 @@ XEN_BRANCH ?= "stable-${XEN_REL}"
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
     file://0001-menuconfig-mconf-cfg-Allow-specification-of-ncurses-location.patch \
-    file://xen-fix-gcc12-build-issues.patch \ 
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=419739e325a50f3d7b4501338e44a4e5"
