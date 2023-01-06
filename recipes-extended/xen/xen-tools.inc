@@ -616,6 +616,7 @@ FILES:${PN}-xl = "\
     ${libdir}/xen/bin/libxl-save-helper \
     ${sbindir}/xl \
     ${libdir}/xen/bin/xen-init-dom0 \
+    ${libdir}/xen/bin/init-dom0less \
     "
 
 FILES:${PN}-xl-examples = "\
@@ -658,6 +659,7 @@ FILES:${PN}-xencommons += "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xen-init-dom0.service', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/xenstored.service', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '${systemd_unitdir}/system/var-lib-xenstored.mount', '', d)} \
+    ${localstatedir} \
     "
 
 FILES:${PN}-xend += " \
@@ -688,6 +690,7 @@ FILES:${PN}-test += "\
     ${libdir}/xen/bin/test-resource \
     ${libdir}/xen/bin/test-cpu-policy \
     ${libdir}/xen/bin/test-tsx \
+    ${libdir}/xen/bin/test-paging-mempool \
     "
 
 # test-xenstore and test-resource currently only exist in 4.16
