@@ -24,6 +24,7 @@ SRC_URI = " \
     file://storage.conf \
     file://registries.conf \
     file://0001-makefile-add-GOBUILDFLAGS-to-go-build-call.patch \
+    file://0002-fix_workaround_field_rename_in_btrfs-progs_6_1.patch;patchdir=src/import/vendor/github.com/containers/storage \
 "
 
 SRCREV = "4517ea0b7be6a6743d854e05cd24f7354a487b60"
