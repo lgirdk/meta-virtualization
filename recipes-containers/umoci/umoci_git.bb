@@ -6,11 +6,11 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=3b83ef96387f14655fc854ddc3c6bd57"
 RDEPENDS:${PN} = "skopeo"
 RDEPENDS:${PN}:class-native = ""
 
-SRCREV_umoci = "4270d5bfcfdb89ebb96954512a7948de2a83a87f"
+SRCREV_umoci = "fb2db51251ac2cb3745e60b2f2f314a088400326"
 SRC_URI = "git://github.com/opencontainers/umoci.git;branch=main;name=umoci;destsuffix=github.com/opencontainers/umoci;protocol=https \
           "
 
-PV = "v0.4.7-dev+git${SRCPV}"
+PV = "v0.4.7+git${SRCPV}"
 S = "${WORKDIR}/github.com/opencontainers/umoci"
 GO_IMPORT = "github.com/opencontainers/umoci"
 
@@ -40,7 +40,7 @@ do_compile:class-native () {
     export GOPATH="${WORKDIR}/git/"
     export GO111MODULE=off
 
-    export BUILD_FLAGS="-trimpath"
+    export STATIC_BUILD_FLAGS="-trimpath"
 
     cd ${S}
 
