@@ -15,7 +15,7 @@ RDEPENDS:${PN}-ptest += "\
 
 S = "${WORKDIR}/git"
 PV = "3.0.3+${SRCPV}"
-CVE_VERSION = "2.17.1"
+CVE_VERSION = "3.0.3"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
