@@ -47,6 +47,7 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=master;protocol=https \
 	file://0001-use-sd_bus_call_method_async-to-replace-the-asyncv-o.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
+	file://0001-Patching-an-incoming-CVE-CVE-2022-47952.patch \
 	"
 
 SRCREV = "133aa416ca2a5996090ec0e697e253646364d274"
