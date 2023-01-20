@@ -733,7 +733,6 @@ SYSTEMD_SERVICE:${PN}-devd = "xendriverdomain.service"
 SYSTEMD_SERVICE:${PN}-xen-watchdog = "xen-watchdog.service"
 SYSTEMD_SERVICE:${PN}-xencommons = " \
     proc-xen.mount \
-    var-lib-xenstored.mount \
     xen-qemu-dom0-disk-backend.service \
     xenconsoled.service \
     xen-init-dom0.service \

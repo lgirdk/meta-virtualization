@@ -17,3 +17,7 @@ S = "${WORKDIR}/git"
 
 require xen.inc
 require xen-tools.inc
+
+SYSTEMD_SERVICE:${PN}-xencommons:append = " \
+    var-lib-xenstored.mount \
+    "
