@@ -4,7 +4,7 @@ From: Maciej Pijanowski <maciej.pijanowski@3mdeb.com>
 Date: Fri, 19 Oct 2018 11:01:37 +0200
 Subject: [PATCH] python,pygrub: pass DISTUTILS env vars as setup.py args
 
-Upstream-Status: Xen: Inappropriate [oe specific, python install issues]
+Upstream-Status: Inappropriate [oe specific, python install issues]
 
 Allow to respect the target install dir (PYTHON_SITEPACKAGES_DIR)
 as well as other parameters set by the OpenEmbedded build system.

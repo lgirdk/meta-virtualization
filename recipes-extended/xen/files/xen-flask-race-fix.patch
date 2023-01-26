@@ -21,7 +21,7 @@ we need to ignore it in this case. $(MAKECMDGOALS) can't be used in
 this case as it is empty, but we can guess which operation is done by
 looking at the list of loaded makefiles.
 
-Upstream-Status: backport [https://lore.kernel.org/xen-devel/20230120133626.55680-1-anthony.perard@citrix.com/T/#u]
+Upstream-Status: Backport [https://lore.kernel.org/xen-devel/20230120133626.55680-1-anthony.perard@citrix.com/T/#u]
 
 Fixes: 7a3bcd2babcc ("build: build everything from the root dir, use obj=$subdir")
 Reported-by: "Daniel P. Smith" <dpsmith@apertussolutions.com>
