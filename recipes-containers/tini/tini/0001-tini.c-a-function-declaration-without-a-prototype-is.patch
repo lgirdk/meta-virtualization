@@ -22,7 +22,7 @@ Subject: [PATCH] tini.c: a function declaration without a prototype is
 |                    void
 | 4 errors generated.
 
-:Upstream-Status: Submitted [https://github.com/krallin/tini/pull/198]
+Upstream-Status: Submitted [https://github.com/krallin/tini/pull/198]
 
 Signed-off-by: Jose Quaresma <jose.quaresma@foundries.io>
 ---
