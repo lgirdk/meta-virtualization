@@ -12,7 +12,7 @@ packages, we end up with errors like:
          recipe-sysroot-native/usr/lib/aarch64-poky-linux/go/pkg/tool/linux_amd64/link:
          cannot open file : open : no such file or directory
 
-Upstream-Status: Inappropriate: specific to OE go configuration and build
+Upstream-Status: Inappropriate [specific to OE go configuration and build]
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
