@@ -6,6 +6,8 @@ Subject: [PATCH] build: use  to use cross go compiler
 We shouldn't be invoking 'go' as the compiler, but instead use
 ${GO} which tracks our cross build go compiler for the architecture.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  Makefile | 2 +-

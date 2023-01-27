@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Wed, 12 Aug 2020 16:01:49 +0000
 Subject: [PATCH] build/golang.sh: convert remaining 'go' calls to use
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  hack/lib/golang.sh | 8 ++++----

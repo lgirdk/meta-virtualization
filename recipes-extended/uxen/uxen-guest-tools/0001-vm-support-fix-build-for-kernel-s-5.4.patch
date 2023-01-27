@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Mon, 29 Nov 2021 21:01:03 -0500
 Subject: [PATCH] vm-support: fix build for kernel's > 5.4
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  a/uxenhc/hypercall.c             | 10 +++++++++-

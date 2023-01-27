@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Mon, 29 Mar 2021 20:50:47 -0400
 Subject: [PATCH] Makefile: allow external specification of build settings
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  Makefile | 3 ++-

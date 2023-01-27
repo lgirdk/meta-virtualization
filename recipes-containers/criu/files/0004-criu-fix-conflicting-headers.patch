@@ -25,6 +25,8 @@ with local include to avoid conflicts with `<sys/mount.h>`.
 
 Fixes: #1949
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Radostin Stoyanov <rstoyanov@fedoraproject.org>
 ---
  Makefile.config              |  2 +-

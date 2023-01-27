@@ -6,6 +6,8 @@ Subject: [PATCH] ptest: Remove Windows-1252 check from esxutilstest
 Currently we use iconv from glibc-locale and it does not support
 Windows-1252 and we don't need support windows character encoding.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: He Zhe <zhe.he@windriver.com>
 
 ---

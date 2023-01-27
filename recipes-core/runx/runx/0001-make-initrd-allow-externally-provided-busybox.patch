@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Fri, 26 Mar 2021 10:55:49 -0400
 Subject: [PATCH] make-initrd: allow externally provided busybox
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  initrd/make-initrd | 24 ++++++++++++++++++++----

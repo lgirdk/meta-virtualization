@@ -3,12 +3,12 @@ From: Changqing Li <changqing.li@windriver.com>
 Date: Mon, 26 Aug 2019 18:00:39 +0800
 Subject: [PATCH] drod: add option to config systemddir
 
-Upstream-Status: Pending
-
 Not need to send upstream, since upstream have refactor
 related code, but not released. and this version release 
 4 years ago, not proper to just backport one or more
 commits, this patch maybe could be dropped after upgrade.
+
+Upstream-Status: Inappropriate [embedded specific]
 
 Signed-off-by: Changqing Li <changqing.li@windriver.com>
 ---

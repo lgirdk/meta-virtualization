@@ -46,6 +46,8 @@ container.c:176:4: note: 'sprintf' output 9 or more bytes (assuming 520) into a 
     sprintf(volume, "/%s/_data/%s", path, filevolume);
     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 
 ---

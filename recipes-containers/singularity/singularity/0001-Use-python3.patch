@@ -8,6 +8,8 @@ Subject: [PATCH] Use python3
   | configure: error: Please install python before installing.
   | WARNING: exit code 1 from a shell command.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  configure.ac                           | 6 +++---

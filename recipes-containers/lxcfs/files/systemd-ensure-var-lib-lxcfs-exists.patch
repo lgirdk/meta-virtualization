@@ -5,6 +5,8 @@ Subject: [PATCH] systemd: ensure /var/lib/lxcfs exists
 
 If the directory doesn't exist the service will fail to start.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
  config/init/systemd/lxcfs.service | 1 +

@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@windriver.com>
 Date: Thu, 6 Mar 2014 01:55:09 -0500
 Subject: [PATCH] cloud-init: source local lsb functions
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
  sysvinit/debian/cloud-config     |    1 +

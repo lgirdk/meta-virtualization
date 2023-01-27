@@ -3,6 +3,8 @@ From: Martin Jansa <Martin.Jansa@gmail.com>
 Date: Fri, 14 May 2021 06:30:18 -0700
 Subject: [PATCH] cpp/Makefile: respect LDFLAGS when building bcc-cpp
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  cpp/Makefile | 2 +-

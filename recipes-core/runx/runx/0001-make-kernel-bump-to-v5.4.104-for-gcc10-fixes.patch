@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Fri, 26 Mar 2021 10:15:24 -0400
 Subject: [PATCH] make-kernel: bump to v5.4.104 for gcc10+ fixes
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  kernel/make-kernel | 2 +-

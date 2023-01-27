@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@windriver.com>
 Date: Tue, 8 Nov 2016 13:16:19 -0500
 Subject: [PATCH] configure: drop selinux support
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
  configure.ac | 1 -

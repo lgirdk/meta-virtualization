@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Wed, 7 Oct 2020 23:29:52 -0400
 Subject: [PATCH] makefile: allow SKIP_GO_VERSION_CHECK to be overriden
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  Makefile | 2 +-

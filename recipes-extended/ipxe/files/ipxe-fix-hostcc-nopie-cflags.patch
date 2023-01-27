@@ -1,3 +1,5 @@
+Upstream-Status: Inappropriate [embedded specific]
+
 diff --git a/src/Makefile.housekeeping b/src/Makefile.housekeeping
 index 1dd1479..13f44dd 100644
 --- a/Makefile.housekeeping

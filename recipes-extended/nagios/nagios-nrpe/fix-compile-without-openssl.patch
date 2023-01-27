@@ -6,6 +6,8 @@ this error:
 error: unknown type name 'SSL'
  void complete_SSL_shutdown( SSL *);
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Rickard Engberg <rickard.engberg@windriver.com>
 Signed-off-by: Vu Tran <vu.tran@windriver.com>
 

@@ -4,6 +4,9 @@ Date: Wed, 20 Sep 2017 23:28:52 -0400
 Subject: [PATCH] Revert "implement add/set function for hooks items"
 
 This reverts commit df3a46feb971386f922c7c2c2822b88301f87cb0.
+
+Upstream-Status: Inappropriate [embedded specific]
+
 ---
  cmd/oci-runtime-tool/generate.go | 12 ++++++------
  generate/generate.go             | 42 ++++++----------------------------------

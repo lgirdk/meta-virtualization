@@ -13,10 +13,7 @@ since v2.28. [Commit ID: e16deca62e16f]
 And then glibc suggestions us to include <sys/sysmacros.h> directly if
 code needs it.
 
-Upstream-Status: Submitted 
-[diod:
-mail: v9fs-developer@lists.sourceforge.net
-author: hongzhi.song@windriver.com]
+Upstream-Status: [Submitted] 
 
 Signed-off-by: Hongzhi.Song <hongzhi.song@windriver.com>
 ---

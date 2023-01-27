@@ -8,6 +8,8 @@ build flags from our environemnt. Otherwise, we'll use the host
 settings for each and end up with a binary that cannot be run on
 the target.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  Makefile | 2 +-

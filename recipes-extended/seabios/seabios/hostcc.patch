@@ -1,3 +1,5 @@
+Upstream-Status: Inappropriate [embedded specific]
+
 diff -ur a/Makefile b/Makefile
 --- a/Makefile	2015-02-02 22:02:58.651041951 -0500
 +++ b/Makefile	2015-02-02 23:08:13.884514003 -0500

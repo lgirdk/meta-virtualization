@@ -3,7 +3,7 @@ From: Roy Li <rongqing.li@windriver.com>
 Date: Thu, 22 Jun 2017 06:32:30 +0000
 Subject: [PATCH 2/2] auto.diod.in: remove bashisms
 
-Upstream-Status: Pending
+Upstream-Status: Inappropriate [embedded specific]
 
 Signed-off-by: Roy Li <rongqing.li@windriver.com>
 ---

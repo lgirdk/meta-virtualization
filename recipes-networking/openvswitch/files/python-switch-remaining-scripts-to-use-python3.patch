@@ -5,6 +5,8 @@ Subject: [PATCH] python: switch remaining scripts to use python3
 
 Work to remove the main openvswitch package's dependency on python 2.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 
 ---

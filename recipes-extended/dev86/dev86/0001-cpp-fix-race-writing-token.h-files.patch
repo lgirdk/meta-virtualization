@@ -17,6 +17,9 @@ these will execute at the same time and race.
   mv: cannot stat 'tmp.h': No such file or directory
 
 By using gperf --output-file, the race is avoided entirely.
+
+Upstream-Status: Inappropriate [embedded specific]
+
 ---
  cpp/Makefile | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)

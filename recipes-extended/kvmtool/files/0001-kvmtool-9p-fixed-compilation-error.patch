@@ -5,6 +5,8 @@ Subject: [PATCH] kvmtool: 9p: fixed compilation error
 
 makedev is defined in sys/sysmacros.h
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Dariusz Pelowski <dariusz.pelowski@gmail.com>
 
 ---

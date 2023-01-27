@@ -9,6 +9,8 @@ not trivial or something we want to do.
 
 So we tweak the version to accept what we have in oe-core.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  setup.py | 2 +-

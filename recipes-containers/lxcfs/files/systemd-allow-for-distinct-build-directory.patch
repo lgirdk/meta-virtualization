@@ -10,6 +10,8 @@ distinct build directory. As such we get the error:
 
 Make use of $(srcdir) to correct this.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
  config/init/systemd/Makefile.am | 2 +-

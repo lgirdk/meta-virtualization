@@ -5,6 +5,8 @@ Subject: [PATCH] build: use /usr/bin/env for python scripts
 
 Without this, we break on hosts without /usr/bin/python
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  tools/scripts/d2c.py    | 2 +-

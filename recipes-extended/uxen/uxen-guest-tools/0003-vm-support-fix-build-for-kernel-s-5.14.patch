@@ -11,6 +11,8 @@ Subject: [PATCH] vm-support: fix build for kernel's > 5.14
   read the implementation carefully enough to decide if this is still needed, I was only interested
   in fixing the build failure (and I don't use this at all to test it in runtime)
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  uxenstor/stor.c | 2 ++

@@ -3,6 +3,8 @@ From: Dengke Du <dengke.du@windriver.com>
 Date: Thu, 27 Sep 2018 09:37:08 +0800
 Subject: [PATCH] oath: fix macro definition error
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Dengke Du <dengke.du@windriver.com>
 ---
  oathtool/gl/intprops.h | 6 +++---

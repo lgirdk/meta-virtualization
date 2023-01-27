@@ -1,5 +1,7 @@
 Add test-install rule to support ptest execution
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Radu Patriu <radu.patriu@enea.com>
 
 Index: openvswitch-2.1.2/Makefile.am

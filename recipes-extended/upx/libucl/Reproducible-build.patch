@@ -5,6 +5,9 @@ Subject: 03 Reproducible build
 Introduced BUILD_DATETIME pre-processor variable to
 be used instead of __DATE__ __TIME__ to make build
 reproducible.
+
+Upstream-Status: Inappropriate [embedded specific]
+
 ---
  src/ucl_util.c | 4 ++++
  1 file changed, 4 insertions(+)

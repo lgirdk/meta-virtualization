@@ -3,6 +3,8 @@ From: Amy Fong <amy.fong@windriver.com>
 Date: Thu, 29 Jan 2015 09:56:03 -0500
 Subject: [PATCH] Disable m4 file test where sources are built from git.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Amy Fong <amy.fong@windriver.com>
 
 ---

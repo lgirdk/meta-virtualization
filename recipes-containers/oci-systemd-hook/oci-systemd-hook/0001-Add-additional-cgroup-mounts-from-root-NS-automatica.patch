@@ -3,6 +3,8 @@ From: Jason Wessel <jason.wessel@windriver.com>
 Date: Tue, 2 Jul 2019 20:51:08 +0000
 Subject: [PATCH] Add additional cgroup mounts from root NS automatically
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 ---
  src/systemdhook.c | 45 +++++++++++++++++++++++++++++++++++++++++++++

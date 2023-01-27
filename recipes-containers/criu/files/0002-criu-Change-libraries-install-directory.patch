@@ -5,6 +5,8 @@ Subject: [PATCH 2/3] criu: Change libraries install directory
 
 Install the libraries into /usr/lib(or /usr/lib64)
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Jianchuan Wang <jianchuan.wang@windriver.com>
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 

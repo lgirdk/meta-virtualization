@@ -6,6 +6,8 @@ Subject: [PATCH] kvmtool: add EXTRA_CFLAGS variable
 to avoid CFLAGS overriding introduce new EXTRA_CFLAGS variable
 for setting via command argument
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Dariusz Pelowski <dariusz.pelowski@gmail.com>
 
 ---

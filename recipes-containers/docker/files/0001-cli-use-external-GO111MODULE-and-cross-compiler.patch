@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Thu, 15 Apr 2021 11:28:05 -0400
 Subject: [PATCH] cli: use external GO111MODULE and cross compiler
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  git/cli/scripts/build/binary | 3 +--

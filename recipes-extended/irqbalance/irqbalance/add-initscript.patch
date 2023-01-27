@@ -6,6 +6,8 @@ Subject: [PATCH] irqbalance: add basic init script
 The upstream irqbalance release package does not contain an
 init script so we create a basic one here.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 
 ---

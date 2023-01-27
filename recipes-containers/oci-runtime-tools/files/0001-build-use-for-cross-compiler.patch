@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Tue, 30 Jun 2020 23:47:08 -0400
 Subject: [PATCH] build: use  for cross compiler
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  a/Makefile | 4 ++--

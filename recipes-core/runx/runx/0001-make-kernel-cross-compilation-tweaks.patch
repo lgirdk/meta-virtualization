@@ -3,6 +3,8 @@ From: Bruce Ashfield <bruce.ashfield@xilinx.com>
 Date: Mon, 16 Dec 2019 20:42:04 -0800
 Subject: [PATCH] make-kernel: cross-compilation tweaks
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@xilinx.com>
 ---
  kernel/make-kernel | 41 +++++++++++++++++++++++++++++++++--------

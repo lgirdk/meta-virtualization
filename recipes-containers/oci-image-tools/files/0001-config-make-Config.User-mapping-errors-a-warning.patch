@@ -7,6 +7,8 @@ Rather than throwing an error if we can't map a user to a uid,
 output a warning. We aren't actually running the code, but are
 just extracting it .. so the user not existing isn't an issue.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
  image/config.go | 2 +-

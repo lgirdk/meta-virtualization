@@ -1,3 +1,5 @@
+Upstream-Status: Inappropriate [embedded specific]
+
 # OpenEmbedded uses KERNEL_SRC instead of KDIR
 # and enable the modules_install target.
 # Signed-off-by: Christopher Clark <christopher.clark6@baesystems.com>

@@ -23,6 +23,8 @@ is set.
    because it was blocking until runc performed everything it was
    required to perform.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 ---
  signals.go     | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++----

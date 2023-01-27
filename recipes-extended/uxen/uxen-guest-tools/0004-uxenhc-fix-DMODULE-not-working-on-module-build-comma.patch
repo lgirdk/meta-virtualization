@@ -39,6 +39,8 @@ Subject: [PATCH] uxenhc: fix -DMODULE not working on module build command line
     161 | MODULE_LICENSE("GPL");
         | ^~~~~~~~~~~~~~
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  uxenhc/Kbuild | 1 -

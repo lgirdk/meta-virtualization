@@ -9,6 +9,8 @@ The flexboot_nodnic code defines nodnic_queue_pair_type with values
 identical to those of ib_queue_pair_type, and implicitly casts between
 them.  Add an explicit cast to fix the warning.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Michael Brown <mcb30@ipxe.org>
 ---
  src/drivers/infiniband/flexboot_nodnic.c | 6 ++++--

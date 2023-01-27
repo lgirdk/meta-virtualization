@@ -11,6 +11,8 @@ needing to figure out the quote escaping.
 No changes in the output, except a properly quoted "variant"
 when a variant is defined.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  sloci-image | 3 ++-

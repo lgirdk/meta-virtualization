@@ -10,6 +10,8 @@ In our case, we are cross building and can't build the server test
 components without error. As such, we patch the targets out of the
 script to allow a successful build.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
  hack/make-rules/cross.sh | 4 ++--

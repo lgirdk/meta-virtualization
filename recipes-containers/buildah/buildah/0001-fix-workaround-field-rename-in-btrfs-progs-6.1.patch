@@ -5,6 +5,8 @@ Subject: [PATCH] fix: workaround field rename in btrfs-progs 6.1
 
 same as kdave/btrfs-progs@0345143
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Rui Chen <rui@chenrui.dev>
 ---
  drivers/btrfs/btrfs.go | 5 ++++-

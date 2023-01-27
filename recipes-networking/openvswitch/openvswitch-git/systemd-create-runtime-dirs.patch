@@ -9,6 +9,8 @@ upstream service file uses 'chown' we will match this by using
 'mkdir'. Without this the service will fail to start since these
 directories won't exist.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
  rhel/usr_lib_systemd_system_ovsdb-server.service | 2 +-

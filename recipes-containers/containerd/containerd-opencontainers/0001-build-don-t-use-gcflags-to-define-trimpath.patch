@@ -8,6 +8,8 @@ definition of trimpath is for older go versions and is using the
 complete path for trimming. If the variable is captured in the
 resulting binary, we have a reproducibility and QA issue.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  Makefile | 1 -

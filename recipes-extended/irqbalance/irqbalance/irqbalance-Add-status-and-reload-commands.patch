@@ -5,6 +5,8 @@ Subject: [PATCH] irqbalance: Add status and reload commands
 
 Add status and reload commands for irqbalanced init script
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Yang Shi <yang.shi@windriver.com>
 
 ---

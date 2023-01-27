@@ -15,6 +15,8 @@ Signed-off-by: He Zhe <zhe.he@windriver.com>
 
 refresh patch to fix patch-fuzz warning
 Signed-off-by: Changqing Li <changqing.li@windriver.com>
+
+Upstream-Status: Inappropriate [embedded specific]
 ---
  Makefile.am |  1 +
  test.mk     | 74 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

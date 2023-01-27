@@ -9,7 +9,7 @@ Subject: [PATCH] setup.py respect udevdir variable
   because of:
   /lib/udev/rules.d/66-azure-ephemeral.rules
 
-Upstream-Status: Pending
+Upstream-Status: [Pending]
 
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---

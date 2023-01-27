@@ -7,6 +7,8 @@ This allows for setting up a detached session where you do not want to
 set the terminal to false in the config.json.  More or less this is a
 runtime override.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 ---
  utils_linux.go | 5 +++++

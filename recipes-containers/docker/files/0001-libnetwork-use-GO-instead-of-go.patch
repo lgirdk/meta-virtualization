@@ -6,6 +6,8 @@ Subject: [PATCH] libnetwork: use $(GO) instead of go
 Ensure that the libnetwork makefile uses the go cross flags and
 utilities.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
  Makefile | 14 +++++++-------

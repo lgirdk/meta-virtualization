@@ -16,6 +16,8 @@ changes here to at least have the template work with
 core-image-minimal to be able to demonstrate that it can work as well
 as to have it available for the ptests.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 
 ---

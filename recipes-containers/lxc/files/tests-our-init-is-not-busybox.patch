@@ -8,6 +8,8 @@ template) we can't compare '/sbin/init' and 'busybox'. Actually we are
 really only interested in the fact 'cmp' is being run and not the
 result, so simplify by comparing '/sbin/init' to itself.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 
 ---

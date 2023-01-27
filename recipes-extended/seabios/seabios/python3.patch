@@ -1,3 +1,5 @@
+Upstream-Status: Inappropriate [embedded specific]
+
 diff --git a/Makefile b/Makefile
 index 516cb38..7f6acaa 100644
 --- a/Makefile

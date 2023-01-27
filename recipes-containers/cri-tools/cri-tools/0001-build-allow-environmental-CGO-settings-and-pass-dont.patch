@@ -28,6 +28,8 @@ https://www.yoctoproject.org/pipermail/meta-virtualization/2019-March/004084.htm
 We introduce '-a -pkgdir dontusecurrentpkgs' to mask/fix the problem,
 and continue to work towards non-static builds.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  src/import/Makefile | 3 ++-

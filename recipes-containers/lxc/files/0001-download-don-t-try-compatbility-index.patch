@@ -7,6 +7,8 @@ This is being mistaken for a valid, non compat index .. and we never
 try for the one that exists (the index without a compatibility
 extension). So we just drop the compat try for now.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  templates/lxc-download.in | 8 ++------

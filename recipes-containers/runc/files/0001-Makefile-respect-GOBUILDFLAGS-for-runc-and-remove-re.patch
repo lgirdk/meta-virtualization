@@ -4,6 +4,8 @@ Date: Tue, 24 Aug 2021 11:38:23 -0400
 Subject: [PATCH] Makefile: respect GOBUILDFLAGS for runc and remove recvtty
  from static
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 [bva: refreshed for release 1.0.2]
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>

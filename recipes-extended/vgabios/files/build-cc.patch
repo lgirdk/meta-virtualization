@@ -1,6 +1,7 @@
 Use the host compiler to build the tools we need at runtime.
 
-Upstream-Status: Pending
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Ross Burton <ross.burton@arm.com>
 
 Index: Makefile

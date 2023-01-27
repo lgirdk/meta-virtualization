@@ -6,6 +6,8 @@ Subject: [PATCH 1/2] systemd: update tool paths
 We are using the rhel files but we install our tools in a slightly
 different path, update accordingly.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
 ---
  rhel/usr_lib_systemd_system_ovs-vswitchd.service.in | 4 ++--

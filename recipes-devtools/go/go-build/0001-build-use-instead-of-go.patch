@@ -1,10 +1,12 @@
 From 4db28c98481056c41097f808335c37e8517fe485 Mon Sep 17 00:00:00 2001
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
 Date: Fri, 7 Aug 2020 23:39:18 -0400
-Subject: [PATCH] build: use  instead of 'go'
+Subject: [PATCH] build: use ${GO} instead of 'go'
 
 While we can get away with 'go' if the host/target arch match, the
 new go-binary toolchain blows up in a cross compile situation.
+
+Upstream-Status: Inappropriate [embedded specific]
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---

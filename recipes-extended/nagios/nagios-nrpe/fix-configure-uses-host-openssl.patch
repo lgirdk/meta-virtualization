@@ -6,6 +6,8 @@ openssl dhparam -C 512
 
 just do not use openssl from host.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Rickard Engberg <rickard.engberg@windriver.com>
 Signed-off-by: Vu Tran <vu.tran@windriver.com>
 

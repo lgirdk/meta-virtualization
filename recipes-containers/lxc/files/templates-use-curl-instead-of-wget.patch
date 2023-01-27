@@ -5,6 +5,8 @@ Subject: [PATCH] download: Use curl instead of wget
 
 When curl's MIT license is preferable to wget's GPLv3.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Joakim Roubert <joakimr@axis.com>
 Signed-off-by: Yanfei Xu <yanfei.xu@windriver.com>
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>

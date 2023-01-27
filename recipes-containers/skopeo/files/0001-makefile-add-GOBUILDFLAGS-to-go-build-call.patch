@@ -6,6 +6,8 @@ Subject: [PATCH] makefile: add GOBUILDFLAGS to go build call
 We may need to specify things like -trimpath, so add $(GOBUILDFLAGS)
 to allow them to be passed from the recipe to the Makefile.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  src/import/Makefile | 2 +-

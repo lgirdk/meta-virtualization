@@ -3,6 +3,8 @@ change eventhandlers nagioscmd path
 Modify nagios.cmd path to the right location
 at "/var/nagios/rw/nagios.cmd"
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Rickard Engberg <rickard.engberg@windriver.com>
 Signed-off-by: Vu Tran <vu.tran@windriver.com>
 

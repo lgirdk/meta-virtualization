@@ -7,7 +7,7 @@ Subject: [PATCH] [build] Be explicit about -fcommon compiler directive
 gcc10 switched default behavior from -fcommon to -fno-common.  Since
 "__shared" relies on the legacy behavior, explicitly specify it.
 
-Upstream-Status: backport
+Upstream-Status: [backport]
 
 Signed-off-by: Bruce Rogers <brogers@suse.com>
 Modified-by: Michael Brown <mcb30@ipxe.org>

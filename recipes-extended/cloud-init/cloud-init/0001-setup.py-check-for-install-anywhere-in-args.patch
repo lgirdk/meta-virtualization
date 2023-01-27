@@ -11,6 +11,8 @@ So rather than checking for install to be argv[1], we check for it
 anywhere in the arguments are trigger the template replacement to
 happen.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 ---
  setup.py | 2 +-

@@ -5,6 +5,8 @@ Subject: [PATCH] WERROR override disabled.
 
 WERROR override causes gcc sizeof-pointer-memaccess,  format-truncation errors.
 
+Upstream-Status: Inappropriate [embedded specific]
+
 ---
  Makefile | 1 +
  1 file changed, 1 insertion(+)

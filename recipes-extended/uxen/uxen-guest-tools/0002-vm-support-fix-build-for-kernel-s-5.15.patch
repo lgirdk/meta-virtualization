@@ -6,6 +6,8 @@ Subject: [PATCH] vm-support: fix build for kernel's > 5.15
 * remove callback was changed to return void instead of int in:
   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=fc7a6209d5710618eb4f72a77cd81b8d694ecf89
 
+Upstream-Status: Inappropriate [embedded specific]
+
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  uxenplatform/platform.c | 7 +++++++
