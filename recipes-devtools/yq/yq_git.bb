@@ -49,8 +49,8 @@ do_compile:prepend() {
 do_install:append() {
     # these bring in dependencies for the -dev package on bash, and we don't
     # need them .. so we remove them to avoid needing that rdepends
-    rm -rf ${D}/${prefix}/lib/go/src/${GO_IMPORT}/debian/rules
-    rm -rf ${D}/${prefix}/lib/go/src/${GO_IMPORT}/scripts
+    rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/debian/rules
+    rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/scripts
 }
 
 BBCLASSEXTEND = "native"
