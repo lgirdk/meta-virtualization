@@ -42,12 +42,13 @@ SRC_URI = "git://${GO_IMPORT};name=yq;branch=master;protocol=https \
            git://github.com/golang/net;name=net;destsuffix=build/vendor/src/golang.org/x/net;branch=master;protocol=https \
            git://github.com/golang/text;name=text;destsuffix=build/vendor/src/golang.org/x/text;branch=master;protocol=https \
            git://github.com/pkg/diff;name=diff;destsuffix=build/vendor/src/github.com/pkg/diff;branch=main;protocol=https \
+           file://run-ptest \
            "
 
 PV = "4.30.8+git${SRCREV_yq}"
 GO_IMPORT = "github.com/mikefarah/yq"
 
-inherit go
+inherit go ptest
 
 do_compile:prepend() {
     # arrange for some of the golang built ins to be found
@@ -68,5 +69,16 @@ do_install:append() {
     rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/scripts
     rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/acceptance_tests
 }
+
+do_install_ptest() {
+    install -d ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/github.com/mikefarah/yq/scripts/* ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/github.com/mikefarah/yq/acceptance_tests/* ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/github.com/mikefarah/yq/examples ${D}${PTEST_PATH}/tests
+}
+
+RDEPENDS:${PN}-ptest += " \
+    bash \
+"
 
 BBCLASSEXTEND = "native"
