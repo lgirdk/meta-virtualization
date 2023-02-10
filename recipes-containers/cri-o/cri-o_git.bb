@@ -14,7 +14,7 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
  - Resource isolation as required by the CRI \
  "
 
-SRCREV_cri-o = "da7b5b1d908a081186678e8e29779665602d4840"
+SRCREV_cri-o = "1a6bb9c9bdbdbbac144c8c985b4258b09e3364a2"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.25;name=cri-o;protocol=https \
 	file://0001-Makefile-force-symlinks.patch \
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.25.0+git${SRCREV_cri-o}"
+PV = "1.25.2+git${SRCREV_cri-o}"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES ?= "seccomp"
