@@ -18,7 +18,7 @@ DEPENDS = " \
 "
 
 SRCREV_FORMAT = "podmantui_storage"
-SRCREV_podmantui = "ab303cba7acabe340c5aa784ffb2a5dc3ab857d4"
+SRCREV_podmantui = "907b4d64ad9e1013597e234be79aae3eaf0f4f5b"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 SRC_URI = " \
     git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=main \
