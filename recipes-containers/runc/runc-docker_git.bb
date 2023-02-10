@@ -2,7 +2,7 @@ include runc.inc
 
 # Note: this rev is before the required protocol field, update when all components
 #       have been updated to match.
-SRCREV_runc-docker = "bd4d05c0caf340f2d1fd1625f5c1129ce01c97b5"
+SRCREV_runc-docker = "c6781d100a73d2dcef84e9376d85fff02235a2ed"
 SRC_URI = "git://github.com/opencontainers/runc;branch=release-1.1;name=runc-docker;protocol=https \
            file://0001-runc-Add-console-socket-dev-null.patch \
            file://0001-Makefile-respect-GOBUILDFLAGS-for-runc-and-remove-re.patch \
