@@ -31,14 +31,14 @@ DESCRIPTION = "Linux container runtime \
 # so we get that tag, and make it our SRCREVS:
 #
 
-SRCREV_docker = "30832368719481cfd2b1db6b4e345c579506c366"
-SRCREV_libnetwork = "dcdf8f176d1e13ad719e913e796fb698d846de98"
-SRCREV_cli = "83ca73f9aa7a1c442171ef2602af4d303d9de9c2"
+SRCREV_docker = "bc3805a0a0d3b5bd3f0e6c69f46ac08dd53377c7"
+SRCREV_libnetwork = "05b93e0d3a95952f70c113b0bc5bdb538d7afdd7"
+SRCREV_cli = "a5ee5b1dfc9b8f08ed9e020bb54fc18550173ef6"
 SRCREV_FORMAT = "docker_libnetwork"
 SRC_URI = "\
 	git://github.com/docker/docker.git;branch=23.0;name=docker;protocol=https \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
-	git://github.com/docker/cli;branch=master;name=cli;destsuffix=git/cli;protocol=https \
+	git://github.com/docker/cli;branch=23.0;name=cli;destsuffix=git/cli;protocol=https \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
         file://0001-dynbinary-use-go-cross-compiler.patch \
@@ -53,7 +53,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "23.0-beta-ce"
+DOCKER_VERSION = "23.0.1-ce"
 PV = "${DOCKER_VERSION}+git${SRCREV_docker}"
 
 CVE_PRODUCT = "docker mobyproject:moby"
