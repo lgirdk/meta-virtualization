@@ -96,6 +96,8 @@ do_install() {
     install -m 0644 ${S}/src/import/contrib/systemd/crio.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/contrib/systemd/crio-shutdown.service  ${D}${systemd_unitdir}/system/
     install -m 0644 ${S}/src/import/contrib/systemd/crio-wipe.service  ${D}${systemd_unitdir}/system/
+
+    install -d ${D}${localstatedir}/lib/crio
 }
 
 FILES:${PN}-config = "${sysconfdir}/crio/config/*"
