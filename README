@@ -68,9 +68,7 @@ revision: HEAD
 prio: default
 
 Required for cri-o:
-URI: git://github.com/advancedtelematic/meta-updater 
 URI: git://git.yoctoproject.org/meta-selinux
-URI: git://git.yoctoproject.org/meta-security
 branch: master
 revision: HEAD
 prio: default
