@@ -41,7 +41,7 @@ SRC_URI = "\
 	git://github.com/docker/cli;branch=23.0;name=cli;destsuffix=git/cli;protocol=https \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
 	file://docker.init \
-        file://0001-dynbinary-use-go-cross-compiler.patch \
+        file://0001-dynbinary-use-go-cross-compiler.patch;patchdir=src/import \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
 	"
 
