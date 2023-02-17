@@ -21,8 +21,6 @@ RDEPENDS:${PN} = " \
 
 SRC_URI = " \
     git://github.com/containers/skopeo;branch=main;protocol=https \
-    file://storage.conf \
-    file://registries.conf \
     file://0001-makefile-add-GOBUILDFLAGS-to-go-build-call.patch \
 "
 
@@ -34,6 +32,8 @@ S = "${WORKDIR}/git"
 
 inherit goarch
 inherit pkgconfig
+
+inherit container-host
 
 # This CVE was fixed in the container image go library skopeo is using.
 # See:
@@ -83,9 +83,6 @@ do_install() {
 
 	install ${S}/src/import/bin/skopeo ${D}/${sbindir}/
 	install ${S}/src/import/default-policy.json ${D}/${sysconfdir}/containers/policy.json
-
-	install ${WORKDIR}/storage.conf ${D}/${sysconfdir}/containers/storage.conf
-	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 }
 
 do_install:append:class-native() {
