@@ -80,7 +80,6 @@ do_install() {
 	install -d ${D}/${sysconfdir}/containers
 
 	install ${S}/src/import/bin/skopeo ${D}/${sbindir}/
-	install ${S}/src/import/default-policy.json ${D}/${sysconfdir}/containers/policy.json
 }
 
 do_install:append:class-native() {

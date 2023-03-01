@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 SRC_URI = " \
     file://storage.conf \
     file://registries.conf \
+    file://policy.json \
 "
 
 do_install() {
@@ -15,4 +16,5 @@ do_install() {
 
 	install ${WORKDIR}/storage.conf ${D}/${sysconfdir}/containers/storage.conf
 	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
+	install ${WORKDIR}/policy.json ${D}/${sysconfdir}/containers/policy.json
 }

@@ -57,6 +57,7 @@ inherit systemd
 inherit go
 inherit goarch
 inherit pkgconfig
+inherit container-host
 
 EXTRA_OEMAKE="BUILDTAGS=''"
 
