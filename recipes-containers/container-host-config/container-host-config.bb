@@ -18,3 +18,5 @@ do_install() {
 	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 	install ${WORKDIR}/policy.json ${D}/${sysconfdir}/containers/policy.json
 }
+
+BBCLASSEXTEND = "native nativesdk"
