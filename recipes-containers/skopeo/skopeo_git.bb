@@ -22,8 +22,6 @@ RDEPENDS:${PN} = " \
 SRC_URI = " \
     git://github.com/containers/skopeo;branch=main;protocol=https \
     file://0001-Makefile-use-pkg-config-instead-of-gpgme-config.patch \
-    file://storage.conf \
-    file://registries.conf \
 "
 
 SRCREV = "3e2defd6d37b742adde2aac6cb01f6c3c17da8e2"
@@ -34,6 +32,8 @@ S = "${WORKDIR}/git"
 
 inherit goarch
 inherit pkgconfig
+
+inherit container-host
 
 # This CVE was fixed in the container image go library skopeo is using.
 # See:
@@ -81,9 +81,6 @@ do_install() {
 
 	install ${S}/src/import/bin/skopeo ${D}/${sbindir}/
 	install ${S}/src/import/default-policy.json ${D}/${sysconfdir}/containers/policy.json
-
-	install ${WORKDIR}/storage.conf ${D}/${sysconfdir}/containers/storage.conf
-	install ${WORKDIR}/registries.conf ${D}/${sysconfdir}/containers/registries.conf
 }
 
 do_install:append:class-native() {
