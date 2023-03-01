@@ -9,6 +9,9 @@ dmesg -n 1
 blacklist=""
 # Not applicable
 blacklist="$blacklist lxc-test-apparmor"
+blacklist="$blacklist lxc-test-apparmor-mount"
+#lxc-test-get_item would report Built without AppArmor support error
+blacklist="$blacklist lxc-test-get_item"
 # These currently hang so skip them until someone fixes them up
 blacklist="$blacklist lxc-test-shutdowntest"
 blacklist="$blacklist lxc-test-state-server"
