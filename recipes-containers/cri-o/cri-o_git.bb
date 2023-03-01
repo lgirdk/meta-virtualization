@@ -39,14 +39,14 @@ DEPENDS = " \
     ostree \
     libdevmapper \
     libseccomp \
-    libselinux \
     "
 RDEPENDS:${PN} = " \
     cni \
     libdevmapper \
     "
 
-SKIP_RECIPE[cri-o] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'selinux', '', 'Depends on libselinux from meta-selinux which is not included', d)}"
+PACKAGECONFIG ?= "${@bb.utils.filter('DISTRO_FEATURES', 'selinux', d)}"
+PACKAGECONFIG[selinux] = ",,libselinux"
 
 PACKAGES =+ "${PN}-config"
 
