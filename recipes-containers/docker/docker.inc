@@ -27,7 +27,7 @@ RDEPENDS:${PN} = "util-linux util-linux-unshare iptables \
                   bridge-utils \
                   ca-certificates \
                  "
-RDEPENDS:${PN} += "virtual-containerd virtual-runc"
+RDEPENDS:${PN} += "virtual-containerd ${VIRTUAL-RUNTIME_container_runtime}"
 
 RRECOMMENDS:${PN} = "kernel-module-dm-thin-pool kernel-module-nf-nat kernel-module-nf-conntrack-netlink kernel-module-xt-addrtype kernel-module-xt-masquerade"
 
