@@ -138,7 +138,7 @@ SYSTEMD_SERVICE:${PN} = "podman.service podman.socket"
 VIRTUAL-RUNTIME_base-utils-nsenter ?= "util-linux-nsenter"
 
 RDEPENDS:${PN} += "\
-	conmon virtual-runc iptables cni skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter} \
+	conmon ${VIRTUAL-RUNTIME_container_runtime} iptables ${VIRTUAL-RUNTIME_container_networking} skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter} \
 	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
 "
 RRECOMMENDS:${PN} += "slirp4netns kernel-module-xt-masquerade kernel-module-xt-comment"
