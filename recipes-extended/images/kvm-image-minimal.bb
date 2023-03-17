@@ -11,6 +11,9 @@ IMAGE_INSTALL = " \
     kernel-module-kvm-amd \
     "
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "kvm"
+
 IMAGE_FEATURES += "ssh-server-openssh"
 
 IMAGE_LINGUAS = " "
