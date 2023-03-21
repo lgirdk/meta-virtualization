@@ -8,3 +8,5 @@ SRC_URI[sha256sum] = "c853d6c2321e2f2328282c7d49d7b1a06201826ba0e7049c6975ab5f22
 inherit pypi setuptools3
 
 RDEPENDS:${PN} += "python3-jmespath python3-dateutil python3-logging"
+
+SRC_URI += "file://0001-Fix-rejecting-URLs-with-unsafe-characters-in-is_vali.patch"
