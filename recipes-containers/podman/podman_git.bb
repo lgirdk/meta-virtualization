@@ -17,7 +17,7 @@ DEPENDS = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
 "
 
-SRCREV = "73f52c051ba1af798832f6984fa1f50871d475ec"
+SRCREV = "6172f29f980ade93adf85627329cc65b309c6f08"
 SRC_URI = " \
     git://github.com/containers/libpod.git;branch=v4.4;protocol=https \
     ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://50-podman-rootless.conf', '', d)} \
@@ -31,7 +31,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "4.4.1+git${SRCPV}"
+PV = "4.4.3+git${SRCPV}"
 
 PACKAGES =+ "${PN}-contrib"
 
