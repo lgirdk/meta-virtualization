@@ -5,9 +5,9 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.24.0+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "8b1b4db3834ddf7cf1b97137180f413cb9e2186f"
-SRCREV_kubernetes-release = "7c1aa83dac555de6f05500911467b70aca4949f0"
+PV = "v1.27.0-rc+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "bcd6658c10cdf42a9eea1748b8742e8995b55ca7"
+SRCREV_kubernetes-release = "21382abdbfa8e6a43fd417306fa649cb651cc06e"
 PE = "1"
 
 BBCLASSEXTEND = "devupstream:target"
@@ -22,7 +22,7 @@ PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
 
 SRCREV_FORMAT ?= "kubernetes_release"
 
-SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.24;name=kubernetes;protocol=https;destsuffix=git/src/github.com/kubernetes/kubernetes \
+SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.27;name=kubernetes;protocol=https;destsuffix=git/src/github.com/kubernetes/kubernetes \
            git://github.com/kubernetes/release;branch=master;name=kubernetes-release;destsuffix=git/release;protocol=https"
 
 SRC_URI:append = " \
@@ -69,7 +69,10 @@ do_compile() {
 	export CC="${BUILD_CC}"
 	export LD="${BUILD_LD}"
 
-	make generated_files GO="go" KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
+	# make generated_files GO="go" KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
+	# is replaced by:
+	# ./hack/update-codegen.sh
+	# but we don't appear to need either anymore, but we leave them as a placeholder/reminder
 
 	# Build the target binaries
 	export GOARCH="${TARGET_GOARCH}"
@@ -115,6 +118,7 @@ PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc ${PN}-host"
 ALLOW_EMPTY:${PN} = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped"
 INSANE_SKIP:${PN}-misc += "ldflags already-stripped textrel"
+INSANE_SKIP:kubelet += "ldflags already-stripped"
 
 # Note: we are explicitly *not* adding docker to the rdepends, since we allow
 #       backends like cri-o to be used.
