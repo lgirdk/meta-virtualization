@@ -5,8 +5,8 @@ applications across multiple hosts, providing basic mechanisms for deployment, \
 maintenance, and scaling of applications. \
 "
 
-PV = "v1.23.6+git${SRCREV_kubernetes}"
-SRCREV_kubernetes = "fbcfa33018159c033aee77b0d5456df6771aa9b5"
+PV = "v1.23.17+git${SRCREV_kubernetes}"
+SRCREV_kubernetes = "953be8927218ec8067e1af2641e540238ffd7576"
 SRCREV_kubernetes-release = "7c1aa83dac555de6f05500911467b70aca4949f0"
 PE = "1"
 
