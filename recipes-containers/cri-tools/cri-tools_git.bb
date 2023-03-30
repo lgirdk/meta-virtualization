@@ -16,7 +16,7 @@ What is not in scope for this project? \
     non-exist on the kube-apiserver. \
  "
 
-SRCREV_cri-tools = "77d02a0356e9e1dca58d44e54dd0799e89856387"
+SRCREV_cri-tools = "4daea44918cc34b63617c6c9e9923f43d47ddfdd"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-tools.git;branch=master;name=cri-tools;protocol=https \
         file://0001-build-allow-environmental-CGO-settings-and-pass-dont.patch \
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.24.2+git${SRCREV_cri-tools}"
+PV = "1.26.1+git${SRCREV_cri-tools}"
 
 RPROVIDES:${PN} += "crictl"
 PACKAGES =+ "${PN}-critest"
@@ -63,7 +63,10 @@ do_compile() {
 
 do_install() {
     install -d ${D}${bindir}
-    install -m 755 -D ${S}/src/import/build/bin/* ${D}/${bindir}
+    for f in $(find ${S}/src/import/build/bin/ -type f); do
+	echo "installing $f to ${D}/${bindir}"
+        install -m 755 -D $f ${D}/${bindir}
+    done
 }
 
 FILES:${PN}-critest = "${bindir}/critest"
