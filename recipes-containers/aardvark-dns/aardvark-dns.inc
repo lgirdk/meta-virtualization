@@ -16,6 +16,10 @@ do_install_ptest () {
 	cp -r ${S}/test ${D}${PTEST_PATH}
 }
 
+# Rdepends on slirp4netns
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
 RDEPENDS:${PN}-ptest += " \
     bats \
     bash \

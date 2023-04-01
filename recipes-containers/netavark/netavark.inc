@@ -8,6 +8,9 @@ PACKAGECONFIG ?= "aardvark-dns"
 # netavark will be functional without it.
 PACKAGECONFIG[aardvark-dns]= " , , , aardvark-dns"
 
+# Rdepends on aardvark-dns which rdepends on slirp4netns
+inherit features_check
+REQUIRED_DISTRO_FEATURES ?= "seccomp"
 
 SRC_URI += " \
     file://run-ptest \
