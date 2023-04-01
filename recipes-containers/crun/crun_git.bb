@@ -20,14 +20,12 @@ SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun;protocol=h
 PV = "1.8.3+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
-REQUIRED_DISTRO_FEATURES ?= "systemd"
+REQUIRED_DISTRO_FEATURES ?= "systemd seccomp"
 
 inherit autotools-brokensep pkgconfig features_check
 
 PACKAGECONFIG ??= ""
 
-inherit features_check
-REQUIRED_DISTRO_FEATURES ?= "seccomp"
 
 DEPENDS = "yajl libcap go-md2man-native m4-native"
 # TODO: is there a packageconfig to turn this off ?
