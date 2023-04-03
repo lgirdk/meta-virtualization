@@ -2,14 +2,14 @@ DESCRIPTION = "Common digest package used across the container ecosystem."
 HOMEPAGE = "https://github.com/opencontainers/go-digest.git"
 SECTION = "devel/go"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE.code;md5=9cd86830b557232ce55e2a6b47387471"
+LIC_FILES_CHKSUM = "file://src/${PKG_NAME}/LICENSE;md5=2d6fc0e85c3f118af64c85a78d56d3cf"
 
 SRCNAME = "go-digest"
 
 PKG_NAME = "github.com/opencontainers/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME};destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
-SRCREV = "b6234c321f263c503268e3b205f3d9755f9d14ed"
+SRCREV = "65fac7b55eb714642e9359458656939349dcb766"
 PV = "v1.0.0-rc0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -26,7 +26,7 @@ do_install() {
 	    fi
 	    cp $j ${D}${prefix}/local/go/$j
 	done
-	cp -r ${S}/src/${PKG_NAME}/LICENSE.code ${D}${prefix}/local/go/src/${PKG_NAME}/
+	cp -r ${S}/src/${PKG_NAME}/LICENSE ${D}${prefix}/local/go/src/${PKG_NAME}/
 }
 
 SYSROOT_PREPROCESS_FUNCS += "go_digest_file_sysroot_preprocess"
