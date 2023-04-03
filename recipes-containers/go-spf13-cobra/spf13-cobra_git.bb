@@ -9,8 +9,8 @@ SRCNAME = "cobra"
 PKG_NAME = "github.com/spf13/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME};destsuffix=git/src/${PKG_NAME};branch=main;protocol=https"
 
-SRCREV = "b5d8e8f46a2f829f755b6e33b454e25c61c935e1"
-PV = "v0.0.1+git${SRCPV}"
+SRCREV = "4dd4b25de38418174a6e859e8a32eaccca32dccc"
+PV = "v1.6.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
