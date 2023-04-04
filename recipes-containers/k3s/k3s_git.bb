@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.24;name=k3s;protocol=https \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.25;name=k3s;protocol=https \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
@@ -16,10 +16,10 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.24;name=k3s;protoco
           "
 
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "e3c9d859e870c460d966d3ef140aa1815c41a3ac"
+SRCREV_k3s = "9e22489dafb15989cafa7b6bd52ed949471dd057"
 
 SRCREV_FORMAT = "k3s_fuse"
-PV = "v1.24.7+k3s1+git${SRCREV_k3s}"
+PV = "v1.25.8+k3s1+git${SRCREV_k3s}"
 
 include src_uri.inc
 
@@ -56,7 +56,11 @@ do_compile() {
 
         cd ${S}/src/import
 
-        ln -sf vendor.copy vendor
+	if ! [ -e vendor/.noclobber ]; then
+            ln -sf vendor.copy vendor
+	else
+	    echo "[INFO]: no clobber on vendor"
+	fi
 
         # these are bad symlinks, go validates them and breaks the build if they are present
         rm -f vendor/go.etcd.io/etcd/client/v*/example_*
