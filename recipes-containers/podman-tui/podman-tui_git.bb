@@ -18,7 +18,7 @@ DEPENDS = " \
 "
 
 SRCREV_FORMAT = "podmantui_storage"
-SRCREV_podmantui = "907b4d64ad9e1013597e234be79aae3eaf0f4f5b"
+SRCREV_podmantui = "24bdb2a9317a7061a40ea58be312a0133cae28ba"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 SRC_URI = " \
     git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=main \
@@ -27,8 +27,6 @@ SRC_URI = " \
 # the right commit, so we instead extract a patch and apply it to the tree
 #SRC_URI += "git://github.com/containers/storage;protocol=https;name=storage;branch=main;destsuffix=git/src/import/vendor/github.com/containers/storage"
 
-SRC_URI += "file://0001-fix-workaround-field-rename-in-btrfs-progs-6.1.patch;patchdir=src/import/vendor/github.com/containers/storage"
-
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
@@ -36,7 +34,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v0.7.0+git${SRCPV}"
+PV = "v0.9.0+git${SRCPV}"
 
 PODMAN_PKG = "github.com/containers/podman-tui"
 
