@@ -22,11 +22,11 @@ Index: git/setup.py
 ===================================================================
 --- git.orig/setup.py
 +++ git/setup.py
-@@ -87,7 +87,7 @@
+@@ -98,7 +98,7 @@
+     that files are different outside of the debian directory."""
  
-     # older versions of tox use bdist (xenial), and then install from there.
      # newer versions just use install.
--    if not (sys.argv[1] == "install" or sys.argv[1].startswith("bdist*")):
+-    if not (sys.argv[1] == "install"):
 +    if not ('install' in sys.argv or sys.argv[1].startswith('bdist*')):
          return template
  
