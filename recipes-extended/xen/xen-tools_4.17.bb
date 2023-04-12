@@ -1,5 +1,5 @@
 # xen 4.17.0 release sha
-SRCREV ?= "11560248ffda3f00f20bbdf3ae088af474f7f2a3"
+SRCREV ?= "e4a5fb9227889bec99ab212b839680f4d5b51e60"
 
 XEN_REL ?= "4.17"
 XEN_BRANCH ?= "stable-${XEN_REL}"
