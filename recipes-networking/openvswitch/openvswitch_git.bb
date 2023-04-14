@@ -14,12 +14,12 @@ RDEPENDS:${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "3.0.3+${SRCPV}"
-CVE_VERSION = "3.0.3"
+PV = "3.0.4+${SRCPV}"
+CVE_VERSION = "3.0.4"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "7b5c4240c1ed5f38e476cf08819869dc14f55e8a"
+SRCREV = "2a98be5adaa6b3bd6c71a0ee01fc2782c67e7c78"
 SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.0 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
