@@ -14,12 +14,12 @@ RDEPENDS:${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "2.17.1+${SRCPV}"
-CVE_VERSION = "2.17.1"
+PV = "2.17.6+${SRCPV}"
+CVE_VERSION = "2.17.6"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "41bb202fb37f184b0a8820a029c62d03c118614e"
+SRCREV = "a08bb41e3c381f695b5ab62b0ab49b39c2b98727"
 SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.17 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
@@ -27,7 +27,6 @@ SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-2.
             file://kernel_module.patch \
             file://systemd-update-tool-paths.patch \
             file://systemd-create-runtime-dirs.patch \
-            file://0001-lldp-Fix-bugs-when-parsing-malformed-AutoAttach.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
