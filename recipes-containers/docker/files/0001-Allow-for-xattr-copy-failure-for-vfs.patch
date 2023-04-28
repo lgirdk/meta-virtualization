@@ -1,0 +1,113 @@
+From f0dbd4eaf1416074bc8845063f4b6fb285bf75bd Mon Sep 17 00:00:00 2001
+From: Chen Qi <Qi.Chen@windriver.com>
+Date: Thu, 27 Apr 2023 00:42:19 -0700
+Subject: [PATCH] Allow for xattr copy failure for vfs
+
+vfs is declared to work with any filesystem, but after
+https://github.com/moby/moby/commit/31f654a704f61768828d5950a13f30bb493d1239
+it's no longer working with NFS.
+
+As the extended attribute support depends on filesystem and
+if we do copy it in vfs and do not allow failure, that would
+essentially mean that vfs does NOT support all filesystems but
+only those that support xattr.
+
+So we should just try to copy security.capabilities and allow
+for failure. In this way, vfs come back to the state of
+being able to run on any filesystem as declared in
+https://docs.docker.com/storage/storagedriver/select-storage-driver/.
+
+Fixes https://github.com/moby/moby/issues/45417
+
+Upstream-Status: Submitted [https://github.com/moby/moby/pull/45420]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ daemon/graphdriver/copy/copy.go       | 6 ++++--
+ daemon/graphdriver/copy/copy_test.go  | 4 ++--
+ daemon/graphdriver/overlay/overlay.go | 4 ++--
+ daemon/graphdriver/vfs/copy_linux.go  | 2 +-
+ 4 files changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/daemon/graphdriver/copy/copy.go b/daemon/graphdriver/copy/copy.go
+index 0fb8a1a9d9..f6a5b74af5 100644
+--- a/daemon/graphdriver/copy/copy.go
++++ b/daemon/graphdriver/copy/copy.go
+@@ -116,7 +116,7 @@ type dirMtimeInfo struct {
+ //
+ // The copyOpaqueXattrs controls if "trusted.overlay.opaque" xattrs are copied.
+ // Passing false disables copying "trusted.overlay.opaque" xattrs.
+-func DirCopy(srcDir, dstDir string, copyMode Mode, copyOpaqueXattrs bool) error {
++func DirCopy(srcDir, dstDir string, copyMode Mode, copyOpaqueXattrs bool, allowXattrFailure bool) error {
+ 	copyWithFileRange := true
+ 	copyWithFileClone := true
+ 
+@@ -210,7 +210,9 @@ func DirCopy(srcDir, dstDir string, copyMode Mode, copyOpaqueXattrs bool) error
+ 		}
+ 
+ 		if err := copyXattr(srcPath, dstPath, "security.capability"); err != nil {
+-			return err
++			if !allowXattrFailure {
++				return err
++			}
+ 		}
+ 
+ 		if copyOpaqueXattrs {
+diff --git a/daemon/graphdriver/copy/copy_test.go b/daemon/graphdriver/copy/copy_test.go
+index 8dcd8d9d56..340c715f5f 100644
+--- a/daemon/graphdriver/copy/copy_test.go
++++ b/daemon/graphdriver/copy/copy_test.go
+@@ -40,7 +40,7 @@ func TestCopyDir(t *testing.T) {
+ 	assert.NilError(t, err)
+ 	defer os.RemoveAll(dstDir)
+ 
+-	assert.Check(t, DirCopy(srcDir, dstDir, Content, false))
++	assert.Check(t, DirCopy(srcDir, dstDir, Content, false, true))
+ 	assert.NilError(t, filepath.Walk(srcDir, func(srcPath string, f os.FileInfo, err error) error {
+ 		if err != nil {
+ 			return err
+@@ -146,7 +146,7 @@ func TestCopyHardlink(t *testing.T) {
+ 	assert.NilError(t, os.WriteFile(srcFile1, []byte{}, 0777))
+ 	assert.NilError(t, os.Link(srcFile1, srcFile2))
+ 
+-	assert.Check(t, DirCopy(srcDir, dstDir, Content, false))
++	assert.Check(t, DirCopy(srcDir, dstDir, Content, false, true))
+ 
+ 	assert.NilError(t, unix.Stat(srcFile1, &srcFile1FileInfo))
+ 	assert.NilError(t, unix.Stat(srcFile2, &srcFile2FileInfo))
+diff --git a/daemon/graphdriver/overlay/overlay.go b/daemon/graphdriver/overlay/overlay.go
+index 2ed53d82e9..909478963e 100644
+--- a/daemon/graphdriver/overlay/overlay.go
++++ b/daemon/graphdriver/overlay/overlay.go
+@@ -320,7 +320,7 @@ func (d *Driver) Create(id, parent string, opts *graphdriver.CreateOpts) (retErr
+ 		return err
+ 	}
+ 
+-	return copy.DirCopy(parentUpperDir, upperDir, copy.Content, true)
++	return copy.DirCopy(parentUpperDir, upperDir, copy.Content, true, false)
+ }
+ 
+ func (d *Driver) dir(id string) string {
+@@ -460,7 +460,7 @@ func (d *Driver) ApplyDiff(id string, parent string, diff io.Reader) (size int64
+ 		}
+ 	}()
+ 
+-	if err = copy.DirCopy(parentRootDir, tmpRootDir, copy.Hardlink, true); err != nil {
++	if err = copy.DirCopy(parentRootDir, tmpRootDir, copy.Hardlink, true, false); err != nil {
+ 		return 0, err
+ 	}
+ 
+diff --git a/daemon/graphdriver/vfs/copy_linux.go b/daemon/graphdriver/vfs/copy_linux.go
+index 7276b3837f..592825c1a5 100644
+--- a/daemon/graphdriver/vfs/copy_linux.go
++++ b/daemon/graphdriver/vfs/copy_linux.go
+@@ -3,5 +3,5 @@ package vfs // import "github.com/docker/docker/daemon/graphdriver/vfs"
+ import "github.com/docker/docker/daemon/graphdriver/copy"
+ 
+ func dirCopy(srcDir, dstDir string) error {
+-	return copy.DirCopy(srcDir, dstDir, copy.Content, false)
++	return copy.DirCopy(srcDir, dstDir, copy.Content, false, true)
+ }
+-- 
+2.40.0
+
