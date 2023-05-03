@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING.LESSER;md5=e6a600fd5e1d9cbde2d983680233ad02"
 SECTION = "console/tools"
 PV = "0.14.0+git${SRCPV}"
 
-DEPENDS = "libvirt libcheck bison fuse byacc-native"
+DEPENDS = "libvirt libcheck bison fuse bison-native flex-native"
 
 SRC_URI = "git://github.com/libvmi/libvmi.git;branch=master;protocol=https \
            file://0001-Build-vbd-only-when-xen-is-enabled.patch \
