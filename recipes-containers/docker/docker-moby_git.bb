@@ -27,12 +27,22 @@ DESCRIPTION = "Linux container runtime \
 #     the curated docker-ce repository. This allows compatibility and
 #     functional equivalence, while allowing new features to be more
 #     easily added.
-#   - This could be called "docker-moby" or just "moby" in the future, but
-#     that would require the creation of a virtual/docker dependency, which
-#     is possible, but overkill at the moment (while we wait for the upstream
-#     to stop changing).
 #   - The common components of this recipe and docker-ce do need to be moved
 #     to a docker.inc recipe
+#
+# Packaging details:
+#
+# https://github.com/docker/docker-ce-packaging.git
+#  common.mk:
+#    DOCKER_CLI_REPO    ?= https://github.com/docker/cli.git
+#    DOCKER_ENGINE_REPO ?= https://github.com/docker/docker.git
+#    REF                ?= HEAD
+#    DOCKER_CLI_REF     ?= $(REF)
+#    DOCKER_ENGINE_REF  ?= $(REF)
+#
+# These follow the tags for our releases in the listed repositories
+# so we get that tag, and make it our SRCREVS:
+#
 
 SRCREV_moby = "219f21bf07502b447095649b5a2764661737f164"
 SRCREV_libnetwork = "25ec449c45d2075c85fb3688ef4c1730be0466e0"
