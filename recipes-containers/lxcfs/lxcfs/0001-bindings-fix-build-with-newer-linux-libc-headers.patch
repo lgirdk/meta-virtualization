@@ -1,0 +1,50 @@
+From ca3c3484b078304998b3f2a2d6cd6c00540deb2c Mon Sep 17 00:00:00 2001
+From: Martin Jansa <Martin.Jansa@gmail.com>
+Date: Fri, 28 Apr 2023 19:16:11 +0000
+Subject: [PATCH] bindings: fix build with newer linux-libc-headers
+
+Fixes:
+
+../../lxcfs-4.0.7/src/bindings.c: In function 'initpid_still_valid_pidfd':
+../../lxcfs-4.0.7/src/bindings.c:160:15: error: implicit declaration of function 'pidfd_send_signal'; did you mean 'SYS_pidfd_send_signal'? [-Werr
+or=implicit-function-declaration]
+  160 |         ret = pidfd_send_signal(entry->init_pidfd, 0, NULL, 0);
+      |               ^~~~~~~~~~~~~~~~~
+      |               SYS_pidfd_send_signal
+../../lxcfs-4.0.7/src/bindings.c:160:15: warning: nested extern declaration of 'pidfd_send_signal' [-Wnested-externs]
+../../lxcfs-4.0.7/src/bindings.c: In function 'save_initpid':
+../../lxcfs-4.0.7/src/bindings.c:296:25: error: implicit declaration of function 'pidfd_open' [-Werror=implicit-function-declaration]
+  296 |                 pidfd = pidfd_open(pid, 0);
+      |                         ^~~~~~~~~~
+../../lxcfs-4.0.7/src/bindings.c:296:25: warning: nested extern declaration of 'pidfd_open' [-Wnested-externs]
+../../lxcfs-4.0.7/src/bindings.c: At top level:
+../../lxcfs-4.0.7/src/bindings.c:612:12: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+  612 | static int pivot_enter()
+      |            ^~~~~~~~~~~
+../../lxcfs-4.0.7/src/bindings.c: In function 'pivot_enter':
+../../lxcfs-4.0.7/src/bindings.c:612:12: warning: old-style function definition [-Wold-style-definition]
+../../lxcfs-4.0.7/src/bindings.c: At top level:
+../../lxcfs-4.0.7/src/bindings.c:655:12: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+  655 | static int chroot_enter()
+      |            ^~~~~~~~~~~~
+../../lxcfs-4.0.7/src/bindings.c: In function 'chroot_enter':
+../../lxcfs-4.0.7/src/bindings.c:655:12: warning: old-style function definition [-Wold-style-definition]
+
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
+Upstream-Status: Pending
+---
+ src/bindings.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/bindings.c b/src/bindings.c
+index 6f2444c..3e0d60a 100644
+--- a/src/bindings.c
++++ b/src/bindings.c
+@@ -39,6 +39,7 @@
+ #include <sys/mman.h>
+ #include <sys/mount.h>
+ #include <sys/param.h>
++#include <sys/pidfd.h>
+ #include <sys/socket.h>
+ #include <sys/syscall.h>
+ #include <sys/sysinfo.h>

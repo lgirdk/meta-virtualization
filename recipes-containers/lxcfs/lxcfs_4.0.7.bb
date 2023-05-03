@@ -7,6 +7,7 @@ SRC_URI = " \
     https://linuxcontainers.org/downloads/lxcfs/lxcfs-${PV}.tar.gz \
     file://systemd-allow-for-distinct-build-directory.patch \
     file://systemd-ensure-var-lib-lxcfs-exists.patch \
+    file://0001-bindings-fix-build-with-newer-linux-libc-headers.patch \
 "
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=29ae50a788f33f663405488bc61eecb1"
