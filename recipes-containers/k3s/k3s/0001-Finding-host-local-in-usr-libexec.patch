@@ -3,7 +3,7 @@ From: Erik Jansson <erikja@axis.com>
 Date: Wed, 16 Oct 2019 15:07:48 +0200
 Subject: [PATCH] Finding host-local in /usr/libexec
 
-Upstream-status: Inappropriate [embedded specific]
+Upstream-Status: Inappropriate [embedded specific]
 Signed-off-by: <erikja@axis.com>
 ---
  pkg/agent/config/config.go | 2 +-

@@ -5,7 +5,7 @@ Subject: [PATCH] Should fix #235 (nasty_metachars was not being returned when
  specified in cfg file
 
 CVE: CVE-2020-6581
-Upstream Status: Backport [4f7dd1199f1f3f72f9197e8565da339a4a2490b7]
+Upstream-Status: Backport [4f7dd1199f1f3f72f9197e8565da339a4a2490b7]
 
 Signed-off-by: Sakib Sajal <sakib.sajal@windriver.com>
 ---

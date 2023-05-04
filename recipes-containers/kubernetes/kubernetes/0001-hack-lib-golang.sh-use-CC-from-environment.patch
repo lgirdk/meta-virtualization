@@ -5,7 +5,7 @@ Subject: [PATCH 1/2] hack/lib/golang.sh: use CC from environment
 
 Toolchain tupples differs, especially when using vendor provides ones.
 
-Upstream-status: Inappropriate [embedded specific]
+Upstream-Status: Inappropriate [embedded specific]
 Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
 ---
  hack/lib/golang.sh | 5 -----
