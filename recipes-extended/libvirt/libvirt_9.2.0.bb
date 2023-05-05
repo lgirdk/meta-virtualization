@@ -82,7 +82,7 @@ FILES:${PN} += "${libdir}/libvirt/connection-driver \
 	    ${@bb.utils.contains('PACKAGECONFIG', 'polkit', '${datadir}/polkit-1', '', d)} \
 	    ${datadir}/bash-completion/completions/vsh \
 	    ${datadir}/bash-completion/completions/virt-admin \
-	    /usr/lib/firewalld/zones/libvirt.xml \
+	    /usr/lib/firewalld/ \
 	    "
 
 FILES:${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
