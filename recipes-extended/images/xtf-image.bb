@@ -31,4 +31,4 @@ IMAGE_INSTALL:append = " xtf"
 
 DEFAULT_TEST_SUITES:append = " xtf_minimal"
 
-QB_DEFAULT_FSTYPE_x86-64 = "wic"
+QB_DEFAULT_FSTYPE:x86-64 = "wic"
