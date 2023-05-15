@@ -1,5 +1,19 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/busybox-initrd:${COREBASE}/meta/recipes-core/busybox/busybox:${COREBASE}/meta/recipes-core/busybox/files:"
 
+def get_busybox_pv(d):
+    import re
+    corebase = d.getVar('COREBASE')
+    bb_dir = os.path.join(corebase, 'meta', 'recipes-core', 'busybox')
+    if os.path.isdir(bb_dir):
+        re_bb_name = re.compile(r"busybox_([0-9.]*)\.bb")
+        for bb_file in os.listdir(bb_dir):
+            result = re_bb_name.match(bb_file)
+            if result:
+                return result.group(1)
+    bb.fatal("Cannot find busybox recipe in %s" % bb_dir)
+
+PV := "${@get_busybox_pv(d)}"
+
 require recipes-core/busybox/busybox_${PV}.bb
 
 SRC_URI += "file://init.cfg \
