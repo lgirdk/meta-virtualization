@@ -30,7 +30,7 @@ RDEPENDS:${PN} = " \
     "
 
 do_compile() {
-    oe_runmake CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}" \
+    oe_runmake CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${DEBUG_PREFIX_MAP}" \
                CPP="${CPP}" \
                LD="${LD}" \
                OBJCOPY="${OBJCOPY}" \
