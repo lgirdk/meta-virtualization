@@ -44,19 +44,18 @@ DESCRIPTION = "Linux container runtime \
 # so we get that tag, and make it our SRCREVS:
 #
 
-SRCREV_moby = "cb3fd005d470e80eb9076e9d09c04d6784d64d91"
+SRCREV_moby = "821e4ec4c7b13c28dbb1424f024980aed4535384"
 SRCREV_libnetwork = "3f0048413d95802b9c6c836eba06bfc54f9dbd03"
-SRCREV_cli = "44a7d9537f7cf45296015a1e820c7ada55d5587d"
+SRCREV_cli = "98fdcd769bcd137f7538f898b37348f919536ea4"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
-	git://github.com/moby/moby.git;branch=23.0;name=moby;protocol=https \
+	git://github.com/moby/moby.git;branch=24.0;name=moby;protocol=https \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
-	git://github.com/docker/cli;branch=23.0;name=cli;destsuffix=git/cli;protocol=https \
+	git://github.com/docker/cli;branch=24.0;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
         file://0001-dynbinary-use-go-cross-compiler.patch;patchdir=src/import \
-        file://0001-Allow-for-xattr-copy-failure-for-vfs.patch;patchdir=src/import \
 	"
 
 DOCKER_COMMIT = "${SRCREV_moby}"
@@ -67,7 +66,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "23.0.6"
+DOCKER_VERSION = "24.0.0"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 CVE_PRODUCT = "docker mobyproject:moby"
