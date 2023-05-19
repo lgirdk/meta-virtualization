@@ -20,12 +20,12 @@ RDEPENDS:${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=release-1.11;protocol=https \
+    git://github.com/containers/skopeo;branch=main;protocol=https \
     file://0001-makefile-add-GOBUILDFLAGS-to-go-build-call.patch \
 "
 
-SRCREV = "d79588e6c1d2ff2053206a650adc1d30af591908"
-PV = "v1.11.2+git${SRCPV}"
+SRCREV = "cf5027809ac32847df8570bccb4e425a10ba1591"
+PV = "v1.12.0+git${SRCPV}"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
@@ -56,9 +56,16 @@ do_compile() {
 	# We also need to link in the ipallocator directory as that is not under
 	# a src directory.
 	ln -sfn . "${S}/src/import/vendor/src"
+
+	# not used in v1.12+, but kept for temporary compatibiity
 	mkdir -p "${S}/src/import/vendor/src/github.com/projectatomic/skopeo"
 	ln -sfn "${S}/src/import/skopeo" "${S}/src/import/vendor/src/github.com/projectatomic/skopeo"
 	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/projectatomic/skopeo/version"
+
+	mkdir -p "${S}/src/import/vendor/src/github.com/containers/skopeo"
+	mkdir -p "${S}/src/import/vendor/src/github.com/containers/skopeo/cmd/skopeo"
+	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/containers/skopeo/version"
+	ln -sfn "${S}/src/import/cmd/skopeo/inspect" "${S}/src/import/vendor/src/github.com/containers/skopeo/cmd/skopeo/inspect"
 	export GOPATH="${S}/src/import/vendor"
 
 	# Pass the needed cflags/ldflags so that cgo
