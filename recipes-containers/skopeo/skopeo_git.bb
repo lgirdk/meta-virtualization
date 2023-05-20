@@ -1,7 +1,7 @@
 HOMEPAGE = "https://github.com/containers/skopeo"
 SUMMARY = "Work with remote images registries - retrieving information, images, signing content"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=7e611105d3e369954840a6668c438584"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=7e611105d3e369954840a6668c438584"
 
 DEPENDS = " \
     gpgme \
@@ -20,7 +20,7 @@ RDEPENDS:${PN} = " \
 "
 
 SRC_URI = " \
-    git://github.com/containers/skopeo;branch=main;protocol=https \
+    git://github.com/containers/skopeo;branch=main;protocol=https;destsuffix=git/src/github.com/containers/skopeo \
     file://0001-makefile-add-GOBUILDFLAGS-to-go-build-call.patch \
 "
 
@@ -28,7 +28,7 @@ SRCREV = "cf5027809ac32847df8570bccb4e425a10ba1591"
 PV = "v1.12.0+git${SRCPV}"
 GO_IMPORT = "import"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/git/src/github.com/containers/skopeo"
 
 inherit goarch
 inherit pkgconfig
@@ -48,25 +48,8 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 
-	# Setup vendor directory so that it can be used in GOPATH.
-	#
-	# Go looks in a src directory under any directory in GOPATH but riddler
-	# uses 'vendor' instead of 'vendor/src'. We can fix this with a symlink.
-	#
-	# We also need to link in the ipallocator directory as that is not under
-	# a src directory.
-	ln -sfn . "${S}/src/import/vendor/src"
-
-	# not used in v1.12+, but kept for temporary compatibiity
-	mkdir -p "${S}/src/import/vendor/src/github.com/projectatomic/skopeo"
-	ln -sfn "${S}/src/import/skopeo" "${S}/src/import/vendor/src/github.com/projectatomic/skopeo"
-	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/projectatomic/skopeo/version"
-
-	mkdir -p "${S}/src/import/vendor/src/github.com/containers/skopeo"
-	mkdir -p "${S}/src/import/vendor/src/github.com/containers/skopeo/cmd/skopeo"
-	ln -sfn "${S}/src/import/version" "${S}/src/import/vendor/src/github.com/containers/skopeo/version"
-	ln -sfn "${S}/src/import/cmd/skopeo/inspect" "${S}/src/import/vendor/src/github.com/containers/skopeo/cmd/skopeo/inspect"
-	export GOPATH="${S}/src/import/vendor"
+	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor:${STAGING_DIR_TARGET}/${prefix}/local/go:${WORKDIR}/git/"
+	cd ${S}
 
 	# Pass the needed cflags/ldflags so that cgo
 	# can find the needed headers files and libraries
@@ -75,7 +58,6 @@ do_compile() {
 	export LDFLAGS=""
 	export CGO_CFLAGS="${TARGET_CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS}"
-	cd ${S}/src/import
 
 	export GO111MODULE=off
 	export GOBUILDFLAGS="-trimpath"
@@ -88,7 +70,7 @@ do_install() {
 	install -d ${D}/${sbindir}
 	install -d ${D}/${sysconfdir}/containers
 
-	install ${S}/src/import/bin/skopeo ${D}/${sbindir}/
+	install ${S}/bin/skopeo ${D}/${sbindir}/
 }
 
 do_install:append:class-native() {

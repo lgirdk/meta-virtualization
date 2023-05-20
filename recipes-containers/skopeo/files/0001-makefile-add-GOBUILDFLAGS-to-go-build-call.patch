@@ -15,8 +15,8 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
 
 Index: git/src/import/Makefile
 ===================================================================
---- git.orig/src/import/Makefile
-+++ git/src/import/Makefile
+--- git.orig/Makefile
++++ git/Makefile
 @@ -126,7 +126,7 @@
  # Build w/o using containers
  .PHONY: bin/skopeo
