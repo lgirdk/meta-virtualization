@@ -1,5 +1,5 @@
-# xen 4.16.3 release sha
-SRCREV ?= "556c2e817c9cf23b675eb4eaa2dc091f7bb3039f"
+# stable-4.16 status on 2023-05-26
+SRCREV ?= "b0806d84d48d983d40a29534e663652887287a78"
 
 XEN_REL ?= "4.16"
 XEN_BRANCH ?= "stable-${XEN_REL}"
