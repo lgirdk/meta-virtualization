@@ -1,3 +1,5 @@
+Upstream-Status: Pending
+
 diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
 index 4963bc89c6..c1c05eb421 100644
 --- a/tools/pygrub/Makefile

@@ -1,3 +1,5 @@
+Upstream-Status: Pending
+
 diff --git a/test/helpers.bash b/test/helpers.bash
 index 89866ec..017b2b5 100644
 --- a/test/helpers.bash
