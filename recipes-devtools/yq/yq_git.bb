@@ -50,7 +50,7 @@ GO_IMPORT = "github.com/mikefarah/yq"
 
 inherit go ptest
 
-do_compile() {
+do_compile:prepend() {
     # arrange for some of the golang built ins to be found
     (
 	cd ${WORKDIR}/build/src/
@@ -60,7 +60,6 @@ do_compile() {
     # arrange for the fetched dependencies to be found
     export GOPATH="${GOPATH}:${WORKDIR}/build/vendor/"
     export GO111MODULE=off
-    ${GO} install ${GOBUILDFLAGS} `go_list_packages`
 }
 
 do_install:append() {
