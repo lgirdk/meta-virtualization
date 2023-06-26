@@ -1,4 +1,4 @@
-HOMEPAGE = "https://github.com/docker/containerd"
+HOMEPAGE = "https://github.com/containerd/containerd"
 SUMMARY = "containerd is a daemon to control runC"
 DESCRIPTION = "containerd is a daemon to control runC, built for performance and density. \
                containerd leverages runC's advanced features such as seccomp and user namespace \
