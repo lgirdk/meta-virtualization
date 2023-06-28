@@ -87,7 +87,7 @@ do_compile() {
 	export GOBIN=""
 
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
-	make cross CGO_FLAGS=${CGO_FLAGS} GO=${GO} KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS=""
+	make cross CGO_FLAGS=${CGO_FLAGS} GO=${GO} KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS="" DBG=1
 }
 
 do_install() {
