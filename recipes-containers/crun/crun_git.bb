@@ -26,12 +26,12 @@ inherit autotools-brokensep pkgconfig features_check
 
 PACKAGECONFIG ??= ""
 
-
 DEPENDS = "yajl libcap go-md2man-native m4-native"
 # TODO: is there a packageconfig to turn this off ?
 DEPENDS += "libseccomp"
 DEPENDS += "systemd"
 DEPENDS += "oci-image-spec oci-runtime-spec"
+DEPENDS:append:libc-musl = " argp-standalone"
 
 do_configure:prepend () {
     # extracted from autogen.sh in crun source. This avoids
