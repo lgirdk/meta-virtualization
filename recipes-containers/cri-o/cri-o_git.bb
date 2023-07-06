@@ -50,7 +50,7 @@ PACKAGECONFIG[selinux] = ",,libselinux"
 
 PACKAGES =+ "${PN}-config"
 
-RDEPENDS:${PN} += " virtual-containerd ${VIRTUAL-RUNTIME_container_runtime}"
+RDEPENDS:${PN} += " ${VIRTUAL-RUNTIME_container_runtime}"
 RDEPENDS:${PN} += " e2fsprogs-mke2fs conmon util-linux iptables conntrack-tools"
 
 inherit systemd
