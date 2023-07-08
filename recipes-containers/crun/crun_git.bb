@@ -3,7 +3,7 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 PRIORITY = "optional"
 
-SRCREV_crun = "7da99fb998a89e5f258dea67b7387f741808e58d"
+SRCREV_crun = "56d9d9a062f86eab008a2afcbcacc2619ee1a75b"
 SRCREV_libocispec = "19c05670c37a42c217caa7b141bcaada7867cc15"
 SRCREV_ispec = "9615142d016838b5dfe7453f80af0be74feb5c7c"
 SRCREV_rspec = "720792f25ae6e9ee6b1332db698f37659e69ce8d"
