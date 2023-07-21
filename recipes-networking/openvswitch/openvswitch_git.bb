@@ -26,6 +26,7 @@ SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.
             file://disable_m4_check.patch \
             file://systemd-update-tool-paths.patch \
             file://systemd-create-runtime-dirs.patch \
+            file://Makefile.am-set-the-python3-interpreter-with-usr-bin.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
