@@ -1,0 +1,43 @@
+From 5053d98f6595653dc02485810fda94348b6e8a1b Mon Sep 17 00:00:00 2001
+From: Xiangyu Chen <xiangyu.chen@windriver.com>
+Date: Fri, 21 Jul 2023 08:47:51 +0000
+Subject: [PATCH] Makefile.am: set the python3 interpreter with /usr/bin/env
+
+The variable "PYTHON3" just python3, this cause the following scripts error:
+/usr/sbin/ovs-bugtool Not found the interpreter python3
+/usr/bin/ovs-pcap Not found the interpreter python3
+/usr/bin/ovs-test Not found the interpreter python3
+/usr/bin/ovs-tcpdump Not found the interpreter python3
+/usr/bin/ovs-tcpundump Not found the interpreter python3
+/usr/bin/ovs-vlan-test Not found the interpreter python3
+/usr/bin/ovs-l3ping Not found the interpreter python3
+/usr/bin/ovs-parse-backtrace Not found the interpreter python3
+/usr/bin/ovs-dpctl-top Not found the interpreter python3
+/usr/share/openvswitch/scripts/ovs-check-dead-ifs Not found the interpreter python3
+/usr/share/openvswitch/scripts/ovs-check-dead-ifs Not found the interpreter python3
+/usr/share/openvswitch/scripts/ovs-monitor-ipsec Not found the interpreter python3
+/usr/share/openvswitch/scripts/ovs-vtep Not found the interpreter python3
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Xiangyu Chen <xiangyu.chen@windriver.com>
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 28e85d422..031bbf39c 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -154,7 +154,7 @@ SUFFIXES += .in
+ 	    -e 's,[@]PKIDIR[@],$(PKIDIR),g' \
+ 	    -e 's,[@]LOGDIR[@],$(LOGDIR),g' \
+ 	    -e 's,[@]DBDIR[@],$(DBDIR),g' \
+-	    -e 's,[@]PYTHON3[@],$(PYTHON3),g' \
++	    -e 's,[@]PYTHON3[@],/usr/bin/env $(PYTHON3),g' \
+ 	    -e 's,[@]RUNDIR[@],$(RUNDIR),g' \
+ 	    -e 's,[@]VERSION[@],$(VERSION),g' \
+ 	    -e 's,[@]localstatedir[@],$(localstatedir),g' \
+-- 
+2.35.5
+
