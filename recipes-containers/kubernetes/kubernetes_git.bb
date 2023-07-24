@@ -6,6 +6,7 @@ maintenance, and scaling of applications. \
 "
 
 PV = "v1.27.1+git${SRCREV_kubernetes}"
+CVE_VERSION = "1.27.1"
 SRCREV_kubernetes = "2555e0f90e80a13628f47eca5cde34decc89babb"
 SRCREV_kubernetes-release = "21382abdbfa8e6a43fd417306fa649cb651cc06e"
 PE = "1"
