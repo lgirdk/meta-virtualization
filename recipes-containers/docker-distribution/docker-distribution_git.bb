@@ -7,6 +7,7 @@ SRCREV_distribution= "b5ca020cfbe998e5af3457fda087444cf5116496"
 SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.8;name=distribution;destsuffix=git/src/github.com/docker/distribution;protocol=https \
            file://docker-registry.service \
            file://0001-build-use-to-use-cross-go-compiler.patch \
+           file://0001-Fix-runaway-allocation-on-v2-_catalog.patch \
           "
 
 PACKAGES =+ "docker-registry"
