@@ -8,3 +8,5 @@ SRC_URI = " \
 RUNC_VERSION = "1.1.7"
 
 CVE_PRODUCT = "runc"
+
+LDFLAGS += "${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', ' -fuse-ld=bfd', '', d)}"
