@@ -1,0 +1,80 @@
+# This is a boot script for U-Boot with Xen parameters used by yocto machine
+# configuration file.
+# Generate boot.scr:
+# mkimage -c none -A arm -T script -d boot.cmd.xen boot.scr
+#
+################
+xen_name=@@XEN_IMAGE_NAME@@
+kernel_name=@@KERNEL_IMAGE@@
+rootfs_name=@@RAMDISK_IMAGE@@
+@@PRE_BOOTENV@@
+
+for boot_target in ${boot_targets};
+do
+	echo "Trying to load boot images from ${boot_target}"
+	if test "${boot_target}" = "jtag" ; then
+		tftpboot @@KERNEL_LOAD_ADDRESS@@ ${kernel_name}
+		setenv kernel_size 0x$filesize;
+		tftpboot @@RAMDISK_IMAGE_ADDRESS@@ ${rootfs_name}
+		setenv ramdisk_size 0x$filesize;
+		tftpboot @@XEN_LOAD_ADDRESS@@ ${xen_name}
+		tftpboot @@DEVICETREE_ADDRESS@@ system.dtb
+	fi
+	if test "${boot_target}" = "mmc0" || test "${boot_target}" = "mmc1" || test "${boot_target}" = "usb0" || test "${boot_target}" = "usb1"; then
+		if test "${boot_target}" = "mmc0" || test "${boot_target}" = "mmc1"; then
+			setenv bootdev mmcblk${devnum}p
+		fi
+		if test "${boot_target}" = "usb0" || test "${boot_target}" = "usb1"; then
+			setenv bootdev sda
+		fi
+		echo "Checking for /${xen_name}"
+		if test -e ${devtype} ${devnum}:${distro_bootpart} /${xen_name}; then
+			echo "Loading ${xen_name}";
+			fatload ${devtype} ${devnum}:${distro_bootpart} @@XEN_LOAD_ADDRESS@@ ${xen_name};
+		fi
+		echo "Checking for /${kernel_name}"
+		if test -e ${devtype} ${devnum}:${distro_bootpart} /${kernel_name}; then
+			echo "Loading ${kernel_name}";
+			fatload ${devtype} ${devnum}:${distro_bootpart} @@KERNEL_LOAD_ADDRESS@@ ${kernel_name};
+			setenv kernel_size 0x$filesize;
+		fi
+		echo "Checking for /system.dtb"
+		if test -e ${devtype} ${devnum}:${distro_bootpart} /system.dtb; then
+			echo "Loading system.dtb";
+			fatload ${devtype} ${devnum}:${distro_bootpart} @@DEVICETREE_ADDRESS@@ system.dtb;
+		fi
+		echo "Checking for /${rootfs_name}"
+		if test -e ${devtype} ${devnum}:${distro_bootpart} /${rootfs_name} && test "${skip_ramdisk}" != "yes"; then
+			echo "Loading ${rootfs_name}";
+			fatload ${devtype} ${devnum}:${distro_bootpart} @@RAMDISK_IMAGE_ADDRESS@@ ${rootfs_name};
+			setenv ramdisk_size 0x$filesize;
+		fi
+	fi
+	fdt addr @@DEVICETREE_ADDRESS@@
+	fdt resize 0x1000
+	fdt get value bootargs /chosen bootargs
+	fdt set /chosen \#address-cells <0x2>
+	fdt set /chosen \#size-cells <0x2>
+	setenv xen_bootargs "console=dtuart dtuart=@@XEN_SERIAL_CONSOLES@@ dom0_mem=@@DOM0_MEM@@ dom0_max_vcpus=@@DOM0_MAX_VCPUS@@ bootscrub=0 vwfi=native @@XEN_CMDLINE_APPEND@@"
+	fdt set /chosen xen,xen-bootargs \"${xen_bootargs}\"
+
+	# Check that env $ramdisk_size is 0 or not.
+	if test -n ${ramdisk_size}; then
+		fdt mknod /chosen dom0-ramdisk
+		fdt set /chosen/dom0-ramdisk compatible  "xen,linux-initrd" "xen,multiboot-module" "multiboot,module"
+		fdt set /chosen/dom0-ramdisk reg <0x0 @@RAMDISK_IMAGE_ADDRESS@@ 0x0 ${ramdisk_size}>
+		setenv rootfs_param @@KERNEL_ROOT_RAMDISK@@
+	else
+		setenv rootfs_param @@KERNEL_ROOT_SD@@
+	fi
+
+	fdt mknod /chosen dom0
+	fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
+	fdt set /chosen/dom0 reg <0x0 @@KERNEL_LOAD_ADDRESS@@ 0x0 ${kernel_size}>
+	setenv dom0_bootargs "console=hvc0 earlycon=xen earlyprintk=xen clk_ignore_unused ${rootfs_param}"
+	fdt set /chosen xen,dom0-bootargs \"${dom0_bootargs}\"
+
+	setenv fdt_high 0xffffffffffffffff
+
+	@@KERNEL_BOOTCMD@@ @@XEN_LOAD_ADDRESS@@ - @@DEVICETREE_ADDRESS@@
+done
