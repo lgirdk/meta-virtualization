@@ -34,6 +34,9 @@ S = "${WORKDIR}/git"
 
 PV = "4.5.1+git${SRCPV}"
 
+CVE_STATUS[CVE-2022-2989] = "fixed-version: fixed since v4.3.0"
+CVE_STATUS[CVE-2023-0778] = "fixed-version: fixed since v4.5.0"
+
 PACKAGES =+ "${PN}-contrib"
 
 PODMAN_PKG = "github.com/containers/libpod"
