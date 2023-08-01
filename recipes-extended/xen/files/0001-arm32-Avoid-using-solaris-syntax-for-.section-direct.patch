@@ -1,0 +1,62 @@
+From 9add6f9aced42a76f6a2c124754bef6fde56fa05 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Date: Mon, 31 Jul 2023 17:01:32 -0700
+Subject: [PATCH] arm32: Avoid using solaris syntax for .section directive
+
+Assembler from binutils 2.41 rejects this syntax
+
+.section "name"[, flags...]
+
+where flags could be #alloc, #write, #execstr
+Switch to using ELF syntax
+
+.section name[, "flags"[, @type]]
+
+[1] https://ftp.gnu.org/old-gnu/Manuals/gas-2.9.1/html_chapter/as_7.html#SEC119
+
+Upstream-Status: Submitted [by email to xen-devel@lists.xenproject.org and maintainers]
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ xen/arch/arm/arm32/proc-v7.S | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
+index c90a31d80f..6d3d19b873 100644
+--- a/xen/arch/arm/arm32/proc-v7.S
++++ b/xen/arch/arm/arm32/proc-v7.S
+@@ -29,7 +29,7 @@ brahma15mp_init:
+         mcr   CP32(r0, ACTLR)
+         mov   pc, lr
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_ca15mp_proc_info, #object
+ __v7_ca15mp_proc_info:
+         .long 0x410FC0F0             /* Cortex-A15 */
+@@ -38,7 +38,7 @@ __v7_ca15mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca15mp_proc_info, . - __v7_ca15mp_proc_info
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_ca7mp_proc_info, #object
+ __v7_ca7mp_proc_info:
+         .long 0x410FC070             /* Cortex-A7 */
+@@ -47,7 +47,7 @@ __v7_ca7mp_proc_info:
+         .long caxx_processor
+         .size __v7_ca7mp_proc_info, . - __v7_ca7mp_proc_info
+ 
+-        .section ".proc.info", #alloc
++        .section .proc.info, "a"
+         .type __v7_brahma15mp_proc_info, #object
+ __v7_brahma15mp_proc_info:
+         .long 0x420F00F0             /* Broadcom Brahma-B15 */
+-- 
+2.41.0
+
