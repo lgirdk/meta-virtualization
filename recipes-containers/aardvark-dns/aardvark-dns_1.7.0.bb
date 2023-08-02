@@ -4,7 +4,7 @@ HOMEPAGE = "https://github.com/containers/aardvark-dns"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRCREV = "cb1a462dd8427e33355f6907394a0646f5a26bf2"
+SRCREV = "d27d3b39b519d4a2db3ae322c0d62846772a8624"
 
 # It is possible to fetch the source using the crate fetcher instead:
 #SRC_URI = "crate://crates.io/${BPN}/${PV}"
