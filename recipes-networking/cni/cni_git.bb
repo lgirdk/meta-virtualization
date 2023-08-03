@@ -9,13 +9,13 @@ Because of this focus, CNI has a wide range of support and the specification \
 is simple to implement. \
 "
 
-SRCREV_cni = "f024754da8d49bdac31d99d04355ddfe0340f8eb"
-SRCREV_plugins = "4744ec27b89c083194e7df498de50f03a8a1d3ec"
-SRCREV_flannel_plugin = "a2398ab1a85101d5b2d2180dc731215d65b2be9a"
+SRCREV_cni = "ca96f4ca96d89f4d7fbce885af1d66046b45342f"
+SRCREV_plugins = "9d9ec6e3e18ea245b9cef0f8396e570247338d1f"
+SRCREV_flannel_plugin = "6464faacf5c00e25321573225d74638455ef03a0"
 SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;branch=main;name=cni;protocol=https \
-        git://github.com/containernetworking/plugins.git;branch=release-1.1;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
+        git://github.com/containernetworking/plugins.git;branch=main;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
         git://github.com/flannel-io/cni-plugin;branch=main;name=flannel_plugin;protocol=https;destsuffix=${S}/src/github.com/containernetworking/plugins/plugins/meta/flannel \
 	"
 LICENSE = "Apache-2.0"
