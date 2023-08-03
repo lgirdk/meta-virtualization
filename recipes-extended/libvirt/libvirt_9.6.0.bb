@@ -32,7 +32,7 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://0001-messon.build-remove-build-path-information-to-avoid-.patch \
           "
 
-SRC_URI[libvirt.sha256sum] = "a07f501e99093ac1374888312be32182e799de17407ed7547d0e469fae8188c5"
+SRC_URI[libvirt.sha256sum] = "10f2e52dbb5df90410594a8e36d0e0587d38f11efb64ff32cbec422b93b70c52"
 
 inherit meson gettext update-rc.d pkgconfig systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
