@@ -1,0 +1,38 @@
+From 65fcb73cdef34609f28461424672551a6e65327e Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Thu, 3 Aug 2023 15:01:42 +0000
+Subject: [PATCH] meson.build: force pid open/send_signal detection
+
+meson is not correctly detecting that our cross build environment
+has the pid* definitions, which leads to compile errors when internal
+definitions conflict:
+
+   lxcfs-5.0.4/src/utils.h:45:19: error: static declaration of 'pidfd_open' follows non-static declaration
+
+We could possibly generate a meson.cross file, and specify it via
+--cross-file, but we can just force the detection to 'true' as we
+don't have to support configurations without the functionality.
+
+Upstream-Status: Inappropriate [OE-Specific]
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/meson.build b/meson.build
+index a0289ad..9480c30 100644
+--- a/meson.build
++++ b/meson.build
+@@ -143,6 +143,8 @@ foreach ident: [
+ ]
+     have = cc.has_function(ident[0], prefix: ident[1], args: '-D_GNU_SOURCE')
+     conf.set10('HAVE_' + ident[0].to_upper(), have)
++    conf.set10('HAVE_PIDFD_OPEN', true)
++    conf.set10('HAVE_PIDFD_SEND_SIGNAL', true)
+ endforeach
+ 
+ fuse_version = get_option('fuse-version')
+-- 
+2.39.2
+
