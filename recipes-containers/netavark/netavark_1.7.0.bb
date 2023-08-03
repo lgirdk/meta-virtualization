@@ -4,7 +4,7 @@ HOMEPAGE = "https://github.com/containers/netavark"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRCREV = "90cccc1c21f26fbc473a201ce3b30d77667c7635"
+SRCREV = "ab03eec05e6271ad2028e46e95941d8551cb69a1"
 
 # It is possible to fetch the source using the crate fetcher instead:
 #SRC_URI = "crate://crates.io/${BPN}/${PV}"
@@ -37,6 +37,9 @@ do_install_ptest() {
 
 # rdepends on aardvark-dns which rdepends on slirp4netns
 REQUIRED_DISTRO_FEATURES ?= "seccomp"
+
+
+DEPENDS += "protobuf-c-native protobuf-c"
 
 # bind-utils is used to install dig
 # procps-ps is necessary because the ps from busybox is
