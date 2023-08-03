@@ -19,7 +19,7 @@ CVE_VERSION = "3.1.1"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "771c989a9a957b2e487c9312eaee3bfb87638be5"
+SRCREV = "8b1795c69f5cba2e668bb276cef73f890cc5b2bd"
 SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.1 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
