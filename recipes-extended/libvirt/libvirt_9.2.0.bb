@@ -30,6 +30,8 @@ SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.xz;name=libvirt \
            file://gnutls-helper.py \
            file://0001-prevent-gendispatch.pl-generating-build-path-in-code.patch \
            file://0001-messon.build-remove-build-path-information-to-avoid-.patch \
+           file://CVE-2023-3750.patch \
+           file://CVE-2023-2700.patch \
           "
 
 SRC_URI[libvirt.sha256sum] = "a07f501e99093ac1374888312be32182e799de17407ed7547d0e469fae8188c5"
