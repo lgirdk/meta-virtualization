@@ -1,33 +1,35 @@
-From 9add6f9aced42a76f6a2c124754bef6fde56fa05 Mon Sep 17 00:00:00 2001
+From dfc490a3740bb7d6889939934afadcb58891fbce Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Date: Mon, 31 Jul 2023 17:01:32 -0700
-Subject: [PATCH] arm32: Avoid using solaris syntax for .section directive
+Date: Tue, 1 Aug 2023 10:49:30 -0700
+Subject: [PATCH] arm: Avoid using solaris syntax for .section directive
 
-Assembler from binutils 2.41 rejects this syntax
+Assembler from binutils 2.41 will rejects ([1], [2]) the following
+syntax
 
-.section "name"[, flags...]
+.section "name", #alloc
 
-where flags could be #alloc, #write, #execstr
-Switch to using ELF syntax
+for any other any target other than ELF SPARC. This means we can't use
+it in the Arm code.
 
-.section name[, "flags"[, @type]]
+So switch to the GNU syntax
 
-[1] https://ftp.gnu.org/old-gnu/Manuals/gas-2.9.1/html_chapter/as_7.html#SEC119
+.section name [, "flags"[, @type]]
 
-Upstream-Status: Submitted [by email to xen-devel@lists.xenproject.org and maintainers]
+[1] https://sourceware.org/bugzilla/show_bug.cgi?id=11601
+[2] https://sourceware.org/binutils/docs-2.41/as.html#Section
 
+Upstream-Status: Backport [https://github.com/xen-project/xen/commit/dfc490a3740bb7d6889939934afadcb58891fbce]
 Signed-off-by: Khem Raj <raj.khem@gmail.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+[jgrall: Reword commit message]
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
  xen/arch/arm/arm32/proc-v7.S | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ xen/arch/arm/dtb.S           | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/arm/arm32/proc-v7.S b/xen/arch/arm/arm32/proc-v7.S
-index c90a31d80f..6d3d19b873 100644
+index c90a31d80fc5..6d3d19b87354 100644
 --- a/xen/arch/arm/arm32/proc-v7.S
 +++ b/xen/arch/arm/arm32/proc-v7.S
 @@ -29,7 +29,7 @@ brahma15mp_init:
@@ -57,6 +59,12 @@ index c90a31d80f..6d3d19b873 100644
          .type __v7_brahma15mp_proc_info, #object
  __v7_brahma15mp_proc_info:
          .long 0x420F00F0             /* Broadcom Brahma-B15 */
--- 
-2.41.0
-
+diff --git a/xen/arch/arm/dtb.S b/xen/arch/arm/dtb.S
+index c39f3a095c58..386f83ba649e 100644
+--- a/xen/arch/arm/dtb.S
++++ b/xen/arch/arm/dtb.S
+@@ -1,3 +1,3 @@
+-        .section .dtb,#alloc
++        .section .dtb, "a"
+         GLOBAL(_sdtb)
+         .incbin CONFIG_DTB_FILE
