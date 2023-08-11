@@ -12,4 +12,7 @@ S = "${WORKDIR}/git"
 
 DEPENDS += "${PYTHON_PN}-pyyaml-native"
 
-RDEPENDS:${PN} += "${PYTHON_PN}-pyyaml"
+RDEPENDS:${PN} += "\
+    ${PYTHON_PN}-pyyaml \
+    ${PYTHON_PN}-dotenv \
+"
