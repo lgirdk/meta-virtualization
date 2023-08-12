@@ -17,7 +17,7 @@ SRC_URI = "git://github.com/opencontainers/image-tools.git;branch=master;protoco
            file://0001-tool-respect-GO-and-GOBUILDFLAGS-when-building.patch"
 
 SRCREV = "11f9988298305d36f64248a6ee55318e60bf170b"
-PV = "1.0.0-rc3+git${SRCPV}"
+PV = "1.0.0-rc3+git"
 GO_IMPORT = "import"
 
 inherit goarch

@@ -12,7 +12,7 @@ PKG_NAME = "github.com/alecthomas/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=master;protocol=https"
 
 SRCREV = "e8d801238da6f0dfd14078d68f9b53fa50a7eeb5"
-PV = "0.0+git${SRCPV}"
+PV = "0.0+git"
 
 S = "${WORKDIR}/git"
 

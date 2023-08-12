@@ -10,7 +10,7 @@ PKG_NAME = "github.com/syndtr/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=master;protocol=https"
 
 SRCREV = "2c00daeb6c3b45114c80ac44119e7b8801fdd852"
-PV = "0.0+git${SRCPV}"
+PV = "0.0+git"
 
 S = "${WORKDIR}/git"
 

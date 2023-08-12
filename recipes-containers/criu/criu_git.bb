@@ -14,7 +14,7 @@ EXCLUDE_FROM_WORLD = "1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
 SRCREV = "d46f40f4ff0c724e0b9f0f8a2e8c043806897e94"
-PV = "3.17.1+git${SRCPV}"
+PV = "3.17.1+git"
 
 SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
            file://0001-criu-Skip-documentation-install.patch \

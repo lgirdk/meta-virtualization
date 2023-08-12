@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464"
 SRC_URI = "git://github.com/containers/udica;protocol=https;branch=main"
 
 SRCREV = "4a64ff7c1b8116a1894e72eee2a19706e970001f"
-PV = "0.2.7+git${SRCPV}"
+PV = "0.2.7+git"
 
 S = "${WORKDIR}/git"
 

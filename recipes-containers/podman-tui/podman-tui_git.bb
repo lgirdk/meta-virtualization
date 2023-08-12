@@ -34,7 +34,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v0.9.1+git${SRCPV}"
+PV = "v0.9.1+git"
 
 PODMAN_PKG = "github.com/containers/podman-tui"
 

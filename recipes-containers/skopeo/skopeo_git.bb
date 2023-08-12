@@ -25,7 +25,7 @@ SRC_URI = " \
 "
 
 SRCREV = "416218f501364aa05fbe63617fd4599d63d82637"
-PV = "v1.13.1+git${SRCPV}"
+PV = "v1.13.1+git"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git/src/github.com/containers/skopeo"

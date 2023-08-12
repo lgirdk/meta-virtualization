@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
 SECTION = "console/tools"
 
 BASE_PV="0.16.21"
-PV = "${BASE_PV}+git${SRCPV}"
+PV = "${BASE_PV}+git"
 SRCREV = "e254e0b19651d3b8a20225b40281c9974a95dec4"
 SRC_URI = "git://github.com/jbruchon/${BPN}.git;protocol=https;branch=master \
     file://0001-cpp-Makefile-respect-LDFLAGS-when-building-bcc-cpp.patch \

@@ -10,7 +10,7 @@ PKG_NAME = "github.com/opencontainers/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME};destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "65fac7b55eb714642e9359458656939349dcb766"
-PV = "v1.0.0-rc0+git${SRCPV}"
+PV = "v1.0.0-rc0+git"
 
 S = "${WORKDIR}/git"
 

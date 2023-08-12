@@ -7,7 +7,7 @@ SRC_URI = "git://github.com/genuinetools/netns;branch=master;protocol=https \
            file://Makefile-force-rebuilding-all-packages-to-avoid-cgo.patch \
           "
 SRCREV = "00d5d07ab1c8afcf481ffa5958719943b6ecfde4"
-PV = "0.5.3+git${SRCPV}"
+PV = "0.5.3+git"
 GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"

@@ -8,7 +8,7 @@ SRC_URI = "git://github.com/opencontainers/runtime-tools.git;branch=master;proto
            "
 
 SRCREV = "0105384f68e16803891d0a17d9067b1def6a2778"
-PV = "0.9.0+git${SRCPV}"
+PV = "0.9.0+git"
 GO_IMPORT = "import"
 
 INSANE_SKIP:${PN} += "ldflags textrel"

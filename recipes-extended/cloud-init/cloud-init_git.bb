@@ -14,7 +14,7 @@ SRC_URI = "git://github.com/canonical/cloud-init;branch=23.2.x;protocol=https \
     file://0002-setup.py-use-pkg-config-for-udev-rules-path-2137.patch \
 "
 
-PV = "v23.2.2+git${SRCPV}"
+PV = "v23.2.2+git"
 
 S = "${WORKDIR}/git"
 

@@ -10,7 +10,7 @@ PKG_NAME = "github.com/docker/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "d6e1431feb32348e0650bf7551ac5cffd01d857b"
-PV = "0.6.1+git${SRCPV}"
+PV = "0.6.1+git"
 
 S = "${WORKDIR}/git"
 

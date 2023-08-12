@@ -14,7 +14,7 @@ SRC_URI = "\
     git://github.com/containers/conmon.git;branch=main;protocol=https \
 "
 
-PV = "2.1.7+git${SRCPV}"
+PV = "2.1.7+git"
 
 S = "${WORKDIR}/git"
 

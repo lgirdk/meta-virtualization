@@ -19,7 +19,7 @@ SRC_URI:class-devupstream = "git://github.com/kubernetes/kubernetes.git;branch=m
                             "
 SRCREV_kubernetes:class-devupstream = "d2f6eb6339de25cef04850b6d9be8335d52324cd"
 SRCREV_kubernetes-release:class-devupstream = "7c1aa83dac555de6f05500911467b70aca4949f0"
-PV:class-devupstream = "v1.23-alpha+git${SRCPV}"
+PV:class-devupstream = "v1.23-alpha+git"
 
 SRCREV_FORMAT ?= "kubernetes_release"
 

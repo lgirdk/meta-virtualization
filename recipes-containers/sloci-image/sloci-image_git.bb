@@ -9,7 +9,7 @@ SRC_URI = "git://github.com/jirutka/sloci-image.git;branch=master;protocol=https
 DEPENDS = ""
 
 SRCREV = "4015e49763e5a738026a5bbfcf32b38b5a4fa650"
-PV = "v0.1.0+git${SRCPV}"
+PV = "v0.1.0+git"
 
 S = "${WORKDIR}/git"
 

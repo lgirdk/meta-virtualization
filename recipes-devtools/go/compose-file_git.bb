@@ -10,7 +10,7 @@ PKG_NAME = "github.com/aanand/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "a3e58764f50597b6217fec07e9bff7225c4a1719"
-PV = "3.0+git${SRCPV}"
+PV = "3.0+git"
 
 S = "${WORKDIR}/git"
 

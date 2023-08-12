@@ -10,7 +10,7 @@ SRCREV_umoci = "33ec00665c66321f1b1f34ca7e6f370ac35c1233"
 SRC_URI = "git://github.com/opencontainers/umoci.git;branch=main;name=umoci;destsuffix=github.com/opencontainers/umoci;protocol=https \
           "
 
-PV = "v0.4.7+git${SRCPV}"
+PV = "v0.4.7+git"
 S = "${WORKDIR}/github.com/opencontainers/umoci"
 GO_IMPORT = "github.com/opencontainers/umoci"
 

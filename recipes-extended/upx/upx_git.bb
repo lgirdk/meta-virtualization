@@ -23,7 +23,7 @@ DEPENDS = "zlib libucl xz cmake-native"
 
 S = "${WORKDIR}/git"
 
-PV = "3.96+${SRCPV}"
+PV = "3.96+"
 
 EXTRA_OEMAKE += " \
     UPX_UCLDIR=${STAGING_DIR_TARGET} \

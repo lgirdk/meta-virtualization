@@ -10,7 +10,7 @@ PKG_NAME = "github.com/spf13/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME};destsuffix=git/src/${PKG_NAME};branch=main;protocol=https"
 
 SRCREV = "4dd4b25de38418174a6e859e8a32eaccca32dccc"
-PV = "v1.6.0+git${SRCPV}"
+PV = "v1.6.0+git"
 
 S = "${WORKDIR}/git"
 

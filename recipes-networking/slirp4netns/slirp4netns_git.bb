@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1e2efd29c201480c6be2744d9edade26"
 SRCREV = "323aa69a68362a432f15d5e8050e74a0637aaf1e"
 SRC_URI = "git://github.com/rootless-containers/slirp4netns.git;nobranch=1;protocol=https"
 
-PV = "1.2.0+git${SRCPV}"
+PV = "1.2.0+git"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES ?= "seccomp"

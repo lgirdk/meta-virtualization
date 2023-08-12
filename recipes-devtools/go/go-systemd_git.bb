@@ -10,7 +10,7 @@ PKG_NAME = "github.com/coreos/go-${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
 SRCREV = "b4a58d95188dd092ae20072bac14cece0e67c388"
-PV = "4+git${SRCPV}"
+PV = "4+git"
 
 RDEPENDS:${PN} += "bash"
 

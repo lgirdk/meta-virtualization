@@ -8,7 +8,7 @@ SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https;dests
           "
 
 SRCREV = "23befa0b232877b5b502b828e24161d801bd67f6"
-PV = "0.1.0+git${SRCPV}"
+PV = "0.1.0+git"
 
 S = "${WORKDIR}/git/src/github.com/jessfraz/riddler"
 GO_IMPORT = "github.com/jessfraz/riddler"

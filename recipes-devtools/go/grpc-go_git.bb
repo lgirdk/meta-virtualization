@@ -10,7 +10,7 @@ PKG_NAME = "google.golang.org/grpc"
 SRC_URI = "git://github.com/grpc/${SRCNAME}.git;destsuffix=git/src/${PKG_NAME};branch=master;protocol=https"
 
 SRCREV = "5d8e5aad40bedb696205b96b786f1d0e1326b3f8"
-PV = "1.41.0+git${SRCPV}"
+PV = "1.41.0+git"
 
 S = "${WORKDIR}/git"
 

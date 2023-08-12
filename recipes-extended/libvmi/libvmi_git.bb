@@ -4,7 +4,7 @@ HOMEPAGE = "https://github.com/libvmi/libvmi"
 LICENSE = "LGPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING.LESSER;md5=e6a600fd5e1d9cbde2d983680233ad02"
 SECTION = "console/tools"
-PV = "0.14.0+git${SRCPV}"
+PV = "0.14.0+git"
 
 DEPENDS = "libvirt libcheck bison fuse bison-native flex-native autoconf-archive-native"
 

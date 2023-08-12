@@ -11,7 +11,7 @@ SRC_URI = " \
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=419739e325a50f3d7b4501338e44a4e5"
 
-PV = "${XEN_REL}+stable${SRCPV}"
+PV = "${XEN_REL}+stable"
 
 S = "${WORKDIR}/git"
 

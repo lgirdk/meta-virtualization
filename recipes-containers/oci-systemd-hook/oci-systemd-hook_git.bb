@@ -13,7 +13,7 @@ SRC_URI = "git://github.com/projectatomic/oci-systemd-hook;branch=master;protoco
            file://0001-Add-additional-cgroup-mounts-from-root-NS-automatica.patch \
 "
 
-PV = "0.2.0+git${SRCPV}"
+PV = "0.2.0+git"
 S = "${WORKDIR}/git"
 
 inherit autotools pkgconfig

@@ -11,7 +11,7 @@ SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.8;name=dist
 
 PACKAGES =+ "docker-registry"
 
-PV = "v2.8.2+git${SRCPV}"
+PV = "v2.8.2+git"
 S = "${WORKDIR}/git/src/github.com/docker/distribution"
 
 GO_IMPORT = "import"
