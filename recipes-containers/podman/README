@@ -1,0 +1,20 @@
+rootless podman
+---------------
+
+Basic configuration:
+
+   https://developers.redhat.com/blog/2020/09/25/rootless-containers-with-podman-the-basics#
+
+% echo "user.max_user_namespaces=28633" > /etc/sysctl.d/userns.conf 	 
+% sysctl -p /etc/sysctl.d/userns.conf
+
+% useradd -c "yocto" yocto
+% passwd yocto
+
+% su - yocto
+
+% podman pull alpine
+% podman run alpine cat /etc/os-release
+% podman images
+% podman unshare cat /proc/self/uid_map
+
