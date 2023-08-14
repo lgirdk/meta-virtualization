@@ -1,8 +1,7 @@
 From 575302e9c6567b8547b308b2b0c6a07b27e3be3b Mon Sep 17 00:00:00 2001
 From: Adrian Freihofer <adrian.freihofer@siemens.com>
 Date: Sun, 4 Dec 2022 18:02:54 +0100
-Subject: [PATCH] Revert "Merge pull request #43976 from
- thaJeztah/20.10_backport_bump_golang_1.18"
+Subject: [PATCH] Revert go updates from 1.18.7 to 1.17.13
 
 Upstream-Status: Inapropriate
 
@@ -25,12 +24,11 @@ changes made to 32debe0986f4516bfe17bf9122447f0c735e61b4.
  vendor/archive/tar/reader_test.go     |  30 +++---
  vendor/archive/tar/stat_actime1.go    |   1 +
  vendor/archive/tar/stat_actime2.go    |   1 +
- vendor/archive/tar/stat_unix.go       |   1 +
  vendor/archive/tar/strconv.go         |  43 +++++---
  vendor/archive/tar/tar_test.go        |   2 +-
  vendor/archive/tar/writer.go          |  89 ++++++++---------
  vendor/archive/tar/writer_test.go     |  24 +++--
- 18 files changed, 251 insertions(+), 312 deletions(-)
+ 17 files changed, 250 insertions(+), 312 deletions(-)
  delete mode 100644 vendor/archive/tar/fuzz_test.go
 
 diff --git a/Dockerfile b/Dockerfile
@@ -109,10 +107,10 @@ index c34a5add11..50ed9293c1 100644
  
  var generatedTempl = template.Must(template.New("rpc_cient").Funcs(templFuncs).Parse(`
 diff --git a/vendor/archive/tar/common.go b/vendor/archive/tar/common.go
-index c99b5c1920..c667cfc872 100644
+index f6d701d925..8706ede431 100644
 --- a/vendor/archive/tar/common.go
 +++ b/vendor/archive/tar/common.go
-@@ -316,10 +316,10 @@ func invertSparseEntries(src []sparseEntry, size int64) []sparseEntry {
+@@ -319,10 +319,10 @@ func invertSparseEntries(src []sparseEntry, size int64) []sparseEntry {
  // fileState tracks the number of logical (includes sparse holes) and physical
  // (actual in tar archive) bytes remaining for the current file.
  //
@@ -126,7 +124,7 @@ index c99b5c1920..c667cfc872 100644
  }
  
  // allowedFormats determines which formats can be used.
-@@ -413,22 +413,22 @@ func (h Header) allowedFormats() (format Format, paxHdrs map[string]string, err
+@@ -416,22 +416,22 @@ func (h Header) allowedFormats() (format Format, paxHdrs map[string]string, err
  
  	// Check basic fields.
  	var blk block
@@ -165,7 +163,7 @@ index c99b5c1920..c667cfc872 100644
  
  	// Check for header-only types.
  	var whyOnlyPAX, whyOnlyGNU string
-@@ -538,7 +538,7 @@ type headerFileInfo struct {
+@@ -541,7 +541,7 @@ type headerFileInfo struct {
  func (fi headerFileInfo) Size() int64        { return fi.h.Size }
  func (fi headerFileInfo) IsDir() bool        { return fi.Mode().IsDir() }
  func (fi headerFileInfo) ModTime() time.Time { return fi.h.ModTime }
@@ -474,7 +472,7 @@ index e73e0d2609..0000000000
 -	})
 -}
 diff --git a/vendor/archive/tar/reader.go b/vendor/archive/tar/reader.go
-index e609c15f27..f645af8016 100644
+index 45848304ed..ca32bdea1f 100644
 --- a/vendor/archive/tar/reader.go
 +++ b/vendor/archive/tar/reader.go
 @@ -65,7 +65,7 @@ func (tr *Reader) next() (*Header, error) {
@@ -821,20 +819,8 @@ index f76d6be220..5a9a35cbb4 100644
  
  package tar
  
-diff --git a/vendor/archive/tar/stat_unix.go b/vendor/archive/tar/stat_unix.go
-index b743c76b8c..4a5bca0312 100644
---- a/vendor/archive/tar/stat_unix.go
-+++ b/vendor/archive/tar/stat_unix.go
-@@ -3,6 +3,7 @@
- // license that can be found in the LICENSE file.
- 
- //go:build aix || linux || darwin || dragonfly || freebsd || openbsd || netbsd || solaris
-+// +build aix linux darwin dragonfly freebsd openbsd netbsd solaris
- 
- package tar
- 
 diff --git a/vendor/archive/tar/strconv.go b/vendor/archive/tar/strconv.go
-index 275db6f026..f0b61e6dba 100644
+index ac3196370e..fde45c9dbf 100644
 --- a/vendor/archive/tar/strconv.go
 +++ b/vendor/archive/tar/strconv.go
 @@ -14,7 +14,7 @@ import (
@@ -916,7 +902,7 @@ index 275db6f026..f0b61e6dba 100644
  
  	if !validPAXRecord(k, v) {
  		return "", "", s, ErrHeader
-@@ -314,7 +333,7 @@ func formatPAXRecord(k, v string) (string, error) {
+@@ -315,7 +334,7 @@ func formatPAXRecord(k, v string) (string, error) {
  // for the PAX version of the USTAR string fields.
  // The key must not contain an '=' character.
  func validPAXRecord(k, v string) bool {
@@ -1213,6 +1199,3 @@ index 640264984a..4e709e5cac 100644
  				}
  			default:
  				t.Fatalf("test %d.%d, unknown test operation: %T", i, j, tf)
--- 
-2.38.1
-
