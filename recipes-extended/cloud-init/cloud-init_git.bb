@@ -11,6 +11,7 @@ SRCREV = "e02c4607923af64311c70ae9a06d6794355e9a61"
 SRC_URI = "git://github.com/canonical/cloud-init;branch=23.2.x;protocol=https \
     file://cloud-init-source-local-lsb-functions.patch \
     file://0001-setup.py-check-for-install-anywhere-in-args.patch \
+    file://0002-setup.py-use-pkg-config-for-udev-rules-path-2137.patch \
 "
 
 PV = "v23.2.2+git${SRCPV}"

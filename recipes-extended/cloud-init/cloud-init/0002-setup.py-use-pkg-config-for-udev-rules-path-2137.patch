@@ -1,0 +1,50 @@
+From 57752970ebea017820343aadf11b65c537bef336 Mon Sep 17 00:00:00 2001
+From: dankm <dan.mcgregor@usask.ca>
+Date: Fri, 28 Apr 2023 15:10:34 -0600
+Subject: [PATCH] setup.py: use pkg-config for udev/rules path (#2137)
+
+Distributions other than RHEL also use /usr/lib/udev for the rules
+path. Instead of hardcoding the udev rules path for RedHat, check
+pkg-config for the proper location.
+
+Upstream-Status: Backport [23.2 https://github.com/canonical/cloud-init/commit/5abf5f5f2cf93c57ac74220251d2a2acce5f7099]
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
+---
+ setup.py | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index a6dbc5c23..66e618d3a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -46,7 +46,10 @@ def pkg_config_read(library, var):
+             "systemdsystemconfdir": "/etc/systemd/system",
+             "systemdsystemunitdir": "/lib/systemd/system",
+             "systemdsystemgeneratordir": "/lib/systemd/system-generators",
+-        }
++        },
++        "udev": {
++            "udevdir": "/lib/udev",
++        },
+     }
+     cmd = ["pkg-config", "--variable=%s" % var, library]
+     try:
+@@ -309,14 +312,13 @@ data_files = [
+     ),
+ ]
+ if not platform.system().endswith("BSD"):
+-
+-    RULES_PATH = LIB
+-    if os.path.isfile("/etc/redhat-release"):
+-        RULES_PATH = "/usr/lib"
++    RULES_PATH = pkg_config_read("udev", "udevdir")
++    if not in_virtualenv():
++        RULES_PATH = "/" + RULES_PATH
+ 
+     data_files.extend(
+         [
+-            (RULES_PATH + "/udev/rules.d", [f for f in glob("udev/*.rules")]),
++            (RULES_PATH + "/rules.d", [f for f in glob("udev/*.rules")]),
+             (
+                 ETC + "/systemd/system/sshd-keygen@.service.d/",
+                 ["systemd/disable-sshd-keygen-if-cloud-init-active.conf"],
