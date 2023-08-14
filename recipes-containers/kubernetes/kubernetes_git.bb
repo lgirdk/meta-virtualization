@@ -104,8 +104,8 @@ do_install() {
     install -m 0644 ${WORKDIR}/git/release/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf  ${D}${systemd_unitdir}/system/kubelet.service.d/
 
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
-	install -d "${D}${BIN_PREFIX}/bin"
-	install -m 755 "${WORKDIR}/k8s-init" "${D}${BIN_PREFIX}/bin"
+	install -d "${D}${BIN_PREFIX}${base_bindir}"
+	install -m 755 "${WORKDIR}/k8s-init" "${D}${BIN_PREFIX}${base_bindir}"
 
 	install -d ${D}${sysconfdir}/sysctl.d
 	install -m 0644 "${WORKDIR}/99-kubernetes.conf" "${D}${sysconfdir}/sysctl.d"
@@ -143,7 +143,7 @@ FILES:kube-proxy = "${bindir}/kube-proxy"
 FILES:${PN}-misc = "${bindir} ${sysconfdir}/sysctl.d"
 
 ALLOW_EMPTY:${PN}-host = "1"
-FILES:${PN}-host = "${BIN_PREFIX}/bin/k8s-init"
+FILES:${PN}-host = "${BIN_PREFIX}${base_bindir}/k8s-init"
 RDEPENDS:${PN}-host = "${PN}"
 
 RRECOMMENDS:${PN} = "\
