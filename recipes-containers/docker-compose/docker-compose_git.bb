@@ -11,7 +11,7 @@ DEPENDS = " \
 SRCREV_FORMAT="compose_survey"
 SRCREV_compose = "02ad467f89ebc343aa03ce89d18875ea4d604ea3"
 
-SRC_URI = "git://github.com/docker/compose;name=compose;branch=v2;protocol=https"
+SRC_URI = "git://github.com/docker/compose;name=compose;branch=main;protocol=https"
 
 include src_uri.inc
 
@@ -27,7 +27,7 @@ GO_IMPORT = "import"
 
 PV = "v2.17.2"
 
-COMPOSE_PKG = "github.com/docker/compose/v2"
+COMPOSE_PKG = "github.com/docker/compose/"
 
 inherit go goarch
 inherit pkgconfig
