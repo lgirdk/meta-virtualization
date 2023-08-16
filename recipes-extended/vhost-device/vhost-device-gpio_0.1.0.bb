@@ -10,6 +10,8 @@ DEPENDS += "libgpiod"
 # libgpiod-sys generates bindings using bindgen, which depends on clang
 DEPENDS += "clang-native"
 
+SKIP_RECIPE[vhost-device-gpio] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'clang-layer', '', 'Depends on clang-native from meta-clang which is not included', d)}"
+
 SRC_URI += "crate://crates.io/vhost-device-gpio/0.1.0"
 SRC_URI[vhost-device-gpio-0.1.0.sha256sum] = "f4789dd127ce746d4f702d50256ff09e47b19fdb2bfee88a254b7e48efbf1100"
 
