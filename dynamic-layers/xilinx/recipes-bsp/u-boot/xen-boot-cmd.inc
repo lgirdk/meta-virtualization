@@ -18,7 +18,7 @@ XEN_LOAD_ADDRESS ?= "${@append_baseaddr(d,d.getVar('XEN_OFFSET'))}"
 
 # If dom0-ramdisk is used for Xen boot then set RAMDISK image to cpio.gz
 XEN_IMAGE_NAME ?= "xen"
-RAMDISK_IMAGE = "rootfs.cpio.gz"
+RAMDISK_IMAGE ?= "rootfs.cpio.gz"
 
 # Set the amount of memory for dom0 depending on total available memory size(DDR).
 DOM0_MEM ?= "1500M"
