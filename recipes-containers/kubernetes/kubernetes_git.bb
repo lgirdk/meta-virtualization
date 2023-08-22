@@ -12,6 +12,8 @@ SRC_URI = "git://github.com/kubernetes/kubernetes.git;branch=release-1.17;name=k
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
            file://CVE-2020-8564.patch \
+           file://CVE-2020-8565.patch \
+           file://CVE-2020-8566.patch \
           "
 
 DEPENDS += "rsync-native \
