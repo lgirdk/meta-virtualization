@@ -2,16 +2,19 @@ DESCRIPTION = "A powerful URL router and dispatcher for golang."
 HOMEPAGE = "https://github.com/gorilla/mux"
 SECTION = "devel/go"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=c50f6bd9c1e15ed0bad3bea18e3c1b7f"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=c30eee78985cf2584cded5f89ba3d787"
 
 SRCNAME = "mux"
 
 PKG_NAME = "github.com/gorilla/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
-SRCREV = "136d54f81f00414c45c3c68dd47e98cc97519c5e"
+SRCREV = "85123bf20e069b156415b871dea10517f6a8938a"
 
 S = "${WORKDIR}/git"
+
+do_configure[noexec] = "1"
+do_compile[noexec] = "1"
 
 do_install() {
 	install -d ${D}${prefix}/local/go/src/${PKG_NAME}
