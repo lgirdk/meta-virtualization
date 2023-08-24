@@ -2,16 +2,20 @@ DESCRIPTION = "A golang registry for global request variables."
 HOMEPAGE = "https://github.com/gorilla/context"
 SECTION = "devel/go"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=c50f6bd9c1e15ed0bad3bea18e3c1b7f"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=c30eee78985cf2584cded5f89ba3d787"
 
 SRCNAME = "context"
 
 PKG_NAME = "github.com/gorilla/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
-SRCREV = "14f550f51af52180c2eefed15e5fd18d63c0a64a"
+SRCREV = "1cbd4c16de64273a6e63fc710b0d89bfad72cd32"
 
 S = "${WORKDIR}/git"
+
+do_compile() {
+    true
+}
 
 do_install() {
 	install -d ${D}${prefix}/local/go/src/${PKG_NAME}
