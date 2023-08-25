@@ -44,6 +44,7 @@ DEPENDS += "protobuf-c-native protobuf-c"
 # bind-utils is used to install dig
 # procps-ps is necessary because the ps from busybox is
 # not having the same behavior
+# iputils is used because busybox ping behaves differently
 RDEPENDS:${PN}-ptest += " \
     bash \
     bats \
@@ -51,6 +52,7 @@ RDEPENDS:${PN}-ptest += " \
     coreutils \
     dbus-daemon-proxy \
     iproute2 \
+    iputils \
     jq \
     nmap \
     procps-ps \
