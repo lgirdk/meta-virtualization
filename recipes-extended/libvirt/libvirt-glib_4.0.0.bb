@@ -3,12 +3,19 @@ HOMEPAGE = "http://libvirt.org"
 LICENSE = "LGPL-2.1-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-DEPENDS = "glib-2.0 libvirt libxml2"
+DEPENDS = "glib-2.0 libvirt libxml2 libxslt"
 
-SRC_URI = "git://gitlab.com/libvirt/libvirt-glib;protocol=https;branch=master"
+SRC_URI = " \
+	git://gitlab.com/libvirt/libvirt-glib;protocol=https;branch=master \
+	file://0001-meson.build-allow-crosscompiling-gir-and-doc.patch \
+"
 
 SRCREV = "e0bfc34682744a74b850fa217e9c206a9eb80612"
 S = "${WORKDIR}/git"
 
-inherit meson pkgconfig gobject-introspection vala
-GIR_MESON_OPTION = ''
+inherit meson pkgconfig gobject-introspection gettext vala gtk-doc
+
+GIR_MESON_ENABLE_FLAG = 'enabled'
+GIR_MESON_DISABLE_FLAG = 'disabled'
+GTKDOC_MESON_ENABLE_FLAG = 'enabled'
+GTKDOC_MESON_DISABLE_FLAG = 'disabled'
