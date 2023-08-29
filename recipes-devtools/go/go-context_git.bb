@@ -30,3 +30,5 @@ go_context_sysroot_preprocess () {
 }
 
 FILES:${PN} += "${prefix}/local/go/src/${PKG_NAME}/*"
+
+CLEANBROKEN = "1"
