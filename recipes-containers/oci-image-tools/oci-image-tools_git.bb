@@ -29,6 +29,8 @@ EXTRA_OEMAKE="BUILDTAGS=''"
 
 S = "${WORKDIR}/git/src/github.com/opencontainers/image-tools"
 
+COMPATIBLE_HOST:riscv64 = "null"
+
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOROOT="${STAGING_LIBDIR}/go"
