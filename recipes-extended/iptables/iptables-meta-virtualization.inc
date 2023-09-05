@@ -16,4 +16,5 @@ RRECOMMENDS:${PN} += "kernel-module-ip6-tables \
                       kernel-module-xt-conntrack \
                       kernel-module-xt-state \
                       kernel-module-xt-tcpudp \
+                      kernel-module-xt-nat \
                       "
