@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/containers/buildah/LICENSE;md5=e3fc50a
 
 S = "${WORKDIR}/git"
 
-BUILDAH_VERSION = "1.31.1"
+BUILDAH_VERSION = "1.31.3"
 
 PV = "${BUILDAH_VERSION}"
 
@@ -26,7 +26,7 @@ GO_WORKDIR = "${GO_INSTALL}"
 GOBUILDFLAGS += "-mod vendor"
 
 SRCREV_FORMAT = "buildah_storage"
-SRCREV_buildah = "0cc7680cc38180a23b53895903405d98fcc4c027"
+SRCREV_buildah = "0926e05c3386a009f622a49a781bf3dcbf2aef03"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 
 SRC_URI = " \
