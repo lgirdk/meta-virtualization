@@ -11,7 +11,7 @@ DEPENDS = " \
 
 # Specify the first two important SRCREVs as the format
 SRCREV_FORMAT="nerdcli_cgroups"
-SRCREV_nerdcli = "1525035ce9aec89a796f6f15c7537db2448f88b9"
+SRCREV_nerdcli = "b33a58f288bc42351404a016e694190b897cd252"
 
 SRC_URI = "git://github.com/containerd/nerdctl.git;name=nerdcli;branch=main;protocol=https"
 
@@ -22,8 +22,6 @@ SRC_URI += "file://0001-Makefile-allow-external-specification-of-build-setti.pat
             file://modules.txt \
            "
 
-SRC_URI[sha256sum] = "d7b05a9bff34dfb25abe7e5b1e54cf2607f953d91cb33fb231a4775a1a4afa3d"
-
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
@@ -31,7 +29,7 @@ GO_IMPORT = "import"
 
 # S = "${WORKDIR}/git"
 
-PV = "v1.3.0"
+PV = "v1.5.0"
 
 NERDCTL_PKG = "github.com/containerd/nerdctl"
 
