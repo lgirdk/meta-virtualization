@@ -16,7 +16,7 @@ What is not in scope for this project? \
     non-exist on the kube-apiserver. \
  "
 
-SRCREV_cri-tools = "dd51f3b7d34df19d4ef41929baba9d2d29346437"
+SRCREV_cri-tools = "d5f3f2df025a319368b68a3c7b3f3c7d890979ca"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-tools.git;branch=master;name=cri-tools;protocol=https \
         file://0001-build-allow-environmental-CGO-settings-and-pass-dont.patch \
@@ -27,7 +27,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c2
 
 GO_IMPORT = "import"
 
-PV = "1.27.0+git${SRCREV_cri-tools}"
+PV = "1.28.0+git${SRCREV_cri-tools}"
 
 RPROVIDES:${PN} += "crictl"
 PACKAGES =+ "${PN}-critest"
