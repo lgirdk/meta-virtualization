@@ -1,5 +1,25 @@
 #!/usr/bin/env python3
 
+# SPDX-License-Identifier: GPL-2.0-only
+#
+# go-dep processor
+#
+# Copyright (C) 2022 Bruce Ashfield
+# Copyright (C) 2023 Chen Qi
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 import os
 import sys
 import logging
@@ -51,14 +71,14 @@ class GoModTool(object):
         # store subpaths used to form srcpath
         # {actual_module_name: subpath}
         self.modules_subpaths = OrderedDict()
-        
+
         # modules's actual source paths, record those that are not the same with the module itself
         self.modules_srcpaths = OrderedDict()
 
         # store lines, comment removed
         self.require_lines = []
         self.replace_lines = []
-        
+
         # fetch repo
         self.fetch_and_checkout_repo(self.repo.split('://')[1], self.repo, self.rev, checkout=True, get_subpath=False)
 
@@ -91,7 +111,7 @@ class GoModTool(object):
             return
         self.parse_go_mod(go_mod_file)
         self.show_go_mod_info()
-        
+
     def fetch_and_checkout_repo(self, module_name, repo_url, rev, default_protocol='https://', checkout=False, get_subpath=True):
         """
         Fetch repo_url to <workdir>/repos/repo_base_name
@@ -143,12 +163,12 @@ class GoModTool(object):
                     git_action = "clone"
         else:
             # No local repo, clone it.
-            git_action = "clone"        
+            git_action = "clone"
 
         if git_action == "clone":
             logger.info("Removing %s" % repo_dest_dir)
             subprocess.check_call('rm -rf %s' % repo_dest_dir, shell=True)
-            
+
         # clone/fetch repo
         try:
             git_cwd = repos_dir if git_action == "clone" else repo_dest_dir
@@ -235,7 +255,7 @@ class GoModTool(object):
             self.modules_repoinfo[module_name] = (repo_url, repo_dest_dir, requiredrev)
         else:
             logger.warning("Failed to get requiredrev, repo_url = %s, rev = %s, module_name = %s" % (repo_url, rev, module_name))
-        
+
     def parse_go_mod(self, go_mod_path):
         """
         Parse go.mod file to get the modules info
@@ -402,8 +422,8 @@ class GoModTool(object):
         except:
             logger.info("wget -O %s https://pkg.go.dev/%s failed" % (wget_content_file, module_name))
             return None
-        
-                    
+
+
     def get_repo_url_rev(self, module_name, version):
         """
         Return (repo_url, rev)
@@ -421,11 +441,11 @@ class GoModTool(object):
                 rev = v
         else:
             rev = v
-            
+
         #
         # Get repo_url
         # We put a cache mechanism here, <wget_content_file>.repo_url.cache is used to store the repo url fetch before
-        # 
+        #
         wget_dir = os.path.join(self.workdir, 'wget-contents')
         if not os.path.exists(wget_dir):
             os.makedirs(wget_dir)
@@ -451,7 +471,7 @@ class GoModTool(object):
         unhandled_reason = 'cannot determine the repo for %s' % module_name
         self.modules_unhandled[module_name] = unhandled_reason
         return (None, rev)
-            
+
     def get_url_srcrev(self, module_name, version):
         """
         Return url and fullsrcrev according to module_name and version
@@ -470,10 +490,10 @@ class GoModTool(object):
             unhandled_reason = 'fetch_and_checkout_repo(%s, %s, %s) failed' % (module_name, repo_url, rev)
             self.modules_unhandled[module_name] = unhandled_reason
             return (None, None)
-        
+
     def gen_src_uri_inc(self):
         """
-        Generate src_uri.inc file containing SRC_URIs 
+        Generate src_uri.inc file containing SRC_URIs
         """
         src_uri_inc_file = os.path.join(self.workdir, 'src_uri.inc')
         # record the <name> after writting SRCREV_<name>, this is to avoid modules having the same basename resulting in same SRCREV_xxx
@@ -530,9 +550,9 @@ do_compile:prepend() {
         force_flag=$(echo $s | cut -d: -f3)
         mkdir -p vendor.copy/$site_dest
         if [ -n "$force_flag" ]; then
-	    echo "[INFO] $site_dest: force copying .go files"
-	    rm -rf vendor.copy/$site_dest
-	    rsync -a --exclude='vendor/' --exclude='.git/' vendor.fetch/$site_source/ vendor.copy/$site_dest
+            echo "[INFO] $site_dest: force copying .go files"
+            rm -rf vendor.copy/$site_dest
+            rsync -a --exclude='vendor/' --exclude='.git/' vendor.fetch/$site_source/ vendor.copy/$site_dest
         else
             [ -n "$(ls -A vendor.copy/$site_dest/*.go 2> /dev/null)" ] && { echo "[INFO] vendor.fetch/$site_source -> $site_dest: go copy skipped (files present)" ; true ; } || { echo "[INFO] $site_dest: copying .go files" ; rsync -a --exclude='vendor/' --exclude='.git/' vendor.fetch/$site_source/ vendor.copy/$site_dest ; }
         fi
@@ -651,7 +671,7 @@ def main():
         gomodtool.gen_src_uri_inc()
         gomodtool.gen_relocation_inc()
         gomodtool.gen_modules_txt()
-    
+
 
 if __name__ == "__main__":
     try:
