@@ -26,6 +26,7 @@ import logging
 import argparse
 from collections import OrderedDict
 import subprocess
+import textwrap
 
 # This switch is used to make this script error out ASAP, mainly for debugging purpose
 ERROR_OUT_ON_FETCH_AND_CHECKOUT_FAILURE = True
@@ -638,8 +639,23 @@ do_compile:prepend() {
 
 def main():
     parser = argparse.ArgumentParser(
-        description="oe-go-mod-autogen.py is used to generate src_uri.inc, relocation.inc and modules.txt to be used by go mod recipes",
-        epilog="Use %(prog)s --help to get help")
+        description="go mod dependency -> SRC_URI procesing",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent('''\
+
+        Overview:
+
+          go-mod-oe is a tool for processing go dependencies to generate
+          dependencies suitable for OE fetcher consumption.
+
+          In particular, it creates a build structure suitable for
+          '-mod="vendor"' go builds. All dependencies are in the vendor/
+          directory, so no golang specific fetching or network access happens
+          during the build.
+
+          The files src_uri.inc, relocation.inc and modules.txt are generated
+          and suitable for recipe inclusion.
+        '''))
     parser.add_argument("--repo", help = "Repo for the recipe.", required=True)
     parser.add_argument("--rev", help = "Revision for the recipe.", required=True)
     parser.add_argument("--module", help = "Go module name. To be used with '--test'")
