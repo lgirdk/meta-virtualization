@@ -44,9 +44,9 @@ DESCRIPTION = "Linux container runtime \
 # so we get that tag, and make it our SRCREVS:
 #
 
-SRCREV_moby = "00e46f85f6e46bb4b02c33da253f901c473794e9"
+SRCREV_moby = "1a7969545d73537545645f5cd2c79b7a77e7d39f"
 SRCREV_libnetwork = "67e0588f1ddfaf2faf4c8cae8b7ea2876434d91c"
-SRCREV_cli = "b74562d917779426ae5010dd8d8bd9140075a741"
+SRCREV_cli = "ed223bc820ee9bb7005a333013b86203a9e1bc23"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
 	git://github.com/moby/moby.git;branch=24.0;name=moby;protocol=https \
@@ -66,7 +66,7 @@ require docker.inc
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=4859e97a9c7780e77972d989f0823f28"
 
-DOCKER_VERSION = "24.0.5"
+DOCKER_VERSION = "24.0.6"
 PV = "${DOCKER_VERSION}+git${SRCREV_moby}"
 
 CVE_PRODUCT = "docker mobyproject:moby"
