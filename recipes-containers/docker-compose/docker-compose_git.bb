@@ -70,14 +70,14 @@ do_install() {
         #install -m 755 "${S}/src/import/bin/docker-compose" "${D}${BIN_PREFIX}/bin"
 
 	# commonly installed to: /usr/lib/docker/cli-plugins/
-	install -d "${D}${libdir}/docker/cli-plugins/"
-	install -m 755 "${S}/src/import/bin/docker-compose" "${D}${libdir}/docker/cli-plugins/"
+	install -d "${D}${nonarch_libdir}/docker/cli-plugins/"
+	install -m 755 "${S}/src/import/bin/docker-compose" "${D}${nonarch_libdir}/docker/cli-plugins/"
 
 }
 
 RDEPENDS:${PN} += " docker"
 
-FILES:${PN} += " ${libdir}/docker/cli-plugins/"
+FILES:${PN} += " ${nonarch_libdir}/docker/cli-plugins/"
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped"
