@@ -1,7 +1,8 @@
 SUMMARY = "LXCFS is a userspace filesystem created to avoid kernel limitations"
 LICENSE = "LGPL-2.1-or-later"
 
-inherit meson pkgconfig systemd
+REQUIRED_DISTRO_FEATURES ?= "systemd"
+inherit meson pkgconfig systemd features_check
 
 SRC_URI = " \
     https://linuxcontainers.org/downloads/lxcfs/lxcfs-${PV}.tar.gz \
