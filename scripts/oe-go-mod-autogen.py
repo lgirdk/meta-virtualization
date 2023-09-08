@@ -644,17 +644,111 @@ def main():
         epilog=textwrap.dedent('''\
 
         Overview:
+        =========
 
           go-mod-oe is a tool for processing go dependencies to generate
           dependencies suitable for OE fetcher consumption.
 
           In particular, it creates a build structure suitable for
-          '-mod="vendor"' go builds. All dependencies are in the vendor/
-          directory, so no golang specific fetching or network access happens
-          during the build.
+          '-mod="vendor"' go builds. Once complete all go mod dependencies
+          are in the vendor/ directory, so no golang specific fetching or
+          network access happens during the build.
 
           The files src_uri.inc, relocation.inc and modules.txt are generated
           and suitable for recipe inclusion.
+
+          A recipe build can then use these files to leverage the git fetcher
+          and related functionality (mirrors, sstate, etc).
+
+          Note 1: --rev does not have to be a tag, if you want to track the tip of
+                  a branch specify the latest git has on that branch, and it will
+                  be used.
+
+          Note 2: This script does not generate an entire recipe, the way the
+                  the outputs are used can be modified as required.
+
+          Note 3: if a go.mod has a bad revision, or needs to be manually updated
+                  to fetch fixes: go.mod in the main repository (see the repos/
+                  directory). If go.mod is edited, modules.txt also has to be
+                  updated to match the revision information.
+
+        How to use in a recipe:
+        =======================
+
+        There are examples in meta-virtualization of recipes that use this
+        script and stragegy for builds: docker-compose, nerdcli, k3s
+
+          1) The recipe should set the master repository SRCREV details, and then include
+             the src_uri.inc file:
+
+               SRCREV_nerdcli = "e084a2df4a8861eb5f0b0d32df0643ef24b81093"
+               SRC_URI = "git://github.com/containerd/nerdctl.git;name=nerdcli;branch=master;protocol=https"
+
+               include src_uri.inc
+
+            This results in the SRC_URI being fully populated with the main
+            repository and all dependencies.
+
+          2) The recipe should either copy, or include the relocation.inc file. It sets
+             a variable "sites" that is a list of source locations (where the src_uri.inc
+             fetches) and destination in a vendor directory, it also has a do_compile:prepend()
+             that contains a loop which relocates the fetches into a vendor.copy directory.
+
+             It is expected to be processed as follows, before compilation starts:
+
+                # sets the "sites" variable and copies files
+                include relocation.inc
+
+             The do_compile:prepend, contains the following loop:
+
+               cd ${S}/src/import
+               # this moves all the fetches into the proper vendor structure
+               # expected for build
+               for s in ${sites}; do
+                   site_dest=$(echo $s | cut -d: -f1)
+                   site_source=$(echo $s | cut -d: -f2)
+                   force_flag=$(echo $s | cut -d: -f3)
+                   mkdir -p vendor.copy/$site_dest
+                   if [ -n "$force_flag" ]; then
+                       echo "[INFO] $site_dest: force copying .go files"
+                       rm -rf vendor.copy/$site_dest
+                       rsync -a --exclude='vendor/' --exclude='.git/' vendor.fetch/$site_source/ vendor.copy/$site_dest
+                   else
+                       [ -n "$(ls -A vendor.copy/$site_dest/*.go 2> /dev/null)" ] && { echo "[INFO] vendor.fetch/$site_source -> $site_dest: go copy skipped (files present)" ; true ; } || { echo "[INFO] $site_dest: copying .go files" ; rsync -a --exclude='vendor/' --exclude='.git/' vendor.fetch/$site_source/ vendor.copy/$site_dest ; }
+                   fi
+               done
+
+            The main compile() function, should set the appropriate GO variables,
+            copy modules.txt and build the appripriate target:
+
+               # our copied .go files are to be used for the build
+               ln -sf vendor.copy vendor
+
+           3) The modules.txt file should be copied into the recipe directory, included
+              on the SRC_URI and copied into place after the relocation has been
+              processed.
+
+               # patches and config
+               SRC_URI += "file://0001-Makefile-allow-external-specification-of-build-setti.patch \\
+                           file://modules.txt \
+                          "
+
+            .....
+
+               cp ${WORKDIR}/modules.txt vendor/
+
+        Example: Updating the K3S recipe
+        ================================
+
+          % cd meta-virtualization/recipe-containers/k3s/
+          # produces src_uri.inc, relocation.inc and modules.txt in the current directory
+          % ../../scripts/oe-go-mod-autogen.py --repo https://github.com/rancher/k3s.git --rev v1.27.5+k3s1
+
+          % cp modules.txt k3s/
+
+          ... add and commit files.
+
+
         '''))
     parser.add_argument("--repo", help = "Repo for the recipe.", required=True)
     parser.add_argument("--rev", help = "Revision for the recipe.", required=True)
