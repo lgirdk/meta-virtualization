@@ -668,6 +668,13 @@ def main():
     parser.add_argument("-q", "--quiet",
                         help = "Hide all output except error messages",
                         action="store_const", const=logging.ERROR, dest="loglevel")
+    parser.add_argument("-v", action='store_true', dest="verbose",
+                        help="verbose")
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        args.loglevel = args.verbose
     args = parser.parse_args()
 
     logger.setLevel(args.loglevel)
