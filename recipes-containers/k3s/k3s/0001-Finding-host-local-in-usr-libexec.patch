@@ -13,9 +13,9 @@ Index: import/pkg/agent/config/config.go
 ===================================================================
 --- import.orig/pkg/agent/config/config.go
 +++ import/pkg/agent/config/config.go
-@@ -445,7 +445,7 @@
- 	}
+@@ -577,7 +577,7 @@ func get(ctx context.Context, envInfo *c
  
+ 	nodeConfig.NoFlannel = nodeConfig.FlannelBackend == config.FlannelBackendNone
  	if !nodeConfig.NoFlannel {
 -		hostLocal, err := exec.LookPath("host-local")
 +		hostLocal, err := exec.LookPath("/usr/libexec/cni/host-local")

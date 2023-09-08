@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.25;name=k3s;protocol=https \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.27;name=k3s;protocol=https \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
@@ -16,10 +16,10 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.25;name=k3s;protoco
           "
 
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "9e22489dafb15989cafa7b6bd52ed949471dd057"
+SRCREV_k3s = "8d074ecb5a8765a09eeef6f8be7987055210bc40"
 
 SRCREV_FORMAT = "k3s_fuse"
-PV = "v1.25.8+k3s1+git${SRCREV_k3s}"
+PV = "v1.27.5+k3s1+git${SRCREV_k3s}"
 
 include src_uri.inc
 
