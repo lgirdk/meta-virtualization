@@ -30,6 +30,8 @@ inherit goarch
 inherit systemd
 inherit cni_networking
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 PACKAGECONFIG = ""
 PACKAGECONFIG[upx] = ",,upx-native"
 GO_IMPORT = "import"
