@@ -32,6 +32,8 @@ COMPOSE_PKG = "github.com/docker/compose/v2"
 inherit go goarch
 inherit pkgconfig
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 do_configure[noexec] = "1"
 
 PACKAGECONFIG ?= ""
