@@ -49,6 +49,8 @@ PACKAGECONFIG ?= ""
 # sets the "sites" variable.
 include relocation.inc
 
+PIEFLAG = "${@bb.utils.contains('GOBUILDFLAGS', '-buildmode=pie', '-buildmode=pie', '', d)}"
+
 do_compile() {
 
     	cd ${S}/src/import
@@ -62,7 +64,7 @@ do_compile() {
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
-	export GOFLAGS="-mod=vendor -trimpath"
+	export GOFLAGS="-mod=vendor -trimpath ${PIEFLAG}"
 
 	# our copied .go files are to be used for the build
 	ln -sf vendor.copy vendor
