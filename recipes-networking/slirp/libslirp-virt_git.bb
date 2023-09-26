@@ -12,3 +12,5 @@ DEPENDS = " \
 "
 
 inherit meson pkgconfig
+
+EXCLUDE_FROM_WORLD = "1"
