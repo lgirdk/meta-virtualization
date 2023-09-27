@@ -6,7 +6,7 @@ inherit setuptools3
 
 SRC_URI = "git://github.com/containers/podman-compose.git;branch=stable;protocol=https"
 
-SRCREV = "24ec539932580a6bc96d6eb2341141b6d7198b39"
+SRCREV = "f6dbce36181c44d0d08b6f4ca166508542875ce1"
 
 S = "${WORKDIR}/git"
 
