@@ -13,6 +13,8 @@ DEPENDS = " \
 
 inherit go
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 RDEPENDS:${PN} = " \
      gpgme \
      libgpg-error \
