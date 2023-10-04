@@ -106,6 +106,10 @@ IMAGE_CMD:oci() {
     fi
     umoci config --image $image_name:${OCI_IMAGE_TAG} --author ${OCI_IMAGE_AUTHOR_EMAIL}
 
+    # OCI_IMAGE_TAG may contain ":", but these are not allowed in OCI file
+    # names so replace them
+    image_tag="${@d.getVar("OCI_IMAGE_TAG").replace(":", "_")}"
+
     # make a tar version of the image direcotry
     #  1) image_name.tar: compatible with oci tar format, blobs and rootfs
     #     are at the top level. Can load directly from something like podman
@@ -119,13 +123,13 @@ IMAGE_CMD:oci() {
 	tar -cf "$image_name-dir.tar" "$image_name"
 
 	# create a convenience symlink
-	ln -sf "$image_name.tar" "${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci.tar"
-	ln -sf "$image_name-dir.tar" "${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci-dir.tar"
+	ln -sf "$image_name.tar" "${IMAGE_BASENAME}-$image_tag-oci.tar"
+	ln -sf "$image_name-dir.tar" "${IMAGE_BASENAME}-$image_tag-oci-dir.tar"
     fi
 
     # We could make this optional, since the bundle is directly runnable via runc
     rm -rf $image_bundle_name
 
     # This is the OCI image directory, which is technically the "image" as specified
-    ln -sf $image_name ${IMAGE_BASENAME}-${OCI_IMAGE_TAG}-oci
+    ln -sf $image_name ${IMAGE_BASENAME}-$image_tag-oci
 }
