@@ -79,3 +79,36 @@ Description:
       to manually handle these unhandled modules if they are urgent to
       add/upgrade some go mod recipes.
     
+
+Debug tips:
+
+If the do_compile task exits with a go mod / fetch error, this is due
+to some sort of compilation error during the go build. The log file
+can be huge. To figure out what broke, try the following:
+
+  % cd ${S}/src/import
+  % grep -v ^HASH ../../../temp/log.do_compile
+
+This will likely highlight what broke. It is often that either the wrong
+revision was used (and there will be go build errors) or that a fetched
+repository used the wrong source or destination. Seeing what module
+couldn't be found, will allow you to locate the SRC_URI fetch in question,
+how it was relocated. Either the source or destination may be wrong.
+
+As an example, k3s was failing with the following error:
+
+  go: finding module for package sigs.k8s.io/kustomize/kustomize/v5/commands/build
+  vendor/k8s.io/kubectl/pkg/cmd/kustomize/kustomize.go:25:2: cannot query module due to -mod=vendor
+  WARNING: exit code 1 from a shell command.
+
+Which leads to looking at the SRC_URI and vendor fetch, which was not
+using the proper source for kustomize.
+
+ sigs.k8s.io/kustomize/kustomize/v5:sigs.k8s.io/kustomize/kustomize:force \
+
+had to be changed to:
+
+ sigs.k8s.io/kustomize/kustomize/v5:sigs.k8s.io/kustomize/kustomize/v5/kustomize:force \
+
+To get the commands/build subirectory from the source into the proper
+vendor location.

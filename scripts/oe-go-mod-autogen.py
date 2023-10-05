@@ -627,7 +627,7 @@ do_compile:prepend() {
                     if module_to_check == m:
                         continue
                     if not m.startswith('%s/' % module_to_check):
-                        logger.warning("%s is sharing repo (%s) with other modules, and it might need a subpath. Please double check" % (module_to_check, repo))
+                        logger.warning("%s is sharing repo (%s) with other modules, and it might need a subpath. Please double check: %s and: %s" % (module_to_check, repo, nosubpath_modules,m))
                         continue
 
         #
