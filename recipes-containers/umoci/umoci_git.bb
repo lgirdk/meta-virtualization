@@ -68,6 +68,7 @@ do_compile() {
 
     export GO111MODULE=off
 
+    export BUILD_FLAGS="-trimpath"
     cd ${S}
 
     oe_runmake umoci
