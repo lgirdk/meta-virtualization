@@ -6,12 +6,18 @@ Description:
     
     Example:
 
-      cmd: <path_to>/meta-virtualization/scripts/oe-go-mod-autogen.py \
-           --repo https://github.com/docker/compose --rev v2.20.3
-      output: src_uri.inc, relocation.inc, modules.txt
+    a) generate
     
-    Copy these three generated files to replace the original ones,
-    then we only need update PV and SRCREV, and docker-compose is upgraded.
+       cmd: <path_to>/meta-virtualization/scripts/oe-go-mod-autogen.py \
+            --repo https://github.com/docker/compose --rev v2.20.3
+       output: src_uri.inc, relocation.inc, modules.txt
+
+    b) Copy the three generated files to replace the original ones.
+
+    c) update SRCREV
+    
+       Edit the recipe to update PV and the main SRCREV, and
+       docker-compose is upgraded.
 
     See --help for more explanations and examples.
     
