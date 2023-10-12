@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/containers/buildah/LICENSE;md5=e3fc50a
 
 S = "${WORKDIR}/git"
 
-BUILDAH_VERSION = "1.31.3"
+BUILDAH_VERSION = "1.32.0"
 
 PV = "${BUILDAH_VERSION}"
 
@@ -26,11 +26,11 @@ GO_WORKDIR = "${GO_INSTALL}"
 GOBUILDFLAGS += "-mod vendor"
 
 SRCREV_FORMAT = "buildah_storage"
-SRCREV_buildah = "0926e05c3386a009f622a49a781bf3dcbf2aef03"
+SRCREV_buildah = "4f3d7b0b630117a3f770e064f17415977e7e3c73"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 
 SRC_URI = " \
-    git://github.com/containers/buildah;branch=release-1.31;name=buildah;protocol=https \
+    git://github.com/containers/buildah;branch=release-1.32;name=buildah;protocol=https \
     "
 
 DEPENDS = "libdevmapper btrfs-tools gpgme"
@@ -56,3 +56,5 @@ do_install:append() {
     install -m 666 ${S}/src/github.com/containers/buildah/docs/samples/registries.conf ${dest_dir}/buildah.registries.conf.sample
     install -m 666 ${S}/src/github.com/containers/buildah/tests/policy.json ${dest_dir}/buildah.policy.json.sample
 }
+
+INSANE_SKIP:${PN} = "already-stripped"
