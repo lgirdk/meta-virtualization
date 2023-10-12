@@ -11,7 +11,7 @@ PACKAGES = "\
     packagegroup-lxc \
     packagegroup-docker \
     packagegroup-oci \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp ipv6', \
                          'packagegroup-podman', '', d)} \
     packagegroup-containerd \
     "
