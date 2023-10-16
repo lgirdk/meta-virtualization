@@ -64,8 +64,8 @@ IMAGE_CMD:oci() {
     fi
     if [ -n "${OCI_IMAGE_ENV_VARS}" ]; then
 	for l in ${OCI_IMAGE_ENV_VARS}; do
-	    bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env $l"
-	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env $l
+	    bbdebug 1 "umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env \"$l\""
+	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.env "$l"
 	done
     fi
     if [ -n "${OCI_IMAGE_PORTS}" ]; then
