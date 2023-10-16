@@ -58,8 +58,8 @@ IMAGE_CMD:oci() {
     bbdebug 1 "OCI: configuring image"
     if [ -n "${OCI_IMAGE_LABELS}" ]; then
 	for l in ${OCI_IMAGE_LABELS}; do
-	    bbdebug 1 "OCI: umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label $l"
-	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label $l
+	    bbdebug 1 "OCI: umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label \"$l\""
+	    umoci config --image $image_name:${OCI_IMAGE_TAG} --config.label "$l"
 	done
     fi
     if [ -n "${OCI_IMAGE_ENV_VARS}" ]; then
