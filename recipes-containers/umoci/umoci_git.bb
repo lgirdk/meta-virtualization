@@ -17,6 +17,8 @@ GO_IMPORT = "github.com/opencontainers/umoci"
 inherit goarch
 inherit go
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
 EXTRA_OEMAKE="BUILDTAGS=''"

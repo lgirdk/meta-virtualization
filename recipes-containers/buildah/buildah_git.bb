@@ -20,6 +20,8 @@ inherit pkgconfig
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "seccomp ipv6"
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 GO_IMPORT = "github.com/containers/buildah"
 GO_INSTALL = "${GO_IMPORT}"
 GO_WORKDIR = "${GO_INSTALL}"

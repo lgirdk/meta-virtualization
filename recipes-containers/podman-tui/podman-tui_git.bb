@@ -41,6 +41,8 @@ PODMAN_PKG = "github.com/containers/podman-tui"
 inherit go goarch
 inherit pkgconfig
 
+COMPATIBLE_HOST = "^(?!mips).*"
+
 do_configure[noexec] = "1"
 
 BUILD_TAGS ?= "exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
