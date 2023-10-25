@@ -19,6 +19,12 @@ inherit goarch
 inherit pkgconfig
 inherit autotools-brokensep
 
+# accord with qemu
+COMPATIBLE_HOST:mipsarchn32 = "null"
+COMPATIBLE_HOST:mipsarchn64 = "null"
+COMPATIBLE_HOST:riscv32 = "null"
+COMPATIBLE_HOST:powerpc = "null"
+
 PACKAGECONFIG[xen] = "--with-xen,--without-xen,"
 AUTOTOOLS_SCRIPT_PATH = "${S}/src/import/"
 
