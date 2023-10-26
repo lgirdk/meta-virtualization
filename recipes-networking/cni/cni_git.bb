@@ -53,6 +53,8 @@ do_compile() {
 	done
 }
 
+do_compile[cleandirs] = "${B}/plugins"
+
 do_install() {
     localbindir="${libexecdir}/cni/"
 
