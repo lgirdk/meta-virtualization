@@ -12,10 +12,10 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 INHIBIT_DEFAULT_DEPS = "1"
 
-LINUX_VERSION ?= "5.14"
+LINUX_VERSION ?= "6.5"
 PV = "v${LINUX_VERSION}+git${SRCREV}"
 
-SRCREV = "25509cd5563356638e78d33ec7e5354225fbd3db"
+SRCREV = "fa8ffc924f6d91ea09c9f792a5bb8a184ec1657a"
 SRC_URI = "\
         git://git.yoctoproject.org/yocto-kernel-cache;branch=yocto-${LINUX_VERSION} \
         "
