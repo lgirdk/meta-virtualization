@@ -39,3 +39,7 @@ go_grpc_sysroot_preprocess () {
 FILES:${PN} += " \
     ${prefix}/local/go/src/${PKG_NAME}/* \
 "
+
+# some CVEs are reported with "cpe:2.3:a:grpc:grpc:*:*:*:*:*:go:*:*"
+# it's better to have false positives than false negatives
+CVE_PRODUCT += "grpc"
