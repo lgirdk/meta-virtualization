@@ -52,7 +52,7 @@ OCI_IMAGE_AUTHOR_EMAIL ?= "${PATCH_GIT_USER_EMAIL}"
 OCI_IMAGE_TAG ?= "latest"
 OCI_IMAGE_RUNTIME_UID ?= ""
 
-OCI_IMAGE_ARCH ?= "${@oe.go.map_arch(d.getVar('TARGET_ARCH'))}"
+OCI_IMAGE_ARCH ?= "${@oci_map_arch(d.getVar('TARGET_ARCH'), d)}"
 OCI_IMAGE_SUBARCH ?= "${@oci_map_subarch(d.getVar('TARGET_ARCH'), d.getVar('TUNE_FEATURES'), d)}"
 
 OCI_IMAGE_ENTRYPOINT ?= "sh"
@@ -73,6 +73,39 @@ OCI_IMAGE_ENV_VARS ?= ""
 # whether the oci image dir should be left as a directory, or
 # bundled into a tarball.
 OCI_IMAGE_TAR_OUTPUT ?= "true"
+
+# this is from goarch.bbclass. We currently can't inherit
+# the entire goarch bbclass, so we duplicate the function
+# here. This moves to a library function in newer releases
+# so we no longer need this.
+def oci_map_arch(a, d):
+    import re
+    if re.match('i.86', a):
+        return '386'
+    elif a == 'x86_64':
+        return 'amd64'
+    elif re.match('arm.*', a):
+        return 'arm'
+    elif re.match('aarch64.*', a):
+        return 'arm64'
+    elif re.match('mips64el.*', a):
+        return 'mips64le'
+    elif re.match('mips64.*', a):
+        return 'mips64'
+    elif a == 'mips':
+        return 'mips'
+    elif a == 'mipsel':
+        return 'mipsle'
+    elif re.match('p(pc|owerpc)(64le)', a):
+        return 'ppc64le'
+    elif re.match('p(pc|owerpc)(64)', a):
+        return 'ppc64'
+    elif a == 'riscv64':
+        return 'riscv64'
+    elif a == 'loongarch64':
+        return 'loong64'
+    else:
+        raise bb.parse.SkipRecipe("Unsupported CPU architecture: %s" % a)
 
 # Generate a subarch that is appropriate to OCI image
 # types. This is typically only ARM architectures at the
