@@ -2,7 +2,7 @@ SUMMARY = "User space components of the Ceph file system"
 LICENSE = "LGPL-2.1-only & GPL-2.0-only & Apache-2.0 & MIT"
 LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 \
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING;md5=4eb012c221c5fd4b760029a2981a6754 \
+                    file://COPYING;md5=5351120989d78252e65dc1a2a92e3617 \
 "
 inherit cmake pkgconfig python3native python3-dir systemd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
@@ -13,29 +13,17 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
            file://0001-cmake-add-support-for-python3.11.patch \
-           file://0001-SnappyCompressor.h-fix-snappy-compiler-error.patch \
-           file://0001-buffer.h-add-missing-header-file-due-to-gcc-upgrade.patch \
-           file://0002-common-fix-FTBFS-due-to-dout-need_dynamic-on-GCC-12.patch \
-           file://CVE-2021-3979.patch \
-           file://0001-kv-rocksdb_cache-drop-ROCKSDB_PRIszt.patch \
-           file://0002-kv-rocksdb_cache-reorder-ShardedCache-methods-declar.patch \
-           file://0003-kv-rocksdb_cache-define-DeleterFn-function-pointer-t.patch \
-           file://0004-kv-rocksdb_cache-implement-methods-required-by-rocks.patch \
-           file://0005-kv-rocksdb_cache-mark-Shard-const.patch \
-           file://0006-rocksdb-build-with-rocksdb-7.y.z.patch \
-           file://0001-common-fix-build-with-GCC-13-missing-cstdint-include.patch \
-           file://0002-common-replace-BitVector-NoInitAllocator-with-wrappe.patch \
-           file://0003-librdb-fix-build-with-gcc-13.patch \
 "
 
-SRC_URI[sha256sum] = "5dccdaff2ebe18d435b32bfc06f8b5f474bf6ac0432a6a07d144b7c56700d0bf"
+SRC_URI[sha256sum] = "495b63e1146c604018ae0cb29bf769b5d6235e3c95849c43513baf12bba1364d"
 
-DEPENDS = "boost bzip2 curl expat gperf-native \
-           keyutils libaio libibverbs lz4 \
-           nspr nss \
+DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
+           keyutils libaio libibverbs lua lz4 \
+           nspr nss ninja-native \
            oath openldap openssl \
-           python3 python3-cython-native rabbitmq-c rocksdb snappy udev \
-           valgrind xfsprogs zlib \
+           python3 python3-native python3-cython-native python3-pyyaml-native \
+	   rabbitmq-c rocksdb snappy thrift udev \
+           valgrind xfsprogs zlib libgcc \
 "
 SYSTEMD_SERVICE:${PN} = " \
         ceph-radosgw@.service \
@@ -72,21 +60,48 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
                  -DWITH_SYSTEM_ROCKSDB=ON \
                  -DWITH_RDMA=OFF \
                  -DWITH_RADOSGW_AMQP_ENDPOINT=OFF \
-                 -DPYTHON_INSTALL_DIR=${PYTHON_SITEPACKAGES_DIR} -DPYTHON_DESIRED=3 \
-                 -DPython3_EXECUTABLE=${PYTHON} \
                  -DWITH_RADOSGW_KAFKA_ENDPOINT=OFF \
                  -DWITH_REENTRANT_STRSIGNAL=ON \
-"
+		 -DWITH_PYTHON3=3.12 \
+		 -DPYTHON_DESIRED=3 \
+		 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${WORKDIR}/toolchain.cmake \
+		 "
+
+EXTRA_OECMAKE += "-DThrift_INCLUDE_DIR:PATH=${STAGING_INCDIR} \
+                  -DThrift_LIBRARIES:PATH=${STAGING_LIBDIR} \
+                 "
+
+# retired options:
+#		 -DPython3_VERSION=${PYTHON_BASEVERSION}
+#		 -DPython3_USE_STATIC_LIBS=FALSE
+#		 -DPython3_INCLUDE_DIR:PATH=${PYTHON_INCLUDE_DIR}
+#		 -DPython3_LIBRARY:PATH=${PYTHON_LIBRARY}
+#		 -DPython3_ROOT_DIR:PATH=${PYTHON_SITEPACKAGES_DIR}
+#                -DPython3_EXECUTABLE:PATH="${PYTHON}"
 
 CXXFLAGS += "${HOST_CC_ARCH} ${TOOLCHAIN_OPTIONS}"
 CFLAGS += "${HOST_CC_ARCH} ${TOOLCHAIN_OPTIONS}"
 
 export STAGING_DIR_HOST
 
+do_compile:prepend() {
+	cmake_runcmake_build --target legacy-option-headers
+}
+
+# do_compile() {
+# 	ninja -v ${PARALLEL_MAKE}
+# }
+do_compile() {
+        cmake_runcmake_build --target all
+}
+
 do_configure:prepend () {
 	echo "set( CMAKE_SYSROOT \"${RECIPE_SYSROOT}\" )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( CMAKE_DESTDIR \"${D}\" )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( PYTHON_SITEPACKAGES_DIR \"${PYTHON_SITEPACKAGES_DIR}\" )" >> ${WORKDIR}/toolchain.cmake
+	# echo "set( CMAKE_C_COMPILER_WORKS TRUE)" >> ${WORKDIR}/toolchain.cmake
+	# echo "set( CMAKE_CXX_COMPILER_FORCED TRUE)" >> ${WORKDIR}/toolchain.cmake
+	echo "set( CMAKE_C_COMPILER_FORCED TRUE )" >> ${WORKDIR}/toolchain.cmake
 }
 
 do_install:append () {

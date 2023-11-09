@@ -15,12 +15,12 @@ Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
  src/pybind/rgw/setup.py    | 6 +++++-
  4 files changed, 20 insertions(+), 4 deletions(-)
 
-diff --git a/src/pybind/cephfs/setup.py b/src/pybind/cephfs/setup.py
-index c9a25ccf..972f936c 100755
---- a/src/pybind/cephfs/setup.py
-+++ b/src/pybind/cephfs/setup.py
-@@ -63,9 +63,13 @@ def get_python_flags(libs):
-                    distutils.sysconfig.get_config_vars('LIBS', 'SYSLIBS')), [])
+Index: ceph-18.2.0/src/pybind/cephfs/setup.py
+===================================================================
+--- ceph-18.2.0.orig/src/pybind/cephfs/setup.py
++++ ceph-18.2.0/src/pybind/cephfs/setup.py
+@@ -63,9 +63,13 @@
+                filter(lambda lib: lib.startswith('-l'), py_libs)]
      compiler = new_compiler()
      distutils.sysconfig.customize_compiler(compiler)
 +    libpl = distutils.sysconfig.get_config_var('LIBPL')
@@ -31,15 +31,15 @@ index c9a25ccf..972f936c 100755
          include_dirs=[distutils.sysconfig.get_python_inc()],
 -        library_dirs=distutils.sysconfig.get_config_vars('LIBDIR', 'LIBPL'),
 +        library_dirs=[distutils.sysconfig.get_config_var('LIBDIR'), libpl],
-         libraries=libs + [lib.replace('-l', '') for lib in py_libs],
+         libraries=libs + py_libs,
          extra_compile_args=filter_unsupported_flags(
              compiler.compiler[0],
-diff --git a/src/pybind/rados/setup.py b/src/pybind/rados/setup.py
-index 4e99d267..de24f766 100755
---- a/src/pybind/rados/setup.py
-+++ b/src/pybind/rados/setup.py
-@@ -66,9 +66,13 @@ def get_python_flags(libs):
-                    distutils.sysconfig.get_config_vars('LIBS', 'SYSLIBS')), [])
+Index: ceph-18.2.0/src/pybind/rados/setup.py
+===================================================================
+--- ceph-18.2.0.orig/src/pybind/rados/setup.py
++++ ceph-18.2.0/src/pybind/rados/setup.py
+@@ -62,9 +62,13 @@
+                filter(lambda lib: lib.startswith('-l'), py_libs)]
      compiler = new_compiler()
      distutils.sysconfig.customize_compiler(compiler)
 +    libpl = distutils.sysconfig.get_config_var('LIBPL')
@@ -50,15 +50,15 @@ index 4e99d267..de24f766 100755
          include_dirs=[distutils.sysconfig.get_python_inc()],
 -        library_dirs=distutils.sysconfig.get_config_vars('LIBDIR', 'LIBPL'),
 +        library_dirs=[distutils.sysconfig.get_config_var('LIBDIR'), libpl],
-         libraries=libs + [lib.replace('-l', '') for lib in py_libs],
+         libraries=libs + py_libs,
          extra_compile_args=filter_unsupported_flags(
              compiler.compiler[0],
-diff --git a/src/pybind/rbd/setup.py b/src/pybind/rbd/setup.py
-index f5bbbdab..a1f70e1d 100755
---- a/src/pybind/rbd/setup.py
-+++ b/src/pybind/rbd/setup.py
-@@ -63,9 +63,13 @@ def get_python_flags(libs):
-                    distutils.sysconfig.get_config_vars('LIBS', 'SYSLIBS')), [])
+Index: ceph-18.2.0/src/pybind/rbd/setup.py
+===================================================================
+--- ceph-18.2.0.orig/src/pybind/rbd/setup.py
++++ ceph-18.2.0/src/pybind/rbd/setup.py
+@@ -63,9 +63,13 @@
+                filter(lambda lib: lib.startswith('-l'), py_libs)]
      compiler = new_compiler()
      distutils.sysconfig.customize_compiler(compiler)
 +    libpl = distutils.sysconfig.get_config_var('LIBPL')
@@ -69,15 +69,15 @@ index f5bbbdab..a1f70e1d 100755
          include_dirs=[distutils.sysconfig.get_python_inc()],
 -        library_dirs=distutils.sysconfig.get_config_vars('LIBDIR', 'LIBPL'),
 +        library_dirs=[distutils.sysconfig.get_config_var('LIBDIR'), libpl],
-         libraries=libs + [lib.replace('-l', '') for lib in py_libs],
+         libraries=libs + py_libs,
          extra_compile_args=filter_unsupported_flags(
              compiler.compiler[0],
-diff --git a/src/pybind/rgw/setup.py b/src/pybind/rgw/setup.py
-index b9f2428c..f5119f73 100755
---- a/src/pybind/rgw/setup.py
-+++ b/src/pybind/rgw/setup.py
-@@ -64,9 +64,13 @@ def get_python_flags(libs):
-                    distutils.sysconfig.get_config_vars('LIBS', 'SYSLIBS')), [])
+Index: ceph-18.2.0/src/pybind/rgw/setup.py
+===================================================================
+--- ceph-18.2.0.orig/src/pybind/rgw/setup.py
++++ ceph-18.2.0/src/pybind/rgw/setup.py
+@@ -64,9 +64,13 @@
+                filter(lambda lib: lib.startswith('-l'), py_libs)]
      compiler = new_compiler()
      distutils.sysconfig.customize_compiler(compiler)
 +    libpl = distutils.sysconfig.get_config_var('LIBPL')
@@ -88,9 +88,6 @@ index b9f2428c..f5119f73 100755
          include_dirs=[distutils.sysconfig.get_python_inc()],
 -        library_dirs=distutils.sysconfig.get_config_vars('LIBDIR', 'LIBPL'),
 +        library_dirs=[distutils.sysconfig.get_config_var('LIBDIR'), libpl],
-         libraries=libs + [lib.replace('-l', '') for lib in py_libs],
+         libraries=libs + py_libs,
          extra_compile_args=filter_unsupported_flags(
              compiler.compiler[0],
--- 
-2.21.0
-
