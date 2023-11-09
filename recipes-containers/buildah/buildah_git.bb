@@ -45,11 +45,15 @@ do_compile:prepend() {
 
 go_do_compile() {
         export TMPDIR="${GOTMPDIR}"
+        export AS='${CC} -c'
         if [ -n "${GO_INSTALL}" ]; then
                 ${GO} install ${GOBUILDFLAGS} ./cmd/buildah
                 ${GO} install ${GOBUILDFLAGS} ./tests/imgtype/imgtype.go
                 ${GO} install ${GOBUILDFLAGS} ./tests/copy/copy.go
         fi
+
+        # x86 statically linked executable that we don't need
+        rm -f ${S}/src/github.com/containers/buildah/internal/mkcw/embed/entrypoint
 }
 
 do_install:append() {
