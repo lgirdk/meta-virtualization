@@ -1,11 +1,11 @@
 include runc.inc
 
-SRCREV = "26a98ea20ee1e946f07fc8a9ba9f11b84b39e4a0"
+SRCREV = "f3446b1e5fe75bf419c808d8705c899ab4968b6e"
 SRC_URI = " \
     git://github.com/opencontainers/runc;branch=release-1.1;protocol=https \
     file://0001-Makefile-respect-GOBUILDFLAGS-for-runc-and-remove-re.patch \
     "
-RUNC_VERSION = "1.1.9"
+RUNC_VERSION = "1.1.10"
 
 CVE_PRODUCT = "runc"
 
