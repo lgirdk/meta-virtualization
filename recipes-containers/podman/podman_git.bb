@@ -11,7 +11,6 @@ REQUIRED_DISTRO_FEATURES ?= "seccomp ipv6"
 
 DEPENDS = " \
     go-metalinter-native \
-    go-md2man-native \
     gpgme \
     libseccomp \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
@@ -90,7 +89,11 @@ do_compile() {
 	export CGO_CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 	export CGO_LDFLAGS="${LDFLAGS} --sysroot=${STAGING_DIR_TARGET}"
 
-	oe_runmake BUILDTAGS="${BUILDTAGS}"
+	# podman now builds go-md2man and requires the host/build details
+	export NATIVE_GOOS=${BUILD_GOOS}
+	export NATIVE_GOARCH=${BUILD_GOARCH}
+
+	oe_runmake NATIVE_GOOS=${BUILD_GOOS} NATIVE_GOARCH=${BUILD_GOARCH} BUILDTAGS="${BUILDTAGS}"
 }
 
 do_install() {
