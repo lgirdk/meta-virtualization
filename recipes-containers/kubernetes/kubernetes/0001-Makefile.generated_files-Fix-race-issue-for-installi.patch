@@ -1,7 +1,7 @@
 From 441df8a24a2c80e320f140b5d9bc352c7ce8a64a Mon Sep 17 00:00:00 2001
 From: Robert Yang <liezhi.yang@windriver.com>
 Date: Thu, 15 Oct 2020 07:27:35 +0000
-Subject: [PATCH] src/import/build/root/Makefile.generated_files: Fix race issue for installing
+Subject: [PATCH] src/import/build/root/Makefile.generated_files: Fix race issue for installing 
  go2make
 
 The src/import/build/root/Makefile.generated_files are called several times during the build, so the
@@ -25,14 +25,14 @@ Upstream-Status: Pending
 
 Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
 ---
- src/import/build/root/Makefile.generated_files | 4 +++-
+ build/root/Makefile.generated_files | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-Index: kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/build/root/Makefile.generated_files
-===================================================================
---- kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630.orig/src/import/build/root/Makefile.generated_files
-+++ kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/build/root/Makefile.generated_files
-@@ -67,7 +67,9 @@
+diff --git a/build/root/Makefile.generated_files b/build/root/Makefile.generated_files
+index d86a90cbb39..19a3d332476 100644
+--- a/build/root/Makefile.generated_files
++++ b/build/root/Makefile.generated_files
+@@ -67,7 +67,9 @@ $(META_DIR)/$(GO_PKGDEPS_FILE): FORCE
  	if [[ "$(DBG_CODEGEN)" == 1 ]]; then          \
  	    echo "DBG: calculating Go dependencies";  \
  	fi
@@ -43,3 +43,5 @@ Index: kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import
  	hack/run-in-gopath.sh go2make                       \
  	    k8s.io/kubernetes/...                           \
  	    --prune  k8s.io/kubernetes/staging              \
+--
+2.40.0

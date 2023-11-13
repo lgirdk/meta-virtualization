@@ -11,11 +11,11 @@ Signed-off-by: Koen Kooi <koen.kooi@linaro.org>
  hack/lib/golang.sh | 4 ----
  1 file changed, 4 deletions(-)
 
-Index: kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/hack/lib/golang.sh
-===================================================================
---- kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630.orig/src/import/hack/lib/golang.sh
-+++ kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import/hack/lib/golang.sh
-@@ -414,19 +414,15 @@
+diff --git a/hack/lib/golang.sh b/hack/lib/golang.sh
+index e16a60d1867..d0f4b00dadf 100755
+--- a/hack/lib/golang.sh
++++ b/hack/lib/golang.sh
+@@ -420,19 +420,15 @@ kube::golang::set_platform_envs() {
          ;;
        "linux/arm")
          export CGO_ENABLED=1
@@ -35,3 +35,5 @@ Index: kubernetes-v1.21.1+git45da3fc33872083fb225c1a8c4d03e530d6f7630/src/import
          ;;
      esac
    fi
+--
+2.40.0

@@ -15,10 +15,10 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
  hack/make-rules/cross.sh | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/import/hack/make-rules/cross.sh b/hack/make-rules/cross.sh
-index 8e1e938..0898c5c 100755
---- a/src/import/hack/make-rules/cross.sh
-+++ b/src/import/hack/make-rules/cross.sh
+diff --git a/hack/make-rules/cross.sh b/hack/make-rules/cross.sh
+index f8a6d0dbf5e..d22bf52b1cc 100755
+--- a/hack/make-rules/cross.sh
++++ b/hack/make-rules/cross.sh
 @@ -33,6 +33,6 @@ make all WHAT="${KUBE_NODE_TARGETS[*]}" KUBE_BUILD_PLATFORMS="${KUBE_NODE_PLATFO
  
  make all WHAT="${KUBE_CLIENT_TARGETS[*]}" KUBE_BUILD_PLATFORMS="${KUBE_CLIENT_PLATFORMS[*]}"
@@ -29,5 +29,5 @@ index 8e1e938..0898c5c 100755
 -make all WHAT="${KUBE_TEST_SERVER_TARGETS[*]}" KUBE_BUILD_PLATFORMS="${KUBE_TEST_SERVER_PLATFORMS[*]}"
 +#make all WHAT="${KUBE_TEST_SERVER_TARGETS[*]}" KUBE_BUILD_PLATFORMS="${KUBE_TEST_SERVER_PLATFORMS[*]}"
 -- 
-2.7.4
+2.40.0
 
