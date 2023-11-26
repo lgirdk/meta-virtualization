@@ -27,7 +27,7 @@ GO_IMPORT = "import"
 
 PV = "v2.17.2"
 
-COMPOSE_PKG = "github.com/docker/compose/v2"
+COMPOSE_PKG = "github.com/docker/compose/"
 
 inherit go goarch
 inherit pkgconfig
