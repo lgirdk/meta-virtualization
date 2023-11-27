@@ -1,5 +1,5 @@
 # master status on 2023-05-26
-SRCREV ?= "380c6c170393c48852d4f2b1ea97125a399cfc61"
+SRCREV ?= "f96e2f64576cdbb147391c7cb399d393385719a9"
 
 XEN_REL ?= "4.18"
 XEN_BRANCH ?= "master"
