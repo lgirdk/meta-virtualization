@@ -1,5 +1,5 @@
-# stable-4.17 status on 5/26/2023
-SRCREV ?= "47eb94123035a2987dd1e328e9adec6db36e7fb3"
+# xen 4.17.2 release sha
+SRCREV ?= "322a20add00a4687cd46d9183616fa6fecbef81f"
 
 XEN_REL ?= "4.17"
 XEN_BRANCH ?= "stable-${XEN_REL}"
