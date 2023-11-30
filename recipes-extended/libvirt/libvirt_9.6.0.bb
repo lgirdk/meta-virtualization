@@ -18,6 +18,8 @@ RDEPENDS:${PN} = "gettext-runtime"
 RDEPENDS:libvirt-libvirtd += "bridge-utils iptables pm-utils dnsmasq netcat-openbsd ebtables"
 RDEPENDS:libvirt-libvirtd:append:x86-64 = " dmidecode"
 RDEPENDS:libvirt-libvirtd:append:x86 = " dmidecode"
+RDEPENDS:libvirt-libvirtd:append:arm = " dmidecode"
+RDEPENDS:libvirt-libvirtd:append:aarch64 = " dmidecode"
 
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS:${PN}_libvirtd = "connman"
