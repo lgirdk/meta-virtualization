@@ -60,7 +60,7 @@ PTEST_CONF = "${@bb.utils.contains('DISTRO_FEATURES', 'ptest', '-Dtests=true', '
 
 # No meson equivalent for --with-distro
 # EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
-EXTRA_OEMESON += "${PTEST_CONF}"
+EXTRA_OEMESON += "${PTEST_CONF} -Ddistrosysconfdir=${sysconfdir}/default"
 # No meson equivalent for these yet
 # EXTRA_OECONF += "--enable-log-src-basename --disable-werror"
 
