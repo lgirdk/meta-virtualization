@@ -44,7 +44,7 @@ DESCRIPTION = "Linux container runtime \
 # so we get that tag, and make it our SRCREVS:
 #
 
-SRCREV_moby = "311b9ff0aa93aa55880e1e5f8871c4fb69583426"
+SRCREV_moby = "afcd2cde957e5d3c33b79652645163dcb277b95d"
 SRCREV_libnetwork = "67e0588f1ddfaf2faf4c8cae8b7ea2876434d91c"
 SRCREV_cli = "ed223bc820ee9bb7005a333013b86203a9e1bc23"
 SRCREV_FORMAT = "moby_libnetwork"
