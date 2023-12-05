@@ -5,8 +5,8 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
                support as well as checkpoint and restore for cloning and live migration of containers."
 
 
-SRCREV = "5e21abb181c92adc95636edf983bdf639f0ceb60"
-SRC_URI = "git://github.com/containerd/containerd;branch=release/1.7;protocol=https;destsuffix=git/src/github.com/containerd/containerd \
+SRCREV = "87bf39a7f5580a86df739a787ced9664d1dc11bd"
+SRC_URI = "git://github.com/containerd/containerd;branch=main;protocol=https;destsuffix=git/src/github.com/containerd/containerd \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
            file://0001-build-don-t-use-gcflags-to-define-trimpath.patch \
           "
@@ -15,8 +15,8 @@ SRC_URI = "git://github.com/containerd/containerd;branch=release/1.7;protocol=ht
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1269f40c0d099c21a871163984590d89"
 
-CONTAINERD_VERSION = "v1.7.7"
-CVE_VERSION = "v1.7.7"
+CONTAINERD_VERSION = "v2.0.0-beta.0"
+CVE_VERSION = "v2.0.0-beta.0"
 
 # EXTRA_OEMAKE += "GODEBUG=1"
 
@@ -73,13 +73,10 @@ do_install() {
 	mkdir -p ${D}/${bindir}
 
 	cp ${S}/bin/containerd ${D}/${bindir}/containerd
-	cp ${S}/bin/containerd-shim ${D}/${bindir}/containerd-shim
-	cp ${S}/bin/containerd-shim-runc-v1 ${D}/${bindir}/containerd-shim-runc-v1
 	cp ${S}/bin/containerd-shim-runc-v2 ${D}/${bindir}/containerd-shim-runc-v2
 	cp ${S}/bin/ctr ${D}/${bindir}/containerd-ctr
 
 	ln -sf containerd ${D}/${bindir}/docker-containerd
-	ln -sf containerd-shim ${D}/${bindir}/docker-containerd-shim
 	ln -sf containerd-ctr ${D}/${bindir}/docker-containerd-ctr
 
 	ln -sf containerd-ctr ${D}/${bindir}/ctr

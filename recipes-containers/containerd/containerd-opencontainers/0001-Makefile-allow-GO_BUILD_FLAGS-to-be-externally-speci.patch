@@ -23,13 +23,13 @@ Index: containerd/Makefile
 ===================================================================
 --- containerd.orig/Makefile
 +++ containerd/Makefile
-@@ -127,7 +127,8 @@
- GOPATHS=$(shell go env GOPATH | tr ":" "\n" | tr ";" "\n")
+@@ -129,7 +129,8 @@
+ GOPATHS=$(shell $(GO) env GOPATH | tr ":" "\n" | tr ";" "\n")
  
  TESTFLAGS_RACE=
--GO_BUILD_FLAGS=
+-GO_BUILD_FLAGS ?=
 +# allow flags to be exported and picked up.
-+# GO_BUILD_FLAGS=
++# GO_BUILD_FLAGS ?=
  # See Golang issue re: '-trimpath': https://github.com/golang/go/issues/13809
  GO_GCFLAGS=$(shell				\
  	set -- ${GOPATHS};			\
