@@ -4,7 +4,7 @@ HOMEPAGE = "https://github.com/containers/netavark"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRCREV = "ab03eec05e6271ad2028e46e95941d8551cb69a1"
+SRCREV = "167e2e4f167cadc635bbacb5331674b67787d08e"
 
 # It is possible to fetch the source using the crate fetcher instead:
 #SRC_URI = "crate://crates.io/${BPN}/${PV}"
