@@ -18,14 +18,14 @@ DEPENDS = " \
 "
 
 SRCREV_FORMAT = "podmantui_storage"
-SRCREV_podmantui = "37e99d3b39ffc5d3bca2aa1a125c03bf2465ce3b"
+SRCREV_podmantui = "c545dbd7220c2d85a0e92371f0e240d2c8b7c836"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 SRC_URI = " \
-    git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=release-v0.9 \
+    git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=release-v0.14 \
 "
 # Due to some other API changes, we can't directly import containers/storage at
 # the right commit, so we instead extract a patch and apply it to the tree
-#SRC_URI += "git://github.com/containers/storage;protocol=https;name=storage;branch=main;destsuffix=git/src/import/vendor/github.com/containers/storage"
+#SRC_URI += "git://github.com/containers/storage;protocol=https;name=storage;branch=release-v0.14;destsuffix=git/src/import/vendor/github.com/containers/storage"
 
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
@@ -34,7 +34,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v0.9.1+git"
+PV = "v0.14.0+git"
 
 PODMAN_PKG = "github.com/containers/podman-tui"
 
