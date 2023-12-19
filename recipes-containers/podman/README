@@ -18,3 +18,24 @@ Basic configuration:
 % podman images
 % podman unshare cat /proc/self/uid_map
 
+
+podman system service
+---------------
+
+The podman system service command creates a listening service that answers API
+calls for Podman, it supports systemd socket activation.
+
+Test with docker-compose (v2):
+
+To be noticed, docker could NOT be installed together with podman, so
+docker-compose should be built as a standalone tool, remove 'docker-plugin'
+from its PACKAGECONFIG at build time:
+
+```
+PACKAGECONFIG:remove:pn-docker-compose = "docker-plugin"
+```
+
+% sudo systemctl start podman.socket
+% git clone https://github.com/docker/awesome-compose.git
+% cd awesome-compose/postgresql-pgadmin; source .env
+% sudo docker-compose up -d
