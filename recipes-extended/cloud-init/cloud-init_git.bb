@@ -25,7 +25,7 @@ do_install:append() {
     ln -s ${libdir}/${BPN}/write-ssh-key-fingerprints ${D}${sysconfdir}/cloud/write-ssh-key-fingerprints
     if ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'true', 'false', d)}; then
        install -m 755 -d ${D}${sysconfdir}/init.d/
-       install -m 755 ${S}/sysvinit/redhat/* ${D}${sysconfdir}/init.d/
+       install -m 755 ${S}/sysvinit/debian/* ${D}${sysconfdir}/init.d/
     fi
 
 }
