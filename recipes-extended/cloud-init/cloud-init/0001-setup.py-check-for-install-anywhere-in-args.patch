@@ -22,11 +22,11 @@ Index: git/setup.py
 ===================================================================
 --- git.orig/setup.py
 +++ git/setup.py
-@@ -98,7 +98,7 @@
+@@ -60,7 +60,7 @@
      that files are different outside of the debian directory."""
  
      # newer versions just use install.
--    if not (sys.argv[1] == "install"):
+-    if "install" not in sys.argv:
 +    if not ('install' in sys.argv or sys.argv[1].startswith('bdist*')):
          return template
  
