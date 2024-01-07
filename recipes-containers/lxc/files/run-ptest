@@ -16,6 +16,10 @@ blacklist="$blacklist lxc-test-get_item"
 blacklist="$blacklist lxc-test-shutdowntest"
 blacklist="$blacklist lxc-test-state-server"
 
+# Tests in firstrunlist will be run first
+firstrunlist=""
+firstrunlist="$firstrunlist lxc-test-unpriv"
+
 passed=0
 failed=0
 skipped=0
@@ -26,11 +30,29 @@ rm -f logs/*
 
 echo "### Starting LXC ptest ###"
 
+for test in $firstrunlist
+do
+	./tests/$test >logs/$(basename $test).log 2>&1
+	if [ $? -eq 0 ]
+	then
+		echo "PASS: $(basename $test)"
+		passed=$((passed+1))
+	else
+		echo "FAIL: $(basename $test)"
+		failed=$((failed+1))
+	fi
+done
+
 for test in ./tests/*
 do
     if [[ ! $blacklist = *$(basename $test)*  ]]
     then
-	$test >logs/$(basename $test).log 2>&1
+	if [[ ! $firstrunlist = *$(basename $test)* ]]
+	then
+		$test >logs/$(basename $test).log 2>&1
+	else
+		continue;
+	fi
     else
 	echo "SKIPPED: $(basename $test)"
 	skipped=$((skipped+1))
@@ -46,6 +68,7 @@ do
 	failed=$((failed+1))
     fi
 done
+
 
 echo ""
 echo "Results:"
