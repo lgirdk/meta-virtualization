@@ -6,6 +6,7 @@ SRC_URI += "file://xt-checksum.scc \
 	    file://lxc.scc \
             file://docker.scc \
 	    file://cgroup-hugetlb.scc \
+	    file://criu.scc \
 	    "
 KERNEL_FEATURES:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'kvm', 'features/kvm/qemu-kvm-enable.scc', '', d)}"
 
