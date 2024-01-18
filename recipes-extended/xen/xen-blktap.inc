@@ -20,16 +20,16 @@ BLKTAP_PROVIDES ?= " \
     "
 
 BLKTAP_RRECOMMENDS ?= " \
-    virtual/blktap \
-    virtual/libblktap \
-    virtual/libblktapctl \
-    virtual/libvhd \
+    virtual-blktap \
+    virtual-libblktap \
+    virtual-libblktapctl \
+    virtual-libvhd \
     "
 
-RPROVIDES:${PN}-blktap = "virtual/blktap"
-RPROVIDES:${PN}-libblktap = "virtual/libblktap"
-RPROVIDES:${PN}-libblktapctl = "virtual/libblktapctl"
-RPROVIDES:${PN}-libvhd = "virtual/libvhd"
+RPROVIDES:${PN}-blktap = "virtual-blktap"
+RPROVIDES:${PN}-libblktap = "virtual-libblktap"
+RPROVIDES:${PN}-libblktapctl = "virtual-libblktapctl"
+RPROVIDES:${PN}-libvhd = "virtual-libvhd"
 
 FILES:${PN}-blktap-staticdev += "\
     ${libdir}/libblktapctl.a \
