@@ -32,7 +32,7 @@ SRCREV_buildah = "8be6786d5ed1f07387acdd30d52fc07cd1b4bd0f"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 
 SRC_URI = " \
-    git://github.com/containers/buildah;branch=release-1.33.2;name=buildah;protocol=https \
+    git://github.com/containers/buildah;branch=release-1.33;name=buildah;protocol=https \
     "
 
 DEPENDS = "libdevmapper btrfs-tools gpgme"
