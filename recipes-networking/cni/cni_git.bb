@@ -17,7 +17,17 @@ SRC_URI = "\
 	git://github.com/containernetworking/cni.git;branch=main;name=cni;protocol=https \
         git://github.com/containernetworking/plugins.git;branch=main;destsuffix=${S}/src/github.com/containernetworking/plugins;name=plugins;protocol=https \
         git://github.com/flannel-io/cni-plugin;branch=main;name=flannel_plugin;protocol=https;destsuffix=${S}/src/github.com/containernetworking/plugins/plugins/meta/flannel \
+        file://modules.txt \
 	"
+
+# generated via:
+# ./scripts/oe-go-mod-autogen.py --repo https://github.com/containernetworking/cni.git --rev <insert your rev here>
+include src_uri.inc
+
+DEPENDS = " \
+    rsync-native \
+    "
+
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
@@ -31,9 +41,18 @@ inherit goarch
 # https://github.com/llvm/llvm-project/issues/53999
 TOOLCHAIN = "gcc"
 
+# sets the "sites" variable.
+include relocation.inc
+
 do_compile() {
 	mkdir -p ${S}/src/github.com/containernetworking
 	ln -sfr ${S}/src/import ${S}/src/github.com/containernetworking/cni
+
+	# our copied .go files are to be used for the build
+	ln -sf vendor.copy vendor
+
+	# inform go that we know what we are doing
+	cp ${WORKDIR}/modules.txt vendor/
 
 	export GO111MODULE=off
 
