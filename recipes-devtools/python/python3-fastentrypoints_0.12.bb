@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://README.rst;md5=f212a0cb34eb678477972d2011fb365a"
 
 inherit pypi setuptools3
 
-RDEPENDS:${PN} += "${PYTHON_PN}-setuptools ${PYTHON_PN}-pickle"
+RDEPENDS:${PN} += "python3-setuptools python3-pickle"
 
 SRC_URI[md5sum] = "390ad9a9229164a06156a5b1f0ef1b22"
 SRC_URI[sha256sum] = "ff284f1469bd65400599807d2c6284d5b251398e6e28811f5f77fd262292410b"

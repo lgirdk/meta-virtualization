@@ -10,9 +10,9 @@ SRCREV = "f6dbce36181c44d0d08b6f4ca166508542875ce1"
 
 S = "${WORKDIR}/git"
 
-DEPENDS += "${PYTHON_PN}-pyyaml-native"
+DEPENDS += "python3-pyyaml-native"
 
 RDEPENDS:${PN} += "\
-    ${PYTHON_PN}-pyyaml \
-    ${PYTHON_PN}-dotenv \
+    python3-pyyaml \
+    python3-dotenv \
 "
