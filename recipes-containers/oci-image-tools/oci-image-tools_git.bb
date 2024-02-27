@@ -3,15 +3,6 @@ SUMMARY = "A collection of tools for working with the OCI image format specifica
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
-DEPENDS = "\
-           oci-image-spec \
-           oci-runtime-spec \
-           go-digest \
-           go-errors \
-           spf13-cobra \
-           spf13-pflag \
-          "
-
 SRC_URI = "git://github.com/opencontainers/image-tools.git;branch=master;protocol=https;destsuffix=git/src/github.com/opencontainers/image-tools \
            file://0001-config-make-Config.User-mapping-errors-a-warning.patch \
            file://0001-tool-respect-GO-and-GOBUILDFLAGS-when-building.patch"
