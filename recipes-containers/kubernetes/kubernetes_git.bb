@@ -30,6 +30,7 @@ SRC_URI:append = " \
            file://0001-hack-lib-golang.sh-use-CC-from-environment.patch \
            file://0001-cross-don-t-build-tests-by-default.patch \
            file://0001-build-golang.sh-convert-remaining-go-calls-to-use.patch \
+           file://0001-build-hack-allow-go-1.20-building.patch \
            file://cni-containerd-net.conflist \
            file://k8s-init \
            file://99-kubernetes.conf \
