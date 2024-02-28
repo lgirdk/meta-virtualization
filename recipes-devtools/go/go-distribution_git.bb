@@ -14,6 +14,8 @@ PV = "2.6.0+git"
 
 S = "${WORKDIR}/git"
 
+inherit meta-virt-depreciated-warning
+
 # NO-OP the do compile rule because this recipe is source only.
 do_compile() {
 }

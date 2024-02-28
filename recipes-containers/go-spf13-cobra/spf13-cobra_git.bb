@@ -18,6 +18,8 @@ S = "${WORKDIR}/git"
 do_compile() {
 }
 
+inherit meta-virt-depreciated-warning
+
 do_install() {
 	install -d ${D}${prefix}/local/go/src/${PKG_NAME}
 	for j in $(cd ${S} && find src/${PKG_NAME} -name "*.go" -not -path "*/.tool/*"); do

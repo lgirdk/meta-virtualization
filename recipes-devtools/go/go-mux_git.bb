@@ -11,6 +11,8 @@ SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
 SRCREV = "85123bf20e069b156415b871dea10517f6a8938a"
 
+inherit meta-virt-depreciated-warning
+
 S = "${WORKDIR}/git"
 
 do_configure[noexec] = "1"

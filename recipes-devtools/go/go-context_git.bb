@@ -13,6 +13,8 @@ SRCREV = "1cbd4c16de64273a6e63fc710b0d89bfad72cd32"
 
 S = "${WORKDIR}/git"
 
+inherit meta-virt-depreciated-warning
+
 do_compile() {
     true
 }
