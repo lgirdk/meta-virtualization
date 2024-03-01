@@ -1,0 +1,75 @@
+From 40d2f0735d668dca893a5f0e787f1f11af74cf25 Mon Sep 17 00:00:00 2001
+From: Tim Orling <tim.orling@konsulko.com>
+Date: Fri, 1 Mar 2024 22:22:37 -0800
+Subject: [PATCH] crit/pycriu: build and install wheels
+
+Rather than using heavy handed pip (which requires network access to
+fetch the index), mimic what we do in python_pep517.bbclass do_compile
+and do_install for both crit/ and lib/pycriu
+
+Signed-off-by: Tim Orling <tim.orling@konsulko.com>
+---
+ crit/Makefile |  8 ++++++--
+ lib/Makefile  | 11 +++++++++--
+ 2 files changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/crit/Makefile b/crit/Makefile
+index 9a856db6d..9b36f4be1 100644
+--- a/crit/Makefile
++++ b/crit/Makefile
+@@ -1,5 +1,7 @@
+ PYTHON_EXTERNALLY_MANAGED := $(shell $(PYTHON) -c 'import os, sysconfig; print(int(os.path.isfile(os.path.join(sysconfig.get_path("stdlib"), "EXTERNALLY-MANAGED"))))')
+ PIP_BREAK_SYSTEM_PACKAGES := 0
++PEP517_SOURCE_PATH := ./crit
++PEP517_BUILD_OPTS :=
+ 
+ VERSION_FILE := $(if $(obj),$(addprefix $(obj)/,crit/version.py),crit/version.py)
+ 
+@@ -16,11 +18,13 @@ ifeq ($(PIP_BREAK_SYSTEM_PACKAGES),0)
+ 	$(E) "  Consider using PIP_BREAK_SYSTEM_PACKAGES=1 make install"
+ else
+ 	$(E) "  INSTALL " crit
+-	$(Q) $(PYTHON) -m pip install --upgrade --ignore-installed --prefix=$(DESTDIR)$(PREFIX) ./crit
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ endif
+ else
++	$(E) "  BUILD " crit
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ 	$(E) "  INSTALL " crit
+-	$(Q) $(PYTHON) -m pip install --upgrade --ignore-installed --prefix=$(DESTDIR)$(PREFIX) ./crit
++	$(Q) $(PYTHON) -m installer $(INSTALL_WHEEL_COMPILE_BYTECODE) --interpreter "$(USRBINPATH)/env $(PEP517_INSTALL_PYTHON)" --destdir=$(DESTDIR) $(PEP517_WHEEL_PATH)/crit-*.whl
+ endif
+ .PHONY: install
+ 
+diff --git a/lib/Makefile b/lib/Makefile
+index ae371e78e..b5f147482 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -1,6 +1,9 @@
+ CRIU_SO			:= libcriu.so
+ CRIU_A			:= libcriu.a
+ UAPI_HEADERS		:= lib/c/criu.h images/rpc.proto images/rpc.pb-c.h criu/include/version.h
++PEP517_SOURCE_PATH := ./lib
++PEP517_BUILD_OPTS :=
++INSTALL_WHEEL_COMPILE_BYTECODE ?= "--compile-bytecode=0"
+ 
+ all-y	+= lib-c lib-a lib-py
+ 
+@@ -63,11 +66,15 @@ ifeq ($(PIP_BREAK_SYSTEM_PACKAGES),0)
+ 	$(E) "  Consider using PIP_BREAK_SYSTEM_PACKAGES=1 make install"
+ else
+ 	$(E) "  INSTALL " pycriu
+-	$(Q) $(PYTHON) -m pip install --upgrade --ignore-installed --prefix=$(DESTDIR)$(PREFIX) ./lib
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ endif
+ else
++	$(E) "  BUILD " pycriu
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ 	$(E) "  INSTALL " pycriu
+-	$(Q) $(PYTHON) -m pip install --upgrade --ignore-installed --prefix=$(DESTDIR)$(PREFIX) ./lib
++	#nativepython3 -m installer ${INSTALL_WHEEL_COMPILE_BYTECODE} --interpreter "${USRBINPATH}/env ${PEP517_INSTALL_PYTHON}" --destdir=${D} ${PEP517_WHEEL_PATH}/*.whl
++
++	$(Q) $(PYTHON) -m installer $(INSTALL_WHEEL_COMPILE_BYTECODE) --interpreter "$(USRBINPATH)/env $(PEP517_INSTALL_PYTHON)" --destdir=$(DESTDIR) $(PEP517_WHEEL_PATH)/pycriu-*.whl
+ endif
+ .PHONY: install
+ 
