@@ -10,14 +10,14 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  Makefile | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-Index: nerdctl-v1.3.0/src/import/Makefile
+Index: nerdctl-v2.0.0-beta.1/src/import/Makefile
 ===================================================================
---- nerdctl-v1.3.0.orig/src/import/Makefile
-+++ nerdctl-v1.3.0/src/import/Makefile
-@@ -32,7 +32,7 @@
- REVISION ?= $(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
+--- nerdctl-v2.0.0-beta.1.orig/src/import/Makefile
++++ nerdctl-v2.0.0-beta.1/src/import/Makefile
+@@ -38,7 +38,7 @@
  
  GO_BUILD_LDFLAGS ?= -s -w
+ GO_BUILD_FLAGS ?=
 -export GO_BUILD=GO111MODULE=on CGO_ENABLED=0 GOOS=$(GOOS) $(GO) build -ldflags "$(GO_BUILD_LDFLAGS) -X $(PACKAGE)/pkg/version.Version=$(VERSION) -X $(PACKAGE)/pkg/version.Revision=$(REVISION)"
 +export GO_BUILD=$(GO) build -ldflags "$(GO_BUILD_LDFLAGS) -X $(PACKAGE)/pkg/version.Version=$(VERSION) -X $(PACKAGE)/pkg/version.Revision=$(REVISION)"
  
