@@ -27,7 +27,7 @@ SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=h
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
 DEPENDS += "libnl libcap protobuf-c-native protobuf-c util-linux-native libbsd libnet python3-protobuf-native"
-RDEPENDS:${PN} = "bash cgroup-lite python3-protobuf"
+RDEPENDS:${PN} = "bash cgroup-lite python3-ctypes python3-protobuf"
 
 S = "${WORKDIR}/git"
 
