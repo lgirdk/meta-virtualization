@@ -1,0 +1,30 @@
+From 2ec745ac11357e3243ef1f23f817c276518ce7cb Mon Sep 17 00:00:00 2001
+From: Tim Orling <tim.orling@konsulko.com>
+Date: Sat, 2 Mar 2024 13:48:54 -0800
+Subject: [PATCH] pycriu: --skip-dependency-check during build
+
+It complains about needing protobuf<4, python3-protobuf is 4.25 in meta-python
+
+Signed-off-by: Tim Orling <tim.orling@konsulko.com>
+---
+ lib/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/Makefile b/lib/Makefile
+index b5f147482..e3faa7a06 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -66,11 +66,11 @@ ifeq ($(PIP_BREAK_SYSTEM_PACKAGES),0)
+ 	$(E) "  Consider using PIP_BREAK_SYSTEM_PACKAGES=1 make install"
+ else
+ 	$(E) "  INSTALL " pycriu
+-	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --skip-dependency-check --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ endif
+ else
+ 	$(E) "  BUILD " pycriu
+-	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --skip-dependency-check --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ 	$(E) "  INSTALL " pycriu
+ 	#nativepython3 -m installer ${INSTALL_WHEEL_COMPILE_BYTECODE} --interpreter "${USRBINPATH}/env ${PEP517_INSTALL_PYTHON}" --destdir=${D} ${PEP517_WHEEL_PATH}/*.whl
+ 

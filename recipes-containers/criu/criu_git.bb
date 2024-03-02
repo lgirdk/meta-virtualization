@@ -20,11 +20,13 @@ SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=h
            file://0001-criu-Skip-documentation-install.patch \
            file://0002-criu-Change-libraries-install-directory.patch \
            file://0003-crit-pycriu-build-and-install-wheels.patch \
+           file://0004-pycriu-attr-pycriu.version.__version__.patch \
+	   file://0005-pycriu-skip-dependency-check-during-build.patch \
            "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
-DEPENDS += "libnl libcap protobuf-c-native protobuf-c util-linux-native libbsd libnet"
+DEPENDS += "libnl libcap protobuf-c-native protobuf-c util-linux-native libbsd libnet python3-protobuf-native"
 RDEPENDS:${PN} = "bash cgroup-lite"
 
 S = "${WORKDIR}/git"
@@ -55,7 +57,6 @@ export HOST_SYS
 export HOSTCFLAGS = "${BUILD_CFLAGS}"
 
 inherit python_setuptools_build_meta
-#inherit setuptools3
 inherit pkgconfig
 
 B = "${S}"
@@ -73,10 +74,6 @@ do_compile:prepend() {
     ln -s  ${PKG_CONFIG_SYSROOT_DIR}/usr/include/google/protobuf/descriptor.proto ${S}/images/google/protobuf/descriptor.proto
 }
 
-#PEP517_SOURCE_PATH ="${S}/lib"
-
-#do_compile[network] = "1"
-
 do_compile () {
 	#python_pep517_do_compile
 	#export PEP517_SOURCE_PATH="${S}/crit"
@@ -87,12 +84,9 @@ do_compile () {
 	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=nativepython3
 }
 
-#do_install[network] = "1"
-
 do_install () {
     export INSTALL_LIB="${libdir}/${PYTHON_DIR}/site-packages"
     export PEP517_WHEEL_PATH="${PEP517_WHEEL_PATH}"
-    #oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" PLUGINDIR="${localstatedir}/lib" PIP_BREAK_SYSTEM_PACKAGES=1 install
     oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" PLUGINDIR="${localstatedir}/lib" FULL_PYTHON=${PYTHON} PYTHON=nativepython3 install
 
     # python3's distutils has a feature of rewriting the interpeter on setup installed
