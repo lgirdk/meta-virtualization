@@ -75,18 +75,14 @@ do_compile:prepend() {
 }
 
 do_compile () {
-	#python_pep517_do_compile
-	#export PEP517_SOURCE_PATH="${S}/crit"
-	#python_pep517_do_compile
-	#oe_runmake
-	#oe_runmake #PIP_BREAK_SYSTEM_PACKAGES=1
-	export PEP517_WHEEL_PATH="${PEP517_WHEEL_PATH}"
 	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=nativepython3
 }
 
 do_install () {
     export INSTALL_LIB="${libdir}/${PYTHON_DIR}/site-packages"
     export PEP517_WHEEL_PATH="${PEP517_WHEEL_PATH}"
+    export USRBINPATH="${USRBINPATH}"
+    export PEP517_INSTALL_PYTHON="${PEP517_INSTALL_PYTHON}"
     oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" PLUGINDIR="${localstatedir}/lib" FULL_PYTHON=${PYTHON} PYTHON=nativepython3 install
 
     # python3's distutils has a feature of rewriting the interpeter on setup installed
