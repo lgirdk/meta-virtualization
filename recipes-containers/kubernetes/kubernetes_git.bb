@@ -71,6 +71,11 @@ do_compile() {
 	export CC="${BUILD_CC}"
 	export LD="${BUILD_LD}"
 
+	# set the toolchain to local to avoid an attempted fetch of
+	# valiation by the build
+	# https://github.com/actions/setup-go/issues/420
+	export GOTOOLCHAIN="local"
+
 	# make generated_files GO="go" KUBE_BUILD_PLATFORMS="${HOST_GOOS}/${BUILD_GOARCH}"
 	# is replaced by:
 	# ./hack/update-codegen.sh
