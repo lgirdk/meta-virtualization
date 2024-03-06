@@ -1,3 +1,0 @@
-include docker.scc
-include cgl/cfg/net/ip_vs.scc
-kconf non-hardware kubernetes.cfg
