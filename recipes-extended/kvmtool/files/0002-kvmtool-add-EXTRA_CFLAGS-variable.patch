@@ -14,10 +14,10 @@ Signed-off-by: Dariusz Pelowski <dariusz.pelowski@gmail.com>
  Makefile | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/Makefile b/Makefile
-index c05b2c0..2ce753f 100644
---- a/Makefile
-+++ b/Makefile
+Index: git/Makefile
+===================================================================
+--- git.orig/Makefile
++++ git/Makefile
 @@ -2,6 +2,8 @@
  # Define WERROR=0 to disable -Werror.
  #
@@ -25,5 +25,5 @@ index c05b2c0..2ce753f 100644
 +CFLAGS += $(EXTRA_CFLAGS)
 +
  ifeq ($(strip $(V)),)
- 	ifeq ($(findstring s,$(filter-out --%,$(MAKEFLAGS))),)
+ 	ifeq ($(findstring s,$(filter-out --%,$(firstword $(MAKEFLAGS)))),)
  		E = @echo
