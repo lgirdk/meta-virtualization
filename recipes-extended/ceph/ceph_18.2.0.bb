@@ -4,15 +4,16 @@ LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
                     file://COPYING;md5=5351120989d78252e65dc1a2a92e3617 \
 "
-inherit cmake pkgconfig python3native python3-dir systemd
+inherit cmake pkgconfig python3native python3-dir systemd useradd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
 # pybind mix cmake and python setup environment, would case a lot of errors.
 
 SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
-           file://0001-ceph-fix-build-errors-for-cross-compile.patch \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
-           file://0001-cmake-add-support-for-python3.11.patch \
+           file://0001-avoid-to_string-error.patch \
+           file://0001-delete-install-layout-deb.patch \
+           file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
 "
 
 SRC_URI[sha256sum] = "495b63e1146c604018ae0cb29bf769b5d6235e3c95849c43513baf12bba1364d"
@@ -23,8 +24,16 @@ DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
            oath openldap openssl \
            python3 python3-native python3-cython-native python3-pyyaml-native \
 	   rabbitmq-c rocksdb snappy thrift udev \
-           valgrind xfsprogs zlib libgcc \
+           valgrind xfsprogs zlib libgcc zstd re2 \
 "
+
+
+OECMAKE_C_COMPILER = "${@oecmake_map_compiler('CC', d)[0]} --sysroot=${RECIPE_SYSROOT}"
+OECMAKE_CXX_COMPILER = "${@oecmake_map_compiler('CXX', d)[0]} --sysroot=${RECIPE_SYSROOT}"
+
+USERADD_PACKAGES = "${PN}"
+USERADD_PARAM:${PN} = "--system --user-group --home-dir /var/lib/ceph --shell /sbin/nologin ceph"
+
 SYSTEMD_SERVICE:${PN} = " \
         ceph-radosgw@.service \
         ceph-radosgw.target \
@@ -34,6 +43,8 @@ SYSTEMD_SERVICE:${PN} = " \
         ceph-mds.target \
         ceph-osd@.service \
         ceph-osd.target \
+        cephfs-mirror@.service \
+        cephfs-mirror.target \
         ceph.target \
         ceph-rbd-mirror@.service \
         ceph-rbd-mirror.target \
@@ -45,15 +56,18 @@ SYSTEMD_SERVICE:${PN} = " \
         ceph-immutable-object-cache@.service \
         ceph-immutable-object-cache.target \
 "
-OECMAKE_GENERATOR = "Unix Makefiles"
 
-EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
+EXTRA_OECMAKE += "-DWITH_MANPAGE=OFF \
+                 -DWITH_JAEGER=OFF \
+                 -DWITH_SYSTEM_ZSTD=ON \
                  -DWITH_FUSE=OFF \
                  -DWITH_SPDK=OFF \
                  -DWITH_LEVELDB=OFF \
                  -DWITH_LTTNG=OFF \
                  -DWITH_BABELTRACE=OFF \
                  -DWITH_TESTS=OFF \
+                 -DWITH_RADOSGW_SELECT_PARQUET=OFF \
+                 -DWITH_RADOSGW_ARROW_FLIGHT=OFF \
                  -DWITH_MGR=OFF \
                  -DWITH_MGR_DASHBOARD_FRONTEND=OFF \
                  -DWITH_SYSTEM_BOOST=ON \
@@ -67,34 +81,6 @@ EXTRA_OECMAKE = "-DWITH_MANPAGE=OFF \
 		 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${WORKDIR}/toolchain.cmake \
 		 "
 
-EXTRA_OECMAKE += "-DThrift_INCLUDE_DIR:PATH=${STAGING_INCDIR} \
-                  -DThrift_LIBRARIES:PATH=${STAGING_LIBDIR} \
-                 "
-
-# retired options:
-#		 -DPython3_VERSION=${PYTHON_BASEVERSION}
-#		 -DPython3_USE_STATIC_LIBS=FALSE
-#		 -DPython3_INCLUDE_DIR:PATH=${PYTHON_INCLUDE_DIR}
-#		 -DPython3_LIBRARY:PATH=${PYTHON_LIBRARY}
-#		 -DPython3_ROOT_DIR:PATH=${PYTHON_SITEPACKAGES_DIR}
-#                -DPython3_EXECUTABLE:PATH="${PYTHON}"
-
-CXXFLAGS += "${HOST_CC_ARCH} ${TOOLCHAIN_OPTIONS}"
-CFLAGS += "${HOST_CC_ARCH} ${TOOLCHAIN_OPTIONS}"
-
-export STAGING_DIR_HOST
-
-do_compile:prepend() {
-	cmake_runcmake_build --target legacy-option-headers
-}
-
-# do_compile() {
-# 	ninja -v ${PARALLEL_MAKE}
-# }
-do_compile() {
-        cmake_runcmake_build --target all
-}
-
 do_configure:prepend () {
 	echo "set( CMAKE_SYSROOT \"${RECIPE_SYSROOT}\" )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( CMAKE_DESTDIR \"${D}\" )" >> ${WORKDIR}/toolchain.cmake
@@ -104,16 +90,24 @@ do_configure:prepend () {
 	echo "set( CMAKE_C_COMPILER_FORCED TRUE )" >> ${WORKDIR}/toolchain.cmake
 }
 
+do_compile:prepend() {
+	export BUILD_DOC=1
+}
+
+do_install:prepend() {
+	export BUILD_DOC=1
+}
+
 do_install:append () {
 	sed -i -e 's:^#!/usr/bin/python$:&3:' \
 		-e 's:${WORKDIR}.*python3:${bindir}/python3:' \
 		${D}${bindir}/ceph ${D}${bindir}/ceph-crash \
-		${D}${bindir}/ceph-volume ${D}${bindir}/ceph-volume-systemd
+		${D}${bindir}/cephfs-top \
+		${D}${sbindir}/ceph-volume ${D}${sbindir}/ceph-volume-systemd
 	find ${D} -name SOURCES.txt | xargs sed -i -e 's:${WORKDIR}::'
 	install -d ${D}${sysconfdir}/ceph
 	install -m 644 ${WORKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
 	install -d ${D}${systemd_unitdir}
-	mv ${D}${libexecdir}/systemd/system ${D}${systemd_unitdir}
 	mv ${D}${libexecdir}/ceph/ceph-osd-prestart.sh ${D}${libdir}/ceph
 	mv ${D}${libexecdir}/ceph/ceph_common.sh ${D}${libdir}/ceph
 	# WITH_FUSE is set to OFF, remove ceph-fuse related units
@@ -143,11 +137,20 @@ FILES:${PN} += "\
 		${libdir}/ceph/compressor/*.so \
 		${libdir}/rados-classes/*.so \
 		${libdir}/ceph/*.so \
+		${libdir}/libcephsqlite.so \
 "
 
 FILES:${PN} += " \
     /etc/tmpfiles.d/ceph-placeholder.conf \
     /etc/default/volatiles/99_ceph-placeholder \
+"
+
+FILES:${PN}-dev = " \
+    ${includedir} \
+    ${libdir}/libcephfs.so \
+    ${libdir}/librados*.so \
+    ${libdir}/librbd.so \
+    ${libdir}/librgw.so \
 "
 
 FILES:${PN}-python = "\
@@ -160,13 +163,15 @@ RDEPENDS:${PN} += "\
 		python3-prettytable \
 		${PN}-python \
 		gawk \
+		bash \
 "
 COMPATIBLE_HOST = "(x86_64).*"
 PACKAGES += " \
 	${PN}-python \
 "
-INSANE_SKIP:${PN}-python += "ldflags"
+INSANE_SKIP:${PN}-python += "ldflags buildpaths"
 INSANE_SKIP:${PN} += "dev-so"
+INSANE_SKIP:${PN}-dbg += "buildpaths"
 CCACHE_DISABLE = "1"
 
 CVE_PRODUCT = "ceph ceph_storage ceph_storage_mon ceph_storage_osd"
