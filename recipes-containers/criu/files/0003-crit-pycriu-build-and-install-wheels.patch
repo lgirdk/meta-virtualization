@@ -7,6 +7,8 @@ Rather than using heavy handed pip (which requires network access to
 fetch the index), mimic what we do in python_pep517.bbclass do_compile
 and do_install for both crit/ and lib/pycriu
 
+Upstream-Status: Inappropriate [oe specific]
+
 Signed-off-by: Tim Orling <tim.orling@konsulko.com>
 ---
  crit/Makefile |  8 ++++++--

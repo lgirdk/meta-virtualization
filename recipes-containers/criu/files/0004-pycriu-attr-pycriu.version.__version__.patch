@@ -3,6 +3,8 @@ From: Tim Orling <tim.orling@konsulko.com>
 Date: Sat, 2 Mar 2024 13:47:46 -0800
 Subject: [PATCH] pycriu: attr pycriu.version.__version__
 
+Upstream-Status: Inappropriate [oe specific]
+
 Signed-off-by: Tim Orling <tim.orling@konsulko.com>
 ---
  lib/pyproject.toml | 2 +-

@@ -5,6 +5,8 @@ Subject: [PATCH] pycriu: --skip-dependency-check during build
 
 It complains about needing protobuf<4, python3-protobuf is 4.25 in meta-python
 
+Upstream-Status: Inappropriate [oe specific]
+
 Signed-off-by: Tim Orling <tim.orling@konsulko.com>
 ---
  lib/Makefile | 4 ++--
