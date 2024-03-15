@@ -1,5 +1,5 @@
 # tag: RELEASE-4.18.0
-SRCREV ?= "d75f1e9b74314cea91ce435730d4e3539ecca77d"
+SRCREV ?= "4da8ca9cb9cfdb92c9dd09d5270ae16a3b2dbc89"
 
 XEN_REL ?= "4.18"
 XEN_BRANCH ?= "stable-4.18"
