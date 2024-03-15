@@ -76,7 +76,8 @@ do_compile() {
 
         cp ${WORKDIR}/modules.txt vendor/
 
-        ${GO} build -trimpath -tags "$TAGS" -ldflags "${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
+        VERSION_GOLANG="$(go version | cut -d" " -f3)"
+        ${GO} build -trimpath -tags "$TAGS" -ldflags "-X github.com/k3s-io/k3s/pkg/version.UpstreamGolang=$VERSION_GOLANG  ${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
 
         # Use UPX if it is enabled (and thus exists) to compress binary
         if command -v upx > /dev/null 2>&1; then
