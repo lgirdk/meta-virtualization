@@ -101,6 +101,9 @@ do_install() {
                 sed -i "s#\(Exec\)\(.*\)=\(.*\)\(k3s\)#\1\2=${BIN_PREFIX}/bin/\4#g" "${D}${systemd_system_unitdir}/k3s.service" "${D}${systemd_system_unitdir}/k3s-agent.service"
                 install -m 755 "${WORKDIR}/k3s-agent" "${D}${BIN_PREFIX}/bin"
         fi
+
+	mkdir -p ${D}${datadir}/k3s/
+	install -m 0755 ${S}/src/import/contrib/util/check-config.sh ${D}${datadir}/k3s/
 }
 
 PACKAGES =+ "${PN}-server ${PN}-agent"
@@ -139,6 +142,10 @@ RRECOMMENDS:${PN} = "\
                      "
 
 RCONFLICTS:${PN} = "kubectl"
+
+PACKAGES =+ "${PN}-contrib"
+FILES:${PN}-contrib += "${datadir}/k3s/check-config.sh"
+RDEPENDS:${PN}-contrib += "bash"
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped textrel"
