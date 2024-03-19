@@ -8,15 +8,8 @@ KERNEL_MODULE_AUTOLOAD += "${@bb.utils.contains('DISTRO_FEATURES', 'kvm', 'kvm',
 # aufs kernel support required for xen-image-minimal
 KERNEL_FEATURES:append = "${@bb.utils.contains('DISTRO_FEATURES', 'aufs', ' features/aufs/aufs-enable.scc', '', d)}"
 
-
-# SRC_URI += "file://xt-checksum.scc \
-#             file://ebtables.scc \
-#             file://vswitch.scc \
-#             file://lxc.scc \
-#             file://docker.scc \
-#             file://cgroup-hugetlb.scc \
-#             file://criu.scc \
-#           "
+# Always add a local/layer fragment for easy debug and enabling of options
+SRC_URI += "file://extra-configs.cfg"
 
 # if the kernel-yocto meta-data routine automatically starts to add the
 # recipe-sysroot-native, we can do away with this conditional, since all
@@ -38,7 +31,7 @@ def kernel_cache_feature(src_uri,feature):
 def distro_cond_feature(feature_fragment,distro_feature,d):
     import bb
     feat = kernel_cache_feature("",feature_fragment)
-    return bb.utils.contains('DISTRO_FEATURES', distro_feature, feat, '', d)
+    return bb.utils.contains('DISTRO_FEATURES', distro_feature, ' ' + feat, ' ', d)
 
 KERNEL_CACHE_FEATURES ?= "${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/virtio.scc')} \
                           ${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/xt-checksum.scc')} \
