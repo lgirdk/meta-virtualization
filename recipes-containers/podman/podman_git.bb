@@ -39,9 +39,11 @@ CVE_STATUS[CVE-2023-0778] = "fixed-version: fixed since v4.5.0"
 PACKAGES =+ "${PN}-contrib"
 
 PODMAN_PKG = "github.com/containers/libpod"
+
+BUILDTAGS_EXTRA ?= "${@bb.utils.contains('VIRTUAL-RUNTIME_container_networking','cni','cni','',d)}"
 BUILDTAGS ?= "seccomp varlink \
 ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
-exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
+exclude_graphdriver_btrfs exclude_graphdriver_devicemapper ${BUILDTAGS_EXTRA}"
 
 # overide LDFLAGS to allow podman to build without: "flag provided but not # defined: -Wl,-O1
 export LDFLAGS=""
