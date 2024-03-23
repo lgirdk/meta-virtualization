@@ -152,7 +152,14 @@ RDEPENDS:${PN} += "\
 	conmon ${VIRTUAL-RUNTIME_container_runtime} iptables ${VIRTUAL-RUNTIME_container_networking} skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter} \
 	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
 "
-RRECOMMENDS:${PN} += "slirp4netns kernel-module-xt-masquerade kernel-module-xt-comment"
+RRECOMMENDS:${PN} += "slirp4netns \
+                      kernel-module-xt-masquerade \
+                      kernel-module-xt-comment \
+                      kernel-module-xt-mark \
+                      kernel-module-xt-addrtype \
+                      kernel-module-xt-conntrack \
+                      kernel-module-xt-tcpudp \
+                      "
 RCONFLICTS:${PN} = "${@bb.utils.contains('PACKAGECONFIG', 'docker', 'docker', '', d)}"
 
 RDEPENDS:${PN}-ptest += " \
