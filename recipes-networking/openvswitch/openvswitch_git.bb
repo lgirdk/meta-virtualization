@@ -14,13 +14,13 @@ RDEPENDS:${PN}-ptest += "\
 	"
 
 S = "${WORKDIR}/git"
-PV = "3.2.1+"
-CVE_VERSION = "3.2.1"
+PV = "3.3.0"
+CVE_VERSION = "3.3.0"
 
 FILESEXTRAPATHS:append := "${THISDIR}/${PN}-git:"
 
-SRCREV = "b3d094b4fb4ece7241e4bd6c2327a169073e43c5"
-SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.2 \
+SRCREV = "1c1f173ce8a8534e262083bc4db3ee15f05231c0"
+SRC_URI += "git://github.com/openvswitch/ovs.git;protocol=https;branch=branch-3.3 \
             file://openvswitch-add-ptest-71d553b995d0bd527d3ab1e9fbaf5a2ae34de2f3.patch \
             file://run-ptest \
             file://disable_m4_check.patch \
