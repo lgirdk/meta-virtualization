@@ -1,0 +1,103 @@
+From 8f9733d756361ff8f8d8d589f286c0e064b1195d Mon Sep 17 00:00:00 2001
+From: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
+Date: Thu, 15 Feb 2024 18:13:05 +0100
+Subject: [PATCH] tests: remove old and broken cgroup handling code from tests
+
+We have removed the same piece of code in
+ec85e5ca495 ("lxc-test-usernic: drop cgroup handling")
+let's do the same for two other tests.
+
+This fixes autopkgtests.
+
+Upstream-Status: Backport from
+[https://github.com/lxc/lxc/commit/8f9733d756361ff8f8d8d589f286c0e064b1195d]
+
+Signed-off-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
+Signed-off-by: Xiangyu Chen <xiangyu.chen@windriver.com>
+---
+ src/tests/lxc-test-apparmor-mount | 29 -----------------------------
+ src/tests/lxc-test-unpriv         | 28 ----------------------------
+ 2 files changed, 57 deletions(-)
+
+diff --git a/src/tests/lxc-test-apparmor-mount b/src/tests/lxc-test-apparmor-mount
+index 7c9d9ad50..ddf783d4b 100755
+--- a/src/tests/lxc-test-apparmor-mount
++++ b/src/tests/lxc-test-apparmor-mount
+@@ -119,35 +119,6 @@ chown -R $TUSER: /run/user/$(id -u $TUSER)
+ 
+ cd $HDIR
+ 
+-if command -v cgm >/dev/null 2>&1; then
+-	cgm create all $TUSER
+-	cgm chown all $TUSER $(id -u $TUSER) $(id -g $TUSER)
+-	cgm movepid all $TUSER $$
+-elif [ -e /sys/fs/cgroup/cgmanager/sock ]; then
+-	for d in $(cut -d : -f 2 /proc/self/cgroup); do
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.Create \
+-			string:$d string:$TUSER >/dev/null
+-
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.Chown \
+-			string:$d string:$TUSER int32:$(id -u $TUSER) int32:$(id -g $TUSER) >/dev/null
+-
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.MovePid \
+-			string:$d string:$TUSER int32:$$ >/dev/null
+-	done
+-else
+-	for d in /sys/fs/cgroup/*; do
+-		[ "$d" = "/sys/fs/cgroup/unified" ] && continue
+-		[ -f $d/cgroup.clone_children ] && echo 1 > $d/cgroup.clone_children
+-		[ ! -d $d/lxctest ] && mkdir $d/lxctest
+-		chown -R $TUSER: $d/lxctest
+-		echo $$ > $d/lxctest/tasks
+-	done
+-fi
+-
+-
+ run_cmd lxc-create -t busybox -n $cname
+ 
+ echo "test default confined container"
+diff --git a/src/tests/lxc-test-unpriv b/src/tests/lxc-test-unpriv
+index 8fb9106d6..426add9da 100755
+--- a/src/tests/lxc-test-unpriv
++++ b/src/tests/lxc-test-unpriv
+@@ -130,34 +130,6 @@ chown -R $TUSER: /run/user/$(id -u $TUSER)
+ 
+ cd $HDIR
+ 
+-if command -v cgm >/dev/null 2>&1; then
+-	cgm create all $TUSER
+-	cgm chown all $TUSER $(id -u $TUSER) $(id -g $TUSER)
+-	cgm movepid all $TUSER $$
+-elif [ -e /sys/fs/cgroup/cgmanager/sock ]; then
+-	for d in $(cut -d : -f 2 /proc/self/cgroup); do
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.Create \
+-			string:$d string:$TUSER >/dev/null
+-
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.Chown \
+-			string:$d string:$TUSER int32:$(id -u $TUSER) int32:$(id -g $TUSER) >/dev/null
+-
+-		dbus-send --print-reply --address=unix:path=/sys/fs/cgroup/cgmanager/sock \
+-			--type=method_call /org/linuxcontainers/cgmanager org.linuxcontainers.cgmanager0_0.MovePid \
+-			string:$d string:$TUSER int32:$$ >/dev/null
+-	done
+-else
+-	for d in /sys/fs/cgroup/*; do
+-		[ "$d" = "/sys/fs/cgroup/unified" ] && continue
+-		[ -f $d/cgroup.clone_children ] && echo 1 > $d/cgroup.clone_children
+-		[ ! -d $d/lxctest ] && mkdir $d/lxctest
+-		chown -R $TUSER: $d/lxctest
+-		echo $$ > $d/lxctest/tasks
+-	done
+-fi
+-
+ run_cmd lxc-create -t busybox -n c1 -l trace -o "${UNPRIV_LOG}"
+ 
+ # Make sure we can start it - twice
+-- 
+2.35.5
+
