@@ -53,8 +53,6 @@ layers: meta-oe
         meta-filesystems
         meta-python
 
-BBFILE_PRIORITY_openembedded-layer = "4"
-
 Required for Xen XSM policy:
 URI: git://git.yoctoproject.org/meta-selinux
 branch: master
