@@ -32,6 +32,7 @@ RDEPENDS:${PN}-dev = ""
 
 RRECOMMENDS:${PN} = " \
     qemu \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'vmsep', 'qemu-x86_64 qemu-i386', '', d)} \
     ${@bb.utils.contains('XEN_TARGET_ARCH', 'x86_64', 'seabios ipxe vgabios', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'externalblktap', '', '${BLKTAP_RRECOMMENDS}', d)} \
     ${PN}-flask \
