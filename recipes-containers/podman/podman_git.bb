@@ -62,7 +62,7 @@ do_configure[noexec] = "1"
 EXTRA_OEMAKE = " \
      PREFIX=${prefix} BINDIR=${bindir} LIBEXECDIR=${libexecdir} \
      ETCDIR=${sysconfdir} TMPFILESDIR=${nonarch_libdir}/tmpfiles.d \
-     SYSTEMDDIR=${systemd_unitdir}/system USERSYSTEMDDIR=${systemd_unitdir}/user \
+     SYSTEMDDIR=${systemd_unitdir}/system USERSYSTEMDDIR=${systemd_user_unitdir} \
 "
 
 # remove 'docker' from the packageconfig if you don't want podman to
@@ -134,7 +134,7 @@ do_install_ptest () {
 FILES:${PN} += " \
     ${systemd_unitdir}/system/* \
     ${nonarch_libdir}/systemd/* \
-    ${systemd_unitdir}/user/* \
+    ${systemd_user_unitdir/* \
     ${nonarch_libdir}/tmpfiles.d/* \
     ${datadir}/user-tmpfiles.d/* \
     ${sysconfdir}/cni \
