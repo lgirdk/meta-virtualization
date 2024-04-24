@@ -92,6 +92,7 @@ do_compile() {
 	export CC="${CC}"
 	export LD="${LD}"
 	export GOBIN=""
+	export GOFLAGS="-trimpath"
 
 	# to limit what is built, use 'WHAT', i.e. make WHAT=cmd/kubelet
 	make cross CGO_FLAGS=${CGO_FLAGS} GO=${GO} KUBE_BUILD_PLATFORMS=${GOOS}/${GOARCH} GOLDFLAGS="" DBG=1
