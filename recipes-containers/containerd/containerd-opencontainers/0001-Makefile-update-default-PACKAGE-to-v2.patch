@@ -1,0 +1,28 @@
+From eb39888898a9d196e3eb63724c6c07777f3b9402 Mon Sep 17 00:00:00 2001
+From: Changqing Li <changqing.li@windriver.com>
+Date: Wed, 24 Apr 2024 14:10:11 +0800
+Subject: [PATCH] Makefile: update default PACKAGE to v2
+
+Upstream-Status: Submitted [https://github.com/containerd/containerd/pull/10125]
+
+Signed-off-by: Changqing Li <changqing.li@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index a5b244191..cb9ff4172 100644
+--- a/Makefile
++++ b/Makefile
+@@ -34,7 +34,7 @@ TEST_IMAGE_LIST ?=
+ # Used to populate variables in version package.
+ VERSION ?= $(shell git describe --match 'v[0-9]*' --dirty='.m' --always)
+ REVISION ?= $(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
+-PACKAGE=github.com/containerd/containerd
++PACKAGE=github.com/containerd/containerd/v2
+ SHIM_CGO_ENABLED ?= 0
+ 
+ ifneq "$(strip $(shell command -v $(GO) 2>/dev/null))" ""
+-- 
+2.25.1
+

@@ -6,9 +6,10 @@ DESCRIPTION = "containerd is a daemon to control runC, built for performance and
 
 
 SRCREV = "b1624c3628954e769dd50783b63823040b2db38c"
-SRC_URI = "git://github.com/containerd/containerd;branch=main;protocol=https;destsuffix=git/src/github.com/containerd/containerd \
+SRC_URI = "git://github.com/containerd/containerd;branch=main;protocol=https;destsuffix=git/src/github.com/containerd/containerd/v2 \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
            file://0001-build-don-t-use-gcflags-to-define-trimpath.patch \
+           file://0001-Makefile-update-default-PACKAGE-to-v2.patch \
           "
 
 # Apache-2.0 for containerd
@@ -23,7 +24,7 @@ CVE_VERSION = "v2.0.0-beta.0"
 PROVIDES += "virtual/containerd"
 RPROVIDES:${PN} = "virtual-containerd"
 
-S = "${WORKDIR}/git/src/github.com/containerd/containerd"
+S = "${WORKDIR}/git/src/github.com/containerd/containerd/v2"
 
 PV = "${CONTAINERD_VERSION}+git"
 
@@ -31,8 +32,6 @@ inherit go
 inherit goarch
 
 GO_IMPORT = "import"
-
-CONTAINERD_PKG="github.com/containerd/containerd"
 
 INSANE_SKIP:${PN} += "ldflags"
 
