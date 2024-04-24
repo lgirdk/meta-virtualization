@@ -14,6 +14,7 @@ SRC_URI = "git://github.com/chaos/diod.git;protocol=https;branch=master \
            file://diod \
            file://diod.conf \
            file://0001-build-Find-lua-with-pkg-config.patch \
+           file://0002-Handle-various-time_t-sizes-in-printf-and-scanf.patch \
            "
 DEPENDS = "libcap ncurses tcp-wrappers lua"
 
