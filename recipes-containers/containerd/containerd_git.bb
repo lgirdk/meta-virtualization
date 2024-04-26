@@ -21,8 +21,11 @@ CVE_VERSION = "v2.0.0-beta.0"
 
 # EXTRA_OEMAKE += "GODEBUG=1"
 
-PROVIDES += "virtual/containerd"
-RPROVIDES:${PN} = "virtual-containerd"
+# containerd-opencontainers is to provide compatibility with external
+# packagegroups / recipes that depend on the existing split of containerd
+# between docker and opencontainers. We can drop it in the future.
+PROVIDES += "virtual/containerd containerd-opencontainers"
+RPROVIDES:${PN} = "virtual-containerd containerd-opencontainers"
 
 S = "${WORKDIR}/git/src/github.com/containerd/containerd/v2"
 
@@ -96,4 +99,3 @@ COMPATIBLE_HOST = "^(?!(qemu)?mips).*"
 
 RDEPENDS:${PN} += " ${VIRTUAL-RUNTIME_container_runtime}"
 
-CVE_PRODUCT = "containerd"
