@@ -3,6 +3,8 @@ From: Chen Qi <Qi.Chen@windriver.com>
 Date: Wed, 13 Mar 2024 03:41:47 -0700
 Subject: [PATCH] delete install-layout=deb
 
+Upstream-Status: Pending
+
 Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 ---
  cmake/modules/Distutils.cmake | 6 ------
