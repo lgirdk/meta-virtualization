@@ -134,7 +134,7 @@ do_install_ptest () {
 FILES:${PN} += " \
     ${systemd_unitdir}/system/* \
     ${nonarch_libdir}/systemd/* \
-    ${systemd_user_unitdir/* \
+    ${systemd_user_unitdir}/* \
     ${nonarch_libdir}/tmpfiles.d/* \
     ${datadir}/user-tmpfiles.d/* \
     ${sysconfdir}/cni \
