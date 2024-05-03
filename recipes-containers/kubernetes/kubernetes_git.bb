@@ -35,6 +35,7 @@ SRC_URI:append = " \
            file://cni-containerd-net.conflist \
            file://k8s-init \
            file://99-kubernetes.conf \
+           file://CVE-2024-3177.patch \
           "
 
 DEPENDS += "rsync-native \
