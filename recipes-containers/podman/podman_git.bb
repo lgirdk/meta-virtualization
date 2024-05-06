@@ -150,7 +150,7 @@ VIRTUAL-RUNTIME_base-utils-nsenter ?= "util-linux-nsenter"
 COMPATIBLE_HOST = "^(?!mips).*"
 
 RDEPENDS:${PN} += "\
-	conmon ${VIRTUAL-RUNTIME_container_runtime} iptables libdevmapper ${VIRTUAL-RUNTIME_container_networking} ${VIRTUAL-RUNTIME_base-utils-nsenter} \
+	catatonit conmon ${VIRTUAL-RUNTIME_container_runtime} iptables libdevmapper ${VIRTUAL-RUNTIME_container_networking} ${VIRTUAL-RUNTIME_base-utils-nsenter} \
 	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
 "
 RRECOMMENDS:${PN} += "slirp4netns \
@@ -167,7 +167,6 @@ RDEPENDS:${PN}-ptest += " \
 	bash \
 	bats \
 	buildah \
-	catatonit \
 	coreutils \
 	file \
 	gnupg \
