@@ -55,6 +55,7 @@ TOOLCHAIN = "gcc"
 export BUILDFLAGS="${GOBUILDFLAGS}"
 
 inherit go goarch
+inherit container-host
 inherit systemd pkgconfig ptest
 
 do_configure[noexec] = "1"
@@ -149,7 +150,7 @@ VIRTUAL-RUNTIME_base-utils-nsenter ?= "util-linux-nsenter"
 COMPATIBLE_HOST = "^(?!mips).*"
 
 RDEPENDS:${PN} += "\
-	conmon ${VIRTUAL-RUNTIME_container_runtime} iptables ${VIRTUAL-RUNTIME_container_networking} skopeo ${VIRTUAL-RUNTIME_base-utils-nsenter} \
+	conmon ${VIRTUAL-RUNTIME_container_runtime} iptables libdevmapper ${VIRTUAL-RUNTIME_container_networking} ${VIRTUAL-RUNTIME_base-utils-nsenter} \
 	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
 "
 RRECOMMENDS:${PN} += "slirp4netns \
@@ -172,5 +173,6 @@ RDEPENDS:${PN}-ptest += " \
 	gnupg \
 	jq \
 	make \
+	skopeo \
 	tar \
 "
