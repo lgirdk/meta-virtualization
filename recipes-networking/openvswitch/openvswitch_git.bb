@@ -32,6 +32,7 @@ SRC_URI = "file://openvswitch-switch \
            file://systemd-update-tool-paths.patch \
            file://systemd-create-runtime-dirs.patch \
            file://CVE-2021-3905.patch \
+           file://CVE-2020-35498.patch \
            "
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ce5d23a6429dff345518758f13aaeab"
