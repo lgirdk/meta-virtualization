@@ -49,7 +49,7 @@ SRCREV_libnetwork = "67e0588f1ddfaf2faf4c8cae8b7ea2876434d91c"
 SRCREV_cli = "01f933261885c0126edb3f47fd56d048ae31265a"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
-	git://github.com/moby/moby.git;branch=25.0;name=moby;protocol=https \
+	git://github.com/moby/moby.git;branch=25.0;name=moby;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
 	git://github.com/docker/cli;branch=25.0;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \

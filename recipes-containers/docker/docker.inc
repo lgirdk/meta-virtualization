@@ -60,8 +60,8 @@ do_compile() {
 	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
 	
 	mkdir -p .gopath/src/github.com/docker
-	ln -sf ${WORKDIR}/git/libnetwork .gopath/src/github.com/docker/libnetwork
-	ln -sf ${WORKDIR}/git/cli .gopath/src/github.com/docker/cli
+	ln -sf ${S}/libnetwork .gopath/src/github.com/docker/libnetwork
+	ln -sf ${S}/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor"
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
@@ -98,9 +98,9 @@ do_compile() {
 
 do_install() {
 	mkdir -p ${D}/${bindir}
-	cp ${WORKDIR}/git/cli/build/docker ${D}/${bindir}/docker
+	cp ${S}/cli/build/docker ${D}/${bindir}/docker
 	cp ${S}/src/import/bundles/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${WORKDIR}/git/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
+	cp ${S}/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
@@ -110,7 +110,7 @@ do_install() {
 		rm -f ${D}/${systemd_unitdir}/system/docker.service.rpm
 	else
 		install -d ${D}${sysconfdir}/init.d
-		install -m 0755 ${WORKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
+		install -m 0755 ${UNPACKDIR}/docker.init ${D}${sysconfdir}/init.d/docker.init
 	fi
 	# TLS key that docker creates at run-time if not found is what resides here
 	if ${@bb.utils.contains('PACKAGECONFIG','transient-config','true','false',d)}; then
