@@ -9,7 +9,7 @@ BBCLASSEXTEND = "native"
 GO_IMPORT = "github.com/cpuguy83/go-md2man"
 #GO_INSTALL = "${GO_IMPORT}/bin/go-md2man"
 
-SRC_URI = "git://${GO_IMPORT}.git;branch=master;protocol=https"
+SRC_URI = "git://${GO_IMPORT}.git;branch=master;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"
 
 SRCREV = "f79a8a8ca69da163eee19ab442bedad7a35bba5a"
 PV = "1.0.10+git"
