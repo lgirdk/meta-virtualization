@@ -19,7 +19,7 @@ DEPENDS = " \
 
 SRCREV = "bb81e85a430fa95d23a15b77c717fd68bf06ebf2"
 SRC_URI = " \
-    git://github.com/containers/libpod.git;branch=v5.0;protocol=https \
+    git://github.com/containers/libpod.git;branch=v5.0;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
     ${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'file://50-podman-rootless.conf', '', d)} \
     file://run-ptest \
 "
