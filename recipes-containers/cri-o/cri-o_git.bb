@@ -16,7 +16,7 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
 
 SRCREV_cri-o = "5aff11c7c1afdc785adafd7da3c3f2a6ac51b88d"
 SRC_URI = "\
-	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.30;name=cri-o;protocol=https \
+	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.30;name=cri-o;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
         file://crio.conf \
 	"
 
@@ -83,7 +83,7 @@ do_install() {
     install -d ${D}${systemd_unitdir}/system/
     install -d ${D}/usr/share/containers/oci/hooks.d
 
-    install ${WORKDIR}/crio.conf ${D}/${sysconfdir}/crio/crio.conf
+    install ${UNPACKDIR}/crio.conf ${D}/${sysconfdir}/crio/crio.conf
 
     # sample config files, they'll go in the ${PN}-config below
     install -d ${D}/${sysconfdir}/crio/config/
