@@ -4,7 +4,7 @@ HOMEPAGE = "https://k3s.io/"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
-SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.28;name=k3s;protocol=https \
+SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.28;name=k3s;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
            file://k3s.service \
            file://k3s-agent.service \
            file://k3s-agent \
@@ -74,7 +74,7 @@ do_compile() {
 	#
 	#         vendor/github.com/containerd/containerd/snapshots/btrfs/plugin/*.go
 
-        cp ${WORKDIR}/modules.txt vendor/
+        cp ${UNPACKDIR}/modules.txt vendor/
 
         VERSION_GOLANG="$(go version | cut -d" " -f3)"
         ${GO} build -trimpath -tags "$TAGS" -ldflags "-X github.com/k3s-io/k3s/pkg/version.UpstreamGolang=$VERSION_GOLANG  ${GO_BUILD_LDFLAGS} -w -s" -o ./dist/artifacts/k3s ./cmd/server/main.go
