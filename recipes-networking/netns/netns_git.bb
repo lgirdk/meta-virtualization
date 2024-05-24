@@ -3,7 +3,7 @@ SUMMARY = "Runc hook for setting up default bridge networking."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=7bac31faf84a2d7e88972f562a3ebbe5"
 
-SRC_URI = "git://github.com/genuinetools/netns;branch=master;protocol=https \
+SRC_URI = "git://github.com/genuinetools/netns;branch=master;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
            file://Makefile-force-rebuilding-all-packages-to-avoid-cgo.patch \
           "
 SRCREV = "00d5d07ab1c8afcf481ffa5958719943b6ecfde4"
