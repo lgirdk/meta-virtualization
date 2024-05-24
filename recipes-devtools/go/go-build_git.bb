@@ -7,7 +7,7 @@ SRCREV_runc = "1e7bb5b773162b57333d57f612fd72e3f8612d94"
 
 SRCREV_FORMAT = "runx_runc"
 SRC_URI = "\
-	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \
+	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
           git://github.com/opencontainers/runc;branch=release-1.1;name=runc;protocol=https;destsuffix=git/src/import/gobuild/go/src/github.com/opencontainers/runc \
           file://0001-build-use-instead-of-go.patch \
 	  "
