@@ -41,3 +41,20 @@ do_install() {
 }
 
 FILES:${PN} += "${libdir}/bcc"
+
+# http://gecko.lge.com:8000/Errors/Details/832862
+# http://errors.yoctoproject.org/Errors/Details/766930/
+# cpp.c:548:1: error: type of 'ch' defaults to 'int' [-Wimplicit-int]
+# strsave.c:47:42: error: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+# strsave.c:55:26: error: implicit declaration of function 'hash' [-Wimplicit-function-declaration]
+# strsave.c:66:32: error: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+# symbol.c:60:42: error: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+# symbol.c:72:30: error: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+# symbol.c:77:13: error: implicit declaration of function 'hash' [-Wimplicit-function-declaration]
+# tok_class.c:305:43: error: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+# tok_io.c:219:20: error: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+# tok_io.c:488:20: error: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+# unproto.c:188:51: error: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+CFLAGS += "-Wno-error=implicit-int -Wno-error=implicit-function-declaration"
+
+EXTRA_OEMAKE += "CFLAGS='${CFLAGS}'"
