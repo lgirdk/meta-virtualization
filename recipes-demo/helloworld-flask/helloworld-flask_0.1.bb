@@ -19,20 +19,20 @@ EXTERNALPORT ?= "10000"
 do_install() {
 
     for tgt in flask-app.yaml flask-app-service.yaml; do
-	sed -i 's%\@NAME\@%${NAME}%g' ${WORKDIR}/$tgt
-	sed -i 's%\@APPNAME\@%${APPNAME}%g' ${WORKDIR}/$tgt
-	sed -i 's%\@CONTAINERNAME\@%${CONTAINERNAME}%g' ${WORKDIR}/$tgt
-	sed -i 's%\@CONTAINERIMAGE\@%${CONTAINERIMAGE}%g' ${WORKDIR}/$tgt
-	sed -i 's%\@CONTAINERPORT\@%${CONTAINERPORT}%g' ${WORKDIR}/$tgt
-	sed -i 's%\@EXTERNALPORT\@%${EXTERNALPORT}%g' ${WORKDIR}/$tgt
+	sed -i 's%\@NAME\@%${NAME}%g' ${UNPACKDIR}/$tgt
+	sed -i 's%\@APPNAME\@%${APPNAME}%g' ${UNPACKDIR}/$tgt
+	sed -i 's%\@CONTAINERNAME\@%${CONTAINERNAME}%g' ${UNPACKDIR}/$tgt
+	sed -i 's%\@CONTAINERIMAGE\@%${CONTAINERIMAGE}%g' ${UNPACKDIR}/$tgt
+	sed -i 's%\@CONTAINERPORT\@%${CONTAINERPORT}%g' ${UNPACKDIR}/$tgt
+	sed -i 's%\@EXTERNALPORT\@%${EXTERNALPORT}%g' ${UNPACKDIR}/$tgt
     done
     
     install -d ${D}${bindir}/
-    install -m 755 ${WORKDIR}/flask-app ${D}${bindir}/
+    install -m 755 ${UNPACKDIR}/flask-app ${D}${bindir}/
 
     install -d ${D}${sysconfdir}/deploy
-    install -m 644 ${WORKDIR}/flask-app.yaml ${D}${sysconfdir}/
-    install -m 644 ${WORKDIR}/flask-app-service.yaml ${D}${sysconfdir}/
+    install -m 644 ${UNPACKDIR}/flask-app.yaml ${D}${sysconfdir}/
+    install -m 644 ${UNPACKDIR}/flask-app-service.yaml ${D}${sysconfdir}/
 }
 
 RDEPENDS:${PN} += "python3-core python3-flask"
