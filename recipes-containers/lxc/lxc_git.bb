@@ -161,12 +161,12 @@ do_install:append() {
 	# /etc/default/lxc sources lxc-net, this allows lxc bridge when lxc-networking
 	# is not installed this results in no lxcbr0, but when lxc-networking is installed
 	# lxcbr0 will be fully configured.
-	install -m 644 ${WORKDIR}/lxc-net ${D}${sysconfdir}/default/
+	install -m 644 ${UNPACKDIR}/lxc-net ${D}${sysconfdir}/default/
 
 	# Force the main dnsmasq instance to bind only to specified interfaces and
 	# to not bind to virbr0. Libvirt will run its own instance on this interface.
 	install -d ${D}/${sysconfdir}/dnsmasq.d
-	install -m 644 ${WORKDIR}/dnsmasq.conf ${D}/${sysconfdir}/dnsmasq.d/lxc
+	install -m 644 ${UNPACKDIR}/dnsmasq.conf ${D}/${sysconfdir}/dnsmasq.d/lxc
 }
 
 EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
