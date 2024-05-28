@@ -48,7 +48,7 @@ do_install() {
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 	    install -d ${D}${systemd_unitdir}/system
-	    install -m 644 ${WORKDIR}/docker-registry.service ${D}/${systemd_unitdir}/system
+	    install -m 644 ${UNPACKDIR}/docker-registry.service ${D}/${systemd_unitdir}/system
 	fi
 
 	install -d ${D}/${sysconfdir}/docker-distribution/registry/
