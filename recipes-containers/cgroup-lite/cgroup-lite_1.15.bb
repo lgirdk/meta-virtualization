@@ -27,7 +27,7 @@ do_install() {
 	install -m 0755 ${S}/scripts/cgroups-umount ${D}/${base_bindir}
 
 	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${WORKDIR}/cgroups-init ${D}${sysconfdir}/init.d/cgroups-init
+	install -m 0755 ${UNPACKDIR}/cgroups-init ${D}${sysconfdir}/init.d/cgroups-init
 
 	install -d ${D}${systemd_unitdir}/system
 	ln -sf /dev/null ${D}${systemd_unitdir}/system/cgroups-init.service
