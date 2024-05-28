@@ -19,7 +19,7 @@ SRC_URI[uxen.sha384sum] = "be2233bc6506a23350d76c03ac28ea7ea381e1dc6ed5ce996e8ac
 SRC_URI[license.sha384sum] = "92e48c614df3094cb52321d4c4e01f6df5526d46aee5c6fa36c43ee23d4c33f03baa1fc5f6f29efafff636b6d13bc92c"
 
 # The software license is GPLv2: please see page 199 of the pdf document
-LIC_FILES_CHKSUM = "file://${WORKDIR}/Bromium-4.1.8-Open-Source-Software.pdf;md5=cf120df6ffa417b36f870a9997650049"
+LIC_FILES_CHKSUM = "file://${UNPACKDIR}/Bromium-4.1.8-Open-Source-Software.pdf;md5=cf120df6ffa417b36f870a9997650049"
 
 S = "${WORKDIR}/uxen-${PV}-72a4af9/vm-support/linux"
 
