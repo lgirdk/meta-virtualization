@@ -23,7 +23,7 @@ PV = "v1.28.7+k3s1+git${SRCREV_k3s}"
 
 include src_uri.inc
 
-CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conf"
+CNI_NETWORKING_FILES ?= "${UNPACKDIR}/cni-containerd-net.conf"
 
 inherit go
 inherit goarch
@@ -92,14 +92,14 @@ do_install() {
         # We want to use the containerd provided ctr
         # ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/ctr"
         ln -sr "${D}/${BIN_PREFIX}/bin/k3s" "${D}${BIN_PREFIX}/bin/kubectl"
-        install -m 755 "${WORKDIR}/k3s-clean" "${D}${BIN_PREFIX}/bin"
-        install -m 755 "${WORKDIR}/k3s-killall.sh" "${D}${BIN_PREFIX}/bin"
+        install -m 755 "${UNPACKDIR}/k3s-clean" "${D}${BIN_PREFIX}/bin"
+        install -m 755 "${UNPACKDIR}/k3s-killall.sh" "${D}${BIN_PREFIX}/bin"
 
         if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
-                install -D -m 0644 "${WORKDIR}/k3s.service" "${D}${systemd_system_unitdir}/k3s.service"
-                install -D -m 0644 "${WORKDIR}/k3s-agent.service" "${D}${systemd_system_unitdir}/k3s-agent.service"
+                install -D -m 0644 "${UNPACKDIR}/k3s.service" "${D}${systemd_system_unitdir}/k3s.service"
+                install -D -m 0644 "${UNPACKDIR}/k3s-agent.service" "${D}${systemd_system_unitdir}/k3s-agent.service"
                 sed -i "s#\(Exec\)\(.*\)=\(.*\)\(k3s\)#\1\2=${BIN_PREFIX}/bin/\4#g" "${D}${systemd_system_unitdir}/k3s.service" "${D}${systemd_system_unitdir}/k3s-agent.service"
-                install -m 755 "${WORKDIR}/k3s-agent" "${D}${BIN_PREFIX}/bin"
+                install -m 755 "${UNPACKDIR}/k3s-agent" "${D}${BIN_PREFIX}/bin"
         fi
 
 	mkdir -p ${D}${datadir}/k3s/
