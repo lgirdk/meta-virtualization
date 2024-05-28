@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://src/github.com/containers/buildah/LICENSE;md5=e3fc50a
 
 S = "${WORKDIR}/git"
 
-BUILDAH_VERSION = "1.34.1"
+BUILDAH_VERSION = "1.36"
 
 PV = "${BUILDAH_VERSION}"
 
@@ -28,11 +28,11 @@ GO_WORKDIR = "${GO_INSTALL}"
 GOBUILDFLAGS += "-mod vendor"
 
 SRCREV_FORMAT = "buildah_storage"
-SRCREV_buildah = "dbeb097c6fbf4bfd643f096992da572a97a8ec12"
+SRCREV_buildah = "6ceba8838d331eb26378cb37d9fc8ba98939aa92"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 
 SRC_URI = " \
-    git://github.com/containers/buildah;branch=release-1.34;name=buildah;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
+    git://github.com/containers/buildah;branch=release-1.36;name=buildah;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
     "
 
 DEPENDS = "libdevmapper btrfs-tools gpgme"
