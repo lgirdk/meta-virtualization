@@ -21,12 +21,12 @@ def kernel_cache_cond_feature(src_uri,feature):
     if kernel_cache:
        return feature
 
-    return "../recipe-sysroot-native/kcfg/" + feature
+    return "../../recipe-sysroot-native/kcfg/" + feature
 
 # no conditional, just use the yocto-kernel-cache addition, yes
 # the src_uri isn't used, but we may need to check it in the future
 def kernel_cache_feature(src_uri,feature):
-    return "../recipe-sysroot-native/kcfg/" + feature
+    return "../../recipe-sysroot-native/kcfg/" + feature
 
 def distro_cond_feature(feature_fragment,distro_feature,d):
     import bb
