@@ -112,14 +112,14 @@ do_install() {
 
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 	install -d "${D}${BIN_PREFIX}${base_bindir}"
-	install -m 755 "${WORKDIR}/k8s-init" "${D}${BIN_PREFIX}${base_bindir}"
+	install -m 755 "${UNPACKDIR}/k8s-init" "${D}${BIN_PREFIX}${base_bindir}"
 
 	install -d ${D}${sysconfdir}/sysctl.d
-	install -m 0644 "${WORKDIR}/99-kubernetes.conf" "${D}${sysconfdir}/sysctl.d"
+	install -m 0644 "${UNPACKDIR}/99-kubernetes.conf" "${D}${sysconfdir}/sysctl.d"
     fi
 }
 
-CNI_NETWORKING_FILES ?= "${WORKDIR}/cni-containerd-net.conflist"
+CNI_NETWORKING_FILES ?= "${UNPACKDIR}/cni-containerd-net.conflist"
 
 PACKAGES =+ "kubeadm kubectl kubelet kube-proxy ${PN}-misc ${PN}-host"
 
