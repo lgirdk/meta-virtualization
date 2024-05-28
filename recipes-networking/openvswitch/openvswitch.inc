@@ -104,13 +104,13 @@ do_install:prepend() {
 
 do_install:append() {
 	install -d ${D}/${sysconfdir}/default/
-	install -m 660 ${WORKDIR}/openvswitch-switch-setup ${D}/${sysconfdir}/default/openvswitch-switch
+	install -m 660 ${UNPACKDIR}/openvswitch-switch-setup ${D}/${sysconfdir}/default/openvswitch-switch
 	install -d ${D}/${sysconfdir}/openvswitch-testcontroller
-	install -m 660 ${WORKDIR}/openvswitch-testcontroller-setup ${D}/${sysconfdir}/default/openvswitch-testcontroller
+	install -m 660 ${UNPACKDIR}/openvswitch-testcontroller-setup ${D}/${sysconfdir}/default/openvswitch-testcontroller
 
 	install -d ${D}/${sysconfdir}/init.d/
-	install -m 755 ${WORKDIR}/openvswitch-testcontroller ${D}/${sysconfdir}/init.d/openvswitch-testcontroller
-	install -m 755 ${WORKDIR}/openvswitch-switch ${D}/${sysconfdir}/init.d/openvswitch-switch
+	install -m 755 ${UNPACKDIR}/openvswitch-testcontroller ${D}/${sysconfdir}/init.d/openvswitch-testcontroller
+	install -m 755 ${UNPACKDIR}/openvswitch-switch ${D}/${sysconfdir}/init.d/openvswitch-switch
 	true || rm -fr ${D}/${datadir}/${PN}/pki
 
 	install -d ${D}/${sysconfdir}/sysconfig
