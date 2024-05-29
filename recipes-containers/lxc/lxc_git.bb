@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c 
                     file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
 "
 
-DEPENDS = "libxml2 libcap"
+DEPENDS = "libxml2 libcap dbus"
 RDEPENDS:${PN} = " \
 		rsync \
 		curl \
@@ -36,7 +36,7 @@ RDEPENDS:${PN}-ptest += "file make gmp nettle gnutls bash libgcc"
 
 RDEPENDS:${PN}-networking += "iptables"
 
-SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-5.0;protocol=https \
+SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-6.0;protocol=https \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
 	file://run-ptest \
 	file://templates-actually-create-DOWNLOAD_TEMP-directory.patch \
@@ -47,12 +47,10 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-5.0;protocol=https \
 	file://0001-template-if-busybox-contains-init-use-it-in-containe.patch \
 	file://dnsmasq.conf \
 	file://lxc-net \
-	file://0001-lxc-test-usernic-drop-cgroup-handling.patch \
-	file://0001-tests-remove-old-and-broken-cgroup-handling-code-fro.patch \
 	"
 
-SRCREV = "cb8e38aca27a23964941f0f011a8919aab8bebab"
-PV = "5.0.3+git"
+SRCREV = "3dee5fb88c6f77496dbcab46f31bcd891c9ee4e0"
+PV = "6.0.0+git"
 
 S = "${WORKDIR}/git"
 

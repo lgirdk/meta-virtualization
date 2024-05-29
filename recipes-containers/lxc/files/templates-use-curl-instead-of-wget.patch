@@ -14,11 +14,11 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  templates/lxc-download.in | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/templates/lxc-download.in b/templates/lxc-download.in
-index a62ddf482..690307338 100755
---- a/templates/lxc-download.in
-+++ b/templates/lxc-download.in
-@@ -59,9 +59,9 @@ cleanup() {
+Index: git/templates/lxc-download.in
+===================================================================
+--- git.orig/templates/lxc-download.in
++++ git/templates/lxc-download.in
+@@ -45,9 +45,9 @@
    fi
  }
  
@@ -30,16 +30,16 @@ index a62ddf482..690307338 100755
        return 0
      fi
    done
-@@ -70,7 +70,7 @@ wget_wrapper() {
- }
- 
- download_file() {
+@@ -59,7 +59,7 @@
+   if [ "${DOWNLOAD_VERBOSE}" = "true" ]; then
+     echo "Download file: https://${DOWNLOAD_SERVER}$1"
+   fi
 -  if ! wget_wrapper --user-agent="lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -T 30 -q "https://${DOWNLOAD_SERVER}/$1" -O "$2" >/dev/null 2>&1; then
 +  if ! curl_wrapper -L --user-agent "lxc/@PACKAGE_VERSION@ compat:${DOWNLOAD_COMPAT_LEVEL}" -m 30 -s "https://${DOWNLOAD_SERVER}/$1" -o "$2" >/dev/null 2>&1; then
      if [ "$3" = "noexit" ]; then
        return 1
      else
-@@ -176,7 +176,7 @@ while :; do
+@@ -167,7 +167,7 @@
  done
  
  # Check for required binaries
@@ -48,6 +48,3 @@ index a62ddf482..690307338 100755
    if ! command -V "${bin}" >/dev/null 2>&1; then
      echo "ERROR: Missing required tool: ${bin}" 1>&2
      exit 1
--- 
-2.25.1
-
