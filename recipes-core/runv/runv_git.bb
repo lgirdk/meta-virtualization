@@ -4,7 +4,7 @@ DESCRIPTION = "Hypervisor-based Runtime for OCI"
 
 SRCREV_runv = "b360a686abc6c6e896382990ef1b93ef07c7a677"
 SRC_URI = "\
-	git://github.com/hyperhq/runv.git;nobranch=1;name=runv;protocol=https \
+	git://github.com/hyperhq/runv.git;nobranch=1;name=runv;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
 	"
 
 LICENSE = "Apache-2.0"
