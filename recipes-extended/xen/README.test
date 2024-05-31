@@ -1,0 +1,84 @@
+    1  xl
+    2  xl list
+    3  xl console
+    4  xl console -n 0
+    5  xl -n0 console
+    6  xl -n 0 console
+    7  xl console -n 0
+    8  xl console Domain-0
+    9  xm
+   10  wget
+   11  wget https://www.alpinelinux.org/downloads/
+   12  wget https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-standard-3.19.1-x86_64.iso
+   13  rm alpine-standard-3.19.1-x86_64.iso
+   14  wget https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-virt-3.19.1-x86_64.iso
+   15   mount -t iso9660 -o loop /data/alpine-virt-3.19.1-x86_64.iso  /media/cdrom
+   16  ll
+   17  ls
+   18  mount -t iso9660 -o loop alpine-virt-3.19.1-x86_64.iso /media/cdrom^
+   19  ls /media/
+   20  mkdir /media/cdrom
+   21  mount -t iso9660 -o loop alpine-virt-3.19.1-x86_64.iso /media/cdrom
+   22  ls /media/cdrom/
+   23  df -kh .
+   24  dd if=/dev/zero of=/data/a1.img bs=1M count=300
+   25  mkdir /data
+   26  dd if=/dev/zero of=/data/a1.img bs=1M count=300
+
+
+-------------------
+
+ssh from the host (if using slirp): https://docs.yoctoproject.org/dev-manual/qemu.html
+
+ssh root@127.0.0.1 -p 2222
+
+-------------------
+
+Install a guest:
+
+https://wiki.alpinelinux.org/wiki/Create_Alpine_Linux_PV_DomU
+
+
+----------------
+
+Add this:
+autoballoon=0
+
+to: 
+
+ /etc/xen/xl.conf 
+
+----------------
+
+# /etc/xen/a1.cfg
+
+# Alpine Linux PV DomU
+
+# Kernel paths for install
+kernel = "/media/cdrom/boot/vmlinuz-virt"
+ramdisk = "/media/cdrom/boot/initramfs-virt"
+extra="modules=loop,squashfs console=hvc0"
+
+# Path to HDD and iso file
+disk = [
+        'format=raw, vdev=xvda, access=w, target=/data/a1.img',
+        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=/home/root/alpine-virt-3.19.1-x86_64.iso'
+       ]
+
+# Network configuration
+vif = ['bridge=br0']
+
+# DomU settings
+memory = 512
+name = "wqalpine-a1"
+vcpus = 1
+maxvcpus = 1 
+
+device_model_version="qemu-xen"
+device_model_override="/bin/true"
+
+---------------------------
+
+xl create -f /etc/xen/a1.cfg  -c
+
+
