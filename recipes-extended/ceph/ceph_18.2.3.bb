@@ -16,7 +16,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
 "
 
-SRC_URI[sha256sum] = "e70bb5246b4a5d7aa78eb548677a05cc21d0d47945ba2937fddc7511134ffb57"
+SRC_URI[sha256sum] = "47a3aecb724bf246e74ec980464b40d770cd8910f3727e2732575212f13e84ea"
 
 DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
            keyutils libaio libibverbs lua lz4 \
