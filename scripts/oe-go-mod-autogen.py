@@ -502,7 +502,10 @@ class GoModTool(object):
         template = """#       %s %s
 # [1] git ls-remote %s %s
 SRCREV_%s="%s"
-SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/%s"
+# pre styhead releases
+# SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/%s"
+# styhead and newer
+SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/%s"
 
 """
         # We can't simply write SRC_URIs one by one in the order that go.mod specify them.
