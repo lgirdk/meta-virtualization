@@ -14,6 +14,7 @@ SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
            file://0001-avoid-to_string-error.patch \
            file://0001-delete-install-layout-deb.patch \
            file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
+           file://0001-common-dout-fix-FTBFS-on-GCC-14.patch \
 "
 
 SRC_URI[sha256sum] = "47a3aecb724bf246e74ec980464b40d770cd8910f3727e2732575212f13e84ea"
