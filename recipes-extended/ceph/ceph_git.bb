@@ -2,22 +2,23 @@ SUMMARY = "User space components of the Ceph file system"
 LICENSE = "LGPL-2.1-only & GPL-2.0-only & Apache-2.0 & MIT"
 LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 \
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING;md5=5351120989d78252e65dc1a2a92e3617 \
+                    file://COPYING;md5=a56a85cf323285df31085240a8aeb94f \
 "
 inherit cmake pkgconfig python3native python3-dir systemd useradd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
 # pybind mix cmake and python setup environment, would case a lot of errors.
 
-SRC_URI = "http://download.ceph.com/tarballs/ceph-${PV}.tar.gz \
+SRC_URI = "gitsm://github.com/ceph/ceph.git;protocol=https;branch=main \
            file://0001-fix-host-library-paths-were-used.patch \
            file://ceph.conf \
-           file://0001-avoid-to_string-error.patch \
            file://0001-delete-install-layout-deb.patch \
            file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
-           file://0001-common-dout-fix-FTBFS-on-GCC-14.patch \
-"
+	   "
 
-SRC_URI[sha256sum] = "47a3aecb724bf246e74ec980464b40d770cd8910f3727e2732575212f13e84ea"
+SRCREV="c14e68e1617b77c40bcd5da7e689d626a851c900"
+PV = "19.0.0+git"
+
+S = "${WORKDIR}/git"
 
 DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
            keyutils libaio libibverbs lua lz4 \
@@ -26,6 +27,7 @@ DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
            python3 python3-native python3-cython-native python3-pyyaml-native \
 	   rabbitmq-c rocksdb snappy thrift udev \
            valgrind xfsprogs zlib libgcc zstd re2 \
+           lmdb	\
 "
 
 
@@ -89,6 +91,9 @@ do_configure:prepend () {
 	# echo "set( CMAKE_C_COMPILER_WORKS TRUE)" >> ${WORKDIR}/toolchain.cmake
 	# echo "set( CMAKE_CXX_COMPILER_FORCED TRUE)" >> ${WORKDIR}/toolchain.cmake
 	echo "set( CMAKE_C_COMPILER_FORCED TRUE )" >> ${WORKDIR}/toolchain.cmake
+
+	echo "set( WITH_QATDRV OFF )" >> ${WORKDIR}/toolchain.cmake
+	echo "set( WITH_QATZIP OFF )" >> ${WORKDIR}/toolchain.cmake
 }
 
 do_compile:prepend() {
