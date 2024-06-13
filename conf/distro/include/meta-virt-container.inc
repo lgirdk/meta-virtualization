@@ -38,3 +38,6 @@ VIRTUAL-RUNTIME_container_orchestration ??= "k3s"
 
 VIRTUAL-RUNTIME_cri ??= "virtual-containerd"
 VIRTUAL-RUNTIME_cni ??= "cni"
+
+CONTAINER_RO_REMOVE ?= " ${@bb.utils.contains('VIRTUAL-RUNTIME_container_engine', 'podman', 'shadow', '', d)}"
+ROOTFS_RO_UNNEEDED:remove = "${CONTAINER_RO_REMOVE}"
