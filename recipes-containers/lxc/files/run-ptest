@@ -12,9 +12,15 @@ blacklist="$blacklist lxc-test-apparmor"
 blacklist="$blacklist lxc-test-apparmor-mount"
 #lxc-test-get_item would report Built without AppArmor support error
 blacklist="$blacklist lxc-test-get_item"
-# These currently hang so skip them until someone fixes them up
-blacklist="$blacklist lxc-test-shutdowntest"
-blacklist="$blacklist lxc-test-state-server"
+# This is a broken case, also fails on opensuse, already reported to
+# upstream https://github.com/lxc/lxc/issues/4296
+blacklist="$blacklist lxc-test-no-new-privs"
+# lxc doesn't adapt the criu's new mount flag, that cause restore fails
+# already reported to upstream https://github.com/lxc/lxc/issues/4435
+blacklist="$blacklist lxc-test-checkpoint-restore"
+# if we run "run-ptest" under /usr/lib64/lxc/ptest, the result is normal
+# but it would be failed when using "ptest-runner lxc"
+blacklist="$blacklist lxc-test-usernic"
 
 # Tests in firstrunlist will be run first
 firstrunlist=""
