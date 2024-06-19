@@ -18,10 +18,10 @@ DEPENDS = " \
 "
 
 SRCREV_FORMAT = "podmantui_storage"
-SRCREV_podmantui = "b4350927babdaa35fbf50424190683aeb9f5f66f"
+SRCREV_podmantui = "6bcf599336026ffe482900742c8d56d84b97a9e1"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 SRC_URI = " \
-    git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=release-v0.17;destsuffix=${GO_SRCURI_DESTSUFFIX} \
+    git://github.com/containers/podman-tui;protocol=https;name=podmantui;branch=release-v1.1;destsuffix=${GO_SRCURI_DESTSUFFIX} \
 "
 # Due to some other API changes, we can't directly import containers/storage at
 # the right commit, so we instead extract a patch and apply it to the tree
@@ -34,7 +34,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v0.17.0+git"
+PV = "v1.1.0+git"
 
 PODMAN_PKG = "github.com/containers/podman-tui"
 
