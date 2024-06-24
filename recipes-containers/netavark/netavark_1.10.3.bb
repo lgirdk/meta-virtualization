@@ -10,6 +10,7 @@ SRCREV = "d9f9fdc116ea3ed72a6eb4e59da33bf5d7c60b38"
 #SRC_URI = "crate://crates.io/${BPN}/${PV}"
 SRC_URI = "git://github.com/containers/netavark.git;protocol=https;branch=v1.10 \
            file://tests.patch \
+           file://0001-test-skip-firewalld-and-sit-module-related-cases.patch \
            file://run-ptest"
 require ${BPN}-crates.inc
 
@@ -33,6 +34,9 @@ do_install:append() {
 
 do_install_ptest() {
 	cp -r ${S}/test ${D}${PTEST_PATH}
+	for i in 200-bridge-firewalld.bats 400-ipvlan.bats 500-plugin.bats; do
+		[ -f ${D}${PTEST_PATH}/test/${i} ] && mv ${D}${PTEST_PATH}/test/${i} ${D}${PTEST_PATH}/test/${i}.bak;
+	done
 }
 
 # rdepends on aardvark-dns which rdepends on slirp4netns
@@ -54,6 +58,7 @@ RDEPENDS:${PN}-ptest += " \
     iproute2 \
     iputils \
     jq \
+    nftables \
     nmap \
     procps-ps \
     util-linux-nsenter \

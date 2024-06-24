@@ -9,6 +9,6 @@ for i in `ls test`; do
      if [ $i == "200-bridge-firewalld.bats" ] || [ $i == "500-plugin.bats" ] ; then
          continue
      fi
-     [ ${i: -4 -1} == ".bats" ] && NETAVARK=/usr/libexec/podman/netavark bats test/$i
+     [ ${i: -4 -1} == ".bats" ] && NETAVARK=/usr/libexec/podman/netavark bats -t test/$i | sed -e '/^ok/ s/^ok/PASS: /g' | sed -e '/^not ok/ s/^not ok/FAIL: /g'
 done
 
