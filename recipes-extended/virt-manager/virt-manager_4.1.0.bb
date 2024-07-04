@@ -28,7 +28,13 @@ RDEPENDS:${PN}-common += " \
   libosinfo \
 "
 
-RDEPENDS:${PN} = "${PN}-common"
+RDEPENDS:${PN} = " \
+  ${PN}-common \
+  libvirt-glib \
+  libxml2-python \
+  python3-pygobject \
+  python3-requests \
+"
 RDEPENDS:${PN}-install = "${PN}-common"
 
 SETUPTOOLS_INSTALL_ARGS += "${PACKAGECONFIG_CONFARGS}"
