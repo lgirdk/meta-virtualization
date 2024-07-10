@@ -1,0 +1,42 @@
+From 21d54c68751760b1f8915807794a432cf01fb733 Mon Sep 17 00:00:00 2001
+From: Mingli Yu <mingli.yu@windriver.com>
+Date: Tue, 9 Jul 2024 16:28:14 +0800
+Subject: [PATCH] panicwrap: Use dup3 on riscv64 linux
+
+Use dup3 instead for riscv64 as there is no dup2 on riscv64 linux
+to fix the below failure:
+  vendor/github.com/bugsnag/panicwrap/dup2.go:10:9: undefined: syscall.Dup2
+
+Upstream-Status: Inappropriate [The upstream has removed the panicwrap as [1]]
+
+[1] https://github.com/distribution/distribution/commit/3e4c4ead4c3aa07c27f95f2a5c92c6d5c2f9dcdb
+
+Signed-off-by: Mingli Yu <mingli.yu@windriver.com>
+---
+ vendor/github.com/bugsnag/panicwrap/dup2.go | 2 +-
+ vendor/github.com/bugsnag/panicwrap/dup3.go | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/vendor/github.com/bugsnag/panicwrap/dup2.go b/vendor/github.com/bugsnag/panicwrap/dup2.go
+index de523c83..c68ce5ff 100644
+--- a/vendor/github.com/bugsnag/panicwrap/dup2.go
++++ b/vendor/github.com/bugsnag/panicwrap/dup2.go
+@@ -1,4 +1,4 @@
+-// +build darwin dragonfly freebsd linux,!arm64 netbsd openbsd
++// +build darwin dragonfly freebsd linux,!arm64,!riscv64 netbsd openbsd
+ 
+ package panicwrap
+ 
+diff --git a/vendor/github.com/bugsnag/panicwrap/dup3.go b/vendor/github.com/bugsnag/panicwrap/dup3.go
+index 9721b36c..c664da85 100644
+--- a/vendor/github.com/bugsnag/panicwrap/dup3.go
++++ b/vendor/github.com/bugsnag/panicwrap/dup3.go
+@@ -1,4 +1,4 @@
+-// +build linux,arm64
++// +build linux,arm64 linux,riscv64
+ 
+ package panicwrap
+ 
+-- 
+2.34.1
+

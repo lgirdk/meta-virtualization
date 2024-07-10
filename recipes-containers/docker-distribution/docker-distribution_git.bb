@@ -7,6 +7,7 @@ SRCREV_distribution= "d607c6ccb9372e05556624f973119a23d3a42987"
 SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.8;name=distribution;destsuffix=git/src/github.com/docker/distribution;protocol=https \
            file://docker-registry.service \
            file://0001-build-use-to-use-cross-go-compiler.patch \
+           file://0001-panicwrap-Use-dup3-on-riscv64-linux.patch \
           "
 
 PACKAGES =+ "docker-registry"
