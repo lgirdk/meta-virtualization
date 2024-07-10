@@ -28,7 +28,7 @@ GO_WORKDIR = "${GO_INSTALL}"
 GOBUILDFLAGS += "-mod vendor"
 
 SRCREV_FORMAT = "buildah_storage"
-SRCREV_buildah = "6ceba8838d331eb26378cb37d9fc8ba98939aa92"
+SRCREV_buildah = "0d08edeedc12d7dc67d908fcac0c9707e6c5c6bb"
 SRCREV_storage = "246ba3062e8b551026aef2708eee747014ce5c52"
 
 SRC_URI = " \
