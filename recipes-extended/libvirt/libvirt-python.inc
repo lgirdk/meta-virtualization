@@ -18,9 +18,9 @@ FILES:${PN}-python = "${bindir}/* ${libdir}/* ${libdir}/${PYTHON_DIR}/*"
 # Currently the libvirt-python debug libraries contain buildpaths
 INSANE_SKIP:${PN}-dbg += "buildpaths"
 
-SRC_URI += "http://libvirt.org/sources/python/${BPN}-python-${PV}.tar.gz;name=libvirt_python;subdir=${BP}"
+SRC_URI += "http://libvirt.org/sources/python/${BPN}-python-${LIBVIRT_VERSION}.tar.gz;name=libvirt_python;subdir=${BP}"
 
-SRC_URI[libvirt_python.sha256sum] = "a82588f0e7db53eda7b7dbcbc448b0ec43e00a8c77cac69644495299b410c20d"
+SRC_URI[libvirt_python.sha256sum] = "785023500f58d3e8e829af98647d43eee97e517aacc9d9e7ded43594ea52d032"
 
 export LIBVIRT_API_PATH = "${S}/docs/libvirt-api.xml"
 export LIBVIRT_CFLAGS = "-I${S}/include"
@@ -46,7 +46,7 @@ do_compile:append() {
 		# the syroot staged pkgconfig entries. So we clear the sysroot
 		# for just this portion.
 		export PKG_CONFIG_SYSROOT_DIR=
-		cd ${S}/${BPN}-python-${PV} && \
+		cd ${UNPACKDIR}/${BP}/${BPN}-python-${LIBVIRT_VERSION} && \
 		  ${STAGING_BINDIR_NATIVE}/python3-native/python3 setup.py build
 		cd -
 	fi
@@ -58,7 +58,7 @@ do_install:append() {
 		# the syroot staged pkgconfig entries. So we clear the sysroot
 		# for just this portion.
 		export PKG_CONFIG_SYSROOT_DIR=
-		cd ${S}/${BPN}-python-${PV} && \
+		cd ${UNPACKDIR}/${BP}/${BPN}-python-${LIBVIRT_VERSION} && \
 		  ${STAGING_BINDIR_NATIVE}/python3-native/python3 setup.py install \
                        --install-lib=${D}/${PYTHON_SITEPACKAGES_DIR} ${LIBVIRT_INSTALL_ARGS}
 		cd -

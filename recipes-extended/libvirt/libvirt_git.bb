@@ -24,7 +24,12 @@ RDEPENDS:libvirt-libvirtd:append:aarch64 = " dmidecode"
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS:${PN}_libvirtd = "connman"
 
-SRC_URI = "http://libvirt.org/sources/${BP}.tar.xz;name=libvirt \
+SRCREV_libvirt = "0d3e962d47470165b28f742704385acefd70327e"
+
+LIBVIRT_VERSION = "10.5.0"
+PV = "v${LIBVIRT_VERSION}+git"
+
+SRC_URI = "gitsm://github.com/libvirt/libvirt.git;name=libvirt;protocol=https;branch=master \
            file://libvirtd.sh \
            file://libvirtd.conf \
            file://dnsmasq.conf \
@@ -32,9 +37,11 @@ SRC_URI = "http://libvirt.org/sources/${BP}.tar.xz;name=libvirt \
            file://gnutls-helper.py;subdir=${BP} \
            file://0001-prevent-gendispatch.pl-generating-build-path-in-code.patch \
            file://0001-messon.build-remove-build-path-information-to-avoid-.patch \
+           file://0001-meson.build-clear-abs_top_builddir-to-avoid-QA-warni.patch \
+           file://0001-tests-meson-clear-absolute-directory-paths.patch \
           "
 
-SRC_URI[libvirt.sha256sum] = "8ba2e72ec8bdd2418554a1474c42c35704c30174b7611eaf9a16544b71bcf00a"
+S = "${WORKDIR}/git"
 
 inherit meson gettext update-rc.d pkgconfig systemd useradd perlnative
 USERADD_PACKAGES = "${PN}"
@@ -286,14 +293,14 @@ do_install:append() {
 
 	if ${@bb.utils.contains('PACKAGECONFIG','gnutls','true','false',d)}; then
 	    # Generate sample keys and certificates.
-	    ${S}/gnutls-helper.py -y
+	    ${UNPACKDIR}/${BP}/gnutls-helper.py -y
 
 	    # Deploy all sample keys and certificates of CA, server and client
 	    # to target so that libvirtd is able to boot successfully and local
 	    # connection via 127.0.0.1 is available out of box.
 	    install -d ${D}/etc/pki/CA
 	    install -d ${D}/etc/pki/libvirt/private
-	    install -m 0755 ${S}/gnutls-helper.py ${D}/${bindir}
+	    install -m 0755 ${UNPACKDIR}/${BP}/gnutls-helper.py ${D}/${bindir}
 	    install -m 0644 cakey.pem ${D}/${sysconfdir}/pki/libvirt/private/cakey.pem
 	    install -m 0644 cacert.pem ${D}/${sysconfdir}/pki/CA/cacert.pem
 	    install -m 0644 serverkey.pem ${D}/${sysconfdir}/pki/libvirt/private/serverkey.pem
