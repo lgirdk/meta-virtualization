@@ -104,11 +104,11 @@ class GoModTool(object):
         # check if this repo needs autogen
         repo_url, repo_dest_dir, repo_fullrev = self.modules_repoinfo[self.repo.split('://')[1]]
         if os.path.isdir(os.path.join(repo_dest_dir, 'vendor')):
-            logger.info("vendor direcotry has already existed for %s, no need to add other repos" % self.repo)
+            logger.info("vendor directory already exists for %s, no need to add other repos" % self.repo)
             return
         go_mod_file = os.path.join(repo_dest_dir, 'go.mod')
         if not os.path.exists(go_mod_file):
-            logger.info("go.mod file does not exist for %s, no need to add otehr repos" % self.repo)
+            logger.info("go.mod file does not exist for %s, no need to add other repos" % self.repo)
             return
         self.parse_go_mod(go_mod_file)
         self.show_go_mod_info()
@@ -499,11 +499,11 @@ class GoModTool(object):
         src_uri_inc_file = os.path.join(self.workdir, 'src_uri.inc')
         # record the <name> after writting SRCREV_<name>, this is to avoid modules having the same basename resulting in same SRCREV_xxx
         srcrev_name_recorded = []
+        # pre styhead releases
+        # SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/%s"
         template = """#       %s %s
 # [1] git ls-remote %s %s
 SRCREV_%s="%s"
-# pre styhead releases
-# SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/%s"
 # styhead and newer
 SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/%s"
 
@@ -536,7 +536,10 @@ SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DE
             # sort the src_uri_contents and then write it
             src_uri_contents.sort(key=take_first_len)
             for content in src_uri_contents:
-                f.write(template % content)
+                try:
+                    f.write(template % content)
+                except Exception as e:
+                    logger.warning( "exception while writing src_uri.inc: %s" % e )
         logger.info("%s generated" % src_uri_inc_file)
 
     def gen_relocation_inc(self):
@@ -674,6 +677,13 @@ def main():
                   to fetch fixes: go.mod in the main repository (see the repos/
                   directory). If go.mod is edited, modules.txt also has to be
                   updated to match the revision information.
+
+          Note 4: if an entry in go.mod is resolving to a destination that doesn't
+                  have a SRCREV (i.e. golang.org vs github), the destination can
+                  be temporarily overriden by editing: wget-contents/<repo>.repo_url.cache
+                  The next run will use the cached value versus looking it up.
+
+                   % vi wget-contents/golang.org_x_sys.repo_url.cache
 
         How to use in a recipe:
         =======================
