@@ -1,40 +1,40 @@
 # github.com/AlecAivazis/survey/v2 v2.3.7
 ## explicit
-# github.com/Microsoft/go-winio v0.6.1
+# github.com/Microsoft/go-winio v0.6.2
 ## explicit
 # github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d
 ## explicit
 # github.com/buger/goterm v1.0.4
 ## explicit
-# github.com/compose-spec/compose-go/v2 v2.0.2
+# github.com/compose-spec/compose-go/v2 v2.1.3
 ## explicit
-# github.com/containerd/console v1.0.4
-## explicit
-# github.com/containerd/containerd v1.7.13
+# github.com/containerd/containerd v1.7.18
 ## explicit
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
-# github.com/distribution/reference v0.5.0
+# github.com/distribution/reference v0.6.0
 ## explicit
-# github.com/docker/buildx v0.13.1
+# github.com/docker/buildx v0.15.1
 ## explicit
-# github.com/docker/cli v26.0.0+incompatible
+# github.com/docker/cli v27.0.1-rc.1+incompatible
 ## explicit
 # github.com/docker/cli-docs-tool v0.7.0
 ## explicit
-# github.com/docker/docker v26.0.0+incompatible
+# github.com/docker/docker v27.0.1-rc.1+incompatible
 ## explicit
 # github.com/docker/go-connections v0.5.0
 ## explicit
 # github.com/docker/go-units v0.5.0
 ## explicit
-# github.com/fsnotify/fsevents v0.1.1
+# github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203
+## explicit
+# github.com/fsnotify/fsevents v0.2.0
 ## explicit
 # github.com/google/go-cmp v0.6.0
 ## explicit
 # github.com/hashicorp/go-multierror v1.1.1
 ## explicit
-# github.com/hashicorp/go-version v1.6.0
+# github.com/hashicorp/go-version v1.7.0
 ## explicit
 # github.com/jonboulle/clockwork v0.4.0
 ## explicit
@@ -44,7 +44,7 @@
 ## explicit
 # github.com/mitchellh/mapstructure v1.5.0
 ## explicit
-# github.com/moby/buildkit v0.13.1
+# github.com/moby/buildkit v0.14.1
 ## explicit
 # github.com/moby/patternmatcher v0.6.0
 ## explicit
@@ -54,7 +54,7 @@
 ## explicit
 # github.com/opencontainers/go-digest v1.0.0
 ## explicit
-# github.com/opencontainers/image-spec v1.1.0-rc6
+# github.com/opencontainers/image-spec v1.1.0
 ## explicit
 # github.com/otiai10/copy v1.14.0
 ## explicit
@@ -64,11 +64,11 @@
 ## explicit
 # github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 ## explicit
-# github.com/spf13/cobra v1.8.0
+# github.com/spf13/cobra v1.8.1
 ## explicit
 # github.com/spf13/pflag v1.0.5
 ## explicit
-# github.com/stretchr/testify v1.8.4
+# github.com/stretchr/testify v1.9.0
 ## explicit
 # github.com/theupdateframework/notary v0.7.0
 ## explicit
@@ -82,6 +82,8 @@
 ## explicit
 # go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.21.0
 ## explicit
+# go.opentelemetry.io/otel/metric v1.21.0
+## explicit
 # go.opentelemetry.io/otel/sdk v1.21.0
 ## explicit
 # go.opentelemetry.io/otel/trace v1.21.0
@@ -92,9 +94,9 @@
 ## explicit
 # golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3
 ## explicit
-# golang.org/x/sync v0.6.0
+# golang.org/x/sync v0.7.0
 ## explicit
-# golang.org/x/sys v0.16.0
+# golang.org/x/sys v0.21.0
 ## explicit
 # google.golang.org/grpc v1.59.0
 ## explicit
@@ -110,7 +112,7 @@
 ## explicit
 # github.com/Masterminds/semver/v3 v3.2.1
 ## explicit
-# github.com/Microsoft/hcsshim v0.11.4
+# github.com/Microsoft/hcsshim v0.11.5
 ## explicit
 # github.com/aws/aws-sdk-go-v2 v1.24.1
 ## explicit
@@ -144,11 +146,17 @@
 ## explicit
 # github.com/cespare/xxhash/v2 v2.2.0
 ## explicit
+# github.com/containerd/console v1.0.4
+## explicit
 # github.com/containerd/continuity v0.4.3
+## explicit
+# github.com/containerd/errdefs v0.1.0
 ## explicit
 # github.com/containerd/log v0.1.0
 ## explicit
-# github.com/containerd/ttrpc v1.2.2
+# github.com/containerd/platforms v0.2.1
+## explicit
+# github.com/containerd/ttrpc v1.2.5
 ## explicit
 # github.com/containerd/typeurl/v2 v2.1.1
 ## explicit
@@ -159,8 +167,6 @@
 # github.com/docker/go v1.5.1-1.0.20160303222718-d30aec9fd63c
 ## explicit
 # github.com/docker/go-metrics v0.0.1
-## explicit
-# github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203
 ## explicit
 # github.com/emicklei/go-restful/v3 v3.11.0
 ## explicit
@@ -178,13 +184,15 @@
 ## explicit
 # github.com/go-openapi/swag v0.22.3
 ## explicit
+# github.com/go-viper/mapstructure/v2 v2.0.0
+## explicit
 # github.com/gofrs/flock v0.8.1
 ## explicit
 # github.com/gogo/googleapis v1.4.1
 ## explicit
 # github.com/gogo/protobuf v1.3.2
 ## explicit
-# github.com/golang/protobuf v1.5.3
+# github.com/golang/protobuf v1.5.4
 ## explicit
 # github.com/google/gnostic-models v0.6.8
 ## explicit
@@ -197,8 +205,6 @@
 # github.com/gorilla/mux v1.8.1
 ## explicit
 # github.com/gorilla/websocket v1.5.0
-## explicit
-# github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 ## explicit
 # github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
 ## explicit
@@ -233,10 +239,6 @@
 # github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b
 ## explicit
 # github.com/miekg/pkcs11 v1.1.1
-## explicit
-# github.com/mitchellh/copystructure v1.2.0
-## explicit
-# github.com/mitchellh/reflectwalk v1.0.2
 ## explicit
 # github.com/moby/docker-image-spec v1.3.1
 ## explicit
@@ -284,11 +286,11 @@
 ## explicit
 # github.com/shibumi/go-pathspec v1.3.0
 ## explicit
-# github.com/tonistiigi/fsutil v0.0.0-20240301111122-7525a1af2bb5
+# github.com/tonistiigi/fsutil v0.0.0-20240424095704-91a3fc46842c
 ## explicit
 # github.com/tonistiigi/units v0.0.0-20180711220420-6950e57a87ea
 ## explicit
-# github.com/tonistiigi/vt100 v0.0.0-20230623042737-f9a4f7ef6531
+# github.com/tonistiigi/vt100 v0.0.0-20240514184818-90bafcd6abab
 ## explicit
 # github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb
 ## explicit
@@ -308,31 +310,23 @@
 ## explicit
 # go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.21.0
 ## explicit
-# go.opentelemetry.io/otel/exporters/prometheus v0.42.0
-## explicit
-# go.opentelemetry.io/otel/metric v1.21.0
-## explicit
 # go.opentelemetry.io/otel/sdk/metric v1.21.0
 ## explicit
 # go.opentelemetry.io/proto/otlp v1.0.0
 ## explicit
-# golang.org/x/crypto v0.18.0
+# golang.org/x/crypto v0.22.0
 ## explicit
-# golang.org/x/mod v0.14.0
-## explicit
-# golang.org/x/net v0.20.0
+# golang.org/x/net v0.24.0
 ## explicit
 # golang.org/x/oauth2 v0.11.0
 ## explicit
-# golang.org/x/term v0.16.0
+# golang.org/x/term v0.19.0
 ## explicit
 # golang.org/x/text v0.14.0
 ## explicit
 # golang.org/x/time v0.3.0
 ## explicit
-# golang.org/x/tools v0.17.0
-## explicit
-# google.golang.org/appengine v1.6.7
+# google.golang.org/appengine v1.6.8
 ## explicit
 # google.golang.org/genproto v0.0.0-20231016165738-49dd2c1f3d0b
 ## explicit
@@ -340,7 +334,7 @@
 ## explicit
 # google.golang.org/genproto/googleapis/rpc v0.0.0-20231016165738-49dd2c1f3d0b
 ## explicit
-# google.golang.org/protobuf v1.31.0
+# google.golang.org/protobuf v1.33.0
 ## explicit
 # gopkg.in/cenkalti/backoff.v1 v1.1.0
 ## explicit
@@ -351,8 +345,6 @@
 # k8s.io/api v0.29.2
 ## explicit
 # k8s.io/apimachinery v0.29.2
-## explicit
-# k8s.io/apiserver v0.29.2
 ## explicit
 # k8s.io/client-go v0.29.2
 ## explicit
@@ -368,5 +360,5 @@
 ## explicit
 # sigs.k8s.io/yaml v1.3.0
 ## explicit
-# tags.cncf.io/container-device-interface v0.6.2
+# tags.cncf.io/container-device-interface v0.7.2
 ## explicit
