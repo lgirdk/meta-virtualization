@@ -13,19 +13,16 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index 4635c6ec..a95e860e 100644
---- a/Makefile
-+++ b/Makefile
-@@ -88,7 +88,7 @@ FORCE:
- # Build a binary from a cmd.
- bin/%: cmd/% FORCE
+Index: distribution/Makefile
+===================================================================
+--- distribution.orig/Makefile
++++ distribution/Makefile
+@@ -60,7 +60,7 @@ version/version.go:
+ 
+ bin/%: cmd/% FORCE ## build individual binary
  	@echo "$(WHALE) $@${BINARY_SUFFIX}"
--	@go build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
-+	@${GO} build ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} ${GO_TAGS}  ./$<
+-	@go build -buildmode=pie ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} --ldflags '-extldflags "-Wl,-z,now" -s' ${GO_TAGS}  ./$<
++	@${GO} build -buildmode=pie ${GO_GCFLAGS} ${GO_BUILD_FLAGS} -o $@${BINARY_SUFFIX} ${GO_LDFLAGS} --ldflags '-extldflags "-Wl,-z,now" -s' ${GO_TAGS}  ./$<
  
  binaries: $(BINARIES) ## build binaries
  	@echo "$(WHALE) $@"
--- 
-2.19.1
-
