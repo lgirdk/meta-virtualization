@@ -27,6 +27,7 @@ import argparse
 from collections import OrderedDict
 import subprocess
 import textwrap
+import re
 
 # This switch is used to make this script error out ASAP, mainly for debugging purpose
 ERROR_OUT_ON_FETCH_AND_CHECKOUT_FAILURE = True
@@ -336,9 +337,13 @@ class GoModTool(object):
         # destdir: ${WORKDIR}/${BP}/src/import/vendor.fetch/github.com/Masterminds/semver/v3
         # fullsrcrev: 7bb0c843b53d6ad21a3f619cb22c4b442bb3ef3e (git rev-list -1 v3.1.1)
         #
-        # As a last resort, if the last component of <module_name> matches 'v[0-9]+',
+        # Next, if the last component of <module_name> matches 'v[0-9]+',
         # remove the last component and try wget https://<module_name_with_last_component_removed>?go-get=1,
         # then try using the above matching method.
+        #
+        # Finally, we have a mapping of known modules to source trees that can
+        # be used to translate the go.mod entry to a repository. Currently this is
+        # part of the script, but could be read from .map files in the future.
         #
         for line in self.require_lines:
             module_name, version = line.strip().split()
@@ -410,6 +415,10 @@ class GoModTool(object):
                         if newline != '' and not newline.startswith('<'):
                             repo_url = newline
                             repo_url_found = True
+                            if "Repository URL not available" in repo_url:
+                                repo_url_found = False
+                                repo_url = ""
+
                             break
             if repo_url_found:
                 logger.info("repo url for %s: %s" % (module_name, repo_url))
@@ -419,11 +428,62 @@ class GoModTool(object):
             else:
                 unhandled_reason = 'cannot determine repo_url for %s' % module_name
                 self.modules_unhandled[module_name] = unhandled_reason
-                return None
+                # This used to return, but we have the mapping step below to try
+                # as a final resort, leaving this here in case compatiblity issues
+                # arrive later due to the continued processing.
+                # return None
         except:
             logger.info("wget -O %s https://pkg.go.dev/%s failed" % (wget_content_file, module_name))
+
+        # Do we recognize this twice failed lookup ?
+        site_mapper = { "inet.af" : { "match"   : re.compile(""),
+                                      "replace" : ""
+                                    }
+                      }
+
+        # module name: inet.af/tcpproxy
+        # replacement: https://github.com/inetaf/tcpproxy
+        site_mapper["inet.af"]["match"] = re.compile(r"(inet\.af)/(.*)")
+        site_mapper["inet.af"]["replace"] = "https://github.com/inetaf/\\g<2>"
+
+        host, _, _ = module_name.partition('/')
+
+        ## on failure, we could consider instructing the user to write their
+        ## own url into the repo_url_cache file
+        ##
+        ## or we could look for a .repo_mapping file, and read/use it to do
+        ## the mapping and carry that around per-project.
+        logger.info( "trying mapper lookup for %s (host: %s)" % (module_name,host))
+
+        try:
+            mapper = site_mapper[host]
+            m = mapper["match"].match(module_name)
+            repo_url = m.expand( mapper["replace"] )
+
+            logger.info( "mapper match for %s, returning %s" % (module_name,repo_url) )
+            #print( "new site: %s" % repo_url )
+
+            # clear any potentially staged reasons for failures above
+            self.modules_unhandled[module_name] = ""
+
+            with open(url_cache_file, 'w') as f:
+                f.write(repo_url)
+                return repo_url
+        except Exception as e:
+            unhandled_reason = 'cannot determine mapped repo_url for %s' % module_name
+            ### XXXX: TODO. if there are more parts to be popped, we shouldn't give up
+            ###       on th emodule
+            ####
+            #### and/ or check if there was already an entry from above, since that means
+            #### there was a more critcal error during the check and we should just
+            #### propagate the unhandled to the caller
+            ####
+            self.modules_unhandled[module_name] = unhandled_reason
+            del self.modules_unhandled[module_name]
+            logger.info( "no mapper match, returning none: %s" % e )
             return None
 
+        return None
 
     def get_repo_url_rev(self, module_name, version):
         """
@@ -504,7 +564,6 @@ class GoModTool(object):
         template = """#       %s %s
 # [1] git ls-remote %s %s
 SRCREV_%s="%s"
-# styhead and newer
 SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/%s"
 
 """
