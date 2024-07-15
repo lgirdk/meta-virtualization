@@ -5,11 +5,9 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            gopkg.in/yaml.v3:gopkg.in/yaml.v3:force \
            go.opencensus.io:go.opencensus.io:force \
            golang.org/x/exp:golang.org/x/exp:force \
-           golang.org/x/mod:golang.org/x/mod:force \
            golang.org/x/sync:golang.org/x/sync:force \
            golang.org/x/term:golang.org/x/term:force \
            golang.org/x/text:golang.org/x/text:force \
-           golang.org/x/tools:golang.org/x/tools:force \
            golang.org/x/crypto:golang.org/x/crypto:force \
            github.com/moby/term:github.com/moby/term:force \
            go.mozilla.org/pkcs7:go.mozilla.org/pkcs7:force \
@@ -32,7 +30,6 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/tidwall/gjson:github.com/tidwall/gjson:force \
            github.com/gogo/protobuf:github.com/gogo/protobuf:force \
            github.com/google/go-cmp:github.com/google/go-cmp:force \
-           github.com/imdario/mergo:github.com/imdario/mergo:force \
            github.com/philhofer/fwd:github.com/philhofer/fwd:force \
            github.com/tidwall/match:github.com/tidwall/match:force \
            go.opentelemetry.io/otel:go.opentelemetry.io/otel:force \
@@ -68,7 +65,7 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/Microsoft/go-winio:github.com/Microsoft/go-winio:force \
            github.com/containerd/console:github.com/containerd/console:force \
            github.com/coreos/go-iptables:github.com/coreos/go-iptables:force \
-           github.com/containerd/cgroups:github.com/containerd/cgroups:force \
+           github.com/containerd/errdefs:github.com/containerd/errdefs:force \
            github.com/containerd/go-runc:github.com/containerd/go-runc:force \
            github.com/containerd/typeurl:github.com/containerd/typeurl:force \
            github.com/go-jose/go-jose/v3:github.com/go-jose/go-jose/v3:force \
@@ -97,12 +94,12 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/fahedouch/go-logrotate:github.com/fahedouch/go-logrotate:force \
            github.com/mitchellh/mapstructure:github.com/mitchellh/mapstructure:force \
            github.com/distribution/reference:github.com/distribution/reference:force \
+           github.com/moby/docker-image-spec:github.com/moby/docker-image-spec:force \
            github.com/multiformats/go-base32:github.com/multiformats/go-base32:force \
            github.com/multiformats/go-base36:github.com/multiformats/go-base36:force \
            github.com/multiformats/go-varint:github.com/multiformats/go-varint:force \
            github.com/opencontainers/selinux:github.com/opencontainers/selinux:force \
            go.opentelemetry.io/otel/trace:go.opentelemetry.io/otel/trace/trace:force \
-           github.com/compose-spec/compose-go:github.com/compose-spec/compose-go:force \
            github.com/containernetworking/cni:github.com/containernetworking/cni:force \
            github.com/hashicorp/go-multierror:github.com/hashicorp/go-multierror:force \
            github.com/moby/sys/mountinfo:github.com/moby/sys/mountinfo/mountinfo:force \
@@ -110,6 +107,7 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            go.opentelemetry.io/otel/metric:go.opentelemetry.io/otel/metric/metric:force \
            github.com/awslabs/soci-snapshotter:github.com/awslabs/soci-snapshotter:force \
            github.com/opencontainers/go-digest:github.com/opencontainers/go-digest:force \
+           github.com/go-viper/mapstructure/v2:github.com/go-viper/mapstructure/v2:force \
            github.com/moby/sys/sequential:github.com/moby/sys/sequential/sequential:force \
            github.com/opencontainers/image-spec:github.com/opencontainers/image-spec:force \
            github.com/AdaLogics/go-fuzz-headers:github.com/AdaLogics/go-fuzz-headers:force \
@@ -118,7 +116,9 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/multiformats/go-multibase:github.com/multiformats/go-multibase:force \
            github.com/multiformats/go-multihash:github.com/multiformats/go-multihash:force \
            github.com/stefanberger/go-pkcs11uri:github.com/stefanberger/go-pkcs11uri:force \
+           github.com/compose-spec/compose-go/v2:github.com/compose-spec/compose-go/v2:force \
            github.com/cyphar/filepath-securejoin:github.com/cyphar/filepath-securejoin:force \
+           github.com/containerd/containerd/api:github.com/containerd/containerd/api/api:force \
            github.com/containernetworking/plugins:github.com/containernetworking/plugins:force \
            github.com/fluent/fluent-logger-golang:github.com/fluent/fluent-logger-golang:force \
            github.com/opencontainers/runtime-spec:github.com/opencontainers/runtime-spec:force \

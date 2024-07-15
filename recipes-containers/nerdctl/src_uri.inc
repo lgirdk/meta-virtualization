@@ -8,15 +8,15 @@ SRC_URI += "git://github.com/gotestyourself/gotest.tools;name=gotest.tools-v3;pr
 SRCREV_mock="74a29c6e6c2cbb8ccee94db061c1604ff33fd188"
 SRC_URI += "git://github.com/uber/mock;name=mock;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/go.uber.org/mock"
 
-#       golang.org/x/net v0.21.0
-# [1] git ls-remote https://go.googlesource.com/net 73d21fdbb4d7dc7115b50526b93b6c37a4e3377f
-SRCREV_net="73d21fdbb4d7dc7115b50526b93b6c37a4e3377f"
+#       golang.org/x/net v0.27.0
+# [1] git ls-remote https://go.googlesource.com/net e2310ae9eb6425ee6736cfc40f982f42e20f5850
+SRCREV_net="e2310ae9eb6425ee6736cfc40f982f42e20f5850"
 SRC_URI += "git://go.googlesource.com/net;name=net;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/net"
 
-#       golang.org/x/sys v0.17.0
-# [1] git ls-remote https://go.googlesource.com/sys 914b96c1bddd0738464c043cccbbac14fc94b955
-SRCREV_sys="914b96c1bddd0738464c043cccbbac14fc94b955"
-SRC_URI += "git://go.googlesource.com/sys;name=sys;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/sys"
+#       golang.org/x/sys v0.22.0
+# [1] git ls-remote https://github.com/golang/sys faed7ec2641160cebe7fdf3fa6d401d848d2710f
+SRCREV_sys="faed7ec2641160cebe7fdf3fa6d401d848d2710f"
+SRC_URI += "git://github.com/golang/sys;name=sys;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/sys"
 
 #       gopkg.in/yaml.v3 v3.0.1
 # [1] git ls-remote https://github.com/go-yaml/yaml f6f7691b1fdeb513f56608cd2c32c51f8194bf51
@@ -28,39 +28,29 @@ SRC_URI += "git://github.com/go-yaml/yaml;name=yaml.v3;protocol=https;nobranch=1
 SRCREV_go.opencensus.io="b1a01ee95db0e690d91d7193d037447816fae4c5"
 SRC_URI += "git://github.com/census-instrumentation/opencensus-go;name=go.opencensus.io;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/go.opencensus.io"
 
-#       golang.org/x/exp v0.0.0-20231006140011-7918f672742d
-# [1] git ls-remote https://go.googlesource.com/exp 7918f672742dd40ff5cf8d3c316a9315410c2d3c
-SRCREV_exp="7918f672742dd40ff5cf8d3c316a9315410c2d3c"
+#       golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3
+# [1] git ls-remote https://go.googlesource.com/exp db7319d0e0e361ccef5c449b760df8e5f2d5087c
+SRCREV_exp="db7319d0e0e361ccef5c449b760df8e5f2d5087c"
 SRC_URI += "git://go.googlesource.com/exp;name=exp;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/exp"
 
-#       golang.org/x/mod v0.13.0
-# [1] git ls-remote https://go.googlesource.com/mod 5b692803cf76a65fc5d39178c0a36678e69c0e5a
-SRCREV_mod="5b692803cf76a65fc5d39178c0a36678e69c0e5a"
-SRC_URI += "git://go.googlesource.com/mod;name=mod;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/mod"
-
-#       golang.org/x/sync v0.6.0
-# [1] git ls-remote https://go.googlesource.com/sync 59c1ca1e4661ed4452be4069ceea3c233f4deec1
-SRCREV_sync="59c1ca1e4661ed4452be4069ceea3c233f4deec1"
+#       golang.org/x/sync v0.7.0
+# [1] git ls-remote https://go.googlesource.com/sync 14be23e5b48bec28285f8a694875175ecacfddb3
+SRCREV_sync="14be23e5b48bec28285f8a694875175ecacfddb3"
 SRC_URI += "git://go.googlesource.com/sync;name=sync;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/sync"
 
-#       golang.org/x/term v0.17.0
-# [1] git ls-remote https://go.googlesource.com/term 353276a841e232e41e0f76e7a61fe0e5d1f92cf1
-SRCREV_x-term="353276a841e232e41e0f76e7a61fe0e5d1f92cf1"
+#       golang.org/x/term v0.22.0
+# [1] git ls-remote https://go.googlesource.com/term c976cb1d70cf59933953bec8a47c867e343c9eac
+SRCREV_x-term="c976cb1d70cf59933953bec8a47c867e343c9eac"
 SRC_URI += "git://go.googlesource.com/term;name=x-term;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/term"
 
-#       golang.org/x/text v0.14.0
-# [1] git ls-remote https://go.googlesource.com/text 6c97a165dd661335ff7bce6104a008558123c353
-SRCREV_text="6c97a165dd661335ff7bce6104a008558123c353"
+#       golang.org/x/text v0.16.0
+# [1] git ls-remote https://go.googlesource.com/text 9c2f3a21352d1ff4e47776534e3f334b39ec0183
+SRCREV_text="9c2f3a21352d1ff4e47776534e3f334b39ec0183"
 SRC_URI += "git://go.googlesource.com/text;name=text;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/text"
 
-#       golang.org/x/tools v0.14.0
-# [1] git ls-remote https://go.googlesource.com/tools 3f4194ee29d7db9b59757dfff729ef55cf89661c
-SRCREV_tools="3f4194ee29d7db9b59757dfff729ef55cf89661c"
-SRC_URI += "git://go.googlesource.com/tools;name=tools;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/tools"
-
-#       golang.org/x/crypto v0.19.0
-# [1] git ls-remote https://go.googlesource.com/crypto 405cb3bdea78b1b48ee79096733841247a944de0
-SRCREV_crypto="405cb3bdea78b1b48ee79096733841247a944de0"
+#       golang.org/x/crypto v0.25.0
+# [1] git ls-remote https://go.googlesource.com/crypto 9fadb0b165bd3b96d2a21e89d60ad458db3aeee0
+SRCREV_crypto="9fadb0b165bd3b96d2a21e89d60ad458db3aeee0"
 SRC_URI += "git://go.googlesource.com/crypto;name=crypto;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/crypto"
 
 #       github.com/moby/term v0.5.0
@@ -73,9 +63,9 @@ SRC_URI += "git://github.com/moby/term;name=term;protocol=https;nobranch=1;dests
 SRCREV_pkcs7="432b2356ecb18209c1cec25680b8a23632794f21"
 SRC_URI += "git://github.com/mozilla-services/pkcs7;name=pkcs7;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/go.mozilla.org/pkcs7"
 
-#       github.com/docker/cli v24.0.7+incompatible
-# [1] git ls-remote https://github.com/docker/cli afdd53b4e341be38d2056a42113b938559bb1d94
-SRCREV_cli="afdd53b4e341be38d2056a42113b938559bb1d94"
+#       github.com/docker/cli v27.0.3+incompatible
+# [1] git ls-remote https://github.com/docker/cli 7d4bcd863a4c863e650eed02a550dfeb98560b83
+SRCREV_cli="7d4bcd863a4c863e650eed02a550dfeb98560b83"
 SRC_URI += "git://github.com/docker/cli;name=cli;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/docker/cli"
 
 #       github.com/pkg/errors v0.9.1
@@ -83,9 +73,9 @@ SRC_URI += "git://github.com/docker/cli;name=cli;protocol=https;nobranch=1;dests
 SRCREV_errors="614d223910a179a466c1767a985424175c39b465"
 SRC_URI += "git://github.com/pkg/errors;name=errors;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/pkg/errors"
 
-#       github.com/fatih/color v1.16.0
-# [1] git ls-remote https://github.com/fatih/color 0f9779ed479afd460f0c2cc5a3d3eb69b9ba188b
-SRCREV_color="0f9779ed479afd460f0c2cc5a3d3eb69b9ba188b"
+#       github.com/fatih/color v1.17.0
+# [1] git ls-remote https://github.com/fatih/color b6598b12a645b3159c1bce51b0e3fafc269510be
+SRCREV_color="b6598b12a645b3159c1bce51b0e3fafc269510be"
 SRC_URI += "git://github.com/fatih/color;name=color;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/fatih/color"
 
 #       github.com/ipfs/go-cid v0.4.1
@@ -93,9 +83,9 @@ SRC_URI += "git://github.com/fatih/color;name=color;protocol=https;nobranch=1;de
 SRCREV_go-cid="d46e7f28669cd2c463bc68fe86e7dbe4f8240ab7"
 SRC_URI += "git://github.com/ipfs/go-cid;name=go-cid;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/ipfs/go-cid"
 
-#       github.com/spf13/cobra v1.8.0
-# [1] git ls-remote https://github.com/spf13/cobra a0a6ae020bb3899ff0276067863e50523f897370
-SRCREV_cobra="a0a6ae020bb3899ff0276067863e50523f897370"
+#       github.com/spf13/cobra v1.8.1
+# [1] git ls-remote https://github.com/spf13/cobra e94f6d0dd9a5e5738dca6bce03c4b1207ffbc0ec
+SRCREV_cobra="e94f6d0dd9a5e5738dca6bce03c4b1207ffbc0ec"
 SRC_URI += "git://github.com/spf13/cobra;name=cobra;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/spf13/cobra"
 
 #       github.com/spf13/pflag v1.0.5
@@ -118,14 +108,14 @@ SRC_URI += "git://github.com/google/uuid;name=uuid;protocol=https;nobranch=1;des
 SRCREV_locker="281af2d563954745bea9d1487c965f24d30742fe"
 SRC_URI += "git://github.com/moby/locker;name=locker;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/locker"
 
-#       google.golang.org/grpc v1.59.0
-# [1] git ls-remote https://github.com/grpc/grpc-go 7765221f4bf6104973db7946d56936cf838cad46
-SRCREV_grpc="7765221f4bf6104973db7946d56936cf838cad46"
+#       google.golang.org/grpc v1.62.0
+# [1] git ls-remote https://github.com/grpc/grpc-go d715b2ef0602fe2133221519cba0642ac282cc3f
+SRCREV_grpc="d715b2ef0602fe2133221519cba0642ac282cc3f"
 SRC_URI += "git://github.com/grpc/grpc-go;name=grpc;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/google.golang.org/grpc"
 
-#       github.com/go-logr/logr v1.3.0
-# [1] git ls-remote https://github.com/go-logr/logr 8adefbede0fe82bdee4fb8c9c9bdc7bc5d91388f
-SRCREV_logr="8adefbede0fe82bdee4fb8c9c9bdc7bc5d91388f"
+#       github.com/go-logr/logr v1.4.1
+# [1] git ls-remote https://github.com/go-logr/logr dcdc3f2cd12e8a5c4e2a6712d6958c90e2e5bd98
+SRCREV_logr="dcdc3f2cd12e8a5c4e2a6712d6958c90e2e5bd98"
 SRC_URI += "git://github.com/go-logr/logr;name=logr;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/go-logr/logr"
 
 #       github.com/go-logr/stdr v1.2.2
@@ -148,20 +138,15 @@ SRC_URI += "git://github.com/tinylib/msgp;name=msgp;protocol=https;nobranch=1;de
 SRCREV_blake3="bb7ece4161ea910c6c385c17799b17d658075fcd"
 SRC_URI += "git://github.com/lukechampine/blake3;name=blake3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/lukechampine.com/blake3"
 
-#       github.com/docker/docker v24.0.7+incompatible
-# [1] git ls-remote https://github.com/moby/moby 311b9ff0aa93aa55880e1e5f8871c4fb69583426
-SRCREV_docker="311b9ff0aa93aa55880e1e5f8871c4fb69583426"
+#       github.com/docker/docker v27.0.3+incompatible
+# [1] git ls-remote https://github.com/moby/moby 662f78c0b1bb5114172427cfcb40491d73159be2
+SRCREV_docker="662f78c0b1bb5114172427cfcb40491d73159be2"
 SRC_URI += "git://github.com/moby/moby;name=docker;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/docker/docker"
 
 #       github.com/tidwall/gjson v1.17.1
 # [1] git ls-remote https://github.com/tidwall/gjson bbf40bb0e4f47860677c7115b2eaa5b3413ce23e
 SRCREV_gjson="bbf40bb0e4f47860677c7115b2eaa5b3413ce23e"
 SRC_URI += "git://github.com/tidwall/gjson;name=gjson;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/tidwall/gjson"
-
-#       github.com/moby/sys/user v0.1.0
-# [1] git ls-remote https://github.com/moby/sys c0711cde08c8fa33857a2c28721659267f49b5e2
-SRCREV_user="c0711cde08c8fa33857a2c28721659267f49b5e2"
-SRC_URI += "git://github.com/moby/sys;name=user;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/sys/user"
 
 #       github.com/gogo/protobuf v1.3.2
 # [1] git ls-remote https://github.com/gogo/protobuf b03c65ea87cdc3521ede29f62fe3ce239267c1bc
@@ -173,10 +158,10 @@ SRC_URI += "git://github.com/gogo/protobuf;name=protobuf;protocol=https;nobranch
 SRCREV_go-cmp="c3ad8435e7bef96af35732bc0789e5a2278c6d5f"
 SRC_URI += "git://github.com/google/go-cmp;name=go-cmp;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/google/go-cmp"
 
-#       github.com/imdario/mergo v0.3.16
-# [1] git ls-remote https://github.com/darccio/mergo 14fe2b165b83359196f820886a2b24f2771729e9
-SRCREV_mergo="14fe2b165b83359196f820886a2b24f2771729e9"
-SRC_URI += "git://github.com/darccio/mergo;name=mergo;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/imdario/mergo"
+#       github.com/moby/sys/user v0.1.0
+# [1] git ls-remote https://github.com/moby/sys c0711cde08c8fa33857a2c28721659267f49b5e2
+SRCREV_user="c0711cde08c8fa33857a2c28721659267f49b5e2"
+SRC_URI += "git://github.com/moby/sys;name=user;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/sys/user"
 
 #       github.com/philhofer/fwd v1.1.1
 # [1] git ls-remote https://github.com/philhofer/fwd 9bcb9cab1b0394d8516a132ec243ba944efdb644
@@ -203,9 +188,9 @@ SRC_URI += "git://github.com/containerd/log;name=log;protocol=https;nobranch=1;d
 SRCREV_mount="416188aff8404d549e1e34a50e513befeb11c3b9"
 SRC_URI += "git://github.com/moby/sys;name=mount;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/sys/mount"
 
-#       github.com/djherbis/times v1.5.0
-# [1] git ls-remote https://github.com/djherbis/times a1edc5dc082a710e4a808e99c78989b8d04e3025
-SRCREV_times="a1edc5dc082a710e4a808e99c78989b8d04e3025"
+#       github.com/djherbis/times v1.6.0
+# [1] git ls-remote https://github.com/djherbis/times d1af0aa12128959e70b9e802c912f302c743c35b
+SRCREV_times="d1af0aa12128959e70b9e802c912f302c743c35b"
 SRC_URI += "git://github.com/djherbis/times;name=times;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/djherbis/times"
 
 #       github.com/godbus/dbus/v5 v5.1.0
@@ -248,9 +233,9 @@ SRC_URI += "git://github.com/moby/sys;name=signal;protocol=https;nobranch=1;dest
 SRCREV_srslog="becd9b11119269a7928ae89fde90784335c1d016"
 SRC_URI += "git://github.com/yuchanns/srslog;name=srslog;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/yuchanns/srslog"
 
-#       github.com/golang/protobuf v1.5.3
-# [1] git ls-remote https://github.com/golang/protobuf 5d5e8c018a13017f9d5b8bf4fad64aaa42a87308
-SRCREV_golang-protobuf="5d5e8c018a13017f9d5b8bf4fad64aaa42a87308"
+#       github.com/golang/protobuf v1.5.4
+# [1] git ls-remote https://github.com/golang/protobuf 75de7c059e36b64f01d0dd234ff2fff404ec3374
+SRCREV_golang-protobuf="75de7c059e36b64f01d0dd234ff2fff404ec3374"
 SRC_URI += "git://github.com/golang/protobuf;name=golang-protobuf;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/golang/protobuf"
 
 #       github.com/sirupsen/logrus v1.9.3
@@ -258,14 +243,14 @@ SRC_URI += "git://github.com/golang/protobuf;name=golang-protobuf;protocol=https
 SRCREV_logrus="d40e25cd45ed9c6b2b66e6b97573a0413e4c23bd"
 SRC_URI += "git://github.com/sirupsen/logrus;name=logrus;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/sirupsen/logrus"
 
-#       google.golang.org/genproto v0.0.0-20231012201019-e917dd12ba7a
-# [1] git ls-remote https://github.com/googleapis/go-genproto e917dd12ba7ad5f78e3112f832eeda0f94ca8fd4
-SRCREV_genproto="e917dd12ba7ad5f78e3112f832eeda0f94ca8fd4"
+#       google.golang.org/genproto v0.0.0-20240123012728-ef4313101c80
+# [1] git ls-remote https://github.com/googleapis/go-genproto ef4313101c801fa091ce994c42178295e58e9f6f
+SRCREV_genproto="ef4313101c801fa091ce994c42178295e58e9f6f"
 SRC_URI += "git://github.com/googleapis/go-genproto;name=genproto;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/google.golang.org/genproto"
 
-#       google.golang.org/protobuf v1.31.0
-# [1] git ls-remote https://github.com/protocolbuffers/protobuf-go 68463f0e96c93bc19ef36ccd3adfe690bfdb568c
-SRCREV_google.golang.org-protobuf="68463f0e96c93bc19ef36ccd3adfe690bfdb568c"
+#       google.golang.org/protobuf v1.33.0
+# [1] git ls-remote https://github.com/protocolbuffers/protobuf-go ec47fd138f9221b19a2afd6570b3c39ede9df3dc
+SRCREV_google.golang.org-protobuf="ec47fd138f9221b19a2afd6570b3c39ede9df3dc"
 SRC_URI += "git://github.com/protocolbuffers/protobuf-go;name=google.golang.org-protobuf;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/google.golang.org/protobuf"
 
 #       github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869
@@ -273,9 +258,9 @@ SRC_URI += "git://github.com/protocolbuffers/protobuf-go;name=google.golang.org-
 SRCREV_assert="b7ed37b82869576c289d7d97fb2bbd8b64a0cb28"
 SRC_URI += "git://github.com/bmizerany/assert;name=assert;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/bmizerany/assert"
 
-#       github.com/containerd/ttrpc v1.2.2
-# [1] git ls-remote https://github.com/containerd/ttrpc ac26f8cbea1c440d451dd19a4a1b847fd073f3c3
-SRCREV_ttrpc="ac26f8cbea1c440d451dd19a4a1b847fd073f3c3"
+#       github.com/containerd/ttrpc v1.2.5
+# [1] git ls-remote https://github.com/containerd/ttrpc 655622931dab8c39a563e8c82ae90cdc748f72a1
+SRCREV_ttrpc="655622931dab8c39a563e8c82ae90cdc748f72a1"
 SRC_URI += "git://github.com/containerd/ttrpc;name=ttrpc;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/ttrpc"
 
 #       github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c
@@ -293,14 +278,14 @@ SRC_URI += "git://github.com/moby/sys;name=symlink;protocol=https;nobranch=1;des
 SRCREV_tar-split="5ef0dd8243164ebacd755916a89d8085a5b6bb7f"
 SRC_URI += "git://github.com/vbatts/tar-split;name=tar-split;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/vbatts/tar-split"
 
-#       github.com/Microsoft/hcsshim v0.11.4
-# [1] git ls-remote https://github.com/microsoft/hcsshim b16edf62c1723deb948632261b445d0228d973e0
-SRCREV_hcsshim="b16edf62c1723deb948632261b445d0228d973e0"
+#       github.com/Microsoft/hcsshim v0.12.4
+# [1] git ls-remote https://github.com/microsoft/hcsshim c6a83278f5925b721702744dc12a78e274243fa0
+SRCREV_hcsshim="c6a83278f5925b721702744dc12a78e274243fa0"
 SRC_URI += "git://github.com/microsoft/hcsshim;name=hcsshim;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/Microsoft/hcsshim"
 
-#       github.com/containerd/go-cni v1.1.9
-# [1] git ls-remote https://github.com/containerd/go-cni 6603d5bd8941d7f2026bb5627f6aa4ff434f859a
-SRCREV_go-cni="6603d5bd8941d7f2026bb5627f6aa4ff434f859a"
+#       github.com/containerd/go-cni v1.1.10
+# [1] git ls-remote https://github.com/containerd/go-cni 1c1be5e9ea864c9bc1651909ae13e1e555b4098d
+SRCREV_go-cni="1c1be5e9ea864c9bc1651909ae13e1e555b4098d"
 SRC_URI += "git://github.com/containerd/go-cni;name=go-cni;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/go-cni"
 
 #       github.com/vishvananda/netns v0.0.4
@@ -343,9 +328,9 @@ SRC_URI += "git://github.com/pelletier/go-toml;name=go-toml;protocol=https;nobra
 SRCREV_murmur3="f09979ecbc725b9e6d41a297405f65e7e8804acc"
 SRC_URI += "git://github.com/spaolacci/murmur3;name=murmur3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/spaolacci/murmur3"
 
-#       github.com/Microsoft/go-winio v0.6.1
-# [1] git ls-remote https://github.com/microsoft/go-winio 070c828abb873da9e71c7247740253b50f7cf049
-SRCREV_go-winio="070c828abb873da9e71c7247740253b50f7cf049"
+#       github.com/Microsoft/go-winio v0.6.2
+# [1] git ls-remote https://github.com/microsoft/go-winio 3c9576c9346a1892dee136329e7e15309e82fb4f
+SRCREV_go-winio="3c9576c9346a1892dee136329e7e15309e82fb4f"
 SRC_URI += "git://github.com/microsoft/go-winio;name=go-winio;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/Microsoft/go-winio"
 
 #       github.com/containerd/console v1.0.4
@@ -358,10 +343,10 @@ SRC_URI += "git://github.com/containerd/console;name=console;protocol=https;nobr
 SRCREV_go-iptables="b9dff5a19d9c3925da3f9b3c0a705de6c1fdc56c"
 SRC_URI += "git://github.com/coreos/go-iptables;name=go-iptables;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/coreos/go-iptables"
 
-#       github.com/containerd/cgroups v1.1.0
-# [1] git ls-remote https://github.com/containerd/cgroups fe7323f622bc222e72473679f12a9089aeeda177
-SRCREV_cgroups="fe7323f622bc222e72473679f12a9089aeeda177"
-SRC_URI += "git://github.com/containerd/cgroups;name=cgroups;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/cgroups"
+#       github.com/containerd/errdefs v0.1.0
+# [1] git ls-remote https://github.com/containerd/errdefs 3abe02904986ab350333f0892b226ce5a2a45820
+SRCREV_errdefs="3abe02904986ab350333f0892b226ce5a2a45820"
+SRC_URI += "git://github.com/containerd/errdefs;name=errdefs;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/errdefs"
 
 #       github.com/containerd/go-runc v1.0.0
 # [1] git ls-remote https://github.com/containerd/go-runc 16b287bc67d069a60fa48db15f330b790b74365b
@@ -373,14 +358,14 @@ SRC_URI += "git://github.com/containerd/go-runc;name=go-runc;protocol=https;nobr
 SRCREV_typeurl="7f6e6d160d675241af388d5cf1b90814786bac40"
 SRC_URI += "git://github.com/containerd/typeurl;name=typeurl;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/typeurl"
 
-#       github.com/go-jose/go-jose/v3 v3.0.1
-# [1] git ls-remote https://github.com/go-jose/go-jose 47edce0854d533ac27795c9befd90b1f7ef87554
-SRCREV_go-jose-v3="47edce0854d533ac27795c9befd90b1f7ef87554"
+#       github.com/go-jose/go-jose/v3 v3.0.3
+# [1] git ls-remote https://github.com/go-jose/go-jose add6a284ea0f844fd6628cba637be5451fe4b28a
+SRCREV_go-jose-v3="add6a284ea0f844fd6628cba637be5451fe4b28a"
 SRC_URI += "git://github.com/go-jose/go-jose;name=go-jose-v3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/go-jose/go-jose/v3"
 
-#       github.com/klauspost/compress v1.17.6
-# [1] git ls-remote https://github.com/klauspost/compress 255a13270e4608f2f2b97166d92f297de906c951
-SRCREV_compress="255a13270e4608f2f2b97166d92f297de906c951"
+#       github.com/klauspost/compress v1.17.9
+# [1] git ls-remote https://github.com/klauspost/compress 7ae2138b16cc43afcea3ce7d3d2f2625fb389d51
+SRCREV_compress="7ae2138b16cc43afcea3ce7d3d2f2625fb389d51"
 SRC_URI += "git://github.com/klauspost/compress;name=compress;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/klauspost/compress"
 
 #       github.com/klauspost/cpuid/v2 v2.2.3
@@ -398,9 +383,9 @@ SRC_URI += "git://github.com/mattn/go-colorable;name=go-colorable;protocol=https
 SRCREV_mountinfo="4950d7687cf6c9b138dc0e18c2c7351e1f6ed497"
 SRC_URI += "git://github.com/moby/sys;name=mountinfo;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/sys/mountinfo"
 
-#       github.com/containerd/imgcrypt v1.1.9
-# [1] git ls-remote https://github.com/containerd/imgcrypt 90513b079771363133611a91de350ea932e09b26
-SRCREV_imgcrypt="90513b079771363133611a91de350ea932e09b26"
+#       github.com/containerd/imgcrypt v1.1.11
+# [1] git ls-remote https://github.com/containerd/imgcrypt 619fd33080b087702c72e93451a698c381d522d0
+SRCREV_imgcrypt="619fd33080b087702c72e93451a698c381d522d0"
 SRC_URI += "git://github.com/containerd/imgcrypt;name=imgcrypt;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/imgcrypt"
 
 #       github.com/muesli/cancelreader v0.2.2
@@ -413,9 +398,9 @@ SRC_URI += "git://github.com/muesli/cancelreader;name=cancelreader;protocol=http
 SRCREV_netlink="5e915e0149386ce3d02379ff93f4c0a5601779d5"
 SRC_URI += "git://github.com/vishvananda/netlink;name=netlink;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/vishvananda/netlink"
 
-#       github.com/containers/ocicrypt v1.1.9
-# [1] git ls-remote https://github.com/containers/ocicrypt c0e1fd5b82bc57acdb1a241dc602534eea42edb6
-SRCREV_ocicrypt="c0e1fd5b82bc57acdb1a241dc602534eea42edb6"
+#       github.com/containers/ocicrypt v1.1.10
+# [1] git ls-remote https://github.com/containers/ocicrypt ccaf1f86ed8ce962ed5909808113bc84b5684018
+SRCREV_ocicrypt="ccaf1f86ed8ce962ed5909808113bc84b5684018"
 SRC_URI += "git://github.com/containers/ocicrypt;name=ocicrypt;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containers/ocicrypt"
 
 #       github.com/mattn/go-shellwords v1.0.12
@@ -433,14 +418,14 @@ SRC_URI += "git://github.com/moby/sys;name=sequential;protocol=https;nobranch=1;
 SRCREV_trace="60666c554065ac4da502fe28943eea4b938ab479"
 SRC_URI += "git://github.com/open-telemetry/opentelemetry-go;name=trace;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/go.opentelemetry.io/otel/trace"
 
-#       github.com/containerd/platforms v0.1.1
-# [1] git ls-remote https://github.com/containerd/platforms db76a43eaea9a004a5f240620f966b0081123884
-SRCREV_platforms="db76a43eaea9a004a5f240620f966b0081123884"
+#       github.com/containerd/platforms v0.2.1
+# [1] git ls-remote https://github.com/containerd/platforms 163df76b7184bb17ead614c92176995ec8fa5919
+SRCREV_platforms="163df76b7184bb17ead614c92176995ec8fa5919"
 SRC_URI += "git://github.com/containerd/platforms;name=platforms;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/platforms"
 
-#       github.com/pelletier/go-toml/v2 v2.1.1
-# [1] git ls-remote https://github.com/pelletier/go-toml 34765b4a9e937ab927b5bd57231e98c68fe13109
-SRCREV_go-toml-v2="34765b4a9e937ab927b5bd57231e98c68fe13109"
+#       github.com/pelletier/go-toml/v2 v2.2.2
+# [1] git ls-remote https://github.com/pelletier/go-toml a3d5a0bb530b5206c728eed9cb57323061922bcb
+SRCREV_go-toml-v2="a3d5a0bb530b5206c728eed9cb57323061922bcb"
 SRC_URI += "git://github.com/pelletier/go-toml;name=go-toml-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/pelletier/go-toml/v2"
 
 #       github.com/mitchellh/go-homedir v1.1.0
@@ -468,9 +453,9 @@ SRC_URI += "git://github.com/Masterminds/semver;name=v3;protocol=https;nobranch=
 SRCREV_cgroups-v3="1e056883d58ac58daf7566065a46016b4532f35c"
 SRC_URI += "git://github.com/containerd/cgroups;name=cgroups-v3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/cgroups/v3"
 
-#       github.com/containerd/containerd v1.7.13
-# [1] git ls-remote https://github.com/containerd/containerd 7c3aca7a610df76212171d200ca3811ff6096eb8
-SRCREV_containerd="7c3aca7a610df76212171d200ca3811ff6096eb8"
+#       github.com/containerd/containerd v1.7.19
+# [1] git ls-remote https://github.com/containerd/containerd 2bf793ef6dc9a18e00cb12efb64355c2c9d5eb41
+SRCREV_containerd="2bf793ef6dc9a18e00cb12efb64355c2c9d5eb41"
 SRC_URI += "git://github.com/containerd/containerd;name=containerd;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/containerd"
 
 #       github.com/containerd/continuity v0.4.3
@@ -478,10 +463,10 @@ SRC_URI += "git://github.com/containerd/containerd;name=containerd;protocol=http
 SRCREV_continuity="1743d9104d944131cdedaba33a59d2f9bd80a6f2"
 SRC_URI += "git://github.com/containerd/continuity;name=continuity;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/continuity"
 
-#       github.com/containerd/typeurl/v2 v2.1.1
-# [1] git ls-remote https://github.com/containerd/typeurl 7ef6316b771f959cbb208b229e3423a466947df3
-SRCREV_v2="7ef6316b771f959cbb208b229e3423a466947df3"
-SRC_URI += "git://github.com/containerd/typeurl;name=v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/typeurl/v2"
+#       github.com/containerd/typeurl/v2 v2.2.0
+# [1] git ls-remote https://github.com/containerd/typeurl 933576d917b1a9ba697d03d982fb18cb0260e64f
+SRCREV_typeurl-v2="933576d917b1a9ba697d03d982fb18cb0260e64f"
+SRC_URI += "git://github.com/containerd/typeurl;name=typeurl-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/typeurl/v2"
 
 #       github.com/coreos/go-systemd/v22 v22.5.0
 # [1] git ls-remote https://github.com/coreos/go-systemd d5623bf85e8e73ae6352f78ee6b55a287619dd4e
@@ -498,9 +483,9 @@ SRC_URI += "git://github.com/docker/go-connections;name=go-connections;protocol=
 SRCREV_gojsonpointer="02993c407bfbf5f6dae44c4f4b1cf6a39b5fc5bb"
 SRC_URI += "git://github.com/xeipuuv/gojsonpointer;name=gojsonpointer;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/xeipuuv/gojsonpointer"
 
-#       github.com/fahedouch/go-logrotate v0.2.0
-# [1] git ls-remote https://github.com/fahedouch/go-logrotate 6b28a8e09e886889e0bc4347e66bd4d4d82f5b10
-SRCREV_go-logrotate="6b28a8e09e886889e0bc4347e66bd4d4d82f5b10"
+#       github.com/fahedouch/go-logrotate v0.2.1
+# [1] git ls-remote https://github.com/fahedouch/go-logrotate e7e671d3a673890ee38392540079196cef61e3d6
+SRCREV_go-logrotate="e7e671d3a673890ee38392540079196cef61e3d6"
 SRC_URI += "git://github.com/fahedouch/go-logrotate;name=go-logrotate;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/fahedouch/go-logrotate"
 
 #       github.com/mitchellh/mapstructure v1.5.0
@@ -508,10 +493,15 @@ SRC_URI += "git://github.com/fahedouch/go-logrotate;name=go-logrotate;protocol=h
 SRCREV_mapstructure="ab69d8d93410fce4361f4912bb1ff88110a81311"
 SRC_URI += "git://github.com/mitchellh/mapstructure;name=mapstructure;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/mitchellh/mapstructure"
 
-#       github.com/distribution/reference v0.5.0
-# [1] git ls-remote https://github.com/distribution/reference 49c28499d219290c3226822e9cfcd4ede6d75379
-SRCREV_reference="49c28499d219290c3226822e9cfcd4ede6d75379"
+#       github.com/distribution/reference v0.6.0
+# [1] git ls-remote https://github.com/distribution/reference ff14fafe2236e51c2894ac07d4bdfc778e96d682
+SRCREV_reference="ff14fafe2236e51c2894ac07d4bdfc778e96d682"
 SRC_URI += "git://github.com/distribution/reference;name=reference;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/distribution/reference"
+
+#       github.com/moby/docker-image-spec v1.3.1
+# [1] git ls-remote https://github.com/moby/docker-image-spec f1d00ebd2d6d6805170d5543dbca4b850f35f9af
+SRCREV_docker-image-spec="f1d00ebd2d6d6805170d5543dbca4b850f35f9af"
+SRC_URI += "git://github.com/moby/docker-image-spec;name=docker-image-spec;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/moby/docker-image-spec"
 
 #       github.com/multiformats/go-base32 v0.1.0
 # [1] git ls-remote https://github.com/multiformats/go-base32 a16b66327f327428b32b919939b8c93482507e1f
@@ -533,14 +523,9 @@ SRC_URI += "git://github.com/multiformats/go-varint;name=go-varint;protocol=http
 SRCREV_selinux="b68c45eb2df48c6b0c949901ccda90c8e65fe677"
 SRC_URI += "git://github.com/opencontainers/selinux;name=selinux;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/opencontainers/selinux"
 
-#       github.com/compose-spec/compose-go v1.20.2
-# [1] git ls-remote https://github.com/compose-spec/compose-go e390b9774ca100e1d75c8bc075054502783b48b8
-SRCREV_compose-go="e390b9774ca100e1d75c8bc075054502783b48b8"
-SRC_URI += "git://github.com/compose-spec/compose-go;name=compose-go;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/compose-spec/compose-go"
-
-#       github.com/containernetworking/cni v1.1.2
-# [1] git ls-remote https://github.com/containernetworking/cni 3363d143688bb83ca18489ac8b9dc204c1d49c4a
-SRCREV_cni="3363d143688bb83ca18489ac8b9dc204c1d49c4a"
+#       github.com/containernetworking/cni v1.2.2
+# [1] git ls-remote https://github.com/containernetworking/cni d5c71ad528129e306538f7ba5b796337c1898d81
+SRCREV_cni="d5c71ad528129e306538f7ba5b796337c1898d81"
 SRC_URI += "git://github.com/containernetworking/cni;name=cni;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containernetworking/cni"
 
 #       github.com/hashicorp/go-multierror v1.1.1
@@ -553,15 +538,25 @@ SRC_URI += "git://github.com/hashicorp/go-multierror;name=go-multierror;protocol
 SRCREV_gojsonreference="bd5ef7bd5415a7ac448318e64f11a24cd21e594b"
 SRC_URI += "git://github.com/xeipuuv/gojsonreference;name=gojsonreference;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/xeipuuv/gojsonreference"
 
-#       github.com/awslabs/soci-snapshotter v0.4.1
-# [1] git ls-remote https://github.com/awslabs/soci-snapshotter 34e069d90460f422c549b3a8994aa26820cf6544
-SRCREV_soci-snapshotter="34e069d90460f422c549b3a8994aa26820cf6544"
+#       github.com/awslabs/soci-snapshotter v0.6.1
+# [1] git ls-remote https://github.com/awslabs/soci-snapshotter bc692715c8078e4cdfcec064f22fd324914bda8e
+SRCREV_soci-snapshotter="bc692715c8078e4cdfcec064f22fd324914bda8e"
 SRC_URI += "git://github.com/awslabs/soci-snapshotter;name=soci-snapshotter;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/awslabs/soci-snapshotter"
 
 #       github.com/opencontainers/go-digest v1.0.0
 # [1] git ls-remote https://github.com/opencontainers/go-digest ea51bea511f75cfa3ef6098cc253c5c3609b037a
 SRCREV_go-digest="ea51bea511f75cfa3ef6098cc253c5c3609b037a"
 SRC_URI += "git://github.com/opencontainers/go-digest;name=go-digest;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/opencontainers/go-digest"
+
+#       github.com/go-viper/mapstructure/v2 v2.0.0
+# [1] git ls-remote https://github.com/go-viper/mapstructure 6abdb44d71d6ac11f79c11a30a9653c9e4986625
+SRCREV_mapstructure-v2="6abdb44d71d6ac11f79c11a30a9653c9e4986625"
+SRC_URI += "git://github.com/go-viper/mapstructure;name=mapstructure-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/go-viper/mapstructure/v2"
+
+#       github.com/containerd/containerd/api v1.7.19
+# [1] git ls-remote https://github.com/containerd/containerd b600181a9324222b5f84c702b13250390bfdf746
+SRCREV_api="b600181a9324222b5f84c702b13250390bfdf746"
+SRC_URI += "git://github.com/containerd/containerd;name=api;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/containerd/api"
 
 #       github.com/opencontainers/image-spec v1.1.0
 # [1] git ls-remote https://github.com/opencontainers/image-spec e7f7c0ca69b21688c3cea7c87a04e4503e6099e2
@@ -593,19 +588,24 @@ SRC_URI += "git://github.com/multiformats/go-multibase;name=go-multibase;protoco
 SRCREV_go-multihash="16974ad98ab1fb19eb756919f55373b39cc80bec"
 SRC_URI += "git://github.com/multiformats/go-multihash;name=go-multihash;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/multiformats/go-multihash"
 
-#       github.com/stefanberger/go-pkcs11uri v0.0.0-20201008174630-78d3cae3a980
-# [1] git ls-remote https://github.com/stefanberger/go-pkcs11uri 78d3cae3a9805d89aa4fa80a362ca944c89a1b99
-SRCREV_go-pkcs11uri="78d3cae3a9805d89aa4fa80a362ca944c89a1b99"
+#       github.com/stefanberger/go-pkcs11uri v0.0.0-20230803200340-78284954bff6
+# [1] git ls-remote https://github.com/stefanberger/go-pkcs11uri 78284954bff6dcce7888166bb79bbba93bea0879
+SRCREV_go-pkcs11uri="78284954bff6dcce7888166bb79bbba93bea0879"
 SRC_URI += "git://github.com/stefanberger/go-pkcs11uri;name=go-pkcs11uri;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/stefanberger/go-pkcs11uri"
 
-#       github.com/cyphar/filepath-securejoin v0.2.4
-# [1] git ls-remote https://github.com/cyphar/filepath-securejoin 2710d06c5b4ba3168beffa0689798d2db12e8ac4
-SRCREV_filepath-securejoin="2710d06c5b4ba3168beffa0689798d2db12e8ac4"
+#       github.com/compose-spec/compose-go/v2 v2.1.3
+# [1] git ls-remote https://github.com/compose-spec/compose-go 35c575c758afd2a8363bd47290c3ddec0d23ebaf
+SRCREV_v2="35c575c758afd2a8363bd47290c3ddec0d23ebaf"
+SRC_URI += "git://github.com/compose-spec/compose-go;name=v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/compose-spec/compose-go/v2"
+
+#       github.com/cyphar/filepath-securejoin v0.3.0
+# [1] git ls-remote https://github.com/cyphar/filepath-securejoin b984b9cbbfa775c0ba6828372fd53da2262cb552
+SRCREV_filepath-securejoin="b984b9cbbfa775c0ba6828372fd53da2262cb552"
 SRC_URI += "git://github.com/cyphar/filepath-securejoin;name=filepath-securejoin;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/cyphar/filepath-securejoin"
 
-#       github.com/containernetworking/plugins v1.4.0
-# [1] git ls-remote https://github.com/containernetworking/plugins 1fb5bf669e42cd208008e52d45b41fe2c3eb8dbc
-SRCREV_plugins="1fb5bf669e42cd208008e52d45b41fe2c3eb8dbc"
+#       github.com/containernetworking/plugins v1.5.1
+# [1] git ls-remote https://github.com/containernetworking/plugins c29dc79f96cd50452a247a4591443d2aac033429
+SRCREV_plugins="c29dc79f96cd50452a247a4591443d2aac033429"
 SRC_URI += "git://github.com/containernetworking/plugins;name=plugins;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containernetworking/plugins"
 
 #       github.com/fluent/fluent-logger-golang v1.9.0
@@ -623,9 +623,9 @@ SRC_URI += "git://github.com/opencontainers/runtime-spec;name=runtime-spec;proto
 SRCREV_go-118-fuzz-build="8075edf89bb034603c758f28fe93143047ac5677"
 SRC_URI += "git://github.com/AdamKorcz/go-118-fuzz-build;name=go-118-fuzz-build;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/AdamKorcz/go-118-fuzz-build"
 
-#       github.com/containerd/nydus-snapshotter v0.13.7
-# [1] git ls-remote https://github.com/containerd/nydus-snapshotter 3fcac86ccfe192b34e8605de9e26b9f40150c8cb
-SRCREV_nydus-snapshotter="3fcac86ccfe192b34e8605de9e26b9f40150c8cb"
+#       github.com/containerd/nydus-snapshotter v0.13.13
+# [1] git ls-remote https://github.com/containerd/nydus-snapshotter e9d1bb738f778a2e30b8284ca4f479fa2517456c
+SRCREV_nydus-snapshotter="e9d1bb738f778a2e30b8284ca4f479fa2517456c"
 SRC_URI += "git://github.com/containerd/nydus-snapshotter;name=nydus-snapshotter;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/nydus-snapshotter"
 
 #       github.com/containerd/stargz-snapshotter v0.15.1
@@ -633,14 +633,14 @@ SRC_URI += "git://github.com/containerd/nydus-snapshotter;name=nydus-snapshotter
 SRCREV_stargz-snapshotter="64ab83bd65cd4a763e262955984232cc5ddfeb3f"
 SRC_URI += "git://github.com/containerd/stargz-snapshotter;name=stargz-snapshotter;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/stargz-snapshotter"
 
-#       google.golang.org/genproto/googleapis/rpc v0.0.0-20231016165738-49dd2c1f3d0b
-# [1] git ls-remote https://github.com/googleapis/go-genproto 49dd2c1f3d0bf0f025ccaf8eeaaad902e3c63846
-SRCREV_rpc="49dd2c1f3d0bf0f025ccaf8eeaaad902e3c63846"
+#       google.golang.org/genproto/googleapis/rpc v0.0.0-20240123012728-ef4313101c80
+# [1] git ls-remote https://github.com/googleapis/go-genproto ef4313101c801fa091ce994c42178295e58e9f6f
+SRCREV_rpc="ef4313101c801fa091ce994c42178295e58e9f6f"
 SRC_URI += "git://github.com/googleapis/go-genproto;name=rpc;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/google.golang.org/genproto/googleapis/rpc"
 
-#       github.com/rootless-containers/bypass4netns v0.4.0
-# [1] git ls-remote https://github.com/rootless-containers/bypass4netns 3385f1f32437dba4300a2bdf1567a7ece939f9b9
-SRCREV_bypass4netns="3385f1f32437dba4300a2bdf1567a7ece939f9b9"
+#       github.com/rootless-containers/bypass4netns v0.4.1
+# [1] git ls-remote https://github.com/rootless-containers/bypass4netns c3c127b902268c0ec143d5d0e06b567e0b930c45
+SRCREV_bypass4netns="c3c127b902268c0ec143d5d0e06b567e0b930c45"
 SRC_URI += "git://github.com/rootless-containers/bypass4netns;name=bypass4netns;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/rootless-containers/bypass4netns"
 
 #       github.com/docker/docker-credential-helpers v0.7.0
@@ -653,9 +653,9 @@ SRC_URI += "git://github.com/docker/docker-credential-helpers;name=docker-creden
 SRCREV_ipfs="64ab83bd65cd4a763e262955984232cc5ddfeb3f"
 SRC_URI += "git://github.com/containerd/stargz-snapshotter;name=ipfs;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/stargz-snapshotter/ipfs"
 
-#       github.com/rootless-containers/rootlesskit/v2 v2.0.1
-# [1] git ls-remote https://github.com/rootless-containers/rootlesskit 5e9cd7880619a3c0a675e6a41d9562b6839066ee
-SRCREV_rootlesskit-v2="5e9cd7880619a3c0a675e6a41d9562b6839066ee"
+#       github.com/rootless-containers/rootlesskit/v2 v2.1.0
+# [1] git ls-remote https://github.com/rootless-containers/rootlesskit da77c66a62412f8631fd9ce17653a3ee36802215
+SRCREV_rootlesskit-v2="da77c66a62412f8631fd9ce17653a3ee36802215"
 SRC_URI += "git://github.com/rootless-containers/rootlesskit;name=rootlesskit-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/rootless-containers/rootlesskit/v2"
 
 #       github.com/containerd/stargz-snapshotter/estargz v0.15.1
@@ -663,9 +663,9 @@ SRC_URI += "git://github.com/rootless-containers/rootlesskit;name=rootlesskit-v2
 SRCREV_estargz="64ab83bd65cd4a763e262955984232cc5ddfeb3f"
 SRC_URI += "git://github.com/containerd/stargz-snapshotter;name=estargz;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/stargz-snapshotter/estargz"
 
-#       github.com/containerd/accelerated-container-image v1.0.2
-# [1] git ls-remote https://github.com/containerd/accelerated-container-image 526b680966031d9e07371894e1de68cbf9ae6282
-SRCREV_accelerated-container-image="526b680966031d9e07371894e1de68cbf9ae6282"
+#       github.com/containerd/accelerated-container-image v1.1.3
+# [1] git ls-remote https://github.com/containerd/accelerated-container-image e66cd5cd4e31a986df6a282ef861286138e528c7
+SRCREV_accelerated-container-image="e66cd5cd4e31a986df6a282ef861286138e528c7"
 SRC_URI += "git://github.com/containerd/accelerated-container-image;name=accelerated-container-image;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containerd/accelerated-container-image"
 
 #       go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.45.0
