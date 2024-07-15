@@ -49,8 +49,8 @@ SRC_URI = "git://github.com/lxc/lxc.git;branch=stable-6.0;protocol=https \
 	file://lxc-net \
 	"
 
-SRCREV = "3dee5fb88c6f77496dbcab46f31bcd891c9ee4e0"
-PV = "6.0.0+git"
+SRCREV = "f1be0d814be5ff2cdc323eb02bd6b0dd8da676ba"
+PV = "v6.0.1"
 
 S = "${WORKDIR}/git"
 
