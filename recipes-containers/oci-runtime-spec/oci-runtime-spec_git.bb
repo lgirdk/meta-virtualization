@@ -9,8 +9,8 @@ SRCNAME = "runtime-spec"
 PKG_NAME = "github.com/opencontainers/${SRCNAME}"
 SRC_URI = "git://${PKG_NAME};destsuffix=git/src/${PKG_NAME};branch=main;protocol=https"
 
-SRCREV = "720792f25ae6e9ee6b1332db698f37659e69ce8d"
-PV = "v1.1.0-rc2+git"
+SRCREV = "701738418b9555d5213337a0991fd0ffd6c37808"
+PV = "v1.2.0+git"
 
 S = "${WORKDIR}/git"
 
