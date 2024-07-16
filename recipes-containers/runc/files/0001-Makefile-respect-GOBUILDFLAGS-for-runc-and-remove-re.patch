@@ -17,12 +17,12 @@ Index: git/src/import/Makefile
 ===================================================================
 --- git.orig/src/import/Makefile
 +++ git/src/import/Makefile
-@@ -24,7 +24,7 @@
+@@ -37,7 +37,7 @@
  		GO_BUILDMODE := "-buildmode=pie"
  	endif
  endif
--GO_BUILD := $(GO) build -trimpath $(GO_BUILDMODE) \
-+GO_BUILD := $(GO) build $(GOBUILDFLAGS) -trimpath $(GO_BUILDMODE) \
+-GO_BUILD := $(GO) build $(TRIMPATH) $(GO_BUILDMODE) \
++GO_BUILD := $(GO) build $(GOBUILDFLAGS) $(TRIMPATH) $(GO_BUILDMODE) \
  	$(EXTRA_FLAGS) -tags "$(BUILDTAGS)" \
  	-ldflags "$(LDFLAGS_COMMON) $(EXTRA_LDFLAGS)"
  
