@@ -15,7 +15,7 @@ SRC_URI = "gitsm://github.com/ceph/ceph.git;protocol=https;branch=main \
            file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
 	   "
 
-SRCREV="c14e68e1617b77c40bcd5da7e689d626a851c900"
+SRCREV="103cd8e78bcfe7f69647013187c053c9ccb76685"
 PV = "19.0.0+git"
 
 S = "${WORKDIR}/git"
@@ -25,9 +25,9 @@ DEPENDS = "boost bzip2 curl cryptsetup expat gperf-native \
            nspr nss ninja-native \
            oath openldap openssl \
            python3 python3-native python3-cython-native python3-pyyaml-native \
-	   rabbitmq-c rocksdb snappy thrift udev \
+	   rabbitmq-c snappy thrift udev \
            valgrind xfsprogs zlib libgcc zstd re2 \
-           lmdb	\
+           lmdb	autoconf-native automake-native \
 "
 
 
@@ -74,7 +74,6 @@ EXTRA_OECMAKE += "-DWITH_MANPAGE=OFF \
                  -DWITH_MGR=OFF \
                  -DWITH_MGR_DASHBOARD_FRONTEND=OFF \
                  -DWITH_SYSTEM_BOOST=ON \
-                 -DWITH_SYSTEM_ROCKSDB=ON \
                  -DWITH_RDMA=OFF \
                  -DWITH_RADOSGW_AMQP_ENDPOINT=OFF \
                  -DWITH_RADOSGW_KAFKA_ENDPOINT=OFF \
@@ -82,7 +81,10 @@ EXTRA_OECMAKE += "-DWITH_MANPAGE=OFF \
 		 -DWITH_PYTHON3=3.12 \
 		 -DPYTHON_DESIRED=3 \
 		 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${WORKDIR}/toolchain.cmake \
+		 -DCEPHADM_BUNDLED_DEPENDENCIES=none \
 		 "
+
+# -DWITH_SYSTEM_ROCKSDB=ON
 
 do_configure:prepend () {
 	echo "set( CMAKE_SYSROOT \"${RECIPE_SYSROOT}\" )" >> ${WORKDIR}/toolchain.cmake
@@ -94,6 +96,9 @@ do_configure:prepend () {
 
 	echo "set( WITH_QATDRV OFF )" >> ${WORKDIR}/toolchain.cmake
 	echo "set( WITH_QATZIP OFF )" >> ${WORKDIR}/toolchain.cmake
+	echo "set( WITH_LIBURING OFF )" >> ${WORKDIR}/toolchain.cmake
+	echo "set( WITH_QATLIB OFF )" >> ${WORKDIR}/toolchain.cmake
+	# echo "set( WITH_SYSTEM_ROCKSDB TRUE )" >> ${WORKDIR}/toolchain.cmake
 }
 
 do_compile:prepend() {
