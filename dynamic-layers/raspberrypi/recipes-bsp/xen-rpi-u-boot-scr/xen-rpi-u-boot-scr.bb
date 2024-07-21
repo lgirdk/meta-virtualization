@@ -17,12 +17,15 @@ do_compile() {
         -e 's/@@KERNEL_BOOTCMD@@/${KERNEL_BOOTCMD}/' \
         -e 's/@@RPI_DOM0_MEM@@/${RPI_DOM0_MEM}/' \
         -e 's/@@RPI_DEBUG_XEN_ARGS@@/${RPI_DEBUG_XEN_ARGS}/' \
-        "${WORKDIR}/boot.cmd.xen.in" > "${WORKDIR}/boot.cmd"
+        "${UNPACKDIR}/boot.cmd.xen.in" > "${WORKDIR}/boot.cmd"
 
     mkimage -A ${UBOOT_ARCH} -T script -C none -n "Boot script" -d "${WORKDIR}/boot.cmd" boot.scr
 }
 
 inherit kernel-arch deploy nopackages
+
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 do_deploy() {
     install -d ${DEPLOYDIR}
