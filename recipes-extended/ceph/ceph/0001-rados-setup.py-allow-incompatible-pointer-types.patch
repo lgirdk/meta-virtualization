@@ -1,0 +1,28 @@
+From 1b64bc536a3ea47c39e631409c833e99820ae7c2 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Mon, 22 Jul 2024 21:01:17 +0000
+Subject: [PATCH] rados: setup.py allow incompatible pointer types
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ src/pybind/rados/setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/pybind/rados/setup.py b/src/pybind/rados/setup.py
+index 74bf75b6ddc..87126ca8338 100755
+--- a/src/pybind/rados/setup.py
++++ b/src/pybind/rados/setup.py
+@@ -30,7 +30,7 @@ def filter_unsupported_flags(compiler, flags):
+                                 f.startswith('-fcf-protection'),
+                                 flags))
+     else:
+-        return flags
++        return flags + [ "-Wno-error=incompatible-pointer-types" ]
+ 
+ 
+ def monkey_with_compiler(customize):
+-- 
+2.39.2
+

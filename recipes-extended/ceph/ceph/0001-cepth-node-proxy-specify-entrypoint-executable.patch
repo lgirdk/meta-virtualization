@@ -1,0 +1,27 @@
+From cd7b184bad23a3a80f2ccf8acc7662d0079282d3 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Mon, 22 Jul 2024 20:02:12 +0000
+Subject: [PATCH] cepth-node-proxy: specify entrypoint executable
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ src/ceph-node-proxy/setup.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/ceph-node-proxy/setup.py b/src/ceph-node-proxy/setup.py
+index 7dcc7cdf5bf..f137c2e4307 100644
+--- a/src/ceph-node-proxy/setup.py
++++ b/src/ceph-node-proxy/setup.py
+@@ -25,6 +25,7 @@ setup(
+     entry_points=dict(
+         console_scripts=[
+             'ceph-node-proxy = ceph_node_proxy.main:main',
++            'executable': 'python3',
+         ],
+     ),
+     classifiers=[
+-- 
+2.39.2
+

@@ -13,6 +13,9 @@ SRC_URI = "gitsm://github.com/ceph/ceph.git;protocol=https;branch=main \
            file://ceph.conf \
            file://0001-delete-install-layout-deb.patch \
            file://0001-cephadm-build.py-avoid-using-python3-from-sysroot-wh.patch \
+           file://0001-cepth-node-proxy-specify-entrypoint-executable.patch \
+           file://0001-rados-setup.py-allow-incompatible-pointer-types.patch \
+           file://0001-rgw-setup.py-allow-incompatible-pointer-types.patch \
 	   "
 
 SRCREV="103cd8e78bcfe7f69647013187c053c9ccb76685"
@@ -55,6 +58,7 @@ SYSTEMD_SERVICE:${PN} = " \
         ceph-mgr@.service \
         ceph-mgr.target \
         ceph-crash.service \
+        ceph-exporter.service \
         rbdmap.service \
         ceph-immutable-object-cache@.service \
         ceph-immutable-object-cache.target \
@@ -117,7 +121,7 @@ do_install:append () {
 		${D}${sbindir}/ceph-volume ${D}${sbindir}/ceph-volume-systemd
 	find ${D} -name SOURCES.txt | xargs sed -i -e 's:${WORKDIR}::'
 	install -d ${D}${sysconfdir}/ceph
-	install -m 644 ${WORKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
+	install -m 644 ${UNPACKDIR}/ceph.conf ${D}${sysconfdir}/ceph/
 	install -d ${D}${systemd_unitdir}
 	mv ${D}${libexecdir}/ceph/ceph-osd-prestart.sh ${D}${libdir}/ceph
 	mv ${D}${libexecdir}/ceph/ceph_common.sh ${D}${libdir}/ceph
