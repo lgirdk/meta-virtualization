@@ -102,6 +102,7 @@ QB_SERIAL_OPT = "-serial mon:stdio"
 # qemux86-64 machine does not include 'wic' in IMAGE_FSTYPES, which is needed
 # to boot this image, so add it here:
 IMAGE_FSTYPES:qemux86-64 += "wic"
+do_image_wic[depends] += "xen:do_deploy"
 # Networking: the qemuboot.bbclass default virtio network device works ok
 # and so does the emulated e1000 -- choose according to the network device
 # drivers that are present in your dom0 Linux kernel. To switch to e1000:
