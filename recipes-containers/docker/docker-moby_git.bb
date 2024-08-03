@@ -49,9 +49,9 @@ SRCREV_libnetwork = "67e0588f1ddfaf2faf4c8cae8b7ea2876434d91c"
 SRCREV_cli = "d41cb083c352853f94b292a87df4859c4a96dcc2"
 SRCREV_FORMAT = "moby_libnetwork"
 SRC_URI = "\
-	git://github.com/moby/moby.git;branch=27.0;name=moby;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
+	git://github.com/moby/moby.git;nobranch=1;name=moby;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
 	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
-	git://github.com/docker/cli;branch=27.0;name=cli;destsuffix=git/cli;protocol=https \
+	git://github.com/docker/cli;nobranch=1;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \
 	file://0001-libnetwork-use-GO-instead-of-go.patch \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \

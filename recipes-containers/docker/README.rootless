@@ -1,0 +1,39 @@
+    1  docker pull alpine
+    2  cd /var/lib/containers/storage/
+    3  ll
+    4  ls
+    5  ls -alF
+    6  ls overlay
+    7  ls overlay/
+    8  ls overlay/d4fc045c9e3a848011de66f34b81f052d4f2c15a17bb196d637e526349601820/
+    9  ll
+   10  ls -alF
+   11  cd ..
+   12  ls -alF
+   13  ls cache/
+   14  cd storage/
+   15  ll
+   16  ls alF
+   17  ls -alF
+   18  ls
+   19  cd
+   20  skopeo
+   21  ls /var/lib/docker/
+   22  ls /var/lib/docker/
+   23  cd /var/lib/docker/
+   24  ll
+   25  alias ll="ls -alF"
+   26  ll
+   27  ls containers/
+   28  ls overlay2/
+   29  skopeo --help
+   30  skopeo copy
+   31  docker images
+   32  cd
+   33  skopeo copy docker-daemon:alpine oci:alpine
+   34  skopeo copy docker-daemon:alpine:latest oci:alpine
+   35  ls alpine/
+   36  skopeo copy oci:alpine  docker-daemon:bruce:latest
+   37  docker images
+   38  docker run -it bruce /bin/sh
+
