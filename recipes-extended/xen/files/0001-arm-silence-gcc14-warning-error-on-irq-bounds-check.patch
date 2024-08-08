@@ -21,11 +21,11 @@ Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
  xen/arch/arm/irq.c | 19 ++++++++++++-------
  1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index ae69fb4aeb..dcac86bd84 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -58,8 +58,13 @@ hw_irq_controller no_irq_type = {
+Index: git/xen/arch/arm/irq.c
+===================================================================
+--- git.orig/xen/arch/arm/irq.c
++++ git/xen/arch/arm/irq.c
+@@ -48,8 +48,13 @@ void irq_end_none(struct irq_desc *irq)
  static irq_desc_t irq_desc[NR_IRQS];
  static DEFINE_PER_CPU(irq_desc_t[NR_LOCAL_IRQS], local_irq_desc);
  
@@ -39,7 +39,7 @@ index ae69fb4aeb..dcac86bd84 100644
      if ( irq < NR_LOCAL_IRQS )
          return &this_cpu(local_irq_desc)[irq];
  
-@@ -723,16 +728,16 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+@@ -722,16 +727,16 @@ int platform_get_irq(const struct dt_dev
  
  int platform_get_irq_byname(const struct dt_device_node *np, const char *name)
  {
@@ -63,6 +63,3 @@ index ae69fb4aeb..dcac86bd84 100644
  }
  
  /*
--- 
-2.39.2
-
