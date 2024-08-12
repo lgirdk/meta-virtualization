@@ -33,6 +33,21 @@ def distro_cond_feature(feature_fragment,distro_feature,d):
     feat = kernel_cache_feature("",feature_fragment)
     return bb.utils.contains('DISTRO_FEATURES', distro_feature, ' ' + feat, ' ', d)
 
+def kernel_meta_ver_depends(d):
+    import re
+
+    t = d.getVar("PREFERRED_PROVIDER_virtual/kernel")
+    pv = d.getVar( "PREFERRED_VERSION_%s" % t )
+    pv = re.sub( '%', '', pv )
+
+    yocto_enabled = bb.data.inherits_class('kernel-yocto', d)
+    if yocto_enabled:
+        return "yocto-cfg-fragments-%s-native:do_populate_sysroot" % pv
+    else:
+        return ""
+
+KERNEL_CFG_DEPENDS ?= "${@kernel_meta_ver_depends(d)}"
+
 KERNEL_CACHE_FEATURES ?= "${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/virtio.scc')} \
                           ${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/xt-checksum.scc')} \
                           ${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/vswitch.scc')} \
@@ -47,7 +62,7 @@ KERNEL_FEATURES:append = " ${KERNEL_CACHE_FEATURES}"
 # fragment merging suport at the moment, then add a dependency on the
 # configuration fragment repository. This allows us to be sure that our
 # features can be enabled via the fragments
-do_kernel_metadata[depends] += "${@['', 'yocto-cfg-fragments-native:do_populate_sysroot'][(bb.data.inherits_class('kernel-yocto', d))]}"
+do_kernel_metadata[depends] += "${KERNEL_CFG_DEPENDS}"
 
 # xen kernel support
 # SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'xen', ' file://xen.scc', '', d)}"
@@ -58,4 +73,3 @@ KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/xen.scc', 'xen', d )}"
 # SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'k3s', ' file://kubernetes.scc', '', d)}"
 KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/kubernetes.scc', 'k8s', d )}"
 KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/kubernetes.scc', 'k3s', d )}"
-
