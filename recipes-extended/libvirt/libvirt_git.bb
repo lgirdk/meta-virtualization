@@ -85,6 +85,7 @@ FILES:${PN}-virsh = " \
     ${bindir}/virsh \
     ${datadir}/bash-completion/completions/virsh \
 "
+RDEPENDS:${PN}-virsh = "${PN}-libvirtd"
 
 FILES:${PN} += "${libdir}/libvirt/connection-driver \
 	    ${datadir}/augeas \
