@@ -34,14 +34,9 @@ def distro_cond_feature(feature_fragment,distro_feature,d):
     return bb.utils.contains('DISTRO_FEATURES', distro_feature, ' ' + feat, ' ', d)
 
 def kernel_meta_ver_depends(d):
-    import re
-
-    t = d.getVar("PREFERRED_PROVIDER_virtual/kernel")
-    pv = d.getVar( "PREFERRED_VERSION_%s" % t )
-    pv = re.sub( '%', '', pv )
-
     yocto_enabled = bb.data.inherits_class('kernel-yocto', d)
     if yocto_enabled:
+        pv = oe.utils.trim_version(d.getVar('PV'), 2)
         return "yocto-cfg-fragments-%s-native:do_populate_sysroot" % pv
     else:
         return ""
