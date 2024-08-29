@@ -93,6 +93,7 @@ FILES:${PN} += "${libdir}/libvirt/connection-driver \
 	    ${datadir}/bash-completion/completions/vsh \
 	    ${datadir}/bash-completion/completions/virt-admin \
 	    /usr/lib/firewalld/ \
+            ${nonarch_base_libdir}/sysusers.d/ \
 	    "
 
 FILES:${PN}-dbg += "${libdir}/libvirt/connection-driver/.debug ${libdir}/libvirt/lock-driver/.debug"
