@@ -245,15 +245,6 @@ do_install:append() {
 	echo "d root root 0755 /run/libvirt/qemu none" \
 	     >> ${D}${sysconfdir}/default/volatiles/99_libvirt
 
-	# Manually set permissions and ownership to match polkit recipe
-	if ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'true', 'false', d)}; then
-		install -d -m 0700 ${D}/${datadir}/polkit-1/rules.d
-		chown polkitd ${D}/${datadir}/polkit-1/rules.d
-		chgrp root ${D}/${datadir}/polkit-1/rules.d
-	else
-		rm -rf ${D}/${datadir}/polkit-1
-	fi
-
 	# disable seccomp_sandbox
         if [ -e ${D}${sysconfdir}/libvirt/qemu.conf ] ; then
 	   sed -i '/^#seccomp_sandbox = 1/aseccomp_sandbox = 0' \
