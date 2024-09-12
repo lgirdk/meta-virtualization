@@ -1,4 +1,5 @@
-export sites="golang.org/x/net:golang.org/x/net:force \
+export sites="golang.org/x/exp:golang.org/x/exp:force \
+           golang.org/x/net:golang.org/x/net:force \
            golang.org/x/sys:golang.org/x/sys:force \
            gopkg.in/yaml.v3:gopkg.in/yaml.v3:force \
            golang.org/x/text:golang.org/x/text:force \
@@ -9,8 +10,7 @@ export sites="golang.org/x/net:golang.org/x/net:force \
            github.com/google/go-cmp:github.com/google/go-cmp:force \
            github.com/onsi/ginkgo/v2:github.com/onsi/ginkgo/v2:force \
            github.com/vishvananda/netns:github.com/vishvananda/netns:force \
-           github.com/go-task/slim-sprig:github.com/go-task/slim-sprig:force \
-           github.com/Masterminds/semver/v3:github.com/Masterminds/semver/v3:force"
+           github.com/go-task/slim-sprig/v3:github.com/go-task/slim-sprig/v3:force"
 
 do_compile:prepend() {
     cd ${S}/src/import
