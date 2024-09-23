@@ -20,16 +20,22 @@ SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun;protocol=h
 PV = "v1.15+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
-REQUIRED_DISTRO_FEATURES ?= "systemd seccomp"
+inherit autotools-brokensep pkgconfig
 
-inherit autotools-brokensep pkgconfig features_check
+PACKAGECONFIG ??= " \
+    caps external-yajl man \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'seccomp', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
+"
 
-PACKAGECONFIG ??= ""
+PACKAGECONFIG[caps] = "--enable-caps,--disable-caps,libcap"
+PACKAGECONFIG[external-yajl] = "--disable-embedded-yajl,--enable-embedded-yajl,yajl"
+# whether to regenerate manpages that are already present in the repo
+PACKAGECONFIG[man] = ",,go-md2man-native"
+PACKAGECONFIG[seccomp] = "--enable-seccomp,--disable-seccomp,libseccomp"
+PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd,systemd"
 
-DEPENDS = "yajl libcap go-md2man-native m4-native"
-# TODO: is there a packageconfig to turn this off ?
-DEPENDS += "libseccomp"
-DEPENDS += "systemd"
+DEPENDS = "m4-native"
 DEPENDS:append:libc-musl = " argp-standalone"
 
 do_configure:prepend () {
