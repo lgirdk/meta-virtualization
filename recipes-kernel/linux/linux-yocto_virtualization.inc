@@ -33,6 +33,8 @@ def distro_cond_feature(feature_fragment,distro_feature,d):
     feat = kernel_cache_feature("",feature_fragment)
     return bb.utils.contains('DISTRO_FEATURES', distro_feature, ' ' + feat, ' ', d)
 
+# kept as a reference if we go back to a dynamically calculated
+# fragment dependency.
 def kernel_meta_ver_depends(d):
     yocto_enabled = bb.data.inherits_class('kernel-yocto', d)
     if yocto_enabled:
@@ -41,7 +43,7 @@ def kernel_meta_ver_depends(d):
     else:
         return ""
 
-KERNEL_CFG_DEPENDS ?= "${@kernel_meta_ver_depends(d)}"
+KERNEL_CFG_DEPENDS ?= "yocto-cfg-fragments-${LINUX_MAJOR}.${LINUX_MINOR}-native:do_populate_sysroot"
 
 KERNEL_CACHE_FEATURES ?= "${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/virtio.scc')} \
                           ${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/xt-checksum.scc')} \
