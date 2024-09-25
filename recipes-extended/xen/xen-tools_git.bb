@@ -6,7 +6,7 @@ XEN_BRANCH ?= "master"
 
 SRC_URI = " \
     git://xenbits.xen.org/xen.git;branch=${XEN_BRANCH} \
-    file://0001-python-pygrub-pass-DISTUTILS-xen-4.18.patch \
+    file://0001-python-pygrub-pass-DISTUTILS-xen-4.20.patch \
     "
 
 LIC_FILES_CHKSUM ?= "file://COPYING;md5=d1a1e216f80b6d8da95fec897d0dbec9"

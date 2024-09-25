@@ -1,10 +1,10 @@
 Upstream-Status: Pending
 
-diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
-index 4963bc89c6..c1c05eb421 100644
---- a/tools/pygrub/Makefile
-+++ b/tools/pygrub/Makefile
-@@ -13,14 +13,14 @@ setup.py = CC="$(CC)" CFLAGS="$(PY_CFLAGS)" LDSHARED="$(CC)" LDFLAGS="$(PY_LDFLA
+Index: git/tools/pygrub/Makefile
+===================================================================
+--- git.orig/tools/pygrub/Makefile
++++ git/tools/pygrub/Makefile
+@@ -13,14 +13,14 @@ setup.py = CC="$(CC)" CFLAGS="$(PY_CFLAG
  all: build
  .PHONY: build
  build:
@@ -19,13 +19,13 @@ index 4963bc89c6..c1c05eb421 100644
 -		--root="$(DESTDIR)" --force
 +		--root="$(DESTDIR)" --force  $(DISTUTILS_INSTALL_ARGS)
  	$(INSTALL_PYTHON_PROG) src/pygrub $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
- 	set -e; if [ $(bindir) != $(LIBEXEC_BIN) -a \
- 	             "`readlink -f $(DESTDIR)/$(bindir)`" != \
-diff --git a/tools/python/Makefile b/tools/python/Makefile
-index 437431c48e..0a99c2067e 100644
---- a/tools/python/Makefile
-+++ b/tools/python/Makefile
-@@ -16,13 +16,13 @@ setup.py = CC="$(CC)" CFLAGS="$(PY_CFLAGS)" LDSHARED="$(CC)" LDFLAGS="$(PY_LDFLA
+ 
+ .PHONY: uninstall
+Index: git/tools/python/Makefile
+===================================================================
+--- git.orig/tools/python/Makefile
++++ git/tools/python/Makefile
+@@ -16,13 +16,13 @@ setup.py = CC="$(CC)" CFLAGS="$(PY_CFLAG
  
  .PHONY: build
  build:
