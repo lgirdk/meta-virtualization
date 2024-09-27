@@ -213,6 +213,7 @@ PACKAGES = " \
     ${PN}-test \
     ${PN}-xen-vmtrace \
     ${PN}-xen-mceinj \
+    ${PN}-xen-9pfsd \
     "
 
 PROVIDES =+ " \
@@ -593,6 +594,12 @@ FILES:${PN}-xenstored = "\
     ${sbindir}/xenstored \
     ${localstatedir}/lib/xenstored \
     "
+
+FILES:${PN}-xen-9pfsd = "\
+    ${libdir}/xen/bin/xen-9pfsd \
+    "
+# 9pfsd is only on xen-4.19+
+ALLOW_EMPTY:${PN}-xen-9pfsd = "1"
 
 FILES:${PN}-xentrace = "\
     ${bindir}/xentrace \
