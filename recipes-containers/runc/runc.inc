@@ -79,5 +79,11 @@ do_install() {
 
 	cp ${S}/src/import/runc ${D}/${bindir}/runc
 	ln -sf runc ${D}/${bindir}/docker-runc
+
+	mkdir -p ${D}${datadir}/runc/
+	install -m 0755 ${S}/src/import/script/check-config.sh ${D}${datadir}/runc/
 }
 
+PACKAGES =+ "${PN}-check"
+FILES:${PN}-check += "${datadir}/runc/check-config.sh"
+RDEPENDS:${PN}-check += "bash"
