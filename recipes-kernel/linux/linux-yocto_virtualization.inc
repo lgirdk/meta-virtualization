@@ -70,3 +70,6 @@ KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/xen.scc', 'xen', d )}"
 # SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'k3s', ' file://kubernetes.scc', '', d)}"
 KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/kubernetes.scc', 'k8s', d )}"
 KERNEL_FEATURES:append = "${@distro_cond_feature('cfg/kubernetes.scc', 'k3s', d )}"
+
+# selinux
+KERNEL_FEATURES:append = "${@distro_cond_feature('cgl/features/selinux/selinux.cfg', 'selinux', d )}"
