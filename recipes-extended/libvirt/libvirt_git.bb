@@ -205,10 +205,11 @@ do_install:append() {
 	install -d ${D}/etc/init.d
 	install -d ${D}/etc/libvirt
 	install -d ${D}/etc/dnsmasq.d
+	install -d ${D}${nonarch_base_libdir}/sysusers.d/
 
 	install -m 0755 ${UNPACKDIR}/libvirtd.sh ${D}/etc/init.d/libvirtd
 	install -m 0644 ${UNPACKDIR}/libvirtd.conf ${D}/etc/libvirt/libvirtd.conf
-	install -d -m 0644 ${UNPACKDIR}/libvirt-qemu.conf ${D}${nonarch_base_libdir}/sysusers.d/libvirt-qemu.conf
+	install -m 0644 ${UNPACKDIR}/libvirt-qemu.conf ${D}${nonarch_base_libdir}/sysusers.d/libvirt-qemu.conf
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
 	    # This will wind up in the libvirtd package, but will NOT be invoked by default.
