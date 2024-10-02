@@ -43,7 +43,7 @@ def kernel_meta_ver_depends(d):
     else:
         return ""
 
-KERNEL_CFG_DEPENDS ?= "yocto-cfg-fragments-${LINUX_MAJOR}.${LINUX_MINOR}-native:do_populate_sysroot"
+KERNEL_CFG_DEPENDS ?= "${@['', 'yocto-cfg-fragments-${LINUX_MAJOR}.${LINUX_MINOR}-native:do_populate_sysroot'][(bb.data.inherits_class('kernel-yocto', d))]}"
 
 KERNEL_CACHE_FEATURES ?= "${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/virtio.scc')} \
                           ${@kernel_cache_feature(d.getVar('SRC_URI'),'cfg/xt-checksum.scc')} \
