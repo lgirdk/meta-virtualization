@@ -6,6 +6,9 @@ COMPATIBLE_HOST = 'i686-.*-linux|(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux
 inherit setuptools3 update-rc.d systemd deploy
 require xen-blktap.inc
 
+QEMU_SYSTEM ?= "qemu-system-i386"
+QEMU_SYSTEM_RDEPENDS ?= "${QEMU_SYSTEM} qemu-firmware"
+
 RDEPENDS:${PN} = "\
     bash perl xz \
     ${PN}-console \
@@ -26,8 +29,7 @@ RDEPENDS:${PN} = "\
     ${PN}-xenstore \
     virtual-xenstored \
     ${PN}-xl \
-    qemu-system-i386 \
-    qemu-firmware \
+    ${QEMU_SYSTEM_RDEPENDS} \
     "
 
 RDEPENDS:${PN}-dev = ""
@@ -754,7 +756,7 @@ EXTRA_OECONF += " \
     --with-systemd=${systemd_unitdir}/system \
     --with-initddir=${INIT_D_DIR} \
     --with-sysconfig-leaf-dir=default \
-    --with-system-qemu=${bindir}/qemu-system-i386 \
+    --with-system-qemu=${bindir}/${QEMU_SYSTEM} \
     "
 
 do_configure() {
@@ -816,15 +818,15 @@ do_install() {
     fi
 
     if [ -e ${D}${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service ]; then
-        sed -i 's#ExecStart=.*qemu-system-i386\(.*\)$#ExecStart=/usr/bin/qemu-system-i386\1#' \
+        sed -i 's#ExecStart=.*${QEMU_SYSTEM}\(.*\)$#ExecStart=/usr/bin/${QEMU_SYSTEM}\1#' \
             ${D}${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service
     fi
 
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         rm -f ${D}/${sysconfdir}/init.d/xencommons
     else
-        # fixup default path to qemu-system-i386
-        sed -i 's#\(test -z "$QEMU_XEN" && QEMU_XEN=\).*$#\1"/usr/bin/qemu-system-i386"#' ${D}/etc/init.d/xencommons
+        # fixup default path to ${QEMU_SYSTEM}
+        sed -i 's#\(test -z "$QEMU_XEN" && QEMU_XEN=\).*$#\1"/usr/bin/${QEMU_SYSTEM}"#' ${D}/etc/init.d/xencommons
 
         # remove the uncondiontally installed systemd service files
         rm -f ${D}/${systemd_unitdir}/system/xen-qemu-dom0-disk-backend.service
