@@ -26,6 +26,8 @@ RDEPENDS:${PN} = "\
     ${PN}-xenstore \
     virtual-xenstored \
     ${PN}-xl \
+    qemu-system-i386 \
+    qemu-firmware \
     "
 
 RDEPENDS:${PN}-dev = ""
