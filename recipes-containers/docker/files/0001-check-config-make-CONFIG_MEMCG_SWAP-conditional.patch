@@ -1,0 +1,56 @@
+From 28c115da3c6c2e6edda08c30a779f1ffaab2fbc7 Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Fri, 18 Oct 2024 18:27:16 +0000
+Subject: [PATCH] check-config: make CONFIG_MEMCG_SWAP conditional
+
+Kernel's equal to or greater than 6.1 no longer have this
+option. See this kernel commit:
+
+   commit e55b9f96860f6c6026cff97966a740576285e07b
+   Author: Johannes Weiner <hannes@cmpxchg.org>
+   Date:   Mon Sep 26 09:57:04 2022 -0400
+
+       mm: memcontrol: drop dead CONFIG_MEMCG_SWAP config symbol
+
+       Since 2d1c498072de ("mm: memcontrol: make swap tracking an integral part
+       of memory control"), CONFIG_MEMCG_SWAP hasn't been a user-visible config
+       option anymore, it just means CONFIG_MEMCG && CONFIG_SWAP.
+
+       Update the sites accordingly and drop the symbol.
+
+       [ While touching the docs, remove two references to CONFIG_MEMCG_KMEM,
+         which hasn't been a user-visible symbol for over half a decade. ]
+
+       Link: https://lkml.kernel.org/r/20220926135704.400818-5-hannes@cmpxchg.org
+       Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+       Acked-by: Shakeel Butt <shakeelb@google.com>
+       Cc: Hugh Dickins <hughd@google.com>
+       Cc: Michal Hocko <mhocko@suse.com>
+       Cc: Roman Gushchin <roman.gushchin@linux.dev>
+       Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ contrib/check-config.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/contrib/check-config.sh b/contrib/check-config.sh
+index b9cc6bf87d..3124548d99 100755
+--- a/contrib/check-config.sh
++++ b/contrib/check-config.sh
+@@ -266,7 +266,9 @@ echo 'Optional Features:'
+ 	check_flags CGROUP_PIDS
+ }
+ {
+-	check_flags MEMCG_SWAP
++	if [ "$kernelMajor" -lt 6 ] || [ "$kernelMajor" -eq 6 -a "$kernelMinor" -le 1 ]; then
++		check_flags MEMCG_SWAP
++	fi
+ 	# Kernel v5.8+ removes MEMCG_SWAP_ENABLED.
+ 	if [ "$kernelMajor" -lt 5 ] || [ "$kernelMajor" -eq 5 -a "$kernelMinor" -le 8 ]; then
+ 		CODE=${EXITCODE}
+-- 
+2.39.2
+
