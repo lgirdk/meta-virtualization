@@ -28,6 +28,7 @@ RDEPENDS:packagegroup-kubernetes-base = " \
 RDEPENDS:packagegroup-k8s-host = " \
     packagegroup-kubernetes-base \
     kubernetes \
+    cri-tools \
 "
 
 RDEPENDS:packagegroup-k8s-node = " \
