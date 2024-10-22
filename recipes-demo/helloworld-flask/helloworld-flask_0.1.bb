@@ -16,6 +16,9 @@ CONTAINERIMAGE ?= "zeddii/app-container:latest"
 CONTAINERPORT ?= "9000"
 EXTERNALPORT ?= "10000"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 do_install() {
 
     for tgt in flask-app.yaml flask-app-service.yaml; do
