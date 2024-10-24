@@ -7,6 +7,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
 IMAGE_FSTYPES = "container oci"
+
 inherit image
 inherit image-oci
 
@@ -20,6 +21,10 @@ IMAGE_INSTALL = " \
        netbase \
        ${CONTAINER_SHELL} \
 "
+
+# Keep the entrypoint empty so that this image can be easily be
+# inherted and re-used for interactive or non interactive images
+OCI_IMAGE_ENTRYPOINT ?= ""
 
 # If the following is configured in local.conf (or the distro):
 #      PACKAGE_EXTRA_ARCHS:append = " container-dummy-provides"
