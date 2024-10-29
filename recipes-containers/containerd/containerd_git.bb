@@ -9,7 +9,7 @@ SRCREV = "19430264c19b8bd9f940101ec71d52ab2d2e54d5"
 SRC_URI = "git://github.com/containerd/containerd;branch=main;protocol=https;destsuffix=git/src/github.com/containerd/containerd/v2 \
            file://0001-Makefile-allow-GO_BUILD_FLAGS-to-be-externally-speci.patch \
            file://0001-build-don-t-use-gcflags-to-define-trimpath.patch \
-           file://cni-containerd-net.conf \
+           file://cni-containerd-net.conflist \
           "
 
 # Apache-2.0 for containerd
@@ -101,5 +101,5 @@ RDEPENDS:${PN} += " ${VIRTUAL-RUNTIME_container_runtime}"
 
 ## This may need to be made conditional on K3S or similar being
 ## configured in the distro, since we may have collisions.
-CNI_NETWORKING_FILES ?= "${UNPACKDIR}/cni-containerd-net.conf"
+CNI_NETWORKING_FILES ?= "${UNPACKDIR}/cni-containerd-net.conflist"
 inherit cni_networking
