@@ -41,6 +41,8 @@ RDEPENDS:packagegroup-podman = " \
 
 RDEPENDS:packagegroup-cni = " \
     cni \
+    iproute2 \
+    bridge-utils \
 "
 
 RDEPENDS:packagegroup-netavark = " \
@@ -65,5 +67,8 @@ RDEPENDS:packagegroup-oci = " \
 
 RDEPENDS:packagegroup-containerd = " \
     virtual-containerd \
+    packagegroup-cni \
+    containerd-cni \
+    nerdctl \
 "
 
