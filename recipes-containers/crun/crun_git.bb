@@ -22,6 +22,10 @@ S = "${WORKDIR}/git"
 
 inherit autotools-brokensep pkgconfig
 
+# if this is true, we'll symlink crun to runc for easier integration
+# with container stacks
+CRUN_AS_RUNC ?= "true"
+
 PACKAGECONFIG ??= " \
     caps external-yajl man \
     ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'seccomp', '', d)} \
@@ -47,4 +51,7 @@ do_configure:prepend () {
 
 do_install() {
     oe_runmake 'DESTDIR=${D}' install
+    if [ -n "${CRUN_AS_RUNC}" ]; then
+        ln -sr "${D}/${bindir}/crun" "${D}${bindir}/runc"
+    fi
 }
