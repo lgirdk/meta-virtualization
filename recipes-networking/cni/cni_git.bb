@@ -106,3 +106,4 @@ INSANE_SKIP:${PN} += "ldflags already-stripped"
 deltask compile_ptest_base
 
 RDEPENDS:${PN} += " ca-certificates"
+RRECOMMENDS:${PN} += "iptables iproute2"
