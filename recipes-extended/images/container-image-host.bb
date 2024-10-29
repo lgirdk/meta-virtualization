@@ -1,3 +1,6 @@
+DESCRIPTION = "A configurable container host image"
+LICENSE = "MIT"
+
 # This image is a reference implementation to create a target platform
 # capable of running containers. This includes kernel configuration,
 # container runtimes, tools and other support applications.
@@ -52,35 +55,41 @@
 ##    k3s-host
 ##    k3s-node
 
-DESCRIPTION = "A configurable container host image"
-LICENSE = "MIT"
-
 inherit features_check
 
-# minimum features tested to have a working
-# container host image
+# minimum features tested to have a working container host
+# image. These will be enforced by the features_check inherit
 REQUIRED_DISTRO_FEATURES ?= " virtualization \
                               systemd \
                               seccomp \
 			    "
 
-# features that are typically enabled
+# features that are typically enabled. Note, these are not
+# enforced, but maybe added to the required distro feature
+# definition in the future.
 RECOMMENDED_DISTRO_FEATURES ?= " pam \
 				 usrmerge \
                                "
-# features that are enabled for specific wworkloads
+# features that are enabled for specific wworkloads. These
+# are not enforced, except for specific configurations.
 OPTIONAL_DISTRO_FEATURES ?= " vmsep \
 			      k3s \
 			      k8s \
                              "
 
+REQUIRED_DISTRO_FEATURES:append = " ${@bb.utils.contains('VIRTUAL-RUNTIME_container_orchestration','k3s-node','k3s','',d)}"
+REQUIRED_DISTRO_FEATURES:append = " ${@bb.utils.contains('VIRTUAL-RUNTIME_container_orchestration','k3s-host','k3s','',d)}"
+
+# If the image is going to be placed into a cluster, we need some randomization
+# of the host name to make it unique
 IMAGE_FEATURES[validitems] += "virt-unique-hostname"
 IMAGE_FEATURES[validitems] += "container-tools"
 
 IMAGE_FEATURES += "ssh-server-openssh"
 IMAGE_FEATURES += "package-management"
-# IMAGE_FEATURES += "container-tools"
 IMAGE_FEATURES += "virt-unique-hostname"
+# This may be automatically enabled in the future via a toold or debug flag
+# IMAGE_FEATURES += "container-tools"
 
 IMAGE_LINGUAS = " "
 
