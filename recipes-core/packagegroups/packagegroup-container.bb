@@ -41,7 +41,9 @@ RDEPENDS:packagegroup-podman = " \
 
 RDEPENDS:packagegroup-cni = " \
     cni \
+    iptables \
     iproute2 \
+    ipset \
     bridge-utils \
 "
 
@@ -70,5 +72,6 @@ RDEPENDS:packagegroup-containerd = " \
     packagegroup-cni \
     containerd-cni \
     nerdctl \
+    tini \
 "
 
