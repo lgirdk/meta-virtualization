@@ -7,7 +7,7 @@ VIRTUAL-RUNTIME_container_engine ??= "containerd"
 # runtime: runc, crun, runv, runx
 VIRTUAL-RUNTIME_container_runtime ??= "crun"
 # networking: cni, netavark
-VIRTUAL-RUNTIME_container_networking ??= ""
+VIRTUAL-RUNTIME_container_networking ??= "cni"
 # dns: cni, aardvark-dns
 VIRTUAL-RUNTIME_container_dns ??= ""
 # orchestration: k8s, k3s
