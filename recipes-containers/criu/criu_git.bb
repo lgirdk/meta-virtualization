@@ -46,7 +46,7 @@ EXTRA_OEMAKE:append = " LOGROTATEDIR=${sysconfdir} SYSTEMDUNITDIR=${systemd_unit
 CFLAGS += "-D__USE_GNU -D_GNU_SOURCE "
 
 CFLAGS += " -I${STAGING_INCDIR} -I${STAGING_INCDIR}/libnl3"
-CFLAGS:arm += "-D__WORDSIZE"
+CFLAGS:append:arm = " -D__WORDSIZE"
 
 # overide LDFLAGS to allow criu to build without: "x86_64-poky-linux-ld: unrecognized option '-Wl,-O1'"
 export LDFLAGS=""
