@@ -43,4 +43,4 @@ OCI_IMAGE_TAG = "easy"
 OCI_IMAGE_ENTRYPOINT_ARGS = "http://localhost:80"
 CONTAINER_SHELL = "busybox"
 
-IMAGE_INSTALL:append = "curl"
+IMAGE_INSTALL:append = " curl"
