@@ -11,6 +11,8 @@ DEPENDS = "bridge-utils gnutls libxml2 lvm2 avahi parted curl libpcap util-linux
 	   ${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'shadow-native', '', d)} \
 	   ${@bb.utils.contains('PACKAGECONFIG', 'gnutls', 'gnutls-native', '', d)}"
 
+USERADD_DEPENDS = "${@bb.utils.contains('PACKAGECONFIG', 'polkit', 'polkit', '', d)}"
+
 # libvirt-guests.sh needs gettext.sh
 #
 RDEPENDS:${PN} = "gettext-runtime"
