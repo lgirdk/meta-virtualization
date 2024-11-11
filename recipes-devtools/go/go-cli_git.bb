@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=ed9b539ed65d73926f30ff1f1587dc44"
 SRCNAME = "cli"
 
 PKG_NAME = "github.com/codegangsta/${SRCNAME}"
-SRC_URI = "git://${PKG_NAME}.git;branch=master;protocol=https"
+SRC_URI = "git://${PKG_NAME}.git;branch=main;protocol=https"
 
 SRCREV = "27ecc97192df1bf053a22b04463f2b51b8b8373e"
 PV = "1.1.0+git"
