@@ -94,6 +94,10 @@ do_install() {
     install -m 755 ${S}/src/import/cnitool/cnitool ${D}/${localbindir}
     install -m 755 -D ${B}/plugins/bin/* ${D}/${localbindir}
 
+    # make cnitool more available on the path
+    install -d ${D}${bindir}
+    ln -sr ${D}/${localbindir}/cnitool ${D}/${bindir}
+
     # Parts of k8s expect the cni binaries to be available in /opt/cni
     install -d ${D}/opt/cni
     ln -sf ${libexecdir}/cni/ ${D}/opt/cni/bin
