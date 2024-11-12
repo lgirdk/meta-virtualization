@@ -6,6 +6,15 @@ COMPATIBLE_HOST = 'i686-.*-linux|(x86_64.*).*-linux|aarch64.*-linux|arm-.*-linux
 inherit setuptools3 update-rc.d systemd deploy
 require xen-blktap.inc
 
+SRC_URI += "file://10-ether.network \
+            file://10-xenbr0.netdev \
+            file://10-xenbr0.network"
+
+VIRT_NETWORKING_FILES = "${UNPACKDIR}/10-ether.network \
+                         ${UNPACKDIR}/10-xenbr0.netdev \
+			 ${UNPACKDIR}/10-xenbr0.network"
+inherit virt_networking
+
 QEMU_SYSTEM ?= "qemu-system-i386"
 QEMU_SYSTEM_RDEPENDS ?= "${QEMU_SYSTEM} qemu-firmware"
 
@@ -30,6 +39,7 @@ RDEPENDS:${PN} = "\
     virtual-xenstored \
     ${PN}-xl \
     ${QEMU_SYSTEM_RDEPENDS} \
+    ${PN}-net-conf \
     "
 
 RDEPENDS:${PN}-dev = ""
