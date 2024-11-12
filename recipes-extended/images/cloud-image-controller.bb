@@ -29,4 +29,4 @@ inherit core-image
 IMAGE_FSTYPES = "wic.vmdk tar.gz"
 
 # Ensure extra space for guest images
-#IMAGE_ROOTFS_EXTRA_SPACE = "41943040"
+#IMAGE_ROOTFS_EXTRA_SPACE = "2000000"
