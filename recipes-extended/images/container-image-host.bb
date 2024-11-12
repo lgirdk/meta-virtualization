@@ -125,4 +125,5 @@ inherit core-image
 IMAGE_ROOTFS_SIZE = "8192"
 
 # we always need extra space to install container images
-IMAGE_ROOTFS_EXTRA_SPACE = "41943040"
+# 2GB
+IMAGE_ROOTFS_EXTRA_SPACE = "2000000"
