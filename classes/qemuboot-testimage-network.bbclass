@@ -2,6 +2,9 @@
 # the Qemu MACHINES: it removes all external network interfaces
 # by default. However, eth0 is needed for testimage, so enable it here.
 
+# NOTE: systemd configuration can be found in the virt_networking
+#       bbclass and associated packages
+
 # If QB_NETWORK_XEN_BRIDGE is set, configure bridging for the network.
 QB_NETWORK_XEN_BRIDGE ??= ""
 
