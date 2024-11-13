@@ -170,7 +170,7 @@ EOF
 # Guests can be launched after boot with: xl create -c /etc/xen/<config file>
 #
 bundle_xen_guests() {
-    set -e
+    set +e
 
     if [ -n "${XEN_BUNDLED_GUESTS}" ]; then
 	echo "Processing Xen bundled guests variable: ${XEN_BUNDLED_GUESTS}"
