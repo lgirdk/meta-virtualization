@@ -16,7 +16,9 @@ VIRT_NETWORKING_FILES = "${UNPACKDIR}/10-ether.network \
 inherit virt_networking
 
 QEMU_SYSTEM ?= "qemu-system-i386"
-QEMU_SYSTEM_RDEPENDS ?= "${QEMU_SYSTEM} qemu-firmware"
+# The qemu-firware package is only available if "vmsep" is in distro features
+QEMU_FIRMWARE ?= "${@bb.utils.contains('DISTRO_FEATURES', 'vmsep', 'qemu-firmware', '', d)}"
+QEMU_SYSTEM_RDEPENDS ?= "${QEMU_SYSTEM} ${QEMU_FIRMWARE}"
 
 RDEPENDS:${PN} = "\
     bash perl xz \
