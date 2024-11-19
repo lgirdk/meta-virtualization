@@ -151,7 +151,7 @@ def get_build_time_vars(d):
     source_date_epoch = d.getVar('SOURCE_DATE_EPOCH')
     if source_date_epoch is not None:
         import datetime
-        utc_datetime = datetime.datetime.utcfromtimestamp(float(source_date_epoch))
+        utc_datetime =  datetime.datetime.fromtimestamp(float(source_date_epoch), datetime.timezone.utc)
         return " XEN_BUILD_DATE=" + utc_datetime.strftime("%Y-%m-%d") + \
                " XEN_BUILD_TIME=" + utc_datetime.strftime("%H:%M:%S")
     return ""
