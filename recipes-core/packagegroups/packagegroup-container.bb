@@ -48,13 +48,12 @@ RDEPENDS:packagegroup-cni = " \
 "
 
 RDEPENDS:packagegroup-netavark = " \
-    netavark \
-    aardvark-dns \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'netavark aardvark-dns', '', d)} \
 "
 
 RDEPENDS:packagegroup-container-tools = " \
     skopeo \
-    conmon \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'conmon', '', d)} \
     umoci \
     ${@bb.utils.contains('VIRTUAL-RUNTIME_container_engine','podman','podman-tui nerdctl podman-compose','',d)}  \
     ${@bb.utils.contains_any('VIRTUAL-RUNTIME_container_engine','dcoker docker-moby','docker-compose','',d)}  \
