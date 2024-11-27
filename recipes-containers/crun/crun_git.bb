@@ -3,10 +3,10 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 PRIORITY = "optional"
 
-SRCREV_crun = "4b75c7cb574d642481c9346eb3d54e91c33ebaf2"
-SRCREV_libocispec = "68211ccc41201c45ad276b04c7f67d61e80b1f7a"
-SRCREV_ispec = "da92727e9c8761ec087890466b8756b755aefd37"
-SRCREV_rspec = "2d3f72ecad9e97c898e1eb04b899a51241f1cabd"
+SRCREV_crun = "52ed5880c4568a72ef188a75b3a1eb58160ffbaa"
+SRCREV_libocispec = "5ffd4dd9fa684e0ffb2f0b5ea4a6cb638b021397"
+SRCREV_ispec = "c66e8113cbad252a418d85f061bd1a20d0904d08"
+SRCREV_rspec = "9505701eb390445ef7edf2be3bd3d7bc1f14eae5"
 SRCREV_yajl = "f344d21280c3e4094919fd318bc5ce75da91fc06"
 
 SRCREV_FORMAT = "crun_rspec"
@@ -17,7 +17,7 @@ SRC_URI = "git://github.com/containers/crun.git;branch=main;name=crun;protocol=h
            git://github.com/containers/yajl.git;branch=main;name=yajl;destsuffix=git/libocispec/yajl;protocol=https \
           "
 
-PV = "v1.17+git${SRCREV_crun}"
+PV = "v1.18.2+git${SRCREV_crun}"
 S = "${WORKDIR}/git"
 
 inherit autotools-brokensep pkgconfig
