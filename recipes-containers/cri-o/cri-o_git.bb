@@ -17,7 +17,9 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
 SRCREV_cri-o = "20c06a19cb395445620c31730c0f1a0a1922eaae"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.31;name=cri-o;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
+        file://0001-Add-trimpath-to-build-nri.test.patch \
         file://crio.conf \
+        file://run-ptest \
 	"
 
 # Apache-2.0 for docker
@@ -28,7 +30,7 @@ GO_IMPORT = "import"
 
 PV = "1.31.0+git${SRCREV_cri-o}"
 
-inherit features_check
+inherit features_check ptest
 REQUIRED_DISTRO_FEATURES ?= "seccomp"
 
 DEPENDS = " \
@@ -69,6 +71,13 @@ do_compile() {
 	oe_runmake binaries
 }
 
+do_compile_ptest() {
+    set +e
+
+    cd ${S}/src/import
+
+    oe_runmake test-binaries
+}
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
 SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','crio.service','',d)}"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
@@ -100,6 +109,12 @@ do_install() {
     install -d ${D}${localstatedir}/lib/crio
 }
 
+do_install_ptest() {
+    install -d ${D}${PTEST_PATH}/test
+    install -d ${D}${PTEST_PATH}/bin
+    cp -rf ${S}/src/import/test ${D}${PTEST_PATH}
+    cp -rf ${S}/src/import/bin ${D}${PTEST_PATH}
+}
 FILES:${PN}-config = "${sysconfdir}/crio/config/*"
 FILES:${PN} += "${systemd_unitdir}/system/*"
 FILES:${PN} += "/usr/local/bin/*"
@@ -109,7 +124,21 @@ FILES:${PN} += "/usr/share/containers/oci/hooks.d"
 ALLOW_EMPTY:${PN} = "1"
 
 INSANE_SKIP:${PN} += "ldflags already-stripped textrel"
+INSANE_SKIP:${PN}-ptest += "textrel"
 
-deltask compile_ptest_base
+RDEPENDS:${PN}-ptest += " \
+    bash \
+    bats \
+    cni \
+    crictl \
+    coreutils \
+    dbus-daemon-proxy \
+    iproute2 \
+    util-linux-unshare \
+    jq \
+    slirp4netns \
+    parallel \
+    podman \
+"
 
 COMPATIBLE_HOST = "^(?!(qemu)?mips).*"

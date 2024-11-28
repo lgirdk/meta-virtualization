@@ -1,0 +1,31 @@
+From 0bf230f59d211044e7993543e010b0d7f9dcead3 Mon Sep 17 00:00:00 2001
+From: Peng Zhang <peng.zhang1.cn@windriver.com>
+Date: Fri, 25 Oct 2024 10:42:02 +0800
+Subject: [PATCH] Add --trimpath to build nri.test
+
+when build test-binary, TMPDIR[buildpaths] error found in nri.test
+to fix this error, add "--trimpath" option to build nri.test.
+
+Upstream-Status: Inappropriate [oe specific]
+
+Signed-off-by: Peng Zhang <peng.zhang1.cn@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae/src/import/Makefile
+===================================================================
+--- cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae.orig/src/import/Makefile
++++ cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae/src/import/Makefile
+@@ -169,7 +169,7 @@ test/checkcriu/checkcriu: $(GO_FILES)
+ 	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./test/checkcriu
+ 
+ test/nri/nri.test: $(wildcard test/nri/*.go)
+-	$(GO) test --tags "test $(BUILDTAGS)" -c ./test/nri -o $@
++	$(GO) test --tags "test $(BUILDTAGS)" -c ./test/nri -o $@ ${TRIMPATH}
+ 
+ bin/crio: $(GO_FILES)
+ 	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./cmd/crio
+-- 
+2.34.1
+

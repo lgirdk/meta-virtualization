@@ -1,0 +1,11 @@
+#!/bin/sh
+
+./test/test_runner.sh | while IFS= read -r line; do
+	if [[ $line =~ ^not\ ok ]]; then
+		echo "FAIL: ${line#not ok }"
+	elif [[ $line =~ ^ok && ! $line =~ \#\ skip ]]; then
+		echo "PASS: ${line#ok }"
+	elif [[ $line =~ ^ok.*#\ skip ]]; then
+		echo "SKIP: ${line#ok }"
+	fi
+done
