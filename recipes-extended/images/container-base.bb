@@ -41,7 +41,16 @@ CONTAINER_SHELL ?= "${@bb.utils.contains('PACKAGE_EXTRA_ARCHS', 'container-dummy
 IMAGE_CONTAINER_NO_DUMMY = "1"
 
 # Workaround /var/volatile for now
+# This is required because the lack of post-install scripts means volatile
+# directories (/var/volatile/*, etc.) are not created, so we do that ourselves
+# in a minimal way below. We could bootstrap and run some of the more standard
+# scripts that do it at boot, but we avoid that until needed.
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_fixup_var_volatile ; "
+
+# This :remove is required, because it comes along and deletes our /var/volatile/
+# fixups!
+ROOTFS_POSTPROCESS_COMMAND:remove = "empty_var_volatile"
+
 rootfs_fixup_var_volatile () {
     install -m 1777 -d ${IMAGE_ROOTFS}/${localstatedir}/volatile/tmp
     install -m 755 -d ${IMAGE_ROOTFS}/${localstatedir}/volatile/log
