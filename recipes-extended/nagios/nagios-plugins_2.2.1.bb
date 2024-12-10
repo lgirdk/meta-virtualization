@@ -9,7 +9,6 @@ LICENSE = "GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 
 SRC_URI = "https://www.nagios-plugins.org/download/${BPN}-${PV}.tar.gz \
-           file://CVE-2023-37154.patch \
 "
 
 SRC_URI[md5sum] = "fb521d5c05897f165b0b1862c1e5cb27"
