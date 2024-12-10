@@ -130,7 +130,7 @@ The container shell is changed to bash from busybox.
 package-management is added to this image type, but by default there
 is no package feed configured (since it must be pointed at a build)
 
-  % root@qemuarm64-54:~# docker run -it zeddii/container-devtools  bash
+  % root@qemuarm64-54:~# docker run -it zeddii/container-devtools bash
   bash-5.2# du -sh .
   399M    .
   bash-5.2# rpm -qa | wc -l
@@ -140,6 +140,30 @@ is no package feed configured (since it must be pointed at a build)
   Copyright (C) 2024 Free Software Foundation, Inc.
   This is free software; see the source for copying conditions.  There is NO
   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+By default this container has (for rpm) package management configured
+to point to a feed being run against the local build on the host machine
+
+To create a package feed:
+
+  % bitbake package-index
+
+To add a package to the package-index (example: vim-tiny)
+
+  % bitbake vim-tiny
+  % bitbake vim-tiny --runall package_write_rpm
+  % bitbake package-index
+
+To run a local http server for the package feed:
+
+  % cd build/tmp/deploy
+  % sudo python3 -m http.server 80
+
+Run the dev container:
+
+  % docker run -it zeddii/container-devtools bash
+  % dnf makecache
+  % dnf --nogpgcheck install vim-tiny
 
 container-app-base:
 --------------------
