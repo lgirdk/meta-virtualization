@@ -13,6 +13,9 @@ S = "${WORKDIR}/git"
 DEPENDS += "python3-pyyaml-native"
 
 RDEPENDS:${PN} += "\
-    python3-pyyaml \
+    python3-asyncio \
     python3-dotenv \
+    python3-json \
+    python3-pyyaml \
+    python3-unixadmin \
 "
