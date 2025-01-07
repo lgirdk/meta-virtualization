@@ -36,10 +36,14 @@ GO_IMPORT = "import"
 S = "${WORKDIR}/git"
 
 
+
 inherit systemd update-rc.d
 inherit go
 inherit goarch
 inherit pkgconfig
+
+REQUIRED_DISTRO_FEATURES ?= "seccomp ipv6"
+inherit features_check
 
 do_configure[noexec] = "1"
 
