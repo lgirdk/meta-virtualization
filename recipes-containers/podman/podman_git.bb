@@ -10,7 +10,6 @@ inherit features_check
 REQUIRED_DISTRO_FEATURES ?= "seccomp ipv6"
 
 DEPENDS = " \
-    go-metalinter-native \
     gpgme \
     libseccomp \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
