@@ -13,19 +13,16 @@ Signed-off-by: Peng Zhang <peng.zhang1.cn@windriver.com>
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae/src/import/Makefile
+Index: cri-o-1.31.4+git33d75981bee230f791709975125d7386fe2c530a/src/import/Makefile
 ===================================================================
---- cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae.orig/src/import/Makefile
-+++ cri-o-1.31.0+git20c06a19cb395445620c31730c0f1a0a1922eaae/src/import/Makefile
-@@ -169,7 +169,7 @@ test/checkcriu/checkcriu: $(GO_FILES)
+--- cri-o-1.31.4+git33d75981bee230f791709975125d7386fe2c530a.orig/src/import/Makefile
++++ cri-o-1.31.4+git33d75981bee230f791709975125d7386fe2c530a/src/import/Makefile
+@@ -213,7 +213,7 @@
  	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./test/checkcriu
  
- test/nri/nri.test: $(wildcard test/nri/*.go)
+ test/nri/nri.test: $(wildcard test/nri/*.go) ## Build the NRI test binary.
 -	$(GO) test --tags "test $(BUILDTAGS)" -c ./test/nri -o $@
 +	$(GO) test --tags "test $(BUILDTAGS)" -c ./test/nri -o $@ ${TRIMPATH}
  
- bin/crio: $(GO_FILES)
+ bin/crio: $(GO_FILES) ## Build the CRI-O main binary.
  	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./cmd/crio
--- 
-2.34.1
-
