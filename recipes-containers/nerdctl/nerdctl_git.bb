@@ -11,14 +11,14 @@ DEPENDS = " \
 
 # Specify the first two important SRCREVs as the format
 SRCREV_FORMAT="nerdcli_cgroups"
-SRCREV_nerdcli = "d273fd202abdf8153cc7d8739fc1a2eda1a9efc1"
+SRCREV_nerdcli = "1259a55e6118e4dc1fb61021131aad61f6fca853"
 
 SRC_URI = "git://github.com/containerd/nerdctl.git;name=nerdcli;branch=main;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"
 
 include src_uri.inc
 
 # patches and config
-SRC_URI += "file://0001-Makefile-allow-external-specification-of-build-setti.patch \
+SRC_URI += " \
             file://modules.txt \
            "
 
@@ -29,7 +29,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v2.0.0-beta.1"
+PV = "v2.0.2"
 
 NERDCTL_PKG = "github.com/containerd/nerdctl"
 
