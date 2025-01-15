@@ -7,8 +7,8 @@ SRC_URI = "git://github.com/jfrazelle/riddler;branch=master;protocol=https;dests
            file://0001-build-use-to-select-cross-compiler.patch \
           "
 
-SRCREV = "23befa0b232877b5b502b828e24161d801bd67f6"
-PV = "0.1.0+git"
+SRCREV = "66698f2a5cb6854a1095673a15dcc253f0e28f93"
+PV = "v0.6.4+git"
 
 S = "${WORKDIR}/git/src/github.com/jessfraz/riddler"
 GO_IMPORT = "github.com/jessfraz/riddler"
