@@ -1,0 +1,41 @@
+From 656cb24b07b1e5b63939c15dc31d8c9839ecce75 Mon Sep 17 00:00:00 2001
+From: Chen Qi <Qi.Chen@windriver.com>
+Date: Tue, 14 Jan 2025 20:55:50 -0800
+Subject: [PATCH] Makefile: introduce GO_TEST for more flexible configuration
+
+Introduce GO_TEST and make it similar to GO_BUILD.
+
+Note that with this change, the default behavior changes a little bit,
+that is, TRIMPATH, GCFLAGS and GO_LDFALGS all have effect on test/nri/nri.test.
+
+Upstream-Status: Submitted [https://github.com/cri-o/cri-o/pull/8912]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 34f9d429d..f02213894 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,6 +3,7 @@ GO ?= go
+ TRIMPATH ?= -trimpath
+ GO_ARCH=$(shell $(GO) env GOARCH)
+ GO_BUILD ?= $(GO) build $(TRIMPATH)
++GO_TEST ?= $(GO) test $(TRIMPATH)
+ GO_RUN ?= $(GO) run
+ NIX_IMAGE ?= nixos/nix:2.24.3
+ 
+@@ -213,7 +214,7 @@ test/checkcriu/checkcriu: $(GO_FILES) ## Build the checkcriu test binary.
+ 	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./test/checkcriu
+ 
+ test/nri/nri.test: $(wildcard test/nri/*.go) ## Build the NRI test binary.
+-	$(GO) test --tags "test $(BUILDTAGS)" -c ./test/nri -o $@
++	$(GO_TEST) $(GCFLAGS) $(GO_LDFLAGS) --tags "test $(BUILDTAGS)" -c ./test/nri -o $@
+ 
+ bin/crio: $(GO_FILES) ## Build the CRI-O main binary.
+ 	$(GO_BUILD) $(GCFLAGS) $(GO_LDFLAGS) -tags "$(BUILDTAGS)" -o $@ ./cmd/crio
+-- 
+2.25.1
+

@@ -17,7 +17,7 @@ At a high level, we expect the scope of cri-o to be restricted to the following 
 SRCREV_cri-o = "33d75981bee230f791709975125d7386fe2c530a"
 SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.31;name=cri-o;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
-        file://0001-Add-trimpath-to-build-nri.test.patch \
+        file://0001-Makefile-introduce-GO_TEST-for-more-flexible-configu.patch;patchdir=src/import \
         file://crio.conf \
         file://run-ptest \
 	"
@@ -61,6 +61,9 @@ inherit pkgconfig
 inherit container-host
 
 EXTRA_OEMAKE = "BUILDTAGS='' DEBUG=1 STRIP=true"
+# avoid textrel QA issue
+EXTRA_OEMAKE += "GO_BUILD='${GO} build -trimpath -buildmode=pie'"
+EXTRA_OEMAKE += "GO_TEST='${GO} test -trimpath -buildmode=pie'"
 
 do_compile() {
 	set +e
@@ -121,8 +124,7 @@ FILES:${PN} += "${systemd_unitdir}/system/*"
 FILES:${PN} += "/usr/local/bin/*"
 FILES:${PN} += "/usr/share/containers/oci/hooks.d"
 
-INSANE_SKIP:${PN} += "ldflags textrel"
-INSANE_SKIP:${PN}-ptest += "textrel"
+INSANE_SKIP:${PN}-ptest += "ldflags"
 
 RDEPENDS:${PN}-ptest += " \
     bash \
