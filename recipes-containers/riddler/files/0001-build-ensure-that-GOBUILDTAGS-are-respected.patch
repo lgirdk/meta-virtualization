@@ -1,0 +1,52 @@
+From de09fed4786ba36431e8dcce1972c9e55ee50eaa Mon Sep 17 00:00:00 2001
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Wed, 15 Jan 2025 19:03:27 +0000
+Subject: [PATCH] build: ensure that GOBUILDTAGS are respected
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ basic.mk | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/basic.mk b/basic.mk
+index cb9b881..a262b61 100644
+--- a/basic.mk
++++ b/basic.mk
+@@ -45,12 +45,12 @@ build: prebuild $(NAME) ## Builds a dynamic executable or package.
+ 
+ $(NAME): $(wildcard *.go) $(wildcard */*.go) VERSION.txt
+ 	@echo "+ $@"
+-	$(GO) build -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o $(NAME) .
++	$(GO) build ${GOBUILDFLAGS} -tags "$(BUILDTAGS)" ${GO_LDFLAGS} -o $(NAME) .
+ 
+ .PHONY: static
+ static: prebuild ## Builds a static executable.
+ 	@echo "+ $@"
+-	CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
++	CGO_ENABLED=$(CGO_ENABLED) $(GO) build ${GOBUILDFLAGS} \
+ 				-tags "$(BUILDTAGS) static_build" \
+ 				${GO_LDFLAGS_STATIC} -o $(NAME) .
+ 
+@@ -107,7 +107,7 @@ install: prebuild ## Installs the executable or package.
+ 
+ define buildpretty
+ mkdir -p $(BUILDDIR)/$(1)/$(2);
+-GOOS=$(1) GOARCH=$(2) CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
++GOOS=$(1) GOARCH=$(2) CGO_ENABLED=$(CGO_ENABLED) $(GO) build ${GOBUILDFLAGS} \
+ 	 -o $(BUILDDIR)/$(1)/$(2)/$(NAME) \
+ 	 -a -tags "$(BUILDTAGS) static_build netgo" \
+ 	 -installsuffix netgo ${GO_LDFLAGS_STATIC} .;
+@@ -123,7 +123,7 @@ cross: *.go VERSION.txt prebuild ## Builds the cross-compiled binaries, creating
+ define buildrelease
+ GOOS=$(1) GOARCH=$(2) CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
+ 	 -o $(BUILDDIR)/$(NAME)-$(1)-$(2) \
+-	 -a -tags "$(BUILDTAGS) static_build netgo" \
++	 -a ${GOBUILDFLAGS} -tags "$(BUILDTAGS) static_build netgo" \
+ 	 -installsuffix netgo ${GO_LDFLAGS_STATIC} .;
+ md5sum $(BUILDDIR)/$(NAME)-$(1)-$(2) > $(BUILDDIR)/$(NAME)-$(1)-$(2).md5;
+ sha256sum $(BUILDDIR)/$(NAME)-$(1)-$(2) > $(BUILDDIR)/$(NAME)-$(1)-$(2).sha256;
+-- 
+2.39.2
+
