@@ -60,7 +60,7 @@ inherit goarch
 inherit pkgconfig
 inherit container-host
 
-EXTRA_OEMAKE="BUILDTAGS=''"
+EXTRA_OEMAKE = "BUILDTAGS='' DEBUG=1 STRIP=true"
 
 do_compile() {
 	set +e
@@ -115,15 +115,13 @@ do_install_ptest() {
     cp -rf ${S}/src/import/test ${D}${PTEST_PATH}
     cp -rf ${S}/src/import/bin ${D}${PTEST_PATH}
 }
+
 FILES:${PN}-config = "${sysconfdir}/crio/config/*"
 FILES:${PN} += "${systemd_unitdir}/system/*"
 FILES:${PN} += "/usr/local/bin/*"
 FILES:${PN} += "/usr/share/containers/oci/hooks.d"
 
-# don't clobber hooks.d
-ALLOW_EMPTY:${PN} = "1"
-
-INSANE_SKIP:${PN} += "ldflags already-stripped textrel"
+INSANE_SKIP:${PN} += "ldflags textrel"
 INSANE_SKIP:${PN}-ptest += "textrel"
 
 RDEPENDS:${PN}-ptest += " \
