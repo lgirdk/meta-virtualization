@@ -25,11 +25,11 @@ Signed-off-by: Xiangyu Chen <xiangyu.chen@windriver.com>
  Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile.am b/Makefile.am
-index 28e85d422..031bbf39c 100644
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -154,7 +154,7 @@ SUFFIXES += .in
+Index: git/Makefile.am
+===================================================================
+--- git.orig/Makefile.am
++++ git/Makefile.am
+@@ -162,7 +162,7 @@ SUFFIXES += .in
  	    -e 's,[@]PKIDIR[@],$(PKIDIR),g' \
  	    -e 's,[@]LOGDIR[@],$(LOGDIR),g' \
  	    -e 's,[@]DBDIR[@],$(DBDIR),g' \
@@ -37,7 +37,4 @@ index 28e85d422..031bbf39c 100644
 +	    -e 's,[@]PYTHON3[@],/usr/bin/env $(PYTHON3),g' \
  	    -e 's,[@]RUNDIR[@],$(RUNDIR),g' \
  	    -e 's,[@]VERSION[@],$(VERSION),g' \
- 	    -e 's,[@]localstatedir[@],$(localstatedir),g' \
--- 
-2.35.5
-
+ 	    -e 's,[@]VERSION_SUFFIX[@],$(VERSION_SUFFIX),g' \
