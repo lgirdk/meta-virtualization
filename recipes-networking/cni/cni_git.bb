@@ -10,8 +10,8 @@ is simple to implement. \
 "
 
 SRCREV_cni = "4c9ae43c0eaa85ec1ab27781e9b258f13e7fd0ca"
-SRCREV_plugins = "01b3db8e01e491864db3e088a5db401d2f413b00"
-SRCREV_flannel_plugin = "a3f52e86452cdcdd2d970bb0f89eef248aed0e7c"
+SRCREV_plugins = "abfac4a938866b6184441d02ad49544d10931fe1"
+SRCREV_flannel_plugin = "cc21427ce5b2c606ba5ececa0a488452e80d73f8"
 SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
 	git://github.com/containernetworking/cni.git;branch=main;name=cni;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
@@ -35,7 +35,7 @@ LIC_FILES_CHKSUM = "file://src/import/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464
 GO_IMPORT = "import"
 S = "${WORKDIR}/git"
 
-PV = "v1.2.3+git${SRCREV_cni}"
+PV = "v1.2.3+git"
 CNI_VERSION = "v1.2.3"
 
 inherit go
