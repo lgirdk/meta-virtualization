@@ -1,16 +1,16 @@
-# github.com/Masterminds/semver/v3 v3.2.1
+# github.com/Masterminds/semver/v3 v3.3.1
 ## explicit
-# github.com/containernetworking/plugins v1.5.0
+# github.com/containernetworking/plugins v1.5.1
 ## explicit
-# github.com/gofrs/flock v0.8.1
+# github.com/gofrs/flock v0.12.1
 ## explicit
 # github.com/google/uuid v1.6.0
 ## explicit
 # github.com/gorilla/mux v1.8.1
 ## explicit
-# github.com/insomniacslk/dhcp v0.0.0-20230516061539-49801966e6cb
+# github.com/insomniacslk/dhcp v0.0.0-20240812123929-b105c29bd1b5
 ## explicit
-# github.com/moby/sys/mountinfo v0.7.1
+# github.com/moby/sys/mountinfo v0.7.2
 ## explicit
 # github.com/moby/vpnkit v0.5.0
 ## explicit
@@ -18,25 +18,23 @@
 ## explicit
 # github.com/songgao/water v0.0.0-20200317203138-2b4b6d7c09d8
 ## explicit
-# github.com/urfave/cli/v2 v2.27.2
+# github.com/urfave/cli/v2 v2.27.5
 ## explicit
-# golang.org/x/sys v0.20.0
+# golang.org/x/sys v0.29.0
 ## explicit
 # gotest.tools/v3 v3.5.1
 ## explicit
-# github.com/cpuguy83/go-md2man/v2 v2.0.4
+# github.com/cpuguy83/go-md2man/v2 v2.0.5
 ## explicit
 # github.com/google/go-cmp v0.6.0
 ## explicit
-# github.com/josharian/native v1.1.0
-## explicit
-# github.com/pierrec/lz4/v4 v4.1.17
+# github.com/pierrec/lz4/v4 v4.1.21
 ## explicit
 # github.com/russross/blackfriday/v2 v2.1.0
 ## explicit
-# github.com/u-root/uio v0.0.0-20230305220412-3e8cd9d6bf63
+# github.com/u-root/uio v0.0.0-20240224005618-d2acac8f3701
 ## explicit
-# github.com/xrash/smetrics v0.0.0-20240312152122-5f08fbb34913
+# github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1
 ## explicit
-# golang.org/x/net v0.24.0
+# golang.org/x/net v0.33.0
 ## explicit

@@ -12,7 +12,6 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/pierrec/lz4/v4:github.com/pierrec/lz4/v4:force \
            github.com/xrash/smetrics:github.com/xrash/smetrics:force \
            github.com/sirupsen/logrus:github.com/sirupsen/logrus:force \
-           github.com/josharian/native:github.com/josharian/native:force \
            github.com/insomniacslk/dhcp:github.com/insomniacslk/dhcp:force \
            github.com/Masterminds/semver/v3:github.com/Masterminds/semver/v3:force \
            github.com/cpuguy83/go-md2man/v2:github.com/cpuguy83/go-md2man/v2:force \

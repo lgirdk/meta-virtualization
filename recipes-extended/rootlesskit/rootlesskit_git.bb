@@ -14,7 +14,7 @@ DEPENDS = " \
 "
 # Specify the first two important SRCREVs as the format
 SRCREV_FORMAT="rootless"
-SRCREV_rootless = "d942cd5880099d8ce0fddeef051cad4894eba25e"
+SRCREV_rootless = "0b4ed7b5ca2e6b7cd2b9fb003cc7f6913bd76abf"
 
 SRC_URI = "git://github.com/rootless-containers/rootlesskit;name=rootless;branch=master;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"
 
@@ -31,7 +31,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v2.1.0+git"
+PV = "v2.3.1+git"
 
 ROOTLESS_PKG = "github.com/rootless-containers/rootlesskit"
 
