@@ -24,9 +24,9 @@ RDEPENDS:libvirt-libvirtd:append:aarch64 = " dmidecode"
 #connman blocks the 53 port and libvirtd can't start its DNS service
 RCONFLICTS:${PN}_libvirtd = "connman"
 
-SRCREV_libvirt = "e5232f6fd691668decd5be1b3a76cdbd3666d032"
+SRCREV_libvirt = "14fc6812df37cf03e5adce979d89f9e1c7dd38f9"
 
-LIBVIRT_VERSION = "10.5.0"
+LIBVIRT_VERSION = "11.0.0"
 PV = "v${LIBVIRT_VERSION}+git"
 
 SRC_URI = "gitsm://github.com/libvirt/libvirt.git;name=libvirt;protocol=https;branch=master \
@@ -129,7 +129,7 @@ SYSTEMD_SERVICE:${PN}-libvirtd = " \
 #PACKAGECONFIG ??= "xen libxl xen-inotify test remote libvirtd"
 
 # full config
-PACKAGECONFIG ??= "gnutls qemu yajl openvz vmware vbox esx lxc test remote \
+PACKAGECONFIG ??= "gnutls qemu openvz vmware vbox esx lxc test remote \
                    libvirtd netcf udev python fuse firewalld libpcap \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux audit libcap-ng', '', d)} \
                    ${@bb.utils.contains('DISTRO_FEATURES', 'xen', 'libxl', '', d)} \
@@ -150,7 +150,6 @@ PACKAGECONFIG:remove:armeb = "numactl"
 #
 PACKAGECONFIG[gnutls] = ",,,gnutls-bin"
 PACKAGECONFIG[qemu] = "-Ddriver_qemu=enabled -Dqemu_user=qemu -Dqemu_group=qemu,-Ddriver_qemu=disabled,qemu,"
-PACKAGECONFIG[yajl] = "-Dyajl=enabled,-Dyajl=disabled,yajl,yajl"
 PACKAGECONFIG[libxl] = "-Ddriver_libxl=enabled,-Ddriver_libxl=disabled,xen,"
 PACKAGECONFIG[openvz] = "-Ddriver_openvz=enabled,-Ddriver_openvz=disabled,,"
 PACKAGECONFIG[vmware] = "-Ddriver_vmware=enabled,-Ddriver_vmware=disabled,,"

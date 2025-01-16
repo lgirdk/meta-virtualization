@@ -25,11 +25,11 @@ Signed-off-by: Xiangyu Chen <xiangyu.chen@windriver.com>
  meson.build | 10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
-Index: libvirt-9.2.0/meson.build
+Index: git/meson.build
 ===================================================================
---- libvirt-9.2.0.orig/meson.build
-+++ libvirt-9.2.0/meson.build
-@@ -26,8 +26,8 @@
+--- git.orig/meson.build
++++ git/meson.build
+@@ -38,8 +38,8 @@
  conf = configuration_data()
  
  conf.set('_GNU_SOURCE', 1)
@@ -40,7 +40,7 @@ Index: libvirt-9.2.0/meson.build
  conf.set_quoted('PACKAGE', meson.project_name())
  conf.set_quoted('PACKAGE_NAME', meson.project_name())
  conf.set_quoted('PACKAGE_VERSION', meson.project_version())
-@@ -1770,9 +1770,9 @@
+@@ -1830,9 +1830,9 @@
        use_storage = true
  
        conf.set('WITH_STORAGE_FS', 1)
@@ -50,6 +50,6 @@ Index: libvirt-9.2.0/meson.build
 +      conf.set_quoted('MOUNT', '/usr/bin/mount')
 +      conf.set_quoted('UMOUNT', '/usr/bin/umount')
 +      conf.set_quoted('MKFS', '/usr/sbin/mkfs')
+     endif
+   endif
  
-       showmount_prog = find_program('showmount', required: false, dirs: libvirt_sbin_path)
-       showmount_path = ''
