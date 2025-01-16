@@ -2,7 +2,7 @@ SUMMARY = "User space components of the Ceph file system"
 LICENSE = "LGPL-2.1-only & GPL-2.0-only & Apache-2.0 & MIT"
 LIC_FILES_CHKSUM = "file://COPYING-LGPL2.1;md5=fbc093901857fcd118f065f900982c24 \
                     file://COPYING-GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-                    file://COPYING;md5=a56a85cf323285df31085240a8aeb94f \
+                    file://COPYING;md5=bf502a28c9b8d6430c8952a583a2c896 \
 "
 inherit cmake pkgconfig python3native python3-dir systemd useradd
 # Disable python pybind support for ceph temporary, when corss compiling pybind,
@@ -18,8 +18,8 @@ SRC_URI = "gitsm://github.com/ceph/ceph.git;protocol=https;branch=main \
            file://0001-rgw-setup.py-allow-incompatible-pointer-types.patch \
 	   "
 
-SRCREV="103cd8e78bcfe7f69647013187c053c9ccb76685"
-PV = "19.0.0+git"
+SRCREV= "71d130f79904616c216f3574723d30c523b24410"
+PV = "19.3.0+git"
 
 S = "${WORKDIR}/git"
 
@@ -79,10 +79,12 @@ EXTRA_OECMAKE += "-DWITH_MANPAGE=OFF \
                  -DWITH_MGR_DASHBOARD_FRONTEND=OFF \
                  -DWITH_SYSTEM_BOOST=ON \
                  -DWITH_RDMA=OFF \
+		 -DWITH_RBD=OFF \
+		 -DWITH_KRBD=OFF \
                  -DWITH_RADOSGW_AMQP_ENDPOINT=OFF \
                  -DWITH_RADOSGW_KAFKA_ENDPOINT=OFF \
                  -DWITH_REENTRANT_STRSIGNAL=ON \
-		 -DWITH_PYTHON3=3.12 \
+		 -DWITH_PYTHON3=3.13 \
 		 -DPYTHON_DESIRED=3 \
 		 -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${WORKDIR}/toolchain.cmake \
 		 -DCEPHADM_BUNDLED_DEPENDENCIES=none \
@@ -152,6 +154,7 @@ FILES:${PN} += "\
 		${libdir}/ceph/compressor/*.so \
 		${libdir}/rados-classes/*.so \
 		${libdir}/ceph/*.so \
+		${libdir}/*.so \
 		${libdir}/libcephsqlite.so \
 "
 
@@ -166,6 +169,7 @@ FILES:${PN}-dev = " \
     ${libdir}/librados*.so \
     ${libdir}/librbd.so \
     ${libdir}/librgw.so \
+    ${libdir}/pkgconfig/cephfs.pc \
 "
 
 FILES:${PN}-python = "\
