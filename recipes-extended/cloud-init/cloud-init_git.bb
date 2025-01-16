@@ -7,13 +7,13 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c6dd79b6ec2130a3364f6fa9d6380408 \
     file://LICENSE-Apache2.0;md5=3b83ef96387f14655fc854ddc3c6bd57 \
 "
 
-SRCREV = "e982c20875db3750c8dfc1915e7a4cee37376924"
-SRC_URI = "git://github.com/canonical/cloud-init;branch=24.1.x;protocol=https \
+SRCREV = "4b475ed36ad99819f64eee7966ec9f5da41cb638"
+SRC_URI = "git://github.com/canonical/cloud-init;branch=24.4.x;protocol=https \
     file://cloud-init-source-local-lsb-functions.patch \
     file://0001-setup.py-check-for-install-anywhere-in-args.patch \
 "
 
-PV = "v23.4.1+git"
+PV = "v24.4.1+git"
 
 S = "${WORKDIR}/git"
 
