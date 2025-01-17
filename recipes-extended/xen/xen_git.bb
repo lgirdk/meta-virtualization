@@ -1,6 +1,6 @@
-SRCREV ?= "c23571fe3150c2994afabcaa10c218b3d87fa832"
+SRCREV ?= "75d88297f50531bdad83a513b47e6ffad34499ec"
 
-XEN_REL ?= "4.20"
+XEN_REL ?= "4.20-rc1"
 XEN_BRANCH ?= "master"
 
 SRC_URI = " \
