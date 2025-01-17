@@ -50,7 +50,7 @@ IMAGE_CMD:oci() {
 
     bbdebug 1 "OCI: populating rootfs"
     bbdebug 1 "OCI: cp -r ${IMAGE_ROOTFS}/* $image_bundle_name/rootfs/"
-    cp -r ${IMAGE_ROOTFS}/* $image_bundle_name/rootfs
+    cp -r -a --no-preserve=ownership ${IMAGE_ROOTFS}/* $image_bundle_name/rootfs
 
     bbdebug 1 "OCI: umoci repack --image $image_name:${OCI_IMAGE_TAG} $image_bundle_name"
     umoci repack --image $image_name:${OCI_IMAGE_TAG} $image_bundle_name
