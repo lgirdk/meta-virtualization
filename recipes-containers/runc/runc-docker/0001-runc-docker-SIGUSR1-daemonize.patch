@@ -25,15 +25,15 @@ is set.
 
 Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
 ---
- signals.go     | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++----
+ signals.go     | 56 ++++++++++++++++++++++++++++++++++++++++++++++----
  utils_linux.go |  2 +-
- 2 files changed, 51 insertions(+), 5 deletions(-)
+ 2 files changed, 53 insertions(+), 5 deletions(-)
 
-Index: git/src/import/signals.go
-===================================================================
---- git.orig/src/import/signals.go
-+++ git/src/import/signals.go
-@@ -5,7 +5,9 @@
+diff --git a/signals.go b/signals.go
+index 2555b765..1266ee66 100644
+--- a/signals.go
++++ b/signals.go
+@@ -3,7 +3,9 @@ package main
  import (
  	"os"
  	"os/signal"
@@ -43,7 +43,7 @@ Index: git/src/import/signals.go
  	"github.com/opencontainers/runc/libcontainer"
  	"github.com/opencontainers/runc/libcontainer/system"
  	"github.com/opencontainers/runc/libcontainer/utils"
-@@ -55,9 +57,6 @@
+@@ -53,9 +55,6 @@ type signalHandler struct {
  func (h *signalHandler) forward(process *libcontainer.Process, tty *tty, detach bool) (int, error) {
  	// make sure we know the pid of our main process so that we can return
  	// after it dies.
@@ -53,7 +53,7 @@ Index: git/src/import/signals.go
  
  	pid1, err := process.Pid()
  	if err != nil {
-@@ -67,12 +66,61 @@
+@@ -65,12 +64,61 @@ func (h *signalHandler) forward(process *libcontainer.Process, tty *tty, detach
  	if h.notifySocket != nil {
  		if detach {
  			_ = h.notifySocket.run(pid1)
@@ -116,11 +116,11 @@ Index: git/src/import/signals.go
  	// Perform the initial tty resize. Always ignore errors resizing because
  	// stdout might have disappeared (due to races with when SIGHUP is sent).
  	_ = tty.resize()
-Index: git/src/import/utils_linux.go
-===================================================================
---- git.orig/src/import/utils_linux.go
-+++ git/src/import/utils_linux.go
-@@ -345,7 +345,7 @@
+diff --git a/utils_linux.go b/utils_linux.go
+index ddcab62f..280051ea 100644
+--- a/utils_linux.go
++++ b/utils_linux.go
+@@ -315,7 +315,7 @@ func (r *runner) run(config *specs.Process) (int, error) {
  	if err != nil {
  		r.terminate(process)
  	}
@@ -129,3 +129,6 @@ Index: git/src/import/utils_linux.go
  		return 0, nil
  	}
  	if err == nil {
+-- 
+2.40.0
+
