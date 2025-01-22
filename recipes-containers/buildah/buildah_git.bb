@@ -16,6 +16,10 @@ inherit go
 inherit goarch
 inherit pkgconfig
 
+# Rdepends on podman which needs seccomp and ipv6
+inherit features_check
+REQUIRED_DISTRO_FEATURES = "seccomp ipv6"
+
 GO_IMPORT = "github.com/containers/buildah"
 GO_INSTALL = "${GO_IMPORT}"
 GO_WORKDIR = "${GO_INSTALL}"
