@@ -27,6 +27,7 @@ GOBUILDFLAGS += "-mod vendor"
 
 SRC_URI = " \
     git://github.com/containers/buildah;branch=release-1.26;name=buildah;protocol=https \
+    file://0001-Use-securejoin.SecureJoin-when-forming-userns-paths.patch;patchdir=src/github.com/containers/buildah/vendor/github.com/containers/storage \
     "
 
 DEPENDS = "libdevmapper btrfs-tools gpgme"
