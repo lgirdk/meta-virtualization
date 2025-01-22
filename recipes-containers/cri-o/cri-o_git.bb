@@ -19,6 +19,7 @@ SRC_URI = "\
 	git://github.com/kubernetes-sigs/cri-o.git;branch=release-1.23;name=cri-o;protocol=https \
 	file://0001-Makefile-force-symlinks.patch \
         file://crio.conf \
+        file://0001-Use-securejoin.SecureJoin-when-forming-userns-paths.patch;patchdir=src/import/vendor/github.com/containers/storage \
 	"
 
 # Apache-2.0 for docker
