@@ -64,7 +64,6 @@ do_compile() {
 	ln -sf ../../../.. .gopath/src/"${DOCKER_PKG}"
 	
 	mkdir -p .gopath/src/github.com/docker
-	ln -sf ${S}/libnetwork .gopath/src/github.com/docker/libnetwork
 	ln -sf ${S}/cli .gopath/src/github.com/docker/cli
 
 	export GOPATH="${S}/src/import/.gopath:${S}/src/import/vendor"
@@ -94,17 +93,13 @@ do_compile() {
 	export LDFLAGS=""
 	export DOCKER_VERSION=${DOCKER_VERSION}
 	VERSION="${DOCKER_VERSION}" DOCKER_GITCOMMIT="${DOCKER_COMMIT}" make dynbinary
-
-	# build the proxy
-	cd ${S}/src/import/.gopath/src/github.com/docker/libnetwork
-	oe_runmake cross-local
 }
 
 do_install() {
 	mkdir -p ${D}/${bindir}
 	cp ${S}/cli/build/docker ${D}/${bindir}/docker
 	cp ${S}/src/import/bundles/dynbinary-daemon/dockerd ${D}/${bindir}/dockerd
-	cp ${S}/libnetwork/bin/docker-proxy* ${D}/${bindir}/docker-proxy
+	cp ${S}/src/import/bundles/dynbinary-daemon/docker-proxy ${D}/${bindir}/docker-proxy
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system

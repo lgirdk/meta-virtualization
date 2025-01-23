@@ -45,15 +45,12 @@ DESCRIPTION = "Linux container runtime \
 #
 
 SRCREV_moby = "43fc912ef59a83054ea7f6706df4d53a7dea4d80"
-SRCREV_libnetwork = "67e0588f1ddfaf2faf4c8cae8b7ea2876434d91c"
 SRCREV_cli = "d41cb083c352853f94b292a87df4859c4a96dcc2"
-SRCREV_FORMAT = "moby_libnetwork"
+SRCREV_FORMAT = "moby"
 SRC_URI = "\
 	git://github.com/moby/moby.git;nobranch=1;name=moby;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
-	git://github.com/docker/libnetwork.git;branch=master;name=libnetwork;destsuffix=git/libnetwork;protocol=https \
 	git://github.com/docker/cli;nobranch=1;name=cli;destsuffix=git/cli;protocol=https \
 	file://docker.init \
-	file://0001-libnetwork-use-GO-instead-of-go.patch \
         file://0001-cli-use-external-GO111MODULE-and-cross-compiler.patch \
         file://0001-dynbinary-use-go-cross-compiler.patch;patchdir=src/import \
         file://0001-check-config-make-CONFIG_MEMCG_SWAP-conditional.patch;patchdir=src/import \
