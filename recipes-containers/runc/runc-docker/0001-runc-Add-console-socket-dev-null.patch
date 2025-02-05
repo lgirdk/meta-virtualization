@@ -12,11 +12,11 @@ Signed-off-by: Jason Wessel <jason.wessel@windriver.com>
  utils_linux.go | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/utils_linux.go b/utils_linux.go
-index 60d534e8..ddcab62f 100644
---- a/utils_linux.go
-+++ b/utils_linux.go
-@@ -234,6 +234,11 @@ type runner struct {
+Index: git/src/import/utils_linux.go
+===================================================================
+--- git.orig/src/import/utils_linux.go
++++ git/src/import/utils_linux.go
+@@ -267,6 +267,11 @@
  }
  
  func (r *runner) run(config *specs.Process) (int, error) {
@@ -28,6 +28,3 @@ index 60d534e8..ddcab62f 100644
  	var err error
  	defer func() {
  		if err != nil {
--- 
-2.40.0
-
