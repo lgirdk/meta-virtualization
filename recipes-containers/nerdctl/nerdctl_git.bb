@@ -19,6 +19,7 @@ include src_uri.inc
 
 # patches and config
 SRC_URI += " \
+            file://0001-Makefile-allow-external-specification-of-build-setti.patch \
             file://modules.txt \
            "
 
