@@ -127,6 +127,8 @@ FILES:${PN}-networking += " \
 #     am_cv_python_pythondir='${PYTHON_SITEPACKAGES_DIR}' \
 #"
 
+INSANE_SKIP:${PN}-staticdev += "buildpaths"
+
 do_install:append() {
 	# The /var/cache/lxc directory created by the Makefile
 	# is wiped out in volatile, we need to create this at boot.
