@@ -106,14 +106,14 @@ do_install() {
 
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_unitdir}/system
-        install -m 644 ${WORKDIR}/nagios-core.service ${D}${systemd_unitdir}/system/
+        install -m 644 ${UNPACKDIR}/nagios-core.service ${D}${systemd_unitdir}/system/
         # use our own service file
         rm -f ${D}${systemd_unitdir}/system/nagios.service
         install -d ${D}${sysconfdir}/tmpfiles.d
-        install -m 755 ${WORKDIR}/nagios-core-systemd-volatile.conf ${D}${sysconfdir}/tmpfiles.d/nagios-core-volatile.conf
+        install -m 755 ${UNPACKDIR}/nagios-core-systemd-volatile.conf ${D}${sysconfdir}/tmpfiles.d/nagios-core-volatile.conf
     else
         install -d ${D}${sysconfdir}/default/volatiles
-        install -m 0644 ${WORKDIR}/volatiles ${D}${sysconfdir}/default/volatiles/99_nagios
+        install -m 0644 ${UNPACKDIR}/volatiles ${D}${sysconfdir}/default/volatiles/99_nagios
     fi
 }
 
