@@ -44,6 +44,8 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/go-logr/stdr:github.com/go-logr/stdr:force \
            github.com/google/shlex:github.com/google/shlex:force \
            github.com/miekg/pkcs11:github.com/miekg/pkcs11:force \
+           github.com/otiai10/mint:github.com/otiai10/mint:force \
+           github.com/x448/float16:github.com/x448/float16:force \
            github.com/docker/buildx:github.com/docker/buildx:force \
            github.com/docker/docker:github.com/docker/docker:force \
            github.com/google/go-cmp:github.com/google/go-cmp:force \
@@ -54,18 +56,17 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/google/gofuzz:github.com/google/gofuzz:force \
            github.com/imdario/mergo:github.com/imdario/mergo:force \
            github.com/containerd/log:github.com/containerd/log:force \
+           github.com/zclconf/go-cty:github.com/zclconf/go-cty:force \
            github.com/davecgh/go-spew:github.com/davecgh/go-spew:force \
            github.com/docker/go-units:github.com/docker/go-units:force \
            github.com/mitchellh/go-ps:github.com/mitchellh/go-ps:force \
            github.com/sirupsen/logrus:github.com/sirupsen/logrus:force \
            github.com/go-openapi/swag:github.com/go-openapi/swag:force \
-           github.com/gogo/googleapis:github.com/gogo/googleapis:force \
            github.com/golang/protobuf:github.com/golang/protobuf:force \
            github.com/mailru/easyjson:github.com/mailru/easyjson:force \
            github.com/mattn/go-isatty:github.com/mattn/go-isatty:force \
            github.com/moby/spdystream:github.com/moby/spdystream:force \
            github.com/mxk/go-flowrate:github.com/mxk/go-flowrate:force \
-           google.golang.org/genproto:google.golang.org/genproto:force \
            google.golang.org/protobuf:google.golang.org/protobuf:force \
            github.com/moby/sys/user:github.com/moby/sys/user/user:force \
            github.com/stretchr/testify:github.com/stretchr/testify:force \
@@ -75,16 +76,15 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/serialx/hashring:github.com/serialx/hashring:force \
            github.com/tonistiigi/units:github.com/tonistiigi/units:force \
            github.com/tonistiigi/vt100:github.com/tonistiigi/vt100:force \
-           google.golang.org/appengine:google.golang.org/appengine:force \
            github.com/eiannone/keyboard:github.com/eiannone/keyboard:force \
            github.com/fsnotify/fsevents:github.com/fsnotify/fsevents:force \
            github.com/tilt-dev/fsnotify:github.com/tilt-dev/fsnotify:force \
            github.com/Azure/go-ansiterm:github.com/Azure/go-ansiterm:force \
-           github.com/Microsoft/hcsshim:github.com/Microsoft/hcsshim:force \
            github.com/aws/aws-sdk-go-v2:github.com/aws/aws-sdk-go-v2:force \
            github.com/cespare/xxhash/v2:github.com/cespare/xxhash/v2:force \
            github.com/docker/go-metrics:github.com/docker/go-metrics:force \
            github.com/felixge/httpsnoop:github.com/felixge/httpsnoop:force \
+           github.com/fxamacker/cbor/v2:github.com/fxamacker/cbor/v2:force \
            github.com/gorilla/websocket:github.com/gorilla/websocket:force \
            github.com/hashicorp/errwrap:github.com/hashicorp/errwrap:force \
            github.com/munnerz/goautoneg:github.com/munnerz/goautoneg:force \
@@ -104,6 +104,7 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/modern-go/reflect2:github.com/modern-go/reflect2:force \
            github.com/pmezard/go-difflib:github.com/pmezard/go-difflib:force \
            github.com/moby/sys/signal:github.com/moby/sys/signal/signal:force \
+           github.com/moby/sys/userns:github.com/moby/sys/userns/userns:force \
            github.com/jonboulle/clockwork:github.com/jonboulle/clockwork:force \
            github.com/mattn/go-shellwords:github.com/mattn/go-shellwords:force \
            github.com/moby/patternmatcher:github.com/moby/patternmatcher:force \
@@ -111,18 +112,18 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/cenkalti/backoff/v4:github.com/cenkalti/backoff/v4:force \
            github.com/docker/distribution:github.com/docker/distribution:force \
            github.com/shibumi/go-pathspec:github.com/shibumi/go-pathspec:force \
+           github.com/containerd/platforms:github.com/containerd/platforms:force \
            github.com/docker/cli-docs-tool:github.com/docker/cli-docs-tool:force \
            github.com/hashicorp/go-version:github.com/hashicorp/go-version:force \
-           github.com/containerd/platforms:github.com/containerd/platforms:force \
            github.com/moby/sys/symlink:github.com/moby/sys/symlink/symlink:force \
            github.com/modern-go/concurrent:github.com/modern-go/concurrent:force \
            github.com/xeipuuv/gojsonschema:github.com/xeipuuv/gojsonschema:force \
            github.com/AlecAivazis/survey/v2:github.com/AlecAivazis/survey/v2:force \
-           github.com/containerd/containerd:github.com/containerd/containerd:force \
            github.com/docker/go-connections:github.com/docker/go-connections:force \
            github.com/Masterminds/semver/v3:github.com/Masterminds/semver/v3:force \
            github.com/containerd/continuity:github.com/containerd/continuity:force \
            github.com/containerd/typeurl/v2:github.com/containerd/typeurl/v2:force \
+           github.com/cpuguy83/go-md2man/v2:github.com/cpuguy83/go-md2man/v2:force \
            github.com/google/gnostic-models:github.com/google/gnostic-models:force \
            github.com/xeipuuv/gojsonpointer:github.com/xeipuuv/gojsonpointer:force \
            go.opentelemetry.io/proto/otlp:go.opentelemetry.io/proto/otlp/otlp:force \
@@ -136,15 +137,23 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/in-toto/in-toto-golang:github.com/in-toto/in-toto-golang:force \
            github.com/kballard/go-shellquote:github.com/kballard/go-shellquote:force \
            github.com/moby/docker-image-spec:github.com/moby/docker-image-spec:force \
+           github.com/planetscale/vtprotobuf:github.com/planetscale/vtprotobuf:force \
+           github.com/tonistiigi/go-csvvalue:github.com/tonistiigi/go-csvvalue:force \
            github.com/hashicorp/go-multierror:github.com/hashicorp/go-multierror:force \
            github.com/moby/sys/mountinfo:github.com/moby/sys/mountinfo/mountinfo:force \
            github.com/prometheus/client_model:github.com/prometheus/client_model:force \
+           github.com/russross/blackfriday/v2:github.com/russross/blackfriday/v2:force \
+           github.com/tonistiigi/dchapes-mode:github.com/tonistiigi/dchapes-mode:force \
            github.com/xeipuuv/gojsonreference:github.com/xeipuuv/gojsonreference:force \
+           github.com/xhit/go-str2duration/v2:github.com/xhit/go-str2duration/v2:force \
            go.opentelemetry.io/otel/metric:go.opentelemetry.io/otel/metric/metric:force \
+           github.com/containerd/containerd/v2:github.com/containerd/containerd/v2:force \
            github.com/opencontainers/go-digest:github.com/opencontainers/go-digest:force \
+           github.com/containerd/errdefs/pkg:github.com/containerd/errdefs/pkg/pkg:force \
            github.com/go-openapi/jsonreference:github.com/go-openapi/jsonreference:force \
            github.com/go-viper/mapstructure/v2:github.com/go-viper/mapstructure/v2:force \
            github.com/prometheus/client_golang:github.com/prometheus/client_golang:force \
+           github.com/moby/sys/capability:github.com/moby/sys/capability/capability:force \
            github.com/moby/sys/sequential:github.com/moby/sys/sequential/sequential:force \
            github.com/opencontainers/image-spec:github.com/opencontainers/image-spec:force \
            github.com/theupdateframework/notary:github.com/theupdateframework/notary:force \
@@ -152,8 +161,11 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/inconshreveable/mousetrap:github.com/inconshreveable/mousetrap:force \
            sigs.k8s.io/structured-merge-diff/v4:sigs.k8s.io/structured-merge-diff/v4:force \
            github.com/compose-spec/compose-go/v2:github.com/compose-spec/compose-go/v2:force \
+           github.com/mitchellh/hashstructure/v2:github.com/mitchellh/hashstructure/v2:force \
+           github.com/containerd/containerd/api:github.com/containerd/containerd/api/api:force \
            github.com/aws/aws-sdk-go-v2/config:github.com/aws/aws-sdk-go-v2/config/config:force \
            tags.cncf.io/container-device-interface:tags.cncf.io/container-device-interface:force \
+           github.com/apparentlymart/go-textseg/v15:github.com/apparentlymart/go-textseg/v15:force \
            go.opentelemetry.io/otel/sdk/metric:go.opentelemetry.io/otel/sdk/metric/sdk/metric:force \
            github.com/grpc-ecosystem/grpc-gateway/v2:github.com/grpc-ecosystem/grpc-gateway/v2:force \
            github.com/docker/docker-credential-helpers:github.com/docker/docker-credential-helpers:force \
@@ -161,7 +173,6 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/aws/aws-sdk-go-v2/service/sso:github.com/aws/aws-sdk-go-v2/service/sso/service/sso:force \
            github.com/aws/aws-sdk-go-v2/service/sts:github.com/aws/aws-sdk-go-v2/service/sts/service/sts:force \
            github.com/aws/aws-sdk-go-v2/internal/ini:github.com/aws/aws-sdk-go-v2/internal/ini/internal/ini:force \
-           github.com/matttproud/golang_protobuf_extensions:github.com/matttproud/golang_protobuf_extensions:force \
            google.golang.org/genproto/googleapis/api:google.golang.org/genproto/googleapis/api/googleapis/api:force \
            google.golang.org/genproto/googleapis/rpc:google.golang.org/genproto/googleapis/rpc/googleapis/rpc:force \
            github.com/secure-systems-lab/go-securesystemslib:github.com/secure-systems-lab/go-securesystemslib:force \
@@ -170,7 +181,6 @@ export sites="k8s.io/api:k8s.io/api:force \
            github.com/aws/aws-sdk-go-v2/internal/endpoints/v2:github.com/aws/aws-sdk-go-v2/internal/endpoints/v2/internal/endpoints/v2:force \
            go.opentelemetry.io/otel/exporters/otlp/otlptrace:go.opentelemetry.io/otel/exporters/otlp/otlptrace/exporters/otlp/otlptrace:force \
            github.com/aws/aws-sdk-go-v2/internal/configsources:github.com/aws/aws-sdk-go-v2/internal/configsources/internal/configsources:force \
-           go.opentelemetry.io/otel/exporters/otlp/otlpmetric:go.opentelemetry.io/otel/exporters/otlp/otlpmetric/exporters/otlp/otlpmetric:force \
            github.com/aws/aws-sdk-go-v2/service/internal/presigned-url:github.com/aws/aws-sdk-go-v2/service/internal/presigned-url/service/internal/presigned-url:force \
            github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding:github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding/service/internal/accept-encoding:force \
            go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp:go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/instrumentation/net/http/otelhttp:force \
