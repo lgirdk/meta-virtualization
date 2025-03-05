@@ -48,7 +48,7 @@ Index: import/hack/make/.binary
  		echo -n '.exe'
  	fi
  }
-@@ -16,33 +16,12 @@
+@@ -16,31 +16,10 @@
  (
  	export GOGC=${DOCKER_BUILD_GOGC:-1000}
  
@@ -73,17 +73,15 @@ Index: import/hack/make/.binary
 -		fi
 -	fi
 -
- 	# -buildmode=pie is not supported on Windows arm64 and Linux mips*, ppc64be
- 	# https://github.com/golang/go/blob/go1.19.4/src/cmd/internal/sys/supported.go#L125-L132
  	if ! [ "$DOCKER_STATIC" = "1" ]; then
  		# -buildmode=pie not supported when -race is enabled
  		if [[ " $BUILDFLAGS " != *" -race "* ]]; then
 -			case "$(go env GOOS)/$(go env GOARCH)" in
 +			case "$(${GO} env GOOS)/$(${GO} env GOARCH)" in
- 				windows/arm64 | linux/mips* | linux/ppc64) ;;
- 				*)
- 					BUILDFLAGS+=("-buildmode=pie")
-@@ -66,11 +45,11 @@
+ 				linux/mips* | linux/ppc64)
+ 					# -buildmode=pie is not supported on Linux mips*, ppc64be
+ 					# https://github.com/golang/go/blob/go1.23.0/src/internal/platform/supported.go#L189-L197
+@@ -67,11 +46,11 @@
  	# only necessary for non-sandboxed invocation where TARGETPLATFORM is empty
  	PLATFORM_NAME=$TARGETPLATFORM
  	if [ -z "$PLATFORM_NAME" ]; then
@@ -100,7 +98,7 @@ Index: import/hack/make/.binary
  		fi
  	fi
  
-@@ -82,7 +61,7 @@
+@@ -95,7 +74,7 @@
  	if [ -n "$DOCKER_DEBUG" ]; then
  		set -x
  	fi
