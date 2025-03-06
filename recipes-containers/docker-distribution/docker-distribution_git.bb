@@ -9,6 +9,7 @@ SRC_URI = "git://github.com/docker/distribution.git;branch=release/2.8;name=dist
            file://0001-build-use-to-use-cross-go-compiler.patch \
            file://0001-Fix-runaway-allocation-on-v2-_catalog.patch \
            file://0001-panicwrap-Use-dup3-on-riscv64-linux.patch \
+           file://0001-Fix-registry-token-authentication-bug.patch \
           "
 
 PACKAGES =+ "docker-registry"

@@ -1,0 +1,49 @@
+From ff9eed251cfd7dd279ea231a289cc784fd7f829f Mon Sep 17 00:00:00 2001
+From: Milos Gajdos <milosthegajdos@gmail.com>
+Date: Sat, 1 Feb 2025 15:30:18 -0800
+Subject: [PATCH] Fix registry token authentication bug
+
+When a JWT contains a JWK header without a certificate chain,
+the original code only checked if the KeyID (kid) matches one of the trusted keys,
+but doesn't verify that the actual key material matches.
+
+As a result, if an attacker guesses the kid, they can inject an
+untrusted key which would then be used to grant access to protected
+data.
+
+This fixes the issue such as only the trusted key is verified.
+
+Signed-off-by: Milos Gajdos <milosthegajdos@gmail.com>
+
+CVE: CVE-2025-24976
+
+Upstream-Status: Backport [https://github.com/distribution/distribution/commit/f4a500caf68169dccb0b54cb90523e68ee1ac2be]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ registry/auth/token/token.go | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/registry/auth/token/token.go b/registry/auth/token/token.go
+index f803415f..fbcf5bfa 100644
+--- a/registry/auth/token/token.go
++++ b/registry/auth/token/token.go
+@@ -290,12 +290,13 @@ func parseAndVerifyRawJWK(rawJWK *json.RawMessage, verifyOpts VerifyOptions) (pu
+ 	x5cVal, ok := pubKey.GetExtendedField("x5c").([]interface{})
+ 	if !ok {
+ 		// The JWK should be one of the trusted root keys.
+-		if _, trusted := verifyOpts.TrustedKeys[pubKey.KeyID()]; !trusted {
++		trustedKey, trusted := verifyOpts.TrustedKeys[pubKey.KeyID()]
++		if !trusted {
+ 			return nil, errors.New("untrusted JWK with no certificate chain")
+ 		}
+ 
+ 		// The JWK is one of the trusted keys.
+-		return
++		return trustedKey, nil
+ 	}
+ 
+ 	// Ensure each item in the chain is of the correct type.
+-- 
+2.25.1
+
