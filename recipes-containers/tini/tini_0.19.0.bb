@@ -9,6 +9,7 @@ SRC_URI = " \
   git://github.com/krallin/tini.git;branch=master;protocol=https \
   file://0001-Do-not-strip-the-output-binary-allow-yocto-to-do-thi.patch \
   file://0001-tini.c-a-function-declaration-without-a-prototype-is.patch \
+  file://0001-Support-POSIX-basename-from-musl-libc.patch \
   "
 
 LICENSE = "MIT"
