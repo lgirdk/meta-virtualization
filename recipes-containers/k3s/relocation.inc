@@ -1,26 +1,24 @@
 export sites="k8s.io/utils:k8s.io/utils:force \
+           cel.dev/expr:cel.dev/expr:force \
            k8s.io/gengo:k8s.io/gengo:force \
            go.uber.org/fx:go.uber.org/fx:force \
-           dario.cat/mergo:dario.cat/mergo:force \
-           go.starlark.net:go.starlark.net:force \
-           go.uber.org/dig:go.uber.org/dig:force \
            go.uber.org/zap:go.uber.org/zap:force \
+           dario.cat/mergo:dario.cat/mergo:force \
+           go.uber.org/dig:go.uber.org/dig:force \
            gopkg.in/inf.v0:gopkg.in/inf.v0:force \
            gopkg.in/ini.v1:gopkg.in/ini.v1:force \
+           go.uber.org/mock:go.uber.org/mock:force \
+           golang.org/x/mod:golang.org/x/mod:force \
            golang.org/x/net:golang.org/x/net:force \
            golang.org/x/sys:golang.org/x/sys:force \
            gopkg.in/yaml.v2:gopkg.in/yaml.v2:force \
-           inet.af/tcpproxy:inet.af/tcpproxy:force \
            sigs.k8s.io/yaml:sigs.k8s.io/yaml:force \
            go.etcd.io/bbolt:go.etcd.io/bbolt:force \
            go.opencensus.io:go.opencensus.io:force \
-           go.uber.org/mock:go.uber.org/mock:force \
            golang.org/x/exp:golang.org/x/exp:force \
-           golang.org/x/mod:golang.org/x/mod:force \
            gopkg.in/yaml.v3:gopkg.in/yaml.v3:force \
            sigs.k8s.io/json:sigs.k8s.io/json:force \
            k8s.io/gengo/v2:k8s.io/gengo/v2/v2:force \
-           github.com/lib/pq:github.com/lib/pq:force \
            golang.org/x/sync:golang.org/x/sync:force \
            k8s.io/cri-client:k8s.io/cri-client:force \
            github.com/rs/xid:github.com/rs/xid:force \
@@ -43,7 +41,6 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/urfave/cli:github.com/urfave/cli:force \
            github.com/docker/cli:github.com/docker/cli:force \
            sigs.k8s.io/knftables:sigs.k8s.io/knftables:force \
-           github.com/golang/mock:github.com/golang/mock:force \
            github.com/google/uuid:github.com/google/uuid:force \
            github.com/gorilla/mux:github.com/gorilla/mux:force \
            github.com/k3s-io/kine:github.com/k3s-io/kine:force \
@@ -67,6 +64,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/go-test/deep:github.com/go-test/deep:force \
            github.com/otiai10/copy:github.com/otiai10/copy:force \
            github.com/x448/float16:github.com/x448/float16:force \
+           filippo.io/edwards25519:filippo.io/edwards25519:force \
            github.com/Rican7/retry:github.com/Rican7/retry:force \
            github.com/beorn7/perks:github.com/beorn7/perks:force \
            github.com/blang/semver:github.com/blang/semver:force \
@@ -90,7 +88,6 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/google/cel-go:github.com/google/cel-go:force \
            github.com/google/go-cmp:github.com/google/go-cmp:force \
            github.com/google/gofuzz:github.com/google/gofuzz:force \
-           github.com/imdario/mergo:github.com/imdario/mergo:force \
            github.com/koron/go-ssdp:github.com/koron/go-ssdp:force \
            github.com/libp2p/go-nat:github.com/libp2p/go-nat:force \
            github.com/mikioh/tcpopt:github.com/mikioh/tcpopt:force \
@@ -120,7 +117,8 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/xrash/smetrics:github.com/xrash/smetrics:force \
            github.com/blang/semver/v4:github.com/blang/semver/v4:force \
            github.com/containerd/aufs:github.com/containerd/aufs:force \
-           github.com/google/cadvisor:github.com/google/cadvisor:force \
+           github.com/google/cadvisor:github.com/k3s-io/cadvisor:force \
+           github.com/inetaf/tcpproxy:github.com/inetaf/tcpproxy:force \
            github.com/opencontainers/runc:github.com/k3s-io/runc:force \
            github.com/rancher/wharfie:github.com/rancher/wharfie:force \
            github.com/sirupsen/logrus:github.com/sirupsen/logrus:force \
@@ -152,9 +150,9 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/moby/sys/user:github.com/moby/sys/user/user:force \
            github.com/json-iterator/go:github.com/json-iterator/go:force \
            github.com/libp2p/go-libp2p:github.com/libp2p/go-libp2p:force \
-           github.com/mattn/go-sqlite3:github.com/mattn/go-sqlite3:force \
            github.com/stretchr/testify:github.com/stretchr/testify:force \
            github.com/buger/jsonparser:github.com/buger/jsonparser:force \
+           github.com/Microsoft/hnslib:github.com/Microsoft/hnslib:force \
            github.com/containerd/ttrpc:github.com/containerd/ttrpc:force \
            github.com/coreos/go-semver:github.com/coreos/go-semver:force \
            github.com/docker/go-events:github.com/docker/go-events:force \
@@ -164,6 +162,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/josharian/intern:github.com/josharian/intern:force \
            github.com/josharian/native:github.com/josharian/native:force \
            github.com/lithammer/dedent:github.com/lithammer/dedent:force \
+           github.com/mattn/go-sqlite3:github.com/mattn/go-sqlite3:force \
            github.com/mdlayher/netlink:github.com/mdlayher/netlink:force \
            github.com/mistifyio/go-zfs:github.com/mistifyio/go-zfs:force \
            github.com/syndtr/goleveldb:github.com/syndtr/goleveldb:force \
@@ -195,7 +194,6 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/liggitt/tabwriter:github.com/liggitt/tabwriter:force \
            github.com/minio/highwayhash:github.com/minio/highwayhash:force \
            github.com/minio/sha256-simd:github.com/minio/sha256-simd:force \
-           github.com/mrunalp/fileutils:github.com/mrunalp/fileutils:force \
            github.com/munnerz/goautoneg:github.com/munnerz/goautoneg:force \
            github.com/pelletier/go-toml:github.com/pelletier/go-toml:force \
            github.com/prometheus/procfs:github.com/prometheus/procfs:force \
@@ -237,7 +235,6 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/Mirantis/cri-dockerd:github.com/k3s-io/cri-dockerd:force \
            github.com/containerd/containerd:github.com/k3s-io/containerd:force \
            github.com/erikdubbelboer/gspt:github.com/erikdubbelboer/gspt:force \
-           github.com/go-sql-driver/mysql:github.com/go-sql-driver/mysql:force \
            github.com/rancher/permissions:github.com/rancher/permissions:force \
            github.com/rancher/wrangler/v3:github.com/rancher/wrangler/v3:force \
            github.com/vishvananda/netlink:github.com/vishvananda/netlink:force \
@@ -252,6 +249,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/containers/ocicrypt:github.com/containers/ocicrypt:force \
            github.com/docker/distribution:github.com/docker/distribution:force \
            github.com/emicklei/go-restful:github.com/emicklei/go-restful:force \
+           github.com/go-sql-driver/mysql:github.com/go-sql-driver/mysql:force \
            github.com/gregjones/httpcache:github.com/gregjones/httpcache:force \
            github.com/jackc/pgservicefile:github.com/jackc/pgservicefile:force \
            github.com/jonboulle/clockwork:github.com/jonboulle/clockwork:force \
@@ -320,7 +318,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/russross/blackfriday/v2:github.com/russross/blackfriday/v2:force \
            go.opentelemetry.io/otel/metric:go.opentelemetry.io/otel/metric/metric:force \
            github.com/prometheus/client_golang:github.com/prometheus/client_golang:force \
-           github.com/daviddengcn/go-colortext:github.com/daviddengcn/go-colortext:force \
+           github.com/containerd/errdefs/pkg:github.com/containerd/errdefs/pkg/pkg:force \
            github.com/go-openapi/jsonreference:github.com/go-openapi/jsonreference:force \
            github.com/libp2p/go-libp2p-kad-dht:github.com/libp2p/go-libp2p-kad-dht:force \
            github.com/libp2p/go-libp2p-kbucket:github.com/libp2p/go-libp2p-kbucket:force \
@@ -334,7 +332,6 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/multiformats/go-multibase:github.com/multiformats/go-multibase:force \
            github.com/multiformats/go-multihash:github.com/multiformats/go-multihash:force \
            github.com/opencontainers/image-spec:github.com/opencontainers/image-spec:force \
-           github.com/seccomp/libseccomp-golang:github.com/seccomp/libseccomp-golang:force \
            github.com/stefanberger/go-pkcs11uri:github.com/stefanberger/go-pkcs11uri:force \
            github.com/whyrusleeping/go-keyspace:github.com/whyrusleeping/go-keyspace:force \
            sigs.k8s.io/structured-merge-diff/v4:sigs.k8s.io/structured-merge-diff/v4:force \
@@ -345,6 +342,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/libopenstorage/openstorage:github.com/libopenstorage/openstorage:force \
            github.com/multiformats/go-multicodec:github.com/multiformats/go-multicodec:force \
            github.com/opentracing/opentracing-go:github.com/opentracing/opentracing-go:force \
+           go.etcd.io/etcd/client/pkg/v3:github.com/k3s-io/etcd/client/pkg/v3/client/pkg:force \
            github.com/AdamKorcz/go-118-fuzz-build:github.com/AdamKorcz/go-118-fuzz-build:force \
            github.com/bronze1man/goStrongswanVici:github.com/bronze1man/goStrongswanVici:force \
            github.com/containerd/containerd/api:github.com/containerd/containerd/api/api:force \
@@ -354,12 +352,10 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            github.com/monochromegane/go-gitignore:github.com/monochromegane/go-gitignore:force \
            github.com/multiformats/go-multistream:github.com/multiformats/go-multistream:force \
            github.com/opencontainers/runtime-spec:github.com/opencontainers/runtime-spec:force \
-           go.etcd.io/etcd/client/pkg/v3:github.com/k3s-io/etcd/client/pkg/v3/client/pkg:force \
            github.com/opencontainers/runtime-tools:github.com/opencontainers/runtime-tools:force \
            sigs.k8s.io/kustomize/kustomize/v5:sigs.k8s.io/kustomize/kustomize/v5/kustomize:force \
            tags.cncf.io/container-device-interface:tags.cncf.io/container-device-interface:force \
            github.com/containerd/stargz-snapshotter:github.com/containerd/stargz-snapshotter:force \
-           github.com/checkpoint-restore/go-criu/v5:github.com/checkpoint-restore/go-criu/v5:force \
            github.com/hashicorp/golang-lru/arc/v2:github.com/hashicorp/golang-lru/arc/v2/arc:force \
            github.com/multiformats/go-multiaddr-dns:github.com/multiformats/go-multiaddr-dns:force \
            github.com/multiformats/go-multiaddr-fmt:github.com/multiformats/go-multiaddr-fmt:force \
@@ -386,6 +382,7 @@ export sites="k8s.io/utils:k8s.io/utils:force \
            k8s.io/kube-proxy:github.com/k3s-io/kubernetes/staging/src/k8s.io/kube-proxy/staging/src/k8s.io/kube-proxy:force \
            tags.cncf.io/container-device-interface/specs-go:tags.cncf.io/container-device-interface/specs-go/specs-go:force \
            k8s.io/cli-runtime:github.com/k3s-io/kubernetes/staging/src/k8s.io/cli-runtime/staging/src/k8s.io/cli-runtime:force \
+           k8s.io/externaljwt:github.com/k3s-io/kubernetes/staging/src/k8s.io/externaljwt/staging/src/k8s.io/externaljwt:force \
            k8s.io/mount-utils:github.com/k3s-io/kubernetes/staging/src/k8s.io/mount-utils/staging/src/k8s.io/mount-utils:force \
            k8s.io/apimachinery:github.com/k3s-io/kubernetes/staging/src/k8s.io/apimachinery/staging/src/k8s.io/apimachinery:force \
            k8s.io/endpointslice:github.com/k3s-io/kubernetes/staging/src/k8s.io/endpointslice/staging/src/k8s.io/endpointslice:force \
