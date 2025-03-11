@@ -117,6 +117,16 @@ do_install_ptest() {
     install -d ${D}${PTEST_PATH}/bin
     cp -rf ${S}/src/import/test ${D}${PTEST_PATH}
     cp -rf ${S}/src/import/bin ${D}${PTEST_PATH}
+    # CRI-O testing changed the default container runtime from runc to crun in version 1.31+.
+    # To maintain compatibility with older tests expecting runc, and to allow for other custom runtimes,
+    # this section explicitly sets CONTAINER_DEFAULT_RUNTIME in the run-ptest script.
+    # The value is determined by the VIRTUAL-RUNTIME_container_runtime variable.
+    if [ "${VIRTUAL-RUNTIME_container_runtime}" = "virtual-runc" ]; then
+        sed -i '/^.\/test\/test_runner/iexport CONTAINER_DEFAULT_RUNTIME=runc' ${D}${PTEST_PATH}/run-ptest
+    else
+        sed -i '/^.\/test\/test_runner/iexport CONTAINER_DEFAULT_RUNTIME=${VIRTUAL-RUNTIME_container_runtime}' ${D}${PTEST_PATH}/run-ptest
+    fi
+
 }
 
 FILES:${PN}-config = "${sysconfdir}/crio/config/*"
