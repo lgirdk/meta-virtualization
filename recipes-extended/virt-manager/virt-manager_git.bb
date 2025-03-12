@@ -2,7 +2,7 @@ DESCRIPTION = "virt-manager is a graphical tool for managing virtual machines vi
 HOMEPAGE = "https://virt-manager.org/"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-DEPENDS += "python3-docutils-native"
+DEPENDS += "python3-docutils-native python3-pylint"
 SRCREV = "da2f65f9262fc18e2b05f527cf8886b1c6b9cde1"
 
 SRC_URI = " \
@@ -15,21 +15,17 @@ PV = "v5.0.0+git"
 S = "${WORKDIR}/git"
 
 PACKAGECONFIG ??= "gui"
-PACKAGECONFIG[gui] = ",--no-update-icon-cache --no-compile-schemas,python3-pygobject"
+PACKAGECONFIG[gui] = ",-Dupdate-icon-cache=false -Dcompile-schemas=false,python3-pygobject"
 
 inherit ${@bb.utils.contains('PACKAGECONFIG', 'gui', 'gtk-icon-cache', '', d)}
 inherit bash-completion gettext pkgconfig meson
 
-EXTRA_OEMESON += "-Dupdate-icon-cache=false \
-                   -Dtests=disabled \
-		 "
+EXTRA_OEMESON += "-Dtests=disabled"
 
 PACKAGES += " \
   ${PN}-common \
   ${PN}-install \
 "
-
-DEPENDS = "python3-pylint"
 
 RDEPENDS:${PN}-common += " \
   libvirt-python \
