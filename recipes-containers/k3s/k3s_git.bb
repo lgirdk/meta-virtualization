@@ -16,7 +16,7 @@ SRC_URI = "git://github.com/rancher/k3s.git;branch=release-1.32;name=k3s;protoco
           "
 
 SRC_URI[k3s.md5sum] = "363d3a08dc0b72ba6e6577964f6e94a5"
-SRCREV_k3s = "cca8facaa33a3ec7897349a8740fd96029590c31"
+SRCREV_k3s = "39f4cbb3367544477e9e678626c0add76e731624"
 
 SRCREV_FORMAT = "k3s_fuse"
 PV = "v1.32.0-rc2+k3s1+git${SRCREV_k3s}"
