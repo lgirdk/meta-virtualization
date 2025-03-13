@@ -13,19 +13,16 @@ Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
  src/import/Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/import/Makefile b/src/import/Makefile
-index ae4e18c..eb22f9f 100644
---- a/src/import/Makefile
-+++ b/src/import/Makefile
-@@ -45,7 +45,7 @@ endif
+Index: git/src/import/Makefile
+===================================================================
+--- git.orig/src/import/Makefile
++++ git/src/import/Makefile
+@@ -54,7 +54,7 @@
+ 	VERBOSE_FLAG_LONG := --verbose
+ endif
  
- GO_BUILD_LDFLAGS ?= -s -w
- GO_BUILD_FLAGS ?=
 -export GO_BUILD=CGO_ENABLED=0 GOOS=$(GOOS) $(GO) -C $(MAKEFILE_DIR) build -ldflags "$(GO_BUILD_LDFLAGS) $(VERBOSE_FLAG) -X $(PACKAGE)/pkg/version.Version=$(VERSION) -X $(PACKAGE)/pkg/version.Revision=$(REVISION)"
 +export GO_BUILD=GOOS=$(GOOS) $(GO) -C $(MAKEFILE_DIR) build -ldflags "$(GO_BUILD_LDFLAGS) $(VERBOSE_FLAG) -X $(PACKAGE)/pkg/version.Version=$(VERSION) -X $(PACKAGE)/pkg/version.Revision=$(REVISION)"
  
- recursive_wildcard=$(wildcard $1$2) $(foreach e,$(wildcard $1*),$(call recursive_wildcard,$e/,$2))
- 
--- 
-2.34.1
-
+ ifndef NO_COLOR
+     NC := \033[0m

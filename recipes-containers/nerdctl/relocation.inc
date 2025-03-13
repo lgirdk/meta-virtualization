@@ -5,14 +5,13 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            gopkg.in/yaml.v3:gopkg.in/yaml.v3:force \
            go.opencensus.io:go.opencensus.io:force \
            golang.org/x/exp:golang.org/x/exp:force \
-           golang.org/x/mod:golang.org/x/mod:force \
-           sigs.k8s.io/yaml:sigs.k8s.io/yaml:force \
            golang.org/x/sync:golang.org/x/sync:force \
            golang.org/x/term:golang.org/x/term:force \
            golang.org/x/text:golang.org/x/text:force \
            golang.org/x/crypto:golang.org/x/crypto:force \
            github.com/moby/term:github.com/moby/term:force \
            github.com/docker/cli:github.com/docker/cli:force \
+           github.com/creack/pty:github.com/creack/pty:force \
            github.com/pkg/errors:github.com/pkg/errors:force \
            github.com/fatih/color:github.com/fatih/color:force \
            github.com/ipfs/go-cid:github.com/ipfs/go-cid:force \
@@ -75,7 +74,6 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/containers/ocicrypt:github.com/containers/ocicrypt:force \
            github.com/mattn/go-shellwords:github.com/mattn/go-shellwords:force \
            github.com/sasha-s/go-deadlock:github.com/sasha-s/go-deadlock:force \
-           github.com/syndtr/gocapability:github.com/syndtr/gocapability:force \
            github.com/containerd/platforms:github.com/containerd/platforms:force \
            github.com/pelletier/go-toml/v2:github.com/pelletier/go-toml/v2:force \
            github.com/mitchellh/go-homedir:github.com/mitchellh/go-homedir:force \
@@ -121,8 +119,6 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/opencontainers/runtime-spec:github.com/opencontainers/runtime-spec:force \
            github.com/AdamKorcz/go-118-fuzz-build:github.com/AdamKorcz/go-118-fuzz-build:force \
            github.com/containerd/nydus-snapshotter:github.com/containerd/nydus-snapshotter:force \
-           github.com/opencontainers/runtime-tools:github.com/opencontainers/runtime-tools:force \
-           tags.cncf.io/container-device-interface:tags.cncf.io/container-device-interface:force \
            github.com/containerd/stargz-snapshotter:github.com/containerd/stargz-snapshotter:force \
            github.com/rootless-containers/bypass4netns:github.com/rootless-containers/bypass4netns:force \
            github.com/docker/docker-credential-helpers:github.com/docker/docker-credential-helpers:force \
@@ -131,7 +127,6 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            google.golang.org/genproto/googleapis/rpc:google.golang.org/genproto/googleapis/rpc/googleapis/rpc:force \
            github.com/containerd/accelerated-container-image:github.com/containerd/accelerated-container-image:force \
            github.com/containerd/stargz-snapshotter/estargz:github.com/containerd/stargz-snapshotter/estargz/estargz:force \
-           tags.cncf.io/container-device-interface/specs-go:tags.cncf.io/container-device-interface/specs-go/specs-go:force \
            go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp:go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/instrumentation/net/http/otelhttp:force"
 
 do_compile:prepend() {

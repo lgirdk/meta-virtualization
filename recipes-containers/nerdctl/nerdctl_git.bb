@@ -11,7 +11,7 @@ DEPENDS = " \
 
 # Specify the first two important SRCREVs as the format
 SRCREV_FORMAT="nerdcli_cgroups"
-SRCREV_nerdcli = "1259a55e6118e4dc1fb61021131aad61f6fca853"
+SRCREV_nerdcli = "497c7cf74d09bf1ddf2678382360ca61e6faebac"
 
 SRC_URI = "git://github.com/containerd/nerdctl.git;name=nerdcli;branch=main;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"
 
@@ -30,7 +30,7 @@ GO_IMPORT = "import"
 
 S = "${WORKDIR}/git"
 
-PV = "v2.0.2"
+PV = "v2.0.3"
 
 NERDCTL_PKG = "github.com/containerd/nerdctl"
 
