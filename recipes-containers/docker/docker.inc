@@ -125,7 +125,7 @@ do_install() {
 
 
 SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
-SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.socket','',d)}"
+SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES','systemd','docker.service docker.socket','',d)}"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 # inverted logic warning. We ony want the sysvinit init to be installed if systemd
