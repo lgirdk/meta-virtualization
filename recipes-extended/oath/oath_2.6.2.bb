@@ -14,6 +14,10 @@ SRC_URI[sha256sum] = "b03446fa4b549af5ebe4d35d7aba51163442d255660558cd861ebce536
 
 inherit autotools pkgconfig
 
+# http://errors.yoctoproject.org/Errors/Details/848019/
+# uses AM_PATH_XML2 from oath-toolkit-2.6.2/m4/libxml2.m4:AC_DEFUN([AM_PATH_XML2],[...
+EXTRA_AUTORECONF += "-I ${S}/m4"
+
 # Specify any options you want to pass to the configure script using EXTRA_OECONF:
 EXTRA_OECONF = ""
 DEPENDS = "gtk-doc-native"
