@@ -20,8 +20,8 @@ SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=h
            file://0001-criu-Skip-documentation-install.patch \
            file://0002-criu-Change-libraries-install-directory.patch \
            file://0003-lib-Makefile-overwrite-install-lib-to-allow-multiarc.patch \
+           file://0004-criu-Adjust-to-glibc-__rseq_size-semantic-change.patch \
           "
-
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
 
 DEPENDS += "libnl libcap protobuf-c-native protobuf-c util-linux-native libbsd libnet"
