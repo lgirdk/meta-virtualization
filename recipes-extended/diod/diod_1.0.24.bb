@@ -9,16 +9,17 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 PV = "1.0.24+git"
-SRCREV = "b4b5e8e00ed11b21d7fcf05a080dc054a8eac2d6"
+SRCREV = "54d1325fc435d14a6f5c161c88dac79b016b0061"
 SRC_URI = "git://github.com/chaos/diod.git;protocol=https;branch=master \
            file://diod \
            file://diod.conf \
            file://0001-build-Find-lua-with-pkg-config.patch \
-           file://0002-Handle-various-time_t-sizes-in-printf-and-scanf.patch \
            "
 DEPENDS = "libcap ncurses tcp-wrappers lua"
 
 EXTRA_OEMAKE += "systemddir=${systemd_unitdir}/system"
+EXTRA_OECONF = "--disable-auth \
+                --with-systemdsystemunitdir=${systemd_unitdir}/system"
 
 S = "${WORKDIR}/git"
 
