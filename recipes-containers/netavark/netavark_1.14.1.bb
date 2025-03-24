@@ -4,11 +4,11 @@ HOMEPAGE = "https://github.com/containers/netavark"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-SRCREV = "443d164069eac3be39af0462f8ffffb0cf21ed9c"
+SRCREV = "0d623ce702eeef7584cb9841de18e1e33e325207"
 
 # It is possible to fetch the source using the crate fetcher instead:
 #SRC_URI = "crate://crates.io/${BPN}/${PV}"
-SRC_URI = "git://github.com/containers/netavark.git;protocol=https;branch=v1.13 \
+SRC_URI = "git://github.com/containers/netavark.git;protocol=https;branch=v1.14 \
            file://tests.patch \
            file://0001-test-skip-firewalld-and-sit-module-related-cases.patch \
            file://run-ptest"
