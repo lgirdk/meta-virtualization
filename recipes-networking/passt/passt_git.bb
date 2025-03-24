@@ -15,8 +15,8 @@ EXTRA_OEMAKE += "\
 
 SRC_URI = "git://passt.top/passt;branch=master"
 
-PV = "2024_12_11+git"
-SRCREV = "1b95bd6fa1148f3609bebf7b2bcd6d47376e61a6"
+PV = "2025_03_20+git"
+SRCREV = "cf4d3f05c9263d1b0a88dbbcf9e48d34cac6708e"
 
 S = "${WORKDIR}/git"
 
