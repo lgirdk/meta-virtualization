@@ -30,7 +30,7 @@ import textwrap
 import re
 
 # This switch is used to make this script error out ASAP, mainly for debugging purpose
-ERROR_OUT_ON_FETCH_AND_CHECKOUT_FAILURE = True
+ERROR_OUT_ON_FETCH_AND_CHECKOUT_FAILURE = False
 
 logger = logging.getLogger('oe-go-mod-autogen')
 loggerhandler = logging.StreamHandler()
@@ -257,6 +257,7 @@ class GoModTool(object):
             self.modules_repoinfo[module_name] = (repo_url, repo_dest_dir, requiredrev)
         else:
             logger.warning("Failed to get requiredrev, repo_url = %s, rev = %s, module_name = %s" % (repo_url, rev, module_name))
+            return None
 
     def parse_go_mod(self, go_mod_path):
         """
@@ -303,12 +304,19 @@ class GoModTool(object):
         # with the version 'v0.5.5-0.20211029085301-ec551be6f75c'.
         # So the destdir is vendor/github.com/hashicorp/golang-lru while the contents are from github.com/ktock/golang-lru
         for line in self.replace_lines:
-            orig_module, actual = line.split('=>')
-            actual_module, actual_version = actual.split()
-            orig_module = orig_module.strip()
-            actual_module = actual_module.strip()
-            actual_version = actual_version.strip()
-            self.modules_replace[orig_module] = (actual_module, actual_version)
+            try:
+                orig_module, actual = line.split('=>')
+                print( f"replace line: orig: {orig_module} actual_version: {actual}")
+                actual_module, actual_version = actual.split()
+                print( f"replace line: actual: {actual_module} actual_version: {actual_version}")
+                orig_module = orig_module.strip()
+                actual_module = actual_module.strip()
+                actual_version = actual_version.strip()
+                self.modules_replace[orig_module] = (actual_module, actual_version)
+            except Exception as e:
+                print( f"exception {e} caught while parsing, ignoring line: {line}")
+                # sys.exit(1)
+                continue
         #
         # Typical require lines are as below:
         #   github.com/Masterminds/semver/v3 v3.1.1
