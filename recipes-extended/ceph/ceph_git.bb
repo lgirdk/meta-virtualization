@@ -18,8 +18,8 @@ SRC_URI = "gitsm://github.com/ceph/ceph.git;protocol=https;branch=main \
            file://0001-rgw-setup.py-allow-incompatible-pointer-types.patch \
 	   "
 
-SRCREV= "71d130f79904616c216f3574723d30c523b24410"
-PV = "19.3.0+git"
+SRCREV= "a53e858fd7cc6fd8c04f37d503ce9ed7080f2da6"
+PV = "20.0.0+git"
 
 S = "${WORKDIR}/git"
 
