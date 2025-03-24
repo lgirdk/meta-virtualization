@@ -10,7 +10,7 @@ is simple to implement. \
 "
 
 SRCREV_cni = "4c9ae43c0eaa85ec1ab27781e9b258f13e7fd0ca"
-SRCREV_plugins = "abfac4a938866b6184441d02ad49544d10931fe1"
+SRCREV_plugins = "35831f3d23956658aaa3109cbae0ce24d28137e6"
 SRCREV_flannel_plugin = "cc21427ce5b2c606ba5ececa0a488452e80d73f8"
 SRCREV_FORMAT = "cni_plugins"
 SRC_URI = "\
