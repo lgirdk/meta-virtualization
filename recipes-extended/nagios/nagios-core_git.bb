@@ -10,9 +10,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=4c4203caac58013115c9ca4b85f296ae"
 
 SRCNAME = "nagios"
 
-SRC_URI = "http://prdownloads.sourceforge.net/sourceforge/${SRCNAME}/${SRCNAME}-${PV}.tar.gz \
+SRCREV = "2706fa7a451afe48bd4dc240d72d23fdcec0d9ef"
+
+SRC_URI = "git://github.com/NagiosEnterprises/nagioscore.git;protocol=https;branch=master \
            file://eventhandlers_nagioscmd_path.patch \
-           file://0001-fix-autoheader-error.patch \
            file://0001-fix-compile-error-of-missing-headers.patch \
            file://0001-fix-segment-fault.patch \
            file://volatiles \
@@ -20,14 +21,13 @@ SRC_URI = "http://prdownloads.sourceforge.net/sourceforge/${SRCNAME}/${SRCNAME}-
            file://nagios-core-systemd-volatile.conf \
            "
 
-SRC_URI[md5sum] = "ba849e9487e13859381eb117127bfee2"
-SRC_URI[sha256sum] = "ab0d5a52caf01e6f4dcd84252c4eb5df5a24f90bb7f951f03875eef54f5ab0f4"
+PV = "4.5.9+git"
 
-S = "${WORKDIR}/${SRCNAME}-${PV}"
+S = "${WORKDIR}/git"
 
-inherit autotools-brokensep update-rc.d systemd update-alternatives
+inherit autotools-brokensep update-rc.d systemd update-alternatives pkgconfig
 
-DEPENDS = "gd unzip-native"
+DEPENDS = "gd unzip-native openssl"
 
 RDEPENDS:${PN} += "\
     gd \
@@ -41,6 +41,7 @@ RDEPENDS:${PN} += "\
 SKIP_RECIPE[nagios-core] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on apache2 from meta-webserver which is not included', d)}"
 
 acpaths = "-I ${S}/autoconf-macros"
+EXTRA_AUTORECONF += "-I ${S}/m4 -I ${S}/autoconf-macros"
 
 # Set default password for the hardcoded Nagios admin user "nagiosadmin".
 # If this variable is empty then will prompt user for password.
@@ -52,7 +53,9 @@ EXTRA_OECONF += "--sbindir=${NAGIOS_CGIBIN_DIR} \
                  --with-command-group=nagcmd \
                  --with-httpd-conf=${sysconfdir}/apache2/conf.d \
                  --with-lockfile=${localstatedir}/run/nagios/nagios.pid \
-                 --with-init-dir=${sysconfdir}/init.d \
+                 --with-initdir=${sysconfdir}/init.d \
+                 --with-init-type=${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', 'sysv', d)} \
+                 --with-inetd-type=${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', 'inetd', d)} \
 "
 
 # Prevent nagios from stripping binaries, bitbake will take care of that
@@ -108,7 +111,10 @@ do_install() {
         install -d ${D}${systemd_unitdir}/system
         install -m 644 ${UNPACKDIR}/nagios-core.service ${D}${systemd_unitdir}/system/
         # use our own service file
-        rm -f ${D}${systemd_unitdir}/system/nagios.service
+        nagios_default_service=$(find ${D} -name 'nagios.service')
+        if [ -n "$nagios_default_service" ]; then
+            rm -f $nagios_default_service
+        fi
         install -d ${D}${sysconfdir}/tmpfiles.d
         install -m 755 ${UNPACKDIR}/nagios-core-systemd-volatile.conf ${D}${sysconfdir}/tmpfiles.d/nagios-core-volatile.conf
     else
