@@ -12,7 +12,7 @@ SRC_URI = "git://github.com/libvmi/libvmi.git;branch=master;protocol=https \
            file://0001-Build-vbd-only-when-xen-is-enabled.patch \
 "
 
-SRCREV = "df8547ff075d4352db2eb802775b7fa7a92756db"
+SRCREV = "f02aeb751fd27bd4ae753dcd5904a4ef3232821e"
 
 S = "${WORKDIR}/git"
 
