@@ -1,0 +1,94 @@
+From 123e558a4bfa8964f9e55d0c0ecc080e6c3a38f3 Mon Sep 17 00:00:00 2001
+From: Florian Weimer <fweimer@redhat.com>
+Date: Wed, 10 Jul 2024 18:34:50 +0200
+Subject: [PATCH] criu: Adjust to glibc __rseq_size semantic change
+
+In commit 2e456ccf0c34a056e3ccafac4a0c7effef14d918 ("Linux: Make
+__rseq_size useful for feature detection (bug 31965)") glibc 2.40
+changed the meaning of __rseq_size slightly: it is now the size
+of the active/feature area (20 bytes initially), and not the size
+of the entire initially defined struct (32 bytes including padding).
+The reason for the change is that the size including padding does not
+allow detection of newly added features while previously unused
+padding is consumed.
+
+The prep_libc_rseq_info change in criu/cr-restore.c is not necessary
+on kernels which have full ptrace support for obtaining rseq
+information because the code is not used.  On older kernels, it is
+a correctness fix because with size 20 (the new value), rseq
+registeration would fail.
+
+The two other changes are required to make rseq unregistration work
+in tests.
+
+Upstream-Status: Backport [https://github.com/checkpoint-restore/criu/commit/
+089345f77a34d1bc7ef146d650636afcd3cdda21]
+
+Signed-off-by: Florian Weimer <fweimer@redhat.com>
+Signed-off-by: Guocai He <guocai.he.cn@windriver.com>
+---
+ criu/cr-restore.c             | 8 ++++++++
+ test/zdtm/static/rseq00.c     | 5 ++++-
+ test/zdtm/transition/rseq01.c | 5 ++++-
+ 3 files changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/criu/cr-restore.c b/criu/cr-restore.c
+index 270049721..80eb13743 100644
+--- a/criu/cr-restore.c
++++ b/criu/cr-restore.c
+@@ -3103,7 +3103,15 @@ static void prep_libc_rseq_info(struct rst_rseq_param *rseq)
+ 	if (!kdat.has_ptrace_get_rseq_conf) {
+ #if defined(__GLIBC__) && defined(RSEQ_SIG)
+ 		rseq->rseq_abi_pointer = encode_pointer(__criu_thread_pointer() + __rseq_offset);
++		/*
++		 * Current glibc reports the feature/active size in
++		 * __rseq_size, not the size passed to the kernel.
++		 * This could be 20, but older kernels expect 32 for
++		 * the size argument even if only 20 bytes are used.
++		 */
+ 		rseq->rseq_abi_size = __rseq_size;
++		if (rseq->rseq_abi_size < 32)
++			rseq->rseq_abi_size = 32;
+ 		rseq->signature = RSEQ_SIG;
+ #else
+ 		rseq->rseq_abi_pointer = 0;
+diff --git a/test/zdtm/static/rseq00.c b/test/zdtm/static/rseq00.c
+index 471ad6a43..7add7801e 100644
+--- a/test/zdtm/static/rseq00.c
++++ b/test/zdtm/static/rseq00.c
+@@ -46,12 +46,15 @@ static inline void *__criu_thread_pointer(void)
+ static inline void unregister_glibc_rseq(void)
+ {
+ 	struct rseq *rseq = (struct rseq *)((char *)__criu_thread_pointer() + __rseq_offset);
++	unsigned int size = __rseq_size;
+ 
+ 	/* hack: mark glibc rseq structure as failed to register */
+ 	rseq->cpu_id = RSEQ_CPU_ID_REGISTRATION_FAILED;
+ 
+ 	/* unregister rseq */
+-	syscall(__NR_rseq, (void *)rseq, __rseq_size, 1, RSEQ_SIG);
++	if (__rseq_size < 32)
++		size = 32;
++	syscall(__NR_rseq, (void *)rseq, size, 1, RSEQ_SIG);
+ }
+ #else
+ static inline void unregister_glibc_rseq(void)
+diff --git a/test/zdtm/transition/rseq01.c b/test/zdtm/transition/rseq01.c
+index 0fbcc2dca..08a7a8e1a 100644
+--- a/test/zdtm/transition/rseq01.c
++++ b/test/zdtm/transition/rseq01.c
+@@ -33,7 +33,10 @@ static inline void *thread_pointer(void)
+ static inline void unregister_old_rseq(void)
+ {
+ 	/* unregister rseq */
+-	syscall(__NR_rseq, (void *)((char *)thread_pointer() + __rseq_offset), __rseq_size, 1, RSEQ_SIG);
++	unsigned int size = __rseq_size;
++	if (__rseq_size < 32)
++		size = 32;
++	syscall(__NR_rseq, (void *)((char *)thread_pointer() + __rseq_offset), size, 1, RSEQ_SIG);
+ }
+ #else
+ static inline void unregister_old_rseq(void)
+-- 
+2.34.1
+

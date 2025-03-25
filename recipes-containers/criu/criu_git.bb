@@ -21,7 +21,8 @@ SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=h
            file://0002-criu-Change-libraries-install-directory.patch \
            file://0003-crit-pycriu-build-and-install-wheels.patch \
            file://0004-pycriu-attr-pycriu.version.__version__.patch \
-	   file://0005-pycriu-skip-dependency-check-during-build.patch \
+           file://0005-pycriu-skip-dependency-check-during-build.patch \
+           file://0006-criu-Adjust-to-glibc-__rseq_size-semantic-change.patch \
            "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
