@@ -5,7 +5,7 @@ export sites="gotest.tools/v3:gotest.tools/v3:force \
            github.com/google/uuid:github.com/google/uuid:force \
            github.com/gorilla/mux:github.com/gorilla/mux:force \
            github.com/moby/vpnkit:github.com/moby/vpnkit:force \
-           github.com/u-root/uio:github.com/u-root/uio:force \
+	   github.com/u-root/uio:github.com/u-root/uio:force \
            github.com/songgao/water:github.com/songgao/water:force \
            github.com/urfave/cli/v2:github.com/urfave/cli/v2:force \
            github.com/google/go-cmp:github.com/google/go-cmp:force \

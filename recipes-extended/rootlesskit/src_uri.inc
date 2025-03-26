@@ -1,16 +1,16 @@
-#       gotest.tools/v3 v3.5.1
-# [1] git ls-remote https://github.com/gotestyourself/gotest.tools 81cea1abc596b025bf2573c7fdf97740512e4c6c
-SRCREV_gotest.tools-v3="81cea1abc596b025bf2573c7fdf97740512e4c6c"
+#       gotest.tools/v3 v3.5.2
+# [1] git ls-remote https://github.com/gotestyourself/gotest.tools 0b81523ff268a1f1b0baf4a5da67e42fbb86880b
+SRCREV_gotest.tools-v3="0b81523ff268a1f1b0baf4a5da67e42fbb86880b"
 SRC_URI += "git://github.com/gotestyourself/gotest.tools;name=gotest.tools-v3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/gotest.tools/v3"
 
-#       golang.org/x/sys v0.29.0
-# [1] git ls-remote https://github.com/golang/sys d4ac05dc8c4c953ec29cae3df56c0833f4010763
-SRCREV_sys="d4ac05dc8c4c953ec29cae3df56c0833f4010763"
+#       golang.org/x/sys v0.31.0
+# [1] git ls-remote https://github.com/golang/sys 74cfc93a99be6ca6f193856132e6799065b071af
+SRCREV_sys="74cfc93a99be6ca6f193856132e6799065b071af"
 SRC_URI += "git://github.com/golang/sys;name=sys;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/sys"
 
-#       golang.org/x/net v0.33.0
-# [1] git ls-remote https://go.googlesource.com/net dfc720dfe0cfc125116068c20efcdcb5e4eab464
-SRCREV_net="dfc720dfe0cfc125116068c20efcdcb5e4eab464"
+#       golang.org/x/net v0.36.0
+# [1] git ls-remote https://go.googlesource.com/net 85d1d54551b68719346cb9fec24b911da4e452a1
+SRCREV_net="85d1d54551b68719346cb9fec24b911da4e452a1"
 SRC_URI += "git://go.googlesource.com/net;name=net;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/golang.org/x/net"
 
 #       github.com/u-root/uio v0.0.0-20240224005618-d2acac8f3701
@@ -43,9 +43,9 @@ SRC_URI += "git://github.com/moby/vpnkit;name=vpnkit;protocol=https;nobranch=1;d
 SRCREV_water="2b4b6d7c09d80835e5f13f6b040d69f00a158b24"
 SRC_URI += "git://github.com/songgao/water;name=water;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/songgao/water"
 
-#       github.com/urfave/cli/v2 v2.27.5
-# [1] git ls-remote https://github.com/urfave/cli f035ffaa3749afda2cd26fb824aa940747297ef1
-SRCREV_v2="f035ffaa3749afda2cd26fb824aa940747297ef1"
+#       github.com/urfave/cli/v2 v2.27.6
+# [1] git ls-remote https://github.com/urfave/cli 9d76d15e478af5e952fffc872597c47b69ec7ee7
+SRCREV_v2="9d76d15e478af5e952fffc872597c47b69ec7ee7"
 SRC_URI += "git://github.com/urfave/cli;name=v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/urfave/cli/v2"
 
 #       github.com/google/go-cmp v0.6.0
@@ -68,9 +68,9 @@ SRC_URI += "git://github.com/xrash/smetrics;name=smetrics;protocol=https;nobranc
 SRCREV_logrus="d40e25cd45ed9c6b2b66e6b97573a0413e4c23bd"
 SRC_URI += "git://github.com/sirupsen/logrus;name=logrus;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/sirupsen/logrus"
 
-#       github.com/insomniacslk/dhcp v0.0.0-20240812123929-b105c29bd1b5
-# [1] git ls-remote https://github.com/insomniacslk/dhcp b105c29bd1b57548c9b51874f2e43bcbc261860e
-SRCREV_dhcp="b105c29bd1b57548c9b51874f2e43bcbc261860e"
+#       github.com/insomniacslk/dhcp v0.0.0-20250109001534-8abf58130905
+# [1] git ls-remote https://github.com/insomniacslk/dhcp 8abf58130905b866076c8002e77aac6cb2e26d0e
+SRCREV_dhcp="8abf58130905b866076c8002e77aac6cb2e26d0e"
 SRC_URI += "git://github.com/insomniacslk/dhcp;name=dhcp;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/insomniacslk/dhcp"
 
 #       github.com/moby/sys/mountinfo v0.7.2
@@ -93,8 +93,8 @@ SRC_URI += "git://github.com/cpuguy83/go-md2man;name=go-md2man-v2;protocol=https
 SRCREV_blackfriday-v2="4c9bf9512682b995722660a4196c0013228e2049"
 SRC_URI += "git://github.com/russross/blackfriday;name=blackfriday-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/russross/blackfriday/v2"
 
-#       github.com/containernetworking/plugins v1.5.1
-# [1] git ls-remote https://github.com/containernetworking/plugins c29dc79f96cd50452a247a4591443d2aac033429
-SRCREV_plugins="c29dc79f96cd50452a247a4591443d2aac033429"
+#       github.com/containernetworking/plugins v1.6.2
+# [1] git ls-remote https://github.com/containernetworking/plugins 7f756b411efc3d3730c707e2cc1f2baf1a66e28c
+SRCREV_plugins="7f756b411efc3d3730c707e2cc1f2baf1a66e28c"
 SRC_URI += "git://github.com/containernetworking/plugins;name=plugins;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/github.com/containernetworking/plugins"
 
