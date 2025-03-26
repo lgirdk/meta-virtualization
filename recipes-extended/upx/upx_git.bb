@@ -14,7 +14,7 @@ PV = "4.2.4+git${SRCPV}"
 #
 # with two substitions for invalid SRCREVs (hence why the gitsm fetcher
 # has issues)
-SRCREV_vendor_doctest = "d5a5b267ecb2f45cdb83d569b24fb920f90e91ca"
+SRCREV_vendor_doctest = "835aaee34666173532e98437b057f37b385076c9"
 SRCREV_vendor_lzma_sdk = "f9637f9f563d17b6ecf33ae2212dcd44866bfb25"
 SRCREV_vendor_ucl = "a60611d342b0b7d2924c495ebaa1910e4c3c3fe6"
 SRCREV_vendor_valgrind = "b054e44ea1b6d630853ed74d33e0934ef4642efc"
