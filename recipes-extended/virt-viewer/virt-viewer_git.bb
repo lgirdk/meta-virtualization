@@ -12,7 +12,7 @@ DEPENDS = " \
 
 SRC_URI = "git://gitlab.com/virt-viewer/virt-viewer.git;protocol=https;branch=master"
 
-SRCREV = "f6664259507a712e96fd7bae148dad7d3f627380"
+SRCREV = "107f60c168c405cf1782b686a65bf4af16ec8c9d"
 PV = "11.0+git"
 S = "${WORKDIR}/git"
 
