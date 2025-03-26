@@ -35,7 +35,7 @@ EXTRA_OECONF += "--with-nsca-user=${NAGIOS_USER} \
 "
 
 do_configure() {
-    cp ${WORKDIR}/init-script.in ${S}/init-script.in
+    cp ${UNPACKDIR}/init-script.in ${S}/init-script.in
     oe_runconf || die "make failed"
 }
 
@@ -55,7 +55,7 @@ do_install() {
 
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_unitdir}/system
-        install -m 644 ${WORKDIR}/nagios-nsca.service ${D}${systemd_unitdir}/system/
+        install -m 644 ${UNPACKDIR}/nagios-nsca.service ${D}${systemd_unitdir}/system/
     fi
 }
 
