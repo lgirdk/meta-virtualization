@@ -8,15 +8,13 @@ LICENSE = "GPL-3.0-only"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 
-SRC_URI = "https://www.nagios-plugins.org/download/${BPN}-${PV}.tar.gz \
-"
+SRCREV = "7c74420158c3e228b3d66d4c781a6abc7a93075a"
+SRC_URI = "git://github.com/nagios-plugins/nagios-plugins.git;protocol=https;branch=master"
 
-SRC_URI[md5sum] = "fb521d5c05897f165b0b1862c1e5cb27"
-SRC_URI[sha256sum] = "647c0ba4583d891c965fc29b77c4ccfeccc21f409fdf259cb8af52cb39c21e18"
+PV = "2.4.12+git"
+S = "${WORKDIR}/git"
 
-S = "${WORKDIR}/${BPN}-${PV}"
-
-inherit autotools gettext
+inherit autotools gettext pkgconfig autotools-brokensep
 
 SKIP_RECIPE[nagios-plugins] ?= "${@bb.utils.contains('BBFILE_COLLECTIONS', 'webserver', '', 'Depends on nagios-core which depends on apache2 from meta-webserver which is not included', d)}"
 
@@ -25,6 +23,12 @@ EXTRA_OECONF += "--with-sysroot=${STAGING_DIR_HOST} \
                  --with-nagios-group=${NAGIOS_GROUP} \
                  --without-apt-get-command \
                  --with-trusted-path=/bin:/sbin:/usr/bin:/usr/sbin \
+                 --with-sudo-command=${bindir}/sudo \
+                 --with-ssh-command=${bindir}/ssh \
+                 --with-ps-command=${bindir}/ps \
+                 --with-ps-format='%*s %s %d %d %d %*s %*s %*s %*s %*s %*s %*s %*s %n%s' \
+                 --with-ps-varlist='procstat,&procuid,&procpid,&procppid,&pos,procprog' \
+                 --with-ps-cols=6 \
                  ac_cv_path_PERL=${bindir}/perl \
 "
 
@@ -55,8 +59,11 @@ PACKAGECONFIG[snmp] = "\
 
 PACKAGECONFIG ??= "ssl gnutls"
 
-do_configure() {
-    oe_runconf || die "make failed"
+do_configure:prepend() {
+    # rename these macros to have .m4 suffix so that autoreconf could recognize them
+    for macro in `ls ${S}/autoconf-macros/ax_nagios_get_*`; do
+	mv $macro $macro.m4
+    done
 }
 
 do_install:append() {
