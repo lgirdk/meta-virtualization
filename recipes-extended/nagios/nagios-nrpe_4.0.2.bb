@@ -73,11 +73,11 @@ do_install:append() {
         -i ${D}${NAGIOS_CONF_DIR}/nrpe.cfg
 
     install -d ${D}${NAGIOS_PLUGIN_CONF_DIR}
-    install -m 664 ${WORKDIR}/check_nrpe.cfg ${D}${NAGIOS_PLUGIN_CONF_DIR}
+    install -m 664 ${UNPACKDIR}/check_nrpe.cfg ${D}${NAGIOS_PLUGIN_CONF_DIR}
 
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_unitdir}/system
-        install -m 644 ${WORKDIR}/nagios-nrpe.service ${D}${systemd_unitdir}/system/
+        install -m 644 ${UNPACKDIR}/nagios-nrpe.service ${D}${systemd_unitdir}/system/
     fi
 }
 
