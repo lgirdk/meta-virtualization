@@ -8,9 +8,9 @@ LIC_FILES_CHKSUM = "file://src/github.com/containers/buildah/LICENSE;md5=e3fc50a
 
 S = "${WORKDIR}/git"
 
-SRCREV_buildah = "e2feca77516568553dc1318019cea90ae000e0f3"
+SRCREV_buildah = "9aaa280f29910a9a0a13b83dd522508f1fa40a91"
 
-PV = "1.26.8"
+PV = "1.26.9"
 
 inherit go
 inherit goarch
