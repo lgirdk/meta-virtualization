@@ -1,4 +1,4 @@
-export sites="golang.org/x/exp:golang.org/x/exp:force \
+export sites = "golang.org/x/exp:golang.org/x/exp:force \
            golang.org/x/net:golang.org/x/net:force \
            golang.org/x/sys:golang.org/x/sys:force \
            gopkg.in/yaml.v3:gopkg.in/yaml.v3:force \

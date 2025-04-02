@@ -1,4 +1,4 @@
-export sites="k8s.io/utils:k8s.io/utils:force \
+export sites = "k8s.io/utils:k8s.io/utils:force \
            cel.dev/expr:cel.dev/expr:force \
            k8s.io/gengo:k8s.io/gengo:force \
            go.uber.org/fx:go.uber.org/fx:force \

@@ -1,4 +1,4 @@
-export sites="gotest.tools/v3:gotest.tools/v3:force \
+export sites = "gotest.tools/v3:gotest.tools/v3:force \
            go.uber.org/mock:go.uber.org/mock:force \
            golang.org/x/net:golang.org/x/net:force \
            golang.org/x/sys:golang.org/x/sys:force \

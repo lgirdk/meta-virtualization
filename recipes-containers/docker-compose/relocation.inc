@@ -1,4 +1,4 @@
-export sites="k8s.io/api:k8s.io/api:force \
+export sites = "k8s.io/api:k8s.io/api:force \
            k8s.io/utils:k8s.io/utils:force \
            k8s.io/klog/v2:k8s.io/klog/v2:force \
            gotest.tools/v3:gotest.tools/v3:force \
