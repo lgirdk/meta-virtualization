@@ -22,7 +22,7 @@ PACKAGECONFIG ?= "aardvark-dns"
 # https://github.com/containers/netavark/blob/v1.1.0/DISTRO_PACKAGE.md#dependency-on-aardvark-dns
 # The aardvark-dns will be installed by default with netavark, but
 # netavark will be functional without it.
-PACKAGECONFIG[aardvark-dns]= ",,, aardvark-dns"
+PACKAGECONFIG[aardvark-dns] = ",,, aardvark-dns"
 
 inherit cargo cargo-update-recipe-crates features_check ptest
 
