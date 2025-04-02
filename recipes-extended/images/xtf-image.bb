@@ -25,7 +25,7 @@ DESCRIPTION = "A minimal Xen Test Framework (XTF) image for testing the Xen hype
 # For testimage, see the qemu boot log: ${WORKDIR}/testimage/qemu_boot_log.*
 # and the test log: ${WORKDIR}/temp/log.do_testimage
 
-IMAGE_NAME="xtf"
+IMAGE_NAME = "xtf"
 
 IMAGE_INSTALL:append = " xtf"
 

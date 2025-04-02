@@ -8,7 +8,7 @@ DEPENDS = " \
 "
 
 # Specify the first two important SRCREVs as the format
-SRCREV_FORMAT="compose_survey"
+SRCREV_FORMAT = "compose_survey"
 SRCREV_compose = "eaf9800948e022573997649656c040a19d4b15c2"
 
 SRC_URI = "git://github.com/docker/compose;name=compose;branch=main;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"

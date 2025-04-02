@@ -2,7 +2,7 @@ SUMMARY = "Basic container image with development tools"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
-CONTAINER_SHELL="bash"
+CONTAINER_SHELL = "bash"
 
 CORE_DEV_IMAGE_EXTRA_INSTALL ?= ""
 

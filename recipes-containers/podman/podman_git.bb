@@ -45,13 +45,13 @@ ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd', '', d)} \
 exclude_graphdriver_btrfs exclude_graphdriver_devicemapper ${BUILDTAGS_EXTRA}"
 
 # overide LDFLAGS to allow podman to build without: "flag provided but not # defined: -Wl,-O1
-export LDFLAGS=""
+export LDFLAGS = ""
 
 # https://github.com/llvm/llvm-project/issues/53999
 TOOLCHAIN = "gcc"
 
 # podmans Makefile expects BUILDFLAGS to be set but go.bbclass defines them in GOBUILDFLAGS
-export BUILDFLAGS="${GOBUILDFLAGS}"
+export BUILDFLAGS = "${GOBUILDFLAGS}"
 
 inherit go goarch
 inherit container-host

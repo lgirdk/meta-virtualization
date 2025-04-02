@@ -4,8 +4,8 @@ DESCRIPTION = "Xen Runtime for OCI"
 
 SRCREV_runx = "edc9350a79ede0365066c9743080e3dc6430d602"
 
-KERNEL_SRC_VER="linux-5.4"
-KERNEL_URL_VER="v5.x"
+KERNEL_SRC_VER = "linux-5.4"
+KERNEL_URL_VER = "v5.x"
 
 SRC_URI = "\
 	  git://github.com/lf-edge/runx;nobranch=1;name=runx;protocol=https \

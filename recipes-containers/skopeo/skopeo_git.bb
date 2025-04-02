@@ -43,7 +43,7 @@ CVE_STATUS[CVE-2019-10214] = "fixed-version: This CVE was fixed in the container
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
-EXTRA_OEMAKE="BUILDTAGS=''"
+EXTRA_OEMAKE = "BUILDTAGS=''"
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"

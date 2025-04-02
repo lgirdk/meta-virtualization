@@ -11,7 +11,7 @@ SRC_URI = " \
     file://policy.json \
 "
 
-S="${UNPACKDIR}"
+S = "${UNPACKDIR}"
 
 do_install() {
 	install -d ${D}/${sysconfdir}/containers

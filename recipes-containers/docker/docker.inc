@@ -50,7 +50,7 @@ do_configure[noexec] = "1"
 # Export for possible use in Makefiles, default value comes from go.bbclass
 export GO_LINKSHARED
 
-DOCKER_PKG="github.com/docker/docker"
+DOCKER_PKG = "github.com/docker/docker"
 # in order to exclude devicemapper and btrfs - https://github.com/docker/docker/issues/14056
 BUILD_TAGS ?= "exclude_graphdriver_btrfs exclude_graphdriver_devicemapper"
 

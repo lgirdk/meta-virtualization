@@ -721,14 +721,14 @@ FILES:${PN}-test += "\
 # test-cpu-policy and test-tsx only exist in 4.16 for x86
 ALLOW_EMPTY:${PN}-test = "1"
 
-FILES:${PN}-xen-mceinj +="\
+FILES:${PN}-xen-mceinj += "\
     ${sbindir}/xen-mceinj \
     "
 
 # xen-mceinj is only built for x86 4.16, so allow empty package
 ALLOW_EMPTY:${PN}-xen-mceinj = "1"
 
-FILES:${PN}-xen-vmtrace +="\
+FILES:${PN}-xen-vmtrace += "\
     ${sbindir}/xen-vmtrace \
     "
 

@@ -73,20 +73,20 @@ libexecdir = "${libdir}"
 export XEN_OS = "Linux"
 
 # this is used for the header (#!${bindir}/python) of the install python scripts
-export PYTHONPATH="${bindir}/env python3"
-export ac_cv_path_PYTHONPATH="${bindir}/env python3"
+export PYTHONPATH = "${bindir}/env python3"
+export ac_cv_path_PYTHONPATH = "${bindir}/env python3"
 export DISTUTILS_BUILD_ARGS
 export DISTUTILS_INSTALL_ARGS
 
 # xen and seabios require HOSTCC and HOSTCXX set to cross-compile
-export HOSTCC="${BUILD_CC}"
-export HOSTCXX="${BUILD_CXX}"
+export HOSTCC = "${BUILD_CC}"
+export HOSTCXX = "${BUILD_CXX}"
 
 # make xen requires CROSS_COMPILE set by hand as it does not abide by ./configure
-export CROSS_COMPILE="${TARGET_PREFIX}"
+export CROSS_COMPILE = "${TARGET_PREFIX}"
 
 # overide LDFLAGS to allow xen to build without: "x86_64-oe-linux-ld: unrecognized option '-Wl,-O1'"
-export LDFLAGS=""
+export LDFLAGS = ""
 
 # No additional C flags for the main hypervisor build
 EXTRA_CFLAGS_XEN_CORE ?= ""
@@ -99,7 +99,7 @@ DEBUG_PREFIX_MAP:append = " \
 # - The Xen tools build for x86 systems with HVM-mode enabled includes hvmloader
 #   which fails to build when "-m64" is included in flags set via the
 #   EXTRA_CFLAGS_XEN_TOOLS: so clear TUNE_CCARGS on x86 to prevent that.
-TUNE_CCARGS:x86-64=""
+TUNE_CCARGS:x86-64 = ""
 
 # - Yocto supplies the _FORTIFY_SOURCE flag via CC/CPP/CXX but then passes the
 #   optimization -O via C*FLAGS which is problematic when the CFLAGS are cleared
@@ -110,11 +110,11 @@ TUNE_CCARGS:x86-64=""
 #   It must not be compiled with SSE compiler options enabled and the Xen build
 #   explicitly clears CFLAGS to ensure that, so such options must not be passed
 #   in via the tool variable. hvmloader is required to run HVM-mode guest VMs.
-CC="${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${DEBUG_PREFIX_MAP} ${CC_REPRODUCIBLE_OPTIONS}"
-EXTRA_CFLAGS_XEN_TOOLS="${HOST_CC_ARCH} ${CFLAGS}"
+CC = "${CCACHE}${HOST_PREFIX}gcc ${TOOLCHAIN_OPTIONS} ${DEBUG_PREFIX_MAP} ${CC_REPRODUCIBLE_OPTIONS}"
+EXTRA_CFLAGS_XEN_TOOLS = "${HOST_CC_ARCH} ${CFLAGS}"
 # 32-bit ARM needs the TUNE_CCARGS component of HOST_CC_ARCH to be passed
 # in CC to ensure that configure can compile binaries for the right arch.
-CC:arm="${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS} ${DEBUG_PREFIX_MAP} ${CC_REPRODUCIBLE_OPTIONS}"
+CC:arm = "${CCACHE}${HOST_PREFIX}gcc ${TUNE_CCARGS} ${TOOLCHAIN_OPTIONS} ${DEBUG_PREFIX_MAP} ${CC_REPRODUCIBLE_OPTIONS}"
 
 # There are no Xen-provided variables for C++, so append to the tool variables:
 CPP:append = " ${CPPFLAGS}"

@@ -10,7 +10,7 @@ DEPENDS = " \
 "
 
 # Specify the first two important SRCREVs as the format
-SRCREV_FORMAT="nerdcli_cgroups"
+SRCREV_FORMAT = "nerdcli_cgroups"
 SRCREV_nerdcli = "497c7cf74d09bf1ddf2678382360ca61e6faebac"
 
 SRC_URI = "git://github.com/containerd/nerdctl.git;name=nerdcli;branch=main;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"

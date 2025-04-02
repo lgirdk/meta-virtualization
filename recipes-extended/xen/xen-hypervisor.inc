@@ -114,4 +114,4 @@ KCONFIG_CONFIG_ROOTDIR = "${S}/xen"
 
 # Xen is setting all CC flags on its own. Make sure that they are not modified
 # for aarch64, e.g. with architecture-specific optimizations.
-TUNE_CCARGS:aarch64=""
+TUNE_CCARGS:aarch64 = ""

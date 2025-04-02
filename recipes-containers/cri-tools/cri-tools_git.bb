@@ -36,7 +36,7 @@ inherit go
 inherit goarch
 inherit pkgconfig
 
-EXTRA_OEMAKE="BUILDTAGS=''"
+EXTRA_OEMAKE = "BUILDTAGS = ''"
 
 do_compile() {
 	# link fixups for compilation

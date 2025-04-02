@@ -49,8 +49,8 @@ CFLAGS += " -I${STAGING_INCDIR} -I${STAGING_INCDIR}/libnl3"
 CFLAGS:append:arm = " -D__WORDSIZE"
 
 # overide LDFLAGS to allow criu to build without: "x86_64-poky-linux-ld: unrecognized option '-Wl,-O1'"
-export LDFLAGS=""
-export C_INCLUDE_PATH="${STAGING_INCDIR}/libnl3"
+export LDFLAGS = ""
+export C_INCLUDE_PATH = "${STAGING_INCDIR}/libnl3"
 
 export BUILD_SYS
 export HOST_SYS

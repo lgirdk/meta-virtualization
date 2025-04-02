@@ -25,7 +25,7 @@ SRC_URI[libvirt_python.sha256sum] = "00efb9a781087668512d6a002eb9cd136e44ff8701a
 export LIBVIRT_API_PATH = "${S}/docs/libvirt-api.xml"
 export LIBVIRT_CFLAGS = "-I${S}/include"
 export LIBVIRT_LIBS = "-L${B}/src/.libs -lvirt -ldl"
-export LDFLAGS="-L${B}/src/.libs"
+export LDFLAGS = "-L${B}/src/.libs"
 
 LIBVIRT_INSTALL_ARGS = "--root=${D} \
     --prefix=${prefix} \

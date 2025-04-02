@@ -16,7 +16,7 @@ inherit go
 
 # This disables seccomp and apparmor, which are on by default in the
 # go package. 
-EXTRA_OEMAKE="BUILDTAGS=''"
+EXTRA_OEMAKE = "BUILDTAGS=''"
 
 S = "${WORKDIR}/git/src/github.com/opencontainers/image-tools"
 

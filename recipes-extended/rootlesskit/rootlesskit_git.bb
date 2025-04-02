@@ -13,7 +13,7 @@ DEPENDS = " \
     rsync-native \
 "
 # Specify the first two important SRCREVs as the format
-SRCREV_FORMAT="rootless"
+SRCREV_FORMAT = "rootless"
 SRCREV_rootless = "530859a92629689c0c17c96d9ab145f4d04b5b5a"
 
 SRC_URI = "git://github.com/rootless-containers/rootlesskit;name=rootless;branch=master;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX}"
