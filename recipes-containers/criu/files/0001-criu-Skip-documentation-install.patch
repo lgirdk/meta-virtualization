@@ -12,12 +12,12 @@ Signed-off-by: Jianchuan Wang <jianchuan.wang@windriver.com>
  Makefile.install | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile.install b/Makefile.install
-index aafb95469..1b02b70af 100644
---- a/Makefile.install
-+++ b/Makefile.install
-@@ -30,7 +30,7 @@ export PREFIX BINDIR SBINDIR MANDIR RUNDIR
- export LIBDIR INCLUDEDIR LIBEXECDIR PLUGINDIR
+Index: git/Makefile.install
+===================================================================
+--- git.orig/Makefile.install
++++ git/Makefile.install
+@@ -53,7 +53,7 @@
+ export SKIP_PIP_INSTALL PIPFLAGS
  
  install-man:
 -	$(Q) $(MAKE) -C Documentation install
@@ -25,6 +25,3 @@ index aafb95469..1b02b70af 100644
  .PHONY: install-man
  
  install-lib: lib
--- 
-2.25.1
-

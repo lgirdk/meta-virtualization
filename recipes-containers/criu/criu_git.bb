@@ -13,15 +13,17 @@ EXCLUDE_FROM_WORLD = "1"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=412de458544c1cb6a2b512cd399286e2"
 
-SRCREV = "f8b14286b092853a4485813e1efd564109df9123"
-PV = "3.19.0+git"
+SRCREV = "b6059ff193a9b0dff98e997134d662c3ccfd1600"
+PV = "4.1+git"
 
 SRC_URI = "git://github.com/checkpoint-restore/criu.git;branch=master;protocol=https \
            file://0001-criu-Skip-documentation-install.patch \
            file://0002-criu-Change-libraries-install-directory.patch \
            file://0003-crit-pycriu-build-and-install-wheels.patch \
            file://0004-pycriu-attr-pycriu.version.__version__.patch \
-	   file://0005-pycriu-skip-dependency-check-during-build.patch \
+           file://0005-pycriu-skip-dependency-check-during-build.patch \
+           file://0001-crit-explicity-set-PEP517_SOURCE_PATH.patch \
+           file://0001-plugins-cuda-pass-DEBUG_PREFIX_MAP.patch \
            "
 
 COMPATIBLE_HOST = "(x86_64|arm|aarch64).*-linux"
@@ -75,6 +77,7 @@ do_compile:prepend() {
 }
 
 do_compile () {
+	export DEBUG_PREFIX_MAP="${DEBUG_PREFIX_MAP}"
 	oe_runmake FULL_PYTHON=${PYTHON} PYTHON=nativepython3
 }
 
@@ -83,6 +86,7 @@ do_install () {
     export PEP517_WHEEL_PATH="${PEP517_WHEEL_PATH}"
     export USRBINPATH="${USRBINPATH}"
     export PEP517_INSTALL_PYTHON="${PEP517_INSTALL_PYTHON}"
+
     oe_runmake PREFIX=${exec_prefix} LIBDIR=${libdir} DESTDIR="${D}" PLUGINDIR="${localstatedir}/lib" FULL_PYTHON=${PYTHON} PYTHON=nativepython3 install
 
     # python3's distutils has a feature of rewriting the interpeter on setup installed

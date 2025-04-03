@@ -12,21 +12,19 @@ Signed-off-by: Tim Orling <tim.orling@konsulko.com>
  lib/Makefile | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/lib/Makefile b/lib/Makefile
-index b5f147482..e3faa7a06 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -66,11 +66,11 @@ ifeq ($(PIP_BREAK_SYSTEM_PACKAGES),0)
- 	$(E) "  Consider using PIP_BREAK_SYSTEM_PACKAGES=1 make install"
- else
- 	$(E) "  INSTALL " pycriu
--	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
-+	$(Q) $(PYTHON) -m build --no-isolation --wheel --skip-dependency-check --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
- endif
- else
+Index: git/lib/Makefile
+===================================================================
+--- git.orig/lib/Makefile
++++ git/lib/Makefile
+@@ -59,9 +59,9 @@
+ 	$(Q) install -m 644 lib/c/criu.pc $(DESTDIR)$(LIBDIR)/pkgconfig
+ ifeq ($(SKIP_PIP_INSTALL),0)
  	$(E) "  BUILD " pycriu
 -	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
 +	$(Q) $(PYTHON) -m build --no-isolation --wheel --skip-dependency-check --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
  	$(E) "  INSTALL " pycriu
- 	#nativepython3 -m installer ${INSTALL_WHEEL_COMPILE_BYTECODE} --interpreter "${USRBINPATH}/env ${PEP517_INSTALL_PYTHON}" --destdir=${D} ${PEP517_WHEEL_PATH}/*.whl
- 
+-	$(Q) $(PYTHON) -m build --no-isolation --wheel --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
++	$(Q) $(PYTHON) -m build --no-isolation --wheel --skip-dependency-check --outdir $(PEP517_WHEEL_PATH) $(PEP517_SOURCE_PATH) $(PEP517_BUILD_OPTS)
+ else
+ 	$(E) " SKIP INSTALL pycriu"
+ endif
