@@ -15,7 +15,7 @@ SRC_URI = "git://github.com/chaos/diod.git;protocol=https;branch=master \
            file://diod.conf \
            file://0001-build-Find-lua-with-pkg-config.patch \
            "
-DEPENDS = "libcap ncurses tcp-wrappers lua"
+DEPENDS = "libcap ncurses lua"
 
 EXTRA_OEMAKE += "systemddir=${systemd_unitdir}/system"
 EXTRA_OECONF = "--disable-auth \
