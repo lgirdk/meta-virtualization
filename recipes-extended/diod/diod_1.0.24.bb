@@ -17,7 +17,6 @@ SRC_URI = "git://github.com/chaos/diod.git;protocol=https;branch=master \
            "
 DEPENDS = "libcap ncurses lua"
 
-EXTRA_OEMAKE += "systemddir=${systemd_unitdir}/system"
 EXTRA_OECONF = "--disable-auth \
                 --with-systemdsystemunitdir=${systemd_unitdir}/system"
 
