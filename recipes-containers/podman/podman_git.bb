@@ -65,10 +65,13 @@ EXTRA_OEMAKE = " \
      SYSTEMDDIR=${systemd_unitdir}/system USERSYSTEMDDIR=${systemd_user_unitdir} \
 "
 
-# remove 'docker' from the packageconfig if you don't want podman to
+# remove 'docker' from the features if you don't want podman to
 # build and install the docker wrapper. If docker is enabled in the
-# packageconfig, the podman package will rconfict with docker.
-PACKAGECONFIG ?= "docker"
+# variable, the podman package will rconfict with docker.
+PODMAN_FEATURES ?= "docker"
+
+PACKAGECONFIG ?= ""
+PACKAGECONFIG[rootless] = ",,,fuse-overlayfs slirp4netns,,"
 
 do_compile() {
 	cd ${S}/src
@@ -106,7 +109,7 @@ do_install() {
 	export GOROOT="${STAGING_DIR_NATIVE}/${nonarch_libdir}/${HOST_SYS}/go"
 
 	oe_runmake install DESTDIR="${D}"
-	if ${@bb.utils.contains('PACKAGECONFIG', 'docker', 'true', 'false', d)}; then
+	if ${@bb.utils.contains('PODMAN_FEATURES', 'docker', 'true', 'false', d)}; then
 		oe_runmake install.docker DESTDIR="${D}"
 	fi
 
@@ -156,7 +159,6 @@ COMPATIBLE_HOST = "^(?!mips).*"
 RDEPENDS:${PN} += "\
 	catatonit conmon ${VIRTUAL-RUNTIME_container_runtime} iptables libdevmapper \
 	${VIRTUAL-RUNTIME_container_dns} ${VIRTUAL-RUNTIME_container_networking} ${VIRTUAL-RUNTIME_base-utils-nsenter} \
-	${@bb.utils.contains('PACKAGECONFIG', 'rootless', 'fuse-overlayfs slirp4netns', '', d)} \
 "
 RRECOMMENDS:${PN} += "slirp4netns \
                       kernel-module-xt-masquerade \
