@@ -56,7 +56,7 @@ RDEPENDS:packagegroup-container-tools = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'seccomp', 'conmon', '', d)} \
     umoci \
     ${@bb.utils.contains('VIRTUAL-RUNTIME_container_engine','podman','podman-tui nerdctl podman-compose','',d)}  \
-    ${@bb.utils.contains_any('VIRTUAL-RUNTIME_container_engine','dcoker docker-moby','docker-compose','',d)}  \
+    ${@bb.utils.contains_any('VIRTUAL-RUNTIME_container_engine','docker docker-moby','docker-compose','',d)}  \
 "
 
 RDEPENDS:packagegroup-oci = " \
