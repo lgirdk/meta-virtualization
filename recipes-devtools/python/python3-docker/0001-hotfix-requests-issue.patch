@@ -1,0 +1,31 @@
+From 2efec099ad80c18136dc38d9dafd1bb868bf4c90 Mon Sep 17 00:00:00 2001
+From: Felix Fontein <felix@fontein.de>
+Date: Mon, 20 May 2024 21:08:25 +0200
+Subject: [PATCH] Add hotfix for requests 2.32.0. (#861)
+
+Upstream-Status: Backport
+[https://github.com/ansible-collections/community.docker/commit/ab8b6662c28a2c7b0473d43fcf0b26adb2877ede]
+
+Signed-off-by: Libo Chen <libo.chen.cn@windriver.com>
+---
+ docker/transport/basehttpadapter.py | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/docker/transport/basehttpadapter.py b/docker/transport/basehttpadapter.py
+index 4d819b6..3ffe78b 100644
+--- a/docker/transport/basehttpadapter.py
++++ b/docker/transport/basehttpadapter.py
+@@ -6,3 +6,10 @@ class BaseHTTPAdapter(requests.adapters.HTTPAdapter):
+         super(BaseHTTPAdapter, self).close()
+         if hasattr(self, 'pools'):
+             self.pools.clear()
++
++    # Hotfix for requests 2.32.0: its commit
++    # https://github.com/psf/requests/commit/c0813a2d910ea6b4f8438b91d315b8d181302356
++    # changes requests.adapters.HTTPAdapter to no longer call get_connection() from
++    # send(), but instead call _get_connection().
++    def _get_connection(self, request, *args, **kwargs):
++        return self.get_connection(request.url, kwargs.get('proxies'))
+-- 
+2.35.5
+
