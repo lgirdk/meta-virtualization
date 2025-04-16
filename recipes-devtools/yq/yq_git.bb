@@ -4,48 +4,85 @@ HOMEPAGE = "https://github.com/mikefarah/yq"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://src/${GO_IMPORT}/LICENSE;md5=e40a0dcd62f8269b9bff37fe9aa7dcc2"
 
-SRCREV_yq = "dd6cf3df146f3e2c0f8c765a6ef9e35780ad8cc1"
-SRCREV_color = "daf2830f2741ebb735b21709a520c5f37d642d85"
-SRCREV_lexer = "6cdefc42e112ac71cbe316e1eed264ea62f58e25"
-SRCREV_cobra = "b43be995ebb4bee335a787bd44498b91aef7619c"
-SRCREV_pflag = "2e9d26c8c37aae03e3f9d4e90b7116f5accb7cab"
-SRCREV_logging = "b2cb9fa56473e98db8caba80237377e83fe44db5"
-SRCREV_yaml = "f6f7691b1fdeb513f56608cd2c32c51f8194bf51"
-SRCREV_xerrors = "65e65417b02f28de84b55f16b46a1e789149973a"
-SRCREV_envsubst = "16035fe3571ad42c7796bf554f978bb2df64231b"
-SRCREV_participle = "49f4822ed012d9818c80ca4fcdeb7e2d55c04806"
-SRCREV_utfbom = "6ae8f945ca96f30defc7e8ab12ec5d10cf86ded4"
-SRCREV_orderedmap = "1e43e194ff533a346bab5f9b66b738256f199c8a"
-SRCREV_go-json = "5efc7d07eeeba186df630d9ab4ac78c761938c27"
-SRCREV_copier = "d132b069fe1a77d09e4c260852b389a730bbe9ba"
-SRCREV_properties = "c9a06e8f8f0164e4e16c0d5c4793cbed4ac90264"
-SRCREV_net = "f3363e06e74cdc304618bf31d898b78590103527"
-SRCREV_text = "434eadcdbc3b0256971992e8c70027278364c72c"
-SRCREV_diff = "20ebb0f2a09e612109b224b32f79370409108bcc"
+SRCREV_yq = "de2f77b49cbd40fd67031ee602245d0acc4ac482"
 
 SRCREV_FORMAT = "yq_color"
 SRC_URI = "git://${GO_IMPORT};name=yq;branch=master;protocol=https;destsuffix=${GO_SRCURI_DESTSUFFIX} \
-           git://github.com/fatih/color;name=color;destsuffix=build/vendor/src/github.com/fatih/color;branch=main;protocol=https \
-           git://github.com/goccy/go-yaml;name=lexer;destsuffix=build/vendor/src/github.com/goccy/go-yaml/;branch=master;protocol=https \
-           git://github.com/spf13/cobra;name=cobra;nobranch=1;destsuffix=build/vendor/src/github.com/spf13/cobra;branch=main;protocol=https \
-           git://github.com/spf13/pflag;name=pflag;destsuffix=build/vendor/src/github.com/spf13/pflag;branch=master;protocol=https \
-           git://github.com/op/go-logging.git;name=logging;destsuffix=build/vendor/src/gopkg.in/op/go-logging.v1;branch=master;protocol=https \
-           git://github.com/go-yaml/yaml.git;name=yaml;branch=v3;destsuffix=build/vendor/src/gopkg.in/yaml.v3;protocol=https \
-           git://github.com/golang/xerrors;name=xerrors;protocol=https;nobranch=1;destsuffix=build/vendor/src/golang.org/x/xerrors \
-           git://github.com/a8m/envsubst;name=envsubst;destsuffix=build/vendor/src/github.com/a8m/envsubst;branch=master;protocol=https \
-           git://github.com/alecthomas/participle;name=participle;destsuffix=build/vendor/src/github.com/alecthomas/participle;branch=master;protocol=https \
-           git://github.com/dimchansky/utfbom;name=utfbom;destsuffix=build/vendor/src/github.com/dimchansky/utfbom;branch=master;protocol=https \
-           git://github.com/elliotchance/orderedmap;name=orderedmap;destsuffix=build/vendor/src/github.com/elliotchance/orderedmap;branch=master;protocol=https \
-           git://github.com/goccy/go-json;name=go-json;destsuffix=build/vendor/src/github.com/goccy/go-json;branch=master;protocol=https \
-           git://github.com/jinzhu/copier;name=copier;destsuffix=build/vendor/src/github.com/jinzhu/copier;branch=master;protocol=https \
-           git://github.com/magiconair/properties;name=properties;destsuffix=build/vendor/src/github.com/magiconair/properties;branch=main;protocol=https \
-           git://github.com/golang/net;name=net;destsuffix=build/vendor/src/golang.org/x/net;branch=master;protocol=https \
-           git://github.com/golang/text;name=text;destsuffix=build/vendor/src/golang.org/x/text;branch=master;protocol=https \
-           git://github.com/pkg/diff;name=diff;destsuffix=build/vendor/src/github.com/pkg/diff;branch=main;protocol=https;apply=no \
-           file://run-ptest \
-           "
+           file://run-ptest"
+
+# go.mod dependencies are below:
+
+SRCREV_net = "8da7ed17cdaf5e1d42aa868f0b0322a207a17dcd"
+SRC_URI += "git://go.googlesource.com/net;name=net;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/golang.org/x/net"
+
+SRCREV_yaml.v3 = "f6f7691b1fdeb513f56608cd2c32c51f8194bf51"
+SRC_URI += "git://github.com/go-yaml/yaml;name=yaml.v3;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/gopkg.in/yaml.v3"
+
+SRCREV_sys = "d4ac05dc8c4c953ec29cae3df56c0833f4010763"
+SRC_URI += "git://github.com/golang/sys;name=sys;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/golang.org/x/sys"
+
+SRCREV_text = "566b44fc931e2542778a18423c655ce99b4f1402"
+SRC_URI += "git://go.googlesource.com/text;name=text;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/golang.org/x/text"
+
+SRCREV_diff = "20ebb0f2a09e612109b224b32f79370409108bcc"
+SRC_URI += "git://github.com/pkg/diff;name=diff;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/pkg/diff"
+
+SRCREV_color = "1c8d8706604ee5fb9a464e5097ba113101828a75"
+SRC_URI += "git://github.com/fatih/color;name=color;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/fatih/color"
+
+SRCREV_cobra = "e94f6d0dd9a5e5738dca6bce03c4b1207ffbc0ec"
+SRC_URI += "git://github.com/spf13/cobra;name=cobra;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/spf13/cobra"
+
+SRCREV_pflag = "5ca813443bd2a4d9f46a253ea0407d23b3790713"
+SRC_URI += "git://github.com/spf13/pflag;name=pflag;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/spf13/pflag"
+
+SRCREV_envsubst = "9df41d110e18f0ce5f7cd58f94d88d79dc441259"
+SRC_URI += "git://github.com/a8m/envsubst;name=envsubst;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/a8m/envsubst"
+
+SRCREV_go-json = "9872089c316cfe2d0f29b331b75d45bf6d522d96"
+SRC_URI += "git://github.com/goccy/go-json;name=go-json;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/goccy/go-json"
+
+SRCREV_go-yaml = "9b2c4569e2563d5cf2f16785b1fa2cab5e09882e"
+SRC_URI += "git://github.com/goccy/go-yaml;name=go-yaml;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/goccy/go-yaml"
+
+SRCREV_copier = "70b1d4e41a98ca3ef7f468ade5c515e4193405df"
+SRC_URI += "git://github.com/jinzhu/copier;name=copier;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/jinzhu/copier"
+
+SRCREV_go-logging.v1 = "b2cb9fa56473e98db8caba80237377e83fe44db5"
+SRC_URI += "git://github.com/op/go-logging;name=go-logging.v1;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/gopkg.in/op/go-logging.v1"
+
+SRCREV_repr = "3d05a4813c4bc97890471226ba1cf7f240a376ac"
+SRC_URI += "git://github.com/alecthomas/repr;name=repr;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/alecthomas/repr"
+
+SRCREV_gopher-lua = "1388221efeb4a239a053e5932c3d755699055684"
+SRC_URI += "git://github.com/yuin/gopher-lua;name=gopher-lua;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/yuin/gopher-lua"
+
+SRCREV_go-isatty = "a7c02353c47bc4ec6b30dc9628154ae4fe760c11"
+SRC_URI += "git://github.com/mattn/go-isatty;name=go-isatty;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/mattn/go-isatty"
+
+SRCREV_utfbom = "6ae8f945ca96f30defc7e8ab12ec5d10cf86ded4"
+SRC_URI += "git://github.com/dimchansky/utfbom;name=utfbom;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/dimchansky/utfbom"
+
+SRCREV_go-colorable = "11a925cff3d38c293ddc8c05a16b504e3e2c63be"
+SRC_URI += "git://github.com/mattn/go-colorable;name=go-colorable;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/mattn/go-colorable"
+
+SRCREV_go-toml-v2 = "b730b2be5d3ab7283067ddf61188f41cdf42ce06"
+SRC_URI += "git://github.com/pelletier/go-toml;name=go-toml-v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/pelletier/go-toml/v2"
+
+SRCREV_properties = "d8bdba35b511a72d4c00a47e801dc703328198e8"
+SRC_URI += "git://github.com/magiconair/properties;name=properties;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/magiconair/properties"
+
+SRCREV_orderedmap = "9d80274286972e4b495b38de2923a4d5f9758c8d"
+SRC_URI += "git://github.com/elliotchance/orderedmap;name=orderedmap;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/elliotchance/orderedmap"
+
+SRCREV_v2 = "bcbb39153e17f8018257f17aba8eac628d396b64"
+SRC_URI += "git://github.com/alecthomas/participle;name=v2;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/alecthomas/participle/v2"
+
+SRCREV_mousetrap = "4e8053ee7ef85a6bd26368364a6d27f1641c1d21"
+SRC_URI += "git://github.com/inconshreveable/mousetrap;name=mousetrap;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/inconshreveable/mousetrap"
 
 PV = "4.30.8+git${SRCREV_yq}"
+
 GO_IMPORT = "github.com/mikefarah/yq"
 
 inherit go ptest
@@ -65,14 +102,6 @@ do_compile:prepend() {
     export GO111MODULE=off
 }
 
-do_install:append() {
-    # these bring in dependencies for the -dev package on bash, and we don't
-    # need them .. so we remove them to avoid needing that rdepends
-    rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/debian/rules
-    rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/scripts
-    rm -rf ${D}/${libdir}/go/src/${GO_IMPORT}/acceptance_tests
-}
-
 do_install_ptest() {
     install -d ${D}${PTEST_PATH}/tests
     cp -r ${S}/src/github.com/mikefarah/yq/scripts/* ${D}${PTEST_PATH}/tests
@@ -82,6 +111,10 @@ do_install_ptest() {
 
 RDEPENDS:${PN}-ptest += " \
     bash \
+"
+
+RDEPENDS:${PN}-dev += " \
+     bash \
 "
 
 BBCLASSEXTEND = "native"
