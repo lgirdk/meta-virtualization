@@ -571,7 +571,7 @@ class GoModTool(object):
         # SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/%s"
         template = """#       %s %s
 # [1] git ls-remote %s %s
-SRCREV_%s="%s"
+SRCREV_%s = "%s"
 SRC_URI += "git://%s;name=%s;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor.fetch/%s"
 
 """
