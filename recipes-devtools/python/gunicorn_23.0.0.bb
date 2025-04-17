@@ -6,11 +6,11 @@ DESCRIPTION = "\
   simply implemented, light on server resource usage, and fairly speedy. \
   " 
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=f75f3fb94cdeab1d607e2adaa6077752"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=5b70a8b30792a916f50dc96123e61ddf"
 
 SRC_URI = "https://pypi.python.org/packages/source/g/gunicorn/${BPN}-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "543669fcbb5739ee2af77184c5e571a1"
-SRC_URI[sha256sum] = "1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626"
+SRC_URI[md5sum] = "18b666db62a890579170639961c5b064"
+SRC_URI[sha256sum] = "f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"
 
-inherit setuptools3
+inherit python_pep517 python_setuptools_build_meta
