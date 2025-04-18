@@ -78,3 +78,7 @@ FILES:${PN} += " ${nonarch_libdir}/docker/cli-plugins/"
 
 INHIBIT_PACKAGE_STRIP = "1"
 INSANE_SKIP:${PN} += "ldflags already-stripped"
+
+# the AWS dependency is 8GB, try and control the
+# size of the clones
+BB_GIT_SHALLOW = "1"
