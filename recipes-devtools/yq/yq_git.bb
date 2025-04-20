@@ -84,23 +84,9 @@ SRC_URI += "git://github.com/inconshreveable/mousetrap;name=mousetrap;protocol=h
 PV = "4.45.1+git"
 
 GO_IMPORT = "github.com/mikefarah/yq"
+export GO111MODULE = "off"
 
 inherit go ptest
-
-do_compile:prepend() {
-    # arrange for some of the golang built ins to be found
-    (
-	cd ${WORKDIR}/build/src/
-	ln -sf ${STAGING_DIR_TARGET}/${prefix}/lib/go/src/cmd/vendor/golang.org .
-
-	cd ${WORKDIR}/build/
-	ln -sf ${UNPACKDIR}/build/vendor .
-    )
-
-    # arrange for the fetched dependencies to be found
-    export GOPATH="${GOPATH}:${WORKDIR}/build/vendor/"
-    export GO111MODULE=off
-}
 
 do_install_ptest() {
     install -d ${D}${PTEST_PATH}/tests
