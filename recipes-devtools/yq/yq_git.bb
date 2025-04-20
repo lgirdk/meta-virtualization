@@ -81,7 +81,7 @@ SRC_URI += "git://github.com/alecthomas/participle;name=v2;protocol=https;nobran
 SRCREV_mousetrap = "4e8053ee7ef85a6bd26368364a6d27f1641c1d21"
 SRC_URI += "git://github.com/inconshreveable/mousetrap;name=mousetrap;protocol=https;nobranch=1;destsuffix=${GO_SRCURI_DESTSUFFIX}/vendor/github.com/inconshreveable/mousetrap"
 
-PV = "4.30.8+git${SRCREV_yq}"
+PV = "4.45.1+git"
 
 GO_IMPORT = "github.com/mikefarah/yq"
 
@@ -104,9 +104,9 @@ do_compile:prepend() {
 
 do_install_ptest() {
     install -d ${D}${PTEST_PATH}/tests
-    cp -r ${S}/src/github.com/mikefarah/yq/scripts/* ${D}${PTEST_PATH}/tests
-    cp -r ${S}/src/github.com/mikefarah/yq/acceptance_tests/* ${D}${PTEST_PATH}/tests
-    cp -r ${S}/src/github.com/mikefarah/yq/examples ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/${GO_IMPORT}/scripts/* ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/${GO_IMPORT}/acceptance_tests/* ${D}${PTEST_PATH}/tests
+    cp -r ${S}/src/${GO_IMPORT}/examples ${D}${PTEST_PATH}/tests
 }
 
 RDEPENDS:${PN}-ptest += " \
