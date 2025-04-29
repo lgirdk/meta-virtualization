@@ -41,3 +41,20 @@ do_install:append () {
 
 # Construction of grammar.h is not parallel safe.
 PARALLEL_MAKE = "-j1"
+
+# http://errors.yoctoproject.org/Errors/Details/853259/
+# tools/vmifs/vmifs.c:129:18: error: initialization of 'void (*)(void *)' from incompatible pointer type 'void (*)(void)' [-Wincompatible-pointer-types]
+# examples/process-list.c:120:64: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:122:63: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:124:62: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:127:62: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:129:62: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:131:60: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:135:65: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:137:64: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:141:60: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/process-list.c:143:59: error: passing argument 3 of 'vmi_get_offset' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/dump-memory.c:185:20: error: passing argument 2 of 'signal' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/win-offsets.c:287:20: error: passing argument 2 of 'signal' from incompatible pointer type [-Wincompatible-pointer-types]
+# examples/dmesg.c:146:80: error: passing argument 4 of 'vmi_get_struct_size_from_json' from incompatible pointer type [-Wincompatible-pointer-types]
+CFLAGS += "-Wno-error=incompatible-pointer-types"
