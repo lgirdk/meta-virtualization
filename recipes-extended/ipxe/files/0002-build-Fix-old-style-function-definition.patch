@@ -1,0 +1,25 @@
+From 0b5e26f82d3bb5dc49557b8c29d802911c050aaf Mon Sep 17 00:00:00 2001
+From: Michael Brown <mcb30@ipxe.org>
+Date: Sun, 27 Apr 2025 17:36:52 +0100
+Subject: [PATCH] [build] Fix old-style function definition
+
+Signed-off-by: Michael Brown <mcb30@ipxe.org>
+Upstream-Status: Backport [https://github.com/ipxe/ipxe/pull/1457]
+---
+ src/drivers/net/3c595.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/drivers/net/3c595.c b/src/drivers/net/3c595.c
+index 92d38cfc5..c3442946e 100644
+--- a/src/drivers/net/3c595.c
++++ b/src/drivers/net/3c595.c
+@@ -342,8 +342,7 @@ eeprom_rdy()
+  * before
+  */
+ static int
+-get_e(offset)
+-int offset;
++get_e(int offset)
+ {
+ 	if (!eeprom_rdy())
+ 		return (0xffff);

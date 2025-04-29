@@ -1,0 +1,294 @@
+From 1de32c9e11e727fe8c4eab68b331d862cb2f03e7 Mon Sep 17 00:00:00 2001
+From: Michael Brown <mcb30@ipxe.org>
+Date: Sun, 27 Apr 2025 17:37:44 +0100
+Subject: [PATCH] [build] Remove unsafe disable function wrapper from legacy
+ NIC drivers
+
+The legacy NIC drivers do not consistently take a second parameter in
+their disable function.  We currently use an unsafe function wrapper
+that declares no parameters, and rely on the ABI allowing a second
+parameter to be silently ignored if not expected by the caller.  As of
+GCC 15, this hack results in an incompatible pointer type warning.
+
+Fix by removing the hack, and instead updating all relevant legacy NIC
+drivers to take an unused second parameter in their disable function.
+
+Signed-off-by: Michael Brown <mcb30@ipxe.org>
+Upstream-Status: Backport [https://github.com/ipxe/ipxe/pull/1457]
+---
+ src/drivers/net/3c595.c      | 2 +-
+ src/drivers/net/amd8111e.c   | 2 +-
+ src/drivers/net/bnx2.c       | 8 +++++++-
+ src/drivers/net/davicom.c    | 4 ++--
+ src/drivers/net/depca.c      | 2 +-
+ src/drivers/net/dmfe.c       | 2 +-
+ src/drivers/net/epic100.c    | 4 ++--
+ src/drivers/net/ns8390.c     | 2 +-
+ src/drivers/net/prism2_pci.c | 2 +-
+ src/drivers/net/prism2_plx.c | 2 +-
+ src/drivers/net/sis900.c     | 4 ++--
+ src/drivers/net/sundance.c   | 2 +-
+ src/drivers/net/tlan.c       | 2 +-
+ src/drivers/net/tulip.c      | 4 ++--
+ src/drivers/net/w89c840.c    | 2 +-
+ src/include/nic.h            | 3 +--
+ 16 files changed, 26 insertions(+), 21 deletions(-)
+
+diff --git a/src/drivers/net/3c595.c b/src/drivers/net/3c595.c
+index c3442946e..fbee739a2 100644
+--- a/src/drivers/net/3c595.c
++++ b/src/drivers/net/3c595.c
+@@ -443,7 +443,7 @@ vxsetlink(void)
+     GO_WINDOW(1); 
+ }
+ 
+-static void t595_disable ( struct nic *nic ) {
++static void t595_disable ( struct nic *nic, void *hwdev __unused ) {
+ 
+ 	t595_reset(nic);
+ 
+diff --git a/src/drivers/net/amd8111e.c b/src/drivers/net/amd8111e.c
+index 693d77d1d..5ad55eea1 100644
+--- a/src/drivers/net/amd8111e.c
++++ b/src/drivers/net/amd8111e.c
+@@ -609,7 +609,7 @@ static int amd8111e_poll(struct nic *nic, int retrieve)
+ 	return pkt_ok;
+ }
+ 
+-static void amd8111e_disable(struct nic *nic)
++static void amd8111e_disable(struct nic *nic, void *hwdev __unused)
+ {
+ 	struct amd8111e_priv *lp = nic->priv_data;
+ 
+diff --git a/src/drivers/net/bnx2.c b/src/drivers/net/bnx2.c
+index 4ebcc52a9..60bef7711 100644
+--- a/src/drivers/net/bnx2.c
++++ b/src/drivers/net/bnx2.c
+@@ -2671,6 +2671,12 @@ err_out_disable:
+ 	return 0;
+ }
+ 
++static void
++bnx2_remove(struct nic *nic, void *hwdev __unused)
++{
++	bnx2_disable(nic);
++}
++
+ static struct pci_device_id bnx2_nics[] = {
+ 	PCI_ROM(0x14e4, 0x164a, "bnx2-5706",        "Broadcom NetXtreme II BCM5706", 0),
+ 	PCI_ROM(0x14e4, 0x164c, "bnx2-5708",        "Broadcom NetXtreme II BCM5708", 0),
+@@ -2680,7 +2686,7 @@ static struct pci_device_id bnx2_nics[] = {
+ 
+ PCI_DRIVER ( bnx2_driver, bnx2_nics, PCI_NO_CLASS );
+ 
+-DRIVER ( "BNX2", nic_driver, pci_driver, bnx2_driver, bnx2_probe, bnx2_disable );
++DRIVER ( "BNX2", nic_driver, pci_driver, bnx2_driver, bnx2_probe, bnx2_remove );
+ 
+ /*
+ static struct pci_driver bnx2_driver __pci_driver = {
+diff --git a/src/drivers/net/davicom.c b/src/drivers/net/davicom.c
+index 9d3d8b915..07c994573 100644
+--- a/src/drivers/net/davicom.c
++++ b/src/drivers/net/davicom.c
+@@ -159,7 +159,7 @@ static void davicom_reset(struct nic *nic);
+ static void davicom_transmit(struct nic *nic, const char *d, unsigned int t,
+ 			   unsigned int s, const char *p);
+ static int davicom_poll(struct nic *nic, int retrieve);
+-static void davicom_disable(struct nic *nic);
++static void davicom_disable(struct nic *nic, void *hwdev);
+ static void davicom_wait(unsigned int nticks);
+ static int phy_read(int);
+ static void phy_write(int, u16);
+@@ -601,7 +601,7 @@ static int davicom_poll(struct nic *nic, int retrieve)
+ /*********************************************************************/
+ /* eth_disable - Disable the interface                               */
+ /*********************************************************************/
+-static void davicom_disable ( struct nic *nic ) {
++static void davicom_disable ( struct nic *nic, void *hwdev __unused ) {
+ 
+   whereami("davicom_disable\n");
+ 
+diff --git a/src/drivers/net/depca.c b/src/drivers/net/depca.c
+index 016f28bb2..30e2fcb0a 100644
+--- a/src/drivers/net/depca.c
++++ b/src/drivers/net/depca.c
+@@ -644,7 +644,7 @@ static void depca_transmit(
+ /**************************************************************************
+ DISABLE - Turn off ethernet interface
+ ***************************************************************************/
+-static void depca_disable ( struct nic *nic ) {
++static void depca_disable ( struct nic *nic, void *hwdev __unused ) {
+ 	depca_reset(nic);
+ 
+ 	STOP_DEPCA(nic->ioaddr);
+diff --git a/src/drivers/net/dmfe.c b/src/drivers/net/dmfe.c
+index 2ea0d2b2b..ea14c462f 100644
+--- a/src/drivers/net/dmfe.c
++++ b/src/drivers/net/dmfe.c
+@@ -435,7 +435,7 @@ static void dmfe_transmit(struct nic *nic,
+ /**************************************************************************
+ DISABLE - Turn off ethernet interface
+ ***************************************************************************/
+-static void dmfe_disable ( struct nic *nic __unused ) {
++static void dmfe_disable ( struct nic *nic __unused, void *hwdev __unused ) {
+ 	/* Reset & stop DM910X board */
+ 	outl(DM910X_RESET, BASE + DCR0);
+ 	udelay(5);
+diff --git a/src/drivers/net/epic100.c b/src/drivers/net/epic100.c
+index 8e31a3bfa..01c0c43c9 100644
+--- a/src/drivers/net/epic100.c
++++ b/src/drivers/net/epic100.c
+@@ -51,7 +51,7 @@ struct epic_tx_desc {
+ 
+ static void	epic100_open(void);
+ static void	epic100_init_ring(void);
+-static void	epic100_disable(struct nic *nic);
++static void	epic100_disable(struct nic *nic, void *hwdev);
+ static int	epic100_poll(struct nic *nic, int retrieve);
+ static void	epic100_transmit(struct nic *nic, const char *destaddr,
+ 				 unsigned int type, unsigned int len, const char *data);
+@@ -419,7 +419,7 @@ epic100_poll(struct nic *nic, int retrieve)
+ }
+ 
+ 
+-static void epic100_disable ( struct nic *nic __unused ) {
++static void epic100_disable ( struct nic *nic __unused, void *hwdev __unused ) {
+ 	/* Soft reset the chip. */
+ 	outl(GC_SOFT_RESET, genctl);
+ }
+diff --git a/src/drivers/net/ns8390.c b/src/drivers/net/ns8390.c
+index 0ffc6216b..ffd05afdb 100644
+--- a/src/drivers/net/ns8390.c
++++ b/src/drivers/net/ns8390.c
+@@ -597,7 +597,7 @@ static int ns8390_poll(struct nic *nic, int retrieve)
+ /**************************************************************************
+ NS8390_DISABLE - Turn off adapter
+ **************************************************************************/
+-static void ns8390_disable ( struct nic *nic ) {
++static void ns8390_disable ( struct nic *nic, void *hwdev __unused ) {
+ 	ns8390_reset(nic);
+ }
+ 
+diff --git a/src/drivers/net/prism2_pci.c b/src/drivers/net/prism2_pci.c
+index 69ddf0fb0..b4ed0a728 100644
+--- a/src/drivers/net/prism2_pci.c
++++ b/src/drivers/net/prism2_pci.c
+@@ -44,7 +44,7 @@ static int prism2_pci_probe ( struct nic *nic, struct pci_device *pci ) {
+   return prism2_probe ( nic, hw );
+ }
+ 
+-static void prism2_pci_disable ( struct nic *nic ) {
++static void prism2_pci_disable ( struct nic *nic, void *hwdev __unused ) {
+   prism2_disable ( nic );
+ }
+ 
+diff --git a/src/drivers/net/prism2_plx.c b/src/drivers/net/prism2_plx.c
+index a73b0e087..b1c466de9 100644
+--- a/src/drivers/net/prism2_plx.c
++++ b/src/drivers/net/prism2_plx.c
+@@ -99,7 +99,7 @@ static int prism2_plx_probe ( struct nic *nic, struct pci_device *pci ) {
+   return prism2_probe ( nic, hw );
+ }
+ 
+-static void prism2_plx_disable ( struct nic *nic ) {
++static void prism2_plx_disable ( struct nic *nic, void *hwdev __unused ) {
+   prism2_disable ( nic );
+ }
+ 
+diff --git a/src/drivers/net/sis900.c b/src/drivers/net/sis900.c
+index 8a3ac01bc..c8fd3e9b5 100644
+--- a/src/drivers/net/sis900.c
++++ b/src/drivers/net/sis900.c
+@@ -164,7 +164,7 @@ static void sis900_transmit(struct nic *nic, const char *d,
+                             unsigned int t, unsigned int s, const char *p);
+ static int  sis900_poll(struct nic *nic, int retrieve);
+ 
+-static void sis900_disable(struct nic *nic);
++static void sis900_disable(struct nic *nic, void *hwdev);
+ 
+ static void sis900_irq(struct nic *nic, irq_action_t action);
+ 
+@@ -1238,7 +1238,7 @@ sis900_poll(struct nic *nic, int retrieve)
+  */
+ 
+ static void
+-sis900_disable ( struct nic *nic ) {
++sis900_disable ( struct nic *nic, void *hwdev __unused ) {
+ 
+     sis900_init(nic);
+ 
+diff --git a/src/drivers/net/sundance.c b/src/drivers/net/sundance.c
+index 9127fa2cd..77567a5e8 100644
+--- a/src/drivers/net/sundance.c
++++ b/src/drivers/net/sundance.c
+@@ -536,7 +536,7 @@ static void sundance_transmit(struct nic *nic, const char *d,	/* Destination */
+ /**************************************************************************
+ DISABLE - Turn off ethernet interface
+ ***************************************************************************/
+-static void sundance_disable ( struct nic *nic __unused ) {
++static void sundance_disable ( struct nic *nic __unused, void *hwdev __unused) {
+ 	/* put the card in its initial state */
+ 	/* This function serves 3 purposes.
+ 	 * This disables DMA and interrupts so we don't receive
+diff --git a/src/drivers/net/tlan.c b/src/drivers/net/tlan.c
+index 0e85b35b6..7127c7373 100644
+--- a/src/drivers/net/tlan.c
++++ b/src/drivers/net/tlan.c
+@@ -717,7 +717,7 @@ static void tlan_transmit(struct nic *nic, const char *d,	/* Destination */
+ /**************************************************************************
+ DISABLE - Turn off ethernet interface
+ ***************************************************************************/
+-static void tlan_disable ( struct nic *nic __unused ) {
++static void tlan_disable ( struct nic *nic __unused, void *hwdev __unused ) {
+ 	/* put the card in its initial state */
+ 	/* This function serves 3 purposes.
+ 	 * This disables DMA and interrupts so we don't receive
+diff --git a/src/drivers/net/tulip.c b/src/drivers/net/tulip.c
+index e4e6ffa87..55e9747b4 100644
+--- a/src/drivers/net/tulip.c
++++ b/src/drivers/net/tulip.c
+@@ -494,7 +494,7 @@ static void tulip_reset(struct nic *nic);
+ static void tulip_transmit(struct nic *nic, const char *d, unsigned int t,
+                            unsigned int s, const char *p);
+ static int tulip_poll(struct nic *nic, int retrieve);
+-static void tulip_disable(struct nic *nic);
++static void tulip_disable(struct nic *nic, void *hwdev);
+ static void nway_start(struct nic *nic);
+ static void pnic_do_nway(struct nic *nic);
+ static void select_media(struct nic *nic, int startup);
+@@ -1128,7 +1128,7 @@ static int tulip_poll(struct nic *nic, int retrieve)
+ /*********************************************************************/
+ /* eth_disable - Disable the interface                               */
+ /*********************************************************************/
+-static void tulip_disable ( struct nic *nic ) {
++static void tulip_disable ( struct nic *nic, void *hwdev __unused ) {
+ 
+     whereami("tulip_disable\n");
+ 
+diff --git a/src/drivers/net/w89c840.c b/src/drivers/net/w89c840.c
+index 72ccf3a28..0c222214e 100644
+--- a/src/drivers/net/w89c840.c
++++ b/src/drivers/net/w89c840.c
+@@ -579,7 +579,7 @@ static void w89c840_transmit(
+ /**************************************************************************
+ w89c840_disable - Turn off ethernet interface
+ ***************************************************************************/
+-static void w89c840_disable ( struct nic *nic ) {
++static void w89c840_disable ( struct nic *nic, void *hwdev __unused ) {
+ 
+     w89c840_reset(nic);
+ 
+diff --git a/src/include/nic.h b/src/include/nic.h
+index 8b06e88f4..8e928beb4 100644
+--- a/src/include/nic.h
++++ b/src/include/nic.h
+@@ -217,8 +217,7 @@ static inline void * legacy_isa_get_drvdata ( void *hwdev ) {
+ 	}								  \
+ 	static inline void						  \
+ 	_name ## _disable ( struct nic *nic, void *hwdev ) {		  \
+-		void ( * _unsafe_disable ) () = _disable;		  \
+-		_unsafe_disable ( nic, hwdev );				  \
++		_disable ( nic, hwdev );				  \
+ 	}								  \
+ 	static inline int						  \
+ 	_name ## _pci_legacy_probe ( struct pci_device *pci ) {		  \

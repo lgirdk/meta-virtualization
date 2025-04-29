@@ -1,0 +1,25 @@
+From e4795a590e3b708008a7bbd944370aef5337c561 Mon Sep 17 00:00:00 2001
+From: Michael Brown <mcb30@ipxe.org>
+Date: Sun, 27 Apr 2025 17:33:28 +0100
+Subject: [PATCH] [build] Fix typo in xenver.h header guard
+
+GCC 15 helpfully reports mismatched #ifdef and #define lines in header
+guards.
+
+Signed-off-by: Michael Brown <mcb30@ipxe.org>
+Upstream-Status: Backport [https://github.com/ipxe/ipxe/pull/1457]
+---
+ src/include/ipxe/xenver.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/include/ipxe/xenver.h b/src/include/ipxe/xenver.h
+index b29dfb321..5d820a6e7 100644
+--- a/src/include/ipxe/xenver.h
++++ b/src/include/ipxe/xenver.h
+@@ -1,5 +1,5 @@
+ #ifndef _IPXE_XENVER_H
+-#define _IPXE_VENVER_H
++#define _IPXE_XENVER_H
+ 
+ /** @file
+  *
