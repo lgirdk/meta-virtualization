@@ -2115,18 +2115,18 @@ SRCREV_go.opencensus.io="49838f207d61097fc0ebb8aeef306913388376ca"
 SRC_URI += "git://github.com/census-instrumentation/opencensus-go;name=go.opencensus.io;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/go.opencensus.io"
 
 # go.opentelemetry.io/contrib v0.20.0
-# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-go-contrib 26f8fdc236a8b3dab4abbb0c2f13f1a37f47fde6 
-SRCREV_contrib="26f8fdc236a8b3dab4abbb0c2f13f1a37f47fde6"
+# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-go-contrib 0e5bef9af1c708e28aabcadd3fd8b35c36526e44
+SRCREV_contrib="0e5bef9af1c708e28aabcadd3fd8b35c36526e44"
 SRC_URI += "git://github.com/open-telemetry/opentelemetry-go-contrib;name=contrib;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/go.opentelemetry.io/contrib"
 
 # go.opentelemetry.io/otel v0.20.0
-# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-go 842e1a46712b10d9ab5934254f81787d957f8d21 
-SRCREV_otel="842e1a46712b10d9ab5934254f81787d957f8d21"
+# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-go 02d8bdd5d9163f32c48f4db23bf2e589f89f16c0
+SRCREV_otel="02d8bdd5d9163f32c48f4db23bf2e589f89f16c0"
 SRC_URI += "git://github.com/open-telemetry/opentelemetry-go;name=otel;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/go.opentelemetry.io/otel"
 
 # go.opentelemetry.io/proto/otlp v0.7.0
-# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-proto-go 5439eb8c2edea5f9fcbe1ea9993624a7ad74215c 
-SRCREV_otlp1="5439eb8c2edea5f9fcbe1ea9993624a7ad74215c"
+# [1] git ls-remote https://github.com/open-telemetry/opentelemetry-proto-go 4fc4e99f9e4387bc9890e74f757d3994ffa384ce
+SRCREV_otlp1="4fc4e99f9e4387bc9890e74f757d3994ffa384ce"
 SRC_URI += "git://github.com/open-telemetry/opentelemetry-proto-go;name=otlp1;protocol=https;nobranch=1;destsuffix=${WORKDIR}/${BP}/src/import/vendor.fetch/github.com/open-telemetry/opentelemetry-proto-go/otlp"
 
 # go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5
