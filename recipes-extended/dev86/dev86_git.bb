@@ -57,4 +57,11 @@ FILES:${PN} += "${libdir}/bcc"
 # unproto.c:188:51: error: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
 CFLAGS += "-Wno-error=implicit-int -Wno-error=implicit-function-declaration"
 
+# http://errors.yoctoproject.org/Errors/Details/853302/
+CFLAGS += "-std=gnu17"
+
+# http://errors.yoctoproject.org/Errors/Details/853303/
+# ar.c:615:23: error: passing argument 1 of 'ctime' from incompatible pointer type [-Wincompatible-pointer-types]
+CFLAGS += "-Wno-error=incompatible-pointer-types"
+
 EXTRA_OEMAKE += "CFLAGS='${CFLAGS}'"
